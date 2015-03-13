@@ -1,4 +1,4 @@
-//
+ //
 //  UserPostTableViewController.m
 //  Spree
 //
@@ -75,7 +75,7 @@
             if (_returnedPosts.count == 0){
                 UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
                 
-                messageLabel.text = @"No posts have been made in your area. Check back later.";
+                messageLabel.text = @"Go post something!";
                 messageLabel.textColor = [UIColor blackColor];
                 messageLabel.numberOfLines = 0;
                 messageLabel.textAlignment = NSTextAlignmentCenter;
@@ -193,14 +193,21 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    [self performSegueWithIdentifier:@"ShowUserPost" sender:self];
+    if ([[self objectForRowAtIndexPath:self.tableView.indexPathForSelectedRow].type isEqualToString:@"Free"]){
+        [self performSegueWithIdentifier:@"ShowFreeUserPost" sender:self];
+    } else if ([[self objectForRowAtIndexPath:self.tableView.indexPathForSelectedRow].type isEqualToString:@"Tickets"]){
+        [self performSegueWithIdentifier:@"showUserTicketsPost" sender:self];
+    } else if ([[self objectForRowAtIndexPath:self.tableView.indexPathForSelectedRow].type isEqualToString:@"Electronics"]){
+        [self performSegueWithIdentifier:@"showUserElectronicsPost" sender:self];
+    } else if ([[self objectForRowAtIndexPath:self.tableView.indexPathForSelectedRow].type isEqualToString:@"Books"]){
+        [self performSegueWithIdentifier:@"detailBookPost" sender:self];
+    }
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     
 }
 
 
--(PFObject* )objectForRowAtIndexPath:(NSIndexPath *)indexPath {
+-(SpreePost* )objectForRowAtIndexPath:(NSIndexPath *)indexPath {
     SpreePost *selectedObject = [_returnedPosts objectAtIndex:indexPath.row-1];
     return selectedObject;
 }
@@ -287,7 +294,16 @@
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    if ([segue.identifier isEqualToString:@"ShowUserPost"]){
+    if ([segue.identifier isEqualToString:@"ShowFreeUserPost"]){
+        PostDetailViewController *postDetailViewController = segue.destinationViewController;
+        postDetailViewController.detailPost = [self objectForRowAtIndexPath:self.tableView.indexPathForSelectedRow];
+    } else if ([segue.identifier isEqualToString:@"showUserTicketsPost"]){
+        PostDetailViewController *postDetailViewController = segue.destinationViewController;
+        postDetailViewController.detailPost = [self objectForRowAtIndexPath:self.tableView.indexPathForSelectedRow];
+    }else if ([segue.identifier isEqualToString:@"showUserElectronicsPost"]){
+        PostDetailViewController *postDetailViewController = segue.destinationViewController;
+        postDetailViewController.detailPost = [self objectForRowAtIndexPath:self.tableView.indexPathForSelectedRow];
+    }else if ([segue.identifier isEqualToString:@"detailBookPost"]){
         PostDetailViewController *postDetailViewController = segue.destinationViewController;
         postDetailViewController.detailPost = [self objectForRowAtIndexPath:self.tableView.indexPathForSelectedRow];
     }

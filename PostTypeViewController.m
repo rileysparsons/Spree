@@ -22,8 +22,6 @@
 }
 
 @property NSArray *returnedPosts;
-@property NSArray *returnedPostsWithinTwoMiles;
-@property NSArray *returnedPostsFartherThanTwoMiles;
 @property PFQuery *query;
 @property (strong, nonatomic) NSMutableArray* filteredTableData;
 @property BOOL isFiltered;
@@ -35,18 +33,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [_postMapView setHidden:YES];
     self.navigationItem.title = _postType;
     _postTableView.delegate = self;
     _postTableView.dataSource = self;
-    _postMapView.delegate = self;
 
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     [self queryForPostType:_postType];
-    
-    
-    [self postToMap];
     
     [self setUpBackgroundGradient];
     
@@ -67,8 +60,6 @@
     self.postSearchDisplayController.delegate = self;
     self.postSearchDisplayController.searchResultsDelegate = self;
     self.postSearchDisplayController.searchResultsDataSource =self;
-    
-    _segmentedViewControl.tintColor = [UIColor whiteColor];
     
     refreshControl = [[UIRefreshControl alloc] init];
     refreshControl.tintColor = [UIColor whiteColor];
@@ -119,16 +110,8 @@
 
 }
 
--(void)postToMap{
-    for (SpreePost *post in _returnedPosts){
-        CLLocation *location =
-        [[CLLocation alloc] initWithLatitude:[(PFGeoPoint *)post.location latitude]longitude: [(PFGeoPoint *)post.location longitude]];
-        MKPlacemark *postPlacemark = [[MKPlacemark alloc] initWithCoordinate:location.coordinate addressDictionary:nil];
-        [_postMapView addAnnotation:postPlacemark];
-    }
-}
-
 -(void)queryForPostType:(NSString*)type{
+    self.postTableView.userInteractionEnabled = NO;
     _query = [PFQuery queryWithClassName:@"Post"];
     [_query whereKey:@"expired" equalTo:[NSNumber numberWithBool:NO]];
     [_query whereKey:@"sold" equalTo:[NSNumber numberWithBool:NO]];
@@ -157,31 +140,15 @@
                 
                 _postTableView.backgroundView = messageLabel;
                 _postTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-            
+                [self.postTableView reloadData];
             } else {
                 _postTableView.tableHeaderView = self.searchBar;
-                NSMutableArray *postsFartherThanTwoMiles = [[NSMutableArray alloc] init];
-                NSMutableArray *postsWithinTwoMiles = [[NSMutableArray alloc] init];
-
-                
-                for (SpreePost *post in _returnedPosts){
-                    PFGeoPoint *postGeoPoint = post.location;
-                    CLLocation *postLocation = [[CLLocation alloc] initWithLatitude:postGeoPoint.latitude longitude:postGeoPoint.longitude];
-                    CLLocationDistance distance = [postLocation distanceFromLocation:currentLocation];
-                    float distanceInMiles = (distance*3.28084)/5280;
-                    if (distanceInMiles < 2.0){
-                        [postsWithinTwoMiles addObject:post];
-                    } else {
-                        [postsFartherThanTwoMiles addObject:post];
-                    }
-                }
-                _returnedPostsWithinTwoMiles = postsWithinTwoMiles;
-                _returnedPostsFartherThanTwoMiles = postsFartherThanTwoMiles;
                 [self.postTableView reloadData];
-        }
+            }
         }  else {
             
         }
+        self.postTableView.userInteractionEnabled = YES;
     }];
 }
 
@@ -215,22 +182,9 @@
     [headerView addSubview:labelHeader];
 
     if (section == 0 && _isFiltered !=YES){
-        if (_returnedPostsWithinTwoMiles.count == 0) {
-            return nil;
-        } else {
-            labelHeader.text =  @"Within two miles";
-            
-            return headerView;
-        }
-    } else if (section == 1 && _isFiltered !=YES){
-        if (_returnedPostsFartherThanTwoMiles.count == 0) {
-            return nil;
-        } else {
-            labelHeader.text =  @"Farther away";
-            return headerView;
-        }
+        
     } else if (section == 0 && _isFiltered == YES){
-        if (_returnedPosts.count == 0){
+        if (self.returnedPosts.count == 0){
             return nil;
         } else {
             labelHeader.text = @"Search results";
@@ -243,19 +197,13 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if (section == 0 && _isFiltered !=YES){
-        if (_returnedPostsWithinTwoMiles.count == 0) {
+        if (self.returnedPosts.count == 0) {
             return 0;
         } else {
-            return headerHeight;
-        }
-    } else if (section == 1 && _isFiltered !=YES){
-        if (_returnedPostsFartherThanTwoMiles.count == 0) {
             return 0;
-        } else {
-            return headerHeight;
         }
     } else if (section == 0 && _isFiltered == YES){
-        if (_returnedPosts.count == 0){
+        if (self.returnedPosts.count == 0){
             return 0;
         } else {
             return headerHeight;
@@ -265,20 +213,13 @@
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    int numberOfSections;
     if (_isFiltered == YES){
         return 1;
     } else {
         if (_returnedPosts.count > 0){
-            _postTableView.backgroundView = nil;
-            _postTableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-            if (_returnedPostsFartherThanTwoMiles.count > 0 || _returnedPostsWithinTwoMiles > 0){
-                NSLog(@"returned posts called");
-                numberOfSections = 2;
-                return numberOfSections;
-            }
-        } else {
-            
+            self.postTableView.backgroundView = nil;
+            self.postTableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+            return 1;
         }
     }
     return 0;
@@ -291,9 +232,7 @@
         rowCount = _filteredTableData.count;
     }else{
         if (section == 0) {
-            rowCount = _returnedPostsWithinTwoMiles.count;
-        } else if (section == 1){
-            rowCount =  _returnedPostsFartherThanTwoMiles.count;
+            rowCount = self.returnedPosts.count;
         }
     }
     
@@ -338,12 +277,7 @@
             if(_isFiltered){
                 post = [_filteredTableData objectAtIndex:indexPath.row];
             }else{
-                NSLog(@"Posts!!! %@", _returnedPostsFartherThanTwoMiles);
-                if (indexPath.section == 0){
-                    post = [_returnedPostsWithinTwoMiles objectAtIndex:indexPath.row];
-                } else if (indexPath.section == 1){
-                    post = [_returnedPostsFartherThanTwoMiles objectAtIndex:indexPath.row];
-                }
+                post = [self.returnedPosts objectAtIndex:indexPath.row];
             }
             
             cell.postTitleLabel.text = post.title;
@@ -369,7 +303,7 @@
                 } else if ([post.type isEqualToString:@"Electronics"]){
                     cell.postImageView.image = [UIImage imageNamed:@"electronicsGraphic"];
                 } else if ([post.type isEqualToString:@"Free"]){
-                    cell.postImageView.image = [UIImage imageNamed:@"electronicsGraphic"];
+                    cell.postImageView.image = [UIImage imageNamed:@"freeGraphic"];
                 }
             }
             
@@ -406,17 +340,14 @@
     return nil;
 }
 
--(PFObject* )objectForRowAtIndexPath:(NSIndexPath *)indexPath {
+-(SpreePost* )objectForRowAtIndexPath:(NSIndexPath *)indexPath {
     SpreePost *selectedObject;
     if (_isFiltered == YES){
         selectedObject = [_filteredTableData objectAtIndex:indexPath.row];
         return selectedObject;
     } else {
         if (indexPath.section == 0){
-            selectedObject = [_returnedPostsWithinTwoMiles objectAtIndex:indexPath.row];
-            return selectedObject;
-        } else if (indexPath.section == 1) {
-            selectedObject = [_returnedPostsFartherThanTwoMiles objectAtIndex:indexPath.row];
+            selectedObject = [self.returnedPosts objectAtIndex:indexPath.row];
             return selectedObject;
         }
     }
@@ -426,56 +357,29 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if ([[(SpreePost *)[self objectForRowAtIndexPath:_postTableView.indexPathForSelectedRow] type] isEqualToString:@"Free"]) {
         [self performSegueWithIdentifier:@"ShowFreeDetail" sender:self];
-    } else{
-        [self performSegueWithIdentifier:@"ShowDetail" sender:self];
+    } else if ([[(SpreePost *)[self objectForRowAtIndexPath:_postTableView.indexPathForSelectedRow] type] isEqualToString:@"Books"]){
+        [self performSegueWithIdentifier:@"detailBookPost" sender:self];
+        [self.postTableView deselectRowAtIndexPath:indexPath animated:YES];
+    } else if ([[(SpreePost *)[self objectForRowAtIndexPath:_postTableView.indexPathForSelectedRow] type] isEqualToString:@"Tickets"]){
+        [self performSegueWithIdentifier:@"TicketsPostDetail" sender:self];
+        [self.postTableView deselectRowAtIndexPath:indexPath animated:YES];
+    } else if ([[(SpreePost *)[self objectForRowAtIndexPath:_postTableView.indexPathForSelectedRow] type] isEqualToString:@"Electronics"]){
+        [self performSegueWithIdentifier:@"showElectronicsPost" sender:self];
         [self.postTableView deselectRowAtIndexPath:indexPath animated:YES];
     }
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    if ([segue.identifier isEqualToString:@"ShowDetail"] || [segue.identifier isEqualToString:@"ShowFreeDetail"]){
+    if ([segue.identifier isEqualToString:@"ShowFreeDetail"] || [segue.identifier isEqualToString:@"detailBookPost"] || [segue.identifier isEqualToString:@"TicketsPostDetail"] || [segue.identifier isEqualToString:@"showElectronicsPost"]){
         PostDetailViewController *postDetailViewController = segue.destinationViewController;
         postDetailViewController.detailPost = [self objectForRowAtIndexPath:_postTableView.indexPathForSelectedRow];
-        //
     }
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    
     [self.searchBar resignFirstResponder];
 }
-
-
-- (IBAction)indexChanged:(id)sender {
-    AppDelegate *appDelegate=(AppDelegate *)[UIApplication sharedApplication].delegate;
-    CLLocation *currentLocation=appDelegate.locationManager.location;
-    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(currentLocation.coordinate, 1000, 1000);
-    switch (_segmentedViewControl.selectedSegmentIndex){
-        case 0:
-            [_postTableView setHidden:NO];
-            [_postMapView setHidden:YES];
-            break;
-        case 1:
-            [_postTableView setHidden:YES];
-            
-            [_postMapView setHidden:NO];
-            [self.searchBar resignFirstResponder];
-            [self postToMap];
-            [_postMapView setRegion:region];
-            break;
-        default: 
-            break; 
-    }
-}
-
-- (void)dealloc {
-    self.postMapView.delegate = nil;
-}
-
--(void)viewDidDisappear:(BOOL)animated {
-    self.postMapView.delegate = nil;
-    [_query cancel];
-}
-
 
 -(void)searchBar:(UISearchBar*)searchBar textDidChange:(NSString*)text
 {

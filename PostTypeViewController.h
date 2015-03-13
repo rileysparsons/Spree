@@ -9,16 +9,12 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 
-@interface PostTypeViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, MKMapViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate>
+@interface PostTypeViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UISearchDisplayDelegate>
 
 @property NSString *postType;
 
-@property (weak, nonatomic) IBOutlet MKMapView *postMapView;
 @property (weak, nonatomic) IBOutlet UITableView *postTableView;
-@property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedViewControl;
 @property UISearchBar *searchBar;
 @property UISearchDisplayController *postSearchDisplayController;
-
-- (IBAction)indexChanged:(id)sender;
 
 @end

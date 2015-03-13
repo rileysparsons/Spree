@@ -327,10 +327,15 @@
 
 
 - (IBAction)newPostButtonPressed:(id)sender {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    NewPostViewController *newPostViewController = [storyboard instantiateViewControllerWithIdentifier:@"NewPostViewController"];
-    [self.navigationController presentViewController:newPostViewController animated:YES completion:nil];
+//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+//    NewPostViewController *newPostViewController = [storyboard instantiateViewControllerWithIdentifier:@"NewPostViewController"];
+//    [self.navigationController presentViewController:newPostViewController animated:YES completion:nil];
     
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    NewPostViewController *newPostSelectTypeViewController = [storyboard instantiateViewControllerWithIdentifier:@"NewPostSelectTypeViewController"];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController: newPostSelectTypeViewController];
+    
+    [self.navigationController presentViewController:navigationController animated:YES completion:nil];
 }
 
 
