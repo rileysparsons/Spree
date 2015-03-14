@@ -33,6 +33,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *repostButton;
 @property (weak, nonatomic) IBOutlet UIButton *soldButton;
 @property (weak, nonatomic) IBOutlet UIButton *deleteButton;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *descriptionTextViewHeight;
 
 - (IBAction)repostButtonPressed:(id)sender;
 - (IBAction)soldButtonPressed:(id)sender;

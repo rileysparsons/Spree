@@ -395,7 +395,8 @@
             
         } else if ([self.post.type isEqualToString: @"Books"]){
             self.post.bookForClass = self.booksPostView.classField.text;
-            self.post.price = self.booksPostView.priceField.text;
+            NSString *price = [[self.booksPostView.priceField.text componentsSeparatedByString:@"$"] objectAtIndex:1];
+            self.post.price = price;
             self.post.userDescription = self.booksPostView.descriptionField.text;
             self.post.title = self.booksPostView.titleField.text;
             self.post.user = [PFUser currentUser];
@@ -426,7 +427,8 @@
         } else if ([self.post.type isEqualToString: @"Electronics"]){
             self.post.userDescription = self.defaultPostView.descriptionField.text;
             self.post.title = self.defaultPostView.titleField.text;
-            self.post.price = self.defaultPostView.priceField.text;
+            NSString *price = [[self.defaultPostView.priceField.text componentsSeparatedByString:@"$"] objectAtIndex:1];
+            self.post.price = price;
             self.post.user = [PFUser currentUser];
             self.post.expired = NO;
             self.post.sold = NO;
@@ -456,7 +458,8 @@
             self.post.eventDate = self.ticketsPostView.dateField.text;
             self.post.userDescription = self.ticketsPostView.descriptionField.text;
             self.post.title = self.ticketsPostView.titleField.text;
-            self.post.price = self.ticketsPostView.priceField.text;
+            NSString *price = [[self.ticketsPostView.priceField.text componentsSeparatedByString:@"$"] objectAtIndex:1];
+            self.post.price = price;
             self.post.user = [PFUser currentUser];
             self.post.expired = NO;
             self.post.sold = NO;

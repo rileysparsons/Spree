@@ -92,6 +92,10 @@
     
     // Add description
     self.descriptionTextView.text = _detailPost.userDescription;
+    CGSize sizeThatShouldFitTheContent = [self.descriptionTextView sizeThatFits:self.descriptionTextView.frame.size];
+    self.descriptionTextViewHeight.constant = sizeThatShouldFitTheContent.height;
+    self.descriptionTextView.font = [UIFont fontWithName:@"Helvetica Neue Light Italic" size:16];
+    
     self.detailBarView.frame = CGRectMake(0, -45, self.view.frame.size.width, 45);
     [UIView animateWithDuration:0.50f animations:^{
         self.detailBarView.frame = CGRectMake(0, 0, self.view.frame.size.width, 45);

@@ -46,6 +46,8 @@
     _postTableView.backgroundColor = [UIColor clearColor];
     _postTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
+    self.filteredTableData = [[NSMutableArray alloc
+                               ] init];
     
     self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 60)];
     self.searchBar.delegate = self;
@@ -286,13 +288,14 @@
             } else {
                 cell.priceLabel.text = post.price;
             }
-            PFFile *imageFile = post.imageFile;
-            if (!(imageFile == nil)){
+        
+            if (post.photoArray != nil){
+                PFFile *imageFile = (PFFile *)[post.photoArray objectAtIndex:0];
                 [imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-                    if (!error){
-                        cell.postImageView.image = [UIImage imageWithData:data];
-                    } else {
-                        NSLog(@"error loading images");
+                    if (!error) {
+                        UIImage *image = [UIImage imageWithData:data];
+                        cell.postImageView.image = image;
+                        
                     }
                 }];
             } else {
@@ -386,24 +389,25 @@
     if(text.length == 0)
     {
         _isFiltered = FALSE;
-    }
-    else
-    {
-        _isFiltered = true;
-        _filteredTableData = [[NSMutableArray alloc
-                               ] init];
-        
-        for (SpreePost *post in _returnedPosts)
-        {
+    } else {
+        _isFiltered = TRUE;
+        [self.filteredTableData removeAllObjects];
+        for (SpreePost *post in _returnedPosts) {
             NSRange nameRange = [post.title rangeOfString:text options:NSCaseInsensitiveSearch];
-            NSRange descriptionRange = [post.title rangeOfString:text options:NSCaseInsensitiveSearch];
-            if(nameRange.location != NSNotFound || descriptionRange.location != NSNotFound)
-            {
-                [_filteredTableData addObject:post];
+            NSRange descriptionRange = [post.userDescription rangeOfString:text options:NSCaseInsensitiveSearch];
+            NSRange classRange = [post.bookForClass rangeOfString:text options:NSCaseInsensitiveSearch];
+            if ([post.type isEqualToString:@"Books"]){
+                if(nameRange.location != NSNotFound || descriptionRange.location != NSNotFound || classRange.location != NSNotFound) {
+                    [_filteredTableData addObject:post];
+                }
+            } else {
+                if(nameRange.location != NSNotFound || descriptionRange.location != NSNotFound) {
+                    [_filteredTableData addObject:post];
+                }
             }
         }
     }
-    
+    NSLog(@"%@", _filteredTableData);
     [self.postTableView reloadData];
     [self.searchBar becomeFirstResponder];
 }
