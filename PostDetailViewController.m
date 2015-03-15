@@ -30,7 +30,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Page View Stuff
-    if (self.detailPost.photoArray != nil){
+    if (self.detailPost.photoArray.count != 0){
         NSMutableArray *tempPhotoArray = [[NSMutableArray alloc] initWithCapacity:3];
         for (PFFile *imageFile in self.detailPost.photoArray){
             [imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
@@ -93,7 +93,7 @@
     // Add description
     self.descriptionTextView.text = _detailPost.userDescription;
     CGSize sizeThatShouldFitTheContent = [self.descriptionTextView sizeThatFits:self.descriptionTextView.frame.size];
-    self.descriptionTextViewHeight.constant = sizeThatShouldFitTheContent.height;
+    self.descriptionTextViewHeight.constant = sizeThatShouldFitTheContent.height + 5;
     self.descriptionTextView.font = [UIFont fontWithName:@"Helvetica Neue Light Italic" size:16];
     
     self.detailBarView.frame = CGRectMake(0, -45, self.view.frame.size.width, 45);

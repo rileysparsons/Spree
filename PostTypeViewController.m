@@ -289,7 +289,7 @@
                 cell.priceLabel.text = post.price;
             }
         
-            if (post.photoArray != nil){
+            if (post.photoArray.count != 0){
                 PFFile *imageFile = (PFFile *)[post.photoArray objectAtIndex:0];
                 [imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
                     if (!error) {
