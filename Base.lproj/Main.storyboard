@@ -2072,10 +2072,11 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xfu-ch-9Dc">
-                                                                <rect key="frame" x="8" y="11" width="31" height="27"/>
+                                                                <rect key="frame" x="8" y="9" width="31" height="31"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="26" id="Aor-5U-c6a"/>
                                                                     <constraint firstAttribute="width" id="eS3-ri-ZrZ"/>
+                                                                    <constraint firstAttribute="width" secondItem="xfu-ch-9Dc" secondAttribute="height" multiplier="1:1" id="jv0-oF-MBQ"/>
                                                                     <constraint firstAttribute="height" id="mMN-Ge-UM2"/>
                                                                     <constraint firstAttribute="width" constant="31" id="nje-lP-YOm"/>
                                                                 </constraints>
@@ -2126,6 +2127,7 @@
                                                                 <exclude reference="QNs-5M-Gsb"/>
                                                                 <exclude reference="eBR-4U-Fxg"/>
                                                                 <exclude reference="n3x-cf-TCZ"/>
+                                                                <exclude reference="9se-w4-R0c"/>
                                                             </mask>
                                                         </variation>
                                                     </view>
