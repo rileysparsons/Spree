@@ -113,7 +113,7 @@
             _bookForClassLabel.text = _detailPost[@"bookForClass"];
         }
         if ([_detailPost.type isEqualToString: @"Tickets"]){
-            _bookForClassLabel.text = _detailPost[@"eventDate"];
+            _eventDateForTicketLabel.text = _detailPost[@"eventDate"];
         }
     }
 }
