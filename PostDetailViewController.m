@@ -89,12 +89,13 @@
     self.purchaseButton.layer.borderColor=[[UIColor whiteColor]CGColor];
     self.purchaseButton.layer.borderWidth= 1.0f;
     
+    self.descriptionTextView.scrollEnabled = NO;
     
     // Add description
     self.descriptionTextView.text = _detailPost.userDescription;
-    CGSize sizeThatShouldFitTheContent = [self.descriptionTextView sizeThatFits:self.descriptionTextView.frame.size];
-    self.descriptionTextViewHeight.constant = sizeThatShouldFitTheContent.height + 5;
     self.descriptionTextView.font = [UIFont fontWithName:@"Helvetica Neue Light Italic" size:16];
+    CGSize sizeThatShouldFitTheContent = [self.descriptionTextView sizeThatFits:CGSizeMake(self.descriptionTextView.frame.size.width, MAXFLOAT)];
+    self.descriptionTextViewHeight.constant = sizeThatShouldFitTheContent.height;
     
     self.detailBarView.frame = CGRectMake(0, -45, self.view.frame.size.width, 45);
     [UIView animateWithDuration:0.50f animations:^{
