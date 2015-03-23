@@ -218,6 +218,8 @@
              self.profilePictureView.layer.borderColor = [UIColor whiteColor].CGColor;
              self.profilePictureView.layer.cornerRadius = self.profilePictureView.frame.size.height/2;
              self.profilePictureView.clipsToBounds = YES;
+         } else {
+             NSLog(@"%@", connectionError.description);
          }
 
      }];
@@ -414,7 +416,12 @@
     switch (alertView.tag) {
         case 1:
             if (buttonIndex == 1){
-                [self.detailPost deleteEventually];
+                [self.detailPost deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                    if (!error){
+                        if (succeeded == YES)
+                            [[NSNotificationCenter defaultCenter] postNotificationName:@"PostDeleted" object:nil];
+                    }
+                }];
                 [self.navigationController popViewControllerAnimated:YES];
             }
             break;

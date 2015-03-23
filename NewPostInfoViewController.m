@@ -474,18 +474,19 @@
             [readOnlyUserWriteACL setPublicReadAccess:YES];
             [readOnlyUserWriteACL setWriteAccess:YES forUser:[PFUser currentUser]];
             self.post.ACL = readOnlyUserWriteACL;
-            
-            [self.post saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                if (!error){
-                    
-                } else {
-                    UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:error.description delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
-                    [errorAlert show];
-                }
-            }];
-            [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-            
         }
+        [self.post saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (!error){
+                if (succeeded == YES) {
+                    NSLog(@"Save in background successful");
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"PostMade" object:nil];
+                    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+                }
+            } else {
+                UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:error.description delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+                [errorAlert show];
+            }
+        }];
     }
 }
 

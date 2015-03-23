@@ -10,10 +10,23 @@
 #import "PostTableViewCell.h"
 #import "SpreePost.h"
 #import "PostDetailViewController.h"
+#import "NewPostTypeSelectionViewController.h"
+#import "UIColor+SpreeColor.h"
 
-@interface AllPostsTableViewController ()
+@interface AllPostsTableViewController () {
+
+}
+
+@property (nonatomic, strong) UIView *refreshLoadingView;
+@property (nonatomic, strong) UIView *refreshColorView;
+@property (nonatomic, strong) UIRefreshControl *refreshControl;
+@property (nonatomic, strong) UIImageView *compass_background;
+@property (nonatomic, strong) UIImageView *compass_spinner;
+@property (assign) BOOL isRefreshIconsOverlap;
+@property (assign) BOOL isRefreshAnimating;
 
 @end
+
 
 @implementation AllPostsTableViewController
 
@@ -34,7 +47,7 @@
         // self.imageKey = @"image";
         
         // Whether the built-in pull-to-refresh is enabled
-        self.pullToRefreshEnabled = YES;
+        self.pullToRefreshEnabled = NO;
         
         // Whether the built-in pagination is enabled
         self.paginationEnabled = YES;
@@ -47,8 +60,110 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self setupRefreshControl];
+    UIImage *image = [UIImage imageNamed:@"spreeTitleStylized.png"];
+    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:image];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(delayedRefresh) name:@"PostDeleted" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(delayedRefresh) name:@"PostMade" object:nil];
     // Do any additional setup after loading the view.
 }
+
+- (void)delayedRefresh{
+    NSLog(@"Delayed refresh called");
+    [self performSelector:@selector(loadObjects) withObject:nil afterDelay:0.75f];
+}
+
+- (void)setupRefreshControl
+{
+    // TODO: Programmatically inserting a UIRefreshControl
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    
+    // Setup the loading view, which will hold the moving graphics
+    self.refreshLoadingView = [[UIView alloc] initWithFrame:self.refreshControl.bounds];
+    self.refreshLoadingView.backgroundColor = [UIColor clearColor];
+    
+    // Setup the color view, which will display the rainbowed background
+    self.refreshColorView = [[UIView alloc] initWithFrame:self.refreshControl.bounds];
+    self.refreshColorView.backgroundColor = [UIColor clearColor];
+    self.refreshColorView.alpha = 0.30;
+    
+    // Create the graphic image views
+    CGRect refreshBounds = self.refreshControl.bounds;
+    //    self.compass_background = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"compass_background.png"]];
+    self.compass_spinner = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"spreeRefresh"]];
+    self.compass_spinner.frame = CGRectMake((refreshBounds.size.width/2.0)-15, 0, 30, refreshBounds.size.height);
+    self.compass_spinner.contentMode = UIViewContentModeScaleAspectFit;
+    
+    
+    
+    // Add the graphics to the loading view
+    [self.refreshLoadingView addSubview:self.compass_background];
+    [self.refreshLoadingView addSubview:self.compass_spinner];
+    
+    // Clip so the graphics don't stick out
+    self.refreshLoadingView.clipsToBounds = YES;
+    
+    
+    // Hide the original spinner icon
+    self.refreshControl.tintColor = [UIColor clearColor];
+    
+    // Add the loading and colors views to our refresh control
+    [self.refreshControl addSubview:self.refreshColorView];
+    [self.refreshControl addSubview:self.refreshLoadingView];
+    
+    // Initalize flags
+    self.isRefreshIconsOverlap = NO;
+    self.isRefreshAnimating = NO;
+    
+    // When activated, invoke our refresh function
+    [self.refreshControl addTarget:self action:@selector(loadObjects) forControlEvents:UIControlEventValueChanged];
+}
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    if (self.refreshControl.isRefreshing && !self.isRefreshAnimating) {
+        [self animateRefreshView];
+    }
+}
+
+- (void)resetAnimation
+{
+    // Reset our flags and background color
+    
+    self.isRefreshAnimating = NO;
+    self.isRefreshIconsOverlap = NO;
+    self.refreshColorView.backgroundColor = [UIColor clearColor];
+}
+
+- (void)animateRefreshView
+{
+    // Background color to loop through for our color view
+    NSArray *colorArray = @[[UIColor spreeRed],[UIColor spreeDarkBlue],[UIColor spreeLightYellow],[UIColor spreeBabyBlue],[UIColor spreeDarkYellow]];
+    static int colorIndex = 0;
+    
+    // Flag that we are animating
+    self.isRefreshAnimating = YES;
+    [UIView animateWithDuration:0.3
+                          delay:0
+                        options:UIViewAnimationOptionCurveLinear
+                     animations:^{
+                         // Rotate the spinner by M_PI_2 = PI/2 = 90 degrees
+                         [self.compass_spinner setTransform:CGAffineTransformRotate(self.compass_spinner.transform, M_PI_2)];
+                         // Change the background color
+                         self.refreshColorView.backgroundColor = [colorArray objectAtIndex:colorIndex];
+                         colorIndex = (colorIndex + 1) % colorArray.count;
+                     }
+                     completion:^(BOOL finished) {
+                         
+                         // If still refreshing, keep spinning, else reset
+                         if (self.refreshControl.isRefreshing) {
+                             [self animateRefreshView];
+                         }else{
+                             
+                             [self resetAnimation];
+                         }
+                     }];
+}
+
 
 
 #pragma mark - Parse
@@ -180,4 +295,11 @@
  }
 }
 
+- (IBAction)NewPostBarButtonItemPressed:(id)sender {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    NewPostTypeSelectionViewController *newPostSelectTypeViewController = [storyboard instantiateViewControllerWithIdentifier:@"NewPostSelectTypeViewController"];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController: newPostSelectTypeViewController];
+    
+    [self.navigationController presentViewController:navigationController animated:YES completion:nil];
+}
 @end

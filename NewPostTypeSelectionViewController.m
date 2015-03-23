@@ -8,6 +8,8 @@
 
 #import "NewPostTypeSelectionViewController.h"
 #import "NewPostInfoViewController.h"
+#import "PostTypeTableViewCell.h"
+#import "UIColor+SpreeColor.h"
 
 @interface NewPostTypeSelectionViewController (){
     NSArray *typeArray;
@@ -24,27 +26,65 @@
     self.navigationItem.title = @"Choose post type";
     
     self.post = [[SpreePost alloc] init];
-    self.typePickerView.delegate = self;
-    self.typePickerView.dataSource = self;
-}
-
--(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
+    self.typeTableView.delegate = self;
+    self.typeTableView.dataSource =self;
     
 }
 
--(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
-    return 1;
+#pragma mark - Table View
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [self nextBarButtonItemPressed:self];
+    [self.typeTableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
--(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return typeArray.count;
 }
 
--(NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
-    return typeArray[row];
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 60;
 }
-- (IBAction)nextBarButtonItemPressed:(id)sender {
-    NSString *selectedType = [typeArray objectAtIndex:[self.typePickerView selectedRowInComponent:0]];
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    static NSString *CellIdentifier = @"Cell";
+    
+    PostTypeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        NSArray *nibFiles = [[NSBundle mainBundle] loadNibNamed:@"PostTypeTableViewCell" owner:self options:nil];
+        for(id currentObject in nibFiles){
+            if ([currentObject isKindOfClass:[UITableViewCell class]]){
+                cell = (PostTypeTableViewCell*)currentObject;
+                break;
+            }
+        }
+    }
+    
+    // Configure the cell with the textContent of the Post as the cell's text label
+    
+
+    cell.titleLabel.text = [typeArray objectAtIndex:indexPath.row];
+    cell.numberLabel.hidden = YES;
+    
+    if ([[typeArray objectAtIndex:indexPath.row] isEqualToString: @"Books"]){
+        cell.accessoryView = [MSCellAccessory accessoryWithType: FLAT_DISCLOSURE_INDICATOR color:[UIColor spreeDarkYellow] highlightedColor:[UIColor spreeLightYellow]];
+        cell.detailImage.image = [UIImage imageNamed:@"booksGraphic"];
+    } else if ([[typeArray objectAtIndex:indexPath.row] isEqualToString: @"Tickets"]){
+        cell.detailImage.image = [UIImage imageNamed:@"ticketGraphic"];
+        cell.accessoryView = [MSCellAccessory accessoryWithType: FLAT_DISCLOSURE_INDICATOR color:[UIColor spreeRed] highlightedColor:[UIColor spreeLightYellow]];
+    } else if ([[typeArray objectAtIndex:indexPath.row] isEqualToString: @"Electronics"]){
+        cell.detailImage.image = [UIImage imageNamed:@"electronicsGraphic"];
+        cell.accessoryView = [MSCellAccessory accessoryWithType: FLAT_DISCLOSURE_INDICATOR color:[UIColor spreeLightYellow] highlightedColor:[UIColor spreeLightYellow]];
+    } else if ([[typeArray objectAtIndex:indexPath.row] isEqualToString: @"Free"]){
+        cell.detailImage.image = [UIImage imageNamed:@"freeGraphic"];
+        cell.accessoryView = [MSCellAccessory accessoryWithType: FLAT_DISCLOSURE_INDICATOR color:[UIColor spreeBabyBlue] highlightedColor:[UIColor spreeLightYellow]];
+    }
+    return cell;
+
+}
+
+- (void)nextBarButtonItemPressed:(id)sender {
+    NSString *selectedType = [[(PostTypeTableViewCell *)[self.typeTableView cellForRowAtIndexPath:self.typeTableView.indexPathForSelectedRow] titleLabel] text];
     if ([selectedType isEqualToString:@"Free"]){
         [self performSegueWithIdentifier:@"showNewFreePostDetail" sender:self];
         [self.post setType:@"Free"];

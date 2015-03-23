@@ -10,14 +10,12 @@
 #import <Parse/Parse.h>
 #import "SpreePost.h"
 
-@interface NewPostTypeSelectionViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate>
-@property (weak, nonatomic) IBOutlet UIPickerView *typePickerView;
+@interface NewPostTypeSelectionViewController : UIViewController <UITableViewDataSource,UITableViewDelegate>
+
+@property (weak, nonatomic) IBOutlet UITableView *typeTableView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *cancelBarButtonItem;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *nextBarButtonItem;
 @property SpreePost *post;
 
-
-- (IBAction)nextBarButtonItemPressed:(id)sender;
 - (IBAction)cancelBarButtonItemPressed:(id)sender;
 
 @end

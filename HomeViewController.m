@@ -7,6 +7,7 @@
 //
 
 #import "HomeViewController.h"
+#import "PostTypeTableViewController.h"
 #import "PostTypeTableViewCell.h"
 #import "PostTypeViewController.h"
 #import "NewPostViewController.h"
@@ -32,7 +33,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    _postTypeArray = [[NSArray alloc] initWithObjects:@"All", @"Books", @"Tickets", @"Electronics", @"Free", nil];
+    _postTypeArray = [[NSArray alloc] initWithObjects:@"Books", @"Tickets", @"Electronics", @"Free", nil];
 //    self.navigationItem.title = @"Spree";
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -259,9 +260,7 @@
     // Configure the cell with the textContent of the Post as the cell's text label
     
     PFQuery *postQuery = [PFQuery queryWithClassName:@"Post"];
-    if (![[_postTypeArray objectAtIndex:indexPath.row] isEqualToString:@"All"]){
-        [postQuery whereKey:@"type" equalTo:[_postTypeArray objectAtIndex:indexPath.row]];
-    }
+    [postQuery whereKey:@"type" equalTo:[_postTypeArray objectAtIndex:indexPath.row]];
     [postQuery whereKey:@"expired" equalTo:[NSNumber numberWithBool:NO]];
     [postQuery whereKey:@"sold" equalTo:[NSNumber numberWithBool:NO]];
     [postQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
@@ -278,10 +277,7 @@
     }];
     cell.titleLabel.text = [_postTypeArray objectAtIndex:indexPath.row];
     
-    if ([[_postTypeArray objectAtIndex:indexPath.row] isEqualToString: @"All"]){
-        cell.detailImage.image = [UIImage imageNamed:@"spreeIcon"];
-        cell.accessoryView = [MSCellAccessory accessoryWithType: FLAT_DISCLOSURE_INDICATOR color:[UIColor spreeDarkBlue] highlightedColor:[UIColor spreeLightYellow]];
-    } else if ([[_postTypeArray objectAtIndex:indexPath.row] isEqualToString: @"Books"]){
+    if ([[_postTypeArray objectAtIndex:indexPath.row] isEqualToString: @"Books"]){
         cell.accessoryView = [MSCellAccessory accessoryWithType: FLAT_DISCLOSURE_INDICATOR color:[UIColor spreeDarkYellow] highlightedColor:[UIColor spreeLightYellow]];
         cell.detailImage.image = [UIImage imageNamed:@"booksGraphic"];
     } else if ([[_postTypeArray objectAtIndex:indexPath.row] isEqualToString: @"Tickets"]){
@@ -318,7 +314,7 @@
     // Pass the selected object to the new view controller.
     if ([segue.identifier isEqualToString:@"DisplayPosts"]){
     PostTypeTableViewCell *selectedCell = (PostTypeTableViewCell*)[self.tableView cellForRowAtIndexPath:self.tableView.indexPathForSelectedRow];
-    PostTypeViewController *destinationViewController = segue.destinationViewController;
+    PostTypeTableViewController *destinationViewController = segue.destinationViewController;
     destinationViewController.postType = selectedCell.titleLabel.text;
     }
     
