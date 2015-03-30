@@ -110,11 +110,11 @@
             }];
         } else {
             if ([post.type isEqualToString:@"Tickets"]){
-                cell.postImageView.image = [UIImage imageNamed:@"ticketGraphic"];
+                cell.postImageView.image = [UIImage imageNamed:@"TicketTypeIconSmall"];
             } else if ([post.type isEqualToString:@"Books"]){
-                cell.postImageView.image = [UIImage imageNamed:@"booksGraphic"];
+                cell.postImageView.image = [UIImage imageNamed:@"BookTypeIconSmall"];
             } else if ([post.type isEqualToString:@"Electronics"]){
-                cell.postImageView.image = [UIImage imageNamed:@"electronicsGraphic"];
+                cell.postImageView.image = [UIImage imageNamed:@"ElectronicsTypeIconSmall"];
             } else if ([post.type isEqualToString:@"Free"]){
                 cell.postImageView.image = [UIImage imageNamed:@"freeGraphic"];
             }

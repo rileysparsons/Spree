@@ -10,7 +10,6 @@
 #import "HomeViewController.h"
 #import "LoginViewController.h"
 #import "SecondViewController.h"
-#import "PostTypeViewController.h"
 #import "UIColor+SpreeColor.h"
 #import "PostDetailViewController.h"
 #import "UserPostTableViewController.h"

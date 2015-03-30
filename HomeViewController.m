@@ -9,7 +9,6 @@
 #import "HomeViewController.h"
 #import "PostTypeTableViewController.h"
 #import "PostTypeTableViewCell.h"
-#import "PostTypeViewController.h"
 #import "NewPostViewController.h"
 #import "UIColor+SpreeColor.h"
 
@@ -265,6 +264,7 @@
     [postQuery whereKey:@"sold" equalTo:[NSNumber numberWithBool:NO]];
     [postQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
         if (!error) {
+            NSLog(@"%@ %d", [_postTypeArray objectAtIndex:indexPath.row], number);
             [self hideHud];
             [self.refreshControl endRefreshing];
             cell.numberLabel.text = [NSString stringWithFormat:@"%@ Posts", [@(number)stringValue]];
@@ -279,12 +279,12 @@
     
     if ([[_postTypeArray objectAtIndex:indexPath.row] isEqualToString: @"Books"]){
         cell.accessoryView = [MSCellAccessory accessoryWithType: FLAT_DISCLOSURE_INDICATOR color:[UIColor spreeDarkYellow] highlightedColor:[UIColor spreeLightYellow]];
-        cell.detailImage.image = [UIImage imageNamed:@"booksGraphic"];
+        cell.detailImage.image = [UIImage imageNamed:@"BookTypeIconSmall"];
     } else if ([[_postTypeArray objectAtIndex:indexPath.row] isEqualToString: @"Tickets"]){
-        cell.detailImage.image = [UIImage imageNamed:@"ticketGraphic"];
+        cell.detailImage.image = [UIImage imageNamed:@"TicketTypeIconSmall"];
         cell.accessoryView = [MSCellAccessory accessoryWithType: FLAT_DISCLOSURE_INDICATOR color:[UIColor spreeRed] highlightedColor:[UIColor spreeLightYellow]];
     } else if ([[_postTypeArray objectAtIndex:indexPath.row] isEqualToString: @"Electronics"]){
-        cell.detailImage.image = [UIImage imageNamed:@"electronicsGraphic"];
+        cell.detailImage.image = [UIImage imageNamed:@"ElectronicsTypeIconSmall"];
         cell.accessoryView = [MSCellAccessory accessoryWithType: FLAT_DISCLOSURE_INDICATOR color:[UIColor spreeLightYellow] highlightedColor:[UIColor spreeLightYellow]];
     } else if ([[_postTypeArray objectAtIndex:indexPath.row] isEqualToString: @"Free"]){
         cell.detailImage.image = [UIImage imageNamed:@"freeGraphic"];

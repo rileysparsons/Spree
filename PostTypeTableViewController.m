@@ -54,6 +54,8 @@
 {
     PFQuery *query = [PFQuery queryWithClassName:self.parseClassName];
     [query whereKey:@"type" equalTo:self.postType];
+    [query whereKey:@"expired" equalTo:[NSNumber numberWithBool:NO]];
+    [query whereKey:@"sold" equalTo:[NSNumber numberWithBool:NO]];
     [query orderByDescending:@"updatedAt"];
     
     return query;

@@ -21,7 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _typeArray = [[NSArray alloc] initWithObjects:@"Books", @"Tickets", @"Electronics", @"Free", nil];
-    _imageArray = [[NSArray alloc] initWithObjects:@"booksGraphic", @"ticketGraphic", @"electronicsGraphic", @"freeGraphic", nil];
+    _imageArray = [[NSArray alloc] initWithObjects:@"BookTypeIconSmall", @"TicketTypeIconSmall", @"ElectronicsTypeIconSmall", @"freeGraphic", nil];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
       NSLog(@"Delegate: %@", self.delegate);

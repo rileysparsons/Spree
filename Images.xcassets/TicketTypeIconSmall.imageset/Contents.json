@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "homeIcon.png"
+      "filename" : "TicketTypeIconSmall.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "homeIcon@2x.png"
+      "filename" : "TicketTypeIconSmall@2x.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "homeIcon-1.png"
+      "filename" : "TicketTypeIconSmall@3x.png"
     }
   ],
   "info" : {

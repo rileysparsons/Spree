@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "newUserVenmoButton.png"
+      "filename" : "ElectronicsTypeIconSmall.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "newUserVenmoButton@2x.png"
+      "filename" : "ElectronicsTypeIconSmall@2x.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "newUserVenmoButton-1.png"
+      "filename" : "ElectronicsTypeIconSmall@3x.png"
     }
   ],
   "info" : {

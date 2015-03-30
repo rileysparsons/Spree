@@ -68,12 +68,12 @@
     
     if ([[typeArray objectAtIndex:indexPath.row] isEqualToString: @"Books"]){
         cell.accessoryView = [MSCellAccessory accessoryWithType: FLAT_DISCLOSURE_INDICATOR color:[UIColor spreeDarkYellow] highlightedColor:[UIColor spreeLightYellow]];
-        cell.detailImage.image = [UIImage imageNamed:@"booksGraphic"];
+        cell.detailImage.image = [UIImage imageNamed:@"BookTypeIconSmall"];
     } else if ([[typeArray objectAtIndex:indexPath.row] isEqualToString: @"Tickets"]){
-        cell.detailImage.image = [UIImage imageNamed:@"ticketGraphic"];
+        cell.detailImage.image = [UIImage imageNamed:@"TicketTypeIconSmall"];
         cell.accessoryView = [MSCellAccessory accessoryWithType: FLAT_DISCLOSURE_INDICATOR color:[UIColor spreeRed] highlightedColor:[UIColor spreeLightYellow]];
     } else if ([[typeArray objectAtIndex:indexPath.row] isEqualToString: @"Electronics"]){
-        cell.detailImage.image = [UIImage imageNamed:@"electronicsGraphic"];
+        cell.detailImage.image = [UIImage imageNamed:@"ElectronicsTypeIconSmall"];
         cell.accessoryView = [MSCellAccessory accessoryWithType: FLAT_DISCLOSURE_INDICATOR color:[UIColor spreeLightYellow] highlightedColor:[UIColor spreeLightYellow]];
     } else if ([[typeArray objectAtIndex:indexPath.row] isEqualToString: @"Free"]){
         cell.detailImage.image = [UIImage imageNamed:@"freeGraphic"];

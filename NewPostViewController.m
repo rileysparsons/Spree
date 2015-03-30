@@ -111,11 +111,11 @@
         } else {
             cell.typeLabel.text = _selectedType;
             if ([_selectedType isEqualToString:@"Tickets"]){
-                cell.typeImage.image = [UIImage imageNamed:@"ticketGraphic"];
+                cell.typeImage.image = [UIImage imageNamed:@"TicketTypeIconSmall"];
             } else if ([_selectedType isEqualToString:@"Books"]){
-                cell.typeImage.image = [UIImage imageNamed:@"booksGraphic"];
+                cell.typeImage.image = [UIImage imageNamed:@"BookTypeIconSmall"];
             } else if ([_selectedType isEqualToString:@"Electronics"]){
-                cell.typeImage.image = [UIImage imageNamed:@"electronicsGraphic"];
+                cell.typeImage.image = [UIImage imageNamed:@"ElectronicsTypeIconSmall"];
             } else if ([_selectedType isEqualToString:@"Free"]){
                 cell.typeImage.image = [UIImage imageNamed:@"freeGraphic"];
             }
