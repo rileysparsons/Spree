@@ -364,13 +364,13 @@
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bvj-iS-OZ0">
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="u1u-Rf-nEg">
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -1003,7 +1003,7 @@
                                     <constraint firstAttribute="height" constant="197" id="Rpa-tz-79T"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oi1-eO-ckz">
@@ -1045,7 +1045,7 @@
         <scene sceneID="IKu-t9-2gH">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Q0o-QC-Tnc" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Categories" image="homeIcon" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="Categories" image="CategoriesTabBarIcon" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="vrZ-uQ-f8e">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1417,7 +1417,7 @@
                                                         <constraint firstAttribute="height" constant="21" id="Ge3-PO-YxG"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -1444,7 +1444,7 @@
                                                         <constraint firstAttribute="width" constant="88" id="gy9-mF-bVL"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Description of item here..." translatesAutoresizingMaskIntoConstraints="NO" id="OHw-RP-xTl">
@@ -1484,7 +1484,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Manage post" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hQd-Kh-gHl">
                                                     <rect key="frame" x="8" y="15" width="101" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cGm-BV-KeL">
@@ -1713,7 +1713,7 @@
                                             <constraint firstAttribute="height" constant="21" id="VIc-Tg-sLu"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jzF-Si-SeL" userLabel="Photo Scroll">
@@ -2007,7 +2007,7 @@
                                             <constraint firstAttribute="height" constant="21" id="6ax-8C-PJh"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7dR-ap-rKS" userLabel="Photo Scroll">
@@ -2912,7 +2912,7 @@
         <scene sceneID="v8f-Ro-Y3x">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7ka-LY-u60" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="All" id="P8w-qH-Vxp"/>
+                    <tabBarItem key="tabBarItem" title="All" image="AllTabBarIcon" id="P8w-qH-Vxp"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ooW-nh-A8d">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -2929,10 +2929,11 @@
         </scene>
     </scenes>
     <resources>
+        <image name="AllTabBarIcon" width="31" height="34"/>
+        <image name="CategoriesTabBarIcon" width="28" height="27"/>
         <image name="Log in with Facebook button" width="1117" height="101"/>
         <image name="backgroundLogin" width="1944" height="3456"/>
         <image name="contactButton" width="205" height="124"/>
-        <image name="homeIcon" width="45" height="45"/>
         <image name="newPostButton" width="37" height="43"/>
         <image name="spreeLogoWhite" width="175" height="314"/>
         <image name="spreeLogoWhiteLarge" width="400" height="58"/>

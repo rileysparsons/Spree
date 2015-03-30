@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "locationSelected.png"
+      "filename" : "AllTabBarIcon.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "locationSelected@2x.png"
+      "filename" : "AllTabBarIcon@2x.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "locationSelected-1.png"
+      "filename" : "AllTabBarIcon@3x.png"
     }
   ],
   "info" : {
