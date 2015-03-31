@@ -265,12 +265,10 @@
     [postQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
         if (!error) {
             NSLog(@"%@ %d", [_postTypeArray objectAtIndex:indexPath.row], number);
-            [self hideHud];
             [self.refreshControl endRefreshing];
             cell.numberLabel.text = [NSString stringWithFormat:@"%@ Posts", [@(number)stringValue]];
             _pastPostNumber = number;
         } else {
-            [self hideHud];
             UIAlertView *cannotLoadAlert = [[UIAlertView alloc] initWithTitle:@"Cannot load posts" message:@"Check internet connection and try again" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
             [cannotLoadAlert show];
         }
@@ -295,12 +293,6 @@
     
     return cell;
 }
-
--(void)hideHud{
-    [loadingHUD hide:YES];
-    
-}
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
     [self performSegueWithIdentifier:@"DisplayPosts" sender:self];

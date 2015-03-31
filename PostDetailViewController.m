@@ -11,10 +11,13 @@
 #import "AppDelegate.h"
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 #import "UIColor+SpreeColor.h"
+#import <WSCoachMarksView/WSCoachMarksView.h>
 
 
 
-@interface PostDetailViewController ()
+@interface PostDetailViewController () {
+    WSCoachMarksView *coachMarksView;
+}
 
 @property (nonatomic, strong) NSArray *pageImages;
 @property (nonatomic, strong) NSMutableArray *pageViews;
@@ -117,6 +120,8 @@
             _eventDateForTicketLabel.text = _detailPost[@"eventDate"];
         }
     }
+    
+        [self addCoachMarks];
 }
 
 
@@ -133,6 +138,32 @@
 
     
     [self.postScrollView setContentOffset:CGPointMake(0, -5) animated:YES];
+    
+    // Show coach marks
+    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"WSCoachMarksShown"];
+    if (coachMarksShown == YES) {
+        // Don't show again
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"WSCoachMarksShown"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+
+
+        // Or show coach marks after a second delay
+         [coachMarksView performSelector:@selector(start) withObject:nil afterDelay:1.0f];
+    }
+}
+
+-(void)addCoachMarks{
+    NSArray *coachMarks = @[
+                            @{
+                                @"rect": [NSValue valueWithCGRect:(CGRect){{self.view.frame.size.width - (self.purchaseButton.frame.size.width + 11), 70},{self.purchaseButton.frame.size.width+6, 35}}],
+                                @"caption": @"Get this item here!"
+                                }
+                            ];
+    coachMarksView = [[WSCoachMarksView alloc] initWithFrame:self.tabBarController.view.bounds coachMarks:coachMarks];
+    [self.tabBarController.view addSubview:coachMarksView];
+    coachMarksView.maskColor = [UIColor colorWithWhite:1 alpha:.95];
+    coachMarksView.lblCaption.textColor = [UIColor spreeBabyBlue];
 }
 
 -(void)setupAdminBar{

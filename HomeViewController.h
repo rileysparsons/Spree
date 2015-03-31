@@ -7,12 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <MBProgressHUD/MBProgressHUD.h>
 
 
-@interface HomeViewController : UITableViewController <MBProgressHUDDelegate, UITabBarDelegate, UITableViewDataSource> {
-    MBProgressHUD *loadingHUD;
-    MBProgressHUD *HUD;
+@interface HomeViewController : UITableViewController < UITabBarDelegate, UITableViewDataSource> {
+
 }
 @property NSArray *postTypeArray;
 @property NSInteger pastPostNumber;
