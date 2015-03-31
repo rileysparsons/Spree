@@ -8,8 +8,8 @@
 
 #import "HomeViewController.h"
 #import "PostTypeTableViewController.h"
+#import "NewPostTypeSelectionViewController.h"
 #import "PostTypeTableViewCell.h"
-#import "NewPostViewController.h"
 #import "UIColor+SpreeColor.h"
 
 #import <Parse/Parse.h>
@@ -328,7 +328,7 @@
 //    [self.navigationController presentViewController:newPostViewController animated:YES completion:nil];
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    NewPostViewController *newPostSelectTypeViewController = [storyboard instantiateViewControllerWithIdentifier:@"NewPostSelectTypeViewController"];
+    NewPostTypeSelectionViewController *newPostSelectTypeViewController = [storyboard instantiateViewControllerWithIdentifier:@"NewPostSelectTypeViewController"];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController: newPostSelectTypeViewController];
     
     [self.navigationController presentViewController:navigationController animated:YES completion:nil];

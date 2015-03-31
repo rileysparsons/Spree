@@ -99,10 +99,30 @@
     self.postBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Post" style:UIBarButtonItemStyleDone target:self action:@selector(postBarButtonItemPressed)];
     self.navigationItem.rightBarButtonItem = self.postBarButtonItem;
     self.postBarButtonItem.enabled = NO;
+    self.view.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
+                                   initWithTarget:self
+                                   action:@selector(dismissKeyboard)];
     
+    [self.view  addGestureRecognizer:tap];
     
+}
+
+-(void)dismissKeyboard{
+    [self.ticketsPostView.descriptionField resignFirstResponder];
+    [self.defaultPostView.descriptionField resignFirstResponder];
+    [self.freePostView.descriptionField resignFirstResponder];
+    [self.booksPostView.descriptionField resignFirstResponder];
+    [self.ticketsPostView.titleField resignFirstResponder];
+    [self.defaultPostView.titleField resignFirstResponder];
+    [self.freePostView.titleField resignFirstResponder];
+    [self.booksPostView.titleField resignFirstResponder];
+    [self.ticketsPostView.priceField resignFirstResponder];
+    [self.defaultPostView.priceField resignFirstResponder];
+    [self.booksPostView.priceField resignFirstResponder];
+    [self.booksPostView.classField resignFirstResponder];
+    [self.ticketsPostView.dateField resignFirstResponder];
     
-    NSLog(@"%@", self.post);
 }
 
 # pragma mark - Photo Upload Methods
