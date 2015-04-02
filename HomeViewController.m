@@ -11,11 +11,12 @@
 #import "NewPostTypeSelectionViewController.h"
 #import "PostTypeTableViewCell.h"
 #import "UIColor+SpreeColor.h"
+#import  <WSCoachMarksView/WSCoachMarksView.h>
 
 #import <Parse/Parse.h>
 
 @interface HomeViewController () {
-    
+    WSCoachMarksView *coachMarksView;
 }
 
 @property (nonatomic, strong) UIView *refreshLoadingView;
@@ -42,17 +43,11 @@
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:image];
     
     [self setupRefreshControl];
-    
-    
 //    refreshControl = [[UIRefreshControl alloc] init];
 //    refreshControl.tintColor = [UIColor spreeRed];
 //    [refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
 //    [self.tableView addSubview:refreshControl];
-    
-}
-
--(void)viewWillAppear:(BOOL)animated{
-    [self forcedRefresh];
+    [self addCoachMarks];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -64,6 +59,33 @@
     [self.tableView reloadData];
  
 }
+
+-(void)viewWillAppear:(BOOL)animated{
+    // Show coach marks
+    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"WSCoachMarksShownForHome"];
+    if (coachMarksShown == NO) {
+        // Don't show again
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"WSCoachMarksShownForHome"];
+        [[NSUserDefaults standardUserDefaults] synchronize];\
+        // Or show coach marks after a second delay
+        [coachMarksView performSelector:@selector(start) withObject:nil afterDelay:1.0f];
+    }
+}
+
+-(void)addCoachMarks{
+    NSArray *coachMarks = @[
+                            @{
+                                @"rect": [NSValue valueWithCGRect:(CGRect){{self.view.frame.size.width -45, 25},{35, 35}}],
+                                @"caption": @"Post something on Spree!"
+                                }
+                            ];
+    coachMarksView = [[WSCoachMarksView alloc] initWithFrame:self.tabBarController.view.bounds coachMarks:coachMarks];
+    [self.tabBarController.view addSubview:coachMarksView];
+    coachMarksView.maskColor = [UIColor colorWithWhite:1 alpha:.95];
+    coachMarksView.lblCaption.textColor = [UIColor spreeBabyBlue];
+    coachMarksView.lblCaption.font = [UIFont fontWithName:@"EuphemiaUCAS-Bold" size:24];
+}
+
 
 - (void)setupRefreshControl
 {
@@ -294,9 +316,8 @@
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-
     [self performSegueWithIdentifier:@"DisplayPosts" sender:self];
-    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 

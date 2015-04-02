@@ -15,6 +15,7 @@
 @property (strong, nonatomic) UIWindow *window;
 @property CLLocationManager *locationManager;
 @property UINavigationController *navigationController;
+@property NSInteger expiredPostCount;
 
 
 @end

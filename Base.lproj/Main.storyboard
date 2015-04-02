@@ -1079,7 +1079,7 @@
             </objects>
             <point key="canvasLocation" x="750" y="66"/>
         </scene>
-        <!--Title-->
+        <!--All Posts Table View Controller-->
         <scene sceneID="81W-Mg-mTv">
             <objects>
                 <tableViewController id="zny-BO-81a" customClass="AllPostsTableViewController" sceneMemberID="viewController">
@@ -1092,7 +1092,7 @@
                             <outlet property="delegate" destination="zny-BO-81a" id="mLB-LI-HQp"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Title" id="6Xg-ra-oWA">
+                    <navigationItem key="navigationItem" id="6Xg-ra-oWA">
                         <barButtonItem key="rightBarButtonItem" systemItem="compose" id="duO-I7-yHX">
                             <connections>
                                 <action selector="NewPostBarButtonItemPressed:" destination="zny-BO-81a" id="sC2-HG-hNN"/>
@@ -2940,9 +2940,9 @@
         <image name="swatchDesign" width="1240" height="302"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="icv-qc-pxu"/>
-        <segue reference="WbK-fs-kfB"/>
-        <segue reference="gAI-vb-BR5"/>
         <segue reference="NyK-v4-QXL"/>
+        <segue reference="WbK-fs-kfB"/>
+        <segue reference="icv-qc-pxu"/>
+        <segue reference="gAI-vb-BR5"/>
     </inferredMetricsTieBreakers>
 </document>

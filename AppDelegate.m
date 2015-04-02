@@ -65,7 +65,6 @@
     SecondViewController *secondViewController = [storyboard instantiateViewControllerWithIdentifier:@"SecondViewController"];
     secondViewController.delegate = self;
     
-    
 //    NSLog(@"%@", [[(UITabBarController *)self.window.rootViewController ] viewControllers]);
     // Push handling
    
@@ -96,6 +95,31 @@
          */
     }
 
+    
+    PFQuery *expiredPostNumberQuery = [PFQuery queryWithClassName:@"Post"];
+    [expiredPostNumberQuery whereKey:@"user" equalTo:[PFUser currentUser]];
+    [expiredPostNumberQuery  findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error){
+            NSMutableArray *expiredPosts = [[NSMutableArray alloc] init];
+            NSMutableArray *activePosts = [[NSMutableArray alloc] init];
+            
+            for (SpreePost *post in objects){
+                if (post.expired == YES){
+                    [expiredPosts addObject:post];
+                } else {
+                    [activePosts  addObject:post];
+                }
+            }
+            self.expiredPostCount = expiredPosts.count;
+            UITabBarController *tabBarController = (UITabBarController *)self.window.rootViewController;
+            UINavigationController *navigationController = (UINavigationController *)[tabBarController.viewControllers objectAtIndex:2];
+            if (self.expiredPostCount != 0){
+                [navigationController.tabBarItem setBadgeValue:[NSString stringWithFormat:@"%li", self.expiredPostCount]];
+            } else {
+                [navigationController.tabBarItem setBadgeValue:nil];
+            }
+        }
+    }];
     
     return YES;
 }
@@ -139,6 +163,27 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    PFQuery *expiredPostNumberQuery = [PFQuery queryWithClassName:@"Post"];
+    [expiredPostNumberQuery whereKey:@"user" equalTo:[PFUser currentUser]];
+    [expiredPostNumberQuery  findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error){
+            NSMutableArray *expiredPosts = [[NSMutableArray alloc] init];
+            NSMutableArray *activePosts = [[NSMutableArray alloc] init];
+            
+            for (SpreePost *post in objects){
+                if (post.expired == YES){
+                    [expiredPosts addObject:post];
+                } else {
+                    [activePosts  addObject:post];
+                }
+            }
+            self.expiredPostCount = expiredPosts.count;
+            UITabBarController *tabBarController = (UITabBarController *)self.window.rootViewController;
+            UINavigationController *navigationController = (UINavigationController *)[tabBarController.viewControllers objectAtIndex:2];
+            [navigationController.tabBarItem setBadgeValue:[NSString stringWithFormat:@"%li", self.expiredPostCount]];
+        }
+    }];
+
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
@@ -172,7 +217,7 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo{
             } else if ([PFUser currentUser]) {
                 UITabBarController *tabBarController = (UITabBarController *)self.window.rootViewController;
                 [tabBarController setSelectedIndex:1];
-                UINavigationController *navigationController = (UINavigationController *)[tabBarController.viewControllers objectAtIndex:1];
+                UINavigationController *navigationController = (UINavigationController *)[tabBarController.viewControllers objectAtIndex:2];
                 PostDetailViewController *notificationController = (PostDetailViewController*) [navigationController.storyboard instantiateViewControllerWithIdentifier:@"PostDetail"];
                 [notificationController setDetailPost:(SpreePost *)object];
                 [navigationController pushViewController:notificationController animated:YES];
@@ -198,7 +243,6 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo{
 #pragma mark HomeViewController
 
 - (void)presentHomeViewController:(BOOL)animated {
-    
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"TabBarController"];
     [self.window makeKeyAndVisible];

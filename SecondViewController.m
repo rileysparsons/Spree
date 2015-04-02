@@ -92,6 +92,11 @@
             [self.settingsTableView reloadData];
         }
     }];
+    if (expiredPostCount != 0){
+        self.navigationController.tabBarItem.badgeValue = [NSString stringWithFormat:@"%li", (long)expiredPostCount];
+    } else {
+        self.navigationController.tabBarItem.badgeValue = nil;
+    }
 }
 
 -(void) setUpBackgroundGradient{
