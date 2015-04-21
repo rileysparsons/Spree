@@ -1,7 +1,7 @@
+source 'https://github.com/CocoaPods/Specs.git'
+
 pod 'Parse'
-pod 'MSCellAccessory'
-pod 'Facebook-iOS-SDK'
-pod 'ParseFacebookUtils'
-pod 'TPKeyboardAvoiding'
 pod 'ParseUI'
+pod 'MSCellAccessory'
+pod 'TPKeyboardAvoiding'
 pod 'WSCoachMarksView'

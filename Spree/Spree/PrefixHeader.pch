@@ -1,0 +1,17 @@
+//
+//  PrefixHeader.pch
+//  Spree
+//
+//  Copyright (c) 2015 Riley Steele Parsons. All rights reserved.
+//
+
+#ifndef Spree_PrefixHeader_pch
+#define Spree_PrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+    #import <Parse/Parse.h>
+    #import <ParseUI/ParseUI.h>
+    #import <UIKit/UIKit.h>
+    #import "UIColor+SpreeColor.h"
+#endif
