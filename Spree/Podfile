@@ -1,0 +1,7 @@
+pod 'Parse'
+pod 'MSCellAccessory'
+pod 'Facebook-iOS-SDK'
+pod 'ParseFacebookUtils'
+pod 'TPKeyboardAvoiding'
+pod 'ParseUI'
+pod 'WSCoachMarksView'

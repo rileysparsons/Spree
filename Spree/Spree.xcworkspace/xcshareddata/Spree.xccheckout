@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>AF7FE276-4AA9-4FF9-947F-7461B779BB82</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>F63CF156D219618C6B1B00478FBD7AD1D03976D7</key>
+		<string>https://github.com/rileysparsons/Spree.git</string>
+	</dict>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>F63CF156D219618C6B1B00478FBD7AD1D03976D7</key>
+		<string>Spree/</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/rileysparsons/Spree.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>F63CF156D219618C6B1B00478FBD7AD1D03976D7</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>F63CF156D219618C6B1B00478FBD7AD1D03976D7</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Spree</string>
+		</dict>
+	</array>
+</dict>
+</plist>
