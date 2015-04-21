@@ -72,6 +72,10 @@
     }
 }
 
+-(void)viewWillDisappear:(BOOL)animated{
+    [NSObject cancelPreviousPerformRequestsWithTarget:coachMarksView selector:@selector(start) object:nil];
+}
+
 -(void)addCoachMarks{
     NSArray *coachMarks = @[
                             @{

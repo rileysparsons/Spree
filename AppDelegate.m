@@ -95,32 +95,32 @@
          */
     }
 
-    
-    PFQuery *expiredPostNumberQuery = [PFQuery queryWithClassName:@"Post"];
-    [expiredPostNumberQuery whereKey:@"user" equalTo:[PFUser currentUser]];
-    [expiredPostNumberQuery  findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (!error){
-            NSMutableArray *expiredPosts = [[NSMutableArray alloc] init];
-            NSMutableArray *activePosts = [[NSMutableArray alloc] init];
-            
-            for (SpreePost *post in objects){
-                if (post.expired == YES){
-                    [expiredPosts addObject:post];
+    if ([PFUser currentUser]){
+        PFQuery *expiredPostNumberQuery = [PFQuery queryWithClassName:@"Post"];
+        [expiredPostNumberQuery whereKey:@"user" equalTo:[PFUser currentUser]];
+        [expiredPostNumberQuery  findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            if (!error){
+                NSMutableArray *expiredPosts = [[NSMutableArray alloc] init];
+                NSMutableArray *activePosts = [[NSMutableArray alloc] init];
+                
+                for (SpreePost *post in objects){
+                    if (post.expired == YES){
+                        [expiredPosts addObject:post];
+                    } else {
+                        [activePosts  addObject:post];
+                    }
+                }
+                self.expiredPostCount = expiredPosts.count;
+                UITabBarController *tabBarController = (UITabBarController *)self.window.rootViewController;
+                UINavigationController *navigationController = (UINavigationController *)[tabBarController.viewControllers objectAtIndex:2];
+                if (self.expiredPostCount != 0){
+                    [navigationController.tabBarItem setBadgeValue:[NSString stringWithFormat:@"%li", self.expiredPostCount]];
                 } else {
-                    [activePosts  addObject:post];
+                    [navigationController.tabBarItem setBadgeValue:nil];
                 }
             }
-            self.expiredPostCount = expiredPosts.count;
-            UITabBarController *tabBarController = (UITabBarController *)self.window.rootViewController;
-            UINavigationController *navigationController = (UINavigationController *)[tabBarController.viewControllers objectAtIndex:2];
-            if (self.expiredPostCount != 0){
-                [navigationController.tabBarItem setBadgeValue:[NSString stringWithFormat:@"%li", self.expiredPostCount]];
-            } else {
-                [navigationController.tabBarItem setBadgeValue:nil];
-            }
-        }
-    }];
-    
+        }];
+    }
     return YES;
 }
 
@@ -163,27 +163,28 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-    PFQuery *expiredPostNumberQuery = [PFQuery queryWithClassName:@"Post"];
-    [expiredPostNumberQuery whereKey:@"user" equalTo:[PFUser currentUser]];
-    [expiredPostNumberQuery  findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (!error){
-            NSMutableArray *expiredPosts = [[NSMutableArray alloc] init];
-            NSMutableArray *activePosts = [[NSMutableArray alloc] init];
-            
-            for (SpreePost *post in objects){
-                if (post.expired == YES){
-                    [expiredPosts addObject:post];
-                } else {
-                    [activePosts  addObject:post];
+    if ([PFUser currentUser]){
+        PFQuery *expiredPostNumberQuery = [PFQuery queryWithClassName:@"Post"];
+        [expiredPostNumberQuery whereKey:@"user" equalTo:[PFUser currentUser]];
+        [expiredPostNumberQuery  findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            if (!error){
+                NSMutableArray *expiredPosts = [[NSMutableArray alloc] init];
+                NSMutableArray *activePosts = [[NSMutableArray alloc] init];
+                
+                for (SpreePost *post in objects){
+                    if (post.expired == YES){
+                        [expiredPosts addObject:post];
+                    } else {
+                        [activePosts  addObject:post];
+                    }
                 }
+                self.expiredPostCount = expiredPosts.count;
+                UITabBarController *tabBarController = (UITabBarController *)self.window.rootViewController;
+                UINavigationController *navigationController = (UINavigationController *)[tabBarController.viewControllers objectAtIndex:2];
+                [navigationController.tabBarItem setBadgeValue:[NSString stringWithFormat:@"%li", self.expiredPostCount]];
             }
-            self.expiredPostCount = expiredPosts.count;
-            UITabBarController *tabBarController = (UITabBarController *)self.window.rootViewController;
-            UINavigationController *navigationController = (UINavigationController *)[tabBarController.viewControllers objectAtIndex:2];
-            [navigationController.tabBarItem setBadgeValue:[NSString stringWithFormat:@"%li", self.expiredPostCount]];
-        }
-    }];
-
+        }];
+    }
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
