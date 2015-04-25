@@ -1,7 +1,7 @@
 source 'https://github.com/CocoaPods/Specs.git'
 
+pod 'JSQMessagesViewController', :git => 'https://github.com/jessesquires/JSQMessagesViewController.git', :branch => 'develop'
 pod 'Parse'
 pod 'ParseUI'
 pod 'MSCellAccessory'
-pod 'TPKeyboardAvoiding'
-pod 'WSCoachMarksView'
+pod 'WSCoachMarksView', '~> 0.2'

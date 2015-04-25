@@ -6,9 +6,6 @@
 //
 //
 
-#import <ParseUI/ParseUI.h>
-#import <Parse/Parse.h>
-
 @interface AllPostsTableViewController : PFQueryTableViewController
 - (IBAction)NewPostBarButtonItemPressed:(id)sender;
 

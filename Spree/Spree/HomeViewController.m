@@ -67,6 +67,24 @@
         // Or show coach marks after a second delay
         [coachMarksView performSelector:@selector(start) withObject:nil afterDelay:1.0f];
     }
+
+    PFQuery *query = [PFQuery queryWithClassName:PF_RECENT_CLASS_NAME];
+    [query whereKey:PF_RECENT_USER equalTo:[PFUser currentUser]];
+    [query includeKey:PF_RECENT_LASTUSER];
+    [query orderByDescending:PF_RECENT_UPDATEDACTION];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+     {
+         if (!error)
+         {
+             int total = 0;
+             for (PFObject *recent in objects)
+             {
+                 total += [recent[PF_RECENT_COUNTER] intValue];
+             }
+             UITabBarItem *item = self.tabBarController.tabBar.items[3];
+             item.badgeValue = (total == 0) ? nil : [NSString stringWithFormat:@"%d", total];
+         }
+     }];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -253,10 +271,6 @@
 
 
 #pragma mark - Table view data source
-
-
-
-
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {

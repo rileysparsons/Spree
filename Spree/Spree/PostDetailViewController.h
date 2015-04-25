@@ -6,12 +6,10 @@
 //  Copyright (c) 2014 Riley Steele Parsons. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import <Parse/Parse.h>
 #import <MessageUI/MessageUI.h>
 #import "SpreePost.h"
 
-@interface PostDetailViewController : UIViewController <UIAlertViewDelegate, UIScrollViewDelegate, UIAlertViewDelegate, MFMailComposeViewControllerDelegate, MFMessageComposeViewControllerDelegate>
+@interface PostDetailViewController : UIViewController <UIAlertViewDelegate, UIScrollViewDelegate, UIAlertViewDelegate>
 
 @property SpreePost *detailPost;
 @property PFUser *poster;
@@ -42,7 +40,5 @@
 - (IBAction)soldButtonPressed:(id)sender;
 - (IBAction)deleteButtonPressed:(id)sender;
 - (IBAction)purchaseButtonPressed:(id)sender;
-- (IBAction)infoBarButtonItemPressed:(id)sender;
-
 
 @end
