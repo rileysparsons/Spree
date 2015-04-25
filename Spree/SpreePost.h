@@ -6,8 +6,6 @@
 //  Copyright (c) 2015 Riley Steele Parsons. All rights reserved.
 //
 
-#import <Parse/Parse.h>
-
 @interface SpreePost : PFObject <PFSubclassing>
 
 @property (nonatomic) NSString *title;

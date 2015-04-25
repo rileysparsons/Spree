@@ -180,7 +180,6 @@
     // Resize image
     UIGraphicsBeginImageContext(CGSizeMake(640, 960));
     [image drawInRect: CGRectMake(0, 0, 640, 960)];
-    UIImage *smallImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
     // Upload image

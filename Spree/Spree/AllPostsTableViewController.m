@@ -23,7 +23,7 @@
 @property (nonatomic, strong) UIImageView *compass_spinner;
 @property (assign) BOOL isRefreshIconsOverlap;
 @property (assign) BOOL isRefreshAnimating;
-
+@property (retain, nonatomic) UIBarButtonItem *composeButton;
 @end
 
 
@@ -64,7 +64,16 @@
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:image];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadObjects) name:@"PostDeleted" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadObjects) name:@"PostMade" object:nil];
-    // Do any additional setup after loading the view.
+
+    self.navigationItem.rightBarButtonItems = @[self.composeButton];
+}
+
+- (UIBarButtonItem *)composeButton {
+    if (!_composeButton) {
+        _composeButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemCompose target: self action: @selector(NewPostBarButtonItemPressed:)];
+        [_composeButton setTintColor:[UIColor whiteColor]];
+    }
+    return _composeButton;
 }
 
 - (void)delayedRefresh{
@@ -307,7 +316,7 @@
  }
 }
 
-- (IBAction)NewPostBarButtonItemPressed:(id)sender {
+- (void)NewPostBarButtonItemPressed:(id)sender {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     NewPostTypeSelectionViewController *newPostSelectTypeViewController = [storyboard instantiateViewControllerWithIdentifier:@"NewPostSelectTypeViewController"];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController: newPostSelectTypeViewController];

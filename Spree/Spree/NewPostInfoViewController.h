@@ -6,8 +6,6 @@
 //  Copyright (c) 2015 Riley Steele Parsons. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import <Parse/Parse.h>
 #import "SpreePost.h"
 
 @class NewBooksPostView, NewFreePostView, NewTicketsPostView, NewDefaultPostView;

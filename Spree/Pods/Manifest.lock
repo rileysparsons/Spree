@@ -1,0 +1,45 @@
+PODS:
+  - Bolts (1.1.5):
+    - Bolts/AppLinks (= 1.1.5)
+    - Bolts/Tasks (= 1.1.5)
+  - Bolts/AppLinks (1.1.5):
+    - Bolts/Tasks
+  - Bolts/Tasks (1.1.5)
+  - JSQMessagesViewController (7.0.1):
+    - JSQSystemSoundPlayer (~> 2.0.1)
+  - JSQSystemSoundPlayer (2.0.1)
+  - MSCellAccessory (1.1.2)
+  - Parse (1.7.1):
+    - Bolts (~> 1.1)
+  - ParseUI (1.1.3):
+    - Parse (~> 1.7)
+  - WSCoachMarksView (0.2)
+
+DEPENDENCIES:
+  - JSQMessagesViewController (from `https://github.com/jessesquires/JSQMessagesViewController.git`,
+    branch `develop`)
+  - MSCellAccessory
+  - Parse
+  - ParseUI
+  - WSCoachMarksView (~> 0.2)
+
+EXTERNAL SOURCES:
+  JSQMessagesViewController:
+    :branch: develop
+    :git: https://github.com/jessesquires/JSQMessagesViewController.git
+
+CHECKOUT OPTIONS:
+  JSQMessagesViewController:
+    :commit: 4c05c28f707454bcc83e4c8af314f58a50d04ea8
+    :git: https://github.com/jessesquires/JSQMessagesViewController.git
+
+SPEC CHECKSUMS:
+  Bolts: aac24961496d504aa56fc267cde95162a71bac39
+  JSQMessagesViewController: 03fba8a3021a3ddc1c91847f180ffe549f2e8cf2
+  JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
+  MSCellAccessory: 8265f3cd2386c1f372da00232472605ab11426e4
+  Parse: fa8ec29de6d82035635986c11946299fb1b38316
+  ParseUI: 1a68e9cebc3bd458eed9605ce7b33d7cc082f473
+  WSCoachMarksView: d1653c058c8289a300ddf28af9dd49eb659c9c42
+
+COCOAPODS: 0.36.4

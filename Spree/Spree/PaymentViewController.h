@@ -6,8 +6,6 @@
 //  Copyright (c) 2014 Riley Steele Parsons. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import <Parse/Parse.h>
 #import <MessageUI/MessageUI.h>
 #import <MessageUI/MFMessageComposeViewController.h>
 #import "SpreePost.h"

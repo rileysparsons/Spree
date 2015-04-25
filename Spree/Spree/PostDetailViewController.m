@@ -11,6 +11,9 @@
 #import "UIColor+SpreeColor.h"
 #import "WSCoachMarksView.h"
 
+#import "common.h"
+#import "ChatView.h"
+#import "recent.h"
 
 
 @interface PostDetailViewController () {
@@ -64,7 +67,7 @@
             NSLog(@"%@", object);
             self.poster = (PFUser *)object;
             NSString *date = [NSDateFormatter localizedStringFromDate:[_detailPost createdAt] dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterNoStyle];
-            _postDateUserLabel.text = [NSString stringWithFormat:@"Posted by %@ on %@", _poster[@"name"], date];
+            _postDateUserLabel.text = [NSString stringWithFormat:@"Posted by %@ on %@", (_poster[@"name"]) ? _poster[@"name"] : _poster[@"username"], date];
             [self _loadData];
         }];
     }
@@ -72,8 +75,7 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     // Bar title
-    
-    UILabel* tlabel=[[UILabel alloc] initWithFrame:CGRectMake(0,0, 150, 40)];
+    UILabel *tlabel=[[UILabel alloc] initWithFrame:CGRectMake(0,0, 150, 40)];
     tlabel.textAlignment = NSTextAlignmentCenter;
     tlabel.text=self.self.detailPost.title;;
     tlabel.textColor=[UIColor whiteColor];
@@ -133,9 +135,7 @@
     
 
     [self loadVisiblePages];
-    
 
-    
     [self.postScrollView setContentOffset:CGPointMake(0, -5) animated:YES];
     
     // Show coach marks
@@ -373,77 +373,15 @@
 }
 
 - (IBAction)purchaseButtonPressed:(id)sender {
-    UIAlertController *contactMethod = [UIAlertController alertControllerWithTitle:@"Select communication method" message:@"How would you like to contact the seller?" preferredStyle:UIAlertControllerStyleActionSheet];
     
-    [contactMethod addAction:[UIAlertAction actionWithTitle:@"Phone" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        if (self.poster[@"phoneNumber"] != nil){
-            NSString *phoneNumber = [@"telprompt://" stringByAppendingString:[self.poster objectForKey:@"phoneNumber"]];
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneNumber]];
-        } else {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No phone number found" message:@"Poster failed to provide required contact information" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
-            alert.tag = 0;
-            [alert show];
-            [self dismissViewControllerAnimated:YES completion:nil];
-        }
-    }]
-     ];
-    
-    [contactMethod addAction:[UIAlertAction actionWithTitle:@"SMS" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        if ([MFMessageComposeViewController canSendText] && self.poster[@"phoneNumber"]){
-            MFMessageComposeViewController *textMessageViewController = [[MFMessageComposeViewController alloc] init];
-            textMessageViewController.messageComposeDelegate = self;
-            NSString *phoneNumber = (NSString *)self.poster[@"phoneNumber"];
-            [textMessageViewController setRecipients:@[phoneNumber]];
-            [textMessageViewController setBody:[NSString stringWithFormat:@"Hi %@, I'm interested in your \"%@\" on Spree", [self.poster[@"name"] componentsSeparatedByString:@" "], self.detailPost.title]];
-            textMessageViewController.navigationBar.tintColor = [UIColor whiteColor];
-            [self presentViewController:textMessageViewController animated:YES completion:nil];
-        } else {
-            UIAlertView *cannotSendMessageAlert = [[UIAlertView alloc] initWithTitle:@"Unable to send message" message:@"Sorry, your phone is not set up to send SMS or the seller did not provide adequate contact information" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
-            [cannotSendMessageAlert show];
-        }
-    }]
-     ];
-    
-    [contactMethod addAction:[UIAlertAction actionWithTitle:@"Email" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        if ([MFMailComposeViewController canSendMail]) {
-            MFMailComposeViewController *composeViewController = [[MFMailComposeViewController alloc] init];
-            [composeViewController setMailComposeDelegate:self];
-            NSLog(@"%@", self.poster);
-            [composeViewController setToRecipients:@[self.poster[@"email"]]];
-            [composeViewController setSubject:[NSString stringWithFormat:@"Post on Spree: %@", _detailPost.title]];
-            [composeViewController setMessageBody:[NSString stringWithFormat:@"Hi %@,\n\n I'm interested in your '%@' on Spree.",  [[_poster[@"name"] componentsSeparatedByString:@" "] objectAtIndex:0], _detailPost.title]isHTML:NO];
-            composeViewController.navigationBar.tintColor = [UIColor whiteColor];
-            [self presentViewController:composeViewController animated:YES completion:nil];
-        } else {
-            NSString *message = [NSString stringWithFormat:@"You have not set up Mail on iPhone. User's email is %@", _poster[@"email"]];
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Phone cannot send email" message:message  delegate:self cancelButtonTitle:@"OK" otherButtonTitles:@"Copy email to clipboard", nil];
-            alert.tag = 1;
-            [alert show];
-        }
-    }]
-     ];
-    [contactMethod addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-        [self dismissViewControllerAnimated:YES completion:nil];
-    }]
-     ];
-    
-    [self presentViewController:contactMethod animated:YES completion:nil];
+    PFUser *user2 = self.poster;
+
+    PFUser *user1 = [PFUser currentUser];
+
+    NSString *groupId = StartPrivateChat(user1, user2);
+    [self actionChat:groupId];
 }
 
-- (IBAction)infoBarButtonItemPressed:(id)sender {
-  UIAlertController *contactMethod = [UIAlertController alertControllerWithTitle:@"Post information" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    
-    [contactMethod addAction:[UIAlertAction actionWithTitle:@"Ask for more information" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        [self purchaseButtonPressed:self];
-    }]
-     ];
-    [contactMethod addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-        [self dismissViewControllerAnimated:YES completion:nil];
-    }]
-     ];
-    [self presentViewController:contactMethod animated:YES completion:nil];
-    
-}
 
 # pragma mark - UIAlertView methods
 
@@ -480,43 +418,14 @@
     }
 }
 
-#pragma mark - Message delegates
-
--(void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult) result
+- (void)actionChat:(NSString *)groupId
 {
-    switch (result) {
-        case MessageComposeResultCancelled:
-            break;
-            
-        case MessageComposeResultFailed:
-        {
-            UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Failed to send SMS!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [warningAlert show];
-            break;
-        }
-            
-        case MessageComposeResultSent:
-            break;
-            
-        default:
-            break;
-    }
-    
-    [self dismissViewControllerAnimated:YES completion:nil];
+    ChatView *chatView = [[ChatView alloc] initWith:groupId];
+
+    self.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:chatView animated:YES];
+    // Unhide the tabbar when we go back
+    self.hidesBottomBarWhenPushed = NO;
 }
-
-
-
--(void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error{
-    if (error){
-        NSString *errorTitle = @"Mail Error";
-        NSString *errorDescription = [error localizedDescription];
-        UIAlertView *errorView = [[UIAlertView alloc]initWithTitle:errorTitle message:errorDescription delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-        errorView.tag = 2;
-        [errorView show];
-    }
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
 
 @end
