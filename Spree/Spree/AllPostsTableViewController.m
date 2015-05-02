@@ -62,7 +62,7 @@
     [self setupRefreshControl];
     UIImage *image = [UIImage imageNamed:@"spreeTitleStylized.png"];
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:image];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadObjects) name:@"PostDeleted" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadObjects) name:@"ReloadTable" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadObjects) name:@"PostMade" object:nil];
 
     self.navigationItem.rightBarButtonItems = @[self.composeButton];

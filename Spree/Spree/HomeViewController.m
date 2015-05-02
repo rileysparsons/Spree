@@ -58,6 +58,7 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated{
+
     // Show coach marks
     BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"WSCoachMarksShownForHome"];
     if (coachMarksShown == NO) {

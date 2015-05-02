@@ -14,6 +14,7 @@
 #import "common.h"
 #import "ChatView.h"
 #import "recent.h"
+#import "RatingViewController.h"
 
 
 @interface PostDetailViewController () {
@@ -122,7 +123,12 @@
         }
     }
     
-        [self addCoachMarks];
+    [self addCoachMarks];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(popViewControllerAnimated)
+                                                 name:@"UserRated"
+                                               object:nil];
 }
 
 
@@ -391,8 +397,7 @@
             if (buttonIndex == 1){
                 [self.detailPost deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                     if (!error){
-                        if (succeeded == YES)
-                            [[NSNotificationCenter defaultCenter] postNotificationName:@"PostDeleted" object:nil];
+                        [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloadTable" object:nil];
                     }
                 }];
                 [self.navigationController popViewControllerAnimated:YES];
@@ -401,8 +406,13 @@
         case 2:
             if (buttonIndex == 1){
                 [self.detailPost setSold:YES];
-                [self.detailPost saveInBackground];
-                [self.navigationController popViewControllerAnimated:YES];
+                [self.detailPost saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                    if (!error){
+                        [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloadTable" object:self];
+                        RatingViewController *ratingView = [self.storyboard instantiateViewControllerWithIdentifier:@"rating"];
+                        [self presentViewController:ratingView animated:YES completion:NULL];
+                    }
+                }];
             }
             break;
         case 3:
@@ -416,6 +426,10 @@
         default:
             break;
     }
+}
+
+- (void)popViewControllerAnimated {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)actionChat:(NSString *)groupId
