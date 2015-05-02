@@ -6,15 +6,19 @@
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>AF7FE276-4AA9-4FF9-947F-7461B779BB82</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Spree</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>F63CF156D219618C6B1B00478FBD7AD1D03976D7</key>
 		<string>https://github.com/rileysparsons/Spree.git</string>
 	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Spree/Spree.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>F63CF156D219618C6B1B00478FBD7AD1D03976D7</key>
-		<string>Spree/</string>
+		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/rileysparsons/Spree.git</string>

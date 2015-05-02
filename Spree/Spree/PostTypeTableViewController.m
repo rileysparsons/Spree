@@ -48,10 +48,9 @@
     UIImage *image = [UIImage imageNamed:@"spreeTitleStylized.png"];
     self.title = self.postType;
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:image];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadObjects) name:@"PostDeleted" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadObjects) name:@"PostMade" object:nil];// Do any additional setup after loading the view.
-    
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadObjects) name:@"ReloadTable" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadObjects) name:@"PostMade" object:nil];
+
     [self addCoachMarks];
 }
 -(void)viewWillAppear:(BOOL)animated{

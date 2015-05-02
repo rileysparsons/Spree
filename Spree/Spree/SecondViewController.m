@@ -12,6 +12,8 @@
 #import <CoreGraphics/CoreGraphics.h>
 #import "MSCellAccessory.h"
 
+#import "RatingViewController.h"
+
 @interface SecondViewController () {
     NSInteger expiredPostCount;
     NSInteger activePostCount;
