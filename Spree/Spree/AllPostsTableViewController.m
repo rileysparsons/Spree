@@ -11,6 +11,7 @@
 #import "SpreePost.h"
 #import "PostDetailViewController.h"
 #import "NewPostTypeSelectionViewController.h"
+#import "RatingViewController.h"
 
 @interface AllPostsTableViewController () {
 
@@ -66,6 +67,21 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadObjects) name:@"PostMade" object:nil];
 
     self.navigationItem.rightBarButtonItems = @[self.composeButton];
+
+
+    // Check if buyer needs to rate the seller
+    PFQuery *query = [PFQuery queryWithClassName:@"RatingQueue"];
+    [query whereKey:@"user" equalTo:[PFUser currentUser]];
+    [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+        if (object) {
+            RatingViewController *ratingView = [self.storyboard instantiateViewControllerWithIdentifier:@"rating"];
+            ratingView.ratingType = @"seller";
+            ratingView.user = [object objectForKey:@"rateUser"];
+            UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController: ratingView];
+
+            [self.navigationController presentViewController:navigationController animated:YES completion:nil];
+        }
+    }];
 }
 
 - (UIBarButtonItem *)composeButton {
@@ -206,6 +222,7 @@
     [query whereKey:@"expired" equalTo:[NSNumber numberWithBool:NO]];
     [query whereKey:@"sold" equalTo:[NSNumber numberWithBool:NO]];
     [query orderByDescending:@"updatedAt"];
+    [query includeKey:@"objectId"];
     
     return query;
 }

@@ -24,7 +24,7 @@
     if (self) {
 
         // The className to query on
-        self.parseClassName = @"Recent";
+        self.parseClassName = PF_RECENT_CLASS_NAME;
 
         self.title = @"Messages";
 
@@ -40,7 +40,9 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
-    [self updateTabCounter];
+    // Remove the tab bar count when we click on the tab
+    UITabBarItem *item = self.tabBarController.tabBar.items[2];
+    item.badgeValue = nil;
 }
 
 - (PFQuery *)queryForTable {
@@ -63,7 +65,7 @@
     {
         total += [recent[PF_RECENT_COUNTER] intValue];
     }
-    UITabBarItem *item = self.tabBarController.tabBar.items[3];
+    UITabBarItem *item = self.tabBarController.tabBar.items[2];
     item.badgeValue = (total == 0) ? nil : [NSString stringWithFormat:@"%d", total];
 }
 
@@ -111,7 +113,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
     PFObject *recent = [self.objects objectAtIndex:indexPath.row];
-    ChatView *chatView = [[ChatView alloc] initWith:recent[PF_RECENT_GROUPID]];
+    ChatView *chatView = [[ChatView alloc] initWith:recent[PF_RECENT_GROUPID] post:recent];
 
     self.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:chatView animated:YES];

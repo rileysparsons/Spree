@@ -34,6 +34,7 @@
 #define		PF_MESSAGE_GROUPID					@"groupId"				//	String
 #define		PF_MESSAGE_TEXT						@"text"					//	String
 #define		PF_MESSAGE_CREATEDAT				@"createdAt"			//	Date
+#define		PF_MESSAGE_POST                     @"post"                 //	Pointer to Post Class
 
 #define		PF_RECENT_CLASS_NAME				@"Recent"				//	Class name
 #define		PF_RECENT_USER						@"user"					//	Pointer to User Class

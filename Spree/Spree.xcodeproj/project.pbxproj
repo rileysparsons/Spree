@@ -70,10 +70,6 @@
 		F743C9581AE6400500C14781 /* WelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F743C9571AE6400500C14781 /* WelcomeViewController.m */; };
 		F743C95C1AE6412400C14781 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F743C95B1AE6412400C14781 /* SignUpViewController.m */; };
 		F76258EB1AF2044E003B67D4 /* RatingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F76258EA1AF2044E003B67D4 /* RatingViewController.m */; };
-		F76258F31AF2088E003B67D4 /* star-highlighted-template.png in Resources */ = {isa = PBXBuildFile; fileRef = F76258EC1AF2088E003B67D4 /* star-highlighted-template.png */; };
-		F76258F41AF2088E003B67D4 /* star-highlighted-template@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F76258ED1AF2088E003B67D4 /* star-highlighted-template@2x.png */; };
-		F76258F51AF2088E003B67D4 /* star-template.png in Resources */ = {isa = PBXBuildFile; fileRef = F76258EE1AF2088E003B67D4 /* star-template.png */; };
-		F76258F61AF2088E003B67D4 /* star-template@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F76258EF1AF2088E003B67D4 /* star-template@2x.png */; };
 		F7715E971AEBFEA7005DDEFF /* MessagingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F7715E961AEBFEA7005DDEFF /* MessagingTableViewCell.m */; };
 		F7715E9B1AEC05AD005DDEFF /* AllMessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7715E9A1AEC05AD005DDEFF /* AllMessagesViewController.m */; };
 		F78600951AEB3F9100402B1F /* ChatView.m in Sources */ = {isa = PBXBuildFile; fileRef = F78600941AEB3F9100402B1F /* ChatView.m */; };
@@ -81,6 +77,7 @@
 		F78600BE1AEB422100402B1F /* recent.m in Sources */ = {isa = PBXBuildFile; fileRef = F78600BA1AEB422100402B1F /* recent.m */; };
 		F78600BF1AEB422100402B1F /* common.m in Sources */ = {isa = PBXBuildFile; fileRef = F78600BC1AEB422100402B1F /* common.m */; };
 		F7A2A43B1AF47BAB00734749 /* EDStarRating.m in Sources */ = {isa = PBXBuildFile; fileRef = F7A2A43A1AF47BAB00734749 /* EDStarRating.m */; };
+		F7AFBB421AF4CC0A00D3148B /* FindBuyerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7AFBB411AF4CC0A00D3148B /* FindBuyerViewController.m */; };
 		FEFEF58F3053C07B04E45130 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 93D5B9718A30FBBAE739BCE8 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -212,10 +209,6 @@
 		F743C95B1AE6412400C14781 /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
 		F76258E91AF2044E003B67D4 /* RatingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RatingViewController.h; sourceTree = "<group>"; };
 		F76258EA1AF2044E003B67D4 /* RatingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RatingViewController.m; sourceTree = "<group>"; };
-		F76258EC1AF2088E003B67D4 /* star-highlighted-template.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star-highlighted-template.png"; sourceTree = "<group>"; };
-		F76258ED1AF2088E003B67D4 /* star-highlighted-template@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star-highlighted-template@2x.png"; sourceTree = "<group>"; };
-		F76258EE1AF2088E003B67D4 /* star-template.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star-template.png"; sourceTree = "<group>"; };
-		F76258EF1AF2088E003B67D4 /* star-template@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star-template@2x.png"; sourceTree = "<group>"; };
 		F7715E951AEBFEA7005DDEFF /* MessagingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagingTableViewCell.h; sourceTree = "<group>"; };
 		F7715E961AEBFEA7005DDEFF /* MessagingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagingTableViewCell.m; sourceTree = "<group>"; };
 		F7715E991AEC05AD005DDEFF /* AllMessagesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllMessagesViewController.h; sourceTree = "<group>"; };
@@ -231,6 +224,8 @@
 		F78600BC1AEB422100402B1F /* common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = common.m; sourceTree = "<group>"; };
 		F7A2A4391AF47BAB00734749 /* EDStarRating.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDStarRating.h; sourceTree = "<group>"; };
 		F7A2A43A1AF47BAB00734749 /* EDStarRating.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDStarRating.m; sourceTree = "<group>"; };
+		F7AFBB401AF4CC0A00D3148B /* FindBuyerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindBuyerViewController.h; sourceTree = "<group>"; };
+		F7AFBB411AF4CC0A00D3148B /* FindBuyerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindBuyerViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -272,7 +267,6 @@
 		140CF8CA1A3BBFB200134C4D = {
 			isa = PBXGroup;
 			children = (
-				F7A2A4381AF47BAB00734749 /* EDStarRating */,
 				14383B0D1A7B1A950040FBDF /* Todo */,
 				140CF9081A3E157700134C4D /* Podfile */,
 				140CF8D51A3BBFB200134C4D /* Spree */,
@@ -301,10 +295,6 @@
 				140CF91A1A3F755B00134C4D /* ViewControllers */,
 				140CF9041A3E0F9600134C4D /* TableViewCell */,
 				140CF8E61A3BBFB200134C4D /* Images.xcassets */,
-				F76258EC1AF2088E003B67D4 /* star-highlighted-template.png */,
-				F76258ED1AF2088E003B67D4 /* star-highlighted-template@2x.png */,
-				F76258EE1AF2088E003B67D4 /* star-template.png */,
-				F76258EF1AF2088E003B67D4 /* star-template@2x.png */,
 				140CF8E31A3BBFB200134C4D /* Main.storyboard */,
 				140473951ABD002F00C0F8EF /* AllPostsTableViewController.h */,
 				140473961ABD002F00C0F8EF /* AllPostsTableViewController.m */,
@@ -322,6 +312,7 @@
 		140CF8D61A3BBFB200134C4D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				F7AFBB451AF5FDF800D3148B /* Open Source */,
 				140CF8DA1A3BBFB200134C4D /* AppDelegate.h */,
 				140CF8DB1A3BBFB200134C4D /* AppDelegate.m */,
 				F78600B61AEB40D400402B1F /* AppConstant.h */,
@@ -381,8 +372,6 @@
 				14ABE10C1A970F0400B805D0 /* BooksContainerTableViewController.m */,
 				14EFDAE51A89EC4F007510CC /* TextViewViewController.h */,
 				14EFDAE61A89EC4F007510CC /* TextViewViewController.m */,
-				F76258E91AF2044E003B67D4 /* RatingViewController.h */,
-				F76258EA1AF2044E003B67D4 /* RatingViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -424,6 +413,7 @@
 				14E66B9A1A45ECFF008184C1 /* PostDetailViewController.m */,
 				140CF8DD1A3BBFB200134C4D /* HomeViewController.h */,
 				140CF8DE1A3BBFB200134C4D /* HomeViewController.m */,
+				F7AFBB431AF4CC2B00D3148B /* Rating */,
 			);
 			name = "Post ViewControllers";
 			sourceTree = "<group>";
@@ -564,7 +554,27 @@
 				F7A2A4391AF47BAB00734749 /* EDStarRating.h */,
 				F7A2A43A1AF47BAB00734749 /* EDStarRating.m */,
 			);
-			path = EDStarRating;
+			name = EDStarRating;
+			path = ../EDStarRating;
+			sourceTree = "<group>";
+		};
+		F7AFBB431AF4CC2B00D3148B /* Rating */ = {
+			isa = PBXGroup;
+			children = (
+				F7AFBB401AF4CC0A00D3148B /* FindBuyerViewController.h */,
+				F7AFBB411AF4CC0A00D3148B /* FindBuyerViewController.m */,
+				F76258E91AF2044E003B67D4 /* RatingViewController.h */,
+				F76258EA1AF2044E003B67D4 /* RatingViewController.m */,
+			);
+			name = Rating;
+			sourceTree = "<group>";
+		};
+		F7AFBB451AF5FDF800D3148B /* Open Source */ = {
+			isa = PBXGroup;
+			children = (
+				F7A2A4381AF47BAB00734749 /* EDStarRating */,
+			);
+			name = "Open Source";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -655,14 +665,10 @@
 				14ABE0FF1A95AAD400B805D0 /* NewBooksPostView.xib in Resources */,
 				14ABE1011A96892A00B805D0 /* NewDefaultPostView.xib in Resources */,
 				140CF8E51A3BBFB200134C4D /* Main.storyboard in Resources */,
-				F76258F51AF2088E003B67D4 /* star-template.png in Resources */,
-				F76258F61AF2088E003B67D4 /* star-template@2x.png in Resources */,
 				140CF9091A3E157700134C4D /* Podfile in Resources */,
-				F76258F31AF2088E003B67D4 /* star-highlighted-template.png in Resources */,
 				14383B0E1A7B1A950040FBDF /* Todo in Resources */,
 				14ABE10A1A96A59F00B805D0 /* NewTicketsPostView.xib in Resources */,
 				140CF9031A3E086800134C4D /* PostTypeTableViewCell.xib in Resources */,
-				F76258F41AF2088E003B67D4 /* star-highlighted-template@2x.png in Resources */,
 				140CF9161A3F708F00134C4D /* ChosenTypeTableViewCell.xib in Resources */,
 				14E66B981A452653008184C1 /* PostTableViewCell.xib in Resources */,
 				140CF8EA1A3BBFB200134C4D /* LaunchScreen.xib in Resources */,
@@ -751,6 +757,7 @@
 				F7715E9B1AEC05AD005DDEFF /* AllMessagesViewController.m in Sources */,
 				14ABE10D1A970F0400B805D0 /* BooksContainerTableViewController.m in Sources */,
 				1404739A1ABD267E00C0F8EF /* UserPostsTableViewController.m in Sources */,
+				F7AFBB421AF4CC0A00D3148B /* FindBuyerViewController.m in Sources */,
 				1415FD7F1A4E396B006E99A6 /* FoundItemViewController.m in Sources */,
 				142D9E691A9A483300EAA187 /* FreeContainerTableTableViewController.m in Sources */,
 				14E66B9B1A45ECFF008184C1 /* PostDetailViewController.m in Sources */,

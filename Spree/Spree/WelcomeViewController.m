@@ -31,7 +31,7 @@
         [signUpViewController setDelegate:self];
         [loginViewController setSignUpController:signUpViewController];
 
-        [self presentViewController:loginViewController animated:NO completion:^{}];
+        [self presentViewController:loginViewController animated:NO completion:NULL];
     } else {
         HomeViewController *mainFeed= [self.storyboard instantiateViewControllerWithIdentifier:@"home"];
         [self presentViewController:mainFeed animated:NO completion:NULL];

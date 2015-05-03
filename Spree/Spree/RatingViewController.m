@@ -11,7 +11,6 @@
 @interface RatingViewController ()
 @property (weak, nonatomic) IBOutlet EDStarRating *starRating;
 @property (weak, nonatomic) IBOutlet UILabel *rateUserLabel;
-@property (retain, nonatomic) UIBarButtonItem *cancelButton;
 @end
 
 @implementation RatingViewController
@@ -21,9 +20,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.navigationItem.leftBarButtonItem = self.cancelButton;
-
-    _rateUserLabel.text = @"Rate User";
+    self.title = [NSString stringWithFormat:@"Rate %@", [self.user objectForKey:@"username"]];
+    _rateUserLabel.text = [NSString stringWithFormat:@"Rate %@", [self.user objectForKey:@"username"]];
 
     self.starRating.backgroundColor  = [UIColor whiteColor];
     // Setup control using iOS7 tint Color
@@ -32,32 +30,49 @@
     _starRating.maxRating = 5;
     _starRating.delegate = self;
 //    _starRating.horizontalMargin = 12.0;
-    _starRating.editable=YES;
-    _starRating.rating= 3;
-    _starRating.displayMode=EDStarRatingDisplayFull;
-    [_starRating  setNeedsDisplay];
+    _starRating.editable = YES;
+    _starRating.rating = 3;
+    _starRating.displayMode = EDStarRatingDisplayFull;
+//    [_starRating  setNeedsDisplay];
     _starRating.tintColor = [UIColor spreeDarkBlue];
 }
 
--(UIBarButtonItem *)cancelButton {
-    if (!_cancelButton) {
-        _cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(dismissModalViewAnimated)];
-        [_cancelButton setTintColor:[UIColor whiteColor]];
-    }
-    return _cancelButton;
-}
-
--(void)dismissModalViewAnimated
-{
-    [self dismissViewControllerAnimated:YES completion:NULL];
-}
-
-
 -(void)starsSelectionChanged:(EDStarRating *)control rating:(float)rating
 {
-    NSLog(@"Rating: %.1f", rating);
+    // Have the seller rate the buyer
+    PFQuery *query = [PFQuery queryWithClassName:@"Rating"];
+    [query whereKey:@"user" equalTo:self.user];
+    [query whereKey:@"type" equalTo:self.ratingType];
+    [query getFirstObjectInBackgroundWithBlock:^(PFObject *ratingUser, NSError *error) {
+        if (ratingUser) {
+            int average = (int)[self.user objectForKey:@"average"];
+            int averageSetSize = (int)[self.user objectForKey:@"averageSetSize"];
+
+            average = ((average *averageSetSize) + (int)rating)/(averageSetSize + 1);
+
+            ratingUser[@"average"] = [NSNumber numberWithInt:average];
+            [ratingUser incrementKey:@"averageSetSize"];
+            [ratingUser saveInBackground];
+        } else {
+            PFObject *ratingUser = [PFObject objectWithClassName:@"Rating"];
+            ratingUser[@"user"] = self.user;
+            ratingUser[@"type"] = self.ratingType;
+            ratingUser[@"average"] = [NSNumber numberWithFloat:rating];
+            ratingUser[@"averageSetSize"] = [NSNumber numberWithInt:1];
+            [ratingUser saveInBackground];
+        }
+    }];
+
+    // Have the buyer rate the seller
+    PFObject *rateUserQueue = [PFObject objectWithClassName:@"RatingQueue"];
+    rateUserQueue[@"user"] = self.user;
+    rateUserQueue[@"rateUser"] = [PFUser currentUser];
+    rateUserQueue[@"type"] = @"seller";
+    [rateUserQueue saveInBackground];
+
     [[NSNotificationCenter defaultCenter] postNotificationName:@"UserRated" object:self];
-    [self dismissModalViewAnimated];
+    [self dismissViewControllerAnimated:YES completion:NULL];
+
 }
 
 @end

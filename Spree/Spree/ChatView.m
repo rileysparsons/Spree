@@ -22,6 +22,7 @@
 	BOOL initialized;
 
 	NSString *groupId;
+    PFObject *post;
 
 	NSMutableArray *users;
 	NSMutableArray *messages;
@@ -33,10 +34,11 @@
 
 @implementation ChatView
 
-- (id)initWith:(NSString *)groupId_
+- (id)initWith:(NSString *)groupId_ post:(PFObject *)post_
 {
 	self = [super init];
 	groupId = groupId_;
+    post = post_;
 	return self;
 }
 
@@ -143,6 +145,7 @@
 	PFObject *object = [PFObject objectWithClassName:PF_MESSAGE_CLASS_NAME];
 	object[PF_MESSAGE_USER] = [PFUser currentUser];
 	object[PF_MESSAGE_GROUPID] = groupId;
+    object[PF_MESSAGE_POST] = post;
 	object[PF_MESSAGE_TEXT] = text;
 
 	[object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)

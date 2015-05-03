@@ -13,6 +13,6 @@
 
 @interface ChatView : JSQMessagesViewController
 
-- (id)initWith:(NSString *)groupId_;
+- (id)initWith:(NSString *)groupId_ post:(PFObject *)post_;
 
 @end
