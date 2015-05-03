@@ -82,7 +82,7 @@
              {
                  total += [recent[PF_RECENT_COUNTER] intValue];
              }
-             UITabBarItem *item = self.tabBarController.tabBar.items[3];
+             UITabBarItem *item = self.tabBarController.tabBar.items[2];
              item.badgeValue = (total == 0) ? nil : [NSString stringWithFormat:@"%d", total];
          }
      }];
@@ -326,8 +326,6 @@
         cell.detailImage.image = [UIImage imageNamed:@"freeGraphic"];
         cell.accessoryView = [MSCellAccessory accessoryWithType: FLAT_DISCLOSURE_INDICATOR color:[UIColor spreeBabyBlue] highlightedColor:[UIColor spreeLightYellow]];
     }
-
-
     
     return cell;
 }

@@ -14,7 +14,7 @@
 #import "common.h"
 #import "ChatView.h"
 #import "recent.h"
-#import "RatingViewController.h"
+#import "FindBuyerViewController.h"
 
 
 @interface PostDetailViewController () {
@@ -381,11 +381,11 @@
 - (IBAction)purchaseButtonPressed:(id)sender {
     
     PFUser *user2 = self.poster;
-
     PFUser *user1 = [PFUser currentUser];
 
     NSString *groupId = StartPrivateChat(user1, user2);
-    [self actionChat:groupId];
+
+    [self actionChat:groupId post:self.detailPost];
 }
 
 
@@ -409,8 +409,12 @@
                 [self.detailPost saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                     if (!error){
                         [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloadTable" object:self];
-                        RatingViewController *ratingView = [self.storyboard instantiateViewControllerWithIdentifier:@"rating"];
-                        [self presentViewController:ratingView animated:YES completion:NULL];
+                        FindBuyerViewController *findBuyerView = [self.storyboard instantiateViewControllerWithIdentifier:@"findbuyer"];
+                        findBuyerView.post = self.detailPost;
+
+                        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:findBuyerView];
+
+                        [self presentViewController:navigationController animated:YES completion:NULL];
                     }
                 }];
             }
@@ -432,9 +436,9 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)actionChat:(NSString *)groupId
+- (void)actionChat:(NSString *)groupId post:(PFObject *)post_
 {
-    ChatView *chatView = [[ChatView alloc] initWith:groupId];
+    ChatView *chatView = [[ChatView alloc] initWith:groupId post:post_];
 
     self.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:chatView animated:YES];
