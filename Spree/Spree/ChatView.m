@@ -141,26 +141,39 @@
 
 - (void)sendMessage:(NSString *)text Video:(NSURL *)video Picture:(UIImage *)picture
 {
-
-	PFObject *object = [PFObject objectWithClassName:PF_MESSAGE_CLASS_NAME];
-	object[PF_MESSAGE_USER] = [PFUser currentUser];
-	object[PF_MESSAGE_GROUPID] = groupId;
-    object[PF_MESSAGE_POST] = post;
-	object[PF_MESSAGE_TEXT] = text;
-
-	[object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
-	{
-		if (error == nil)
-		{
-			[JSQSystemSoundPlayer jsq_playMessageSentSound];
-			[self loadMessages];
-		}
-	}];
-
-	SendPushNotification(groupId, text);
-	UpdateRecentCounter(groupId, 1, text);
-
-	[self finishSendingMessage];
+    
+    PFObject *object = [PFObject objectWithClassName:PF_MESSAGE_CLASS_NAME];
+    object[PF_MESSAGE_USER] = [PFUser currentUser];
+    object[PF_MESSAGE_GROUPID] = groupId;
+    
+    /*Create the regular expression filter
+     (XXX)XXX-XXXX
+     (XXX)XXXXXXX
+     XXX-XXX-XXXX
+     XXX XXX XXXX
+     XXX.XXX.XXXX
+     XXXXXXXXXX
+     */
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"1?\\s*\\W?\\s*([2-9][0-8][0-9])\\s*\\W?\\s*([2-9][0-9]{2})\\s*\\W?\\s*([0-9]{4})(\\se?x?t?(\\d*))?" options:0 error:nil];
+    
+    //Apply the regular expression to find and replace phone numbers with "***"
+    NSString *modifiedString = [regex stringByReplacingMatchesInString:text options:0 range:NSMakeRange(0, [text length]) withTemplate:@"***"];
+    
+    object[PF_MESSAGE_TEXT] = modifiedString;
+    
+    [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+     {
+         if (error == nil)
+         {
+             [JSQSystemSoundPlayer jsq_playMessageSentSound];
+             [self loadMessages];
+         }
+     }];
+    
+    SendPushNotification(groupId, text);
+    UpdateRecentCounter(groupId, 1, text);
+    
+    [self finishSendingMessage];
 }
 
 #pragma mark - JSQMessagesViewController method overrides
