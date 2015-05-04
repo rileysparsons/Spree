@@ -3060,7 +3060,7 @@
         <scene sceneID="U3B-8e-MJ2">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="S36-Pw-hGv" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Messages" id="7w9-ch-LzQ"/>
+                    <tabBarItem key="tabBarItem" title="Messages" image="chat" id="7w9-ch-LzQ"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="LxW-fR-MAf">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -3111,6 +3111,7 @@
         <image name="CategoriesTabBarIcon" width="28" height="27"/>
         <image name="Log in with Facebook button" width="1117" height="101"/>
         <image name="backgroundLogin" width="1944" height="3456"/>
+        <image name="chat" width="32" height="32"/>
         <image name="contactButton" width="205" height="124"/>
         <image name="informationImage" width="24" height="24"/>
         <image name="newPostButton" width="37" height="43"/>
