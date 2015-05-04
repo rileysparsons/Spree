@@ -46,7 +46,13 @@
 {
 	[super viewDidLoad];
 
-    self.title = @"Chat";
+    PFQuery *lookUp = [PFUser query];
+    [lookUp whereKey:@"objectId" equalTo:[[post objectForKey:@"user"] objectId]];
+    [lookUp getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+        if (object) {
+            self.title = object[@"username"];
+        }
+    }];
 
 	users = [[NSMutableArray alloc] init];
 	messages = [[NSMutableArray alloc] init];
