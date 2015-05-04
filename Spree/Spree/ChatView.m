@@ -146,7 +146,7 @@
     object[PF_MESSAGE_USER] = [PFUser currentUser];
     object[PF_MESSAGE_GROUPID] = groupId;
     
-    /*Create the regular expression filter
+    /*Create the regular expression filter for phone numbers
      (XXX)XXX-XXXX
      (XXX)XXXXXXX
      XXX-XXX-XXXX
@@ -154,12 +154,18 @@
      XXX.XXX.XXXX
      XXXXXXXXXX
      */
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"1?\\s*\\W?\\s*([2-9][0-8][0-9])\\s*\\W?\\s*([2-9][0-9]{2})\\s*\\W?\\s*([0-9]{4})(\\se?x?t?(\\d*))?" options:0 error:nil];
+    NSRegularExpression *phoneRegex = [NSRegularExpression regularExpressionWithPattern:@"1?\\s*\\W?\\s*([2-9][0-8][0-9])\\s*\\W?\\s*([2-9][0-9]{2})\\s*\\W?\\s*([0-9]{4})(\\se?x?t?(\\d*))?" options:0 error:nil];
     
     //Apply the regular expression to find and replace phone numbers with "***"
-    NSString *modifiedString = [regex stringByReplacingMatchesInString:text options:0 range:NSMakeRange(0, [text length]) withTemplate:@"***"];
+    NSString *modifiedString = [phoneRegex stringByReplacingMatchesInString:text options:0 range:NSMakeRange(0, [text length]) withTemplate:@"***"];
     
-    object[PF_MESSAGE_TEXT] = modifiedString;
+    //Create the regular expression filter for email address: name@host.ext
+    NSRegularExpression *emailRegex = [NSRegularExpression regularExpressionWithPattern:@"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?" options:0 error:nil];
+    
+    //Apply the regular expression to find and replace phone numbers with "***"
+    NSString *outString = [emailRegex stringByReplacingMatchesInString:modifiedString options:0 range:NSMakeRange(0, [modifiedString length]) withTemplate:@"***"];
+    
+    object[PF_MESSAGE_TEXT] = outString;
     
     [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
      {
