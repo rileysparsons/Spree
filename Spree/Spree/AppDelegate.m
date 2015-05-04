@@ -47,6 +47,10 @@
     [[UISegmentedControl appearance] setTintColor:[UIColor spreeBabyBlue]];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
 
+    // Clear all notifications
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber: 0];
+    [[UIApplication sharedApplication] cancelAllLocalNotifications];
+
     if (![PFUser currentUser]) {
         return YES;
     }
