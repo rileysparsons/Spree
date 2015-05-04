@@ -18,10 +18,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    [self.logInView setLogo:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"spreeIcon"]]];
+    UIImageView *logoView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"spreeIcon"]];
+    logoView.contentMode = UIViewContentModeScaleAspectFit;
+    [self.logInView setLogo:logoView];
+    
 
     [self.logInView.passwordForgottenButton setTintColor:[UIColor spreeDarkBlue]];
-    [self.logInView.signUpButton setTintColor:[UIColor spreeDarkBlue]];
+    [self.logInView.signUpButton setTintColor:[UIColor colorWithWhite:.35f alpha:1]];
 
     [self.logInView.usernameField setTextColor:[UIColor spreeDarkBlue]];
     [self.logInView.passwordField setTextColor:[UIColor spreeDarkBlue]];
