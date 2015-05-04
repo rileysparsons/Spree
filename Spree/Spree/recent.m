@@ -19,9 +19,7 @@ NSString* StartPrivateChat(PFUser *user1, PFUser *user2)
 	NSString *id2 = user2.objectId;
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	NSString *groupId = ([id1 compare:id2] < 0) ? [NSString stringWithFormat:@"%@%@", id1, id2] : [NSString stringWithFormat:@"%@%@", id2, id1];
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	CreateRecentItem(user1, groupId, user2[PF_USER_FULLNAME]);
-	CreateRecentItem(user2, groupId, user1[PF_USER_FULLNAME]);
+	
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	return groupId;
 }
