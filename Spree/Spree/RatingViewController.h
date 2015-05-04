@@ -9,6 +9,6 @@
 #import "EDStarRating.h"
 
 @interface RatingViewController : UIViewController <EDStarRatingProtocol>
-@property (weak, nonatomic) PFObject *user;
+@property (strong, nonatomic) PFObject *user;
 @property (weak, nonatomic) NSString *ratingType;
 @end

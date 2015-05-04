@@ -63,16 +63,17 @@
         }
     }];
 
-    // Have the buyer rate the seller
-    PFObject *rateUserQueue = [PFObject objectWithClassName:@"RatingQueue"];
-    rateUserQueue[@"user"] = self.user;
-    rateUserQueue[@"rateUser"] = [PFUser currentUser];
-    rateUserQueue[@"type"] = @"seller";
-    [rateUserQueue saveInBackground];
+    if ([self.ratingType isEqualToString:@"buyer"]) {
+        // Have the buyer rate the seller
+        PFObject *rateUserQueue = [PFObject objectWithClassName:@"RatingQueue"];
+        rateUserQueue[@"user"] = self.user;
+        rateUserQueue[@"rateUser"] = [PFUser currentUser];
+        rateUserQueue[@"type"] = @"seller";
+        [rateUserQueue saveInBackground];
+    }
 
     [[NSNotificationCenter defaultCenter] postNotificationName:@"UserRated" object:self];
     [self dismissViewControllerAnimated:YES completion:NULL];
-
 }
 
 @end
