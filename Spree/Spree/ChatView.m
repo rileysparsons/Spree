@@ -154,7 +154,7 @@
      XXX.XXX.XXXX
      XXXXXXXXXX
      */
-    NSRegularExpression *phoneRegex = [NSRegularExpression regularExpressionWithPattern:@"1?\\s*\\W?\\s*([2-9][0-8][0-9])\\s*\\W?\\s*([2-9][0-9]{2})\\s*\\W?\\s*([0-9]{4})(\\se?x?t?(\\d*))?" options:0 error:nil];
+    NSRegularExpression *phoneRegex = [NSRegularExpression regularExpressionWithPattern:@"1?\\s*\\W?\\s*([0-9][0-8][0-9])\\s*\\W?\\s*([0-9][0-9]{2})\\s*\\W?\\s*([0-9]{4})(\\se?x?t?(\\d*))?" options:0 error:nil];
     
     //Apply the regular expression to find and replace phone numbers with "***"
     NSString *modifiedString = [phoneRegex stringByReplacingMatchesInString:text options:0 range:NSMakeRange(0, [text length]) withTemplate:@"***"];
@@ -176,8 +176,14 @@
          }
      }];
     
-    SendPushNotification(groupId, text);
-    UpdateRecentCounter(groupId, 1, text);
+    PFUser *user1= users[0];
+    PFUser *user2= users[1];
+    
+    CreateRecentItem(user1, groupId, user2[PF_USER_FULLNAME]);
+    CreateRecentItem(user2, groupId, user1[PF_USER_FULLNAME]);
+
+    SendPushNotification(groupId, outString);
+    UpdateRecentCounter(groupId, 1, outString);
     
     [self finishSendingMessage];
 }
