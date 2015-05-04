@@ -29,7 +29,7 @@
                                                 <constraint firstAttribute="width" constant="180" id="eok-6x-FwR"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last Message" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7AR-8J-Hbf">
@@ -1105,17 +1105,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gbv-k7-cU6" customClass="EDStarRating">
-                                <rect key="frame" x="16" y="309" width="568" height="202"/>
+                                <rect key="frame" x="16" y="265" width="568" height="246"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rate user" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w3C-g2-mH4">
-                                <rect key="frame" x="183" y="221" width="234" height="67"/>
+                                <rect key="frame" x="183" y="177" width="234" height="67"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="67" id="J2a-4B-8lB"/>
                                     <constraint firstAttribute="width" constant="234" id="Nn3-az-50a"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -3119,9 +3119,9 @@
         <image name="swatchDesign" width="1240" height="302"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="WbK-fs-kfB"/>
-        <segue reference="icv-qc-pxu"/>
         <segue reference="gAI-vb-BR5"/>
+        <segue reference="icv-qc-pxu"/>
+        <segue reference="WbK-fs-kfB"/>
         <segue reference="NyK-v4-QXL"/>
     </inferredMetricsTieBreakers>
 </document>

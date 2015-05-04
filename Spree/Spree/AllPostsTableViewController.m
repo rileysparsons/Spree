@@ -72,14 +72,18 @@
     // Check if buyer needs to rate the seller
     PFQuery *query = [PFQuery queryWithClassName:@"RatingQueue"];
     [query whereKey:@"user" equalTo:[PFUser currentUser]];
+    [query includeKey:@"rateUser"];
     [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
         if (object) {
             RatingViewController *ratingView = [self.storyboard instantiateViewControllerWithIdentifier:@"rating"];
             ratingView.ratingType = @"seller";
             ratingView.user = [object objectForKey:@"rateUser"];
-            UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController: ratingView];
 
-            [self.navigationController presentViewController:navigationController animated:YES completion:nil];
+            UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:ratingView];
+            [self presentViewController:navigationController animated:YES completion:NULL];
+
+            // Delete from the queue
+            [object deleteInBackground];
         }
     }];
 }
