@@ -149,6 +149,7 @@
 {
     
     PFObject *object = [PFObject objectWithClassName:PF_MESSAGE_CLASS_NAME];
+    object[PF_MESSAGE_POST] = post;
     object[PF_MESSAGE_USER] = [PFUser currentUser];
     object[PF_MESSAGE_GROUPID] = groupId;
     

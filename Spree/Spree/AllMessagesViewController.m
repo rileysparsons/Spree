@@ -43,6 +43,8 @@
     // Remove the tab bar count when we click on the tab
     UITabBarItem *item = self.tabBarController.tabBar.items[2];
     item.badgeValue = nil;
+
+    [self loadObjects];
 }
 
 - (PFQuery *)queryForTable {
