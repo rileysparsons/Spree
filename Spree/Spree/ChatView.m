@@ -182,10 +182,18 @@
          }
      }];
     
-    PFUser *user1= users[0];
-    PFUser *user2= users[1];
+    //Set users for message by current user and post assosiated name
+    PFUser *user1= [PFUser currentUser];
+    PFUser *user2= [post objectForKey:@"user"];
+    PFQuery *lookUp = [PFUser query];
     
-    CreateRecentItem(user1, groupId, user2[PF_USER_FULLNAME]);
+    [lookUp whereKey:@"objectId" equalTo:[[post objectForKey:@"user"] objectId]];
+    [lookUp getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+        if (object) {
+            CreateRecentItem(user1, groupId, object[@"username"]);
+        }
+    }];
+
     CreateRecentItem(user2, groupId, user1[PF_USER_FULLNAME]);
 
     SendPushNotification(groupId, outString);
