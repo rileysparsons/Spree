@@ -20,8 +20,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.title = [NSString stringWithFormat:@"Rate %@", [self.user objectForKey:@"username"]];
-    _rateUserLabel.text = [NSString stringWithFormat:@"Rate %@", [self.user objectForKey:@"username"]];
+    self.title = @"Rate";
+    _rateUserLabel.text = [NSString stringWithFormat:@"Leave feedback for: %@", [self.user objectForKey:@"username"]];
 
     self.starRating.backgroundColor  = [UIColor whiteColor];
     // Setup control using iOS7 tint Color
@@ -29,12 +29,15 @@
     _starRating.starHighlightedImage = [[UIImage imageNamed:@"star-highlighted-template"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     _starRating.maxRating = 5;
     _starRating.delegate = self;
-//    _starRating.horizontalMargin = 12.0;
     _starRating.editable = YES;
     _starRating.rating = 3;
     _starRating.displayMode = EDStarRatingDisplayFull;
-//    [_starRating  setNeedsDisplay];
     _starRating.tintColor = [UIColor spreeDarkBlue];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [_starRating setNeedsDisplay];
 }
 
 -(void)starsSelectionChanged:(EDStarRating *)control rating:(float)rating
