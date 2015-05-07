@@ -714,104 +714,6 @@
             </objects>
             <point key="canvasLocation" x="0.0" y="0.0"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="xZh-eX-A8V">
-            <objects>
-                <viewController id="Q65-dq-TOf" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="afS-sV-2kt"/>
-                        <viewControllerLayoutGuide type="bottom" id="T7z-Wi-aml"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Viv-49-ZCh">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="backgroundLogin" translatesAutoresizingMaskIntoConstraints="NO" id="7WO-Hk-qcM">
-                                <rect key="frame" x="0.0" y="0.0" width="415" height="736"/>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5mC-hz-MWN">
-                                <rect key="frame" x="128" y="638" width="254" height="23"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="254" id="G2j-A2-ham"/>
-                                    <constraint firstAttribute="height" constant="23" id="SL5-2g-k78"/>
-                                    <constraint firstAttribute="height" constant="23" id="U1A-FJ-TUE"/>
-                                </constraints>
-                                <state key="normal" title="Login with Facebook" image="Log in with Facebook button">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="U1A-FJ-TUE"/>
-                                    </mask>
-                                </variation>
-                            </button>
-                            <imageView userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="swatchDesign" translatesAutoresizingMaskIntoConstraints="NO" id="QI2-Kg-ezZ">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="55"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="55" id="HqW-ED-ocG"/>
-                                </constraints>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" image="spreeLogoWhite" translatesAutoresizingMaskIntoConstraints="NO" id="r77-VN-KQD">
-                                <rect key="frame" x="16" y="207" width="175" height="238"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="238" id="7Di-Gq-TCH"/>
-                                </constraints>
-                            </imageView>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="spreeLogoWhiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="jZD-XM-S6g">
-                                <rect key="frame" x="26" y="475" width="277" height="42"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="42" id="MFf-Zv-fKZ"/>
-                                </constraints>
-                            </imageView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="r77-VN-KQD" secondAttribute="trailing" constant="217" id="0dV-iu-IC5"/>
-                            <constraint firstItem="QI2-Kg-ezZ" firstAttribute="top" secondItem="7WO-Hk-qcM" secondAttribute="top" id="7le-yL-wNa"/>
-                            <constraint firstItem="QI2-Kg-ezZ" firstAttribute="trailing" secondItem="7WO-Hk-qcM" secondAttribute="trailing" constant="-1" id="B4X-RD-IVd"/>
-                            <constraint firstItem="T7z-Wi-aml" firstAttribute="top" secondItem="5mC-hz-MWN" secondAttribute="bottom" constant="75" id="D7m-qK-cLb"/>
-                            <constraint firstItem="QI2-Kg-ezZ" firstAttribute="top" secondItem="7WO-Hk-qcM" secondAttribute="top" id="DLK-FR-YL2"/>
-                            <constraint firstItem="7WO-Hk-qcM" firstAttribute="leading" secondItem="Viv-49-ZCh" secondAttribute="leading" id="EAT-cP-Vxa"/>
-                            <constraint firstItem="r77-VN-KQD" firstAttribute="top" secondItem="QI2-Kg-ezZ" secondAttribute="bottom" constant="152" id="Eze-ts-n0f"/>
-                            <constraint firstItem="QI2-Kg-ezZ" firstAttribute="leading" secondItem="7WO-Hk-qcM" secondAttribute="leading" constant="-1" id="FLm-fX-Plk"/>
-                            <constraint firstItem="QI2-Kg-ezZ" firstAttribute="leading" secondItem="Viv-49-ZCh" secondAttribute="leadingMargin" constant="-17" id="IY0-3L-2lH"/>
-                            <constraint firstItem="7WO-Hk-qcM" firstAttribute="top" secondItem="Viv-49-ZCh" secondAttribute="top" id="Mc4-cO-Fz1"/>
-                            <constraint firstAttribute="trailing" secondItem="7WO-Hk-qcM" secondAttribute="trailing" constant="-1" id="Ofq-fd-JSn"/>
-                            <constraint firstItem="T7z-Wi-aml" firstAttribute="top" secondItem="7WO-Hk-qcM" secondAttribute="bottom" id="Pfv-Gp-M2m"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="jZD-XM-S6g" secondAttribute="trailing" constant="95" id="Q4c-3r-V7x"/>
-                            <constraint firstAttribute="trailing" secondItem="7WO-Hk-qcM" secondAttribute="trailing" constant="-1" id="Qtd-ax-ngs"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="5mC-hz-MWN" secondAttribute="trailing" constant="16" id="Tif-AM-VT2"/>
-                            <constraint firstItem="7WO-Hk-qcM" firstAttribute="top" secondItem="Viv-49-ZCh" secondAttribute="top" id="YoA-P6-Xxh"/>
-                            <constraint firstItem="jZD-XM-S6g" firstAttribute="top" secondItem="r77-VN-KQD" secondAttribute="bottom" constant="30" id="cRQ-dt-K0V"/>
-                            <constraint firstItem="QI2-Kg-ezZ" firstAttribute="leading" secondItem="Viv-49-ZCh" secondAttribute="leading" id="e5e-cD-R8P"/>
-                            <constraint firstItem="5mC-hz-MWN" firstAttribute="top" secondItem="jZD-XM-S6g" secondAttribute="bottom" constant="121" id="fcO-fh-Wo0"/>
-                            <constraint firstItem="7WO-Hk-qcM" firstAttribute="leading" secondItem="Viv-49-ZCh" secondAttribute="leadingMargin" constant="-17" id="rj7-b4-8PA"/>
-                            <constraint firstItem="7WO-Hk-qcM" firstAttribute="bottom" secondItem="T7z-Wi-aml" secondAttribute="top" id="sdx-fh-GQB"/>
-                            <constraint firstItem="jZD-XM-S6g" firstAttribute="leading" secondItem="Viv-49-ZCh" secondAttribute="leadingMargin" constant="10" id="tTm-CK-63d"/>
-                            <constraint firstItem="r77-VN-KQD" firstAttribute="leading" secondItem="Viv-49-ZCh" secondAttribute="leadingMargin" id="tam-CQ-qbG"/>
-                            <constraint firstAttribute="trailing" secondItem="QI2-Kg-ezZ" secondAttribute="trailing" id="vjI-N7-zNN"/>
-                        </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="Mc4-cO-Fz1"/>
-                                <exclude reference="Qtd-ax-ngs"/>
-                                <exclude reference="rj7-b4-8PA"/>
-                                <exclude reference="sdx-fh-GQB"/>
-                                <exclude reference="7le-yL-wNa"/>
-                                <exclude reference="B4X-RD-IVd"/>
-                                <exclude reference="FLm-fX-Plk"/>
-                                <exclude reference="IY0-3L-2lH"/>
-                                <exclude reference="0dV-iu-IC5"/>
-                                <exclude reference="Eze-ts-n0f"/>
-                            </mask>
-                        </variation>
-                    </view>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="aq4-zJ-f3c" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-751" y="623"/>
-        </scene>
         <!--Welcome View Controller-->
         <scene sceneID="cvq-xm-xy2">
             <objects>
@@ -3082,14 +2984,9 @@
     <resources>
         <image name="AllTabBarIcon" width="31" height="34"/>
         <image name="CategoriesTabBarIcon" width="28" height="27"/>
-        <image name="Log in with Facebook button" width="1117" height="101"/>
-        <image name="backgroundLogin" width="1944" height="3456"/>
         <image name="chat" width="32" height="32"/>
         <image name="contactButton" width="205" height="124"/>
         <image name="informationImage" width="24" height="24"/>
-        <image name="spreeLogoWhite" width="175" height="314"/>
-        <image name="spreeLogoWhiteLarge" width="400" height="58"/>
-        <image name="swatchDesign" width="1240" height="302"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="gAI-vb-BR5"/>
