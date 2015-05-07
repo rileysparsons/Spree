@@ -644,7 +644,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="9bA-Os-hm3">
-                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="compose" id="mAB-Zk-PPn">
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="compose" id="mAB-Zk-PPn">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="newPostButtonPressed:" destination="fQ3-fG-0Fk" id="Szu-I4-JBG"/>

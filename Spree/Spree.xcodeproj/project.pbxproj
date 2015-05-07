@@ -33,7 +33,6 @@
 		140CF92D1A3FBF0300134C4D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 140CF92C1A3FBF0300134C4D /* UIKit.framework */; };
 		140CF92F1A3FBF0D00134C4D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 140CF92E1A3FBF0D00134C4D /* Foundation.framework */; };
 		140CF9311A3FBF1600134C4D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 140CF9301A3FBF1600134C4D /* CoreGraphics.framework */; };
-		140CF9341A3FCD2D00134C4D /* PostLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 140CF9331A3FCD2D00134C4D /* PostLocationViewController.m */; };
 		1415FD7C1A4D34DC006E99A6 /* PaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1415FD7B1A4D34DC006E99A6 /* PaymentViewController.m */; };
 		142D9E691A9A483300EAA187 /* FreeContainerTableTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 142D9E681A9A483300EAA187 /* FreeContainerTableTableViewController.m */; };
 		14383B0E1A7B1A950040FBDF /* Todo in Resources */ = {isa = PBXBuildFile; fileRef = 14383B0D1A7B1A950040FBDF /* Todo */; };
@@ -141,8 +140,6 @@
 		140CF92C1A3FBF0300134C4D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		140CF92E1A3FBF0D00134C4D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		140CF9301A3FBF1600134C4D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		140CF9321A3FCD2D00134C4D /* PostLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostLocationViewController.h; sourceTree = "<group>"; };
-		140CF9331A3FCD2D00134C4D /* PostLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostLocationViewController.m; sourceTree = "<group>"; };
 		1415FD7A1A4D34DC006E99A6 /* PaymentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentViewController.h; sourceTree = "<group>"; };
 		1415FD7B1A4D34DC006E99A6 /* PaymentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentViewController.m; sourceTree = "<group>"; };
 		142D9E671A9A483300EAA187 /* FreeContainerTableTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FreeContainerTableTableViewController.h; sourceTree = "<group>"; };
@@ -381,8 +378,6 @@
 			isa = PBXGroup;
 			children = (
 				14ABE1051A9696D000B805D0 /* New Post Views */,
-				140CF9321A3FCD2D00134C4D /* PostLocationViewController.h */,
-				140CF9331A3FCD2D00134C4D /* PostLocationViewController.m */,
 				140CF91B1A3F75E200134C4D /* ChooseTypeTableViewController.h */,
 				140CF91C1A3F75E200134C4D /* ChooseTypeTableViewController.m */,
 			);
@@ -737,7 +732,6 @@
 				14E66B9B1A45ECFF008184C1 /* PostDetailViewController.m in Sources */,
 				14E66B971A452653008184C1 /* PostTableViewCell.m in Sources */,
 				1473C2EB1A8AE0DA00249CFD /* SpreePost.m in Sources */,
-				140CF9341A3FCD2D00134C4D /* PostLocationViewController.m in Sources */,
 				14D35A431A46B2F300B83B4A /* LoginViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
