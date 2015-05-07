@@ -49,7 +49,6 @@
 		14ABE1041A96893C00B805D0 /* NewDefaultPostView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14ABE1031A96893C00B805D0 /* NewDefaultPostView.m */; };
 		14ABE1081A96A59000B805D0 /* NewTicketsPostView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14ABE1071A96A59000B805D0 /* NewTicketsPostView.m */; };
 		14ABE10A1A96A59F00B805D0 /* NewTicketsPostView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14ABE1091A96A59F00B805D0 /* NewTicketsPostView.xib */; };
-		14ABE10D1A970F0400B805D0 /* BooksContainerTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14ABE10C1A970F0400B805D0 /* BooksContainerTableViewController.m */; };
 		14BE5C871AAD442A00C60C56 /* NewPostInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14BE5C861AAD442A00C60C56 /* NewPostInfoViewController.m */; };
 		14D35A431A46B2F300B83B4A /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14D35A421A46B2F300B83B4A /* LoginViewController.m */; };
 		14E66B971A452653008184C1 /* PostTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E66B951A452653008184C1 /* PostTableViewCell.m */; };
@@ -168,8 +167,6 @@
 		14ABE1061A96A59000B805D0 /* NewTicketsPostView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewTicketsPostView.h; sourceTree = "<group>"; };
 		14ABE1071A96A59000B805D0 /* NewTicketsPostView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewTicketsPostView.m; sourceTree = "<group>"; };
 		14ABE1091A96A59F00B805D0 /* NewTicketsPostView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewTicketsPostView.xib; sourceTree = "<group>"; };
-		14ABE10B1A970F0400B805D0 /* BooksContainerTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BooksContainerTableViewController.h; sourceTree = "<group>"; };
-		14ABE10C1A970F0400B805D0 /* BooksContainerTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BooksContainerTableViewController.m; sourceTree = "<group>"; };
 		14BE5C851AAD442A00C60C56 /* NewPostInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewPostInfoViewController.h; sourceTree = "<group>"; };
 		14BE5C861AAD442A00C60C56 /* NewPostInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewPostInfoViewController.m; sourceTree = "<group>"; };
 		14D35A411A46B2F300B83B4A /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
@@ -361,8 +358,6 @@
 				14149EED1A4A1F870077BE56 /* New Post */,
 				140CF8E01A3BBFB200134C4D /* SecondViewController.h */,
 				140CF8E11A3BBFB200134C4D /* SecondViewController.m */,
-				14ABE10B1A970F0400B805D0 /* BooksContainerTableViewController.h */,
-				14ABE10C1A970F0400B805D0 /* BooksContainerTableViewController.m */,
 				14EFDAE51A89EC4F007510CC /* TextViewViewController.h */,
 				14EFDAE61A89EC4F007510CC /* TextViewViewController.m */,
 			);
@@ -736,7 +731,6 @@
 				F70FACF51AEB501700057E6E /* converter.m in Sources */,
 				14ABE1041A96893C00B805D0 /* NewDefaultPostView.m in Sources */,
 				F7715E9B1AEC05AD005DDEFF /* AllMessagesViewController.m in Sources */,
-				14ABE10D1A970F0400B805D0 /* BooksContainerTableViewController.m in Sources */,
 				1404739A1ABD267E00C0F8EF /* UserPostsTableViewController.m in Sources */,
 				F7AFBB421AF4CC0A00D3148B /* FindBuyerViewController.m in Sources */,
 				142D9E691A9A483300EAA187 /* FreeContainerTableTableViewController.m in Sources */,
