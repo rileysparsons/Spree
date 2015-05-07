@@ -20,7 +20,6 @@
 }
 @property NSArray *firstSectionArray;
 @property NSArray *secondSectionArray;
-@property (retain, nonatomic) UIBarButtonItem *logoutButton;
 @end
 
 @implementation SecondViewController
@@ -56,19 +55,9 @@
     
     [self setUpBackgroundGradient];
 
-    self.navigationItem.rightBarButtonItems = @[self.logoutButton];
-
     // Add notification center for updating the posts cell for requests
     
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newPurchaseRequest) name:@"NewRequest" object:nil];
-}
-
--(UIBarButtonItem *)logoutButton {
-    if (!_logoutButton) {
-        _logoutButton = [[UIBarButtonItem alloc] initWithTitle:@"Log Out" style:UIBarButtonItemStylePlain target:self action:@selector(promptLogout)];
-        [_logoutButton setTintColor:[UIColor whiteColor]];
-    }
-    return _logoutButton;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -115,14 +104,6 @@
     white.backgroundColor = [[UIColor whiteColor] CGColor];
     white.opacity = 0.4f;
     [self.view.layer insertSublayer:white atIndex:1];
-}
-
-- (void)promptLogout {
-
-    UIAlertView *confirmLogOut = [[UIAlertView alloc] initWithTitle:@"Confirm Log Out" message:@"Are you sure you want to log out of Spree?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
-    confirmLogOut.tag = 0;
-    [confirmLogOut show];
-
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
@@ -212,7 +193,11 @@
             [self performSegueWithIdentifier:@"showTerms" sender:self];
         }
     } else if (indexPath.section == 0){
-        if (indexPath.row == 1){
+        if (indexPath.row == 0){
+            UIAlertView *confirmLogOut = [[UIAlertView alloc] initWithTitle:@"Confirm Log Out" message:@"Are you sure you want to log out of Spree?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
+            confirmLogOut.tag = 0;
+            [confirmLogOut show];
+        } else if (indexPath.row == 1){
             [self performSegueWithIdentifier:@"ShowUserPosts" sender:self];
         }
     }
