@@ -51,6 +51,8 @@
     PFQuery *query = [PFQuery queryWithClassName:PF_RECENT_CLASS_NAME];
     [query whereKey:PF_RECENT_USER equalTo:[PFUser currentUser]];
     [query includeKey:PF_RECENT_LASTUSER];
+    [query includeKey:PF_RECENT_POST];
+    [query includeKey:PF_RECENT_TOUSER];
     [query orderByDescending:PF_RECENT_UPDATEDACTION];
     return query;
 }
@@ -83,7 +85,7 @@
     int counter = [object[PF_RECENT_COUNTER] intValue];
 
     // Configure Cell
-    [cell.userLabel setText:[object[PF_RECENT_LASTUSER] objectForKey:@"username"]];
+    [cell.userLabel setText:[object[PF_RECENT_TOUSER] objectForKey:PF_USER_USERNAME]];
     [cell.lastMessageLabel setText:object[PF_RECENT_LASTMESSAGE]];
     [cell.timeLabel setText:TimeElapsed(seconds)];
     [cell.messageCountLabel setText:[NSString stringWithFormat:@"%d new", counter]];
@@ -115,7 +117,8 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
     PFObject *recent = [self.objects objectAtIndex:indexPath.row];
-    ChatView *chatView = [[ChatView alloc] initWith:recent[PF_RECENT_GROUPID] post:recent];
+
+    ChatView *chatView = [[ChatView alloc] initWith:recent[PF_RECENT_GROUPID] post:[recent objectForKey:PF_MESSAGE_POST]];
 
     self.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:chatView animated:YES];

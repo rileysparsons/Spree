@@ -41,9 +41,11 @@
 #define		PF_RECENT_GROUPID					@"groupId"				//	String
 #define		PF_RECENT_DESCRIPTION				@"description"			//	String
 #define		PF_RECENT_LASTUSER					@"lastUser"				//	Pointer to User Class
+#define		PF_RECENT_TOUSER					@"toUser"				//	Pointer to User Class
 #define		PF_RECENT_LASTMESSAGE				@"lastMessage"			//	String
 #define		PF_RECENT_COUNTER					@"counter"				//	Number
 #define		PF_RECENT_UPDATEDACTION				@"updatedAction"		//	Date
+#define		PF_RECENT_POST                      @"post"                 //	Pointer to Post Class
 
 #define		NOTIFICATION_APP_STARTED			@"NCAppStarted"
 #define		NOTIFICATION_USER_LOGGED_IN			@"NCUserLoggedIn"

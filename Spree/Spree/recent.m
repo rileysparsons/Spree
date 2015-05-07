@@ -25,7 +25,7 @@ NSString* StartPrivateChat(PFUser *user1, PFUser *user2)
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-void CreateRecentItem(PFUser *user, NSString *groupId, NSString *description)
+void CreateRecentItem(PFUser *user, NSString *groupId, NSString *description, PFUser *toUser, PFObject *post)
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	PFQuery *query = [PFQuery queryWithClassName:PF_RECENT_CLASS_NAME];
@@ -39,7 +39,9 @@ void CreateRecentItem(PFUser *user, NSString *groupId, NSString *description)
 			{
 				PFObject *recent = [PFObject objectWithClassName:PF_RECENT_CLASS_NAME];
 				recent[PF_RECENT_USER] = user;
+                recent[@"toUser"] = toUser;
 				recent[PF_RECENT_GROUPID] = groupId;
+                recent[PF_MESSAGE_POST] = post;
 				recent[PF_RECENT_DESCRIPTION] = description;
 				recent[PF_RECENT_LASTUSER] = [PFUser currentUser];
 				recent[PF_RECENT_LASTMESSAGE] = @"";

@@ -46,7 +46,10 @@ void SendPushNotification(NSString *groupId, NSString *text)
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	PFUser *user = [PFUser currentUser];
-	NSString *message = [NSString stringWithFormat:@"%@: %@", user[PF_USER_FULLNAME], text];
+    NSDictionary *data = @{
+                           @"alert" : [NSString stringWithFormat:@"%@: %@", user[PF_USER_FULLNAME], text],
+                           @"badge" : @"Increment"
+                           };
 
 	PFQuery *query = [PFQuery queryWithClassName:PF_RECENT_CLASS_NAME];
 	[query whereKey:PF_RECENT_GROUPID equalTo:groupId];
@@ -59,7 +62,7 @@ void SendPushNotification(NSString *groupId, NSString *text)
 
 	PFPush *push = [[PFPush alloc] init];
 	[push setQuery:queryInstallation];
-	[push setMessage:message];
+    [push setData:data];
 	[push sendPushInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
 	{
 		if (error != nil)

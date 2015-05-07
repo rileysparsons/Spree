@@ -147,7 +147,7 @@
 
 - (void)sendMessage:(NSString *)text Video:(NSURL *)video Picture:(UIImage *)picture
 {
-    
+
     PFObject *object = [PFObject objectWithClassName:PF_MESSAGE_CLASS_NAME];
     object[PF_MESSAGE_POST] = post;
     object[PF_MESSAGE_USER] = [PFUser currentUser];
@@ -191,11 +191,11 @@
     [lookUp whereKey:@"objectId" equalTo:[[post objectForKey:@"user"] objectId]];
     [lookUp getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
         if (object) {
-            CreateRecentItem(user1, groupId, object[@"username"]);
+            CreateRecentItem(user1, groupId, object[@"username"], user2, post);
         }
     }];
 
-    CreateRecentItem(user2, groupId, user1[PF_USER_FULLNAME]);
+    CreateRecentItem(user2, groupId, user1[PF_USER_FULLNAME], user1, post);
 
     SendPushNotification(groupId, outString);
     UpdateRecentCounter(groupId, 1, outString);
