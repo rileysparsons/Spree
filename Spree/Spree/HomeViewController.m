@@ -68,7 +68,6 @@
         // Or show coach marks after a second delay
         [coachMarksView performSelector:@selector(start) withObject:nil afterDelay:1.0f];
     }
-
     PFQuery *query = [PFQuery queryWithClassName:PF_RECENT_CLASS_NAME];
     [query whereKey:PF_RECENT_USER equalTo:[PFUser currentUser]];
     [query includeKey:PF_RECENT_LASTUSER];
