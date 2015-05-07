@@ -39,7 +39,7 @@ void CreateRecentItem(PFUser *user, NSString *groupId, NSString *description, PF
 			{
 				PFObject *recent = [PFObject objectWithClassName:PF_RECENT_CLASS_NAME];
 				recent[PF_RECENT_USER] = user;
-                recent[@"toUser"] = toUser;
+                recent[PF_RECENT_TOUSER] = toUser;
 				recent[PF_RECENT_GROUPID] = groupId;
                 recent[PF_MESSAGE_POST] = post;
 				recent[PF_RECENT_DESCRIPTION] = description;
