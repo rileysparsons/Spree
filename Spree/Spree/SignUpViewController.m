@@ -15,7 +15,7 @@
     [super viewDidLoad];
     
     
-    UIImageView *logoView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"spreeIcon"]];
+    UIImageView *logoView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"spreeLogoWithName"]];
     logoView.contentMode = UIViewContentModeScaleAspectFit;
 
     [self.signUpView setLogo:logoView];
@@ -36,6 +36,13 @@
 -(void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
     [self.signUpView.logo setFrame:CGRectMake(0, 30, self.signUpView.bounds.size.width, 125)];
+    
+    [self.signUpView.usernameField setFrame:CGRectMake(35.0f, 30+150+30, 250.0f, 50.0f)];
+    [self.signUpView.passwordField setFrame:CGRectMake(35.0f, 30+150+30+50, 250.0f, 50.0f)];
+    [self.signUpView.emailField setFrame:CGRectMake(35.0f, 30+150+30+50+50, 250.0f, 50.0f)];
+    [self.signUpView.signUpButton setFrame:CGRectMake(35.0f, 30+150+20+70+50+60+60, 250.0f, 40.0f)];
+    
+
     
 }
 
