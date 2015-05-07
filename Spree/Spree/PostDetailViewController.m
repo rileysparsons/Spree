@@ -438,7 +438,7 @@
 
 - (void)actionChat:(NSString *)groupId post:(PFObject *)post_
 {
-    ChatView *chatView = [[ChatView alloc] initWith:groupId post:post_];
+    ChatView *chatView = [[ChatView alloc] initWith:groupId post:post_ title:_poster[@"username"]];
 
     self.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:chatView animated:YES];

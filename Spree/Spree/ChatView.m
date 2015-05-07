@@ -22,6 +22,7 @@
 	BOOL initialized;
 
 	NSString *groupId;
+    NSString *title;
     PFObject *post;
 
 	NSMutableArray *users;
@@ -34,25 +35,20 @@
 
 @implementation ChatView
 
-- (id)initWith:(NSString *)groupId_ post:(PFObject *)post_
+- (id)initWith:(NSString *)groupId_ post:(PFObject *)post_ title:(NSString *)title_
 {
-	self = [super init];
-	groupId = groupId_;
+    self = [super init];
+    groupId = groupId_;
     post = post_;
-	return self;
+    title = title_;
+    return self;
 }
 
 - (void)viewDidLoad
 {
 	[super viewDidLoad];
 
-    PFQuery *lookUp = [PFUser query];
-    [lookUp whereKey:@"objectId" equalTo:[[post objectForKey:@"user"] objectId]];
-    [lookUp getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-        if (object) {
-            self.title = object[@"username"];
-        }
-    }];
+    self.title = title;
 
 	users = [[NSMutableArray alloc] init];
 	messages = [[NSMutableArray alloc] init];

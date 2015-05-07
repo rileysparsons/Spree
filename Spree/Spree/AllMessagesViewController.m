@@ -118,7 +118,7 @@
 
     PFObject *recent = [self.objects objectAtIndex:indexPath.row];
 
-    ChatView *chatView = [[ChatView alloc] initWith:recent[PF_RECENT_GROUPID] post:[recent objectForKey:PF_MESSAGE_POST]];
+    ChatView *chatView = [[ChatView alloc] initWith:recent[PF_RECENT_GROUPID] post:[recent objectForKey:PF_MESSAGE_POST] title:[recent[PF_RECENT_TOUSER] objectForKey:PF_USER_USERNAME]];
 
     self.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:chatView animated:YES];
