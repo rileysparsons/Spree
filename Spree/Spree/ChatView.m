@@ -20,6 +20,8 @@
 	NSTimer *timer;
 	BOOL isLoading;
 	BOOL initialized;
+    
+    BOOL userVerifiedToSendMessages;
 
 	NSString *groupId;
     NSString *title;
@@ -54,9 +56,16 @@
 	messages = [[NSMutableArray alloc] init];
 
 	PFUser *user = [PFUser currentUser];
+    [user fetchInBackground];
 	self.senderId = user.objectId;
     self.senderDisplayName = user[@"username"];
-
+    
+    if ([[user objectForKey:@"emailVerified"] boolValue]){
+        userVerifiedToSendMessages = YES;
+    } else {
+        userVerifiedToSendMessages = NO;
+    }
+    
 	JSQMessagesBubbleImageFactory *bubbleFactory = [[JSQMessagesBubbleImageFactory alloc] init];
 	bubbleImageOutgoing = [bubbleFactory outgoingMessagesBubbleImageWithColor:[UIColor spreeBabyBlue]];
 	bubbleImageIncoming = [bubbleFactory incomingMessagesBubbleImageWithColor:COLOR_INCOMING];
@@ -202,7 +211,12 @@
 #pragma mark - JSQMessagesViewController method overrides
 - (void)didPressSendButton:(UIButton *)button withMessageText:(NSString *)text senderId:(NSString *)senderId senderDisplayName:(NSString *)senderDisplayName date:(NSDate *)date
 {
-	[self sendMessage:text Video:nil Picture:nil];
+    if (userVerifiedToSendMessages == YES){
+        [self sendMessage:text Video:nil Picture:nil];
+    } else {
+        UIAlertView *userNotVerified = [[UIAlertView alloc] initWithTitle:@"Please verify email" message:@"You must verify your email to send messages on Spree" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [userNotVerified show];
+    }
 }
 
 #pragma mark - JSQMessages CollectionView DataSource
