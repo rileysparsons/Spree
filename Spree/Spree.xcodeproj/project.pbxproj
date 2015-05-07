@@ -35,7 +35,6 @@
 		140CF9311A3FBF1600134C4D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 140CF9301A3FBF1600134C4D /* CoreGraphics.framework */; };
 		140CF9341A3FCD2D00134C4D /* PostLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 140CF9331A3FCD2D00134C4D /* PostLocationViewController.m */; };
 		1415FD7C1A4D34DC006E99A6 /* PaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1415FD7B1A4D34DC006E99A6 /* PaymentViewController.m */; };
-		1415FD7F1A4E396B006E99A6 /* FoundItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1415FD7E1A4E396B006E99A6 /* FoundItemViewController.m */; };
 		142D9E691A9A483300EAA187 /* FreeContainerTableTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 142D9E681A9A483300EAA187 /* FreeContainerTableTableViewController.m */; };
 		14383B0E1A7B1A950040FBDF /* Todo in Resources */ = {isa = PBXBuildFile; fileRef = 14383B0D1A7B1A950040FBDF /* Todo */; };
 		144FBE641AACEB05008BB4DA /* NewPostTypeSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 144FBE631AACEB05008BB4DA /* NewPostTypeSelectionViewController.m */; };
@@ -52,7 +51,6 @@
 		14ABE10A1A96A59F00B805D0 /* NewTicketsPostView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14ABE1091A96A59F00B805D0 /* NewTicketsPostView.xib */; };
 		14ABE10D1A970F0400B805D0 /* BooksContainerTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14ABE10C1A970F0400B805D0 /* BooksContainerTableViewController.m */; };
 		14BE5C871AAD442A00C60C56 /* NewPostInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14BE5C861AAD442A00C60C56 /* NewPostInfoViewController.m */; };
-		14D35A401A4696E500B83B4A /* LostAndFoundTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14D35A3F1A4696E500B83B4A /* LostAndFoundTableViewController.m */; };
 		14D35A431A46B2F300B83B4A /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14D35A421A46B2F300B83B4A /* LoginViewController.m */; };
 		14E66B971A452653008184C1 /* PostTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E66B951A452653008184C1 /* PostTableViewCell.m */; };
 		14E66B981A452653008184C1 /* PostTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14E66B961A452653008184C1 /* PostTableViewCell.xib */; };
@@ -148,8 +146,6 @@
 		140CF9331A3FCD2D00134C4D /* PostLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostLocationViewController.m; sourceTree = "<group>"; };
 		1415FD7A1A4D34DC006E99A6 /* PaymentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentViewController.h; sourceTree = "<group>"; };
 		1415FD7B1A4D34DC006E99A6 /* PaymentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentViewController.m; sourceTree = "<group>"; };
-		1415FD7D1A4E396B006E99A6 /* FoundItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoundItemViewController.h; sourceTree = "<group>"; };
-		1415FD7E1A4E396B006E99A6 /* FoundItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoundItemViewController.m; sourceTree = "<group>"; };
 		142D9E671A9A483300EAA187 /* FreeContainerTableTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FreeContainerTableTableViewController.h; sourceTree = "<group>"; };
 		142D9E681A9A483300EAA187 /* FreeContainerTableTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FreeContainerTableTableViewController.m; sourceTree = "<group>"; };
 		14383B0D1A7B1A950040FBDF /* Todo */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Todo; path = Spree/Todo; sourceTree = "<group>"; };
@@ -176,8 +172,6 @@
 		14ABE10C1A970F0400B805D0 /* BooksContainerTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BooksContainerTableViewController.m; sourceTree = "<group>"; };
 		14BE5C851AAD442A00C60C56 /* NewPostInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewPostInfoViewController.h; sourceTree = "<group>"; };
 		14BE5C861AAD442A00C60C56 /* NewPostInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewPostInfoViewController.m; sourceTree = "<group>"; };
-		14D35A3E1A4696E500B83B4A /* LostAndFoundTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LostAndFoundTableViewController.h; sourceTree = "<group>"; };
-		14D35A3F1A4696E500B83B4A /* LostAndFoundTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LostAndFoundTableViewController.m; sourceTree = "<group>"; };
 		14D35A411A46B2F300B83B4A /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		14D35A421A46B2F300B83B4A /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		14E66B941A452653008184C1 /* PostTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostTableViewCell.h; sourceTree = "<group>"; };
@@ -365,7 +359,6 @@
 				14149EEC1A4A1F5B0077BE56 /* Log In/ Sign up */,
 				F70FACF21AEB4FF200057E6E /* Messaging */,
 				14149EED1A4A1F870077BE56 /* New Post */,
-				142D9E6B1A9A68DC00EAA187 /* Defunct */,
 				140CF8E01A3BBFB200134C4D /* SecondViewController.h */,
 				140CF8E11A3BBFB200134C4D /* SecondViewController.m */,
 				14ABE10B1A970F0400B805D0 /* BooksContainerTableViewController.h */,
@@ -427,17 +420,6 @@
 				14E66B9D1A464F03008184C1 /* ContainerTableViewController.m */,
 			);
 			name = "Container Views";
-			sourceTree = "<group>";
-		};
-		142D9E6B1A9A68DC00EAA187 /* Defunct */ = {
-			isa = PBXGroup;
-			children = (
-				1415FD7D1A4E396B006E99A6 /* FoundItemViewController.h */,
-				1415FD7E1A4E396B006E99A6 /* FoundItemViewController.m */,
-				14D35A3E1A4696E500B83B4A /* LostAndFoundTableViewController.h */,
-				14D35A3F1A4696E500B83B4A /* LostAndFoundTableViewController.m */,
-			);
-			name = Defunct;
 			sourceTree = "<group>";
 		};
 		14ABE1051A9696D000B805D0 /* New Post Views */ = {
@@ -752,13 +734,11 @@
 				F78600BE1AEB422100402B1F /* recent.m in Sources */,
 				14EFDAE71A89EC4F007510CC /* TextViewViewController.m in Sources */,
 				F70FACF51AEB501700057E6E /* converter.m in Sources */,
-				14D35A401A4696E500B83B4A /* LostAndFoundTableViewController.m in Sources */,
 				14ABE1041A96893C00B805D0 /* NewDefaultPostView.m in Sources */,
 				F7715E9B1AEC05AD005DDEFF /* AllMessagesViewController.m in Sources */,
 				14ABE10D1A970F0400B805D0 /* BooksContainerTableViewController.m in Sources */,
 				1404739A1ABD267E00C0F8EF /* UserPostsTableViewController.m in Sources */,
 				F7AFBB421AF4CC0A00D3148B /* FindBuyerViewController.m in Sources */,
-				1415FD7F1A4E396B006E99A6 /* FoundItemViewController.m in Sources */,
 				142D9E691A9A483300EAA187 /* FreeContainerTableTableViewController.m in Sources */,
 				14E66B9B1A45ECFF008184C1 /* PostDetailViewController.m in Sources */,
 				14E66B971A452653008184C1 /* PostTableViewCell.m in Sources */,
