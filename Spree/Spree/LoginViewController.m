@@ -19,6 +19,7 @@
     [super viewDidLoad];
 
     [self.logInView setLogo:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"spreeIcon"]]];
+    
 
     [self.logInView.passwordForgottenButton setTintColor:[UIColor spreeDarkBlue]];
     [self.logInView.signUpButton setTintColor:[UIColor spreeDarkBlue]];

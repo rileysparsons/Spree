@@ -15,6 +15,7 @@
 @interface NewPostInfoViewController () {
     NSInteger selectedPhotoButton;
     NSMutableDictionary *photoDictionary;
+    PFUser *currentUser;
 }
 
 @end
@@ -24,6 +25,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [[PFUser currentUser]fetchInBackground];
+    currentUser = [PFUser currentUser];
     // Do any additional setup after loading the view.
     self.firstAddPhotoButton.titleLabel.adjustsFontSizeToFitWidth = YES;
     self.secondAddPhotoButton.titleLabel.adjustsFontSizeToFitWidth = YES;
@@ -510,51 +513,59 @@
 }
 
 -(BOOL)checkForRequiredFields{
-    if ([self.post.type isEqualToString: @"Free"]){
-        if (self.freePostView.descriptionField.text == nil || [self.freePostView.descriptionField.text isEqualToString:@"Add description..."] || [self.freePostView.descriptionField.text isEqualToString:@""]){
-            return NO;
-        } else if (self.freePostView.titleField.text == nil || [self.freePostView.titleField.text isEqualToString:@"Add title..."] || [self.freePostView.titleField.text isEqualToString:@""] ) {
-            return NO;
-        } else {
-            return YES;
+    
+    NSLog(@"%@", currentUser);
+    if ([[currentUser objectForKey:@"emailVerified"] boolValue]){
+        if ([self.post.type isEqualToString: @"Free"]){
+            if (self.freePostView.descriptionField.text == nil || [self.freePostView.descriptionField.text isEqualToString:@"Add description..."] || [self.freePostView.descriptionField.text isEqualToString:@""]){
+                return NO;
+            } else if (self.freePostView.titleField.text == nil || [self.freePostView.titleField.text isEqualToString:@"Add title..."] || [self.freePostView.titleField.text isEqualToString:@""] ) {
+                return NO;
+            } else {
+                return YES;
+            }
+        } else if ([self.post.type isEqualToString: @"Books"]){
+            if (self.booksPostView.descriptionField.text == nil || [self.booksPostView.descriptionField.text isEqualToString:@"Add description..."] || [self.booksPostView.descriptionField.text isEqualToString:@""]){
+                return NO;
+            } else if (self.booksPostView.titleField.text == nil || [self.booksPostView.titleField.text isEqualToString:@"Add title..."] || [self.booksPostView.titleField.text isEqualToString:@""] ) {
+                return NO;
+            } else if (self.booksPostView.classField.text == nil || [self.booksPostView.classField.text isEqualToString:@"Add title..."] || [self.booksPostView.classField.text isEqualToString:@""] ) {
+                return NO;
+            } else if (self.booksPostView.priceField.text == nil || [self.booksPostView.priceField.text isEqualToString:@"$"] || [self.booksPostView.classField.text isEqualToString:@""] ) {
+                return NO;
+            } else {
+                return YES;
+            }
+        } else if ([self.post.type isEqualToString: @"Electronics"]){
+            if (self.defaultPostView.descriptionField.text == nil || [self.defaultPostView.descriptionField.text isEqualToString:@"Add description..."] || [self.defaultPostView.descriptionField.text isEqualToString:@""]){
+                return NO;
+            } else if (self.defaultPostView.titleField.text == nil || [self.defaultPostView.titleField.text isEqualToString:@"Add title..."] || [self.defaultPostView.titleField.text isEqualToString:@""] ) {
+                return NO;
+            } else if (self.defaultPostView.priceField.text == nil || [self.defaultPostView.priceField.text isEqualToString:@"$" ] || [self.defaultPostView.priceField.text isEqualToString:@""]){
+                return NO;
+            } else {
+                return YES;
+            }
+        } else if ([self.post.type isEqualToString: @"Tickets"]){
+            // Required for free: description, title, price, event date
+            if (self.ticketsPostView.descriptionField.text == nil || [self.ticketsPostView.descriptionField.text isEqualToString:@"Add description..."] || [self.ticketsPostView.descriptionField.text isEqualToString:@""]){
+                return NO;
+            } else if (self.ticketsPostView.titleField.text == nil || [self.ticketsPostView.titleField.text isEqualToString:@"Add title..."] || [self.ticketsPostView.titleField.text isEqualToString:@""] ) {
+                return NO;
+            } else if (self.ticketsPostView.priceField.text == nil || [self.ticketsPostView.priceField.text isEqualToString:@"$" ] || [self.ticketsPostView.priceField.text isEqualToString:@""]){
+                return NO;
+            }else if (self.ticketsPostView.dateField.text == nil || [self.ticketsPostView.dateField.text isEqualToString:@"" ] || [self.ticketsPostView.dateField.text isEqualToString:@""]){
+                return NO;
+            } else {
+                return YES;
+            }
         }
-    } else if ([self.post.type isEqualToString: @"Books"]){
-        if (self.booksPostView.descriptionField.text == nil || [self.booksPostView.descriptionField.text isEqualToString:@"Add description..."] || [self.booksPostView.descriptionField.text isEqualToString:@""]){
-            return NO;
-        } else if (self.booksPostView.titleField.text == nil || [self.booksPostView.titleField.text isEqualToString:@"Add title..."] || [self.booksPostView.titleField.text isEqualToString:@""] ) {
-            return NO;
-        } else if (self.booksPostView.classField.text == nil || [self.booksPostView.classField.text isEqualToString:@"Add title..."] || [self.booksPostView.classField.text isEqualToString:@""] ) {
-            return NO;
-        } else if (self.booksPostView.priceField.text == nil || [self.booksPostView.priceField.text isEqualToString:@"$"] || [self.booksPostView.classField.text isEqualToString:@""] ) {
-            return NO;
-        } else {
-            return YES;
-        }
-    } else if ([self.post.type isEqualToString: @"Electronics"]){
-        if (self.defaultPostView.descriptionField.text == nil || [self.defaultPostView.descriptionField.text isEqualToString:@"Add description..."] || [self.defaultPostView.descriptionField.text isEqualToString:@""]){
-            return NO;
-        } else if (self.defaultPostView.titleField.text == nil || [self.defaultPostView.titleField.text isEqualToString:@"Add title..."] || [self.defaultPostView.titleField.text isEqualToString:@""] ) {
-            return NO;
-        } else if (self.defaultPostView.priceField.text == nil || [self.defaultPostView.priceField.text isEqualToString:@"$" ] || [self.defaultPostView.priceField.text isEqualToString:@""]){
-            return NO;
-        } else {
-            return YES;
-        }
-    } else if ([self.post.type isEqualToString: @"Tickets"]){
-        // Required for free: description, title, price, event date
-        if (self.ticketsPostView.descriptionField.text == nil || [self.ticketsPostView.descriptionField.text isEqualToString:@"Add description..."] || [self.ticketsPostView.descriptionField.text isEqualToString:@""]){
-            return NO;
-        } else if (self.ticketsPostView.titleField.text == nil || [self.ticketsPostView.titleField.text isEqualToString:@"Add title..."] || [self.ticketsPostView.titleField.text isEqualToString:@""] ) {
-            return NO;
-        } else if (self.ticketsPostView.priceField.text == nil || [self.ticketsPostView.priceField.text isEqualToString:@"$" ] || [self.ticketsPostView.priceField.text isEqualToString:@""]){
-            return NO;
-        }else if (self.ticketsPostView.dateField.text == nil || [self.ticketsPostView.dateField.text isEqualToString:@"" ] || [self.ticketsPostView.dateField.text isEqualToString:@""]){
-            return NO;
-        } else {
-            return YES;
-        }
+    } else {
+        UIAlertView *notVerifiedAlert = [[UIAlertView alloc] initWithTitle:@"Please verify email"
+                                                                   message:@"You are not verified as a Santa Clara University student. Please check your @scu.edu inbox for a verification email" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [notVerifiedAlert show];
+        return NO;
     }
-
     return NO;
 }
 
