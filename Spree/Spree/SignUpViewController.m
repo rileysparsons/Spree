@@ -26,6 +26,7 @@
     [self.signUpView.usernameField setTextColor:[UIColor spreeDarkBlue]];
     [self.signUpView.passwordField setTextColor:[UIColor spreeDarkBlue]];
     [self.signUpView.emailField setTextColor:[UIColor spreeDarkBlue]];
+    [self.signUpView.emailField setPlaceholder:@"Email (.edu address recommended)"];
     
     [self.signUpView.signUpButton setBackgroundImage:nil forState:UIControlStateNormal];
     [self.signUpView.signUpButton setBackgroundImage:nil forState:UIControlStateHighlighted];
@@ -41,11 +42,7 @@
     [self.signUpView.passwordField setFrame:CGRectMake(35.0f, 30+150+30+50, 250.0f, 50.0f)];
     [self.signUpView.emailField setFrame:CGRectMake(35.0f, 30+150+30+50+50, 250.0f, 50.0f)];
     [self.signUpView.signUpButton setFrame:CGRectMake(35.0f, 30+150+20+70+50+60+60, 250.0f, 40.0f)];
-    
-
-    
 }
-
 
 
 @end

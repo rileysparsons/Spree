@@ -2,6 +2,6 @@
 //  SignUpViewController.h
 //
 
-@interface SignUpViewController : PFSignUpViewController
+@interface SignUpViewController : PFSignUpViewController <UITextFieldDelegate>
 
 @end
