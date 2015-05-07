@@ -10,7 +10,6 @@
 #import "HomeViewController.h"
 #import "LoginViewController.h"
 #import "PostDetailViewController.h"
-#import "UserPostTableViewController.h"
 #import "SpreePost.h"
 
 #import <Accelerate/Accelerate.h>
