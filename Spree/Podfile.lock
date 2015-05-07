@@ -16,8 +16,7 @@ PODS:
   - WSCoachMarksView (0.2)
 
 DEPENDENCIES:
-  - JSQMessagesViewController (from `https://github.com/jessesquires/JSQMessagesViewController.git`,
-    branch `develop`)
+  - JSQMessagesViewController (from `https://github.com/jessesquires/JSQMessagesViewController.git`, branch `develop`)
   - MSCellAccessory
   - Parse
   - ParseUI
@@ -42,4 +41,4 @@ SPEC CHECKSUMS:
   ParseUI: 1a68e9cebc3bd458eed9605ce7b33d7cc082f473
   WSCoachMarksView: d1653c058c8289a300ddf28af9dd49eb659c9c42
 
-COCOAPODS: 0.36.4
+COCOAPODS: 0.35.0
