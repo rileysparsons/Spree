@@ -225,6 +225,7 @@
     [query whereKey:@"expired" equalTo:[NSNumber numberWithBool:NO]];
     [query whereKey:@"sold" equalTo:[NSNumber numberWithBool:NO]];
     [query orderByDescending:@"updatedAt"];
+    [query whereKey:@"network" equalTo:[[PFUser currentUser] objectForKey:@"network"]];
     [query includeKey:@"objectId"];
     
     return query;

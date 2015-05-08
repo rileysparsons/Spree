@@ -86,6 +86,7 @@
     [query whereKey:@"type" equalTo:self.postType];
     [query whereKey:@"expired" equalTo:[NSNumber numberWithBool:NO]];
     [query whereKey:@"sold" equalTo:[NSNumber numberWithBool:NO]];
+    [query whereKey:@"network" equalTo:[[PFUser currentUser] objectForKey:@"network"]];
     [query orderByDescending:@"updatedAt"];
     
     return query;

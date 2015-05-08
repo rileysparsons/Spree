@@ -390,6 +390,8 @@
             self.post.user = [PFUser currentUser];
             self.post.expired = NO;
             self.post.sold = NO;
+            self.post.network = [[PFUser currentUser] objectForKey:@"network"];
+            
             NSMutableArray *fileArray = [[NSMutableArray alloc] initWithCapacity:3];
             for (id key in photoDictionary) {
                 PFFile *imageFile = [PFFile fileWithName:@"Image.jpg" data:[photoDictionary objectForKey:key]];
@@ -421,6 +423,8 @@
             self.post.user = [PFUser currentUser];
             self.post.expired = NO;
             self.post.sold = NO;
+            self.post.network = [[PFUser currentUser] objectForKey:@"network"];
+            
             NSMutableArray *fileArray = [[NSMutableArray alloc] initWithCapacity:3];
             for (id key in photoDictionary) {
                 PFFile *imageFile = [PFFile fileWithName:@"Image.jpg" data:[photoDictionary objectForKey:key]];
@@ -451,6 +455,8 @@
             self.post.user = [PFUser currentUser];
             self.post.expired = NO;
             self.post.sold = NO;
+            self.post.network = [[PFUser currentUser] objectForKey:@"network"];
+            
             NSMutableArray *fileArray = [[NSMutableArray alloc] initWithCapacity:3];
             for (id key in photoDictionary) {
                 PFFile *imageFile = [PFFile fileWithName:@"Image.jpg" data:[photoDictionary objectForKey:key]];
@@ -482,6 +488,8 @@
             self.post.user = [PFUser currentUser];
             self.post.expired = NO;
             self.post.sold = NO;
+            self.post.network = [[PFUser currentUser] objectForKey:@"network"];
+            
             NSMutableArray *fileArray = [[NSMutableArray alloc] initWithCapacity:3];
             for (id key in photoDictionary) {
                 PFFile *imageFile = [PFFile fileWithName:@"Image.jpg" data:[photoDictionary objectForKey:key]];
