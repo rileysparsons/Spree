@@ -18,6 +18,7 @@
 @property (nonatomic) NSArray *photoArray;
 @property (nonatomic) NSString *bookForClass;
 @property (nonatomic) NSString *eventDate;
+@property (nonatomic) NSString *network;
 @property BOOL sold;
 @property BOOL expired;
 

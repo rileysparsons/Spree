@@ -226,6 +226,7 @@
     [query whereKey:@"sold" equalTo:[NSNumber numberWithBool:NO]];
     [query whereKey:@"network" equalTo:[PFUser currentUser]]
     [query orderByDescending:@"updatedAt"];
+    [query whereKey:@"network" equalTo:[[PFUser currentUser] objectForKey:@"network"]];
     [query includeKey:@"objectId"];
     
     return query;

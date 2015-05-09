@@ -299,6 +299,8 @@
     [postQuery whereKey:@"type" equalTo:[_postTypeArray objectAtIndex:indexPath.row]];
     [postQuery whereKey:@"expired" equalTo:[NSNumber numberWithBool:NO]];
     [postQuery whereKey:@"sold" equalTo:[NSNumber numberWithBool:NO]];
+    [postQuery whereKey:@"network" equalTo:[[PFUser currentUser] objectForKey:@"network"]];
+
     [postQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
         if (!error) {
             NSLog(@"%@ %d", [_postTypeArray objectAtIndex:indexPath.row], number);
