@@ -197,18 +197,22 @@
 
 - (void)objectsDidLoad:(NSError *)error {
     [super objectsDidLoad:error];
+    UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
     if (self.objects.count == 0){
         // Display a message when the table is empty
-        UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
         messageLabel.text = @"No posts have been made in your area. Check back later.";
-        messageLabel.textColor = [UIColor spreeRed];
+        messageLabel.textColor = [UIColor spreeDarkBlue];
         messageLabel.numberOfLines = 0;
         messageLabel.textAlignment = NSTextAlignmentCenter;
         messageLabel.font = [UIFont fontWithName:@"EuphemiaUCAS" size:20];
         [messageLabel sizeToFit];
         self.tableView.backgroundView = messageLabel;
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    } else if (self.objects.count > 0 ){
+        self.tableView.backgroundView.hidden = YES;
+        NSLog(@"Objects did load");
     }
+    NSLog(@"%lu", self.objects.count);
     // This method is called every time objects are loaded from Parse via the PFQuery
 }
 

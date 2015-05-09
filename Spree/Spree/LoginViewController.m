@@ -20,7 +20,6 @@
     [super viewDidLoad];
     UIImageView *logoView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"spreeLogoWithName"]];
     [self.logInView setLogo:logoView];
-
     [self.logInView.passwordForgottenButton setTintColor:[UIColor spreeDarkBlue]];
     self.logInView.backgroundColor = [UIColor whiteColor];
     [self.logInView.usernameField setTextColor:[UIColor spreeDarkBlue]];
