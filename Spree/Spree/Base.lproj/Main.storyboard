@@ -1228,7 +1228,6 @@
                                     </imageView>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y98-1i-cc0">
                                         <rect key="frame" x="40" y="53" width="366" height="128"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="128" id="Obu-OZ-NWJ"/>
                                         </constraints>
@@ -1288,6 +1287,7 @@
                         <outlet property="adminBarView" destination="F26-5L-tpc" id="lf5-dA-bDF"/>
                         <outlet property="deleteButton" destination="ax2-sR-mi3" id="8Pm-F8-B2g"/>
                         <outlet property="descriptionTextView" destination="y98-1i-cc0" id="hZZ-NC-8vV"/>
+                        <outlet property="descriptionTextViewHeight" destination="Obu-OZ-NWJ" id="d8T-6T-GlC"/>
                         <outlet property="detailBarView" destination="s22-6o-c72" id="kGy-DC-4RJ"/>
                         <outlet property="pageControl" destination="zc7-or-Xtm" id="WeH-zU-fEb"/>
                         <outlet property="postDateUserLabel" destination="HaI-WB-q46" id="1QW-aH-Bsh"/>
