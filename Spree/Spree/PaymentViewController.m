@@ -28,14 +28,13 @@
         singularType = @"electronics item";
     } else if ([_post.type isEqualToString:@"Free"]) {
         singularType = @"free item";
-    } else if ([_post.type isEqualToString:@"Furniture"]) {
-        singularType = @"furniture item";
-    } else if ([_post.type isEqualToString:@"Clothing"]) {
-        singularType = @"clothing item";
     }
     self.informationLabel.lineBreakMode = NSLineBreakByWordWrapping;
     self.informationLabel.numberOfLines = 0;
     self.informationLabel.text  = [NSString stringWithFormat: @"Thanks for your interest in this %@. Please contact %@ for information on payment methods and how to meet up!", singularType, [[_poster[@"name"] componentsSeparatedByString:@" "] objectAtIndex:0]];
+    
+   
+    
 }
 
 

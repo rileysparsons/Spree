@@ -117,10 +117,6 @@
                 cell.postImageView.image = [UIImage imageNamed:@"ElectronicsTypeIconSmall"];
             } else if ([post.type isEqualToString:@"Free"]){
                 cell.postImageView.image = [UIImage imageNamed:@"freeGraphic"];
-            } else if ([post.type isEqualToString:@"Furniture"]){
-                cell.postImageView.image = nil;
-            } else if ([post.type isEqualToString:@"Clothing"]){
-                cell.postImageView.image = nil;
             }
         }
         

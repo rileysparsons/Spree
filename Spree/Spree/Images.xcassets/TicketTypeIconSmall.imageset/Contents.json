@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "TicketTypeIconSmall.png"
+      "filename" : "ticketCellIconWhite.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "TicketTypeIconSmall@2x.png"
+      "filename" : "ticketCellIconWhite@2x.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "TicketTypeIconSmall@3x.png"
+      "filename" : "ticketCellIconWhite@3x.png"
     }
   ],
   "info" : {

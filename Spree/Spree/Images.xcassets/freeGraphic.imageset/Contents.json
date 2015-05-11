@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "freeIcon.png"
+      "filename" : "freeCellIconWhite.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "freeIcon@2x.png"
+      "filename" : "freeCellIconWhite@2x.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "freeIcon-1.png"
+      "filename" : "freeCellIconWhite@3x.png"
     }
   ],
   "info" : {

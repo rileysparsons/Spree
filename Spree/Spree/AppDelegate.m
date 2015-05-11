@@ -30,9 +30,6 @@
                   clientKey:@"T7noUkx7fvw5KwLxWi0Y6brf3c3LaqWb6ODoB6IZ"];
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
 
-    [DDLog addLogger:[DDASLLogger sharedInstance]];
-    [DDLog addLogger:[DDTTYLogger sharedInstance]];
-
 //    _locationManager = [[CLLocationManager alloc] init];
 //    [_locationManager setDelegate:self];
 //    [_locationManager requestWhenInUseAuthorization];
@@ -50,8 +47,8 @@
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
 
     // Clear all notifications
-   // [[UIApplication sharedApplication] setApplicationIconBadgeNumber: 0];
-   // [[UIApplication sharedApplication] cancelAllLocalNotifications];
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber: 0];
+    [[UIApplication sharedApplication] cancelAllLocalNotifications];
 
     if (![PFUser currentUser]) {
         return YES;

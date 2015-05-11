@@ -279,10 +279,6 @@
                 cell.postImageView.image = [UIImage imageNamed:@"ElectronicsTypeIconSmall"];
             } else if ([post.type isEqualToString:@"Free"]){
                 cell.postImageView.image = [UIImage imageNamed:@"freeGraphic"];
-            } else if ([post.type isEqualToString:@"Furniture"]){
-                cell.postImageView.image = nil;
-            } else if ([post.type isEqualToString:@"Clothing"]){
-                cell.postImageView.image = nil;
             }
         }
         
@@ -334,20 +330,16 @@
         [self performSegueWithIdentifier:@"TicketsPostDetail" sender:self];
     } else if ([[(SpreePost *)[self objectAtIndexPath:indexPath] type] isEqualToString:@"Electronics"]){
         [self performSegueWithIdentifier:@"showElectronicsPost" sender:self];
-    } else if ([[(SpreePost *)[self objectAtIndexPath:indexPath] type] isEqualToString:@"Furniture"]){
-        [self performSegueWithIdentifier:@"showFurniturePost" sender:self];
-    } else if ([[(SpreePost *)[self objectAtIndexPath:indexPath] type] isEqualToString:@"Clothing"]){
-        [self performSegueWithIdentifier:@"showClothingPost" sender:self];
     }
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 
  -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
- //if ([segue.identifier isEqualToString:@"ShowFreeDetail"] || [segue.identifier isEqualToString:@"detailBookPost"] || [segue.identifier isEqualToString:@"TicketsPostDetail"] || [segue.identifier isEqualToString:@"showElectronicsPost"]){
-     PostDetailViewController *postDetailViewController = segue.destinationViewController;
-     postDetailViewController.detailPost = (SpreePost *)[self objectAtIndexPath:[self.tableView indexPathForSelectedRow]];
- //}
+ if ([segue.identifier isEqualToString:@"ShowFreeDetail"] || [segue.identifier isEqualToString:@"detailBookPost"] || [segue.identifier isEqualToString:@"TicketsPostDetail"] || [segue.identifier isEqualToString:@"showElectronicsPost"]){
+         PostDetailViewController *postDetailViewController = segue.destinationViewController;
+         postDetailViewController.detailPost = (SpreePost *)[self objectAtIndexPath:[self.tableView indexPathForSelectedRow]];
+ }
 }
 
 - (void)NewPostBarButtonItemPressed:(id)sender {
