@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "electronicsCellIconWhite.png"
+      "filename" : "ElectronicsTypeIconSmall.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "electronicsCellIconWhite@2x.png"
+      "filename" : "ElectronicsTypeIconSmall@2x.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "electronicsCellIconWhite@3x.png"
+      "filename" : "ElectronicsTypeIconSmall@3x.png"
     }
   ],
   "info" : {
