@@ -15,24 +15,29 @@
 
 @end
 
+static NSArray *categories;
+
 @implementation ChooseTypeTableViewController
 
 @synthesize delegate;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _typeArray = [[NSArray alloc] initWithObjects:@"Books", @"Tickets", @"Electronics", @"Free", nil];
-    _imageArray = [[NSArray alloc] initWithObjects:@"BookTypeIconSmall", @"TicketTypeIconSmall", @"ElectronicsTypeIconSmall", @"freeGraphic", nil];
+    _imageArray = [[NSArray alloc] initWithObjects:@"BookTypeIconSmall", @"TicketTypeIconSmall", @"ElectronicsTypeIconSmall", @"freeGraphic", nil, nil, nil];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
       NSLog(@"Delegate: %@", self.delegate);
+}
+
++ (NSArray *)categories {
+    return [NSArray arrayWithObjects:@"Books", @"Tickets", @"Electronics", @"Free", @"Furniture", @"Clothing", nil];
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _typeArray.count;
+    return categories.count;
 }
 
 
@@ -54,7 +59,7 @@
     }
     
     cell.typeImage.contentMode = UIViewContentModeScaleAspectFit;
-    cell.typeLabel.text = [_typeArray objectAtIndex:indexPath.row];
+    cell.typeLabel.text = [categories objectAtIndex:indexPath.row];
     
     cell.typeImage.image = [UIImage imageNamed:[_imageArray objectAtIndex:indexPath.row]];
     

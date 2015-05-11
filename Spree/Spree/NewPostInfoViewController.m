@@ -81,7 +81,7 @@
     self.booksPostView.priceField.placeholder = [[NSLocale currentLocale] objectForKey:NSLocaleCurrencySymbol];
     self.ticketsPostView.priceField.placeholder = [[NSLocale currentLocale] objectForKey:NSLocaleCurrencySymbol];
     self.defaultPostView.priceField.placeholder = [[NSLocale currentLocale] objectForKey:NSLocaleCurrencySymbol];
-    
+
     self.freePostView.descriptionField.text = @"Add description...";
     self.freePostView.descriptionField.textColor = [UIColor lightGrayColor];
     self.ticketsPostView.descriptionField.text = @"Add description...";
@@ -241,10 +241,8 @@
 #pragma mark - UITextFieldDelegate
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
- 
-    if ([self.post.type isEqualToString: @"Free"]){
-        
-    } else if ([self.post.type isEqualToString: @"Books"]){
+
+    if ([self.post.type isEqualToString: @"Books"]){
         if (textField == self.booksPostView.priceField){
             NSString *newText = [textField.text stringByReplacingCharactersInRange:range withString:string];
             
@@ -253,12 +251,9 @@
             {
                 return NO;
             }
-            
-            // Default:
-            return YES;
         }
         
-    } else if ([self.post.type isEqualToString: @"Electronics"]){
+    } else if ([self.post.type isEqualToString:@"Electronics"] || [self.post.type isEqualToString:@"Furniture"] || [self.post.type isEqualToString:@"Clothing"]){
         if (textField == self.defaultPostView.priceField){
             NSString *newText = [textField.text stringByReplacingCharactersInRange:range withString:string];
             
@@ -267,10 +262,6 @@
             {
                 return NO;
             }
-            
-            // Default:
-            return YES;
-            
         }
         
     } else if ([self.post.type isEqualToString: @"Tickets"]){
@@ -282,20 +273,14 @@
             {
                 return NO;
             }
-            
-            // Default:
-            return YES;
-            
         }
-        
     }
     return YES;
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
-    if ([self.post.type isEqualToString: @"Free"]){
-        
-    } else if ([self.post.type isEqualToString: @"Books"]){
+
+    if ([self.post.type isEqualToString: @"Books"]){
         if (textField == self.booksPostView.priceField){
             if (textField.text.length  == 0)
             {
@@ -303,7 +288,7 @@
             }
         }
         
-    } else if ([self.post.type isEqualToString: @"Electronics"]){
+    } else if ([self.post.type isEqualToString:@"Electronics"] || [self.post.type isEqualToString:@"Furniture"] || [self.post.type isEqualToString:@"Clothing"]){
         if (textField == self.defaultPostView.priceField){
             if (textField.text.length  == 0)
             {
@@ -450,7 +435,7 @@
             }];
             [self.navigationController dismissViewControllerAnimated:YES completion:nil];
             
-        } else if ([self.post.type isEqualToString: @"Electronics"]){
+        } else if ([self.post.type isEqualToString: @"Electronics"] || [self.post.type isEqualToString:@"Furniture"] || [self.post.type isEqualToString:@"Clothing"]){
             self.post.userDescription = self.defaultPostView.descriptionField.text;
             self.post.title = self.defaultPostView.titleField.text;
             NSString *price = [[self.defaultPostView.priceField.text componentsSeparatedByString:@"$"] objectAtIndex:1];
@@ -544,7 +529,7 @@
             } else {
                 return YES;
             }
-        } else if ([self.post.type isEqualToString: @"Electronics"]){
+        } else if ([self.post.type isEqualToString: @"Electronics"] || [self.post.type isEqualToString:@"Furniture"] || [self.post.type isEqualToString:@"Clothing"]){
             if (self.defaultPostView.descriptionField.text == nil || [self.defaultPostView.descriptionField.text isEqualToString:@"Add description..."] || [self.defaultPostView.descriptionField.text isEqualToString:@""]){
                 return NO;
             } else if (self.defaultPostView.titleField.text == nil || [self.defaultPostView.titleField.text isEqualToString:@"Add title..."] || [self.defaultPostView.titleField.text isEqualToString:@""] ) {
