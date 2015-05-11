@@ -5,6 +5,14 @@ PODS:
   - Bolts/AppLinks (1.1.5):
     - Bolts/Tasks
   - Bolts/Tasks (1.1.5)
+  - CocoaLumberjack (2.0.0):
+    - CocoaLumberjack/Default (= 2.0.0)
+    - CocoaLumberjack/Extensions (= 2.0.0)
+  - CocoaLumberjack/Core (2.0.0)
+  - CocoaLumberjack/Default (2.0.0):
+    - CocoaLumberjack/Core
+  - CocoaLumberjack/Extensions (2.0.0):
+    - CocoaLumberjack/Default
   - JSQMessagesViewController (7.0.1):
     - JSQSystemSoundPlayer (~> 2.0.1)
   - JSQSystemSoundPlayer (2.0.1)
@@ -16,7 +24,9 @@ PODS:
   - WSCoachMarksView (0.2)
 
 DEPENDENCIES:
-  - JSQMessagesViewController (from `https://github.com/jessesquires/JSQMessagesViewController.git`, branch `develop`)
+  - CocoaLumberjack
+  - JSQMessagesViewController (from `https://github.com/jessesquires/JSQMessagesViewController.git`,
+    branch `develop`)
   - MSCellAccessory
   - Parse
   - ParseUI
@@ -34,6 +44,7 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   Bolts: aac24961496d504aa56fc267cde95162a71bac39
+  CocoaLumberjack: a6f77d987d65dc7ba86b0f84db7d0b9084f77bcb
   JSQMessagesViewController: 03fba8a3021a3ddc1c91847f180ffe549f2e8cf2
   JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
   MSCellAccessory: 8265f3cd2386c1f372da00232472605ab11426e4
@@ -41,4 +52,4 @@ SPEC CHECKSUMS:
   ParseUI: 1a68e9cebc3bd458eed9605ce7b33d7cc082f473
   WSCoachMarksView: d1653c058c8289a300ddf28af9dd49eb659c9c42
 
-COCOAPODS: 0.35.0
+COCOAPODS: 0.36.4
