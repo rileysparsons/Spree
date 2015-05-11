@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Cdg-0u-Hq2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Cdg-0u-Hq2">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
@@ -213,8 +213,6 @@
                         <segue destination="BKf-A1-OtM" kind="show" identifier="showNewTicketsPostDetail" id="ehL-Vl-BQC"/>
                         <segue destination="Vls-f5-n9F" kind="show" identifier="showNewFreePostDetail" id="CJQ-pI-RLe"/>
                         <segue destination="Ko5-M5-MsL" kind="show" identifier="showNewElectronicsPostDetail" id="E5h-D4-D8O"/>
-                        <segue destination="Ko5-M5-MsL" kind="show" identifier="showNewFurniturePostDetail" id="5vg-T5-N3b"/>
-                        <segue destination="Ko5-M5-MsL" kind="show" identifier="showNewClothingPostDetail" id="eMA-Qd-vQN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9EM-4U-fgd" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -624,8 +622,6 @@
                         <segue destination="JRm-q4-bC9" kind="show" identifier="detailBookPost" id="5ne-QI-hzD"/>
                         <segue destination="LSd-5a-wkh" kind="show" identifier="TicketsPostDetail" id="OO2-p4-gZL"/>
                         <segue destination="brh-AW-XCG" kind="show" identifier="showElectronicsPost" id="IPh-vz-zAt"/>
-                        <segue destination="brh-AW-XCG" kind="show" identifier="showFurniturePost" id="bdq-xF-qON"/>
-                        <segue destination="brh-AW-XCG" kind="show" identifier="showClothingPost" id="WUs-g9-Dmw"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XAR-zH-b4P" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -691,13 +687,11 @@
                         <segue destination="brh-AW-XCG" kind="show" identifier="showElectronicsPost" id="egP-Bb-yim"/>
                         <segue destination="LSd-5a-wkh" kind="show" identifier="TicketsPostDetail" id="xGv-LV-rKw"/>
                         <segue destination="piY-Ia-E54" kind="show" identifier="ShowFreeDetail" id="1J7-D9-rCs"/>
-                        <segue destination="brh-AW-XCG" kind="show" identifier="showFurniturePost" id="Dmi-ol-XfM"/>
-                        <segue destination="brh-AW-XCG" kind="show" identifier="showClothingPost" id="NK3-L6-C89"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hkX-pv-DZb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3522" y="-2111"/>
+            <point key="canvasLocation" x="3404" y="-1897"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
@@ -1078,8 +1072,6 @@
                         <segue destination="JRm-q4-bC9" kind="show" identifier="detailBookPost" id="WbK-fs-kfB"/>
                         <segue destination="piY-Ia-E54" kind="show" identifier="ShowFreeDetail" id="gAI-vb-BR5"/>
                         <segue destination="brh-AW-XCG" kind="show" identifier="showElectronicsPost" id="NyK-v4-QXL"/>
-                        <segue destination="brh-AW-XCG" kind="show" identifier="showFurniturePost" id="tW9-vk-FRh"/>
-                        <segue destination="brh-AW-XCG" kind="show" identifier="showClothingPost" id="8vv-J9-Md4"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4yz-9E-P4c" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2299,7 +2291,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sjE-QN-TJY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4341" y="-2335"/>
+            <point key="canvasLocation" x="4241" y="-2623"/>
         </scene>
         <!--New Post Info View Controller-->
         <scene sceneID="kWL-zO-aw4">
@@ -2457,7 +2449,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YAt-aD-tLm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3035" y="-3711"/>
+            <point key="canvasLocation" x="2908" y="-3711"/>
         </scene>
         <!--New Post Info View Controller-->
         <scene sceneID="Bs7-Os-wFP">
@@ -2619,7 +2611,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="seO-Yc-TfN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2452" y="-2888"/>
+            <point key="canvasLocation" x="2452" y="-2909"/>
         </scene>
         <!--New Post Info View Controller-->
         <scene sceneID="XcC-dA-jOB">
@@ -2776,7 +2768,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qvf-aN-M6y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3035" y="-2901"/>
+            <point key="canvasLocation" x="2908" y="-2909"/>
         </scene>
         <!--All-->
         <scene sceneID="v8f-Ro-Y3x">
@@ -2855,10 +2847,9 @@
         <image name="informationImage" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="egP-Bb-yim"/>
-        <segue reference="xGv-LV-rKw"/>
-        <segue reference="1J7-D9-rCs"/>
-        <segue reference="ubu-4c-zFs"/>
-        <segue reference="eMA-Qd-vQN"/>
+        <segue reference="gAI-vb-BR5"/>
+        <segue reference="icv-qc-pxu"/>
+        <segue reference="WbK-fs-kfB"/>
+        <segue reference="NyK-v4-QXL"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -21,7 +21,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    typeArray = [[NSArray alloc] initWithObjects:@"Electronics", @"Free", @"Tickets", @"Books", @"Furniture", @"Clothing", nil];
+    typeArray = [[NSArray alloc] initWithObjects:@"Electronics", @"Free", @"Tickets", @"Books", nil];
     
     self.navigationItem.title = @"Choose post type";
     
@@ -78,12 +78,6 @@
     } else if ([[typeArray objectAtIndex:indexPath.row] isEqualToString: @"Free"]){
         cell.detailImage.image = [UIImage imageNamed:@"freeGraphic"];
         cell.accessoryView = [MSCellAccessory accessoryWithType: FLAT_DISCLOSURE_INDICATOR color:[UIColor spreeBabyBlue] highlightedColor:[UIColor spreeLightYellow]];
-    } else if ([[typeArray objectAtIndex:indexPath.row] isEqualToString: @"Furniture"]){
-        cell.detailImage.image = nil;
-        cell.accessoryView = [MSCellAccessory accessoryWithType: FLAT_DISCLOSURE_INDICATOR color:[UIColor spreeRed] highlightedColor:[UIColor spreeLightYellow]];
-    } else if ([[typeArray objectAtIndex:indexPath.row] isEqualToString: @"Clothing"]){
-        cell.detailImage.image = nil;
-        cell.accessoryView = [MSCellAccessory accessoryWithType: FLAT_DISCLOSURE_INDICATOR color:[UIColor spreeLightYellow] highlightedColor:[UIColor spreeLightYellow]];
     }
     return cell;
 
@@ -93,24 +87,21 @@
     NSString *selectedType = [[(PostTypeTableViewCell *)[self.typeTableView cellForRowAtIndexPath:self.typeTableView.indexPathForSelectedRow] titleLabel] text];
     if ([selectedType isEqualToString:@"Free"]){
         [self performSegueWithIdentifier:@"showNewFreePostDetail" sender:self];
+        [self.post setType:@"Free"];
     } else if ([selectedType isEqualToString:@"Books"]) {
         [self performSegueWithIdentifier:@"showNewBooksPostDetail" sender:self];
+        [self.post setType:@"Books"];
     } else if ([selectedType isEqualToString:@"Electronics"]) {
         [self performSegueWithIdentifier:@"showNewElectronicsPostDetail" sender:self];
+        [self.post setType:@"Electronics"];
     } else if ([selectedType isEqualToString:@"Tickets"]){
         [self performSegueWithIdentifier:@"showNewTicketsPostDetail" sender:self];
-    } else if ([selectedType isEqualToString:@"Furniture"]){
-        [self performSegueWithIdentifier:@"showNewFurniturePostDetail" sender:self];
-    } else if ([selectedType isEqualToString:@"Clothing"]){
-        [self performSegueWithIdentifier:@"showNewClothingPostDetail" sender:self];
+        [self.post setType:@"Tickets"];
     }
-    [self.post setType:selectedType];
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     NewPostInfoViewController *newPostInfoViewController = (NewPostInfoViewController *)[segue destinationViewController];
-    DDLogVerbose(@"POST: %@", self.post);
-
     [newPostInfoViewController setPost:self.post];
 }
 

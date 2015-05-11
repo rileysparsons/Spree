@@ -16,5 +16,4 @@
     #import "UIColor+SpreeColor.h"
     #import <JSQMessagesViewController/JSQMessages.h> 
     #import "AppConstant.h"
-    #import <CocoaLumberjack/CocoaLumberjack.h>
 #endif
