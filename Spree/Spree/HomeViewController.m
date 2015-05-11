@@ -14,6 +14,7 @@
 
 @interface HomeViewController () {
     WSCoachMarksView *coachMarksView;
+    NSArray *iconColorArray;
 }
 
 @property (nonatomic, strong) UIView *refreshLoadingView;
@@ -30,7 +31,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    _postTypeArray = [[NSArray alloc] initWithObjects:@"Books", @"Tickets", @"Electronics", @"Free", @"Furniture", @"Clothing", nil];
+    self.postTypeArray = [[NSArray alloc] initWithObjects:@"Books", @"Tickets", @"Electronics", @"Free", @"Furniture", @"Clothing", nil];
+    iconColorArray = [[NSArray alloc] initWithObjects:[UIColor spreeDarkBlue], [UIColor spreeRed], [UIColor spreeBabyBlue], [UIColor spreeDarkYellow], [UIColor spreeLightYellow],[UIColor spreeDarkBlue], [UIColor spreeRed], [UIColor spreeBabyBlue], [UIColor spreeDarkYellow], [UIColor spreeLightYellow], nil];
 //    self.navigationItem.title = @"Spree";
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -315,23 +317,29 @@
     if ([[_postTypeArray objectAtIndex:indexPath.row] isEqualToString: @"Books"]){
         cell.accessoryView = [MSCellAccessory accessoryWithType: FLAT_DISCLOSURE_INDICATOR color:[UIColor spreeDarkYellow] highlightedColor:[UIColor spreeLightYellow]];
         cell.detailImage.image = [UIImage imageNamed:@"BookTypeIconSmall"];
+        cell.iconBackground.backgroundColor = [iconColorArray objectAtIndex:indexPath.row];
     } else if ([[_postTypeArray objectAtIndex:indexPath.row] isEqualToString: @"Tickets"]){
         cell.detailImage.image = [UIImage imageNamed:@"TicketTypeIconSmall"];
         cell.accessoryView = [MSCellAccessory accessoryWithType: FLAT_DISCLOSURE_INDICATOR color:[UIColor spreeRed] highlightedColor:[UIColor spreeLightYellow]];
+        cell.iconBackground.backgroundColor = [iconColorArray objectAtIndex:indexPath.row];
     } else if ([[_postTypeArray objectAtIndex:indexPath.row] isEqualToString: @"Electronics"]){
         cell.detailImage.image = [UIImage imageNamed:@"ElectronicsTypeIconSmall"];
         cell.accessoryView = [MSCellAccessory accessoryWithType: FLAT_DISCLOSURE_INDICATOR color:[UIColor spreeLightYellow] highlightedColor:[UIColor spreeLightYellow]];
+        cell.iconBackground.backgroundColor = [iconColorArray objectAtIndex:indexPath.row];
     } else if ([[_postTypeArray objectAtIndex:indexPath.row] isEqualToString: @"Free"]){
         cell.detailImage.image = [UIImage imageNamed:@"freeGraphic"];
         cell.accessoryView = [MSCellAccessory accessoryWithType: FLAT_DISCLOSURE_INDICATOR color:[UIColor spreeBabyBlue] highlightedColor:[UIColor spreeLightYellow]];
-    } else if ([[_postTypeArray objectAtIndex:indexPath.row] isEqualToString: @"Furniture"]){
+        cell.iconBackground.backgroundColor = [iconColorArray objectAtIndex:indexPath.row];
+    }
+    else if ([[_postTypeArray objectAtIndex:indexPath.row] isEqualToString: @"Furniture"]){
         cell.detailImage.image = [UIImage imageNamed:nil];
         cell.accessoryView = [MSCellAccessory accessoryWithType: FLAT_DISCLOSURE_INDICATOR color:[UIColor spreeDarkYellow] highlightedColor:[UIColor spreeLightYellow]];
+        cell.iconBackground.backgroundColor = [iconColorArray objectAtIndex:indexPath.row];
     } else if ([[_postTypeArray objectAtIndex:indexPath.row] isEqualToString: @"Clothing"]){
         cell.detailImage.image = [UIImage imageNamed:nil];
         cell.accessoryView = [MSCellAccessory accessoryWithType: FLAT_DISCLOSURE_INDICATOR color:[UIColor spreeRed] highlightedColor:[UIColor spreeLightYellow]];
+        cell.iconBackground.backgroundColor = [iconColorArray objectAtIndex:indexPath.row];
     }
-    
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
