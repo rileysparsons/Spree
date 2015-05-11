@@ -30,7 +30,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    _postTypeArray = [[NSArray alloc] initWithObjects:@"Books", @"Tickets", @"Electronics", @"Free", nil];
+    _postTypeArray = [[NSArray alloc] initWithObjects:@"Books", @"Tickets", @"Electronics", @"Free", @"Furniture", @"Clothing", nil];
 //    self.navigationItem.title = @"Spree";
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -302,14 +302,12 @@
     [postQuery whereKey:@"network" equalTo:[[PFUser currentUser] objectForKey:@"network"]];
 
     [postQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
-        if (!error) {
+        cell.numberLabel.text = [NSString stringWithFormat:@"0 Posts"];
+        if (number) {
             NSLog(@"%@ %d", [_postTypeArray objectAtIndex:indexPath.row], number);
             [self.refreshControl endRefreshing];
             cell.numberLabel.text = [NSString stringWithFormat:@"%@ Posts", [@(number)stringValue]];
             _pastPostNumber = number;
-        } else {
-            UIAlertView *cannotLoadAlert = [[UIAlertView alloc] initWithTitle:@"Cannot load posts" message:@"Check internet connection and try again" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
-            [cannotLoadAlert show];
         }
     }];
     cell.titleLabel.text = [_postTypeArray objectAtIndex:indexPath.row];
@@ -326,6 +324,12 @@
     } else if ([[_postTypeArray objectAtIndex:indexPath.row] isEqualToString: @"Free"]){
         cell.detailImage.image = [UIImage imageNamed:@"freeGraphic"];
         cell.accessoryView = [MSCellAccessory accessoryWithType: FLAT_DISCLOSURE_INDICATOR color:[UIColor spreeBabyBlue] highlightedColor:[UIColor spreeLightYellow]];
+    } else if ([[_postTypeArray objectAtIndex:indexPath.row] isEqualToString: @"Furniture"]){
+        cell.detailImage.image = [UIImage imageNamed:nil];
+        cell.accessoryView = [MSCellAccessory accessoryWithType: FLAT_DISCLOSURE_INDICATOR color:[UIColor spreeDarkYellow] highlightedColor:[UIColor spreeLightYellow]];
+    } else if ([[_postTypeArray objectAtIndex:indexPath.row] isEqualToString: @"Clothing"]){
+        cell.detailImage.image = [UIImage imageNamed:nil];
+        cell.accessoryView = [MSCellAccessory accessoryWithType: FLAT_DISCLOSURE_INDICATOR color:[UIColor spreeRed] highlightedColor:[UIColor spreeLightYellow]];
     }
     
     return cell;
@@ -341,9 +345,9 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     if ([segue.identifier isEqualToString:@"DisplayPosts"]){
-    PostTypeTableViewCell *selectedCell = (PostTypeTableViewCell*)[self.tableView cellForRowAtIndexPath:self.tableView.indexPathForSelectedRow];
-    PostTypeTableViewController *destinationViewController = segue.destinationViewController;
-    destinationViewController.postType = selectedCell.titleLabel.text;
+        PostTypeTableViewCell *selectedCell = (PostTypeTableViewCell*)[self.tableView cellForRowAtIndexPath:self.tableView.indexPathForSelectedRow];
+        PostTypeTableViewController *destinationViewController = segue.destinationViewController;
+        destinationViewController.postType = selectedCell.titleLabel.text;
     }
     
 }
