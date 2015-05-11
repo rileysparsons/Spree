@@ -42,12 +42,16 @@ void ParsePushUserResign(void)
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-void SendPushNotification(NSString *groupId, NSString *text)
+void SendPushNotification(NSString *groupId, NSString *text, NSString *postId, NSString *title)
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	PFUser *user = [PFUser currentUser];
     NSDictionary *data = @{
                            @"alert" : [NSString stringWithFormat:@"%@: %@", user[PF_USER_FULLNAME], text],
+                           @"type" : @"message",
+                           @"groupId" : groupId,
+                           @"title" : title,
+                           @"postId" : postId,
                            @"badge" : @"Increment"
                            };
 

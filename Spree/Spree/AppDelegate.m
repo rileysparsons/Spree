@@ -11,6 +11,8 @@
 #import "LoginViewController.h"
 #import "PostDetailViewController.h"
 #import "SpreePost.h"
+#import "ChatView.h"
+#import "AllMessagesViewController.h"
 
 #import <Accelerate/Accelerate.h>
 
@@ -56,6 +58,14 @@
     if (![PFUser currentUser]) {
         return YES;
     }
+
+    UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert |
+                                                    UIUserNotificationTypeBadge |
+                                                    UIUserNotificationTypeSound);
+    UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:userNotificationTypes
+                                                                             categories:nil];
+    [application registerUserNotificationSettings:settings];
+    [application registerForRemoteNotifications];
 
     // Move this into the homeview?
     PFQuery *expiredPostNumberQuery = [PFQuery queryWithClassName:@"Post"];
@@ -147,37 +157,58 @@
 }
 
 
-    - (void)application:(UIApplication *)application
-didReceiveRemoteNotification:(NSDictionary *)userInfo{
-//        [PFPush handlePush:userInfo];
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    [PFPush handlePush:userInfo];
+
+    if ([[userInfo objectForKey:@"type"] isEqualToString:@"message"]) {
+
+        UITabBarController *tabBarController = (UITabBarController *)[[UIStoryboard storyboardWithName:@"Main"
+                                                                                                bundle: nil]instantiateViewControllerWithIdentifier:@"home"];
+        [tabBarController setSelectedIndex:2];
+        UINavigationController *navigationController = (UINavigationController *)[tabBarController.viewControllers objectAtIndex:2];
+
+        AllMessagesViewController *allMessages = [[UIStoryboard storyboardWithName:@"Main"
+                                                                           bundle: nil]instantiateViewControllerWithIdentifier:@"recent"];
+        [navigationController pushViewController:allMessages animated:YES];
+
+//        PFObject *postObject = [PFObject objectWithoutDataWithClassName:@"Post" objectId:[userInfo objectForKey:@"postId"]];
+//
+//        ChatView *chatView = [[ChatView alloc] initWith:[userInfo objectForKey:@"groupId"] post:postObject title:[userInfo objectForKey:@"title"]];
+//
+//        self.navigationController.hidesBottomBarWhenPushed = YES;
+//        [self.navigationController pushViewController:chatView animated:YES];
+//        // Unhide the tabbar when we go back
+//        self.navigationController.hidesBottomBarWhenPushed = NO;
+    }
 
 
-        NSString *postId = [userInfo objectForKey:@"post"];
-        PFObject *targetPost = [PFObject objectWithoutDataWithClassName:@"Post"
-                                                               objectId:postId];
-        
-        NSLog(@"%@", postId);
-        [targetPost fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-//             Show photo view controller
-            NSLog(@"fetch is calling");
-            
-            if (error) {
-                
-//                handler(UIBackgroundFetchResultFailed);
-            } else if ([PFUser currentUser]) {
-                UITabBarController *tabBarController = (UITabBarController *)self.window.rootViewController;
-                [tabBarController setSelectedIndex:1];
-                UINavigationController *navigationController = (UINavigationController *)[tabBarController.viewControllers objectAtIndex:2];
-                PostDetailViewController *notificationController = (PostDetailViewController*) [navigationController.storyboard instantiateViewControllerWithIdentifier:@"PostDetail"];
-                [notificationController setDetailPost:(SpreePost *)object];
-                [navigationController pushViewController:notificationController animated:YES];
- //THIS WORKS!
-//                handler(UIBackgroundFetchResultNewData);
-            } else {
-//                handler(UIBackgroundFetchResultNoData);
-            }
-        }];
- 
+
+//        NSString *postId = [userInfo objectForKey:@"post"];
+//        PFObject *targetPost = [PFObject objectWithoutDataWithClassName:@"Post"
+//                                                               objectId:postId];
+//        
+//        NSLog(@"%@", postId);
+//        [targetPost fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+////             Show photo view controller
+//            NSLog(@"fetch is calling");
+//            
+//            if (error) {
+//                
+////                handler(UIBackgroundFetchResultFailed);
+//            } else if ([PFUser currentUser]) {
+//                UITabBarController *tabBarController = (UITabBarController *)self.window.rootViewController;
+//                [tabBarController setSelectedIndex:1];
+//                UINavigationController *navigationController = (UINavigationController *)[tabBarController.viewControllers objectAtIndex:2];
+//                PostDetailViewController *notificationController = (PostDetailViewController*) [navigationController.storyboard instantiateViewControllerWithIdentifier:@"PostDetail"];
+//                [notificationController setDetailPost:(SpreePost *)object];
+//                [navigationController pushViewController:notificationController animated:YES];
+// //THIS WORKS!
+////                handler(UIBackgroundFetchResultNewData);
+//            } else {
+////                handler(UIBackgroundFetchResultNoData);
+//            }
+//        }];
+
 }
 
 @end
