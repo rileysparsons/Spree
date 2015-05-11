@@ -315,29 +315,29 @@
     cell.titleLabel.text = [_postTypeArray objectAtIndex:indexPath.row];
     
     if ([[_postTypeArray objectAtIndex:indexPath.row] isEqualToString: @"Books"]){
-        cell.accessoryView = [MSCellAccessory accessoryWithType: FLAT_DISCLOSURE_INDICATOR color:[UIColor spreeDarkYellow] highlightedColor:[UIColor spreeLightYellow]];
+        cell.accessoryView = [MSCellAccessory accessoryWithType: FLAT_DISCLOSURE_INDICATOR color:[iconColorArray objectAtIndex:indexPath.row] highlightedColor:[UIColor spreeLightYellow]];
         cell.detailImage.image = [UIImage imageNamed:@"BookTypeIconSmall"];
         cell.iconBackground.backgroundColor = [iconColorArray objectAtIndex:indexPath.row];
     } else if ([[_postTypeArray objectAtIndex:indexPath.row] isEqualToString: @"Tickets"]){
         cell.detailImage.image = [UIImage imageNamed:@"TicketTypeIconSmall"];
-        cell.accessoryView = [MSCellAccessory accessoryWithType: FLAT_DISCLOSURE_INDICATOR color:[UIColor spreeRed] highlightedColor:[UIColor spreeLightYellow]];
+        cell.accessoryView = [MSCellAccessory accessoryWithType: FLAT_DISCLOSURE_INDICATOR color:[iconColorArray objectAtIndex:indexPath.row] highlightedColor:[UIColor spreeLightYellow]];
         cell.iconBackground.backgroundColor = [iconColorArray objectAtIndex:indexPath.row];
     } else if ([[_postTypeArray objectAtIndex:indexPath.row] isEqualToString: @"Electronics"]){
         cell.detailImage.image = [UIImage imageNamed:@"ElectronicsTypeIconSmall"];
-        cell.accessoryView = [MSCellAccessory accessoryWithType: FLAT_DISCLOSURE_INDICATOR color:[UIColor spreeLightYellow] highlightedColor:[UIColor spreeLightYellow]];
+        cell.accessoryView = [MSCellAccessory accessoryWithType: FLAT_DISCLOSURE_INDICATOR color:[iconColorArray objectAtIndex:indexPath.row] highlightedColor:[UIColor spreeLightYellow]];
         cell.iconBackground.backgroundColor = [iconColorArray objectAtIndex:indexPath.row];
     } else if ([[_postTypeArray objectAtIndex:indexPath.row] isEqualToString: @"Free"]){
         cell.detailImage.image = [UIImage imageNamed:@"freeGraphic"];
-        cell.accessoryView = [MSCellAccessory accessoryWithType: FLAT_DISCLOSURE_INDICATOR color:[UIColor spreeBabyBlue] highlightedColor:[UIColor spreeLightYellow]];
+        cell.accessoryView = [MSCellAccessory accessoryWithType: FLAT_DISCLOSURE_INDICATOR color:[iconColorArray objectAtIndex:indexPath.row] highlightedColor:[UIColor spreeLightYellow]];
         cell.iconBackground.backgroundColor = [iconColorArray objectAtIndex:indexPath.row];
     }
     else if ([[_postTypeArray objectAtIndex:indexPath.row] isEqualToString: @"Furniture"]){
-        cell.detailImage.image = [UIImage imageNamed:nil];
-        cell.accessoryView = [MSCellAccessory accessoryWithType: FLAT_DISCLOSURE_INDICATOR color:[UIColor spreeDarkYellow] highlightedColor:[UIColor spreeLightYellow]];
+        cell.detailImage.image = [UIImage imageNamed:@"furnitureCellIconWhite"];
+        cell.accessoryView = [MSCellAccessory accessoryWithType: FLAT_DISCLOSURE_INDICATOR color:[iconColorArray objectAtIndex:indexPath.row] highlightedColor:[UIColor spreeLightYellow]];
         cell.iconBackground.backgroundColor = [iconColorArray objectAtIndex:indexPath.row];
     } else if ([[_postTypeArray objectAtIndex:indexPath.row] isEqualToString: @"Clothing"]){
-        cell.detailImage.image = [UIImage imageNamed:nil];
-        cell.accessoryView = [MSCellAccessory accessoryWithType: FLAT_DISCLOSURE_INDICATOR color:[UIColor spreeRed] highlightedColor:[UIColor spreeLightYellow]];
+        cell.detailImage.image = [UIImage imageNamed:@"clothingCellIconWhite"];
+        cell.accessoryView = [MSCellAccessory accessoryWithType: FLAT_DISCLOSURE_INDICATOR color:[iconColorArray objectAtIndex:indexPath.row] highlightedColor:[UIColor spreeLightYellow]];
         cell.iconBackground.backgroundColor = [iconColorArray objectAtIndex:indexPath.row];
     }
     return cell;
