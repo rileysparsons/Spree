@@ -24,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet UIView *detailBarView;
 @property (weak, nonatomic) IBOutlet UILabel *bookForClassLabel;
 @property (weak, nonatomic) IBOutlet UILabel *eventDateForTicketLabel;
+@property (weak, nonatomic) IBOutlet UILabel *taskLocationLabel;
 @property (weak, nonatomic) UIImage *postImage;
 @property (weak, nonatomic) IBOutlet UIView *posterInfoView;
 // Admin Bar Properties

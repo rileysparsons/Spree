@@ -109,7 +109,6 @@
     
     }];
     
-
     // Type Conditions
     if ([_detailPost.type isEqualToString: @"Free"]){
         [self.purchaseButton setTitle:@"Get" forState:UIControlStateNormal];
@@ -120,6 +119,11 @@
         }
         if ([_detailPost.type isEqualToString: @"Tickets"]){
             _eventDateForTicketLabel.text = _detailPost[@"eventDate"];
+        }
+        if ([_detailPost.type isEqualToString: @"Tasks"]){
+            if (_detailPost[@"subtitle"]) {
+                _taskLocationLabel.text = [NSString stringWithFormat:@"Location: %@", _detailPost[@"subtitle"]];
+            }
         }
     }
     

@@ -7,7 +7,6 @@
 //
 
 #import "NewDefaultPostView.h"
-#import "UIColor+SpreeColor.h"
 
 @implementation NewDefaultPostView
 

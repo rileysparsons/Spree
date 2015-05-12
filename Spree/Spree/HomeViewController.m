@@ -31,7 +31,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    self.postTypeArray = [[NSArray alloc] initWithObjects:@"Books", @"Tickets", @"Electronics", @"Free", @"Furniture", @"Clothing", nil];
+    self.postTypeArray = [[NSArray alloc] initWithObjects:@"Books", @"Tickets", @"Electronics", @"Free", @"Furniture", @"Clothing", @"Tasks", nil];
     iconColorArray = [[NSArray alloc] initWithObjects:[UIColor spreeDarkBlue], [UIColor spreeRed], [UIColor spreeBabyBlue], [UIColor spreeDarkYellow], [UIColor spreeLightYellow],[UIColor spreeDarkBlue], [UIColor spreeRed], [UIColor spreeBabyBlue], [UIColor spreeDarkYellow], [UIColor spreeLightYellow], nil];
 //    self.navigationItem.title = @"Spree";
     self.tableView.delegate = self;
@@ -339,6 +339,9 @@
         cell.detailImage.image = [UIImage imageNamed:@"clothingCellIconWhite"];
         cell.accessoryView = [MSCellAccessory accessoryWithType: FLAT_DISCLOSURE_INDICATOR color:[iconColorArray objectAtIndex:indexPath.row] highlightedColor:[UIColor spreeLightYellow]];
         cell.iconBackground.backgroundColor = [iconColorArray objectAtIndex:indexPath.row];
+    } else if ([[_postTypeArray objectAtIndex:indexPath.row] isEqualToString: @"Tasks"]){
+        cell.detailImage.image = [UIImage imageNamed:nil];
+        cell.accessoryView = [MSCellAccessory accessoryWithType: FLAT_DISCLOSURE_INDICATOR color:[UIColor spreeBabyBlue] highlightedColor:[UIColor spreeLightYellow]];
     }
     return cell;
 }

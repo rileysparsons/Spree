@@ -121,6 +121,8 @@
                 cell.postImageView.image = nil;
             } else if ([post.type isEqualToString:@"Clothing"]){
                 cell.postImageView.image = nil;
+            } else if ([post.type isEqualToString:@"Tasks"]){
+                cell.postImageView.image = nil;
             }
         }
         
