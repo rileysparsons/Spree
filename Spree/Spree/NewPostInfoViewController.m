@@ -11,11 +11,11 @@
 #import "NewDefaultPostView.h"
 #import "NewFreePostView.h"
 #import "NewTicketsPostView.h"
+#import "NewGenericPostView.h"
 
 @interface NewPostInfoViewController () {
     NSInteger selectedPhotoButton;
     NSMutableDictionary *photoDictionary;
-    PFUser *currentUser;
 }
 
 @end
@@ -26,7 +26,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [[PFUser currentUser]fetchInBackground];
-    currentUser = [PFUser currentUser];
     // Do any additional setup after loading the view.
     self.firstAddPhotoButton.titleLabel.adjustsFontSizeToFitWidth = YES;
     self.secondAddPhotoButton.titleLabel.adjustsFontSizeToFitWidth = YES;
@@ -37,6 +36,7 @@
     self.defaultPostView.descriptionField.delegate = self;
     self.ticketsPostView.descriptionField.delegate = self;
     self.freePostView.descriptionField.delegate = self;
+    self.genericPostView.descriptionField.delegate = self;
 
     [self.booksPostView.titleField addTarget:self
                   action:@selector(textFieldDidChange:)
@@ -50,6 +50,9 @@
     [self.freePostView.titleField addTarget:self
                                       action:@selector(textFieldDidChange:)
                             forControlEvents:UIControlEventEditingChanged];
+    [self.genericPostView.titleField addTarget:self
+                                      action:@selector(textFieldDidChange:)
+                            forControlEvents:UIControlEventEditingChanged];
     
     [self.booksPostView.priceField addTarget:self
                                       action:@selector(textFieldDidChange:)
@@ -60,11 +63,17 @@
     [self.defaultPostView.priceField addTarget:self
                                         action:@selector(textFieldDidChange:)
                               forControlEvents:UIControlEventEditingChanged];
+    [self.genericPostView.priceField addTarget:self
+                                        action:@selector(textFieldDidChange:)
+                              forControlEvents:UIControlEventEditingChanged];
     
     [self.booksPostView.classField addTarget:self
                                       action:@selector(textFieldDidChange:)
                             forControlEvents:UIControlEventEditingChanged];
     [self.ticketsPostView.dateField addTarget:self
+                                        action:@selector(textFieldDidChange:)
+                              forControlEvents:UIControlEventEditingChanged];
+    [self.genericPostView.subTitleField addTarget:self
                                         action:@selector(textFieldDidChange:)
                               forControlEvents:UIControlEventEditingChanged];
     
@@ -73,27 +82,38 @@
     self.ticketsPostView.titleField.delegate = self;
     self.defaultPostView.titleField.delegate = self;
     self.freePostView.titleField.delegate = self;
+    self.genericPostView.titleField.delegate = self;
     
     self.booksPostView.priceField.delegate = self;
     self.ticketsPostView.priceField.delegate = self;
     self.defaultPostView.priceField.delegate = self;
+    self.genericPostView.priceField.delegate = self;
     
     self.booksPostView.priceField.placeholder = [[NSLocale currentLocale] objectForKey:NSLocaleCurrencySymbol];
     self.ticketsPostView.priceField.placeholder = [[NSLocale currentLocale] objectForKey:NSLocaleCurrencySymbol];
     self.defaultPostView.priceField.placeholder = [[NSLocale currentLocale] objectForKey:NSLocaleCurrencySymbol];
+    self.genericPostView.priceField.placeholder = [[NSLocale currentLocale] objectForKey:NSLocaleCurrencySymbol];
 
-    self.freePostView.descriptionField.text = @"Add description...";
+    self.freePostView.descriptionField.text = POST_VIEW_DESCRIPTION;
     self.freePostView.descriptionField.textColor = [UIColor lightGrayColor];
-    self.ticketsPostView.descriptionField.text = @"Add description...";
+    self.ticketsPostView.descriptionField.text = POST_VIEW_DESCRIPTION;
     self.ticketsPostView.descriptionField.textColor = [UIColor lightGrayColor];
-    self.defaultPostView.descriptionField.text = @"Add description...";
+    self.defaultPostView.descriptionField.text = POST_VIEW_DESCRIPTION;
     self.defaultPostView.descriptionField.textColor = [UIColor lightGrayColor];
-    self.booksPostView.descriptionField.text = @"Add description...";
+    self.booksPostView.descriptionField.text = POST_VIEW_DESCRIPTION;
     self.booksPostView.descriptionField.textColor = [UIColor lightGrayColor];
+    self.genericPostView.descriptionField.text = POST_VIEW_DESCRIPTION;
+    self.genericPostView.descriptionField.textColor = [UIColor lightGrayColor];
     
     self.booksPostView.classField.delegate = self;
-    
     self.ticketsPostView.dateField.delegate = self;
+    self.genericPostView.subTitleField.delegate = self;
+
+    // Set placeholder for generic
+    //if ([self.post.type isEqualToString:@"Tasks"]) {
+        self.genericPostView.titleField.placeholder = @"Task title...";
+        self.genericPostView.subTitleField.placeholder = @"Location...";
+    //}
     
     self.automaticallyAdjustsScrollViewInsets = NO;
     
@@ -107,8 +127,9 @@
                                    initWithTarget:self
                                    action:@selector(dismissKeyboard)];
     
-    [self.view  addGestureRecognizer:tap];
-    
+    [self.view addGestureRecognizer:tap];
+
+    DDLogVerbose(@"POST TYPE: %@", self.post.type);
 }
 
 -(void)dismissKeyboard{
@@ -116,16 +137,22 @@
     [self.defaultPostView.descriptionField resignFirstResponder];
     [self.freePostView.descriptionField resignFirstResponder];
     [self.booksPostView.descriptionField resignFirstResponder];
+    [self.genericPostView.descriptionField resignFirstResponder];
+
     [self.ticketsPostView.titleField resignFirstResponder];
     [self.defaultPostView.titleField resignFirstResponder];
     [self.freePostView.titleField resignFirstResponder];
     [self.booksPostView.titleField resignFirstResponder];
+    [self.genericPostView.titleField resignFirstResponder];
+
     [self.ticketsPostView.priceField resignFirstResponder];
     [self.defaultPostView.priceField resignFirstResponder];
     [self.booksPostView.priceField resignFirstResponder];
+    [self.genericPostView.priceField resignFirstResponder];
+
     [self.booksPostView.classField resignFirstResponder];
     [self.ticketsPostView.dateField resignFirstResponder];
-    
+    [self.genericPostView.subTitleField resignFirstResponder];
 }
 
 # pragma mark - Photo Upload Methods
@@ -161,7 +188,7 @@
 
 - (void) imagePickerController: (UIImagePickerController *) picker
  didFinishPickingMediaWithInfo: (NSDictionary *) info {
-    NSLog(@"%lu", selectedPhotoButton);
+    NSLog(@"%ld", (long)selectedPhotoButton);
     UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
     switch (selectedPhotoButton) {
         case 1:
@@ -242,89 +269,74 @@
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
 
+    DDLogVerbose(@"shouldchangecharactersinrange");
+
+    NSString *newText;
+
     if ([self.post.type isEqualToString: @"Books"]){
         if (textField == self.booksPostView.priceField){
-            NSString *newText = [textField.text stringByReplacingCharactersInRange:range withString:string];
-            
-            // Make sure that the currency symbol is always at the beginning of the string:
-            if (![newText hasPrefix:[[NSLocale currentLocale] objectForKey:NSLocaleCurrencySymbol]])
-            {
-                return NO;
-            }
+            newText = [textField.text stringByReplacingCharactersInRange:range withString:string];
         }
         
     } else if ([self.post.type isEqualToString:@"Electronics"] || [self.post.type isEqualToString:@"Furniture"] || [self.post.type isEqualToString:@"Clothing"]){
         if (textField == self.defaultPostView.priceField){
-            NSString *newText = [textField.text stringByReplacingCharactersInRange:range withString:string];
-            
-            // Make sure that the currency symbol is always at the beginning of the string:
-            if (![newText hasPrefix:[[NSLocale currentLocale] objectForKey:NSLocaleCurrencySymbol]])
-            {
-                return NO;
-            }
+            newText = [textField.text stringByReplacingCharactersInRange:range withString:string];
         }
         
     } else if ([self.post.type isEqualToString: @"Tickets"]){
         if (textField == self.ticketsPostView.priceField){
-            NSString *newText = [textField.text stringByReplacingCharactersInRange:range withString:string];
-            
-            // Make sure that the currency symbol is always at the beginning of the string:
-            if (![newText hasPrefix:[[NSLocale currentLocale] objectForKey:NSLocaleCurrencySymbol]])
-            {
-                return NO;
-            }
+            newText = [textField.text stringByReplacingCharactersInRange:range withString:string];
         }
+    } else if ([self.post.type isEqualToString: @"Tasks"]){
+        if (textField == self.genericPostView.priceField){
+            newText = [textField.text stringByReplacingCharactersInRange:range withString:string];
+        }
+    }
+
+    if ([newText length] == 0) {
+        return YES;
+    }
+
+    if (![newText hasPrefix:[[NSLocale currentLocale] objectForKey:NSLocaleCurrencySymbol]])
+    {
+        return NO;
     }
     return YES;
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
+    NSLog(@"MEETS REQUIREMENTS: %d", [self checkForRequiredFields]);
 
+    BOOL isPriceField;
+    NSString *testString;
     if ([self.post.type isEqualToString: @"Books"]){
-        if (textField == self.booksPostView.priceField){
-            if (textField.text.length  == 0)
-            {
-                textField.text = [[NSLocale currentLocale] objectForKey:NSLocaleCurrencySymbol];
-            }
-        }
-        
+        testString = self.booksPostView.priceField.text;
+        isPriceField = textField == self.booksPostView.priceField;
     } else if ([self.post.type isEqualToString:@"Electronics"] || [self.post.type isEqualToString:@"Furniture"] || [self.post.type isEqualToString:@"Clothing"]){
-        if (textField == self.defaultPostView.priceField){
-            if (textField.text.length  == 0)
-            {
-                textField.text = [[NSLocale currentLocale] objectForKey:NSLocaleCurrencySymbol];
-            }
-        }
-        
+        testString = self.defaultPostView.priceField.text;
+        isPriceField = textField == self.defaultPostView.priceField;
     } else if ([self.post.type isEqualToString: @"Tickets"]){
-        if (textField == self.ticketsPostView.priceField){
-            if (textField.text.length  == 0)
-            {
-                textField.text = [[NSLocale currentLocale] objectForKey:NSLocaleCurrencySymbol];
-            }
-        }
-        
+        testString = self.ticketsPostView.priceField.text;
+        isPriceField = textField == self.ticketsPostView.priceField;
     }
-    if ([self checkForRequiredFields]){
-        [self.postBarButtonItem setEnabled:YES];
-    } else {
-        [self.postBarButtonItem setEnabled:NO];
+
+    DDLogVerbose(@"TESTSTRING: %@", testString);
+    if (isPriceField && [testString length] == 0) {
+        textField.text = [[NSLocale currentLocale] objectForKey:NSLocaleCurrencySymbol];
     }
+
+    self.postBarButtonItem.enabled = [self checkForRequiredFields];
 }
 
 - (void)textFieldDidChange:(id)sender{
-    if ([self checkForRequiredFields]){
-        [self.postBarButtonItem setEnabled:YES];
-    } else {
-        [self.postBarButtonItem setEnabled:NO];
-    }
+    self.postBarButtonItem.enabled = [self checkForRequiredFields];
 }
 
 # pragma mark - UITextViewDelegate
 
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
-    if ([textView.text isEqualToString:@"Add description..."]) {
+    if ([textView.text isEqualToString:POST_VIEW_DESCRIPTION]) {
         textView.text = @"";
         textView.textColor = [UIColor blackColor]; //optional
     }
@@ -334,7 +346,7 @@
 - (void)textViewDidEndEditing:(UITextView *)textView
 {
     if ([textView.text isEqualToString:@""]) {
-        textView.text = @"Add description...";
+        textView.text = POST_VIEW_DESCRIPTION;
         textView.textColor = [UIColor lightGrayColor]; //optional
     }
     [textView resignFirstResponder];
@@ -343,7 +355,6 @@
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range
  replacementText:(NSString *)text
 {
-    
     if ([text isEqualToString:@"\n"]) {
         
         [textView resignFirstResponder];
@@ -355,11 +366,7 @@
 }
 
 -(void)textViewDidChange:(UITextView *)textView{
-    if ([self checkForRequiredFields]){
-        self.postBarButtonItem.enabled = YES;
-    } else {
-        self.postBarButtonItem.enabled = NO;
-    }
+    self.postBarButtonItem.enabled = [self checkForRequiredFields];
 }
 
 # pragma mark - Posting methods
@@ -368,198 +375,145 @@
     [self postInfoToServer];
 }
 
+- (NSString *)getPostTitle {
+    if ([self.post.type isEqualToString: @"Free"]) {
+        return self.freePostView.titleField.text;
+    } else if ([self.post.type isEqualToString: @"Books"]) {
+        return self.booksPostView.titleField.text;
+    } else if ([self.post.type isEqualToString: @"Electronics"] || [self.post.type isEqualToString:@"Furniture"] || [self.post.type isEqualToString:@"Clothing"]) {
+        return self.defaultPostView.titleField.text;
+    } else if ([self.post.type isEqualToString: @"Tickets"]) {
+        return self.ticketsPostView.titleField.text;
+    } else if ([self.post.type isEqualToString: @"Tasks"]) {
+        return self.genericPostView.titleField.text;
+    }
+    return @"";
+}
+
+- (NSString *)getUserDescription {
+    if ([self.post.type isEqualToString: @"Free"]){
+        return self.freePostView.descriptionField.text;
+    } else if ([self.post.type isEqualToString: @"Books"]){
+        return self.booksPostView.descriptionField.text;
+    } else if ([self.post.type isEqualToString: @"Electronics"] || [self.post.type isEqualToString:@"Furniture"] || [self.post.type isEqualToString:@"Clothing"]){
+        return self.defaultPostView.descriptionField.text;
+    } else if ([self.post.type isEqualToString: @"Tickets"]){
+        return self.ticketsPostView.descriptionField.text;
+    } else if ([self.post.type isEqualToString: @"Tasks"]){
+        return self.genericPostView.descriptionField.text;
+    }
+    return @"";
+}
+
+- (NSString *)getPostPrice {
+    NSString *priceString;
+    if ([self.post.type isEqualToString: @"Books"]){
+        priceString = self.booksPostView.priceField.text;
+    } else if ([self.post.type isEqualToString: @"Electronics"] || [self.post.type isEqualToString:@"Furniture"] || [self.post.type isEqualToString:@"Clothing"]){
+        priceString = self.defaultPostView.priceField.text;
+    } else if ([self.post.type isEqualToString: @"Tickets"]){
+        priceString = self.ticketsPostView.priceField.text;
+    } else if ([self.post.type isEqualToString: @"Tasks"]){
+        priceString = self.genericPostView.priceField.text;
+    }
+
+    if ([priceString length] == 0) {
+        return @"";
+    }
+
+    return [[priceString componentsSeparatedByString:@"$"] objectAtIndex:1];
+}
+
 -(void)postInfoToServer{
     if (![self checkForRequiredFields]){
         //Did not pass checks
-    } else {
-        if ([self.post.type isEqualToString: @"Free"]){
-            self.post.userDescription = self.freePostView.descriptionField.text;
-            self.post.title = self.freePostView.titleField.text;
-            self.post.user = [PFUser currentUser];
-            self.post.expired = NO;
-            self.post.sold = NO;
-            self.post.network = [[PFUser currentUser] objectForKey:@"network"];
-            
-            NSMutableArray *fileArray = [[NSMutableArray alloc] initWithCapacity:3];
-            for (id key in photoDictionary) {
-                PFFile *imageFile = [PFFile fileWithName:@"Image.jpg" data:[photoDictionary objectForKey:key]];
-                [fileArray addObject:imageFile];
-            }
-            self.post.photoArray = fileArray;
-            
-            PFACL *readOnlyUserWriteACL = [PFACL ACL];
-            [readOnlyUserWriteACL setPublicReadAccess:YES];
-            [readOnlyUserWriteACL setWriteAccess:YES forUser:[PFUser currentUser]];
-            self.post.ACL = readOnlyUserWriteACL;
-            
-            [self.post saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                if (!error){
-                    
-                } else {
-                    UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:error.description delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
-                    [errorAlert show];
-                }
-            }];
-            [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-            
-        } else if ([self.post.type isEqualToString: @"Books"]){
-            self.post.bookForClass = self.booksPostView.classField.text;
-            NSString *price = [[self.booksPostView.priceField.text componentsSeparatedByString:@"$"] objectAtIndex:1];
-            self.post.price = price;
-            self.post.userDescription = self.booksPostView.descriptionField.text;
-            self.post.title = self.booksPostView.titleField.text;
-            self.post.user = [PFUser currentUser];
-            self.post.expired = NO;
-            self.post.sold = NO;
-            self.post.network = [[PFUser currentUser] objectForKey:@"network"];
-            
-            NSMutableArray *fileArray = [[NSMutableArray alloc] initWithCapacity:3];
-            for (id key in photoDictionary) {
-                PFFile *imageFile = [PFFile fileWithName:@"Image.jpg" data:[photoDictionary objectForKey:key]];
-                [fileArray addObject:imageFile];
-            }
-            self.post.photoArray = fileArray;
-            
-            PFACL *readOnlyUserWriteACL = [PFACL ACL];
-            [readOnlyUserWriteACL setPublicReadAccess:YES];
-            [readOnlyUserWriteACL setWriteAccess:YES forUser:[PFUser currentUser]];
-            self.post.ACL = readOnlyUserWriteACL;
-            
-            [self.post saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                if (!error){
-                    
-                } else {
-                    UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:error.description delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
-                    [errorAlert show];
-                }
-            }];
-            [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-            
-        } else if ([self.post.type isEqualToString: @"Electronics"] || [self.post.type isEqualToString:@"Furniture"] || [self.post.type isEqualToString:@"Clothing"]){
-            self.post.userDescription = self.defaultPostView.descriptionField.text;
-            self.post.title = self.defaultPostView.titleField.text;
-            NSString *price = [[self.defaultPostView.priceField.text componentsSeparatedByString:@"$"] objectAtIndex:1];
-            self.post.price = price;
-            self.post.user = [PFUser currentUser];
-            self.post.expired = NO;
-            self.post.sold = NO;
-            self.post.network = [[PFUser currentUser] objectForKey:@"network"];
-            
-            NSMutableArray *fileArray = [[NSMutableArray alloc] initWithCapacity:3];
-            for (id key in photoDictionary) {
-                PFFile *imageFile = [PFFile fileWithName:@"Image.jpg" data:[photoDictionary objectForKey:key]];
-                [fileArray addObject:imageFile];
-            }
-            self.post.photoArray = fileArray;
-            
-            PFACL *readOnlyUserWriteACL = [PFACL ACL];
-            [readOnlyUserWriteACL setPublicReadAccess:YES];
-            [readOnlyUserWriteACL setWriteAccess:YES forUser:[PFUser currentUser]];
-            self.post.ACL = readOnlyUserWriteACL;
-            
-            [self.post saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                if (!error){
-                    
-                } else {
-                    UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:error.description delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
-                    [errorAlert show];
-                }
-            }];
-            [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-            
-        } else if ([self.post.type isEqualToString: @"Tickets"]){
-            self.post.eventDate = self.ticketsPostView.dateField.text;
-            self.post.userDescription = self.ticketsPostView.descriptionField.text;
-            self.post.title = self.ticketsPostView.titleField.text;
-            NSString *price = [[self.ticketsPostView.priceField.text componentsSeparatedByString:@"$"] objectAtIndex:1];
-            self.post.price = price;
-            self.post.user = [PFUser currentUser];
-            self.post.expired = NO;
-            self.post.sold = NO;
-            self.post.network = [[PFUser currentUser] objectForKey:@"network"];
-            
-            NSMutableArray *fileArray = [[NSMutableArray alloc] initWithCapacity:3];
-            for (id key in photoDictionary) {
-                PFFile *imageFile = [PFFile fileWithName:@"Image.jpg" data:[photoDictionary objectForKey:key]];
-                [fileArray addObject:imageFile];
-            }
-            self.post.photoArray = fileArray;
-            
-            PFACL *readOnlyUserWriteACL = [PFACL ACL];
-            [readOnlyUserWriteACL setPublicReadAccess:YES];
-            [readOnlyUserWriteACL setWriteAccess:YES forUser:[PFUser currentUser]];
-            self.post.ACL = readOnlyUserWriteACL;
-        }
-        [self.post saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            if (!error){
-                if (succeeded == YES) {
-                    NSLog(@"Save in background successful");
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"PostMade" object:nil];
-                    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-                }
-            } else {
-                UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:error.description delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
-                [errorAlert show];
-            }
-        }];
+        return;
     }
+
+    self.post.expired = NO;
+    self.post.sold = NO;
+    self.post.title = [self getPostTitle];
+    self.post.price = [self getPostPrice];
+    self.post.userDescription = [self getUserDescription];
+    self.post.user = [PFUser currentUser];
+    self.post.network = [[PFUser currentUser] objectForKey:@"network"];
+
+    NSMutableArray *fileArray = [[NSMutableArray alloc] initWithCapacity:3];
+    for (id key in photoDictionary) {
+        PFFile *imageFile = [PFFile fileWithName:@"Image.jpg" data:[photoDictionary objectForKey:key]];
+        [fileArray addObject:imageFile];
+    }
+    self.post.photoArray = fileArray;
+
+    PFACL *readOnlyUserWriteACL = [PFACL ACL];
+    [readOnlyUserWriteACL setPublicReadAccess:YES];
+    [readOnlyUserWriteACL setWriteAccess:YES forUser:[PFUser currentUser]];
+    self.post.ACL = readOnlyUserWriteACL;
+
+    if ([self.post.type isEqualToString: @"Books"]){
+        self.post.bookForClass = self.booksPostView.classField.text;
+    }
+
+    if ([self.post.type isEqualToString: @"Tickets"]){
+        self.post.eventDate = self.ticketsPostView.dateField.text;
+    }
+    
+    if ([self.post.type isEqualToString: @"Tasks"]){
+        self.post.subtitle = self.genericPostView.subTitleField.text;
+    }
+
+    [self.post saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (!error){
+            if (succeeded == YES) {
+                NSLog(@"Save in background successful");
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"PostMade" object:nil];
+                [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+            }
+        } else {
+            UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:error.description delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [errorAlert show];
+        }
+    }];
 }
 
--(BOOL)checkForRequiredFields{
-    
-    NSLog(@"%@", currentUser);
-    if ([[currentUser objectForKey:@"emailVerified"] boolValue]){
-        if ([self.post.type isEqualToString: @"Free"]){
-            if (self.freePostView.descriptionField.text == nil || [self.freePostView.descriptionField.text isEqualToString:@"Add description..."] || [self.freePostView.descriptionField.text isEqualToString:@""]){
+-(BOOL)checkForRequiredFields {
+
+    NSLog(@"%@", [PFUser currentUser]);
+//    if ([[currentUser objectForKey:@"emailVerified"] boolValue]){
+    if (1) {
+
+        if ([[self getUserDescription] length] == 0 || [[self getUserDescription] isEqualToString:POST_VIEW_DESCRIPTION]){
+            return NO;
+        }
+
+        if ([[self getPostTitle] length] == 0 || [[self getPostTitle] isEqualToString:POST_VIEW_TITLE]){
+            return NO;
+        }
+
+        BOOL hasPrice = [self.post.type isEqualToString:@"Free"] ? NO : YES;
+
+        if ((hasPrice && [[self getPostPrice] length] == 0) || (hasPrice && [[self getPostPrice] isEqualToString:POST_VIEW_TITLE])){
+            return NO;
+        }
+
+        if ([self.post.type isEqualToString: @"Tickets"]){
+            if ([self.ticketsPostView.dateField.text length] == 0){
                 return NO;
-            } else if (self.freePostView.titleField.text == nil || [self.freePostView.titleField.text isEqualToString:@"Add title..."] || [self.freePostView.titleField.text isEqualToString:@""] ) {
-                return NO;
-            } else {
-                return YES;
             }
-        } else if ([self.post.type isEqualToString: @"Books"]){
-            if (self.booksPostView.descriptionField.text == nil || [self.booksPostView.descriptionField.text isEqualToString:@"Add description..."] || [self.booksPostView.descriptionField.text isEqualToString:@""]){
+        } else if ([self.post.type isEqualToString: @"Tasks"]){
+            if ([self.genericPostView.subTitleField.text length] == 0){
                 return NO;
-            } else if (self.booksPostView.titleField.text == nil || [self.booksPostView.titleField.text isEqualToString:@"Add title..."] || [self.booksPostView.titleField.text isEqualToString:@""] ) {
-                return NO;
-            } else if (self.booksPostView.classField.text == nil || [self.booksPostView.classField.text isEqualToString:@"Add title..."] || [self.booksPostView.classField.text isEqualToString:@""] ) {
-                return NO;
-            } else if (self.booksPostView.priceField.text == nil || [self.booksPostView.priceField.text isEqualToString:@"$"] || [self.booksPostView.classField.text isEqualToString:@""] ) {
-                return NO;
-            } else {
-                return YES;
-            }
-        } else if ([self.post.type isEqualToString: @"Electronics"] || [self.post.type isEqualToString:@"Furniture"] || [self.post.type isEqualToString:@"Clothing"]){
-            if (self.defaultPostView.descriptionField.text == nil || [self.defaultPostView.descriptionField.text isEqualToString:@"Add description..."] || [self.defaultPostView.descriptionField.text isEqualToString:@""]){
-                return NO;
-            } else if (self.defaultPostView.titleField.text == nil || [self.defaultPostView.titleField.text isEqualToString:@"Add title..."] || [self.defaultPostView.titleField.text isEqualToString:@""] ) {
-                return NO;
-            } else if (self.defaultPostView.priceField.text == nil || [self.defaultPostView.priceField.text isEqualToString:@"$" ] || [self.defaultPostView.priceField.text isEqualToString:@""]){
-                return NO;
-            } else {
-                return YES;
-            }
-        } else if ([self.post.type isEqualToString: @"Tickets"]){
-            // Required for free: description, title, price, event date
-            if (self.ticketsPostView.descriptionField.text == nil || [self.ticketsPostView.descriptionField.text isEqualToString:@"Add description..."] || [self.ticketsPostView.descriptionField.text isEqualToString:@""]){
-                return NO;
-            } else if (self.ticketsPostView.titleField.text == nil || [self.ticketsPostView.titleField.text isEqualToString:@"Add title..."] || [self.ticketsPostView.titleField.text isEqualToString:@""] ) {
-                return NO;
-            } else if (self.ticketsPostView.priceField.text == nil || [self.ticketsPostView.priceField.text isEqualToString:@"$" ] || [self.ticketsPostView.priceField.text isEqualToString:@""]){
-                return NO;
-            }else if (self.ticketsPostView.dateField.text == nil || [self.ticketsPostView.dateField.text isEqualToString:@"" ] || [self.ticketsPostView.dateField.text isEqualToString:@""]){
-                return NO;
-            } else {
-                return YES;
             }
         }
+
+        return YES;
+
     } else {
         UIAlertView *notVerifiedAlert = [[UIAlertView alloc] initWithTitle:@"Please verify email"
                                                                    message:@"You are not verified as a Santa Clara University student. Please check your @scu.edu inbox for a verification email" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
         [notVerifiedAlert show];
         return NO;
     }
-    return NO;
 }
 
 @end

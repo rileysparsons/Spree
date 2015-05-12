@@ -23,14 +23,14 @@ static NSArray *categories;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _imageArray = [[NSArray alloc] initWithObjects:@"BookTypeIconSmall", @"TicketTypeIconSmall", @"ElectronicsTypeIconSmall", @"freeGraphic", nil, nil, nil];
+    _imageArray = [[NSArray alloc] initWithObjects:@"BookTypeIconSmall", @"TicketTypeIconSmall", @"ElectronicsTypeIconSmall", @"freeGraphic", nil, nil, nil, nil];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
       NSLog(@"Delegate: %@", self.delegate);
 }
 
 + (NSArray *)categories {
-    return [NSArray arrayWithObjects:@"Books", @"Tickets", @"Electronics", @"Free", @"Furniture", @"Clothing", nil];
+    return [NSArray arrayWithObjects:@"Books", @"Tickets", @"Electronics", @"Free", @"Furniture", @"Clothing", @"Tasks", nil];
 }
 
 #pragma mark - Table view data source

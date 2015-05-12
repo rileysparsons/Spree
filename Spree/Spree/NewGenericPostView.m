@@ -6,12 +6,12 @@
 //  Copyright (c) 2015 Riley Steele Parsons. All rights reserved.
 //
 
-#import "NewTicketsPostView.h"
+#import "NewGenericPostView.h"
 
-@implementation NewTicketsPostView
+@implementation NewGenericPostView
 
 -(void)awakeFromNib {
-    [[NSBundle mainBundle] loadNibNamed:@"NewTicketsPostView" owner:self options:nil];
+    [[NSBundle mainBundle] loadNibNamed:@"NewGenericPostView" owner:self options:nil];
     
     // The following is to make sure content view, extends out all the way to fill whatever our view size is even as our view's size is changed by autolayout
     [self.contentView setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -37,13 +37,13 @@
     _priceField.layer.borderColor=[[UIColor spreeDarkBlue]CGColor];
     _priceField.layer.borderWidth= 1.0f;
     
-    UIView *leftViewClass = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, _dateField.frame.size.height)];
-    _dateField.leftView = leftViewClass;
-    _dateField.leftViewMode = UITextFieldViewModeAlways;
-    _dateField.layer.cornerRadius = _priceField.frame.size.height/2;
-    _dateField.layer.masksToBounds=YES;
-    _dateField.layer.borderColor=[[UIColor spreeDarkBlue]CGColor];
-    _dateField.layer.borderWidth= 1.0f;
+    UIView *leftViewClass = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, _subTitleField.frame.size.height)];
+    _subTitleField.leftView = leftViewClass;
+    _subTitleField.leftViewMode = UITextFieldViewModeAlways;
+    _subTitleField.layer.cornerRadius = _priceField.frame.size.height/2;
+    _subTitleField.layer.masksToBounds=YES;
+    _subTitleField.layer.borderColor=[[UIColor spreeDarkBlue]CGColor];
+    _subTitleField.layer.borderWidth= 1.0f;
     
     UIView *leftViewPostTitle = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, _titleField.frame.size.height)];
     _titleField.leftView = leftViewPostTitle;

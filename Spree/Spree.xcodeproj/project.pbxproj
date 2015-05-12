@@ -65,6 +65,8 @@
 		F72CF4F81AEB46A900144001 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F72CF4F51AEB467100144001 /* libstdc++.6.dylib */; };
 		F743C9581AE6400500C14781 /* WelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F743C9571AE6400500C14781 /* WelcomeViewController.m */; };
 		F743C95C1AE6412400C14781 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F743C95B1AE6412400C14781 /* SignUpViewController.m */; };
+		F75728401B015B9D005F5FED /* NewGenericPostView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F757283F1B015B9D005F5FED /* NewGenericPostView.xib */; };
+		F75728431B015BC7005F5FED /* NewGenericPostView.m in Sources */ = {isa = PBXBuildFile; fileRef = F75728421B015BC7005F5FED /* NewGenericPostView.m */; };
 		F76258EB1AF2044E003B67D4 /* RatingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F76258EA1AF2044E003B67D4 /* RatingViewController.m */; };
 		F7715E971AEBFEA7005DDEFF /* MessagingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F7715E961AEBFEA7005DDEFF /* MessagingTableViewCell.m */; };
 		F7715E9B1AEC05AD005DDEFF /* AllMessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7715E9A1AEC05AD005DDEFF /* AllMessagesViewController.m */; };
@@ -195,6 +197,9 @@
 		F743C9571AE6400500C14781 /* WelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomeViewController.m; sourceTree = "<group>"; };
 		F743C9591AE6409700C14781 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		F743C95B1AE6412400C14781 /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
+		F757283F1B015B9D005F5FED /* NewGenericPostView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewGenericPostView.xib; sourceTree = "<group>"; };
+		F75728411B015BB3005F5FED /* NewGenericPostView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewGenericPostView.h; sourceTree = "<group>"; };
+		F75728421B015BC7005F5FED /* NewGenericPostView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewGenericPostView.m; sourceTree = "<group>"; };
 		F76258E91AF2044E003B67D4 /* RatingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RatingViewController.h; sourceTree = "<group>"; };
 		F76258EA1AF2044E003B67D4 /* RatingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RatingViewController.m; sourceTree = "<group>"; };
 		F7715E951AEBFEA7005DDEFF /* MessagingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagingTableViewCell.h; sourceTree = "<group>"; };
@@ -427,6 +432,9 @@
 				14ABE1061A96A59000B805D0 /* NewTicketsPostView.h */,
 				14ABE1071A96A59000B805D0 /* NewTicketsPostView.m */,
 				14ABE1091A96A59F00B805D0 /* NewTicketsPostView.xib */,
+				F75728411B015BB3005F5FED /* NewGenericPostView.h */,
+				F75728421B015BC7005F5FED /* NewGenericPostView.m */,
+				F757283F1B015B9D005F5FED /* NewGenericPostView.xib */,
 			);
 			name = "New Post Views";
 			sourceTree = "<group>";
@@ -645,6 +653,7 @@
 				14E66B981A452653008184C1 /* PostTableViewCell.xib in Resources */,
 				140CF8EA1A3BBFB200134C4D /* LaunchScreen.xib in Resources */,
 				140CF8E71A3BBFB200134C4D /* Images.xcassets in Resources */,
+				F75728401B015B9D005F5FED /* NewGenericPostView.xib in Resources */,
 				14ABE0FA1A95022900B805D0 /* NewFreePostView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -727,6 +736,7 @@
 				14ABE1041A96893C00B805D0 /* NewDefaultPostView.m in Sources */,
 				F7715E9B1AEC05AD005DDEFF /* AllMessagesViewController.m in Sources */,
 				1404739A1ABD267E00C0F8EF /* UserPostsTableViewController.m in Sources */,
+				F75728431B015BC7005F5FED /* NewGenericPostView.m in Sources */,
 				F7AFBB421AF4CC0A00D3148B /* FindBuyerViewController.m in Sources */,
 				142D9E691A9A483300EAA187 /* FreeContainerTableTableViewController.m in Sources */,
 				14E66B9B1A45ECFF008184C1 /* PostDetailViewController.m in Sources */,

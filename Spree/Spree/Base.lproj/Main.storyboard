@@ -215,6 +215,7 @@
                         <segue destination="Ko5-M5-MsL" kind="show" identifier="showNewElectronicsPostDetail" id="E5h-D4-D8O"/>
                         <segue destination="Ko5-M5-MsL" kind="show" identifier="showNewFurniturePostDetail" id="5vg-T5-N3b"/>
                         <segue destination="Ko5-M5-MsL" kind="show" identifier="showNewClothingPostDetail" id="eMA-Qd-vQN"/>
+                        <segue destination="fCX-pc-E12" kind="show" identifier="showNewTasksPostDetail" id="aIG-0l-a9F"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9EM-4U-fgd" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -626,6 +627,7 @@
                         <segue destination="brh-AW-XCG" kind="show" identifier="showElectronicsPost" id="IPh-vz-zAt"/>
                         <segue destination="brh-AW-XCG" kind="show" identifier="showFurniturePost" id="bdq-xF-qON"/>
                         <segue destination="brh-AW-XCG" kind="show" identifier="showClothingPost" id="WUs-g9-Dmw"/>
+                        <segue destination="LSd-5a-wkh" kind="show" identifier="showTasksPost" id="IbG-Oa-g4K"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XAR-zH-b4P" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -693,6 +695,7 @@
                         <segue destination="piY-Ia-E54" kind="show" identifier="ShowFreeDetail" id="1J7-D9-rCs"/>
                         <segue destination="brh-AW-XCG" kind="show" identifier="showFurniturePost" id="Dmi-ol-XfM"/>
                         <segue destination="brh-AW-XCG" kind="show" identifier="showClothingPost" id="NK3-L6-C89"/>
+                        <segue destination="LSd-5a-wkh" kind="show" identifier="showTasksPost" id="Xsd-kn-s0p"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hkX-pv-DZb" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1080,6 +1083,7 @@
                         <segue destination="brh-AW-XCG" kind="show" identifier="showElectronicsPost" id="NyK-v4-QXL"/>
                         <segue destination="brh-AW-XCG" kind="show" identifier="showFurniturePost" id="tW9-vk-FRh"/>
                         <segue destination="brh-AW-XCG" kind="show" identifier="showClothingPost" id="8vv-J9-Md4"/>
+                        <segue destination="LSd-5a-wkh" kind="show" identifier="showTasksPost" id="zKl-KK-pxs"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4yz-9E-P4c" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2029,6 +2033,7 @@
                         <outlet property="repostButton" destination="JzU-3D-CfL" id="xkA-2i-VtQ"/>
                         <outlet property="scrollView" destination="7dR-ap-rKS" id="H1Z-gT-0pT"/>
                         <outlet property="soldButton" destination="E19-Fu-nDL" id="xV1-zr-9PN"/>
+                        <outlet property="taskLocationLabel" destination="MHd-Ut-RAI" id="Uv3-wR-wsv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iAo-bf-Q7I" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2619,7 +2624,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="seO-Yc-TfN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2452" y="-2888"/>
+            <point key="canvasLocation" x="2424" y="-2884"/>
         </scene>
         <!--New Post Info View Controller-->
         <scene sceneID="XcC-dA-jOB">
@@ -2846,6 +2851,171 @@
             </objects>
             <point key="canvasLocation" x="-456" y="-1118"/>
         </scene>
+        <!--New Post Info View Controller-->
+        <scene sceneID="D0P-Tr-rUL">
+            <objects>
+                <viewController storyboardIdentifier="NewGenericViewController" id="fCX-pc-E12" customClass="NewPostInfoViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Eqf-Mp-ux3"/>
+                        <viewControllerLayoutGuide type="bottom" id="mvP-2g-dmv"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="o7O-Wy-FJt">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lec-Ic-jNN">
+                                <rect key="frame" x="25" y="525" width="364" height="136"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9N2-Wb-ZUE">
+                                        <rect key="frame" x="271" y="25" width="85" height="85"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="96" id="42d-0X-ts4"/>
+                                            <constraint firstAttribute="width" secondItem="9N2-Wb-ZUE" secondAttribute="height" multiplier="1:1" id="5hS-p6-mjp"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <state key="normal" title="Add Photo">
+                                            <color key="titleColor" red="0.96862745100000003" green="0.16862745100000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="42d-0X-ts4"/>
+                                            </mask>
+                                        </variation>
+                                        <connections>
+                                            <action selector="thirdAddPhotoButtonPressed:" destination="fCX-pc-E12" eventType="touchUpInside" id="OEo-gK-75L"/>
+                                            <action selector="thirdAddPhotoButtonPressed:" destination="NWz-u1-yHi" eventType="touchUpInside" id="qxp-mM-BiC"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s7F-ZW-XxV">
+                                        <rect key="frame" x="140" y="25" width="85" height="85"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="s7F-ZW-XxV" secondAttribute="height" multiplier="1:1" id="GZf-NT-wwz"/>
+                                            <constraint firstAttribute="width" constant="96" id="buU-5a-fOw"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <state key="normal" title="Add Photo">
+                                            <color key="titleColor" red="0.96862745100000003" green="0.16862745100000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="buU-5a-fOw"/>
+                                            </mask>
+                                        </variation>
+                                        <connections>
+                                            <action selector="secondAddPhotoButtonPressed:" destination="NWz-u1-yHi" eventType="touchUpInside" id="Sye-Is-jvH"/>
+                                            <action selector="secondAddPhotoButtonPressed:" destination="fCX-pc-E12" eventType="touchUpInside" id="sKI-9F-15Z"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eMn-rQ-iAI">
+                                        <rect key="frame" x="8" y="25" width="85" height="85"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="96" id="0ZT-a1-frr"/>
+                                            <constraint firstAttribute="width" secondItem="eMn-rQ-iAI" secondAttribute="height" multiplier="1:1" id="mUl-eY-Rfs"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <state key="normal" title="Add Photo">
+                                            <color key="titleColor" red="0.96862745100000003" green="0.16862745100000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="0ZT-a1-frr"/>
+                                            </mask>
+                                        </variation>
+                                        <connections>
+                                            <action selector="firstAddPhotoButtonPressed:" destination="NWz-u1-yHi" eventType="touchUpInside" id="0A8-fv-er8"/>
+                                            <action selector="firstAddPhotoButtonPressed:" destination="fCX-pc-E12" eventType="touchUpInside" id="IEY-84-IJs"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="eMn-rQ-iAI" firstAttribute="top" secondItem="9N2-Wb-ZUE" secondAttribute="top" id="3vf-yF-ge9"/>
+                                    <constraint firstItem="eMn-rQ-iAI" firstAttribute="width" secondItem="9N2-Wb-ZUE" secondAttribute="height" multiplier="1:1" id="Exh-dV-w4E"/>
+                                    <constraint firstItem="eMn-rQ-iAI" firstAttribute="width" secondItem="s7F-ZW-XxV" secondAttribute="height" multiplier="1:1" id="QRc-Du-vn7"/>
+                                    <constraint firstItem="eMn-rQ-iAI" firstAttribute="leading" secondItem="Lec-Ic-jNN" secondAttribute="leadingMargin" id="Qzp-rn-4ac"/>
+                                    <constraint firstAttribute="trailing" secondItem="9N2-Wb-ZUE" secondAttribute="trailing" constant="20" id="ZvV-py-bdi"/>
+                                    <constraint firstItem="eMn-rQ-iAI" firstAttribute="firstBaseline" secondItem="s7F-ZW-XxV" secondAttribute="baseline" id="abF-sl-suF"/>
+                                    <constraint firstAttribute="width" secondItem="Lec-Ic-jNN" secondAttribute="height" multiplier="91:34" id="c7B-LK-DZ8"/>
+                                    <constraint firstAttribute="height" constant="136" id="i3d-2f-Bl6"/>
+                                    <constraint firstAttribute="centerY" secondItem="s7F-ZW-XxV" secondAttribute="centerY" id="iQl-PU-YjM"/>
+                                    <constraint firstAttribute="centerY" secondItem="s7F-ZW-XxV" secondAttribute="centerY" id="k7Q-1G-DP1"/>
+                                    <constraint firstItem="eMn-rQ-iAI" firstAttribute="top" secondItem="s7F-ZW-XxV" secondAttribute="top" id="lwl-br-cRW"/>
+                                    <constraint firstAttribute="centerX" secondItem="s7F-ZW-XxV" secondAttribute="centerX" id="nCg-n5-xdb"/>
+                                    <constraint firstAttribute="trailing" secondItem="9N2-Wb-ZUE" secondAttribute="trailing" constant="8" id="plp-Ge-kQY"/>
+                                    <constraint firstItem="9N2-Wb-ZUE" firstAttribute="leading" secondItem="s7F-ZW-XxV" secondAttribute="trailing" constant="46" id="pr2-Ey-CwC"/>
+                                    <constraint firstItem="eMn-rQ-iAI" firstAttribute="baseline" secondItem="s7F-ZW-XxV" secondAttribute="firstBaseline" id="uC1-lg-txg"/>
+                                    <constraint firstAttribute="centerY" secondItem="9N2-Wb-ZUE" secondAttribute="centerY" id="viA-QI-nXa"/>
+                                    <constraint firstItem="s7F-ZW-XxV" firstAttribute="leading" secondItem="eMn-rQ-iAI" secondAttribute="trailing" constant="47" id="xh6-2R-xXS"/>
+                                    <constraint firstAttribute="width" secondItem="Lec-Ic-jNN" secondAttribute="height" multiplier="91:34" id="yxt-y2-oqw"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="i3d-2f-Bl6"/>
+                                        <exclude reference="yxt-y2-oqw"/>
+                                        <exclude reference="uC1-lg-txg"/>
+                                        <exclude reference="Exh-dV-w4E"/>
+                                        <exclude reference="abF-sl-suF"/>
+                                        <exclude reference="QRc-Du-vn7"/>
+                                        <exclude reference="ZvV-py-bdi"/>
+                                    </mask>
+                                </variation>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uuG-aS-Dyz" customClass="NewGenericPostView">
+                                <rect key="frame" x="16" y="72" width="382" height="336"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="uuG-aS-Dyz" secondAttribute="height" multiplier="191:168" id="A7D-Io-1R5"/>
+                                    <constraint firstAttribute="width" secondItem="uuG-aS-Dyz" secondAttribute="height" multiplier="414:151" id="PKR-Rb-g6a"/>
+                                    <constraint firstAttribute="height" constant="336" id="aFr-fp-hUV"/>
+                                    <constraint firstAttribute="width" secondItem="uuG-aS-Dyz" secondAttribute="height" multiplier="191:136" id="nrd-rw-sf1"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="aFr-fp-hUV"/>
+                                        <exclude reference="nrd-rw-sf1"/>
+                                        <exclude reference="A7D-Io-1R5"/>
+                                        <exclude reference="PKR-Rb-g6a"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <outlet property="contentView" destination="o7O-Wy-FJt" id="ipH-UV-Epq"/>
+                                </connections>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="Lec-Ic-jNN" secondAttribute="trailing" constant="9" id="8eI-Xe-tek"/>
+                            <constraint firstItem="Lec-Ic-jNN" firstAttribute="width" secondItem="Lec-Ic-jNN" secondAttribute="height" multiplier="91:34" id="BY4-tc-4Yj"/>
+                            <constraint firstItem="uuG-aS-Dyz" firstAttribute="width" secondItem="uuG-aS-Dyz" secondAttribute="height" multiplier="191:168" id="CUL-lZ-IMr"/>
+                            <constraint firstItem="uuG-aS-Dyz" firstAttribute="trailing" secondItem="o7O-Wy-FJt" secondAttribute="trailingMargin" id="ETI-wk-u1c"/>
+                            <constraint firstItem="uuG-aS-Dyz" firstAttribute="width" secondItem="uuG-aS-Dyz" secondAttribute="height" multiplier="191:168" id="QD8-jX-LtI"/>
+                            <constraint firstItem="Lec-Ic-jNN" firstAttribute="leading" secondItem="o7O-Wy-FJt" secondAttribute="leadingMargin" constant="9" id="TqG-yH-4Vf"/>
+                            <constraint firstItem="uuG-aS-Dyz" firstAttribute="top" secondItem="Eqf-Mp-ux3" secondAttribute="bottom" constant="8" id="b3K-B5-U9P"/>
+                            <constraint firstItem="uuG-aS-Dyz" firstAttribute="leading" secondItem="o7O-Wy-FJt" secondAttribute="leadingMargin" id="hAu-Ql-Kxj"/>
+                            <constraint firstItem="mvP-2g-dmv" firstAttribute="top" secondItem="Lec-Ic-jNN" secondAttribute="bottom" constant="75" id="l5H-aL-JR0"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="CUL-lZ-IMr"/>
+                                <exclude reference="BY4-tc-4Yj"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
+                    <connections>
+                        <outlet property="firstAddPhotoButton" destination="eMn-rQ-iAI" id="Dp5-Su-Vev"/>
+                        <outlet property="genericPostView" destination="uuG-aS-Dyz" id="lJk-Ge-0eM"/>
+                        <outlet property="secondAddPhotoButton" destination="s7F-ZW-XxV" id="frk-2t-hp2"/>
+                        <outlet property="thirdAddPhotoButton" destination="9N2-Wb-ZUE" id="qHl-zr-FM3"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xUA-G7-btr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3584" y="-3700"/>
+        </scene>
     </scenes>
     <resources>
         <image name="AllTabBarIcon" width="31" height="34"/>
@@ -2857,8 +3027,8 @@
     <inferredMetricsTieBreakers>
         <segue reference="egP-Bb-yim"/>
         <segue reference="xGv-LV-rKw"/>
-        <segue reference="1J7-D9-rCs"/>
         <segue reference="ubu-4c-zFs"/>
+        <segue reference="1J7-D9-rCs"/>
         <segue reference="eMA-Qd-vQN"/>
     </inferredMetricsTieBreakers>
 </document>

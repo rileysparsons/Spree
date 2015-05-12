@@ -32,6 +32,8 @@
         singularType = @"furniture item";
     } else if ([_post.type isEqualToString:@"Clothing"]) {
         singularType = @"clothing item";
+    } else if ([_post.type isEqualToString:@"Tasks"]) {
+        singularType = @"task";
     }
     self.informationLabel.lineBreakMode = NSLineBreakByWordWrapping;
     self.informationLabel.numberOfLines = 0;

@@ -22,7 +22,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    typeArray = [[NSArray alloc] initWithObjects:@"Electronics", @"Free", @"Tickets", @"Books", @"Furniture", @"Clothing", nil];
+    typeArray = [[NSArray alloc] initWithObjects:@"Electronics", @"Free", @"Tickets", @"Books", @"Furniture", @"Clothing", @"Tasks", nil];
     
     self.navigationItem.title = @"Choose post type";
     
@@ -94,9 +94,11 @@
         cell.detailImage.image = [UIImage imageNamed:@"clothingCellIconWhite"];
         cell.accessoryView = [MSCellAccessory accessoryWithType: FLAT_DISCLOSURE_INDICATOR color:[iconColorArray objectAtIndex:indexPath.row] highlightedColor:[UIColor spreeLightYellow]];
         cell.iconBackground.backgroundColor = [iconColorArray objectAtIndex:indexPath.row];
+    } else if ([[typeArray objectAtIndex:indexPath.row] isEqualToString: @"Tasks"]){
+        cell.detailImage.image = nil;
+        cell.accessoryView = [MSCellAccessory accessoryWithType: FLAT_DISCLOSURE_INDICATOR color:[UIColor spreeLightYellow] highlightedColor:[UIColor spreeLightYellow]];
     }
     return cell;
-
 }
 
 - (void)nextBarButtonItemPressed:(id)sender {
@@ -113,6 +115,8 @@
         [self performSegueWithIdentifier:@"showNewFurniturePostDetail" sender:self];
     } else if ([selectedType isEqualToString:@"Clothing"]){
         [self performSegueWithIdentifier:@"showNewClothingPostDetail" sender:self];
+    } else if ([selectedType isEqualToString:@"Tasks"]){
+        [self performSegueWithIdentifier:@"showNewTasksPostDetail" sender:self];
     }
     [self.post setType:selectedType];
 }

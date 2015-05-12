@@ -50,3 +50,6 @@
 #define		NOTIFICATION_APP_STARTED			@"NCAppStarted"
 #define		NOTIFICATION_USER_LOGGED_IN			@"NCUserLoggedIn"
 #define		NOTIFICATION_USER_LOGGED_OUT		@"NCUserLoggedOut"
+
+#define     POST_VIEW_DESCRIPTION               @"Add description..."
+#define     POST_VIEW_TITLE                     @"Add title..."

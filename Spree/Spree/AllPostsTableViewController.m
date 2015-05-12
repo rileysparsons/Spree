@@ -338,6 +338,8 @@
         [self performSegueWithIdentifier:@"showFurniturePost" sender:self];
     } else if ([[(SpreePost *)[self objectAtIndexPath:indexPath] type] isEqualToString:@"Clothing"]){
         [self performSegueWithIdentifier:@"showClothingPost" sender:self];
+    } else if ([[(SpreePost *)[self objectAtIndexPath:indexPath] type] isEqualToString:@"Tasks"]){
+        [self performSegueWithIdentifier:@"showTasksPost" sender:self];
     }
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }

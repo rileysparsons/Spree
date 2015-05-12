@@ -19,6 +19,7 @@
 @property (nonatomic) NSString *bookForClass;
 @property (nonatomic) NSString *eventDate;
 @property (nonatomic) NSString *network;
+@property (nonatomic) NSString *subtitle;
 @property BOOL sold;
 @property BOOL expired;
 

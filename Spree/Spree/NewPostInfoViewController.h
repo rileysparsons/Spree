@@ -8,7 +8,7 @@
 
 #import "SpreePost.h"
 
-@class NewBooksPostView, NewFreePostView, NewTicketsPostView, NewDefaultPostView;
+@class NewBooksPostView, NewFreePostView, NewTicketsPostView, NewDefaultPostView, NewGenericPostView;
 
 @interface NewPostInfoViewController : UIViewController <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate,UITextFieldDelegate>
 
@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet NewFreePostView *freePostView;
 @property (weak, nonatomic) IBOutlet NewBooksPostView *booksPostView;
 @property (weak, nonatomic) IBOutlet NewDefaultPostView *defaultPostView;
+@property (weak, nonatomic) IBOutlet NewGenericPostView *genericPostView;
 @property SpreePost *post;
 @property UIBarButtonItem *postBarButtonItem;
 
