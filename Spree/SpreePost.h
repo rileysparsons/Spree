@@ -20,7 +20,9 @@
 @property (nonatomic) NSString *eventDate;
 @property (nonatomic) NSString *network;
 @property (nonatomic) NSString *subtitle;
+@property (nonatomic) PFUser *taskClaimedBy;
 @property BOOL sold;
+@property BOOL taskClaimed;
 @property BOOL expired;
 
 
