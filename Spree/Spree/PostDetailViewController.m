@@ -23,6 +23,8 @@
 
 @property (nonatomic, strong) NSArray *pageImages;
 @property (nonatomic, strong) NSMutableArray *pageViews;
+@property (retain, nonatomic) UIBarButtonItem *claimButton;
+@property (retain, nonatomic) UIBarButtonItem *unclaimButton;
 
 - (void)loadVisiblePages;
 - (void)loadPage:(NSInteger)page;
@@ -31,6 +33,22 @@
 @end
 
 @implementation PostDetailViewController
+
+-(UIBarButtonItem *)claimButton {
+    if (!_claimButton) {
+        _claimButton = [[UIBarButtonItem alloc] initWithTitle:@"Claim Task" style:UIBarButtonItemStylePlain target:self action:@selector(claimPost)];
+        [_claimButton setTintColor:[UIColor whiteColor]];
+    }
+    return _claimButton;
+}
+
+-(UIBarButtonItem *)unclaimButton {
+    if (!_unclaimButton) {
+        _unclaimButton = [[UIBarButtonItem alloc] initWithTitle:@"Unclaim Task" style:UIBarButtonItemStylePlain target:self action:@selector(unclaimPost)];
+        [_unclaimButton setTintColor:[UIColor whiteColor]];
+    }
+    return _unclaimButton;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -56,10 +74,10 @@
     self.navigationController.navigationBarHidden= NO;
     
     if (([[(PFUser *)_detailPost.user objectId] isEqualToString: [[PFUser currentUser] objectId]])){
+        self.adminBarView.hidden = NO;
 //        UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithTitle:@"Delete" style:UIBarButtonItemStyleBordered target:self actio:@selector(deleteButtonSelected)];
         self.navigationItem.rightBarButtonItem = nil;
         [self setupAdminBar];
-        
     } else {
         self.adminBarView.hidden = YES;
         PFQuery *query = [PFUser query];
@@ -124,6 +142,18 @@
             if (_detailPost[@"subtitle"]) {
                 _taskLocationLabel.text = [NSString stringWithFormat:@"Location: %@", _detailPost[@"subtitle"]];
             }
+            // Don't show the claim button for the own user
+            if (self.adminBarView.hidden) {
+                self.navigationItem.rightBarButtonItem = self.claimButton;
+                if (self.detailPost.taskClaimed) {
+                    if ([self.detailPost taskClaimedBy] == [PFUser currentUser]) {
+                        self.navigationItem.rightBarButtonItem = self.unclaimButton;
+                    } else {
+                        self.navigationItem.rightBarButtonItem.enabled = NO;
+                        self.claimButton.title = @"Claimed";
+                    }
+                }
+            }
         }
     }
     
@@ -184,9 +214,14 @@
     self.posterInfoView.hidden = YES;
     self.adminBarView.hidden = NO;
     self.posterInfoView.userInteractionEnabled = NO;
-    
+
+    if ([self.detailPost.type isEqualToString:@"Tasks"]) {
+        [self.soldButton setTitle:@"Finished" forState:UIControlStateNormal];
+    } else {
+        [self.soldButton setTitle:@"Sold" forState:UIControlStateNormal];
+    }
+
     [self.deleteButton setTitle:@"Delete" forState:UIControlStateNormal];
-    [self.soldButton setTitle:@"Sold" forState:UIControlStateNormal];
     [self.repostButton setTitle:@"Repost" forState:UIControlStateNormal];
     [self.deleteButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.deleteButton setTitleColor:[UIColor spreeLightYellow] forState:UIControlStateHighlighted];
@@ -448,6 +483,22 @@
     [self.navigationController pushViewController:chatView animated:YES];
     // Unhide the tabbar when we go back
     self.hidesBottomBarWhenPushed = NO;
+}
+
+- (void)claimPost {
+    DDLogVerbose(@"Claim post");
+    self.navigationItem.rightBarButtonItem = self.unclaimButton;
+    [self.detailPost setTaskClaimed:YES];
+    [self.detailPost setTaskClaimedBy:[PFUser currentUser]];
+    [self.detailPost saveInBackground];
+}
+
+- (void)unclaimPost {
+    DDLogVerbose(@"Unclaim post");
+    self.navigationItem.rightBarButtonItem = self.claimButton;
+    [self.detailPost removeObjectForKey:@"taskClaimed"];
+    [self.detailPost removeObjectForKey:@"taskClaimedBy"];
+    [self.detailPost saveInBackground];
 }
 
 @end

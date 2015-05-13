@@ -270,6 +270,7 @@
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
 
     DDLogVerbose(@"shouldchangecharactersinrange");
+    DDLogVerbose(@"Post type: %@", self.post.type);
 
     NSString *newText;
 
@@ -318,6 +319,9 @@
     } else if ([self.post.type isEqualToString: @"Tickets"]){
         testString = self.ticketsPostView.priceField.text;
         isPriceField = textField == self.ticketsPostView.priceField;
+    } else if ([self.post.type isEqualToString: @"Tasks"]){
+        testString = self.genericPostView.priceField.text;
+        isPriceField = textField == self.genericPostView.priceField;
     }
 
     DDLogVerbose(@"TESTSTRING: %@", testString);
@@ -445,10 +449,14 @@
     }
     self.post.photoArray = fileArray;
 
-    PFACL *readOnlyUserWriteACL = [PFACL ACL];
-    [readOnlyUserWriteACL setPublicReadAccess:YES];
-    [readOnlyUserWriteACL setWriteAccess:YES forUser:[PFUser currentUser]];
-    self.post.ACL = readOnlyUserWriteACL;
+    // Don't set ACLS on tasks
+
+    if (![self.post.type isEqualToString:@"Tasks"]) {
+        PFACL *readOnlyUserWriteACL = [PFACL ACL];
+        [readOnlyUserWriteACL setPublicReadAccess:YES];
+        [readOnlyUserWriteACL setWriteAccess:YES forUser:[PFUser currentUser]];
+        self.post.ACL = readOnlyUserWriteACL;
+    }
 
     if ([self.post.type isEqualToString: @"Books"]){
         self.post.bookForClass = self.booksPostView.classField.text;
@@ -460,6 +468,7 @@
     
     if ([self.post.type isEqualToString: @"Tasks"]){
         self.post.subtitle = self.genericPostView.subTitleField.text;
+        self.post.taskClaimed = NO;
     }
 
     [self.post saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
@@ -479,8 +488,7 @@
 -(BOOL)checkForRequiredFields {
 
     NSLog(@"%@", [PFUser currentUser]);
-//    if ([[currentUser objectForKey:@"emailVerified"] boolValue]){
-    if (1) {
+    if ([[[PFUser currentUser] objectForKey:@"emailVerified"] boolValue]){
 
         if ([[self getUserDescription] length] == 0 || [[self getUserDescription] isEqualToString:POST_VIEW_DESCRIPTION]){
             return NO;
