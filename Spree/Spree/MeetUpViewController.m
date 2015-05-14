@@ -50,19 +50,17 @@
     
     self.dateFormatter = [[NSDateFormatter alloc] init];
     [self.dateFormatter setDateStyle:NSDateFormatterFullStyle];
-    [self.dateFormatter setTimeStyle:NSDateFormatterLongStyle];
+    [self.dateFormatter setTimeStyle:NSDateFormatterShortStyle];
     
-    _pickerData = @[@"Benson", @"Library Entrance", @"Library Lobby", @"Mission Church", @"Cellar", @"Sobrato Fountain"];
+    _pickerData = @[@"Benson", @"The Library Entrance", @"The Library Lobby", @"Mission Church", @"Cellar", @"Sobrato Fountain"];
     _locationSelection = _pickerData[0];
     _timeSelection= [self.dateFormatter stringFromDate:[NSDate date]];
  
     self.placePicker.dataSource = self;
     self.placePicker.delegate = self;
-       // if(self.myDatePicker == nil){
-     //   self.myDatePicker = [[UIDatePicker alloc] init];
-        
-        //set the action method that will listen for changes to picker value
-        [self.datePicker addTarget:self action:@selector(datePickerDateChanged:) forControlEvents:UIControlEventValueChanged];
+    
+    //set the action method that will listen for changes to picker value
+    [self.datePicker addTarget:self action:@selector(datePickerDateChanged:) forControlEvents:UIControlEventValueChanged];
     
     self.navigationItem.rightBarButtonItem = self.postButton;
     self.navigationItem.leftBarButtonItem = self.cancelButton;
@@ -117,7 +115,9 @@
     output = [output stringByAppendingString:_timeSelection];
     output = [output stringByAppendingString:@" at "];
     output = [output stringByAppendingString:_locationSelection];
-    NSLog(output);
+    [chat sendMessage:output Video:nil Picture:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
 }
 
 @end
