@@ -254,12 +254,13 @@
         SpreePost *post = (SpreePost *)object;
         
         cell.postTitleLabel.text = post.title;
-        if ([post.price isEqualToString:@"0"] || [post.price isEqualToString:@"0.00"] || [post.type isEqualToString:@"Free"]){
+        if (post.price == 0 || [post.price  isEqual: @(0)]){
             cell.priceLabel.text = @"Free";
         } else {
             NSString *price = [NSString stringWithFormat:@"$%@", post.price];
             cell.priceLabel.text = price;
         }
+        
         
         if (post.photoArray.count != 0){
             PFFile *imageFile = (PFFile *)[post.photoArray objectAtIndex:0];
@@ -277,8 +278,6 @@
                 cell.postImageView.image = [UIImage imageNamed:@"BookTypeIconSmall"];
             } else if ([post.type isEqualToString:@"Electronics"]){
                 cell.postImageView.image = [UIImage imageNamed:@"ElectronicsTypeIconSmall"];
-            } else if ([post.type isEqualToString:@"Free"]){
-                cell.postImageView.image = [UIImage imageNamed:@"freeGraphic"];
             } else if ([post.type isEqualToString:@"Furniture"]){
                 cell.postImageView.image = nil;
             } else if ([post.type isEqualToString:@"Clothing"]){
@@ -326,9 +325,11 @@
 #pragma mark - Navigation
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if ([[(SpreePost *)[self objectAtIndexPath:indexPath] type] isEqualToString:@"Free"]) {
-        [self performSegueWithIdentifier:@"ShowFreeDetail" sender:self];
-    } else if ([[(SpreePost *)[self objectAtIndexPath:indexPath] type] isEqualToString:@"Books"]){
+    [super tableView:tableView didSelectRowAtIndexPath:indexPath];
+    if ([indexPath row] > self.objects.count -1 ) {
+        return;
+    }
+    if ([[(SpreePost *)[self objectAtIndexPath:indexPath] type] isEqualToString:@"Books"]){
         [self performSegueWithIdentifier:@"detailBookPost" sender:self];
     } else if ([[(SpreePost *)[self objectAtIndexPath:indexPath] type] isEqualToString:@"Tickets"]){
         [self performSegueWithIdentifier:@"TicketsPostDetail" sender:self];
