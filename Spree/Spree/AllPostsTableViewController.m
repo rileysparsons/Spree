@@ -254,12 +254,13 @@
         SpreePost *post = (SpreePost *)object;
         
         cell.postTitleLabel.text = post.title;
-        if (post.price == 0){
+        if (post.price == 0 || [post.price  isEqual: @(0)]){
             cell.priceLabel.text = @"Free";
         } else {
             NSString *price = [NSString stringWithFormat:@"$%@", post.price];
             cell.priceLabel.text = price;
         }
+        
         
         if (post.photoArray.count != 0){
             PFFile *imageFile = (PFFile *)[post.photoArray objectAtIndex:0];
