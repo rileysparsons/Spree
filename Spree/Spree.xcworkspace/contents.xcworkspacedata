@@ -2,6 +2,12 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:MeetUpViewController.h">
+   </FileRef>
+   <FileRef
+      location = "group:MeetUpViewController.m">
+   </FileRef>
+   <FileRef
       location = "group:Spree.xcodeproj">
    </FileRef>
    <FileRef
