@@ -9,6 +9,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#import "PostDetailViewController.h"
+#import "ContainerTableViewController.h"
+#import "UIColor+SpreeColor.h"
+#import "WSCoachMarksView.h"
+#import "MeetUpViewController.h"
+
 #import "common.h"
 #import "push.h"
 #import "recent.h"
@@ -33,9 +39,23 @@
 	JSQMessagesBubbleImage *bubbleImageOutgoing;
 	JSQMessagesBubbleImage *bubbleImageIncoming;
 }
+
+@property (retain, nonatomic) UIBarButtonItem *meetUp;
+
 @end
 
+
+
 @implementation ChatView
+
+-(UIBarButtonItem *)meetUp {
+    if (!_meetUp) {
+        _meetUp = [[UIBarButtonItem alloc] initWithTitle:@"Meet Up" style:UIBarButtonItemStylePlain target:self action:@selector(showMeetUp)];
+        [_meetUp setTintColor:[UIColor whiteColor]];
+    }
+    return _meetUp;
+}
+
 
 - (id)initWith:(NSString *)groupId_ post:(PFObject *)post_ title:(NSString *)title_
 {
@@ -48,6 +68,7 @@
 
 - (void)viewDidLoad
 {
+    //add button here - quote you 
 	[super viewDidLoad];
 
     self.title = title;
@@ -65,6 +86,8 @@
     } else {
         userVerifiedToSendMessages = NO;
     }
+    
+    self.navigationItem.rightBarButtonItem = self.meetUp;
     
 	JSQMessagesBubbleImageFactory *bubbleFactory = [[JSQMessagesBubbleImageFactory alloc] init];
 	bubbleImageOutgoing = [bubbleFactory outgoingMessagesBubbleImageWithColor:[UIColor spreeBabyBlue]];
@@ -405,6 +428,17 @@
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	return ([message.senderId isEqualToString:self.senderId] == YES);
+}
+
+-(void)showMeetUp{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    MeetUpViewController *meetUpView = [storyboard instantiateViewControllerWithIdentifier:@"meetUp"];
+    meetUpView.groupId = groupId;
+    meetUpView.chatTitle = title;
+    meetUpView.post = post;
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:meetUpView];
+    [self presentViewController:navigationController animated:YES completion:NULL];
+    
 }
 
 @end

@@ -83,7 +83,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GYy-M4-mtp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2154" y="-1601"/>
+            <point key="canvasLocation" x="2966" y="-1601"/>
         </scene>
         <!--Select Post Location-->
         <scene sceneID="MM3-Lh-oZi">
@@ -166,7 +166,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="2643" y="-1746"/>
+            <point key="canvasLocation" x="3455" y="-1746"/>
         </scene>
         <!--Title-->
         <scene sceneID="x9x-lX-476">
@@ -402,7 +402,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="v1Y-fJ-gNz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5725" y="-1299"/>
+            <point key="canvasLocation" x="6537" y="-1299"/>
         </scene>
         <!--More-->
         <scene sceneID="wg7-f3-ORb">
@@ -700,7 +700,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hkX-pv-DZb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3522" y="-2111"/>
+            <point key="canvasLocation" x="4334" y="-2111"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
@@ -1022,7 +1022,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hjQ-k9-Ay4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="398" y="-1118"/>
+            <point key="canvasLocation" x="454" y="-1286"/>
         </scene>
         <!--Categories-->
         <scene sceneID="IKu-t9-2gH">
@@ -2038,7 +2038,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iAo-bf-Q7I" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5053" y="-1821.5"/>
+            <point key="canvasLocation" x="5865" y="-1821.5"/>
         </scene>
         <!--Book Post Detail-->
         <scene sceneID="ebx-Xx-D9t">
@@ -2304,7 +2304,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sjE-QN-TJY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4341" y="-2335"/>
+            <point key="canvasLocation" x="5153" y="-2335"/>
         </scene>
         <!--New Post Info View Controller-->
         <scene sceneID="kWL-zO-aw4">
@@ -2819,7 +2819,64 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f11-ou-Wob" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1562" y="-1601"/>
+            <point key="canvasLocation" x="2374" y="-1601"/>
+        </scene>
+        <!--Meet Up View Controller-->
+        <scene sceneID="XXi-yG-puE">
+            <objects>
+                <viewController storyboardIdentifier="meetUp" id="FtF-Yt-Ixb" customClass="MeetUpViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="5QA-zj-5Kf"/>
+                        <viewControllerLayoutGuide type="bottom" id="Pbm-su-Bdo"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="hah-rd-FJn" customClass="MeetUpViewCo">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <pickerView contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OOE-4O-ZFu">
+                                <rect key="frame" x="175" y="411" width="251" height="126"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="251" id="f76-08-sFN"/>
+                                </constraints>
+                            </pickerView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pick a Time and Place" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mma-Q8-fyV">
+                                <rect key="frame" x="210" y="138" width="180" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="5Qf-nH-pHH"/>
+                                    <constraint firstAttribute="width" constant="180" id="DIC-V6-9kc"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <datePicker contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="RFT-eG-eva">
+                                <rect key="frame" x="0.0" y="234" width="600" height="162"/>
+                                <date key="date" timeIntervalSinceReferenceDate="453282130.22468501">
+                                    <!--2015-05-14 07:42:10 +0000-->
+                                </date>
+                            </datePicker>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="RFT-eG-eva" firstAttribute="leading" secondItem="hah-rd-FJn" secondAttribute="leading" id="1xe-H7-kf8"/>
+                            <constraint firstItem="mma-Q8-fyV" firstAttribute="centerX" secondItem="RFT-eG-eva" secondAttribute="centerX" id="ApD-IM-U5N"/>
+                            <constraint firstItem="RFT-eG-eva" firstAttribute="top" secondItem="mma-Q8-fyV" secondAttribute="bottom" constant="75" id="Eu0-fi-RG3"/>
+                            <constraint firstItem="OOE-4O-ZFu" firstAttribute="centerX" secondItem="RFT-eG-eva" secondAttribute="centerX" id="Qag-52-bzi"/>
+                            <constraint firstItem="mma-Q8-fyV" firstAttribute="top" secondItem="5QA-zj-5Kf" secondAttribute="bottom" constant="118" id="cOq-sd-ma7"/>
+                            <constraint firstAttribute="trailing" secondItem="RFT-eG-eva" secondAttribute="trailing" id="nED-cU-IzN"/>
+                            <constraint firstItem="OOE-4O-ZFu" firstAttribute="top" secondItem="RFT-eG-eva" secondAttribute="bottom" constant="65" id="tjU-oV-8eJ"/>
+                            <constraint firstItem="Pbm-su-Bdo" firstAttribute="top" secondItem="OOE-4O-ZFu" secondAttribute="bottom" constant="27" id="v7J-uL-tLE"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="Hg4-fG-zVa"/>
+                    <connections>
+                        <outlet property="datePicker" destination="RFT-eG-eva" id="Yak-2u-K6e"/>
+                        <outlet property="placePicker" destination="OOE-4O-ZFu" id="dZI-Ck-Iqr"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Zlw-e3-o84" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="0.0" y="-2495"/>
         </scene>
         <!--Find Buyer View Controller-->
         <scene sceneID="ll0-dO-hVJ">
@@ -3025,10 +3082,10 @@
         <image name="informationImage" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="egP-Bb-yim"/>
         <segue reference="xGv-LV-rKw"/>
-        <segue reference="ubu-4c-zFs"/>
         <segue reference="1J7-D9-rCs"/>
+        <segue reference="ubu-4c-zFs"/>
+        <segue reference="egP-Bb-yim"/>
         <segue reference="eMA-Qd-vQN"/>
     </inferredMetricsTieBreakers>
 </document>

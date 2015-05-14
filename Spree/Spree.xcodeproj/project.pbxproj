@@ -55,6 +55,7 @@
 		14E66B9B1A45ECFF008184C1 /* PostDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E66B9A1A45ECFF008184C1 /* PostDetailViewController.m */; };
 		14E66B9E1A464F03008184C1 /* ContainerTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E66B9D1A464F03008184C1 /* ContainerTableViewController.m */; };
 		14EFDAE71A89EC4F007510CC /* TextViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14EFDAE61A89EC4F007510CC /* TextViewViewController.m */; };
+		CFFEE9291B0487BF002CD29A /* MeetUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFFEE9281B0487BF002CD29A /* MeetUpViewController.m */; };
 		F70FACF51AEB501700057E6E /* converter.m in Sources */ = {isa = PBXBuildFile; fileRef = F70FACF41AEB501700057E6E /* converter.m */; };
 		F72B2D031AE64A2D00F9A845 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F72B2D021AE64A2D00F9A845 /* Social.framework */; };
 		F72B2D051AE64A3300F9A845 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F72B2D041AE64A3300F9A845 /* Accounts.framework */; };
@@ -182,6 +183,8 @@
 		14FA9D161A436B9200E405EC /* 37x-Checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "37x-Checkmark.png"; sourceTree = "<group>"; };
 		93D5B9718A30FBBAE739BCE8 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7F573D62D839D22544FF614 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		CFFEE9271B0487BF002CD29A /* MeetUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeetUpViewController.h; sourceTree = "<group>"; };
+		CFFEE9281B0487BF002CD29A /* MeetUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeetUpViewController.m; sourceTree = "<group>"; };
 		DE88A00A12A293397EB0574B /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		F70FACF31AEB501700057E6E /* converter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = converter.h; sourceTree = "<group>"; };
 		F70FACF41AEB501700057E6E /* converter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = converter.m; sourceTree = "<group>"; };
@@ -289,6 +292,8 @@
 				140CF9041A3E0F9600134C4D /* TableViewCell */,
 				140CF8E61A3BBFB200134C4D /* Images.xcassets */,
 				140CF8E31A3BBFB200134C4D /* Main.storyboard */,
+				CFFEE9271B0487BF002CD29A /* MeetUpViewController.h */,
+				CFFEE9281B0487BF002CD29A /* MeetUpViewController.m */,
 				140473951ABD002F00C0F8EF /* AllPostsTableViewController.h */,
 				140473961ABD002F00C0F8EF /* AllPostsTableViewController.m */,
 				14BE5C851AAD442A00C60C56 /* NewPostInfoViewController.h */,
@@ -739,6 +744,7 @@
 				F75728431B015BC7005F5FED /* NewGenericPostView.m in Sources */,
 				F7AFBB421AF4CC0A00D3148B /* FindBuyerViewController.m in Sources */,
 				142D9E691A9A483300EAA187 /* FreeContainerTableTableViewController.m in Sources */,
+				CFFEE9291B0487BF002CD29A /* MeetUpViewController.m in Sources */,
 				14E66B9B1A45ECFF008184C1 /* PostDetailViewController.m in Sources */,
 				14E66B971A452653008184C1 /* PostTableViewCell.m in Sources */,
 				1473C2EB1A8AE0DA00249CFD /* SpreePost.m in Sources */,
