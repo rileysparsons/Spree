@@ -80,15 +80,25 @@
 }
 
 
-- (PFQuery *)queryForTable
-{
+- (PFQuery *)queryForTable{
     PFQuery *query = [PFQuery queryWithClassName:self.parseClassName];
-    [query whereKey:@"type" equalTo:self.postType];
-    [query whereKey:@"expired" equalTo:[NSNumber numberWithBool:NO]];
-    [query whereKey:@"sold" equalTo:[NSNumber numberWithBool:NO]];
-    [query whereKey:@"network" equalTo:[[PFUser currentUser] objectForKey:@"network"]];
-    [query orderByDescending:@"updatedAt"];
-    
+    if ([self.postType isEqualToString:@"Free"]){
+        PFQuery *query2 = [PFQuery queryWithClassName:self.parseClassName];
+        [query2 whereKeyDoesNotExist:@"price"];
+        [query whereKey:@"price" equalTo:[NSNumber numberWithFloat:0]];
+        [query whereKey:@"expired" equalTo:[NSNumber numberWithBool:NO]];
+        [query whereKey:@"sold" equalTo:[NSNumber numberWithBool:NO]];
+        [query whereKey:@"network" equalTo:[[PFUser currentUser] objectForKey:@"network"]];
+        PFQuery *finalQuery = [PFQuery orQueryWithSubqueries:@[query,query2]];
+        [finalQuery orderByDescending:@"updatedAt"];
+        return finalQuery;
+    }  else {
+        [query whereKey:@"type" equalTo:self.postType];
+        [query whereKey:@"expired" equalTo:[NSNumber numberWithBool:NO]];
+        [query whereKey:@"sold" equalTo:[NSNumber numberWithBool:NO]];
+        [query whereKey:@"network" equalTo:[[PFUser currentUser] objectForKey:@"network"]];
+        [query orderByDescending:@"updatedAt"];
+    }
     return query;
 }
 @end

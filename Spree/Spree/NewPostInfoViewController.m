@@ -376,9 +376,7 @@
 }
 
 - (NSString *)getPostTitle {
-    if ([self.post.type isEqualToString: @"Free"]) {
-        return self.freePostView.titleField.text;
-    } else if ([self.post.type isEqualToString: @"Books"]) {
+    if ([self.post.type isEqualToString: @"Books"]) {
         return self.booksPostView.titleField.text;
     } else if ([self.post.type isEqualToString: @"Electronics"] || [self.post.type isEqualToString:@"Furniture"] || [self.post.type isEqualToString:@"Clothing"]) {
         return self.defaultPostView.titleField.text;
@@ -391,9 +389,7 @@
 }
 
 - (NSString *)getUserDescription {
-    if ([self.post.type isEqualToString: @"Free"]){
-        return self.freePostView.descriptionField.text;
-    } else if ([self.post.type isEqualToString: @"Books"]){
+    if ([self.post.type isEqualToString: @"Books"]){
         return self.booksPostView.descriptionField.text;
     } else if ([self.post.type isEqualToString: @"Electronics"] || [self.post.type isEqualToString:@"Furniture"] || [self.post.type isEqualToString:@"Clothing"]){
         return self.defaultPostView.descriptionField.text;
@@ -405,7 +401,7 @@
     return @"";
 }
 
-- (NSString *)getPostPrice {
+- (NSNumber *)getPostPrice {
     NSString *priceString;
     if ([self.post.type isEqualToString: @"Books"]){
         priceString = self.booksPostView.priceField.text;
@@ -418,10 +414,12 @@
     }
 
     if ([priceString length] == 0) {
-        return @"";
+        return 0;
     }
-
-    return [[priceString componentsSeparatedByString:@"$"] objectAtIndex:1];
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+    formatter.numberStyle = NSNumberFormatterDecimalStyle;
+    NSNumber *priceNumber = [formatter numberFromString:[[priceString componentsSeparatedByString:@"$"] objectAtIndex:1]];
+    return priceNumber;
 }
 
 -(void)postInfoToServer{
@@ -489,12 +487,12 @@
         if ([[self getPostTitle] length] == 0 || [[self getPostTitle] isEqualToString:POST_VIEW_TITLE]){
             return NO;
         }
+//
+//        BOOL hasPrice = [self.post.type isEqualToString:@"Free"] ? NO : YES;
 
-        BOOL hasPrice = [self.post.type isEqualToString:@"Free"] ? NO : YES;
-
-        if ((hasPrice && [[self getPostPrice] length] == 0) || (hasPrice && [[self getPostPrice] isEqualToString:POST_VIEW_TITLE])){
-            return NO;
-        }
+//        if (([self getPostPrice] == [NSNull null])){
+//            return NO;
+//        }
 
         if ([self.post.type isEqualToString: @"Tickets"]){
             if ([self.ticketsPostView.dateField.text length] == 0){

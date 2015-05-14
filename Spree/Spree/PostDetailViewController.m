@@ -110,7 +110,7 @@
     }];
     
     // Type Conditions
-    if ([_detailPost.type isEqualToString: @"Free"]){
+    if (_detailPost.price == 0){
         [self.purchaseButton setTitle:@"Get" forState:UIControlStateNormal];
     } else {
         [self.purchaseButton setTitle:[NSString stringWithFormat:@"$%@", self.detailPost.price] forState:UIControlStateNormal];

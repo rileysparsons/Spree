@@ -298,20 +298,41 @@
     // Configure the cell with the textContent of the Post as the cell's text label
     
     PFQuery *postQuery = [PFQuery queryWithClassName:@"Post"];
-    [postQuery whereKey:@"type" equalTo:[_postTypeArray objectAtIndex:indexPath.row]];
-    [postQuery whereKey:@"expired" equalTo:[NSNumber numberWithBool:NO]];
-    [postQuery whereKey:@"sold" equalTo:[NSNumber numberWithBool:NO]];
-    [postQuery whereKey:@"network" equalTo:[[PFUser currentUser] objectForKey:@"network"]];
+    if ([[_postTypeArray objectAtIndex:indexPath.row] isEqualToString:@"Free"]){
+        PFQuery *query = [PFQuery queryWithClassName:@"Post"];
+        PFQuery *query2 = [PFQuery queryWithClassName:@"Post"];
+        [query2 whereKeyDoesNotExist:@"price"];
+        [query whereKey:@"price" equalTo:[NSNumber numberWithFloat:0]];
+        [query whereKey:@"expired" equalTo:[NSNumber numberWithBool:NO]];
+        [query whereKey:@"sold" equalTo:[NSNumber numberWithBool:NO]];
+        [query whereKey:@"network" equalTo:[[PFUser currentUser] objectForKey:@"network"]];
+        PFQuery *finalQuery = [PFQuery orQueryWithSubqueries:@[query,query2]];
+        [finalQuery orderByDescending:@"updatedAt"];
+        [finalQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
+            cell.numberLabel.text = [NSString stringWithFormat:@"0 Posts"];
+            if (number) {
+                NSLog(@"%@ %d", [_postTypeArray objectAtIndex:indexPath.row], number);
+                [self.refreshControl endRefreshing];
+                cell.numberLabel.text = [NSString stringWithFormat:@"%@ Posts", [@(number)stringValue]];
+                _pastPostNumber = number;
+            }
+        }];
+    } else {
+        [postQuery whereKey:@"type" equalTo:[_postTypeArray objectAtIndex:indexPath.row]];
+        [postQuery whereKey:@"expired" equalTo:[NSNumber numberWithBool:NO]];
+        [postQuery whereKey:@"sold" equalTo:[NSNumber numberWithBool:NO]];
+        [postQuery whereKey:@"network" equalTo:[[PFUser currentUser] objectForKey:@"network"]];
 
-    [postQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
-        cell.numberLabel.text = [NSString stringWithFormat:@"0 Posts"];
-        if (number) {
-            NSLog(@"%@ %d", [_postTypeArray objectAtIndex:indexPath.row], number);
-            [self.refreshControl endRefreshing];
-            cell.numberLabel.text = [NSString stringWithFormat:@"%@ Posts", [@(number)stringValue]];
-            _pastPostNumber = number;
-        }
-    }];
+        [postQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
+            cell.numberLabel.text = [NSString stringWithFormat:@"0 Posts"];
+            if (number) {
+                NSLog(@"%@ %d", [_postTypeArray objectAtIndex:indexPath.row], number);
+                [self.refreshControl endRefreshing];
+                cell.numberLabel.text = [NSString stringWithFormat:@"%@ Posts", [@(number)stringValue]];
+                _pastPostNumber = number;
+            }
+        }];
+    }
     cell.titleLabel.text = [_postTypeArray objectAtIndex:indexPath.row];
     
     if ([[_postTypeArray objectAtIndex:indexPath.row] isEqualToString: @"Books"]){

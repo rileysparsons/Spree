@@ -30,7 +30,7 @@ static NSArray *categories;
 }
 
 + (NSArray *)categories {
-    return [NSArray arrayWithObjects:@"Books", @"Tickets", @"Electronics", @"Free", @"Furniture", @"Clothing", @"Tasks", nil];
+    return [NSArray arrayWithObjects:@"Books", @"Tickets", @"Electronics", @"Furniture", @"Clothing", @"Tasks", nil];
 }
 
 #pragma mark - Table view data source

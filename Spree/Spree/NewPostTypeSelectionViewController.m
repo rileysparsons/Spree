@@ -22,7 +22,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    typeArray = [[NSArray alloc] initWithObjects:@"Electronics", @"Free", @"Tickets", @"Books", @"Furniture", @"Clothing", @"Tasks", nil];
+    typeArray = [[NSArray alloc] initWithObjects:@"Electronics", @"Tickets", @"Books", @"Furniture", @"Clothing", @"Tasks", nil];
     
     self.navigationItem.title = @"Choose post type";
     
@@ -81,12 +81,7 @@
         cell.detailImage.image = [UIImage imageNamed:@"ElectronicsTypeIconSmall"];
         cell.accessoryView = [MSCellAccessory accessoryWithType: FLAT_DISCLOSURE_INDICATOR color:[iconColorArray objectAtIndex:indexPath.row] highlightedColor:[UIColor spreeLightYellow]];
         cell.iconBackground.backgroundColor = [iconColorArray objectAtIndex:indexPath.row];
-    } else if ([[typeArray objectAtIndex:indexPath.row] isEqualToString: @"Free"]){
-        cell.detailImage.image = [UIImage imageNamed:@"freeGraphic"];
-        cell.accessoryView = [MSCellAccessory accessoryWithType: FLAT_DISCLOSURE_INDICATOR color:[iconColorArray objectAtIndex:indexPath.row] highlightedColor:[UIColor spreeLightYellow]];
-        cell.iconBackground.backgroundColor = [iconColorArray objectAtIndex:indexPath.row];
-    }
-    else if ([[typeArray objectAtIndex:indexPath.row] isEqualToString: @"Furniture"]){
+    } else if ([[typeArray objectAtIndex:indexPath.row] isEqualToString: @"Furniture"]){
         cell.detailImage.image = [UIImage imageNamed:@"furnitureCellIconWhite"];
         cell.accessoryView = [MSCellAccessory accessoryWithType: FLAT_DISCLOSURE_INDICATOR color:[iconColorArray objectAtIndex:indexPath.row] highlightedColor:[UIColor spreeLightYellow]];
         cell.iconBackground.backgroundColor = [iconColorArray objectAtIndex:indexPath.row];
@@ -103,9 +98,7 @@
 
 - (void)nextBarButtonItemPressed:(id)sender {
     NSString *selectedType = [[(PostTypeTableViewCell *)[self.typeTableView cellForRowAtIndexPath:self.typeTableView.indexPathForSelectedRow] titleLabel] text];
-    if ([selectedType isEqualToString:@"Free"]){
-        [self performSegueWithIdentifier:@"showNewFreePostDetail" sender:self];
-    } else if ([selectedType isEqualToString:@"Books"]) {
+    if ([selectedType isEqualToString:@"Books"]) {
         [self performSegueWithIdentifier:@"showNewBooksPostDetail" sender:self];
     } else if ([selectedType isEqualToString:@"Electronics"]) {
         [self performSegueWithIdentifier:@"showNewElectronicsPostDetail" sender:self];
