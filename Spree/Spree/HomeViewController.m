@@ -66,7 +66,7 @@
     if (coachMarksShown == NO) {
         // Don't show again
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"WSCoachMarksShownForHome"];
-        [[NSUserDefaults standardUserDefaults] synchronize];\
+        [[NSUserDefaults standardUserDefaults] synchronize];
         // Or show coach marks after a second delay
         [coachMarksView performSelector:@selector(start) withObject:nil afterDelay:1.0f];
     }
@@ -76,7 +76,7 @@
     [query orderByDescending:PF_RECENT_UPDATEDACTION];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
      {
-         if (!error)
+         if (objects)
          {
              int total = 0;
              for (PFObject *recent in objects)
@@ -87,6 +87,21 @@
              item.badgeValue = (total == 0) ? nil : [NSString stringWithFormat:@"%d", total];
          }
      }];
+
+    PFQuery *expiredPostNumberQuery = [PFQuery queryWithClassName:@"Post"];
+    [expiredPostNumberQuery whereKey:@"user" equalTo:[PFUser currentUser]];
+    [expiredPostNumberQuery  findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (objects){
+            int total = 0;
+            for (SpreePost *post in objects){
+                if (post.expired){
+                    total += 1;
+                }
+            }
+            UITabBarItem *item = self.tabBarController.tabBar.items[3];
+            item.badgeValue = (total == 0 ) ? nil : [NSString stringWithFormat:@"%d", total];
+        }
+    }];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{

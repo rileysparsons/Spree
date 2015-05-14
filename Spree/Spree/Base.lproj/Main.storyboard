@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Cdg-0u-Hq2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
@@ -11,7 +11,7 @@
         <!--All Messages View Controller-->
         <scene sceneID="kXI-xy-ay0">
             <objects>
-                <tableViewController storyboardIdentifier="recent" id="GHQ-NY-6WD" customClass="AllMessagesViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="messages" id="GHQ-NY-6WD" customClass="AllMessagesViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="70" sectionHeaderHeight="22" sectionFooterHeight="22" id="ANu-zm-KVk">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -727,7 +727,7 @@
         <!--Welcome View Controller-->
         <scene sceneID="cvq-xm-xy2">
             <objects>
-                <viewController id="Cdg-0u-Hq2" customClass="WelcomeViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="login" id="Cdg-0u-Hq2" customClass="WelcomeViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Qy5-8I-KgD"/>
                         <viewControllerLayoutGuide type="bottom" id="sOO-Za-na8"/>
@@ -740,7 +740,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eDl-rk-iLZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-573" y="1502"/>
+            <point key="canvasLocation" x="-601" y="966"/>
         </scene>
         <!--Contact Information-->
         <scene sceneID="qa9-Sx-eNb">
