@@ -209,7 +209,7 @@
 
     CreateRecentItem(user2, groupId, user1[PF_USER_FULLNAME], user1, post);
 
-    SendPushNotification(groupId, outString);
+    SendPushNotification(groupId, outString, [post objectId], title);
     UpdateRecentCounter(groupId, 1, outString);
     
     [self finishSendingMessage];
@@ -218,12 +218,12 @@
 #pragma mark - JSQMessagesViewController method overrides
 - (void)didPressSendButton:(UIButton *)button withMessageText:(NSString *)text senderId:(NSString *)senderId senderDisplayName:(NSString *)senderDisplayName date:(NSDate *)date
 {
-    if (userVerifiedToSendMessages == YES){
+//    if (userVerifiedToSendMessages == YES){
         [self sendMessage:text Video:nil Picture:nil];
-    } else {
-        UIAlertView *userNotVerified = [[UIAlertView alloc] initWithTitle:@"Please verify email" message:@"You must verify your email to send messages on Spree" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        [userNotVerified show];
-    }
+//    } else {
+//        UIAlertView *userNotVerified = [[UIAlertView alloc] initWithTitle:@"Please verify email" message:@"You must verify your email to send messages on Spree" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+//        [userNotVerified show];
+//    }
 }
 
 #pragma mark - JSQMessages CollectionView DataSource

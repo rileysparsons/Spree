@@ -25,12 +25,10 @@
     [self.logInView.usernameField setTextColor:[UIColor spreeDarkBlue]];
     [self.logInView.passwordField setTextColor:[UIColor spreeDarkBlue]];
     [self.logInView.logInButton setBackgroundImage:nil forState:UIControlStateNormal];
-    [self.logInView.logInButton setBackgroundColor:[UIColor colorWithWhite:.70f alpha:1]];
+    [self.logInView.logInButton setBackgroundColor:[UIColor spreeBabyBlue]];
     [self.logInView.signUpButton setBackgroundImage:nil forState:UIControlStateNormal];
     [self.logInView.signUpButton setBackgroundImage:nil forState:UIControlStateHighlighted];
-    [self.logInView.signUpButton setBackgroundColor:[UIColor spreeBabyBlue]];
-
-
+    [self.logInView.signUpButton setBackgroundColor:[UIColor colorWithWhite:.70f alpha:1]];
 }
 
 -(void)viewDidLayoutSubviews{
@@ -41,7 +39,7 @@
     [self.logInView.logo setContentMode:UIViewContentModeScaleAspectFit];
     [self.logInView.usernameField setFrame:CGRectMake(35.0f, 30+150+30, 250.0f, 50.0f)];
     [self.logInView.passwordField setFrame:CGRectMake(35.0f, 30+150+30+50, 250.0f, 50.0f)];
-     [self.logInView.signUpButton setFrame:CGRectMake(35.0f, 30+150+20+70+50+60+60, 250.0f, 40.0f)];
+    [self.logInView.signUpButton setFrame:CGRectMake(35.0f, 30+150+20+70+50+60+60, 250.0f, 40.0f)];
     [self.logInView.logInButton setFrame:CGRectMake(35.0f, 30+150+20+70+50+60, 250.0f, 40.0f)];
     [self.logInView.passwordForgottenButton setFrame:CGRectMake(35.0f, 30+150+20+70+50, 250.0f, 40.0f)];
     
