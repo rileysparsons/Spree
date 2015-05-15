@@ -245,6 +245,7 @@
 {
 //    if (userVerifiedToSendMessages == YES){
         [self sendMessage:text Video:nil Picture:nil];
+    [PFAnalytics trackEvent:@"sentMessage"];
 //    } else {
 //        UIAlertView *userNotVerified = [[UIAlertView alloc] initWithTitle:@"Please verify email" message:@"You must verify your email to send messages on Spree" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
 //        [userNotVerified show];
@@ -440,6 +441,7 @@
     meetUpView.post = post;
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:meetUpView];
     [self presentViewController:navigationController animated:YES completion:NULL];
+    [PFAnalytics trackEvent:@"openMeetUp"];
     
 }
 

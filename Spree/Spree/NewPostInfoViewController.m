@@ -12,6 +12,7 @@
 #import "NewFreePostView.h"
 #import "NewTicketsPostView.h"
 #import "NewGenericPostView.h"
+#import <Parse/PFAnalytics.h>
 
 @interface NewPostInfoViewController () {
     NSInteger selectedPhotoButton;
@@ -472,6 +473,7 @@
     [self.post saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!error){
             if (succeeded == YES) {
+                [PFAnalytics trackEvent:@"newPost" dimensions:@{@"photoCount" : [NSString stringWithFormat:@"%d", (int)fileArray.count], @"type" : self.post.type}];
                 NSLog(@"Save in background successful");
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"PostMade" object:nil];
                 [self.navigationController dismissViewControllerAnimated:YES completion:nil];
