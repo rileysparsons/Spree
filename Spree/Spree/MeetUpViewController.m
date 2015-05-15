@@ -116,8 +116,8 @@
     output = [output stringByAppendingString:@" at "];
     output = [output stringByAppendingString:_locationSelection];
     [chat sendMessage:output Video:nil Picture:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"MeetUp" object:nil];
     [self dismissViewControllerAnimated:YES completion:nil];
-    
 }
 
 @end
