@@ -103,6 +103,8 @@
 	initialized = NO;
 
 	[self loadMessages];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadMessages) name:@"MeetUp" object:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated
