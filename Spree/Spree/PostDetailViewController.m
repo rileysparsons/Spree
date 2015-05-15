@@ -174,7 +174,7 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
-
+    [PFAnalytics trackEvent:@"openedPostDetail" dimensions:@{@"type" : self.detailPost.type}];
     CGSize pagesScrollViewSize = self.scrollView.frame.size;
     self.scrollView.contentSize = CGSizeMake(pagesScrollViewSize.width * self.pageImages.count, pagesScrollViewSize.height);
     
@@ -505,6 +505,7 @@
 
     ChatView *chat = [[ChatView alloc] initWith:groupId post:self.detailPost title:user1Username];
     [chat sendMessage:[NSString stringWithFormat:@"%@ claimed your task", user1Username] Video:nil Picture:nil];
+    [PFAnalytics trackEvent:@"claimedPost"];
 }
 
 - (void)unclaimPost {

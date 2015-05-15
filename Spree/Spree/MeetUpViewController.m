@@ -117,6 +117,7 @@
     output = [output stringByAppendingString:_locationSelection];
     [chat sendMessage:output Video:nil Picture:nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"MeetUp" object:nil];
+    [PFAnalytics trackEvent:@"postMeetup" dimensions:@{@"location" : _locationSelection}];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
