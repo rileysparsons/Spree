@@ -10,6 +10,7 @@
 #import "ContainerTableViewController.h"
 #import "UIColor+SpreeColor.h"
 #import "WSCoachMarksView.h"
+#import "ChatView.h"
 
 #import "common.h"
 #import "ChatView.h"
@@ -126,37 +127,41 @@
     } completion:^(BOOL finished) {
     
     }];
-    
+
+    NSLog(@"PRICE: %@", _detailPost.price);
     // Type Conditions
     if (_detailPost.price == 0){
         [self.purchaseButton setTitle:@"Get" forState:UIControlStateNormal];
     } else {
         [self.purchaseButton setTitle:[NSString stringWithFormat:@"$%@", self.detailPost.price] forState:UIControlStateNormal];
-        if ([_detailPost.type isEqualToString: @"Books"]){
-            _bookForClassLabel.text = _detailPost[@"bookForClass"];
+    }
+
+    if ([_detailPost.type isEqualToString: @"Books"]){
+        _bookForClassLabel.text = _detailPost[@"bookForClass"];
+    }
+    if ([_detailPost.type isEqualToString: @"Tickets"]){
+        _eventDateForTicketLabel.text = _detailPost[@"eventDate"];
+    }
+    if ([_detailPost.type isEqualToString: @"Tasks"]){
+        if (_detailPost[@"subtitle"]) {
+            _taskLocationLabel.text = [NSString stringWithFormat:@"Location: %@", _detailPost[@"subtitle"]];
         }
-        if ([_detailPost.type isEqualToString: @"Tickets"]){
-            _eventDateForTicketLabel.text = _detailPost[@"eventDate"];
-        }
-        if ([_detailPost.type isEqualToString: @"Tasks"]){
-            if (_detailPost[@"subtitle"]) {
-                _taskLocationLabel.text = [NSString stringWithFormat:@"Location: %@", _detailPost[@"subtitle"]];
-            }
-            // Don't show the claim button for the own user
-            if (self.adminBarView.hidden) {
-                self.navigationItem.rightBarButtonItem = self.claimButton;
-                if (self.detailPost.taskClaimed) {
-                    if ([self.detailPost taskClaimedBy] == [PFUser currentUser]) {
-                        self.navigationItem.rightBarButtonItem = self.unclaimButton;
-                    } else {
-                        self.navigationItem.rightBarButtonItem.enabled = NO;
-                        self.claimButton.title = @"Claimed";
-                    }
+        // Don't show the claim button for the own user
+        if (self.adminBarView.hidden) {
+            NSLog(@"ADMIN BAR: %d", self.adminBarView.hidden);
+            self.navigationItem.rightBarButtonItem = self.claimButton;
+            if (self.detailPost.taskClaimed) {
+                if ([self.detailPost taskClaimedBy] == [PFUser currentUser]) {
+                    self.navigationItem.rightBarButtonItem = self.unclaimButton;
+                } else {
+                    self.navigationItem.rightBarButtonItem.enabled = NO;
+                    self.claimButton.title = @"Claimed";
                 }
             }
         }
+
     }
-    
+
     [self addCoachMarks];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -491,6 +496,15 @@
     [self.detailPost setTaskClaimed:YES];
     [self.detailPost setTaskClaimedBy:[PFUser currentUser]];
     [self.detailPost saveInBackground];
+
+    PFUser *user2 = self.poster;
+    PFUser *user1 = [PFUser currentUser];
+    NSString *user1Username = [[PFUser currentUser] objectForKey:@"username"];
+
+    NSString *groupId = StartPrivateChat(user1, user2);
+
+    ChatView *chat = [[ChatView alloc] initWith:groupId post:self.detailPost title:user1Username];
+    [chat sendMessage:[NSString stringWithFormat:@"%@ claimed your task", user1Username] Video:nil Picture:nil];
 }
 
 - (void)unclaimPost {
