@@ -11,6 +11,7 @@
 #import "NewPostTypeSelectionViewController.h"
 #import "PostTypeTableViewCell.h"
 #import "WSCoachMarksView.h"
+#import "SpreeSprintTableViewCell.h"
 
 @interface HomeViewController () {
     WSCoachMarksView *coachMarksView;
@@ -31,7 +32,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    self.postTypeArray = [[NSArray alloc] initWithObjects:@"Books", @"Tickets", @"Electronics", @"Free", @"Furniture", @"Clothing", @"Tasks", nil];
+    self.postTypeArray = [[NSArray alloc] initWithObjects:@"Tasks", @"Books", @"Tickets", @"Electronics", @"Free", @"Furniture", @"Clothing", nil];
     iconColorArray = [[NSArray alloc] initWithObjects:[UIColor spreeDarkBlue], [UIColor spreeRed], [UIColor spreeBabyBlue], [UIColor spreeDarkYellow], [UIColor spreeLightYellow],[UIColor spreeDarkBlue], [UIColor spreeRed], [UIColor spreeBabyBlue], [UIColor spreeDarkYellow], [UIColor spreeLightYellow], nil];
 //    self.navigationItem.title = @"Spree";
     self.tableView.delegate = self;
@@ -376,8 +377,18 @@
         cell.accessoryView = [MSCellAccessory accessoryWithType: FLAT_DISCLOSURE_INDICATOR color:[iconColorArray objectAtIndex:indexPath.row] highlightedColor:[UIColor spreeLightYellow]];
         cell.iconBackground.backgroundColor = [iconColorArray objectAtIndex:indexPath.row];
     } else if ([[_postTypeArray objectAtIndex:indexPath.row] isEqualToString: @"Tasks"]){
-        cell.detailImage.image = [UIImage imageNamed:nil];
-        cell.accessoryView = [MSCellAccessory accessoryWithType: FLAT_DISCLOSURE_INDICATOR color:[UIColor spreeBabyBlue] highlightedColor:[UIColor spreeLightYellow]];
+        SpreeSprintTableViewCell *sprintCell = [tableView dequeueReusableCellWithIdentifier:@"sprintCell"];
+        if (sprintCell == nil) {
+            NSArray *nibFiles = [[NSBundle mainBundle] loadNibNamed:@"SpreeSprintTableViewCell" owner:self options:nil];
+            for(id currentObject in nibFiles){
+                if ([currentObject isKindOfClass:[UITableViewCell class]]){
+                    sprintCell = (SpreeSprintTableViewCell*)currentObject;
+                    break;
+                }
+            }
+        }
+        sprintCell.accessoryView = [MSCellAccessory accessoryWithType: FLAT_DISCLOSURE_INDICATOR color:[UIColor spreeBabyBlue] highlightedColor:[UIColor spreeLightYellow]];
+        return sprintCell;
     }
     return cell;
 }
@@ -394,7 +405,12 @@
     if ([segue.identifier isEqualToString:@"DisplayPosts"]){
         PostTypeTableViewCell *selectedCell = (PostTypeTableViewCell*)[self.tableView cellForRowAtIndexPath:self.tableView.indexPathForSelectedRow];
         PostTypeTableViewController *destinationViewController = segue.destinationViewController;
-        destinationViewController.postType = selectedCell.titleLabel.text;
+        if ([[self.postTypeArray objectAtIndex:self.tableView.indexPathForSelectedRow.row] isEqualToString:@"Tasks"])
+            destinationViewController.postType = @"Tasks";
+        else
+            destinationViewController.postType = selectedCell.titleLabel.text;
+        
+        
     }
     
 }

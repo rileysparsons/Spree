@@ -40,6 +40,8 @@
 		1473C2EB1A8AE0DA00249CFD /* SpreePost.m in Sources */ = {isa = PBXBuildFile; fileRef = 1473C2EA1A8AE0DA00249CFD /* SpreePost.m */; };
 		14820B6B1A40CA92008A1430 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14820B6A1A40CA92008A1430 /* MapKit.framework */; };
 		149787A21A49F0E40024437D /* UIColor+SpreeColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 149787A11A49F0E40024437D /* UIColor+SpreeColor.m */; };
+		14A416801B05700600EA4DA2 /* SpreeSprintTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A4167E1B05700600EA4DA2 /* SpreeSprintTableViewCell.m */; };
+		14A416811B05700600EA4DA2 /* SpreeSprintTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14A4167F1B05700600EA4DA2 /* SpreeSprintTableViewCell.xib */; };
 		14ABE0F81A95020700B805D0 /* NewFreePostView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14ABE0F71A95020700B805D0 /* NewFreePostView.m */; };
 		14ABE0FA1A95022900B805D0 /* NewFreePostView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14ABE0F91A95022900B805D0 /* NewFreePostView.xib */; };
 		14ABE0FD1A95AAC200B805D0 /* NewBooksPostView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14ABE0FC1A95AAC200B805D0 /* NewBooksPostView.m */; };
@@ -155,6 +157,9 @@
 		14820B6A1A40CA92008A1430 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		149787A01A49F0E40024437D /* UIColor+SpreeColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+SpreeColor.h"; sourceTree = "<group>"; };
 		149787A11A49F0E40024437D /* UIColor+SpreeColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+SpreeColor.m"; sourceTree = "<group>"; };
+		14A4167D1B05700600EA4DA2 /* SpreeSprintTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpreeSprintTableViewCell.h; sourceTree = "<group>"; };
+		14A4167E1B05700600EA4DA2 /* SpreeSprintTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpreeSprintTableViewCell.m; sourceTree = "<group>"; };
+		14A4167F1B05700600EA4DA2 /* SpreeSprintTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SpreeSprintTableViewCell.xib; sourceTree = "<group>"; };
 		14ABE0F61A95020700B805D0 /* NewFreePostView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewFreePostView.h; sourceTree = "<group>"; };
 		14ABE0F71A95020700B805D0 /* NewFreePostView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewFreePostView.m; sourceTree = "<group>"; };
 		14ABE0F91A95022900B805D0 /* NewFreePostView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewFreePostView.xib; sourceTree = "<group>"; };
@@ -352,6 +357,9 @@
 				140CF9121A3F708F00134C4D /* ChosenTypeTableViewCell.h */,
 				140CF9131A3F708F00134C4D /* ChosenTypeTableViewCell.m */,
 				140CF9141A3F708F00134C4D /* ChosenTypeTableViewCell.xib */,
+				14A4167D1B05700600EA4DA2 /* SpreeSprintTableViewCell.h */,
+				14A4167E1B05700600EA4DA2 /* SpreeSprintTableViewCell.m */,
+				14A4167F1B05700600EA4DA2 /* SpreeSprintTableViewCell.xib */,
 			);
 			name = TableViewCell;
 			sourceTree = "<group>";
@@ -660,6 +668,7 @@
 				140CF8E71A3BBFB200134C4D /* Images.xcassets in Resources */,
 				F75728401B015B9D005F5FED /* NewGenericPostView.xib in Resources */,
 				14ABE0FA1A95022900B805D0 /* NewFreePostView.xib in Resources */,
+				14A416811B05700600EA4DA2 /* SpreeSprintTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -733,6 +742,7 @@
 				F7715E971AEBFEA7005DDEFF /* MessagingTableViewCell.m in Sources */,
 				140CF91D1A3F75E200134C4D /* ChooseTypeTableViewController.m in Sources */,
 				F76258EB1AF2044E003B67D4 /* RatingViewController.m in Sources */,
+				14A416801B05700600EA4DA2 /* SpreeSprintTableViewCell.m in Sources */,
 				14ABE1081A96A59000B805D0 /* NewTicketsPostView.m in Sources */,
 				F78600BD1AEB422100402B1F /* push.m in Sources */,
 				F78600BE1AEB422100402B1F /* recent.m in Sources */,
