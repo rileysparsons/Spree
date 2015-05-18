@@ -10,6 +10,7 @@
 #import "NewPostInfoViewController.h"
 #import "PostTypeTableViewCell.h"
 #import "UIColor+SpreeColor.h"
+#import "SpreeSprintTableViewCell.h"
 
 @interface NewPostTypeSelectionViewController (){
     NSArray *typeArray;
@@ -29,6 +30,7 @@
     self.post = [[SpreePost alloc] init];
     self.typeTableView.delegate = self;
     self.typeTableView.dataSource =self;
+    self.typeTableView.separatorInset = UIEdgeInsetsMake(0, 75, 0, 0);
     
     iconColorArray = [[NSArray alloc] initWithObjects:[UIColor spreeDarkBlue], [UIColor spreeRed], [UIColor spreeBabyBlue], [UIColor spreeDarkYellow], [UIColor spreeLightYellow],[UIColor spreeDarkBlue], [UIColor spreeRed], [UIColor spreeBabyBlue], [UIColor spreeDarkYellow], [UIColor spreeLightYellow], nil];
 
@@ -90,14 +92,25 @@
         cell.accessoryView = [MSCellAccessory accessoryWithType: FLAT_DISCLOSURE_INDICATOR color:[iconColorArray objectAtIndex:indexPath.row] highlightedColor:[UIColor spreeLightYellow]];
         cell.iconBackground.backgroundColor = [iconColorArray objectAtIndex:indexPath.row];
     } else if ([[typeArray objectAtIndex:indexPath.row] isEqualToString: @"Tasks"]){
-        cell.detailImage.image = nil;
-        cell.accessoryView = [MSCellAccessory accessoryWithType: FLAT_DISCLOSURE_INDICATOR color:[UIColor spreeLightYellow] highlightedColor:[UIColor spreeLightYellow]];
+        SpreeSprintTableViewCell *sprintCell = [tableView dequeueReusableCellWithIdentifier:@"sprintCell"];
+        if (sprintCell == nil) {
+            NSArray *nibFiles = [[NSBundle mainBundle] loadNibNamed:@"SpreeSprintTableViewCell" owner:self options:nil];
+            for(id currentObject in nibFiles){
+                if ([currentObject isKindOfClass:[UITableViewCell class]]){
+                    sprintCell = (SpreeSprintTableViewCell*)currentObject;
+                    break;
+                }
+            }
+        }
+        sprintCell.subtitle.text = @"Post a Task";
+        sprintCell.accessoryView = [MSCellAccessory accessoryWithType: FLAT_DISCLOSURE_INDICATOR color:[UIColor spreeDarkBlue] highlightedColor:[UIColor spreeLightYellow]];
+        return sprintCell;
     }
     return cell;
 }
 
 - (void)nextBarButtonItemPressed:(id)sender {
-    NSString *selectedType = [[(PostTypeTableViewCell *)[self.typeTableView cellForRowAtIndexPath:self.typeTableView.indexPathForSelectedRow] titleLabel] text];
+    NSString *selectedType = [typeArray objectAtIndex:self.typeTableView.indexPathForSelectedRow.row];
     if ([selectedType isEqualToString:@"Books"]) {
         [self performSegueWithIdentifier:@"showNewBooksPostDetail" sender:self];
     } else if ([selectedType isEqualToString:@"Electronics"]) {

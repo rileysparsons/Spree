@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface SpreeSprintTableViewCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *subtitle;
 
 @end
