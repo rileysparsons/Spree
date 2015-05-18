@@ -47,6 +47,28 @@
     [self loadObjects];
 }
 
+- (void)objectsDidLoad:(NSError *)error {
+    [super objectsDidLoad:error];
+    UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+    if (self.objects.count == 0){
+        // Display a message when the table is empty
+        messageLabel.text = @"Find something you like \nand message the seller here!";
+        messageLabel.textColor = [UIColor spreeDarkBlue];
+        messageLabel.numberOfLines = 0;
+        messageLabel.textAlignment = NSTextAlignmentCenter;
+        messageLabel.font = [UIFont fontWithName:@"EuphemiaUCAS" size:20];
+        [messageLabel sizeToFit];
+        self.tableView.backgroundView = messageLabel;
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    } else if (self.objects.count > 0 ){
+        self.tableView.backgroundView.hidden = YES;
+        NSLog(@"Objects did load");
+    }
+    NSLog(@"%lu", self.objects.count);
+    // This method is called every time objects are loaded from Parse via the PFQuery
+}
+
+
 - (PFQuery *)queryForTable {
     PFQuery *query = [PFQuery queryWithClassName:PF_RECENT_CLASS_NAME];
     [query whereKey:PF_RECENT_USER equalTo:[PFUser currentUser]];
