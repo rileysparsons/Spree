@@ -200,7 +200,7 @@
     UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
     if (self.objects.count == 0){
         // Display a message when the table is empty
-        messageLabel.text = @"No posts have been made in your area. Check back later.";
+        messageLabel.text = @"No posts have been made in your area.\n\nYou can be the first!";
         messageLabel.textColor = [UIColor spreeDarkBlue];
         messageLabel.numberOfLines = 0;
         messageLabel.textAlignment = NSTextAlignmentCenter;
