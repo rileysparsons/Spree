@@ -192,7 +192,7 @@
         [[NSUserDefaults standardUserDefaults] synchronize];
 
         // Or show coach marks after a second delay
-         [coachMarksView performSelector:@selector(start) withObject:nil afterDelay:2.5f];
+         [coachMarksView performSelector:@selector(start) withObject:nil afterDelay:2.0f];
     }
 }
 
