@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -14,17 +13,15 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PpY-lj-uX4">
-                        <rect key="frame" x="74" y="8" width="173" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qoh-gQ-FWW">
-                        <rect key="frame" x="8" y="3" width="53" height="53"/>
+                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JLp-aP-fd3">
+                        <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                        <color key="backgroundColor" red="0.034740071740000003" green="0.29351189729999999" blue="0.58873707060000002" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qoh-gQ-FWW">
+                        <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="53" id="8lK-RR-bmd"/>
-                            <constraint firstAttribute="width" constant="53" id="tlp-dv-kcs"/>
+                            <constraint firstAttribute="height" constant="60" id="8lK-RR-bmd"/>
+                            <constraint firstAttribute="width" constant="60" id="tlp-dv-kcs"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M9y-QB-Peu">
@@ -36,7 +33,7 @@
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="amW-gU-E5v">
                         <rect key="frame" x="74" y="35" width="57" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8pD-IV-coS">
@@ -45,12 +42,21 @@
                         <color key="textColor" red="0.0" green="0.37647058823529411" blue="0.65490196078431373" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PpY-lj-uX4">
+                        <rect key="frame" x="74" y="8" width="173" height="21"/>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                        <color key="textColor" red="0.31113873110000001" green="0.31113873110000001" blue="0.31113873110000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="woV-YI-Rdl">
+                        <rect key="frame" x="8" y="8" width="44" height="44"/>
+                    </imageView>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 <constraints>
-                    <constraint firstItem="qoh-gQ-FWW" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="3" id="2aH-A0-hTN"/>
+                    <constraint firstItem="qoh-gQ-FWW" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="2aH-A0-hTN"/>
                     <constraint firstAttribute="bottom" secondItem="qoh-gQ-FWW" secondAttribute="bottom" constant="3.5" id="B6w-Ua-GMz"/>
-                    <constraint firstItem="qoh-gQ-FWW" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="hx5-TQ-i6y"/>
+                    <constraint firstItem="qoh-gQ-FWW" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="hx5-TQ-i6y"/>
                 </constraints>
                 <variation key="default">
                     <mask key="constraints">
@@ -64,6 +70,7 @@
                 <outlet property="postTitleLabel" destination="PpY-lj-uX4" id="8LP-6N-4uq"/>
                 <outlet property="priceLabel" destination="8pD-IV-coS" id="8bd-Nb-vdo"/>
                 <outlet property="statusLabel" destination="M9y-QB-Peu" id="fva-Al-aAU"/>
+                <outlet property="typeIcon" destination="woV-YI-Rdl" id="O4r-gB-43o"/>
             </connections>
             <point key="canvasLocation" x="306" y="303"/>
         </tableViewCell>

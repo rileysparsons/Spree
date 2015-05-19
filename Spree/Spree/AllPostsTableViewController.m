@@ -261,7 +261,6 @@
             cell.priceLabel.text = price;
         }
         
-        
         if (post.photoArray.count != 0){
             PFFile *imageFile = (PFFile *)[post.photoArray objectAtIndex:0];
             [imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
@@ -272,16 +271,20 @@
                 }
             }];
         } else {
+            cell.typeIcon.hidden = NO;
+            cell.postImageView.hidden = YES;
             if ([post.type isEqualToString:@"Tickets"]){
-                cell.postImageView.image = [UIImage imageNamed:@"TicketTypeIconSmall"];
+                cell.typeIcon.image = [UIImage imageNamed:@"TicketTypeIconSmall"];
             } else if ([post.type isEqualToString:@"Books"]){
-                cell.postImageView.image = [UIImage imageNamed:@"BookTypeIconSmall"];
+                cell.typeIcon.image = [UIImage imageNamed:@"BookTypeIconSmall"];
             } else if ([post.type isEqualToString:@"Electronics"]){
-                cell.postImageView.image = [UIImage imageNamed:@"ElectronicsTypeIconSmall"];
+                cell.typeIcon.image = [UIImage imageNamed:@"ElectronicsTypeIconSmall"];
             } else if ([post.type isEqualToString:@"Furniture"]){
-                cell.postImageView.image = nil;
+                cell.typeIcon.image =[UIImage imageNamed:@"furnitureCellIconWhite"];
             } else if ([post.type isEqualToString:@"Clothing"]){
-                cell.postImageView.image = nil;
+                cell.typeIcon.image =[UIImage imageNamed:@"clothingCellIconWhite"];
+            } else if ([post.type isEqualToString:@"Tasks"]){
+                cell.typeIcon.image =[UIImage imageNamed:@"sprintCellIconWhite"];
             }
         }
         

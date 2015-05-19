@@ -1071,6 +1071,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <inset key="separatorInset" minX="75" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <connections>
                             <outlet property="dataSource" destination="zny-BO-81a" id="tbA-hd-7Fi"/>
                             <outlet property="delegate" destination="zny-BO-81a" id="mLB-LI-HQp"/>
@@ -3083,10 +3084,10 @@
         <image name="informationImage" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="xGv-LV-rKw"/>
-        <segue reference="1J7-D9-rCs"/>
-        <segue reference="ubu-4c-zFs"/>
-        <segue reference="egP-Bb-yim"/>
+        <segue reference="zKl-KK-pxs"/>
+        <segue reference="tW9-vk-FRh"/>
+        <segue reference="gAI-vb-BR5"/>
+        <segue reference="WbK-fs-kfB"/>
         <segue reference="eMA-Qd-vQN"/>
     </inferredMetricsTieBreakers>
 </document>
