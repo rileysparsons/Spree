@@ -13,9 +13,12 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JLp-aP-fd3">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JLp-aP-fd3">
                         <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
                         <color key="backgroundColor" red="0.034740071740000003" green="0.29351189729999999" blue="0.58873707060000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="60" id="gpN-Em-gO0"/>
+                        </constraints>
                     </view>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qoh-gQ-FWW">
                         <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
@@ -56,7 +59,10 @@
                 <constraints>
                     <constraint firstItem="qoh-gQ-FWW" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="2aH-A0-hTN"/>
                     <constraint firstAttribute="bottom" secondItem="qoh-gQ-FWW" secondAttribute="bottom" constant="3.5" id="B6w-Ua-GMz"/>
+                    <constraint firstItem="JLp-aP-fd3" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Cuf-8n-z7I"/>
+                    <constraint firstAttribute="bottom" secondItem="JLp-aP-fd3" secondAttribute="bottom" constant="-1" id="EFU-Kd-Kx9"/>
                     <constraint firstItem="qoh-gQ-FWW" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="hx5-TQ-i6y"/>
+                    <constraint firstItem="JLp-aP-fd3" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="nUG-A9-HCP"/>
                 </constraints>
                 <variation key="default">
                     <mask key="constraints">

@@ -272,7 +272,6 @@
                          if (self.refreshControl.isRefreshing) {
                              [self animateRefreshView];
                          }else{
-         
                              [self resetAnimation];
                          }
                      }];
@@ -328,10 +327,10 @@
             cell.numberLabel.text = [NSString stringWithFormat:@"0 Posts"];
             if (number) {
                 NSLog(@"%@ %d", [_postTypeArray objectAtIndex:indexPath.row], number);
-                [self.refreshControl endRefreshing];
                 cell.numberLabel.text = [NSString stringWithFormat:@"%@ Posts", [@(number)stringValue]];
                 _pastPostNumber = number;
             }
+            [self.refreshControl endRefreshing];
         }];
     } else {
         [postQuery whereKey:@"type" equalTo:[_postTypeArray objectAtIndex:indexPath.row]];

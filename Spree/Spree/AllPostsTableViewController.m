@@ -230,6 +230,7 @@
     [query whereKey:@"sold" equalTo:[NSNumber numberWithBool:NO]];
     [query whereKey:@"network" equalTo:[PFUser currentUser]];
     [query orderByDescending:@"updatedAt"];
+    NSLog(@"%@", [PFUser currentUser]);
     [query whereKey:@"network" equalTo:[[PFUser currentUser] objectForKey:@"network"]];
     [query includeKey:@"objectId"];
     
