@@ -9,6 +9,7 @@
 #import "HomeViewController.h"
 #import "LoginViewController.h"
 #import "SignUpViewController.h"
+#import "AppDelegate.h"
 
 @interface WelcomeViewController ()
 
@@ -60,6 +61,15 @@
 
 // Sent to the delegate when a PFUser is logged in.
 - (void)logInViewController:(PFLogInViewController *)logInController didLogInUser:(PFUser *)user {
+    UIApplication* sharedApplication = [UIApplication sharedApplication];
+    UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert |
+                                                    UIUserNotificationTypeBadge |
+                                                    UIUserNotificationTypeSound);
+    UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:userNotificationTypes
+                                                                             categories:nil];
+    [sharedApplication registerUserNotificationSettings:settings];
+    [sharedApplication registerForRemoteNotifications];
+    
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
