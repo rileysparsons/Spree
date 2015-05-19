@@ -184,18 +184,18 @@
     [self.postScrollView setContentOffset:CGPointMake(0, -5) animated:YES];
     
     // Show coach marks
-    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"WSCoachMarksShown"];
-    if (coachMarksShown == NO && self.detailPost.user != [PFUser currentUser]) {
+    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"MessageCoachMarksShown"];
+    NSLog(@"%@ %@", self.detailPost.user.objectId, [PFUser currentUser].objectId);
+    if (coachMarksShown == NO && ![self.detailPost.user.objectId isEqualToString:[PFUser currentUser].objectId]) {
         // Don't show again
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"WSCoachMarksShown"];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"MessageCoachMarksShown"];
         [[NSUserDefaults standardUserDefaults] synchronize];
-        
-
 
         // Or show coach marks after a second delay
-         [coachMarksView performSelector:@selector(start) withObject:nil afterDelay:2.5f];
+         [coachMarksView performSelector:@selector(start) withObject:nil afterDelay:2.0f];
     }
 }
+
 
 -(void)viewWillDisappear:(BOOL)animated{
     [NSObject cancelPreviousPerformRequestsWithTarget:coachMarksView selector:@selector(start) object:nil];
@@ -205,7 +205,7 @@
     NSArray *coachMarks = @[
                             @{
                                 @"rect": [NSValue valueWithCGRect:(CGRect){{self.view.frame.size.width - (self.purchaseButton.frame.size.width + 11), 68},{self.purchaseButton.frame.size.width+6, 39}}],
-                                @"caption": @"Get this item here!"
+                                @"caption": @"Interested? Contact the seller here."
                                 }
                             ];
     coachMarksView = [[WSCoachMarksView alloc] initWithFrame:self.tabBarController.view.bounds coachMarks:coachMarks];

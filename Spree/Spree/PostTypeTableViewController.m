@@ -55,10 +55,10 @@
 }
 -(void)viewWillAppear:(BOOL)animated{
     // Show coach marks
-    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"WSCoachMarksShownForPostType"];
+    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"WSCoachMarksShownForCompose"];
     if (coachMarksShown == NO) {
         // Don't show again
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"WSCoachMarksShownForPostType"];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"WSCoachMarksShownForCompose"];
         [[NSUserDefaults standardUserDefaults] synchronize];\
         // Or show coach marks after a second delay
         [coachMarksView performSelector:@selector(start) withObject:nil afterDelay:1.0f];
