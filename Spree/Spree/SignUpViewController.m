@@ -26,8 +26,7 @@
     [self.signUpView.usernameField setTextColor:[UIColor spreeDarkBlue]];
     [self.signUpView.passwordField setTextColor:[UIColor spreeDarkBlue]];
     [self.signUpView.emailField setTextColor:[UIColor spreeDarkBlue]];
-    [self.signUpView.emailField setPlaceholder:@"Email (.edu address recommended)"];
-    
+    self.signUpView.emailField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Email (\".edu\" is highly suggested)" attributes: @{NSFontAttributeName : [UIFont systemFontOfSize:13.0]}];
     [self.signUpView.signUpButton setBackgroundImage:nil forState:UIControlStateNormal];
     [self.signUpView.signUpButton setBackgroundImage:nil forState:UIControlStateHighlighted];
     [self.signUpView.signUpButton setBackgroundColor:[UIColor spreeBabyBlue]];
