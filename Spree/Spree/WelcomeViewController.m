@@ -110,6 +110,14 @@
 
 // Sent to the delegate when a PFUser is signed up.
 - (void)signUpViewController:(PFSignUpViewController *)signUpController didSignUpUser:(PFUser *)user {
+    UIApplication* sharedApplication = [UIApplication sharedApplication];
+    UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert |
+                                                    UIUserNotificationTypeBadge |
+                                                    UIUserNotificationTypeSound);
+    UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:userNotificationTypes
+                                                                             categories:nil];
+    [sharedApplication registerUserNotificationSettings:settings];
+    [sharedApplication registerForRemoteNotifications];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
