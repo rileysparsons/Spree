@@ -12,6 +12,9 @@
 #import "PostDetailViewController.h"
 #import "SpreePost.h"
 #import "ChatView.h"
+#import <ParseCrashReporting/ParseCrashReporting.h>
+
+
 
 #import <Accelerate/Accelerate.h>
 
@@ -25,8 +28,9 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     // Register Parse Subclass
-    [SpreePost registerSubclass];
     
+    [SpreePost registerSubclass];
+    [ParseCrashReporting enable];
     [Parse setApplicationId:@"F2jyNwFtpy0O9ufRLxBnMQWRtGQju6kV0JEbUZlf"
                   clientKey:@"T7noUkx7fvw5KwLxWi0Y6brf3c3LaqWb6ODoB6IZ"];
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
@@ -66,7 +70,7 @@
         [application registerUserNotificationSettings:settings];
         [application registerForRemoteNotifications];
     }
-
+    
     return YES;
 }
 
