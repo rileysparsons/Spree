@@ -582,6 +582,7 @@
 				140CF8D01A3BBFB200134C4D /* Frameworks */,
 				140CF8D11A3BBFB200134C4D /* Resources */,
 				3B5FE0450EE21F422A925EDB /* Copy Pods Resources */,
+				14C40E701B0EA9D500CB2707 /* ShellScript */,
 			);
 			buildRules = (
 				149330331A44FB810022DDE9 /* PBXBuildRule */,
@@ -682,6 +683,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		14C40E701B0EA9D500CB2707 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=/usr/local/bin:$PATH\ncd /Users/rileysteeleparsons/parse\n\nparse symbols Spree --path=\"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"";
+		};
 		3B5FE0450EE21F422A925EDB /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -884,12 +898,13 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A7F573D62D839D22544FF614 /* Pods.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)/**";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREFIX_HEADER = Spree/PrefixHeader.pch;
 				INFOPLIST_FILE = Spree/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -904,12 +919,13 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DE88A00A12A293397EB0574B /* Pods.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)/**";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREFIX_HEADER = Spree/PrefixHeader.pch;
 				INFOPLIST_FILE = Spree/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;

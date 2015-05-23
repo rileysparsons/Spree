@@ -123,6 +123,10 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 See https://www.parse.com/about/terms
 
+## ParseCrashReporting
+
+See https://www.parse.com/about/terms
+
 ## ParseUI
 
 Copyright (c) 2014, Parse, LLC. All rights reserved.
