@@ -22,12 +22,12 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="APt-Gf-cyE" id="Gr1-dg-pBE">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cGb-2e-peD">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="User" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cGb-2e-peD">
                                             <rect key="frame" x="21" y="8" width="180" height="29"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="180" id="eok-6x-FwR"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -41,14 +41,8 @@
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Count" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wlu-zU-vfm">
-                                            <rect key="frame" x="357" y="37" width="47" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fdG-bb-5Fk">
-                                            <rect key="frame" x="366" y="8" width="38" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Time" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fdG-bb-5Fk">
+                                            <rect key="frame" x="366" y="12" width="38" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
@@ -70,10 +64,8 @@
                                         <constraint firstItem="7AR-8J-Hbf" firstAttribute="top" secondItem="cGb-2e-peD" secondAttribute="bottom" constant="3" id="FP9-xd-u5d"/>
                                         <constraint firstItem="7AR-8J-Hbf" firstAttribute="top" secondItem="cGb-2e-peD" secondAttribute="bottom" id="HxR-67-hie"/>
                                         <constraint firstItem="7AR-8J-Hbf" firstAttribute="leading" secondItem="cGb-2e-peD" secondAttribute="leading" id="OqQ-52-UjM"/>
-                                        <constraint firstItem="Wlu-zU-vfm" firstAttribute="top" secondItem="fdG-bb-5Fk" secondAttribute="bottom" constant="8" symbolic="YES" id="UIK-OP-Va6"/>
                                         <constraint firstItem="cGb-2e-peD" firstAttribute="leading" secondItem="Gr1-dg-pBE" secondAttribute="leadingMargin" constant="-7" id="bLQ-8W-0lr"/>
                                         <constraint firstAttribute="bottom" secondItem="TM3-8I-cHP" secondAttribute="bottom" id="dhh-Cp-wsZ"/>
-                                        <constraint firstItem="fdG-bb-5Fk" firstAttribute="trailing" secondItem="Wlu-zU-vfm" secondAttribute="trailing" id="e5Z-VB-QsO"/>
                                         <constraint firstItem="TM3-8I-cHP" firstAttribute="leading" secondItem="Gr1-dg-pBE" secondAttribute="leading" id="sJk-6o-CEa"/>
                                         <constraint firstItem="cGb-2e-peD" firstAttribute="leading" secondItem="Gr1-dg-pBE" secondAttribute="leading" constant="21" id="zLA-Om-Tge"/>
                                     </constraints>
@@ -86,7 +78,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="lastMessageLabel" destination="7AR-8J-Hbf" id="xEr-nG-WOp"/>
-                                    <outlet property="messageCountLabel" destination="Wlu-zU-vfm" id="pN7-QD-SMi"/>
+                                    <outlet property="messageFlag" destination="TM3-8I-cHP" id="mgb-bp-xf8"/>
                                     <outlet property="timeLabel" destination="fdG-bb-5Fk" id="MIb-S1-xVf"/>
                                     <outlet property="userLabel" destination="cGb-2e-peD" id="FT5-Yq-xtB"/>
                                 </connections>

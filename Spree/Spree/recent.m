@@ -78,7 +78,7 @@ void UpdateRecentCounter(NSString *groupId, NSInteger amount, NSString *lastMess
 				recent[PF_RECENT_LASTMESSAGE] = lastMessage;
 				recent[PF_RECENT_UPDATEDACTION] = [NSDate date];
 				[recent saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
-				{
+                 {
 					if (error != nil) NSLog(@"UpdateRecentCounter save error.");
 				}];
 			}

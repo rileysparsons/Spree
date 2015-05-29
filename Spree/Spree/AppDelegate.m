@@ -125,6 +125,7 @@
         [navigationController pushViewController:message animated:YES];
     }
     if (application.applicationState == UIApplicationStateActive && [[userInfo objectForKey:@"type"] isEqualToString:@"message"]){
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadMessages" object:nil];
             PFQuery *query = [PFQuery queryWithClassName:PF_RECENT_CLASS_NAME];
             [query whereKey:PF_RECENT_USER equalTo:[PFUser currentUser]];
             [query includeKey:PF_RECENT_LASTUSER];
