@@ -69,7 +69,6 @@
                                                                              categories:nil];
     [sharedApplication registerUserNotificationSettings:settings];
     [sharedApplication registerForRemoteNotifications];
-    
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

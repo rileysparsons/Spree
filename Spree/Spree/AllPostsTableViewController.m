@@ -12,6 +12,7 @@
 #import "PostDetailViewController.h"
 #import "NewPostTypeSelectionViewController.h"
 #import "RatingViewController.h"
+#import "AppDelegate.h"
 
 @interface AllPostsTableViewController () {
 
@@ -59,6 +60,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    appDelegate.window.rootViewController = self.tabBarController;
+    
     [self setupRefreshControl];
     UIImage *image = [UIImage imageNamed:@"spreeTitleStylized.png"];
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:image];
@@ -85,6 +90,27 @@
             [object deleteInBackground];
         }
     }];
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
+//    PFQuery *query = [PFQuery queryWithClassName:PF_RECENT_CLASS_NAME];
+//    [query whereKey:PF_RECENT_USER equalTo:[PFUser currentUser]];
+//    [query includeKey:PF_RECENT_LASTUSER];
+//    [query orderByDescending:PF_RECENT_UPDATEDACTION];
+//    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+//     {
+//         if (objects)
+//         {
+//             int total = 0;
+//             for (PFObject *recent in objects)
+//             {
+//                 total += [recent[PF_RECENT_COUNTER] intValue];
+//             }
+//             UITabBarItem *item = self.tabBarController.tabBar.items[2];
+//             item.badgeValue = (total == 0) ? nil : [NSString stringWithFormat:@"%d", total];
+//         }
+//     }];
 }
 
 - (UIBarButtonItem *)composeButton {
