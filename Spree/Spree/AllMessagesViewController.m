@@ -33,8 +33,16 @@
 
         // Whether the built-in pagination is enabled
         self.paginationEnabled = NO;
+        
     }
     return self;
+}
+
+-(void)viewDidLoad{
+    [super viewDidLoad];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    self.tableView.separatorInset = UIEdgeInsetsMake(0, 75, 0, 0);
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadObjectsOnDelay) name:@"reloadMessages" object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -45,6 +53,10 @@
     item.badgeValue = nil;
 
     [self loadObjects];
+}
+
+-(void)loadObjectsOnDelay{
+    [self performSelector:@selector(loadObjects) withObject:nil afterDelay:0.5f];
 }
 
 - (void)objectsDidLoad:(NSError *)error {
@@ -110,8 +122,14 @@
     [cell.userLabel setText:[object[PF_RECENT_TOUSER] objectForKey:PF_USER_USERNAME]];
     [cell.lastMessageLabel setText:object[PF_RECENT_LASTMESSAGE]];
     [cell.timeLabel setText:TimeElapsed(seconds)];
-    [cell.messageCountLabel setText:[NSString stringWithFormat:@"%d new", counter]];
+//    [cell.messageCountLabel setText:[NSString stringWithFormat:@"%d new", counter]];
+    if (counter > 0){
+        [cell.messageFlag setHidden:NO];
+    } else {
+        [cell.messageFlag setHidden:YES];
+    }
 
+    
     return cell;
 }
 

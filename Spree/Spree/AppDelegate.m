@@ -115,7 +115,7 @@
 
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo{
-
+    NSLog(@"Did receive");
     if (application.applicationState != UIApplicationStateActive && [[userInfo objectForKey:@"type"] isEqualToString:@"message"]) {
         UITabBarController *tabBarController = (UITabBarController *)self.window.rootViewController;
         [tabBarController setSelectedIndex:2];
@@ -123,6 +123,27 @@
         PFObject *postObject = [PFObject objectWithoutDataWithClassName:@"Post" objectId:[userInfo objectForKey:@"postId"]];
         ChatView *message = [[ChatView alloc] initWith:[userInfo objectForKey:@"groupId"] post:postObject title:[userInfo objectForKey:@"title"]];
         [navigationController pushViewController:message animated:YES];
+    }
+    if (application.applicationState == UIApplicationStateActive && [[userInfo objectForKey:@"type"] isEqualToString:@"message"]){
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadMessages" object:nil];
+            PFQuery *query = [PFQuery queryWithClassName:PF_RECENT_CLASS_NAME];
+            [query whereKey:PF_RECENT_USER equalTo:[PFUser currentUser]];
+            [query includeKey:PF_RECENT_LASTUSER];
+            [query orderByDescending:PF_RECENT_UPDATEDACTION];
+            [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+             {
+                 if (objects)
+                 {
+                     int total = 0;
+                     for (PFObject *recent in objects)
+                     {
+                         total += [recent[PF_RECENT_COUNTER] intValue];
+                     }
+                     UITabBarController *tabBarController = (UITabBarController *)self.window.rootViewController;
+                     UITabBarItem *item = tabBarController.tabBar.items[2];
+                     item.badgeValue = (total == 0) ? nil : [NSString stringWithFormat:@"%d", total];
+                 }
+             }];
     }
 
 //        NSString *postId = [userInfo objectForKey:@"post"];
