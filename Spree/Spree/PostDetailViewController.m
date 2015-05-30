@@ -513,7 +513,17 @@
     self.navigationItem.rightBarButtonItem = self.claimButton;
     [self.detailPost removeObjectForKey:@"taskClaimed"];
     [self.detailPost removeObjectForKey:@"taskClaimedBy"];
+    
     [self.detailPost saveInBackground];
+    PFUser *user2 = self.poster;
+    PFUser *user1 = [PFUser currentUser];
+    NSString *user1Username = [[PFUser currentUser] objectForKey:@"username"];
+    
+    NSString *groupId = StartPrivateChat(user1, user2);
+    
+    ChatView *chat = [[ChatView alloc] initWith:groupId post:self.detailPost title:user1Username];
+    [chat sendMessage:[NSString stringWithFormat:@"%@ unclaimed your task!", user1Username] Video:nil Picture:nil];
+    [PFAnalytics trackEvent:@"claimedPost"];
 }
 
 @end
