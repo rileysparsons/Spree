@@ -44,6 +44,7 @@ void ParsePushUserResign(void)
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 void SendPushNotification(NSString *groupId, NSString *text, NSString *postId, NSString *title)
 {
+    NSLog(@"send push with text: %@", text);
 	PFUser *user = [PFUser currentUser];
     NSDictionary *data = @{
                            @"alert" : [NSString stringWithFormat:@"%@: %@", user[PF_USER_FULLNAME], text],

@@ -110,6 +110,7 @@
 
 -(void)postMessage{
     ChatView *chat = [[ChatView alloc] initWith:self.groupId post:self.post title:[[PFUser currentUser] objectForKey:@"username"]];
+    NSLog(@"GroupId: %@, Post: %@", self.groupId, self.post);
     NSString *output;
     output = @"Let's meet up on ";
     output = [output stringByAppendingString:_timeSelection];

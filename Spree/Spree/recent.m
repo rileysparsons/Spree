@@ -25,7 +25,7 @@ NSString* StartPrivateChat(PFUser *user1, PFUser *user2)
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-void CreateRecentItem(PFUser *user, NSString *groupId, NSString *description, PFUser *toUser, PFObject *post)
+void CreateRecentItem(PFUser *user, NSString *groupId, NSString *description, PFUser *toUser, PFObject *post, NSString *firstMessage)
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	PFQuery *query = [PFQuery queryWithClassName:PF_RECENT_CLASS_NAME];
@@ -44,7 +44,7 @@ void CreateRecentItem(PFUser *user, NSString *groupId, NSString *description, PF
                 recent[PF_MESSAGE_POST] = post;
 				recent[PF_RECENT_DESCRIPTION] = description;
 				recent[PF_RECENT_LASTUSER] = [PFUser currentUser];
-				recent[PF_RECENT_LASTMESSAGE] = @"";
+				recent[PF_RECENT_LASTMESSAGE] = firstMessage;
 				recent[PF_RECENT_COUNTER] = @0;
 				recent[PF_RECENT_UPDATEDACTION] = [NSDate date];
 				[recent saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
@@ -61,15 +61,18 @@ void CreateRecentItem(PFUser *user, NSString *groupId, NSString *description, PF
 void UpdateRecentCounter(NSString *groupId, NSInteger amount, NSString *lastMessage)
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
+    NSLog(@"Update recent counter");
 	PFQuery *query = [PFQuery queryWithClassName:PF_RECENT_CLASS_NAME];
 	[query whereKey:PF_RECENT_GROUPID equalTo:groupId];
 	[query setLimit:1000];
 	[query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
 	{
+        NSLog(@"objects: %lu", (unsigned long)objects.count);
 		if (error == nil)
 		{
 			for (PFObject *recent in objects)
 			{
+                NSLog(@"objects: %lu", (unsigned long)objects.count);
 				PFUser *user = recent[PF_RECENT_USER];
 				if ([user.objectId isEqualToString:[PFUser currentUser].objectId] == NO)
 					[recent incrementKey:PF_RECENT_COUNTER byAmount:[NSNumber numberWithInteger:amount]];

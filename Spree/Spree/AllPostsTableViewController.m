@@ -94,23 +94,23 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
-//    PFQuery *query = [PFQuery queryWithClassName:PF_RECENT_CLASS_NAME];
-//    [query whereKey:PF_RECENT_USER equalTo:[PFUser currentUser]];
-//    [query includeKey:PF_RECENT_LASTUSER];
-//    [query orderByDescending:PF_RECENT_UPDATEDACTION];
-//    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
-//     {
-//         if (objects)
-//         {
-//             int total = 0;
-//             for (PFObject *recent in objects)
-//             {
-//                 total += [recent[PF_RECENT_COUNTER] intValue];
-//             }
-//             UITabBarItem *item = self.tabBarController.tabBar.items[2];
-//             item.badgeValue = (total == 0) ? nil : [NSString stringWithFormat:@"%d", total];
-//         }
-//     }];
+    PFQuery *query = [PFQuery queryWithClassName:PF_RECENT_CLASS_NAME];
+    [query whereKey:PF_RECENT_USER equalTo:[PFUser currentUser]];
+    [query includeKey:PF_RECENT_LASTUSER];
+    [query orderByDescending:PF_RECENT_UPDATEDACTION];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+     {
+         if (objects)
+         {
+             int total = 0;
+             for (PFObject *recent in objects)
+             {
+                 total += [recent[PF_RECENT_COUNTER] intValue];
+             }
+             UITabBarItem *item = self.tabBarController.tabBar.items[2];
+             item.badgeValue = (total == 0) ? nil : [NSString stringWithFormat:@"%d", total];
+         }
+     }];
 }
 
 - (UIBarButtonItem *)composeButton {
