@@ -228,16 +228,18 @@
     [lookUp whereKey:@"objectId" equalTo:[[post objectForKey:@"user"] objectId]];
     [lookUp getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
         if (object) {
-            CreateRecentItem(user1, groupId, object[@"username"], user2, post);
+            CreateRecentItem(user1, groupId, object[@"username"], user2, post, outString);
         }
     }];
 
-    CreateRecentItem(user2, groupId, user1[PF_USER_FULLNAME], user1, post);
-
-    SendPushNotification(groupId, outString, [post objectId], title);
-    UpdateRecentCounter(groupId, 1, outString);
-    
+    [self performSelector:@selector(updateRecentAndPushForMessage:) withObject:outString afterDelay:0.5f];
+    CreateRecentItem(user2, groupId, user1[PF_USER_FULLNAME], user1, post, outString);
     [self finishSendingMessage];
+}
+
+-(void) updateRecentAndPushForMessage:(NSString*)message{
+    SendPushNotification(groupId, message, [post objectId], title);
+    UpdateRecentCounter(groupId, 1, message);
 }
 
 #pragma mark - JSQMessagesViewController method overrides

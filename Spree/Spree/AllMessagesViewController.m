@@ -128,27 +128,9 @@
     } else {
         [cell.messageFlag setHidden:YES];
     }
-
-    
     return cell;
 }
 
-
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return YES;
-}
-
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        NSLog(@"Deleting object: %@", [self.objects objectAtIndex:indexPath.row]);
-        PFObject *object = [self.objects objectAtIndex:indexPath.row];
-        [object deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            //            [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath.row] withRowAnimation:UITableViewRowAnimationFade];
-            [self loadObjects];
-        }];
-    }
-}
 
 #pragma mark - Table view delegate
 

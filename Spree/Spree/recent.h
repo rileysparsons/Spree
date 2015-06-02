@@ -13,7 +13,7 @@
 NSString*		StartPrivateChat		(PFUser *user1, PFUser *user2);
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-void CreateRecentItem(PFUser *user, NSString *groupId, NSString *description, PFUser *toUser, PFObject *post);
+void CreateRecentItem(PFUser *user, NSString *groupId, NSString *description, PFUser *toUser, PFObject *post, NSString *firstMessage);
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 void			UpdateRecentCounter		(NSString *groupId, NSInteger amount, NSString *lastMessage);

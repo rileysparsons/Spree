@@ -523,7 +523,7 @@
     
     ChatView *chat = [[ChatView alloc] initWith:groupId post:self.detailPost title:user1Username];
     [chat sendMessage:[NSString stringWithFormat:@"%@ unclaimed your task!", user1Username] Video:nil Picture:nil];
-    [PFAnalytics trackEvent:@"claimedPost"];
+    [PFAnalytics trackEvent:@"unclaimedPost"];
 }
 
 @end
