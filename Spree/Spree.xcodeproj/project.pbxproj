@@ -51,6 +51,9 @@
 		14ABE1081A96A59000B805D0 /* NewTicketsPostView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14ABE1071A96A59000B805D0 /* NewTicketsPostView.m */; };
 		14ABE10A1A96A59F00B805D0 /* NewTicketsPostView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14ABE1091A96A59F00B805D0 /* NewTicketsPostView.xib */; };
 		14BE5C871AAD442A00C60C56 /* NewPostInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14BE5C861AAD442A00C60C56 /* NewPostInfoViewController.m */; };
+		14C38DA21B27F3BA0039862E /* PostDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C38DA11B27F3BA0039862E /* PostDetailTableViewController.m */; };
+		14C38DAE1B27FEB10039862E /* PostTitleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C38DAC1B27FEB10039862E /* PostTitleTableViewCell.m */; };
+		14C38DAF1B27FEB10039862E /* PostTitleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14C38DAD1B27FEB10039862E /* PostTitleTableViewCell.xib */; };
 		14D35A431A46B2F300B83B4A /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14D35A421A46B2F300B83B4A /* LoginViewController.m */; };
 		14E66B971A452653008184C1 /* PostTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E66B951A452653008184C1 /* PostTableViewCell.m */; };
 		14E66B981A452653008184C1 /* PostTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14E66B961A452653008184C1 /* PostTableViewCell.xib */; };
@@ -174,6 +177,11 @@
 		14ABE1091A96A59F00B805D0 /* NewTicketsPostView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewTicketsPostView.xib; sourceTree = "<group>"; };
 		14BE5C851AAD442A00C60C56 /* NewPostInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewPostInfoViewController.h; sourceTree = "<group>"; };
 		14BE5C861AAD442A00C60C56 /* NewPostInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewPostInfoViewController.m; sourceTree = "<group>"; };
+		14C38DA01B27F3BA0039862E /* PostDetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostDetailTableViewController.h; sourceTree = "<group>"; };
+		14C38DA11B27F3BA0039862E /* PostDetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostDetailTableViewController.m; sourceTree = "<group>"; };
+		14C38DAB1B27FEB10039862E /* PostTitleTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostTitleTableViewCell.h; sourceTree = "<group>"; };
+		14C38DAC1B27FEB10039862E /* PostTitleTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostTitleTableViewCell.m; sourceTree = "<group>"; };
+		14C38DAD1B27FEB10039862E /* PostTitleTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostTitleTableViewCell.xib; sourceTree = "<group>"; };
 		14D35A411A46B2F300B83B4A /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		14D35A421A46B2F300B83B4A /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		14E66B941A452653008184C1 /* PostTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostTableViewCell.h; sourceTree = "<group>"; };
@@ -360,6 +368,9 @@
 				14A4167D1B05700600EA4DA2 /* SpreeSprintTableViewCell.h */,
 				14A4167E1B05700600EA4DA2 /* SpreeSprintTableViewCell.m */,
 				14A4167F1B05700600EA4DA2 /* SpreeSprintTableViewCell.xib */,
+				14C38DAB1B27FEB10039862E /* PostTitleTableViewCell.h */,
+				14C38DAC1B27FEB10039862E /* PostTitleTableViewCell.m */,
+				14C38DAD1B27FEB10039862E /* PostTitleTableViewCell.xib */,
 			);
 			name = TableViewCell;
 			sourceTree = "<group>";
@@ -410,8 +421,7 @@
 				1415FD7B1A4D34DC006E99A6 /* PaymentViewController.m */,
 				1404739B1ABD308D00C0F8EF /* PostTypeTableViewController.h */,
 				1404739C1ABD308D00C0F8EF /* PostTypeTableViewController.m */,
-				14E66B991A45ECFF008184C1 /* PostDetailViewController.h */,
-				14E66B9A1A45ECFF008184C1 /* PostDetailViewController.m */,
+				14C38D941B27AE0B0039862E /* Post Detail */,
 				140CF8DD1A3BBFB200134C4D /* HomeViewController.h */,
 				140CF8DE1A3BBFB200134C4D /* HomeViewController.m */,
 				F7AFBB431AF4CC2B00D3148B /* Rating */,
@@ -450,6 +460,17 @@
 				F757283F1B015B9D005F5FED /* NewGenericPostView.xib */,
 			);
 			name = "New Post Views";
+			sourceTree = "<group>";
+		};
+		14C38D941B27AE0B0039862E /* Post Detail */ = {
+			isa = PBXGroup;
+			children = (
+				14C38DA01B27F3BA0039862E /* PostDetailTableViewController.h */,
+				14C38DA11B27F3BA0039862E /* PostDetailTableViewController.m */,
+				14E66B991A45ECFF008184C1 /* PostDetailViewController.h */,
+				14E66B9A1A45ECFF008184C1 /* PostDetailViewController.m */,
+			);
+			name = "Post Detail";
 			sourceTree = "<group>";
 		};
 		3FCEFF302FDB54C2A88F1986 /* Pods */ = {
@@ -670,6 +691,7 @@
 				F75728401B015B9D005F5FED /* NewGenericPostView.xib in Resources */,
 				14ABE0FA1A95022900B805D0 /* NewFreePostView.xib in Resources */,
 				14A416811B05700600EA4DA2 /* SpreeSprintTableViewCell.xib in Resources */,
+				14C38DAF1B27FEB10039862E /* PostTitleTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -745,8 +767,10 @@
 				F743C95C1AE6412400C14781 /* SignUpViewController.m in Sources */,
 				14ABE0FD1A95AAC200B805D0 /* NewBooksPostView.m in Sources */,
 				140CF8DC1A3BBFB200134C4D /* AppDelegate.m in Sources */,
+				14C38DAE1B27FEB10039862E /* PostTitleTableViewCell.m in Sources */,
 				144FBE641AACEB05008BB4DA /* NewPostTypeSelectionViewController.m in Sources */,
 				140CF8DF1A3BBFB200134C4D /* HomeViewController.m in Sources */,
+				14C38DA21B27F3BA0039862E /* PostDetailTableViewController.m in Sources */,
 				F78600951AEB3F9100402B1F /* ChatView.m in Sources */,
 				149787A21A49F0E40024437D /* UIColor+SpreeColor.m in Sources */,
 				140CF8D91A3BBFB200134C4D /* main.m in Sources */,
