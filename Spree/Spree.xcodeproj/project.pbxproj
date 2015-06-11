@@ -54,6 +54,8 @@
 		14C38DA21B27F3BA0039862E /* PostDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C38DA11B27F3BA0039862E /* PostDetailTableViewController.m */; };
 		14C38DAE1B27FEB10039862E /* PostTitleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C38DAC1B27FEB10039862E /* PostTitleTableViewCell.m */; };
 		14C38DAF1B27FEB10039862E /* PostTitleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14C38DAD1B27FEB10039862E /* PostTitleTableViewCell.xib */; };
+		14C38DB31B28F6870039862E /* PhotoGalleryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C38DB11B28F6870039862E /* PhotoGalleryTableViewCell.m */; };
+		14C38DB41B28F6870039862E /* PhotoGalleryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14C38DB21B28F6870039862E /* PhotoGalleryTableViewCell.xib */; };
 		14D35A431A46B2F300B83B4A /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14D35A421A46B2F300B83B4A /* LoginViewController.m */; };
 		14E66B971A452653008184C1 /* PostTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E66B951A452653008184C1 /* PostTableViewCell.m */; };
 		14E66B981A452653008184C1 /* PostTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14E66B961A452653008184C1 /* PostTableViewCell.xib */; };
@@ -182,6 +184,9 @@
 		14C38DAB1B27FEB10039862E /* PostTitleTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostTitleTableViewCell.h; sourceTree = "<group>"; };
 		14C38DAC1B27FEB10039862E /* PostTitleTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostTitleTableViewCell.m; sourceTree = "<group>"; };
 		14C38DAD1B27FEB10039862E /* PostTitleTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostTitleTableViewCell.xib; sourceTree = "<group>"; };
+		14C38DB01B28F6870039862E /* PhotoGalleryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoGalleryTableViewCell.h; sourceTree = "<group>"; };
+		14C38DB11B28F6870039862E /* PhotoGalleryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoGalleryTableViewCell.m; sourceTree = "<group>"; };
+		14C38DB21B28F6870039862E /* PhotoGalleryTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotoGalleryTableViewCell.xib; sourceTree = "<group>"; };
 		14D35A411A46B2F300B83B4A /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		14D35A421A46B2F300B83B4A /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		14E66B941A452653008184C1 /* PostTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostTableViewCell.h; sourceTree = "<group>"; };
@@ -371,6 +376,9 @@
 				14C38DAB1B27FEB10039862E /* PostTitleTableViewCell.h */,
 				14C38DAC1B27FEB10039862E /* PostTitleTableViewCell.m */,
 				14C38DAD1B27FEB10039862E /* PostTitleTableViewCell.xib */,
+				14C38DB01B28F6870039862E /* PhotoGalleryTableViewCell.h */,
+				14C38DB11B28F6870039862E /* PhotoGalleryTableViewCell.m */,
+				14C38DB21B28F6870039862E /* PhotoGalleryTableViewCell.xib */,
 			);
 			name = TableViewCell;
 			sourceTree = "<group>";
@@ -688,6 +696,7 @@
 				14E66B981A452653008184C1 /* PostTableViewCell.xib in Resources */,
 				140CF8EA1A3BBFB200134C4D /* LaunchScreen.xib in Resources */,
 				140CF8E71A3BBFB200134C4D /* Images.xcassets in Resources */,
+				14C38DB41B28F6870039862E /* PhotoGalleryTableViewCell.xib in Resources */,
 				F75728401B015B9D005F5FED /* NewGenericPostView.xib in Resources */,
 				14ABE0FA1A95022900B805D0 /* NewFreePostView.xib in Resources */,
 				14A416811B05700600EA4DA2 /* SpreeSprintTableViewCell.xib in Resources */,
@@ -778,6 +787,7 @@
 				1415FD7C1A4D34DC006E99A6 /* PaymentViewController.m in Sources */,
 				14E66B9E1A464F03008184C1 /* ContainerTableViewController.m in Sources */,
 				F7715E971AEBFEA7005DDEFF /* MessagingTableViewCell.m in Sources */,
+				14C38DB31B28F6870039862E /* PhotoGalleryTableViewCell.m in Sources */,
 				140CF91D1A3F75E200134C4D /* ChooseTypeTableViewController.m in Sources */,
 				F76258EB1AF2044E003B67D4 /* RatingViewController.m in Sources */,
 				14A416801B05700600EA4DA2 /* SpreeSprintTableViewCell.m in Sources */,

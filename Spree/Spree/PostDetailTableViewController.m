@@ -8,6 +8,7 @@
 
 #import "PostDetailTableViewController.h"
 #import "PostTitleTableViewCell.h"
+#import "PhotoGalleryTableViewCell.h"
 
 @interface PostDetailTableViewController ()
 
@@ -43,7 +44,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 #warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 1;
+    return 2;
 }
 
 
@@ -66,22 +67,41 @@
         }
         [cell setTitleforPost:self.post];
         return cell;
-    } else if ([field isEqualToString:PF_POST_DESCRIPTION]){
-        static NSString *CellIdentifier = @"TitleCell";
-        PostTitleTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    } else if ([field isEqualToString:PF_POST_PRICE]){
+        static NSString *CellIdentifier = @"PhotoGalleryCell";
+        PhotoGalleryTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
-            NSArray *nibFiles = [[NSBundle mainBundle] loadNibNamed:@"PostTitleTableViewCell" owner:self options:nil];
+            NSArray *nibFiles = [[NSBundle mainBundle] loadNibNamed:@"PhotoGalleryTableViewCell" owner:self options:nil];
             for(id currentObject in nibFiles){
                 if ([currentObject isKindOfClass:[UITableViewCell class]]){
-                    cell = (PostTitleTableViewCell*)currentObject;
+                    cell = (PhotoGalleryTableViewCell*)currentObject;
                     break;
                 }
             }
         }
-        [cell setTitleforPost:self.post];
+        [self loadPostImagesForCell:cell];
         return cell;
     }
 
+    return 0;
+}
+
+#pragma mark - Post Images
+
+-(UITableViewCell *)loadPostImagesForCell:(PhotoGalleryTableViewCell *)cell{
+    if (self.post.photoArray.count != 0){
+        NSMutableArray *tempPhotoArray = [[NSMutableArray alloc] initWithCapacity:3];
+        for (PFFile *imageFile in self.post.photoArray){
+            [imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+                if (!error) {
+                    UIImage *image = [UIImage imageWithData:data];
+                    [tempPhotoArray addObject:image];
+                    [cell setPhotoGalleryForImages:tempPhotoArray];
+                    // image can now be set on a UIImageView
+                }
+            }];
+        }
+    }
     return 0;
 }
 
