@@ -54,6 +54,8 @@
 #define     PF_POST_BOOKFORCLASS                @"bookForClass"         //  String
 #define     PF_POST_EVENTDATE                   @"eventDate"            //  String
 #define     PF_POST_DATEFOREVENT                @"dateForEvent"         //  Date
+#define     PF_POST_PHOTOARRAY                  @"photoArray"           //  Array
+#define     PF_POST_USER                        @"user"                 //  Pointer to User Class
 
 #define     POST_TYPE_BOOKS                     @"Books"
 #define     POST_TYPE_ELECTRONICS               @"Electronics"

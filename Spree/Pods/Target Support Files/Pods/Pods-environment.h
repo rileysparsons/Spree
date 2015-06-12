@@ -9,8 +9,8 @@
 // Bolts/Tasks
 #define COCOAPODS_POD_AVAILABLE_Bolts_Tasks
 #define COCOAPODS_VERSION_MAJOR_Bolts_Tasks 1
-#define COCOAPODS_VERSION_MINOR_Bolts_Tasks 1
-#define COCOAPODS_VERSION_PATCH_Bolts_Tasks 5
+#define COCOAPODS_VERSION_MINOR_Bolts_Tasks 2
+#define COCOAPODS_VERSION_PATCH_Bolts_Tasks 0
 
 // CocoaLumberjack
 #define COCOAPODS_POD_AVAILABLE_CocoaLumberjack
@@ -77,4 +77,10 @@
 #define COCOAPODS_VERSION_MAJOR_WSCoachMarksView 0
 #define COCOAPODS_VERSION_MINOR_WSCoachMarksView 2
 #define COCOAPODS_VERSION_PATCH_WSCoachMarksView 0
+
+// YHRoundBorderedButton
+#define COCOAPODS_POD_AVAILABLE_YHRoundBorderedButton
+#define COCOAPODS_VERSION_MAJOR_YHRoundBorderedButton 0
+#define COCOAPODS_VERSION_MINOR_YHRoundBorderedButton 1
+#define COCOAPODS_VERSION_PATCH_YHRoundBorderedButton 0
 

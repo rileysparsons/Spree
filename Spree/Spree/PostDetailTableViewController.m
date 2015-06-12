@@ -9,8 +9,12 @@
 #import "PostDetailTableViewController.h"
 #import "PostTitleTableViewCell.h"
 #import "PhotoGalleryTableViewCell.h"
+#import "PostUserTableViewCell.h"
+#import <YHRoundBorderedButton.h>
 
 @interface PostDetailTableViewController ()
+
+@property YHRoundBorderedButton* getButton;
 
 @end
 
@@ -24,8 +28,25 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    // Table View Set up
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.estimatedRowHeight = 100.0f;
+    
+    // Navigation bar UI
+    
+    UIImageView *navBarIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"BookTypeIconSmall"]];
+    navBarIcon.frame = CGRectMake(0, 0, 25, 25);
+    navBarIcon.contentMode = UIViewContentModeScaleAspectFit;
+    self.navigationItem.titleView = navBarIcon;
+    
+    self.getButton = [[YHRoundBorderedButton alloc] init];
+    [self.getButton setTitle:@"GET" forState:UIControlStateNormal];
+    [self.getButton sizeToFit];
+    [self.getButton setTintColor:[UIColor whiteColor]];
+    [self.getButton setTitleColor:[UIColor spreeBabyBlue] forState:UIControlStateHighlighted];
+    UIBarButtonItem *getBarButton = [[UIBarButtonItem alloc] initWithCustomView:self.getButton];
+    self.navigationItem.rightBarButtonItem = getBarButton;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -44,7 +65,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 #warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 2;
+    return 3;
 }
 
 
@@ -67,7 +88,7 @@
         }
         [cell setTitleforPost:self.post];
         return cell;
-    } else if ([field isEqualToString:PF_POST_PRICE]){
+    } else if ([field isEqualToString:PF_POST_PHOTOARRAY]){
         static NSString *CellIdentifier = @"PhotoGalleryCell";
         PhotoGalleryTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
@@ -81,8 +102,25 @@
         }
         [self loadPostImagesForCell:cell];
         return cell;
+    } else if ([field isEqualToString:PF_POST_PRICE]){
+        
+    } else if ([field isEqualToString:PF_POST_DESCRIPTION]){
+        
+    } else if ([field isEqualToString:PF_POST_USER]){
+        static NSString *CellIdentifier = @"PostUserCell";
+        PostUserTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            NSArray *nibFiles = [[NSBundle mainBundle] loadNibNamed:@"PostUserTableViewCell" owner:self options:nil];
+            for(id currentObject in nibFiles){
+                if ([currentObject isKindOfClass:[UITableViewCell class]]){
+                    cell = (PostUserTableViewCell*)currentObject;
+                    break;
+                }
+            }
+        }
+        [cell setUserLabelForPost:self.post];
+        return cell;
     }
-
     return 0;
 }
 

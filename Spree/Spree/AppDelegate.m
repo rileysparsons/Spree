@@ -70,7 +70,7 @@
         [application registerUserNotificationSettings:settings];
         [application registerForRemoteNotifications];
     }
-    
+    NSLog(@"%f", [UIScreen mainScreen].scale);
     return YES;
 }
 
