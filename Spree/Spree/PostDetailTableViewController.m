@@ -60,10 +60,7 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 #warning Potentially incomplete method implementation.
     // Return the number of sections.
-    if (self.currentUserPost)
-        return 2;
-    else
-        return 1;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -71,49 +68,13 @@
     // Return the number of rows in the section.
     if (section == 0)
         return self.fields.count;
-    else if (section == 1)
-        return 1;
-    else
-        return 0;
-}
-
--(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-    if (section == 1){
-        return @"Admin";
-    }
-    return nil;
-}
-
--(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    if (section == 1){
-        UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 35)];
-        header.backgroundColor = [UIColor spreeBabyBlue];
-        UILabel *adminLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, header.frame.size.width, header.frame.size.height)];
-        adminLabel.text = @"Update Post";
-        adminLabel.textColor = [UIColor whiteColor];
-        [header addSubview:adminLabel];
-        return header;
-    }
-    return [[UIView alloc] initWithFrame:CGRectZero];
-}
-
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    if (section == 1){
-        return 35;
-    }
-    return CGFLOAT_MIN;
+    return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0)
         return [self cellForField:self.fields[indexPath.row]];
-    else if (indexPath.section == 1){
-        static NSString *CellIdentifier = @"DefaultCell";
-        UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        return cell;
-    } else {
-        return 0;
-    }
+    return 0;
 }
 
 -(UITableViewCell *)cellForField:(NSString *)field {
@@ -180,6 +141,11 @@
         static NSString *CellIdentifier = @"PostClassCell";
         UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         cell.textLabel.text = self.post.bookForClass;
+        return cell;
+    } else if ([field isEqualToString:PF_POST_DATEFOREVENT]){
+        static NSString *CellIdentifier = @"PostEventDateCell";
+        UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell.textLabel.text = self.post.eventDate;
         return cell;
     }
     
@@ -282,7 +248,12 @@
 -(void)getUserForPost{
     if (([[(PFUser *)self.post.user objectId] isEqualToString: [[PFUser currentUser] objectId]])){
         //        UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithTitle:@"Delete" style:UIBarButtonItemStyleBordered target:self actio:@selector(deleteButtonSelected)];
-        self.navigationItem.rightBarButtonItem = nil;
+        
+        
+        UIBarButtonItem *userControlButton = [[UIBarButtonItem alloc] initWithTitle:@"\u2699" style:UIBarButtonItemStylePlain target:self action:@selector(userControlButtonTouched)];
+        UIFont *f1 = [UIFont fontWithName:@"Helvetica" size:24.0];
+        NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:f1, NSFontAttributeName, nil]; [userControlButton setTitleTextAttributes:dict forState:UIControlStateNormal];
+        self.navigationItem.rightBarButtonItem = userControlButton;
         self.currentUserPost = YES;
         [self.tableView reloadData];
     } else {
@@ -297,6 +268,26 @@
         }];
     }
 }
+
+-(void)userControlButtonTouched{
+    UIAlertController *userControl = [UIAlertController alertControllerWithTitle:@"Post Control" message:@"Decide if your post should stay or go" preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction* cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
+                                                          handler:^(UIAlertAction * action) {
+                                                              [userControl dismissViewControllerAnimated:YES completion:nil];
+                                                          }];
+    UIAlertAction* itemSold = [UIAlertAction actionWithTitle:@"This item has been sold" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [userControl dismissViewControllerAnimated:YES completion:nil];
+    }];
+    UIAlertAction* deletePost = [UIAlertAction actionWithTitle:@"Delete post" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+        [userControl dismissViewControllerAnimated:YES completion:nil];
+    }];
+    [userControl addAction:cancel];
+    [userControl addAction:deletePost];
+    [userControl addAction:itemSold];
+    [self presentViewController:userControl animated:YES completion:nil];
+    
+}
+
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {

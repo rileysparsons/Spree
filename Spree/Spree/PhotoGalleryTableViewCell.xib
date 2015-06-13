@@ -23,6 +23,12 @@
                             <outlet property="delegate" destination="-1" id="342-nW-ss1"/>
                         </connections>
                     </scrollView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fre-YE-PjC">
+                        <rect key="frame" x="0.0" y="148" width="320" height="51"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="51" id="1ap-em-7E6"/>
+                        </constraints>
+                    </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1e3-rS-02d">
                         <rect key="frame" x="232" y="170" width="80" height="21"/>
                         <constraints>
@@ -37,13 +43,17 @@
                 <constraints>
                     <constraint firstItem="3FS-IB-baB" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="3ZM-Zl-dxd"/>
                     <constraint firstAttribute="trailing" secondItem="3FS-IB-baB" secondAttribute="trailing" id="7GL-Ie-Xej"/>
+                    <constraint firstItem="Fre-YE-PjC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="IOo-Db-hwP"/>
                     <constraint firstAttribute="bottom" secondItem="1e3-rS-02d" secondAttribute="bottom" constant="8" id="Lkh-nq-dve"/>
                     <constraint firstAttribute="trailing" secondItem="1e3-rS-02d" secondAttribute="trailing" constant="8" id="W8e-b9-5oC"/>
+                    <constraint firstAttribute="trailing" secondItem="Fre-YE-PjC" secondAttribute="trailing" id="ZQe-MI-95p"/>
+                    <constraint firstAttribute="bottom" secondItem="Fre-YE-PjC" secondAttribute="bottom" id="ZyZ-Ep-IhH"/>
                     <constraint firstItem="3FS-IB-baB" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="pws-uo-SBd"/>
                     <constraint firstAttribute="bottom" secondItem="3FS-IB-baB" secondAttribute="bottom" id="yt4-yQ-wpb"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="bottomGradient" destination="Fre-YE-PjC" id="6dU-Kc-xcj"/>
                 <outlet property="dateLabel" destination="1e3-rS-02d" id="IrU-Fs-7xX"/>
                 <outlet property="photoGallery" destination="3FS-IB-baB" id="r6z-ph-Us3"/>
             </connections>

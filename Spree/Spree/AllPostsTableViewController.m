@@ -386,13 +386,13 @@
     if ([type isEqualToString:POST_TYPE_BOOKS]){
         [fields insertObject:PF_POST_BOOKFORCLASS atIndex:3];
     } else if ([type isEqualToString:POST_TYPE_TICKETS]){
-        [fields addObject:PF_POST_DATEFOREVENT];
+        [fields insertObject:PF_POST_DATEFOREVENT atIndex:3];
     } else if ([type isEqualToString:POST_TYPE_CLOTHING]){
         
     } else if ([type isEqualToString:POST_TYPE_FURNITURE]){
         
     } else if ([type isEqualToString:POST_TYPE_TASK]){
-        
+            // NEED TO ADD FIELDS
     }
     return fields;
 }

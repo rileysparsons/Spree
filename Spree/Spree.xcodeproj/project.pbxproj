@@ -52,8 +52,6 @@
 		14ABE10A1A96A59F00B805D0 /* NewTicketsPostView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14ABE1091A96A59F00B805D0 /* NewTicketsPostView.xib */; };
 		14BE5C871AAD442A00C60C56 /* NewPostInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14BE5C861AAD442A00C60C56 /* NewPostInfoViewController.m */; };
 		14C38DA21B27F3BA0039862E /* PostDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C38DA11B27F3BA0039862E /* PostDetailTableViewController.m */; };
-		14C38DAE1B27FEB10039862E /* PostTitleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C38DAC1B27FEB10039862E /* PostTitleTableViewCell.m */; };
-		14C38DAF1B27FEB10039862E /* PostTitleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14C38DAD1B27FEB10039862E /* PostTitleTableViewCell.xib */; };
 		14C38DB31B28F6870039862E /* PhotoGalleryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C38DB11B28F6870039862E /* PhotoGalleryTableViewCell.m */; };
 		14C38DB41B28F6870039862E /* PhotoGalleryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14C38DB21B28F6870039862E /* PhotoGalleryTableViewCell.xib */; };
 		14C38DB81B29311D0039862E /* PostUserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C38DB61B29311D0039862E /* PostUserTableViewCell.m */; };
@@ -66,6 +64,8 @@
 		14EFDAE71A89EC4F007510CC /* TextViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14EFDAE61A89EC4F007510CC /* TextViewViewController.m */; };
 		14FD56DB1B2B8B310086A2AE /* PostDescriptionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14FD56D91B2B8B310086A2AE /* PostDescriptionTableViewCell.m */; };
 		14FD56DC1B2B8B310086A2AE /* PostDescriptionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14FD56DA1B2B8B310086A2AE /* PostDescriptionTableViewCell.xib */; };
+		14FD56E01B2CF6170086A2AE /* PostTitleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14FD56DE1B2CF6170086A2AE /* PostTitleTableViewCell.m */; };
+		14FD56E11B2CF6170086A2AE /* PostTitleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14FD56DF1B2CF6170086A2AE /* PostTitleTableViewCell.xib */; };
 		CFFEE9291B0487BF002CD29A /* MeetUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFFEE9281B0487BF002CD29A /* MeetUpViewController.m */; };
 		F70FACF51AEB501700057E6E /* converter.m in Sources */ = {isa = PBXBuildFile; fileRef = F70FACF41AEB501700057E6E /* converter.m */; };
 		F72B2D031AE64A2D00F9A845 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F72B2D021AE64A2D00F9A845 /* Social.framework */; };
@@ -185,9 +185,6 @@
 		14BE5C861AAD442A00C60C56 /* NewPostInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewPostInfoViewController.m; sourceTree = "<group>"; };
 		14C38DA01B27F3BA0039862E /* PostDetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostDetailTableViewController.h; sourceTree = "<group>"; };
 		14C38DA11B27F3BA0039862E /* PostDetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostDetailTableViewController.m; sourceTree = "<group>"; };
-		14C38DAB1B27FEB10039862E /* PostTitleTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostTitleTableViewCell.h; sourceTree = "<group>"; };
-		14C38DAC1B27FEB10039862E /* PostTitleTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostTitleTableViewCell.m; sourceTree = "<group>"; };
-		14C38DAD1B27FEB10039862E /* PostTitleTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostTitleTableViewCell.xib; sourceTree = "<group>"; };
 		14C38DB01B28F6870039862E /* PhotoGalleryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoGalleryTableViewCell.h; sourceTree = "<group>"; };
 		14C38DB11B28F6870039862E /* PhotoGalleryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoGalleryTableViewCell.m; sourceTree = "<group>"; };
 		14C38DB21B28F6870039862E /* PhotoGalleryTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotoGalleryTableViewCell.xib; sourceTree = "<group>"; };
@@ -209,6 +206,9 @@
 		14FD56D81B2B8B310086A2AE /* PostDescriptionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostDescriptionTableViewCell.h; sourceTree = "<group>"; };
 		14FD56D91B2B8B310086A2AE /* PostDescriptionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostDescriptionTableViewCell.m; sourceTree = "<group>"; };
 		14FD56DA1B2B8B310086A2AE /* PostDescriptionTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostDescriptionTableViewCell.xib; sourceTree = "<group>"; };
+		14FD56DD1B2CF6170086A2AE /* PostTitleTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostTitleTableViewCell.h; sourceTree = "<group>"; };
+		14FD56DE1B2CF6170086A2AE /* PostTitleTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostTitleTableViewCell.m; sourceTree = "<group>"; };
+		14FD56DF1B2CF6170086A2AE /* PostTitleTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostTitleTableViewCell.xib; sourceTree = "<group>"; };
 		93D5B9718A30FBBAE739BCE8 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7F573D62D839D22544FF614 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		CFFEE9271B0487BF002CD29A /* MeetUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeetUpViewController.h; sourceTree = "<group>"; };
@@ -386,15 +386,15 @@
 				14A4167D1B05700600EA4DA2 /* SpreeSprintTableViewCell.h */,
 				14A4167E1B05700600EA4DA2 /* SpreeSprintTableViewCell.m */,
 				14A4167F1B05700600EA4DA2 /* SpreeSprintTableViewCell.xib */,
-				14C38DAB1B27FEB10039862E /* PostTitleTableViewCell.h */,
-				14C38DAC1B27FEB10039862E /* PostTitleTableViewCell.m */,
-				14C38DAD1B27FEB10039862E /* PostTitleTableViewCell.xib */,
 				14C38DB01B28F6870039862E /* PhotoGalleryTableViewCell.h */,
 				14C38DB11B28F6870039862E /* PhotoGalleryTableViewCell.m */,
 				14C38DB21B28F6870039862E /* PhotoGalleryTableViewCell.xib */,
 				14C38DB51B29311D0039862E /* PostUserTableViewCell.h */,
 				14C38DB61B29311D0039862E /* PostUserTableViewCell.m */,
 				14C38DB71B29311D0039862E /* PostUserTableViewCell.xib */,
+				14FD56DD1B2CF6170086A2AE /* PostTitleTableViewCell.h */,
+				14FD56DE1B2CF6170086A2AE /* PostTitleTableViewCell.m */,
+				14FD56DF1B2CF6170086A2AE /* PostTitleTableViewCell.xib */,
 			);
 			name = TableViewCell;
 			sourceTree = "<group>";
@@ -715,10 +715,10 @@
 				140CF8E71A3BBFB200134C4D /* Images.xcassets in Resources */,
 				14FD56DC1B2B8B310086A2AE /* PostDescriptionTableViewCell.xib in Resources */,
 				14C38DB41B28F6870039862E /* PhotoGalleryTableViewCell.xib in Resources */,
+				14FD56E11B2CF6170086A2AE /* PostTitleTableViewCell.xib in Resources */,
 				F75728401B015B9D005F5FED /* NewGenericPostView.xib in Resources */,
 				14ABE0FA1A95022900B805D0 /* NewFreePostView.xib in Resources */,
 				14A416811B05700600EA4DA2 /* SpreeSprintTableViewCell.xib in Resources */,
-				14C38DAF1B27FEB10039862E /* PostTitleTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -796,7 +796,6 @@
 				14C38DB81B29311D0039862E /* PostUserTableViewCell.m in Sources */,
 				14ABE0FD1A95AAC200B805D0 /* NewBooksPostView.m in Sources */,
 				140CF8DC1A3BBFB200134C4D /* AppDelegate.m in Sources */,
-				14C38DAE1B27FEB10039862E /* PostTitleTableViewCell.m in Sources */,
 				144FBE641AACEB05008BB4DA /* NewPostTypeSelectionViewController.m in Sources */,
 				140CF8DF1A3BBFB200134C4D /* HomeViewController.m in Sources */,
 				14C38DA21B27F3BA0039862E /* PostDetailTableViewController.m in Sources */,
@@ -813,6 +812,7 @@
 				14A416801B05700600EA4DA2 /* SpreeSprintTableViewCell.m in Sources */,
 				14ABE1081A96A59000B805D0 /* NewTicketsPostView.m in Sources */,
 				F78600BD1AEB422100402B1F /* push.m in Sources */,
+				14FD56E01B2CF6170086A2AE /* PostTitleTableViewCell.m in Sources */,
 				F78600BE1AEB422100402B1F /* recent.m in Sources */,
 				14EFDAE71A89EC4F007510CC /* TextViewViewController.m in Sources */,
 				F70FACF51AEB501700057E6E /* converter.m in Sources */,

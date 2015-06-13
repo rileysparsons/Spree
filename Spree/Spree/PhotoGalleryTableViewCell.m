@@ -13,8 +13,19 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    self.photoGalleryControl = [[UIPageControl alloc] init];
+    self.photoGalleryControl.transform = CGAffineTransformMakeRotation(M_PI_2);
+    self.photoGalleryControl.frame = CGRectMake(10, self.center.y, 5, 10);
+    self.photoGalleryControl.numberOfPages = 3;
+    self.photoGalleryControl.currentPage = 0;
+    self.photoGalleryControl.currentPageIndicatorTintColor = [UIColor spreeLightYellow];
+    [self addSubview:self.photoGalleryControl];
     self.photoGallery.delegate = self;
-
+    
+    CAGradientLayer *gradient = [CAGradientLayer layer];
+    gradient.frame = self.bottomGradient.bounds;
+    gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor clearColor] CGColor], (id)[[UIColor blackColor] CGColor], nil];
+    [self.bottomGradient.layer insertSublayer:gradient atIndex:0];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -90,7 +101,7 @@
     NSInteger page = (NSInteger)floor((self.photoGallery.contentOffset.x * 2.0f + pageWidth) / (pageWidth * 2.0f));
     
     // Update the page control (Removed)
-//    self.pageControl.currentPage = page;
+    self.photoGalleryControl.currentPage = page;
     
     // Work out which pages you want to load
     NSInteger firstPage = page - 1;
@@ -116,8 +127,8 @@
     NSInteger pageCount = self.pageImages.count;
     NSLog(@"%lu", (unsigned long)self.pageImages.count);
     // 2 (Removed)
-//    self.pageControl.currentPage = 0;
-//    self.pageControl.numberOfPages = pageCount;
+    self.photoGalleryControl.currentPage = 0;
+    self.photoGalleryControl.numberOfPages = pageCount;
     
     // 3
     self.pageViews = [[NSMutableArray alloc] init];

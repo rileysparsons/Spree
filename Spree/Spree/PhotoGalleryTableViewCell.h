@@ -20,6 +20,8 @@
 @property (nonatomic, strong) NSArray *pageImages;
 @property (nonatomic, strong) NSMutableArray *pageViews;
 @property (weak, nonatomic) IBOutlet UIScrollView *photoGallery;
+@property UIPageControl *photoGalleryControl;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
+@property (weak, nonatomic) IBOutlet UIView *bottomGradient;
 
 @end
