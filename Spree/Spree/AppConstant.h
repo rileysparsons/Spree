@@ -47,6 +47,24 @@
 #define		PF_RECENT_UPDATEDACTION				@"updatedAction"		//	Date
 #define		PF_RECENT_POST                      @"post"                 //	Pointer to Post Class
 
+#define     PF_POST_TITLE                       @"title"                //  String
+#define     PF_POST_PRICE                       @"price"                //  Number
+#define     PF_POST_DESCRIPTION                 @"userDescription"      //  String
+#define     PF_POST_TYPE                        @"type"                 //  String
+#define     PF_POST_BOOKFORCLASS                @"bookForClass"         //  String
+#define     PF_POST_EVENTDATE                   @"eventDate"            //  String
+#define     PF_POST_DATEFOREVENT                @"dateForEvent"         //  Date
+#define     PF_POST_PHOTOARRAY                  @"photoArray"           //  Array
+#define     PF_POST_USER                        @"user"                 //  Pointer to User Class
+
+#define     POST_TYPE_BOOKS                     @"Books"
+#define     POST_TYPE_ELECTRONICS               @"Electronics"
+#define     POST_TYPE_CLOTHING                  @"Clothing"
+#define     POST_TYPE_TASK                      @"Tasks"
+#define     POST_TYPE_FURNITURE                 @"Furniture"
+#define     POST_TYPE_TICKETS                   @"Tickets"
+
+
 #define		NOTIFICATION_APP_STARTED			@"NCAppStarted"
 #define		NOTIFICATION_USER_LOGGED_IN			@"NCUserLoggedIn"
 #define		NOTIFICATION_USER_LOGGED_OUT		@"NCUserLoggedOut"

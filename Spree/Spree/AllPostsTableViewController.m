@@ -13,6 +13,8 @@
 #import "NewPostTypeSelectionViewController.h"
 #import "RatingViewController.h"
 #import "AppDelegate.h"
+#import "AppConstant.h"
+#import "PostDetailTableViewController.h"
 
 @interface AllPostsTableViewController () {
 
@@ -25,6 +27,7 @@
 @property (assign) BOOL isRefreshIconsOverlap;
 @property (assign) BOOL isRefreshAnimating;
 @property (retain, nonatomic) UIBarButtonItem *composeButton;
+@property (nonatomic, strong) PostDetailTableViewController *postDetailTableViewController;
 @end
 
 
@@ -71,7 +74,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadObjects) name:@"PostMade" object:nil];
 
     self.navigationItem.rightBarButtonItems = @[self.composeButton];
-
 
     // Check if buyer needs to rate the seller
     PFQuery *query = [PFQuery queryWithClassName:@"RatingQueue"];
@@ -356,31 +358,17 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [super tableView:tableView didSelectRowAtIndexPath:indexPath];
+    self.postDetailTableViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PostDetail"];
+
+    
     if ([indexPath row] > self.objects.count -1 ) {
         return;
     }
-    if ([[(SpreePost *)[self objectAtIndexPath:indexPath] type] isEqualToString:@"Books"]){
-        [self performSegueWithIdentifier:@"detailBookPost" sender:self];
-    } else if ([[(SpreePost *)[self objectAtIndexPath:indexPath] type] isEqualToString:@"Tickets"]){
-        [self performSegueWithIdentifier:@"TicketsPostDetail" sender:self];
-    } else if ([[(SpreePost *)[self objectAtIndexPath:indexPath] type] isEqualToString:@"Electronics"]){
-        [self performSegueWithIdentifier:@"showElectronicsPost" sender:self];
-    } else if ([[(SpreePost *)[self objectAtIndexPath:indexPath] type] isEqualToString:@"Furniture"]){
-        [self performSegueWithIdentifier:@"showFurniturePost" sender:self];
-    } else if ([[(SpreePost *)[self objectAtIndexPath:indexPath] type] isEqualToString:@"Clothing"]){
-        [self performSegueWithIdentifier:@"showClothingPost" sender:self];
-    } else if ([[(SpreePost *)[self objectAtIndexPath:indexPath] type] isEqualToString:@"Tasks"]){
-        [self performSegueWithIdentifier:@"showTasksPost" sender:self];
-    }
+    [self.postDetailTableViewController setFields:[self fieldsForPostType:[[self objectAtIndexPath:indexPath]objectForKey:PF_POST_TYPE]]];
+    NSLog(@"%@", [self fieldsForPostType:[[self objectAtIndexPath:indexPath]objectForKey:PF_POST_TYPE]]);
+    [self.postDetailTableViewController setPost:(SpreePost *)[self objectAtIndexPath:indexPath]];
+    [self.navigationController pushViewController:self.postDetailTableViewController animated:YES];
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-}
-
-
- -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
- //if ([segue.identifier isEqualToString:@"ShowFreeDetail"] || [segue.identifier isEqualToString:@"detailBookPost"] || [segue.identifier isEqualToString:@"TicketsPostDetail"] || [segue.identifier isEqualToString:@"showElectronicsPost"]){
-     PostDetailViewController *postDetailViewController = segue.destinationViewController;
-     postDetailViewController.detailPost = (SpreePost *)[self objectAtIndexPath:[self.tableView indexPathForSelectedRow]];
- //}
 }
 
 - (void)NewPostBarButtonItemPressed:(id)sender {
@@ -390,4 +378,23 @@
     
     [self.navigationController presentViewController:navigationController animated:YES completion:nil];
 }
+
+// Detail View Setup
+
+-(NSArray *)fieldsForPostType:(NSString *)type{
+    NSMutableArray *fields = [NSMutableArray arrayWithArray:@[PF_POST_PHOTOARRAY, PF_POST_TITLE, PF_POST_DESCRIPTION, PF_POST_USER]];
+    if ([type isEqualToString:POST_TYPE_BOOKS]){
+        [fields insertObject:PF_POST_BOOKFORCLASS atIndex:3];
+    } else if ([type isEqualToString:POST_TYPE_TICKETS]){
+        [fields insertObject:PF_POST_DATEFOREVENT atIndex:3];
+    } else if ([type isEqualToString:POST_TYPE_CLOTHING]){
+        
+    } else if ([type isEqualToString:POST_TYPE_FURNITURE]){
+        
+    } else if ([type isEqualToString:POST_TYPE_TASK]){
+            // NEED TO ADD FIELDS
+    }
+    return fields;
+}
+
 @end

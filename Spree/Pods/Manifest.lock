@@ -1,5 +1,5 @@
 PODS:
-  - Bolts/Tasks (1.1.5)
+  - Bolts/Tasks (1.2.0)
   - CocoaLumberjack (2.0.0):
     - CocoaLumberjack/Default (= 2.0.0)
     - CocoaLumberjack/Extensions (= 2.0.0)
@@ -20,6 +20,7 @@ PODS:
   - ParseUI (1.1.4):
     - Parse (~> 1.7)
   - WSCoachMarksView (0.2)
+  - YHRoundBorderedButton (0.1.0)
 
 DEPENDENCIES:
   - CocoaLumberjack
@@ -29,6 +30,7 @@ DEPENDENCIES:
   - ParseCrashReporting
   - ParseUI
   - WSCoachMarksView (~> 0.2)
+  - YHRoundBorderedButton
 
 EXTERNAL SOURCES:
   JSQMessagesViewController:
@@ -41,7 +43,7 @@ CHECKOUT OPTIONS:
     :git: https://github.com/jessesquires/JSQMessagesViewController.git
 
 SPEC CHECKSUMS:
-  Bolts: aac24961496d504aa56fc267cde95162a71bac39
+  Bolts: d176cb1e0012175589e389a9db49b85e27787576
   CocoaLumberjack: a6f77d987d65dc7ba86b0f84db7d0b9084f77bcb
   JSQMessagesViewController: 48310f9f1a2687bfc6c8ef857d0ad166da9419d9
   JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
@@ -50,5 +52,6 @@ SPEC CHECKSUMS:
   ParseCrashReporting: 0cff3a2720d6e977fff1bdd64e6d3ea94528e170
   ParseUI: d1228541b02a36a7354c8f47747f5f7a89cf1ff0
   WSCoachMarksView: d1653c058c8289a300ddf28af9dd49eb659c9c42
+  YHRoundBorderedButton: 2180f04094db264cace8db88eae977d78a3b4633
 
 COCOAPODS: 0.35.0
