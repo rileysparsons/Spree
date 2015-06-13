@@ -7,12 +7,14 @@
 //
 
 #import "PhotoGalleryTableViewCell.h"
+#import "converter.h"
 
 @implementation PhotoGalleryTableViewCell
 
 - (void)awakeFromNib {
     // Initialization code
     self.photoGallery.delegate = self;
+
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -28,6 +30,11 @@
     self.pageImages = images;
     [self setupGallery];
     self.photoGallery.contentOffset = CGPointZero;
+}
+
+-(void)setDateLabelForPost:(SpreePost *)post{
+    NSTimeInterval seconds = [[NSDate date] timeIntervalSinceDate:post.createdAt];
+    self.dateLabel.text = TimeElapsed(seconds);
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {

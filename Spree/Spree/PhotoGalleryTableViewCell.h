@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SpreePost.h"
 
 @interface PhotoGalleryTableViewCell : UITableViewCell <UIScrollViewDelegate>
 
@@ -14,9 +15,11 @@
 - (void)loadPage:(NSInteger)page;
 - (void)purgePage:(NSInteger)page;
 - (void)setPhotoGalleryForImages:(NSArray *)images;
+-(void)setDateLabelForPost:(SpreePost *)post;
 
 @property (nonatomic, strong) NSArray *pageImages;
 @property (nonatomic, strong) NSMutableArray *pageViews;
 @property (weak, nonatomic) IBOutlet UIScrollView *photoGallery;
+@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 
 @end

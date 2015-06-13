@@ -8,11 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "SpreePost.h"
+#import "EDStarRating.h"
 
 @interface PostUserTableViewCell : UITableViewCell
 
 -(void)setUserLabelForPost:(SpreePost *)post;
 
 @property (weak, nonatomic) IBOutlet UILabel *userLabel;
+@property (weak, nonatomic) IBOutlet UILabel *ratingLabel;
 
 @end

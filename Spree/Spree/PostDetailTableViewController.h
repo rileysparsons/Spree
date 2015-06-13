@@ -15,4 +15,6 @@
 
 @property SpreePost *post;
 
+@property PFUser *poster;
+
 @end
