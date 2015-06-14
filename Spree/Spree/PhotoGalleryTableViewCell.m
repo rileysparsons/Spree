@@ -49,7 +49,6 @@
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    NSLog(@"Did scroll called");
     if (scrollView == self.photoGallery){
         // Load the pages that are now on screen
         [self loadVisiblePages];
@@ -125,8 +124,7 @@
 
 - (void)setupGallery {
     NSInteger pageCount = self.pageImages.count;
-    NSLog(@"%lu", (unsigned long)self.pageImages.count);
-    // 2 (Removed)
+    
     self.photoGalleryControl.currentPage = 0;
     self.photoGalleryControl.numberOfPages = pageCount;
     

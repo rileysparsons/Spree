@@ -37,8 +37,10 @@
     
     // Table View Set up
     self.tableView.rowHeight = UITableViewAutomaticDimension;
+    self.tableView.autoresizesSubviews = YES;
     self.tableView.estimatedRowHeight = 100.0f;
-    self.tableView.separatorInset = UIEdgeInsetsMake(0, 15, 0, 15);
+
+    
     
     self.navigationItem.backBarButtonItem.title = @"";
     
@@ -90,7 +92,6 @@
                 }
             }
         }
-        cell.separatorInset = UIEdgeInsetsMake(0.f, cell.bounds.size.width, 0.f, 0.f);
         [cell setTitleforPost:self.post];
         return cell;
     } else if ([field isEqualToString:PF_POST_PHOTOARRAY]){
@@ -105,7 +106,6 @@
                 }
             }
         }
-        cell.separatorInset = UIEdgeInsetsMake(0.f, cell.bounds.size.width, 0.f, 0.f);
         [self loadPostImagesForCell:cell];
         [cell setDateLabelForPost:self.post];
         return cell;
