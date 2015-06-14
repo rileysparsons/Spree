@@ -52,10 +52,10 @@
                         <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8pD-IV-coS">
-                        <rect key="frame" x="270" y="8" width="42" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8pD-IV-coS">
+                        <rect key="frame" x="255" y="8" width="57" height="21"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="42" id="dVA-Ew-pEh"/>
+                            <constraint firstAttribute="width" constant="57" id="dVA-Ew-pEh"/>
                             <constraint firstAttribute="height" constant="21" id="t4U-iM-cM2"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
@@ -100,7 +100,7 @@
                     <constraint firstItem="PpY-lj-uX4" firstAttribute="leading" secondItem="qoh-gQ-FWW" secondAttribute="trailing" constant="14" id="pPI-0V-1IV"/>
                     <constraint firstItem="M9y-QB-Peu" firstAttribute="top" secondItem="PpY-lj-uX4" secondAttribute="bottom" constant="3" id="sUR-Z7-a2Q"/>
                     <constraint firstItem="8pD-IV-coS" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="uAP-PA-K5f"/>
-                    <constraint firstItem="8pD-IV-coS" firstAttribute="leading" secondItem="PpY-lj-uX4" secondAttribute="trailing" constant="23" id="uDW-uO-iAq"/>
+                    <constraint firstItem="8pD-IV-coS" firstAttribute="leading" secondItem="PpY-lj-uX4" secondAttribute="trailing" constant="8" id="uDW-uO-iAq"/>
                     <constraint firstItem="amW-gU-E5v" firstAttribute="leading" secondItem="qoh-gQ-FWW" secondAttribute="trailing" constant="14" id="zFg-Fm-B8B"/>
                 </constraints>
                 <variation key="default">
