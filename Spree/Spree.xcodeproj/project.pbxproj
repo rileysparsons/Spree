@@ -55,6 +55,7 @@
 		14C38DB81B29311D0039862E /* PostUserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C38DB61B29311D0039862E /* PostUserTableViewCell.m */; };
 		14C38DB91B29311D0039862E /* PostUserTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14C38DB71B29311D0039862E /* PostUserTableViewCell.xib */; };
 		14C8214A1B2D1B9100A1B513 /* PhotoGalleryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14C821491B2D1B9100A1B513 /* PhotoGalleryTableViewCell.xib */; };
+		14C8214D1B2FE36C00A1B513 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C8214C1B2FE36C00A1B513 /* ProfileViewController.m */; };
 		14D35A431A46B2F300B83B4A /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14D35A421A46B2F300B83B4A /* LoginViewController.m */; };
 		14E66B971A452653008184C1 /* PostTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E66B951A452653008184C1 /* PostTableViewCell.m */; };
 		14E66B981A452653008184C1 /* PostTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14E66B961A452653008184C1 /* PostTableViewCell.xib */; };
@@ -185,6 +186,8 @@
 		14C38DB61B29311D0039862E /* PostUserTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostUserTableViewCell.m; sourceTree = "<group>"; };
 		14C38DB71B29311D0039862E /* PostUserTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostUserTableViewCell.xib; sourceTree = "<group>"; };
 		14C821491B2D1B9100A1B513 /* PhotoGalleryTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotoGalleryTableViewCell.xib; sourceTree = "<group>"; };
+		14C8214B1B2FE36C00A1B513 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
+		14C8214C1B2FE36C00A1B513 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		14D35A411A46B2F300B83B4A /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		14D35A421A46B2F300B83B4A /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		14E66B941A452653008184C1 /* PostTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostTableViewCell.h; sourceTree = "<group>"; };
@@ -371,6 +374,8 @@
 		140CF91A1A3F755B00134C4D /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				14C8214B1B2FE36C00A1B513 /* ProfileViewController.h */,
+				14C8214C1B2FE36C00A1B513 /* ProfileViewController.m */,
 				CFFEE9271B0487BF002CD29A /* MeetUpViewController.h */,
 				CFFEE9281B0487BF002CD29A /* MeetUpViewController.m */,
 				140473951ABD002F00C0F8EF /* AllPostsTableViewController.h */,
@@ -799,6 +804,7 @@
 				14A416801B05700600EA4DA2 /* SpreeSprintTableViewCell.m in Sources */,
 				14ABE1081A96A59000B805D0 /* NewTicketsPostView.m in Sources */,
 				F78600BD1AEB422100402B1F /* push.m in Sources */,
+				14C8214D1B2FE36C00A1B513 /* ProfileViewController.m in Sources */,
 				14FD56E01B2CF6170086A2AE /* PostTitleTableViewCell.m in Sources */,
 				F78600BE1AEB422100402B1F /* recent.m in Sources */,
 				14EFDAE71A89EC4F007510CC /* TextViewViewController.m in Sources */,

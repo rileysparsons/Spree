@@ -10,6 +10,7 @@
 #import "PostTitleTableViewCell.h"
 #import "PhotoGalleryTableViewCell.h"
 #import "PostUserTableViewCell.h"
+#import "ProfileViewController.h"
 #import "ChatView.h"
 #import "common.h"
 #import "ChatView.h"
@@ -71,6 +72,16 @@
     return 0;
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if ([tableView cellForRowAtIndexPath:indexPath].tag == 2){
+        ProfileViewController *profileViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"Profile"
+         ];
+        profileViewController.detailUser = self.poster;
+        [self.navigationController pushViewController:profileViewController animated:YES];
+    }
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0)
         return [self cellForField:self.fields[indexPath.row]];
@@ -120,6 +131,7 @@
                 }
             }
         }
+        [cell setTag:2];
         [cell setUserLabelForPost:self.post];
         return cell;
     } else if ([field isEqualToString:PF_POST_BOOKFORCLASS]){
@@ -137,10 +149,6 @@
     static NSString *CellIdentifier = @"DefaultCell";
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     return cell;
-}
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 #pragma mark - UI Setup
