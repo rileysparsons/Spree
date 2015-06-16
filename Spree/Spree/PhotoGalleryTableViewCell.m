@@ -41,6 +41,9 @@
     self.pageImages = images;
     [self setupGallery];
     self.photoGallery.contentOffset = CGPointZero;
+    if (images.count == 1){
+        self.photoGalleryControl.hidden = YES;
+    }
 }
 
 -(void)setDateLabelForPost:(SpreePost *)post{

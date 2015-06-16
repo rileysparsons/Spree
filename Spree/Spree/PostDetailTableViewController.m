@@ -11,6 +11,7 @@
 #import "PhotoGalleryTableViewCell.h"
 #import "PostUserTableViewCell.h"
 #import "PostDescriptionTableViewCell.h"
+#import "ProfileViewController.h"
 #import "ChatView.h"
 #import "common.h"
 #import "ChatView.h"
@@ -71,6 +72,15 @@
     if (section == 0)
         return self.fields.count;
     return 0;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if ([tableView cellForRowAtIndexPath:indexPath].tag == 2){
+        ProfileViewController *profileViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"Profile"
+         ];
+        profileViewController.detailUser = self.poster;
+        [self.navigationController pushViewController:profileViewController animated:YES];
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -135,6 +145,7 @@
                 }
             }
         }
+        [cell setTag:2];
         [cell setUserLabelForPost:self.post];
         return cell;
     } else if ([field isEqualToString:PF_POST_BOOKFORCLASS]){
