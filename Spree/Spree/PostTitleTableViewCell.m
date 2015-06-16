@@ -23,6 +23,13 @@
 -(void)setTitleforPost:(SpreePost *)post{
     self.titleLabel.text = post.title;
     [self.titleLabel sizeToFit];
+    self.titleLabel.preferredMaxLayoutWidth = self.bounds.size.width - 40;
+}
+
+-(void)setDescriptionTextViewForPost:(SpreePost *)post{
+    self.descriptionTextView.text = post.userDescription;
+    self.descriptionTextView.scrollEnabled = NO;
+    [self.descriptionTextView sizeToFit];
 }
 
 @end

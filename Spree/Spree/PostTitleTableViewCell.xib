@@ -7,43 +7,43 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="PostTitleTableViewCell">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="83"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="167" id="KGk-i7-Jjw" customClass="PostTitleTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="167"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yvp-lM-zC2">
-                        <rect key="frame" x="8" y="8" width="304" height="66"/>
-                        <constraints>
-                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="60" id="5HC-0z-TSa"/>
-                        </constraints>
+                        <rect key="frame" x="8" y="8" width="304" height="22"/>
                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eTU-zh-Su8">
+                        <rect key="frame" x="8" y="38" width="304" height="120"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                    </textView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="yvp-lM-zC2" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="66v-gf-HAx"/>
-                    <constraint firstItem="yvp-lM-zC2" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="Ui9-Hz-2cQ"/>
-                    <constraint firstItem="yvp-lM-zC2" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottomMargin" id="Vsm-Xa-AOT"/>
-                    <constraint firstItem="yvp-lM-zC2" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="YR4-3o-4kS"/>
-                    <constraint firstItem="yvp-lM-zC2" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="pFs-t4-KKs"/>
-                    <constraint firstItem="yvp-lM-zC2" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="zjw-4C-cAv"/>
+                    <constraint firstItem="yvp-lM-zC2" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="8Kz-JC-DY2"/>
+                    <constraint firstItem="yvp-lM-zC2" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="AoB-Wj-BXL"/>
+                    <constraint firstItem="eTU-zh-Su8" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottomMargin" id="EIK-Ud-vfn"/>
+                    <constraint firstItem="eTU-zh-Su8" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="ISf-29-rTR"/>
+                    <constraint firstItem="yvp-lM-zC2" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="SKI-0u-vyP"/>
+                    <constraint firstItem="eTU-zh-Su8" firstAttribute="top" secondItem="yvp-lM-zC2" secondAttribute="bottom" constant="8" id="mCc-Ah-2hL"/>
+                    <constraint firstItem="eTU-zh-Su8" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="ndH-Y1-g0P"/>
                 </constraints>
-                <variation key="default">
-                    <mask key="constraints">
-                        <exclude reference="pFs-t4-KKs"/>
-                        <exclude reference="zjw-4C-cAv"/>
-                    </mask>
-                </variation>
             </tableViewCellContentView>
             <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
             <connections>
+                <outlet property="descriptionTextView" destination="eTU-zh-Su8" id="vri-QS-YdE"/>
                 <outlet property="titleLabel" destination="yvp-lM-zC2" id="2fX-wg-dLC"/>
             </connections>
-            <point key="canvasLocation" x="139" y="217.5"/>
+            <point key="canvasLocation" x="139" y="259.5"/>
         </tableViewCell>
     </objects>
 </document>

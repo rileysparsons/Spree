@@ -11,7 +11,9 @@
 @interface PostTitleTableViewCell : UITableViewCell
 
 -(void)setTitleforPost:(SpreePost *)post;
+-(void)setDescriptionTextViewForPost:(SpreePost *)post;
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UITextView *descriptionTextView;
 
 @end

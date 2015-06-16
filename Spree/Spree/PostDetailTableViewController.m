@@ -10,7 +10,6 @@
 #import "PostTitleTableViewCell.h"
 #import "PhotoGalleryTableViewCell.h"
 #import "PostUserTableViewCell.h"
-#import "PostDescriptionTableViewCell.h"
 #import "ChatView.h"
 #import "common.h"
 #import "ChatView.h"
@@ -39,17 +38,16 @@
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.autoresizesSubviews = YES;
     self.tableView.estimatedRowHeight = 100.0f;
-
-    
     
     self.navigationItem.backBarButtonItem.title = @"";
-    
+    [self getUserForPost];
     [self setupNavigationBarImage];
     [self setupPriceButton];
+    [self updatePostStatus];
     // Navigation bar UI
     
     // Setting the poster property
-    [self getUserForPost];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -93,6 +91,7 @@
             }
         }
         [cell setTitleforPost:self.post];
+        [cell setDescriptionTextViewForPost:self.post];
         return cell;
     } else if ([field isEqualToString:PF_POST_PHOTOARRAY]){
         static NSString *CellIdentifier = @"PhotoGalleryCell";
@@ -108,20 +107,6 @@
         }
         [self loadPostImagesForCell:cell];
         [cell setDateLabelForPost:self.post];
-        return cell;
-    } else if ([field isEqualToString:PF_POST_DESCRIPTION]){
-        static NSString *CellIdentifier = @"PostDescriptionCell";
-        PostDescriptionTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        if (cell == nil) {
-            NSArray *nibFiles = [[NSBundle mainBundle] loadNibNamed:@"PostDescriptionTableViewCell" owner:self options:nil];
-            for(id currentObject in nibFiles){
-                if ([currentObject isKindOfClass:[UITableViewCell class]]){
-                    cell = (PostDescriptionTableViewCell*)currentObject;
-                    break;
-                }
-            }
-        }
-        [cell setDescriptionTextViewForPost:self.post];
         return cell;
     } else if ([field isEqualToString:PF_POST_USER]){
         static NSString *CellIdentifier = @"PostUserCell";
@@ -152,6 +137,10 @@
     static NSString *CellIdentifier = @"DefaultCell";
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 #pragma mark - UI Setup
@@ -248,14 +237,8 @@
 -(void)getUserForPost{
     if (([[(PFUser *)self.post.user objectId] isEqualToString: [[PFUser currentUser] objectId]])){
         //        UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithTitle:@"Delete" style:UIBarButtonItemStyleBordered target:self actio:@selector(deleteButtonSelected)];
-        
-        
-        UIBarButtonItem *userControlButton = [[UIBarButtonItem alloc] initWithTitle:@"\u2699" style:UIBarButtonItemStylePlain target:self action:@selector(userControlButtonTouched)];
-        UIFont *f1 = [UIFont fontWithName:@"Helvetica" size:24.0];
-        NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:f1, NSFontAttributeName, nil]; [userControlButton setTitleTextAttributes:dict forState:UIControlStateNormal];
-        self.navigationItem.rightBarButtonItem = userControlButton;
         self.currentUserPost = YES;
-        [self.tableView reloadData];
+        [self updatePostStatus];
     } else {
         PFQuery *query = [PFUser query];
         [query whereKey:@"objectId" equalTo:self.post.user.objectId];
@@ -276,16 +259,43 @@
                                                               [userControl dismissViewControllerAnimated:YES completion:nil];
                                                           }];
     UIAlertAction* itemSold = [UIAlertAction actionWithTitle:@"This item has been sold" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        self.post.sold = YES;
+        [self.post saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error){
+            if (succeeded){
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloadTable" object:nil];
+            }
+        }];
         [userControl dismissViewControllerAnimated:YES completion:nil];
     }];
     UIAlertAction* deletePost = [UIAlertAction actionWithTitle:@"Delete post" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
-        [userControl dismissViewControllerAnimated:YES completion:nil];
+        self.post.removed = YES;
+        [self.post saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error){
+            if (succeeded){
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloadTable" object:nil];
+                
+            }
+        }];
+        [self.navigationController popViewControllerAnimated:YES];
     }];
     [userControl addAction:cancel];
     [userControl addAction:deletePost];
     [userControl addAction:itemSold];
     [self presentViewController:userControl animated:YES completion:nil];
-    
+}
+
+-(void)updatePostStatus{
+    if (self.currentUserPost){
+        if (!self.post.sold){
+            UIBarButtonItem *userControlButton = [[UIBarButtonItem alloc] initWithTitle:@"\u2699" style:UIBarButtonItemStylePlain target:self action:@selector(userControlButtonTouched)];
+            UIFont *f1 = [UIFont fontWithName:@"Helvetica" size:24.0];
+            NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:f1, NSFontAttributeName, nil]; [userControlButton setTitleTextAttributes:dict forState:UIControlStateNormal];
+            self.navigationItem.rightBarButtonItem = userControlButton;
+            self.currentUserPost = YES;
+        } else {
+            [self.getButton setTitle:@"SOLD" forState:UIControlStateNormal];
+            [self.getButton setUserInteractionEnabled:NO];
+        }
+    }
 }
 
 /*
