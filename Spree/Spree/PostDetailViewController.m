@@ -7,7 +7,6 @@
 //
 
 #import "PostDetailViewController.h"
-#import "ContainerTableViewController.h"
 #import "UIColor+SpreeColor.h"
 #import "WSCoachMarksView.h"
 #import "ChatView.h"
