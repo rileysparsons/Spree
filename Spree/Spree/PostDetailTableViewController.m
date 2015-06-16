@@ -93,6 +93,7 @@
             }
         }
         [cell setTitleforPost:self.post];
+        [cell setDescriptionTextViewForPost:self.post];
         return cell;
     } else if ([field isEqualToString:PF_POST_PHOTOARRAY]){
         static NSString *CellIdentifier = @"PhotoGalleryCell";
@@ -108,20 +109,6 @@
         }
         [self loadPostImagesForCell:cell];
         [cell setDateLabelForPost:self.post];
-        return cell;
-    } else if ([field isEqualToString:PF_POST_DESCRIPTION]){
-        static NSString *CellIdentifier = @"PostDescriptionCell";
-        PostDescriptionTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        if (cell == nil) {
-            NSArray *nibFiles = [[NSBundle mainBundle] loadNibNamed:@"PostDescriptionTableViewCell" owner:self options:nil];
-            for(id currentObject in nibFiles){
-                if ([currentObject isKindOfClass:[UITableViewCell class]]){
-                    cell = (PostDescriptionTableViewCell*)currentObject;
-                    break;
-                }
-            }
-        }
-        [cell setDescriptionTextViewForPost:self.post];
         return cell;
     } else if ([field isEqualToString:PF_POST_USER]){
         static NSString *CellIdentifier = @"PostUserCell";
