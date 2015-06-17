@@ -24,6 +24,7 @@
 
 - (void)setUserLabelForPost:(SpreePost *)post{
     PFUser *user = post.user;
+    NSLog(@"Cell user %@", user);
     [user fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
         self.userLabel.text = [(PFUser *)object username];
         [self setRatingForUser:(PFUser *)object];

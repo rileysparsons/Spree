@@ -20,10 +20,24 @@
 }
 
 -(void)setupForUser{
+    NSLog(@"%@", self.detailUser);
     self.usernameLabel.text = self.detailUser.username;
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"MMM YYYY"];
     self.sinceLabel.text = [NSString stringWithFormat:@"On Spree since %@",[formatter stringFromDate:self.detailUser.createdAt]];
+    PFQuery *ratingQuery = [PFQuery queryWithClassName:@"Rating"];
+    [ratingQuery whereKey:@"user" equalTo:self.detailUser];
+    [ratingQuery getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error){
+        if (object){
+            if ([object[@"averageSetSize"] integerValue] == 1){
+                self.reviewLabel.text = [NSString stringWithFormat:@"%.1f (%@ rating)", [object[@"average"]floatValue], object[@"averageSetSize"]];
+            } else {
+                self.reviewLabel.text = [NSString stringWithFormat:@"%.1f (%@ ratings)", [object[@"average"]floatValue], object[@"averageSetSize"]];
+            }
+        } else {
+            self.reviewLabel.text = @"No ratings yet";
+        }
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -77,7 +77,9 @@
     if ([tableView cellForRowAtIndexPath:indexPath].tag == 2){
         ProfileViewController *profileViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"Profile"
          ];
+        NSLog(@"Poster in %@", self.poster);
         profileViewController.detailUser = self.poster;
+        NSLog(@"USER: %@", profileViewController.detailUser);
         [self.navigationController pushViewController:profileViewController animated:YES];
     }
 }
@@ -245,6 +247,7 @@
 -(void)getUserForPost{
     if (([[(PFUser *)self.post.user objectId] isEqualToString: [[PFUser currentUser] objectId]])){
         //        UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithTitle:@"Delete" style:UIBarButtonItemStyleBordered target:self actio:@selector(deleteButtonSelected)];
+        self.poster = [PFUser currentUser];
         self.currentUserPost = YES;
         [self updatePostStatus];
     } else {
