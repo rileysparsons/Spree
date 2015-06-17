@@ -374,6 +374,7 @@
 		140CF91A1A3F755B00134C4D /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				F7AFBB431AF4CC2B00D3148B /* Rating */,
 				14C8214B1B2FE36C00A1B513 /* ProfileViewController.h */,
 				14C8214C1B2FE36C00A1B513 /* ProfileViewController.m */,
 				CFFEE9271B0487BF002CD29A /* MeetUpViewController.h */,
@@ -429,7 +430,6 @@
 				140CF8DD1A3BBFB200134C4D /* HomeViewController.h */,
 				140CF8DE1A3BBFB200134C4D /* HomeViewController.m */,
 				14C38D941B27AE0B0039862E /* Post Detail */,
-				F7AFBB431AF4CC2B00D3148B /* Rating */,
 			);
 			name = "Post ViewControllers";
 			sourceTree = "<group>";
