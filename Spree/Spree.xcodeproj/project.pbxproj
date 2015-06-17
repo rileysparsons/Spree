@@ -38,6 +38,7 @@
 		144FBE641AACEB05008BB4DA /* NewPostTypeSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 144FBE631AACEB05008BB4DA /* NewPostTypeSelectionViewController.m */; };
 		1473C2EB1A8AE0DA00249CFD /* SpreePost.m in Sources */ = {isa = PBXBuildFile; fileRef = 1473C2EA1A8AE0DA00249CFD /* SpreePost.m */; };
 		14820B6B1A40CA92008A1430 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14820B6A1A40CA92008A1430 /* MapKit.framework */; };
+		1491BBA11B322BD1004F43CA /* RTWalkthrough in Resources */ = {isa = PBXBuildFile; fileRef = 1491BBA01B322BD1004F43CA /* RTWalkthrough */; };
 		149787A21A49F0E40024437D /* UIColor+SpreeColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 149787A11A49F0E40024437D /* UIColor+SpreeColor.m */; };
 		14A416801B05700600EA4DA2 /* SpreeSprintTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A4167E1B05700600EA4DA2 /* SpreeSprintTableViewCell.m */; };
 		14A416811B05700600EA4DA2 /* SpreeSprintTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14A4167F1B05700600EA4DA2 /* SpreeSprintTableViewCell.xib */; };
@@ -159,6 +160,7 @@
 		1473C2E91A8AE0DA00249CFD /* SpreePost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpreePost.h; sourceTree = SOURCE_ROOT; };
 		1473C2EA1A8AE0DA00249CFD /* SpreePost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpreePost.m; sourceTree = SOURCE_ROOT; };
 		14820B6A1A40CA92008A1430 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		1491BBA01B322BD1004F43CA /* RTWalkthrough */ = {isa = PBXFileReference; lastKnownFileType = folder; path = RTWalkthrough; sourceTree = "<group>"; };
 		149787A01A49F0E40024437D /* UIColor+SpreeColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+SpreeColor.h"; sourceTree = "<group>"; };
 		149787A11A49F0E40024437D /* UIColor+SpreeColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+SpreeColor.m"; sourceTree = "<group>"; };
 		14A4167D1B05700600EA4DA2 /* SpreeSprintTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpreeSprintTableViewCell.h; sourceTree = "<group>"; };
@@ -605,6 +607,7 @@
 		F7AFBB451AF5FDF800D3148B /* Open Source */ = {
 			isa = PBXGroup;
 			children = (
+				1491BBA01B322BD1004F43CA /* RTWalkthrough */,
 				F7A2A4381AF47BAB00734749 /* EDStarRating */,
 			);
 			name = "Open Source";
@@ -709,6 +712,7 @@
 				140CF8EA1A3BBFB200134C4D /* LaunchScreen.xib in Resources */,
 				14C8214A1B2D1B9100A1B513 /* PhotoGalleryTableViewCell.xib in Resources */,
 				140CF8E71A3BBFB200134C4D /* Images.xcassets in Resources */,
+				1491BBA11B322BD1004F43CA /* RTWalkthrough in Resources */,
 				14FD56E11B2CF6170086A2AE /* PostTitleTableViewCell.xib in Resources */,
 				F75728401B015B9D005F5FED /* NewGenericPostView.xib in Resources */,
 				14ABE0FA1A95022900B805D0 /* NewFreePostView.xib in Resources */,
