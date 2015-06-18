@@ -93,6 +93,8 @@
     _resultsTableController = [[ResultsTableViewController alloc] init];
     _searchController = [[UISearchController alloc] initWithSearchResultsController:self.resultsTableController];
     self.searchController.searchResultsUpdater = self;
+    self.searchController.searchBar.showsScopeBar = YES;
+    self.searchController.searchBar.scopeButtonTitles = @[@"Recent", @"Price: High to Low", @"Price: Low to High"];
     [self.searchController.searchBar sizeToFit];
     self.tableView.tableHeaderView = self.searchController.searchBar;
     
@@ -448,6 +450,7 @@
             // hand over the filtered results to our search results table
             ResultsTableViewController *tableController = (ResultsTableViewController *)self.searchController.searchResultsController;
             tableController.filteredProducts = self.searchResults;
+            
             [tableController.tableView reloadData];
             self.searchQuery = nil;
         }
@@ -497,6 +500,8 @@
 
 - (void)didPresentSearchController:(UISearchController *)searchController {
     // do something after the search controller is presented
+    [self.searchController.searchBar sizeToFit];
+    [self.searchController.searchBar setNeedsDisplay];
 }
 
 - (void)willDismissSearchController:(UISearchController *)searchController {
