@@ -38,6 +38,7 @@
 		144FBE641AACEB05008BB4DA /* NewPostTypeSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 144FBE631AACEB05008BB4DA /* NewPostTypeSelectionViewController.m */; };
 		1473C2EB1A8AE0DA00249CFD /* SpreePost.m in Sources */ = {isa = PBXBuildFile; fileRef = 1473C2EA1A8AE0DA00249CFD /* SpreePost.m */; };
 		14820B6B1A40CA92008A1430 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14820B6A1A40CA92008A1430 /* MapKit.framework */; };
+		1491BBA41B336F38004F43CA /* ResultsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1491BBA31B336F38004F43CA /* ResultsTableViewController.m */; };
 		149787A21A49F0E40024437D /* UIColor+SpreeColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 149787A11A49F0E40024437D /* UIColor+SpreeColor.m */; };
 		14A416801B05700600EA4DA2 /* SpreeSprintTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A4167E1B05700600EA4DA2 /* SpreeSprintTableViewCell.m */; };
 		14A416811B05700600EA4DA2 /* SpreeSprintTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14A4167F1B05700600EA4DA2 /* SpreeSprintTableViewCell.xib */; };
@@ -159,6 +160,8 @@
 		1473C2E91A8AE0DA00249CFD /* SpreePost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpreePost.h; sourceTree = SOURCE_ROOT; };
 		1473C2EA1A8AE0DA00249CFD /* SpreePost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpreePost.m; sourceTree = SOURCE_ROOT; };
 		14820B6A1A40CA92008A1430 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		1491BBA21B336F38004F43CA /* ResultsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultsTableViewController.h; sourceTree = "<group>"; };
+		1491BBA31B336F38004F43CA /* ResultsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultsTableViewController.m; sourceTree = "<group>"; };
 		149787A01A49F0E40024437D /* UIColor+SpreeColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+SpreeColor.h"; sourceTree = "<group>"; };
 		149787A11A49F0E40024437D /* UIColor+SpreeColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+SpreeColor.m"; sourceTree = "<group>"; };
 		14A4167D1B05700600EA4DA2 /* SpreeSprintTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpreeSprintTableViewCell.h; sourceTree = "<group>"; };
@@ -381,6 +384,8 @@
 				CFFEE9281B0487BF002CD29A /* MeetUpViewController.m */,
 				140473951ABD002F00C0F8EF /* AllPostsTableViewController.h */,
 				140473961ABD002F00C0F8EF /* AllPostsTableViewController.m */,
+				1491BBA21B336F38004F43CA /* ResultsTableViewController.h */,
+				1491BBA31B336F38004F43CA /* ResultsTableViewController.m */,
 				14BE5C851AAD442A00C60C56 /* NewPostInfoViewController.h */,
 				14BE5C861AAD442A00C60C56 /* NewPostInfoViewController.m */,
 				144FBE621AACEB05008BB4DA /* NewPostTypeSelectionViewController.h */,
@@ -804,6 +809,7 @@
 				14A416801B05700600EA4DA2 /* SpreeSprintTableViewCell.m in Sources */,
 				14ABE1081A96A59000B805D0 /* NewTicketsPostView.m in Sources */,
 				F78600BD1AEB422100402B1F /* push.m in Sources */,
+				1491BBA41B336F38004F43CA /* ResultsTableViewController.m in Sources */,
 				14C8214D1B2FE36C00A1B513 /* ProfileViewController.m in Sources */,
 				14FD56E01B2CF6170086A2AE /* PostTitleTableViewCell.m in Sources */,
 				F78600BE1AEB422100402B1F /* recent.m in Sources */,
