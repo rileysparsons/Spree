@@ -9,4 +9,5 @@
 @interface AllPostsTableViewController : PFQueryTableViewController
 - (IBAction)NewPostBarButtonItemPressed:(id)sender;
 
+
 @end

@@ -33,6 +33,10 @@
 @property (nonatomic, strong) UISearchController *searchController;
 @property (nonatomic, strong) ResultsTableViewController *resultsTableController;
 
+@property (nonatomic, strong) NSMutableArray *searchResults;
+
+@property (nonatomic, strong) PFQuery *searchQuery;
+
 // for state restoration
 @property BOOL searchControllerWasActive;
 @property BOOL searchControllerSearchFieldWasFirstResponder;
@@ -97,6 +101,8 @@
     self.searchController.delegate = self;
     self.searchController.dimsBackgroundDuringPresentation = NO; // default is YES
     self.searchController.searchBar.delegate = self; // so we can monitor text changes + others
+    
+    self.searchResults = [NSMutableArray array];
     
     // Search is now just presenting a view controller. As such, normal view controller
     // presentation semantics apply. Namely that presentation will walk up the view controller
@@ -424,6 +430,30 @@
     [self.navigationController presentViewController:navigationController animated:YES completion:nil];
 }
 
+- (void)filterResults:(NSString *)searchTerm {
+    if (self.searchQuery){
+        [self.searchQuery cancel];
+    }
+    self.searchQuery = [PFQuery queryWithClassName:@"Post"];
+    [self.searchQuery whereKeyExists:@"title"];  //this is based on whatever query you are trying to accomplish
+    [self.searchQuery whereKeyExists:@"price"]; //this is based on whatever query you are trying to accomplish
+    [self.searchQuery whereKey:@"title" containsString:searchTerm];
+    
+    [self.searchQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error){
+        if (!error){
+            NSLog(@"%@", objects);
+            NSLog(@"%lu", (unsigned long)objects.count);
+            [self.searchResults removeAllObjects];
+            [self.searchResults addObjectsFromArray:objects];
+            // hand over the filtered results to our search results table
+            ResultsTableViewController *tableController = (ResultsTableViewController *)self.searchController.searchResultsController;
+            tableController.filteredProducts = self.searchResults;
+            [tableController.tableView reloadData];
+            self.searchQuery = nil;
+        }
+    }];
+}
+
 // Detail View Setup
 
 -(NSArray *)fieldsForPostType:(NSString *)type{
@@ -480,88 +510,7 @@
 #pragma mark - UISearchResultsUpdating
 
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
-    // update the filtered array based on the search text
-    NSString *searchText = searchController.searchBar.text;
-    NSMutableArray *searchResults = [self.objects mutableCopy];
-    
-    // strip out all the leading and trailing spaces
-    NSString *strippedString = [searchText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    
-    // break up the search terms (separated by spaces)
-    NSArray *searchItems = nil;
-    if (strippedString.length > 0) {
-        searchItems = [strippedString componentsSeparatedByString:@" "];
-    }
-    
-    // build all the "AND" expressions for each value in the searchString
-    //
-    NSMutableArray *andMatchPredicates = [NSMutableArray array];
-    
-    for (NSString *searchString in searchItems) {
-        // each searchString creates an OR predicate for: name, yearIntroduced, introPrice
-        //
-        // example if searchItems contains "iphone 599 2007":
-        //      name CONTAINS[c] "iphone"
-        //      name CONTAINS[c] "599", yearIntroduced ==[c] 599, introPrice ==[c] 599
-        //      name CONTAINS[c] "2007", yearIntroduced ==[c] 2007, introPrice ==[c] 2007
-        //
-        NSMutableArray *searchItemsPredicate = [NSMutableArray array];
-        
-        // Below we use NSExpression represent expressions in our predicates.
-        // NSPredicate is made up of smaller, atomic parts: two NSExpressions (a left-hand value and a right-hand value)
-        
-        // name field matching
-        NSExpression *lhs = [NSExpression expressionForKeyPath:@"title"];
-        NSExpression *rhs = [NSExpression expressionForConstantValue:searchString];
-        NSPredicate *finalPredicate = [NSComparisonPredicate
-                                       predicateWithLeftExpression:lhs
-                                       rightExpression:rhs
-                                       modifier:NSDirectPredicateModifier
-                                       type:NSContainsPredicateOperatorType
-                                       options:NSCaseInsensitivePredicateOption];
-        [searchItemsPredicate addObject:finalPredicate];
-        
-        // yearIntroduced field matching
-        NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-        [numberFormatter setNumberStyle:NSNumberFormatterNoStyle];
-        NSNumber *targetNumber = [numberFormatter numberFromString:searchString];
-        if (targetNumber != nil) {   // searchString may not convert to a number
-            lhs = [NSExpression expressionForKeyPath:@"yearIntroduced"];
-            rhs = [NSExpression expressionForConstantValue:targetNumber];
-            finalPredicate = [NSComparisonPredicate
-                              predicateWithLeftExpression:lhs
-                              rightExpression:rhs
-                              modifier:NSDirectPredicateModifier
-                              type:NSEqualToPredicateOperatorType
-                              options:NSCaseInsensitivePredicateOption];
-            [searchItemsPredicate addObject:finalPredicate];
-            
-            // price field matching
-            lhs = [NSExpression expressionForKeyPath:@"introPrice"];
-            rhs = [NSExpression expressionForConstantValue:targetNumber];
-            finalPredicate = [NSComparisonPredicate
-                              predicateWithLeftExpression:lhs
-                              rightExpression:rhs
-                              modifier:NSDirectPredicateModifier
-                              type:NSEqualToPredicateOperatorType
-                              options:NSCaseInsensitivePredicateOption];
-            [searchItemsPredicate addObject:finalPredicate];
-        }
-        
-        // at this OR predicate to our master AND predicate
-        NSCompoundPredicate *orMatchPredicates = [NSCompoundPredicate orPredicateWithSubpredicates:searchItemsPredicate];
-        [andMatchPredicates addObject:orMatchPredicates];
-    }
-    
-    // match up the fields of the Product object
-    NSCompoundPredicate *finalCompoundPredicate =
-    [NSCompoundPredicate andPredicateWithSubpredicates:andMatchPredicates];
-    searchResults = [[searchResults filteredArrayUsingPredicate:finalCompoundPredicate] mutableCopy];
-    
-    // hand over the filtered results to our search results table
-    ResultsTableViewController *tableController = (ResultsTableViewController *)self.searchController.searchResultsController;
-    tableController.filteredProducts = searchResults;
-    [tableController.tableView reloadData];
+    [self filterResults:searchController.searchBar.text];
 }
 
 #pragma mark - UIStateRestoration
