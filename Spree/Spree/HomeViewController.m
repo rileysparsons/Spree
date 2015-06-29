@@ -8,10 +8,11 @@
 
 #import "HomeViewController.h"
 #import "PostTypeTableViewController.h"
-#import "NewPostTypeSelectionViewController.h"
 #import "PostTypeTableViewCell.h"
 #import "WSCoachMarksView.h"
 #import "SpreeSprintTableViewCell.h"
+#import "SelectPostTypeViewController.h"
+#import "SpreePost.h"
 
 @interface HomeViewController () {
     WSCoachMarksView *coachMarksView;
@@ -421,9 +422,9 @@
 //    NewPostViewController *newPostViewController = [storyboard instantiateViewControllerWithIdentifier:@"NewPostViewController"];
 //    [self.navigationController presentViewController:newPostViewController animated:YES completion:nil];
     
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    NewPostTypeSelectionViewController *newPostSelectTypeViewController = [storyboard instantiateViewControllerWithIdentifier:@"NewPostSelectTypeViewController"];
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController: newPostSelectTypeViewController];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewPost" bundle:nil];
+    SelectPostTypeViewController *selectPostTypeViewController = [storyboard instantiateViewControllerWithIdentifier:@"SelectPostTypeViewController"];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController: selectPostTypeViewController];
     
     [self.navigationController presentViewController:navigationController animated:YES completion:nil];
 }

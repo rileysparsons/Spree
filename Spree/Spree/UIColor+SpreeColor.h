@@ -15,5 +15,6 @@
 +(UIColor *)spreeDarkBlue;
 +(UIColor *)spreeBabyBlue;
 +(UIColor *)spreeDarkYellow;
-
++(UIColor *)spreeOffBlack;
++(UIColor *)spreeOffWhite;
 @end

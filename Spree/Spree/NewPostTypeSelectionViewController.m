@@ -11,6 +11,7 @@
 #import "PostTypeTableViewCell.h"
 #import "UIColor+SpreeColor.h"
 #import "SpreeSprintTableViewCell.h"
+#import <CocoaLumberjack/CocoaLumberjack.h>
 
 @interface NewPostTypeSelectionViewController (){
     NSArray *typeArray;
@@ -129,7 +130,7 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     NewPostInfoViewController *newPostInfoViewController = (NewPostInfoViewController *)[segue destinationViewController];
-    DDLogVerbose(@"POST: %@", self.post);
+//    DDLogVerbose(@"POST: %@", self.post);
 
     [newPostInfoViewController setPost:self.post];
 }

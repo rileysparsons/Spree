@@ -181,7 +181,7 @@
         <!--Title-->
         <scene sceneID="x9x-lX-476">
             <objects>
-                <viewController storyboardIdentifier="NewPostSelectTypeViewController" id="gJL-OM-8hZ" customClass="NewPostTypeSelectionViewController" sceneMemberID="viewController">
+                <viewController id="gJL-OM-8hZ" customClass="SelectPostTypeViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="QW0-LY-0Y1"/>
                         <viewControllerLayoutGuide type="bottom" id="R0O-QS-vFV"/>
@@ -208,17 +208,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="AH2-5G-X3s">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Z4v-Za-M9a">
-                            <connections>
-                                <action selector="cancelBarButtonItemPressed:" destination="gJL-OM-8hZ" id="nkv-jy-GOT"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Z4v-Za-M9a"/>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <connections>
-                        <outlet property="cancelBarButtonItem" destination="Z4v-Za-M9a" id="h5g-O5-8zg"/>
-                        <outlet property="typeTableView" destination="zxv-Lo-fdm" id="ywr-de-zfB"/>
                         <segue destination="NWz-u1-yHi" kind="show" identifier="showNewBooksPostDetail" id="kZy-I9-Jad"/>
                         <segue destination="BKf-A1-OtM" kind="show" identifier="showNewTicketsPostDetail" id="ehL-Vl-BQC"/>
                         <segue destination="Vls-f5-n9F" kind="show" identifier="showNewFreePostDetail" id="CJQ-pI-RLe"/>
@@ -403,36 +397,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Z6w-NM-nD9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5800" y="-2391"/>
-        </scene>
-        <!--Choose Post Type-->
-        <scene sceneID="edb-xF-WMY">
-            <objects>
-                <tableViewController storyboardIdentifier="ChooseTypeTableViewController" id="rPw-m3-UMb" customClass="ChooseTypeTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="9kd-W9-fmb">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <inset key="separatorInset" minX="75" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        <connections>
-                            <outlet property="dataSource" destination="rPw-m3-UMb" id="oYC-pI-jmQ"/>
-                            <outlet property="delegate" destination="rPw-m3-UMb" id="1iv-Wk-bb2"/>
-                        </connections>
-                    </tableView>
-                    <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Choose Post Type" id="M3X-Kv-KLx">
-                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="BHP-d2-Bcn">
-                            <connections>
-                                <action selector="cancelButton:" destination="rPw-m3-UMb" id="DFv-cW-1P3"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="v1Y-fJ-gNz" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="6579" y="-1977"/>
         </scene>
         <!--More-->
         <scene sceneID="wg7-f3-ORb">

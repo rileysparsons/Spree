@@ -13,6 +13,7 @@
 #import "NewTicketsPostView.h"
 #import "NewGenericPostView.h"
 #import <Parse/PFAnalytics.h>
+#import <CocoaLumberjack/CocoaLumberjack.h>
 
 @interface NewPostInfoViewController () {
     NSInteger selectedPhotoButton;
@@ -130,7 +131,7 @@
     
     [self.view addGestureRecognizer:tap];
 
-    DDLogVerbose(@"POST TYPE: %@", self.post.type);
+//    DDLogVerbose(@"POST TYPE: %@", self.post.type);
 }
 
 -(void)dismissKeyboard{
@@ -269,9 +270,9 @@
 #pragma mark - UITextFieldDelegate
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-
-    DDLogVerbose(@"shouldchangecharactersinrange");
-    DDLogVerbose(@"Post type: %@", self.post.type);
+//
+//    DDLogVerbose(@"shouldchangecharactersinrange");
+//    DDLogVerbose(@"Post type: %@", self.post.type);
 
     NSString *newText;
 
@@ -325,7 +326,7 @@
         isPriceField = textField == self.genericPostView.priceField;
     }
 
-    DDLogVerbose(@"TESTSTRING: %@", testString);
+//    DDLogVerbose(@"TESTSTRING: %@", testString);
     if (isPriceField && [testString length] == 0) {
         textField.text = [[NSLocale currentLocale] objectForKey:NSLocaleCurrencySymbol];
     }

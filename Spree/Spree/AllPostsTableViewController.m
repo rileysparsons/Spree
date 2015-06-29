@@ -10,11 +10,11 @@
 #import "PostTableViewCell.h"
 #import "SpreePost.h"
 #import "PostDetailViewController.h"
-#import "NewPostTypeSelectionViewController.h"
 #import "RatingViewController.h"
 #import "AppDelegate.h"
 #import "AppConstant.h"
 #import "PostDetailTableViewController.h"
+#import "SelectPostTypeViewController.h"
 
 @interface AllPostsTableViewController () {
 
@@ -373,9 +373,9 @@
 }
 
 - (void)NewPostBarButtonItemPressed:(id)sender {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    NewPostTypeSelectionViewController *newPostSelectTypeViewController = [storyboard instantiateViewControllerWithIdentifier:@"NewPostSelectTypeViewController"];
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController: newPostSelectTypeViewController];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewPost" bundle:nil];
+    SelectPostTypeViewController *selectPostTypeViewController = [storyboard instantiateViewControllerWithIdentifier:@"SelectPostTypeViewController"];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController: selectPostTypeViewController];
     
     [self.navigationController presentViewController:navigationController animated:YES completion:nil];
 }
