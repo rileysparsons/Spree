@@ -38,7 +38,6 @@
 		144FBE641AACEB05008BB4DA /* NewPostTypeSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 144FBE631AACEB05008BB4DA /* NewPostTypeSelectionViewController.m */; };
 		1473C2EB1A8AE0DA00249CFD /* SpreePost.m in Sources */ = {isa = PBXBuildFile; fileRef = 1473C2EA1A8AE0DA00249CFD /* SpreePost.m */; };
 		14820B6B1A40CA92008A1430 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14820B6A1A40CA92008A1430 /* MapKit.framework */; };
-		1491BBA11B322BD1004F43CA /* RTWalkthrough in Resources */ = {isa = PBXBuildFile; fileRef = 1491BBA01B322BD1004F43CA /* RTWalkthrough */; };
 		149787A21A49F0E40024437D /* UIColor+SpreeColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 149787A11A49F0E40024437D /* UIColor+SpreeColor.m */; };
 		14A416801B05700600EA4DA2 /* SpreeSprintTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A4167E1B05700600EA4DA2 /* SpreeSprintTableViewCell.m */; };
 		14A416811B05700600EA4DA2 /* SpreeSprintTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14A4167F1B05700600EA4DA2 /* SpreeSprintTableViewCell.xib */; };
@@ -64,6 +63,11 @@
 		14EFDAE71A89EC4F007510CC /* TextViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14EFDAE61A89EC4F007510CC /* TextViewViewController.m */; };
 		14FD56E01B2CF6170086A2AE /* PostTitleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14FD56DE1B2CF6170086A2AE /* PostTitleTableViewCell.m */; };
 		14FD56E11B2CF6170086A2AE /* PostTitleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14FD56DF1B2CF6170086A2AE /* PostTitleTableViewCell.xib */; };
+		4E0E81F41B3BCC2500E18975 /* Walkthrough.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E0E81F31B3BCC2500E18975 /* Walkthrough.storyboard */; };
+		4E0E82031B40DC0200E18975 /* RTWalkthroughPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E0E82001B40DC0200E18975 /* RTWalkthroughPageViewController.m */; };
+		4E0E82041B40DC0200E18975 /* RTWalkthroughViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E0E82021B40DC0200E18975 /* RTWalkthroughViewController.m */; };
+		4E0E82091B40DD2F00E18975 /* rightarrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E0E82071B40DD2F00E18975 /* rightarrow@2x.png */; };
+		4E0E820B1B40DE1800E18975 /* leftarrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E0E820A1B40DE1800E18975 /* leftarrow@2x.png */; };
 		CFFEE9291B0487BF002CD29A /* MeetUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFFEE9281B0487BF002CD29A /* MeetUpViewController.m */; };
 		F70FACF51AEB501700057E6E /* converter.m in Sources */ = {isa = PBXBuildFile; fileRef = F70FACF41AEB501700057E6E /* converter.m */; };
 		F72B2D031AE64A2D00F9A845 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F72B2D021AE64A2D00F9A845 /* Social.framework */; };
@@ -160,7 +164,6 @@
 		1473C2E91A8AE0DA00249CFD /* SpreePost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpreePost.h; sourceTree = SOURCE_ROOT; };
 		1473C2EA1A8AE0DA00249CFD /* SpreePost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpreePost.m; sourceTree = SOURCE_ROOT; };
 		14820B6A1A40CA92008A1430 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		1491BBA01B322BD1004F43CA /* RTWalkthrough */ = {isa = PBXFileReference; lastKnownFileType = folder; path = RTWalkthrough; sourceTree = "<group>"; };
 		149787A01A49F0E40024437D /* UIColor+SpreeColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+SpreeColor.h"; sourceTree = "<group>"; };
 		149787A11A49F0E40024437D /* UIColor+SpreeColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+SpreeColor.m"; sourceTree = "<group>"; };
 		14A4167D1B05700600EA4DA2 /* SpreeSprintTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpreeSprintTableViewCell.h; sourceTree = "<group>"; };
@@ -203,6 +206,13 @@
 		14FD56DD1B2CF6170086A2AE /* PostTitleTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostTitleTableViewCell.h; sourceTree = "<group>"; };
 		14FD56DE1B2CF6170086A2AE /* PostTitleTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostTitleTableViewCell.m; sourceTree = "<group>"; };
 		14FD56DF1B2CF6170086A2AE /* PostTitleTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostTitleTableViewCell.xib; sourceTree = "<group>"; };
+		4E0E81F31B3BCC2500E18975 /* Walkthrough.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Walkthrough.storyboard; sourceTree = "<group>"; };
+		4E0E81FF1B40DC0200E18975 /* RTWalkthroughPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTWalkthroughPageViewController.h; sourceTree = "<group>"; };
+		4E0E82001B40DC0200E18975 /* RTWalkthroughPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTWalkthroughPageViewController.m; sourceTree = "<group>"; };
+		4E0E82011B40DC0200E18975 /* RTWalkthroughViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTWalkthroughViewController.h; sourceTree = "<group>"; };
+		4E0E82021B40DC0200E18975 /* RTWalkthroughViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTWalkthroughViewController.m; sourceTree = "<group>"; };
+		4E0E82071B40DD2F00E18975 /* rightarrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rightarrow@2x.png"; sourceTree = "<group>"; };
+		4E0E820A1B40DE1800E18975 /* leftarrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "leftarrow@2x.png"; sourceTree = "<group>"; };
 		93D5B9718A30FBBAE739BCE8 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7F573D62D839D22544FF614 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		CFFEE9271B0487BF002CD29A /* MeetUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeetUpViewController.h; sourceTree = "<group>"; };
@@ -313,6 +323,7 @@
 				140CF9041A3E0F9600134C4D /* TableViewCells */,
 				140CF8E61A3BBFB200134C4D /* Images.xcassets */,
 				140CF8E31A3BBFB200134C4D /* Main.storyboard */,
+				4E0E81F31B3BCC2500E18975 /* Walkthrough.storyboard */,
 				140CF8E81A3BBFB200134C4D /* LaunchScreen.xib */,
 				14FA9D161A436B9200E405EC /* 37x-Checkmark.png */,
 				140CF8D61A3BBFB200134C4D /* Supporting Files */,
@@ -503,6 +514,27 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		4E0E81FE1B40DC0200E18975 /* RTWalkthrough */ = {
+			isa = PBXGroup;
+			children = (
+				4E0E82051B40DD0B00E18975 /* Assets */,
+				4E0E81FF1B40DC0200E18975 /* RTWalkthroughPageViewController.h */,
+				4E0E82001B40DC0200E18975 /* RTWalkthroughPageViewController.m */,
+				4E0E82011B40DC0200E18975 /* RTWalkthroughViewController.h */,
+				4E0E82021B40DC0200E18975 /* RTWalkthroughViewController.m */,
+			);
+			path = RTWalkthrough;
+			sourceTree = "<group>";
+		};
+		4E0E82051B40DD0B00E18975 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				4E0E820A1B40DE1800E18975 /* leftarrow@2x.png */,
+				4E0E82071B40DD2F00E18975 /* rightarrow@2x.png */,
+			);
+			name = Assets;
+			sourceTree = "<group>";
+		};
 		CACF1256D5FA94F1B1209550 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -607,7 +639,7 @@
 		F7AFBB451AF5FDF800D3148B /* Open Source */ = {
 			isa = PBXGroup;
 			children = (
-				1491BBA01B322BD1004F43CA /* RTWalkthrough */,
+				4E0E81FE1B40DC0200E18975 /* RTWalkthrough */,
 				F7A2A4381AF47BAB00734749 /* EDStarRating */,
 			);
 			name = "Open Source";
@@ -702,17 +734,19 @@
 				14ABE0FF1A95AAD400B805D0 /* NewBooksPostView.xib in Resources */,
 				14ABE1011A96892A00B805D0 /* NewDefaultPostView.xib in Resources */,
 				140CF8E51A3BBFB200134C4D /* Main.storyboard in Resources */,
+				4E0E820B1B40DE1800E18975 /* leftarrow@2x.png in Resources */,
 				140CF9091A3E157700134C4D /* Podfile in Resources */,
 				14C38DB91B29311D0039862E /* PostUserTableViewCell.xib in Resources */,
 				14383B0E1A7B1A950040FBDF /* Todo in Resources */,
 				14ABE10A1A96A59F00B805D0 /* NewTicketsPostView.xib in Resources */,
 				140CF9031A3E086800134C4D /* PostTypeTableViewCell.xib in Resources */,
+				4E0E81F41B3BCC2500E18975 /* Walkthrough.storyboard in Resources */,
 				140CF9161A3F708F00134C4D /* ChosenTypeTableViewCell.xib in Resources */,
 				14E66B981A452653008184C1 /* PostTableViewCell.xib in Resources */,
 				140CF8EA1A3BBFB200134C4D /* LaunchScreen.xib in Resources */,
 				14C8214A1B2D1B9100A1B513 /* PhotoGalleryTableViewCell.xib in Resources */,
 				140CF8E71A3BBFB200134C4D /* Images.xcassets in Resources */,
-				1491BBA11B322BD1004F43CA /* RTWalkthrough in Resources */,
+				4E0E82091B40DD2F00E18975 /* rightarrow@2x.png in Resources */,
 				14FD56E11B2CF6170086A2AE /* PostTitleTableViewCell.xib in Resources */,
 				F75728401B015B9D005F5FED /* NewGenericPostView.xib in Resources */,
 				14ABE0FA1A95022900B805D0 /* NewFreePostView.xib in Resources */,
@@ -805,6 +839,7 @@
 				14C38DB31B28F6870039862E /* PhotoGalleryTableViewCell.m in Sources */,
 				140CF91D1A3F75E200134C4D /* ChooseTypeTableViewController.m in Sources */,
 				F76258EB1AF2044E003B67D4 /* RatingViewController.m in Sources */,
+				4E0E82041B40DC0200E18975 /* RTWalkthroughViewController.m in Sources */,
 				14A416801B05700600EA4DA2 /* SpreeSprintTableViewCell.m in Sources */,
 				14ABE1081A96A59000B805D0 /* NewTicketsPostView.m in Sources */,
 				F78600BD1AEB422100402B1F /* push.m in Sources */,
@@ -817,6 +852,7 @@
 				F7715E9B1AEC05AD005DDEFF /* AllMessagesViewController.m in Sources */,
 				1404739A1ABD267E00C0F8EF /* UserPostsTableViewController.m in Sources */,
 				F75728431B015BC7005F5FED /* NewGenericPostView.m in Sources */,
+				4E0E82031B40DC0200E18975 /* RTWalkthroughPageViewController.m in Sources */,
 				F7AFBB421AF4CC0A00D3148B /* FindBuyerViewController.m in Sources */,
 				CFFEE9291B0487BF002CD29A /* MeetUpViewController.m in Sources */,
 				14E66B9B1A45ECFF008184C1 /* PostDetailViewController.m in Sources */,
