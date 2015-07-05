@@ -8,6 +8,7 @@
 
 #import "SecondViewController.h"
 #import "TextViewViewController.h"
+#import "ContactUsViewController.h"
 #import "SpreePost.h"
 #import <CoreGraphics/CoreGraphics.h>
 #import "MSCellAccessory.h"
@@ -49,7 +50,7 @@
     self.settingsTableView.backgroundColor = [UIColor clearColor];
     
     _firstSectionArray = [[NSArray alloc] initWithObjects:@"Log out", @"Your posts", nil];
-    _secondSectionArray = [[NSArray alloc] initWithObjects:@"Terms and conditions",nil];
+    _secondSectionArray = [[NSArray alloc] initWithObjects:@"Terms and Conditions", @"Contact Us", nil];
     
     self.nameLabel.text = [PFUser currentUser][@"name"];
     
@@ -192,6 +193,9 @@
         if (indexPath.row == 0){
             [self performSegueWithIdentifier:@"showTerms" sender:self];
         }
+        else if (indexPath.row == 1){
+            [self performSegueWithIdentifier:@"showContactUs" sender:self];
+        }
     } else if (indexPath.section == 0){
         if (indexPath.row == 0){
             UIAlertView *confirmLogOut = [[UIAlertView alloc] initWithTitle:@"Confirm Log Out" message:@"Are you sure you want to log out of Spree?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
@@ -206,7 +210,7 @@
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.identifier isEqualToString:@"showTerms"]) {
         TextViewViewController *destination = (TextViewViewController*)segue.destinationViewController;
-        destination.textDisplayed = @"Terms and Conditions:\n\nBy logging into and using this application you are accepting responsibility for what you post and the interactions (communications, meet-ups, etc.) that emerge from the use of this service.\n\nSpree will not be held liable for any harm, theft, damages or liabilities that are facilitated by the use of Spree.\n\nYou may not sell anything illegal or anything that is explicit in nature through our service. You agree that you will abide by the rules, regulations and laws of your state when using this application.";
+        destination.textDisplayed = @"By logging into and using this application you are accepting responsibility for what you post and the interactions (communications, meet-ups, etc.) that emerge from the use of this service.\n\nSpree will not be held liable for any harm, theft, damages or liabilities that are facilitated by the use of Spree.\n\nYou may not sell anything illegal or anything that is explicit in nature through our service. You agree that you will abide by the rules, regulations and laws of your state when using this application.";
     }
 }
 
