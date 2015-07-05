@@ -26,7 +26,14 @@
 }
 
 - (void)viewDidLoad {
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.shadowImage = [UIImage new];
+    self.navigationController.navigationBar.translucent = YES;
+    self.navigationController.view.backgroundColor = [UIColor clearColor];
+    self.navigationController.navigationBar.backgroundColor = [UIColor clearColor];
+    
     [super viewDidLoad];
+    [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(dismissViewControllerAnimated:completion:)]];
     // Do any additional setup after loading the view.
 }
 
@@ -37,7 +44,6 @@
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object{
     static NSString *CellIdentifier = @"Cell";
-    
     PostTypeSelectionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         NSArray *nibFiles = [[NSBundle mainBundle] loadNibNamed:@"PostTypeSelectionTableViewCell" owner:self options:nil];
@@ -57,6 +63,10 @@
     [self.navigationController pushViewController:[postingWorkflow nextViewController] animated:YES];
 }
 
+-(void)dismissViewControllerAnimated:(BOOL)flag completion:(void (^)(void))completion{
+    [super dismissViewControllerAnimated:YES completion:nil];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+}
 /*
 #pragma mark - Navigation
 

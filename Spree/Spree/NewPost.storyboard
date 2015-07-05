@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Select Post Type View Controller-->
@@ -23,7 +24,7 @@
             </objects>
             <point key="canvasLocation" x="170" y="-3967"/>
         </scene>
-        <!--Title-->
+        <!--Post Field View Controller-->
         <scene sceneID="UEW-mZ-YHC">
             <objects>
                 <viewController storyboardIdentifier="PostFieldViewController" id="n1u-NM-UgY" customClass="PostFieldViewController" sceneMemberID="viewController">
@@ -35,38 +36,41 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rgV-gW-2DW" customClass="JVFloatLabeledTextField">
-                                <rect key="frame" x="16" y="307" width="382" height="121"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hKT-xc-emi" customClass="JVFloatLabeledTextView">
+                                <rect key="frame" x="16" y="129" width="382" height="170"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="170" id="5bp-xh-NcH"/>
+                                    <constraint firstAttribute="height" constant="243" id="Tgv-HL-40p"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="Tgv-HL-40p"/>
+                                    </mask>
+                                </variation>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" red="0.96558624510000002" green="0.97044742110000004" blue="0.97035741809999998" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="DfI-at-nTW" firstAttribute="top" secondItem="rgV-gW-2DW" secondAttribute="bottom" constant="308" id="3Oi-6r-Oq3"/>
-                            <constraint firstAttribute="trailing" secondItem="rgV-gW-2DW" secondAttribute="trailing" constant="16" id="dx5-6c-Aes"/>
-                            <constraint firstItem="rgV-gW-2DW" firstAttribute="leading" secondItem="oOy-mn-URt" secondAttribute="leading" constant="16" id="p3x-lY-AKw"/>
-                            <constraint firstItem="rgV-gW-2DW" firstAttribute="top" secondItem="Yrg-5O-e3u" secondAttribute="bottom" constant="213" id="ptL-NB-9Dv"/>
+                            <constraint firstItem="hKT-xc-emi" firstAttribute="leading" secondItem="oOy-mn-URt" secondAttribute="leadingMargin" id="201-G2-Fom"/>
+                            <constraint firstItem="hKT-xc-emi" firstAttribute="top" secondItem="Yrg-5O-e3u" secondAttribute="bottom" constant="65" id="dUq-TR-G2L"/>
+                            <constraint firstItem="hKT-xc-emi" firstAttribute="trailing" secondItem="oOy-mn-URt" secondAttribute="trailingMargin" id="gOd-EO-Ym5"/>
                         </constraints>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Title" id="UO2-e7-2a0">
-                        <barButtonItem key="rightBarButtonItem" title="Next" id="xEy-8s-3ZR">
-                            <connections>
-                                <action selector="nextBarButtonItemTouched:" destination="n1u-NM-UgY" id="wsJ-O7-DPP"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="UO2-e7-2a0"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <connections>
-                        <outlet property="fieldTextField" destination="rgV-gW-2DW" id="Fl3-vL-6gi"/>
-                        <outlet property="nextBarButtonItem" destination="xEy-8s-3ZR" id="WVg-Xq-KOL"/>
+                        <outlet property="fieldTextView" destination="hKT-xc-emi" id="XLG-PV-qtX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TMG-M1-v8X" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="973" y="-3967"/>
+            <point key="canvasLocation" x="987" y="-3949"/>
         </scene>
     </scenes>
 </document>

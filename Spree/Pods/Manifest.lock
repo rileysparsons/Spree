@@ -8,6 +8,7 @@ PODS:
     - CocoaLumberjack/Core
   - CocoaLumberjack/Extensions (2.0.1):
     - CocoaLumberjack/Default
+  - IQKeyboardManager (3.2.4)
   - JSQMessagesViewController (7.1.0):
     - JSQSystemSoundPlayer (~> 2.0.1)
   - JSQSystemSoundPlayer (2.0.1)
@@ -25,6 +26,7 @@ PODS:
 
 DEPENDENCIES:
   - CocoaLumberjack
+  - IQKeyboardManager
   - JSQMessagesViewController (from `https://github.com/jessesquires/JSQMessagesViewController.git`,
     branch `develop`)
   - JVFloatLabeledTextField
@@ -48,6 +50,7 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   Bolts: d176cb1e0012175589e389a9db49b85e27787576
   CocoaLumberjack: 019d1361244274a6138c788c6cb80baabc13fb8f
+  IQKeyboardManager: 555b1231fefafb21b19278d7cca72986a27b748b
   JSQMessagesViewController: ca11f86fa68ca70835f05e169df9244147c1dc40
   JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
   JVFloatLabeledTextField: ea4a3d8387ddd43724c472bb2b8ab39b79af05d4

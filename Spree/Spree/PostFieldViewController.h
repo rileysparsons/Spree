@@ -7,19 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <JVFloatLabeledTextField/JVFloatLabeledTextField.h>
+#import <JVFloatLabeledTextField/JVFloatLabeledTextView.h>
 #import "PostingWorkflow.h"
 
-@interface PostFieldViewController : UIViewController
+@interface PostFieldViewController : UIViewController <UITextViewDelegate>
 
-@property (weak, nonatomic) IBOutlet JVFloatLabeledTextField *fieldTextField;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *nextBarButtonItem;
-
+@property (weak, nonatomic) IBOutlet JVFloatLabeledTextView *fieldTextView;
 @property NSString *fieldName;
 @property NSArray *requiredFields;
 @property PFObject *post;
 @property PostingWorkflow *postingWorkflow;
 
-- (IBAction)nextBarButtonItemTouched:(id)sender;
+- (void)nextBarButtonItemTouched:(id)sender;
 
 @end
