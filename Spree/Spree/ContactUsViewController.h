@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ContactUsViewController : UIViewController
-@property NSString *contactUsTextDisplayed;
-@property UIButton *siteButton;
-@property (weak, nonatomic) IBOutlet UITextView *contactUsTextView;
+@interface ContactUsViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate>
+@property (weak, nonatomic) IBOutlet UITextView *descriptionTextView;
+@property (weak, nonatomic) IBOutlet UITextField *categoryTextField;
+@property (weak, nonatomic) IBOutlet UITextField *emailTextField;
+
 
 @end
