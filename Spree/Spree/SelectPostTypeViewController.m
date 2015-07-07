@@ -31,9 +31,13 @@
     self.navigationController.navigationBar.translucent = YES;
     self.navigationController.view.backgroundColor = [UIColor clearColor];
     self.navigationController.navigationBar.backgroundColor = [UIColor clearColor];
+    self.navigationItem.titleView = [self titleLabel];
+    [[UIApplication sharedApplication] setStatusBarStyle: UIStatusBarStyleDefault];
+    
     
     [super viewDidLoad];
     [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(dismissViewControllerAnimated:completion:)]];
+    self.navigationItem.leftBarButtonItem.tintColor = [UIColor spreeOffBlack];
     // Do any additional setup after loading the view.
 }
 
@@ -66,6 +70,17 @@
 -(void)dismissViewControllerAnimated:(BOOL)flag completion:(void (^)(void))completion{
     [super dismissViewControllerAnimated:YES completion:nil];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+}
+
+-(UILabel *)titleLabel{
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    titleLabel.text = @"Select post type";
+    titleLabel.font = [UIFont boldSystemFontOfSize:20.0f];
+    titleLabel.backgroundColor = [UIColor clearColor];
+    titleLabel.textColor = [UIColor spreeOffBlack];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    [titleLabel sizeToFit];
+    return titleLabel;
 }
 /*
 #pragma mark - Navigation

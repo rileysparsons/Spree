@@ -11,9 +11,10 @@
 
 @interface PostFieldViewController (){
     NSNumber* maxCharacter;
+    NSNumber* remainingCharacters;
 }
 
-@property UIBarButtonItem *countBarButton;
+@property UIButton *countBarButton;
 
 @end
 
@@ -22,13 +23,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    [self setMaxCharacterLimit];
     self.navigationController.navigationItem.title = nil;
     self.fieldName = [self fieldTitleForField:self.fieldName];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancelWorkflow)];
     self.navigationItem.leftBarButtonItem.tintColor = [UIColor spreeRed];
     [self setupTextField];
-    [self setMaxCharacterLimit];
     UIButton *nextButton = [[YHRoundBorderedButton alloc] init];
     [nextButton setTitle:@"Next" forState:UIControlStateNormal];
     [nextButton addTarget:self action:@selector(nextBarButtonItemTouched:) forControlEvents:UIControlEventTouchUpInside];
@@ -38,9 +38,17 @@
     
     [[UIApplication sharedApplication] setStatusBarStyle: UIStatusBarStyleDefault];
     
-    self.countBarButton = [[UIBarButtonItem alloc] initWithTitle:[maxCharacter stringValue] style:UIBarButtonItemStylePlain target:self action:nil];
-    self.countBarButton.tintColor = [UIColor spreeDarkBlue];
-    [self.navigationItem setRightBarButtonItems:@[[[UIBarButtonItem alloc] initWithCustomView:nextButton], self.countBarButton] animated:YES];
+    self.countBarButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.countBarButton.frame = CGRectZero;
+    self.countBarButton.titleLabel.font = [UIFont systemFontOfSize:15];
+    [self.countBarButton setTitle:[remainingCharacters stringValue] forState:UIControlStateNormal];
+    [self.countBarButton setTitleColor:[UIColor spreeDarkBlue] forState:UIControlStateNormal];
+    [self.countBarButton sizeToFit];
+    self.countBarButton.backgroundColor = [UIColor clearColor];
+    
+    UIBarButtonItem *countBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.countBarButton];
+    [self.navigationItem setRightBarButtonItems:@[[[UIBarButtonItem alloc] initWithCustomView:nextButton], countBarButtonItem] animated:YES];
+    [[self.navigationItem.rightBarButtonItems objectAtIndex:0] setEnabled: [self fieldIsFilled]];
 }
 
 
@@ -72,7 +80,8 @@
     } else if ([PF_POST_EVENT isEqualToString:self.fieldName]){
         limit = 60;
     }
-    maxCharacter = [NSNumber numberWithInt:60];
+    maxCharacter = [NSNumber numberWithInt:limit];
+    remainingCharacters = maxCharacter;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -106,11 +115,23 @@
             } else {
     self.countBarButton.tintColor = [UIColor spreeRed];
             }
-    int remainingCharacters;
-    remainingCharacters = (int)([maxCharacter integerValue] - (int)self.fieldTextView.text.length);
-    self.countBarButton.title = [NSString stringWithFormat:@"%d", remainingCharacters];
-    
+    remainingCharacters = [NSNumber numberWithInt:(int)([maxCharacter integerValue] - (int)self.fieldTextView.text.length)];
+    self.countBarButton.titleLabel.text = [NSString stringWithFormat:@"%@", remainingCharacters];
+    [[self.navigationItem.rightBarButtonItems objectAtIndex:0] setEnabled: [self fieldIsFilled]];
 }
+
+-(void)textViewDidBeginEditing:(UITextView *)textView{
+    [[self.navigationItem.rightBarButtonItems objectAtIndex:0] setEnabled: [self fieldIsFilled]];
+}
+
+-(BOOL)fieldIsFilled{
+    if ([remainingCharacters integerValue] >= 0 && [remainingCharacters integerValue]< [maxCharacter integerValue]){
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
 
 //-(void)setCharacterCountLabel{
 //    if (self.fieldTextView.text.length <= [maxCharacter integerValue]){
