@@ -21,6 +21,8 @@ PODS:
     - Parse (~> 1.7.5)
   - ParseUI (1.1.4):
     - Parse (~> 1.7)
+  - QBImagePickerController (3.2.0)
+  - STCollapseTableView (0.1.1)
   - WSCoachMarksView (0.2)
   - YHRoundBorderedButton (0.1.0)
 
@@ -34,6 +36,8 @@ DEPENDENCIES:
   - Parse
   - ParseCrashReporting
   - ParseUI
+  - QBImagePickerController
+  - STCollapseTableView
   - WSCoachMarksView (~> 0.2)
   - YHRoundBorderedButton
 
@@ -58,6 +62,8 @@ SPEC CHECKSUMS:
   Parse: 7c0f115eff3e0cea3fac08d50bda47154edb8832
   ParseCrashReporting: 504b77a57d0619f8099061c11d323877e681a184
   ParseUI: d1228541b02a36a7354c8f47747f5f7a89cf1ff0
+  QBImagePickerController: 75b3857b1307a3c01ce486559bc294f802ddec6c
+  STCollapseTableView: edd40eacf9411ce862da921f83e0b7b1680fac4d
   WSCoachMarksView: d1653c058c8289a300ddf28af9dd49eb659c9c42
   YHRoundBorderedButton: 2180f04094db264cace8db88eae977d78a3b4633
 

@@ -8,6 +8,8 @@
 
 #import "PostingWorkflow.h"
 #import "PostFieldViewController.h"
+#import "PreviewPostViewController.h"
+#import "PostPhotoSelectViewController.h"
 
 @interface PostingWorkflow (){
 
@@ -15,7 +17,6 @@
 
 @property PFObject* type;
 @property NSArray* viewControllersForFields;
-@property NSMutableArray *uncompletedFields;
 
 @end
 
@@ -51,35 +52,42 @@
 
 -(UIViewController *)nextViewController{
     NSLog(@"Remaining fields: %@", self.uncompletedFields);
-    if (self.uncompletedFields.count == 0){
-        NSLog(@"ALL FIELDS COMPLETE!");
+    if (self.uncompletedFields.count <= self.step){
+        return [self presentPreviewPostController];
     } else {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewPost" bundle:nil];
         PostFieldViewController *postFieldViewController = [storyboard instantiateViewControllerWithIdentifier:@"PostFieldViewController"];
-        if ([[self.uncompletedFields objectAtIndex:0] isEqualToString: PF_POST_TITLE]){
+        
+        if ([[self.uncompletedFields objectAtIndex:self.step] isEqualToString: PF_POST_TITLE]){
             postFieldViewController.fieldName = PF_POST_TITLE;
             postFieldViewController.postingWorkflow = self;
-        } else if([[self.uncompletedFields objectAtIndex:0] isEqualToString: PF_POST_DESCRIPTION]){
+        } else if([[self.uncompletedFields objectAtIndex:self.step] isEqualToString: PF_POST_DESCRIPTION]){
             postFieldViewController.fieldName = PF_POST_DESCRIPTION;
             postFieldViewController.postingWorkflow = self;
-        } else if([[self.uncompletedFields objectAtIndex:0] isEqualToString: PF_POST_BOOKFORCLASS]){
+        } else if([[self.uncompletedFields objectAtIndex:self.step] isEqualToString: PF_POST_BOOKFORCLASS]){
             postFieldViewController.fieldName = PF_POST_BOOKFORCLASS;
             postFieldViewController.postingWorkflow = self;
-        } else if([[self.uncompletedFields objectAtIndex:0] isEqualToString: PF_POST_DATEFOREVENT]){
+        } else if([[self.uncompletedFields objectAtIndex:self.step] isEqualToString: PF_POST_DATEFOREVENT]){
             postFieldViewController.fieldName = PF_POST_DATEFOREVENT;
             postFieldViewController.postingWorkflow = self;
-        } else if([[self.uncompletedFields objectAtIndex:0] isEqualToString: PF_POST_PHOTOARRAY]){
-            postFieldViewController.fieldName = PF_POST_PHOTOARRAY;
-            postFieldViewController.postingWorkflow = self;
-        } else if ([[self.uncompletedFields objectAtIndex:0] isEqualToString: PF_POST_PRICE]){
+        } else if([[self.uncompletedFields objectAtIndex:self.step] isEqualToString: PF_POST_PHOTOARRAY]){
+            PostPhotoSelectViewController *photoSelectViewController = [storyboard instantiateViewControllerWithIdentifier:@"PostPhotoSelectViewController"];
+            photoSelectViewController.postingWorkflow = self;
+            return photoSelectViewController;
+        } else if ([[self.uncompletedFields objectAtIndex:self.step] isEqualToString: PF_POST_PRICE]){
             postFieldViewController.fieldName = PF_POST_PRICE;
             postFieldViewController.postingWorkflow = self;
         }
-        
-        [self.uncompletedFields removeObjectAtIndex:0];
         return postFieldViewController;
     }
     return 0;
+}
+
+-(UIViewController *)presentPreviewPostController{
+    PreviewPostViewController *previewPostViewController = [[PreviewPostViewController alloc] init];
+    [previewPostViewController setFields:self.uncompletedFields];
+    previewPostViewController.post = self.post;
+    return previewPostViewController;
 }
 
 @end

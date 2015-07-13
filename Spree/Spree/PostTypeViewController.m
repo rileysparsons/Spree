@@ -38,6 +38,7 @@
 - (PFQuery *)queryForTable {
     PFQuery *query = [PFQuery queryWithClassName:self.parseClassName];
     [query orderByDescending:@"count"];
+    [query includeKey:@"subType"];
     return query;
 }
 

@@ -84,6 +84,18 @@
 #define COCOAPODS_VERSION_MINOR_ParseUI 1
 #define COCOAPODS_VERSION_PATCH_ParseUI 4
 
+// QBImagePickerController
+#define COCOAPODS_POD_AVAILABLE_QBImagePickerController
+#define COCOAPODS_VERSION_MAJOR_QBImagePickerController 3
+#define COCOAPODS_VERSION_MINOR_QBImagePickerController 2
+#define COCOAPODS_VERSION_PATCH_QBImagePickerController 0
+
+// STCollapseTableView
+#define COCOAPODS_POD_AVAILABLE_STCollapseTableView
+#define COCOAPODS_VERSION_MAJOR_STCollapseTableView 0
+#define COCOAPODS_VERSION_MINOR_STCollapseTableView 1
+#define COCOAPODS_VERSION_PATCH_STCollapseTableView 1
+
 // WSCoachMarksView
 #define COCOAPODS_POD_AVAILABLE_WSCoachMarksView
 #define COCOAPODS_VERSION_MAJOR_WSCoachMarksView 0

@@ -25,7 +25,7 @@
     // Do any additional setup after loading the view.
     [self setMaxCharacterLimit];
     self.navigationController.navigationItem.title = nil;
-    self.fieldName = [self fieldTitleForField:self.fieldName];
+    self.fieldDisplayName = [self fieldTitleForField:self.fieldName];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancelWorkflow)];
     self.navigationItem.leftBarButtonItem.tintColor = [UIColor spreeRed];
     [self setupTextField];
@@ -51,10 +51,15 @@
     [[self.navigationItem.rightBarButtonItems objectAtIndex:0] setEnabled: [self fieldIsFilled]];
 }
 
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:NO];
+    if ([self.fieldName isEqualToString: PF_POST_PRICE] && [self.fieldTextView.text isEqualToString:@"0"])
+        [self textView:self.fieldTextView shouldChangeTextInRange:NSMakeRange(0, 0) replacementText:@"0"];
+}
 
 -(void)setupTextField{
-    self.fieldTextView.font = [UIFont systemFontOfSize:20.0f];
-    self.fieldTextView.placeholder =NSLocalizedString(self.fieldName, @" ");
+    self.fieldTextView.font = [UIFont systemFontOfSize:25.0f];
+    self.fieldTextView.placeholder =NSLocalizedString(self.fieldDisplayName, @" ");
     self.fieldTextView.placeholderTextColor = [UIColor darkGrayColor];
     self.fieldTextView.floatingLabelFont = [UIFont boldSystemFontOfSize:15.0f];
     self.fieldTextView.floatingLabelTextColor = [UIColor spreeDarkBlue];
@@ -64,6 +69,8 @@
     self.fieldTextView.floatingLabelShouldLockToTop = NO;
     self.fieldTextView.backgroundColor = [UIColor clearColor];
     self.fieldTextView.delegate = self;
+    if ([self.fieldName isEqualToString: PF_POST_PRICE] && self.fieldTextView.text == nil)
+        self.fieldTextView.text = @"0";
 }
 
 -(void)setMaxCharacterLimit{
@@ -106,23 +113,31 @@
 }
 
 -(void)cancelWorkflow{
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    self.postingWorkflow.step--;
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(void)textViewDidChange:(UITextView *)textView{
     if (self.fieldTextView.text.length <= [maxCharacter integerValue]){
-                self.countBarButton.tintColor = [UIColor spreeDarkBlue];
-            } else {
-    self.countBarButton.tintColor = [UIColor spreeRed];
-            }
+         self.countBarButton.tintColor = [UIColor spreeDarkBlue];
+    } else {
+        self.countBarButton.tintColor = [UIColor spreeRed];
+    }
     remainingCharacters = [NSNumber numberWithInt:(int)([maxCharacter integerValue] - (int)self.fieldTextView.text.length)];
     self.countBarButton.titleLabel.text = [NSString stringWithFormat:@"%@", remainingCharacters];
     [[self.navigationItem.rightBarButtonItems objectAtIndex:0] setEnabled: [self fieldIsFilled]];
 }
 
--(void)textViewDidBeginEditing:(UITextView *)textView{
-    [[self.navigationItem.rightBarButtonItems objectAtIndex:0] setEnabled: [self fieldIsFilled]];
-}
+//-(void)textViewDidBeginEditing:(UITextView *)textView{
+//    NSString *testString;
+//    if ([self.fieldName isEqualToString: PF_POST_PRICE]){
+//        testString = self.fieldTextView.text;
+//        if (testString.length == 0){
+//            self.fieldTextView.text = [[NSLocale currentLocale] objectForKey:NSLocaleCurrencySymbol];
+//        }
+//    }
+//    [[self.navigationItem.rightBarButtonItems objectAtIndex:0] setEnabled: [self fieldIsFilled]];
+//}
 
 -(BOOL)fieldIsFilled{
     if ([remainingCharacters integerValue] >= 0 && [remainingCharacters integerValue]< [maxCharacter integerValue]){
@@ -152,8 +167,95 @@
 }
 */
 
+- (NSNumber *)getPriceFromString:(NSString *)price{
+    if ([price length] == 0) {
+        return 0;
+    }
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+    formatter.numberStyle = NSNumberFormatterDecimalStyle;
+    NSNumber *priceNumber = [formatter numberFromString:[[price componentsSeparatedByString:@"$"] objectAtIndex:1]];
+    return priceNumber;
+}
+
 - (void)nextBarButtonItemTouched:(id)sender {
+     NSLog(@"%@", self.fieldTextView.text);
+    if ([self.fieldName isEqualToString: PF_POST_PRICE])
+        self.postingWorkflow.post[self.fieldName] = [self getPriceFromString:self.fieldTextView.text];
+    else
+        self.postingWorkflow.post[self.fieldName] = self.fieldTextView.text;
+    
+    self.postingWorkflow.step++;
     UIViewController *nextViewController =[self.postingWorkflow nextViewController];
     [self.navigationController pushViewController:nextViewController animated:YES];
 }
+
+-(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+    if ([self.fieldName isEqualToString: PF_POST_PRICE]){
+        NSString *textInView  = textView.text;
+        NSString *decimalSeperator = @".";
+        NSCharacterSet *charSet    = nil;
+        NSString *numberChars      = @"0123456789";
+        
+        
+        // the number formatter will only be instantiated once ...
+        
+        static NSNumberFormatter *numberFormatter;
+        if (!numberFormatter)
+        {
+            numberFormatter = [[NSNumberFormatter alloc] init];
+            numberFormatter.numberStyle           = NSNumberFormatterCurrencyStyle;
+            numberFormatter.maximumFractionDigits = 10;
+            numberFormatter.minimumFractionDigits = 0;
+            numberFormatter.decimalSeparator      = decimalSeperator;
+            numberFormatter.usesGroupingSeparator = NO;
+        }
+        
+        
+        // create a character set of valid chars (numbers and optionally a decimal sign) ...
+        
+        NSRange decimalRange = [textInView rangeOfString:decimalSeperator];
+        BOOL isDecimalNumber = (decimalRange.location != NSNotFound);
+        if (isDecimalNumber)
+        {
+            charSet = [NSCharacterSet characterSetWithCharactersInString:numberChars];
+        }
+        else
+        {
+            numberChars = [numberChars stringByAppendingString:decimalSeperator];
+            charSet = [NSCharacterSet characterSetWithCharactersInString:numberChars];
+        }
+        
+        
+        // remove amy characters from the string that are not a number or decimal sign ...
+        
+        NSCharacterSet *invertedCharSet = [charSet invertedSet];
+        NSString *trimmedString = [text stringByTrimmingCharactersInSet:invertedCharSet];
+        textInView = [textInView stringByReplacingCharactersInRange:range withString:trimmedString];
+        
+        
+        // whenever a decimalSeperator is entered, we'll just update the textField.
+        // whenever other chars are entered, we'll calculate the new number and update the textField accordingly.
+        
+        if ([text isEqualToString:decimalSeperator] == YES)
+        {
+            textView.text = textInView;
+        }
+        else
+        {
+            NSNumber *number = [numberFormatter numberFromString:textInView];
+            if (number == nil)
+            {
+                number = [NSNumber numberWithInt:0];
+            }
+            textView.text = isDecimalNumber ? textInView : [numberFormatter stringFromNumber:number];
+        }
+        remainingCharacters = [NSNumber numberWithInt:(int)([maxCharacter integerValue] - (int)self.fieldTextView.text.length)];
+        self.countBarButton.titleLabel.text = [NSString stringWithFormat:@"%@", remainingCharacters];
+        [[self.navigationItem.rightBarButtonItems objectAtIndex:0] setEnabled: [self fieldIsFilled]];
+        return NO; // we return NO because we have manually edited the textField contents
+    }
+    return YES;
+}
+
+
 @end

@@ -11,7 +11,7 @@
 
 @implementation SpreePost
 
-@dynamic title, price, userDescription, expired, sold, type, location, photoArray, user, imageFile,  bookForClass, eventDate, network, subtitle, taskClaimed, taskClaimedBy, dateForEvent, removed;
+@dynamic title, price, userDescription, expired, sold, type, location, photoArray, user, imageFile,  bookForClass, eventDate, network, subtitle, taskClaimed, taskClaimedBy, dateForEvent, removed, typePointer;
 
 +(NSString *)parseClassName{
     return @"Post";

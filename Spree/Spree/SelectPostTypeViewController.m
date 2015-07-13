@@ -8,7 +8,10 @@
 
 #import "SelectPostTypeViewController.h"
 #import "PostTypeSelectionTableViewCell.h"
-#import "PostFieldViewController.h"
+#import "SelectPostSubTypeViewController.h"
+#import "SpreePost.h"
+#import "PostingWorkflow.h"
+#import <MSCellAccessory.h>
 
 @interface SelectPostTypeViewController ()
 
@@ -28,22 +31,55 @@
 - (void)viewDidLoad {
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.shadowImage = [UIImage new];
-    self.navigationController.navigationBar.translucent = YES;
-    self.navigationController.view.backgroundColor = [UIColor clearColor];
+    self.navigationController.view.backgroundColor = [UIColor spreeOffWhite];
     self.navigationController.navigationBar.backgroundColor = [UIColor clearColor];
     self.navigationItem.titleView = [self titleLabel];
     [[UIApplication sharedApplication] setStatusBarStyle: UIStatusBarStyleDefault];
     
+    self.edgesForExtendedLayout=UIRectEdgeNone;
+    self.extendedLayoutIncludesOpaqueBars=NO;
+    self.automaticallyAdjustsScrollViewInsets=NO;
+    
     
     [super viewDidLoad];
-    [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(dismissViewControllerAnimated:completion:)]];
-    self.navigationItem.leftBarButtonItem.tintColor = [UIColor spreeOffBlack];
+    UIButton *cancel = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 25, 25)];
+    cancel.backgroundColor = [UIColor clearColor];
+    [cancel setBackgroundImage:[UIImage imageNamed:@"cancelOffBlack"] forState:UIControlStateNormal];
+    [cancel setBackgroundImage:[UIImage imageNamed:@"cancelHighlight"] forState:UIControlStateHighlighted];
+    [cancel addTarget:self action:@selector(dismissViewControllerAnimated:completion:) forControlEvents:UIControlEventTouchUpInside];
+    [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:cancel]];
     // Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    if (section == 0) {
+         return 150;
+    } else {
+        return 40;
+    }
+
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    if (section == 0){
+        UIView *header = [tableView headerViewForSection:0];
+        if (header == nil){
+            NSArray *nibFiles = [[NSBundle mainBundle] loadNibNamed:@"SelectPostTypeHeaderView" owner:self options:nil];
+            for(id currentObject in nibFiles){
+                if ([currentObject isKindOfClass:[UIView class]]){
+                    header = currentObject;
+                    break;
+                }
+            }
+        }
+        return header;
+    }
+    return 0;
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object{
@@ -58,13 +94,29 @@
             }
         }
     }
+    NSLog(@"%@", object[@"subType"]);
+    cell.accessoryType = UITableViewCellAccessoryNone;
+    cell.accessoryView = [MSCellAccessory accessoryWithType:FLAT_DISCLOSURE_INDICATOR color:[UIColor spreeOffBlack]];
     [cell initWithObject:object];
     return cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    PostingWorkflow *postingWorkflow = [[PostingWorkflow alloc] initWithType:[self.objects objectAtIndex:indexPath.row]];
-    [self.navigationController pushViewController:[postingWorkflow nextViewController] animated:YES];
+    SpreePost *post = [[SpreePost alloc] init];
+    post.typePointer = [self objectAtIndexPath:indexPath];
+    post.user = [PFUser currentUser];
+    if ([[self objectAtIndexPath:indexPath] objectForKey:@"subType"]){
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewPost" bundle:nil];
+        SelectPostSubTypeViewController *selectPostSubTypeViewController = [storyboard instantiateViewControllerWithIdentifier:@"SelectPostSubTypeViewController"];
+        selectPostSubTypeViewController.post = post;
+        selectPostSubTypeViewController.subTypes = [[self objectAtIndexPath:indexPath] objectForKey:@"subType"];
+        selectPostSubTypeViewController.type = [self objectAtIndexPath:indexPath][@"type"];
+        [self.navigationController pushViewController:selectPostSubTypeViewController animated:YES];
+    } else {
+        PostingWorkflow *postingWorkflow = [[PostingWorkflow alloc] initWithType:post.typePointer];
+        postingWorkflow.post = post;
+        [self.navigationController pushViewController:[postingWorkflow nextViewController] animated:YES];
+    }
 }
 
 -(void)dismissViewControllerAnimated:(BOOL)flag completion:(void (^)(void))completion{
@@ -72,16 +124,18 @@
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 }
 
--(UILabel *)titleLabel{
+-(UIView *)titleLabel{
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    titleLabel.text = @"Select post type";
-    titleLabel.font = [UIFont boldSystemFontOfSize:20.0f];
+    titleLabel.text = @"CREATE NEW POST";
+    titleLabel.font = [UIFont fontWithName:@"Lato-Regular" size:15];
     titleLabel.backgroundColor = [UIColor clearColor];
     titleLabel.textColor = [UIColor spreeOffBlack];
     titleLabel.textAlignment = NSTextAlignmentCenter;
     [titleLabel sizeToFit];
     return titleLabel;
 }
+
+
 /*
 #pragma mark - Navigation
 

@@ -7,12 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SpreePost.h"
 
 @interface PostingWorkflow : NSObject
 
-@property PFObject *post;
+@property SpreePost *post;
+@property NSMutableArray *uncompletedFields;
+@property int step;
 
 -(UIViewController *)nextViewController;
 -(id)initWithType:(PFObject *)type;
+-(UIViewController *)presentPreviewPostController;
+
 
 @end
