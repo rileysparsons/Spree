@@ -70,6 +70,7 @@
     [self setupRefreshControl];
     UIImage *image = [UIImage imageNamed:@"spreeTitleStylized.png"];
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:image];
+    self.navigationItem.titleView.tintColor = [UIColor spreeDarkBlue];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadObjects) name:@"ReloadTable" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadObjects) name:@"PostMade" object:nil];
 
@@ -118,7 +119,7 @@
 - (UIBarButtonItem *)composeButton {
     if (!_composeButton) {
         _composeButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemCompose target: self action: @selector(NewPostBarButtonItemPressed:)];
-        [_composeButton setTintColor:[UIColor whiteColor]];
+        [_composeButton setTintColor:[UIColor spreeDarkBlue]];
     }
     return _composeButton;
 }

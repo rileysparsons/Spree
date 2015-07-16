@@ -41,6 +41,7 @@
     self.countBarButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.countBarButton.frame = CGRectZero;
     self.countBarButton.titleLabel.font = [UIFont systemFontOfSize:15];
+    self.countBarButton.userInteractionEnabled = NO;
     [self.countBarButton setTitle:[remainingCharacters stringValue] forState:UIControlStateNormal];
     [self.countBarButton setTitleColor:[UIColor spreeDarkBlue] forState:UIControlStateNormal];
     [self.countBarButton sizeToFit];
@@ -53,8 +54,9 @@
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:NO];
-    if ([self.fieldName isEqualToString: PF_POST_PRICE] && [self.fieldTextView.text isEqualToString:@"0"])
-        [self textView:self.fieldTextView shouldChangeTextInRange:NSMakeRange(0, 0) replacementText:@"0"];
+  
+    
+    
 }
 
 -(void)setupTextField{
@@ -69,8 +71,13 @@
     self.fieldTextView.floatingLabelShouldLockToTop = NO;
     self.fieldTextView.backgroundColor = [UIColor clearColor];
     self.fieldTextView.delegate = self;
-    if ([self.fieldName isEqualToString: PF_POST_PRICE] && self.fieldTextView.text == nil)
+    if ([self.fieldName isEqualToString: PF_POST_PRICE] && self.fieldTextView.text){
+        [self.fieldTextView setKeyboardType:UIKeyboardTypeDecimalPad];
         self.fieldTextView.text = @"0";
+        [self textView:self.fieldTextView shouldChangeTextInRange:NSMakeRange(0, 0) replacementText:@"0"];
+    }
+    [self.fieldTextView performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.5f];
+
 }
 
 -(void)setMaxCharacterLimit{
@@ -189,6 +196,8 @@
     [self.navigationController pushViewController:nextViewController animated:YES];
 }
 
+
+
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
     if ([self.fieldName isEqualToString: PF_POST_PRICE]){
         NSString *textInView  = textView.text;
@@ -243,6 +252,7 @@
         else
         {
             NSNumber *number = [numberFormatter numberFromString:textInView];
+            NSLog(@"number: %@", number);
             if (number == nil)
             {
                 number = [NSNumber numberWithInt:0];

@@ -8,6 +8,7 @@ PODS:
     - CocoaLumberjack/Core
   - CocoaLumberjack/Extensions (2.0.1):
     - CocoaLumberjack/Default
+  - CTAssetsPickerController (2.9.5)
   - IQKeyboardManager (3.2.4)
   - JSQMessagesViewController (7.1.0):
     - JSQSystemSoundPlayer (~> 2.0.1)
@@ -21,13 +22,13 @@ PODS:
     - Parse (~> 1.7.5)
   - ParseUI (1.1.4):
     - Parse (~> 1.7)
-  - QBImagePickerController (3.2.0)
   - STCollapseTableView (0.1.1)
   - WSCoachMarksView (0.2)
   - YHRoundBorderedButton (0.1.0)
 
 DEPENDENCIES:
   - CocoaLumberjack
+  - CTAssetsPickerController
   - IQKeyboardManager
   - JSQMessagesViewController (from `https://github.com/jessesquires/JSQMessagesViewController.git`,
     branch `develop`)
@@ -36,7 +37,6 @@ DEPENDENCIES:
   - Parse
   - ParseCrashReporting
   - ParseUI
-  - QBImagePickerController
   - STCollapseTableView
   - WSCoachMarksView (~> 0.2)
   - YHRoundBorderedButton
@@ -54,6 +54,7 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   Bolts: d176cb1e0012175589e389a9db49b85e27787576
   CocoaLumberjack: 019d1361244274a6138c788c6cb80baabc13fb8f
+  CTAssetsPickerController: b413fece2194ae3dbf22fbc544cf6f2a6d516a4d
   IQKeyboardManager: 555b1231fefafb21b19278d7cca72986a27b748b
   JSQMessagesViewController: ca11f86fa68ca70835f05e169df9244147c1dc40
   JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
@@ -62,7 +63,6 @@ SPEC CHECKSUMS:
   Parse: 7c0f115eff3e0cea3fac08d50bda47154edb8832
   ParseCrashReporting: 504b77a57d0619f8099061c11d323877e681a184
   ParseUI: d1228541b02a36a7354c8f47747f5f7a89cf1ff0
-  QBImagePickerController: 75b3857b1307a3c01ce486559bc294f802ddec6c
   STCollapseTableView: edd40eacf9411ce862da921f83e0b7b1680fac4d
   WSCoachMarksView: d1653c058c8289a300ddf28af9dd49eb659c9c42
   YHRoundBorderedButton: 2180f04094db264cace8db88eae977d78a3b4633

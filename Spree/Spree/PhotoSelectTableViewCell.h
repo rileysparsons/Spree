@@ -11,10 +11,13 @@
 @interface PhotoSelectTableViewCell : UITableViewCell
 
 -(void)initWithImage:(UIImage *)image;
--(void)emptyCell;
+-(void)emptyCellMode;
 
 @property (weak, nonatomic) IBOutlet UIImageView *cellImageView;
 @property (weak, nonatomic) IBOutlet UIButton *deleteButton;
-@property (weak, nonatomic) IBOutlet UIButton *addPhotoButton;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightLayoutConstraint;
+@property (weak, nonatomic) IBOutlet UIButton *pickPhotoButton;
+@property (weak, nonatomic) IBOutlet UIButton *takePhotoButton;
+
 
 @end

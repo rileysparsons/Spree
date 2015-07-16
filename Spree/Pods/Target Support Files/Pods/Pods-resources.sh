@@ -67,7 +67,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "JSQMessagesViewController/JSQMessagesViewController/Views/JSQMessagesToolbarContentView.xib"
   install_resource "JSQMessagesViewController/JSQMessagesViewController/Views/JSQMessagesTypingIndicatorFooterView.xib"
   install_resource "ParseUI/ParseUI/Resources/Localization/en.lproj"
-  install_resource "${BUILT_PRODUCTS_DIR}/QBImagePicker.bundle"
+  install_resource "${BUILT_PRODUCTS_DIR}/CTAssetsPickerController.bundle"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "IQKeyboardManager/IQKeyBoardManager/Resources/IQKeyboardManager.bundle"
@@ -79,7 +79,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "JSQMessagesViewController/JSQMessagesViewController/Views/JSQMessagesToolbarContentView.xib"
   install_resource "JSQMessagesViewController/JSQMessagesViewController/Views/JSQMessagesTypingIndicatorFooterView.xib"
   install_resource "ParseUI/ParseUI/Resources/Localization/en.lproj"
-  install_resource "${BUILT_PRODUCTS_DIR}/QBImagePicker.bundle"
+  install_resource "${BUILT_PRODUCTS_DIR}/CTAssetsPickerController.bundle"
 fi
 
 rsync -avr --copy-links --no-relative --exclude '*/.svn/*' --files-from="$RESOURCES_TO_COPY" / "${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"

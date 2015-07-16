@@ -8,7 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "PostDetailTableViewController.h"
+#import "PostingWorkflow.h"
 
 @interface PreviewPostViewController : PostDetailTableViewController
+
+@property PostingWorkflow *postingWorkflow;
 
 @end
