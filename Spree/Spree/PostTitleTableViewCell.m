@@ -12,6 +12,8 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    self.editTitleButton.hidden = YES;
+    self.editDescriptionButton.hidden = YES;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -30,6 +32,11 @@
     self.descriptionTextView.text = post.userDescription;
     self.descriptionTextView.scrollEnabled = NO;
     [self.descriptionTextView sizeToFit];
+}
+
+-(void)enableEditMode{
+    self.editTitleButton.hidden = NO;
+    self.editDescriptionButton.hidden = NO;
 }
 
 @end

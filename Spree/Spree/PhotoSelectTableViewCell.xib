@@ -20,29 +20,12 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="iCL-Hx-OLU">
-                        <rect key="frame" x="8" y="8" width="304" height="164.5"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="164.5" id="ItV-nr-ph5"/>
-                        </constraints>
-                    </imageView>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ylQ-Yj-bG4">
-                        <rect key="frame" x="281" y="16" width="23" height="23"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="23" id="Nj4-mY-G81"/>
-                            <constraint firstAttribute="height" constant="23" id="gdu-H7-X9C"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="system" weight="black" pointSize="18"/>
-                        <size key="titleShadowOffset" width="2" height="2"/>
-                        <state key="normal" image="cancelNormal_Light">
-                            <color key="titleShadowColor" red="0.16666857900000001" green="0.18534906209999999" blue="0.19849607350000001" alpha="0.5" colorSpace="calibratedRGB"/>
-                        </state>
-                        <state key="highlighted" image="cancelHighlight_Light">
-                            <color key="titleShadowColor" red="0.16666857900000001" green="0.18534906209999999" blue="0.19849607350000001" alpha="0.5" colorSpace="calibratedRGB"/>
-                        </state>
-                    </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nu7-w9-dWV">
                         <rect key="frame" x="0.0" y="0.0" width="160" height="180.5"/>
+                        <color key="backgroundColor" red="0.16666857900000001" green="0.18534906209999999" blue="0.19849607350000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="160" id="NQe-Qu-VfL"/>
+                        </constraints>
                         <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="15"/>
                         <state key="normal" title="Pick a photo">
                             <color key="titleColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -58,46 +41,32 @@
                         </state>
                     </button>
                 </subviews>
+                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="nu7-w9-dWV" secondAttribute="bottom" id="3UP-OP-3tU"/>
-                    <constraint firstItem="iCL-Hx-OLU" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="5iP-V5-4m7"/>
                     <constraint firstItem="nu7-w9-dWV" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="8Xt-YV-kBB"/>
                     <constraint firstItem="LaM-Vm-Js9" firstAttribute="width" secondItem="nu7-w9-dWV" secondAttribute="width" id="GJk-UZ-uaD"/>
-                    <constraint firstItem="iCL-Hx-OLU" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="Hgq-ag-Qwn"/>
                     <constraint firstItem="LaM-Vm-Js9" firstAttribute="leading" secondItem="nu7-w9-dWV" secondAttribute="leading" constant="160" id="HiU-UV-e7U"/>
-                    <constraint firstItem="iCL-Hx-OLU" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="LdH-Ld-cST"/>
                     <constraint firstAttribute="bottomMargin" secondItem="LaM-Vm-Js9" secondAttribute="bottom" constant="-8" id="Lum-SG-1kc"/>
                     <constraint firstItem="nu7-w9-dWV" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="RVq-YJ-bj8"/>
                     <constraint firstAttribute="trailingMargin" secondItem="LaM-Vm-Js9" secondAttribute="trailing" constant="-8" id="Y9M-S6-Lwu"/>
-                    <constraint firstAttribute="bottom" secondItem="iCL-Hx-OLU" secondAttribute="bottom" id="aMl-HW-8be"/>
-                    <constraint firstItem="ylQ-Yj-bG4" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="272" id="c8q-Hg-caO"/>
-                    <constraint firstAttribute="trailing" secondItem="iCL-Hx-OLU" secondAttribute="trailing" constant="8" id="e2J-Gc-94l"/>
-                    <constraint firstItem="ylQ-Yj-bG4" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="8" id="fKd-p9-KXh"/>
-                    <constraint firstAttribute="bottom" secondItem="iCL-Hx-OLU" secondAttribute="bottom" constant="8" id="h7b-QQ-LG8"/>
+                    <constraint firstItem="LaM-Vm-Js9" firstAttribute="leading" secondItem="nu7-w9-dWV" secondAttribute="trailing" id="sxI-Pi-LXc"/>
                     <constraint firstItem="LaM-Vm-Js9" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-8" id="yeS-eO-dPY"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="ylQ-Yj-bG4" secondAttribute="trailing" constant="8" id="ynK-4z-o0i"/>
                 </constraints>
                 <variation key="default">
                     <mask key="constraints">
-                        <exclude reference="LdH-Ld-cST"/>
-                        <exclude reference="aMl-HW-8be"/>
-                        <exclude reference="c8q-Hg-caO"/>
+                        <exclude reference="GJk-UZ-uaD"/>
+                        <exclude reference="HiU-UV-e7U"/>
                     </mask>
                 </variation>
             </tableViewCellContentView>
             <color key="backgroundColor" red="0.96558624510000002" green="0.97044742110000004" blue="0.97035741809999998" alpha="1" colorSpace="calibratedRGB"/>
             <connections>
-                <outlet property="cellImageView" destination="iCL-Hx-OLU" id="7aW-Bi-9Dw"/>
-                <outlet property="deleteButton" destination="ylQ-Yj-bG4" id="Rma-l5-KIQ"/>
-                <outlet property="heightLayoutConstraint" destination="ItV-nr-ph5" id="sXg-cc-byu"/>
+                <outlet property="buttonWidthLayoutContraint" destination="NQe-Qu-VfL" id="p2Y-bU-XEn"/>
                 <outlet property="pickPhotoButton" destination="nu7-w9-dWV" id="Jbe-k5-yMe"/>
                 <outlet property="takePhotoButton" destination="LaM-Vm-Js9" id="2bm-K9-2cT"/>
             </connections>
             <point key="canvasLocation" x="226" y="376.5"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <image name="cancelHighlight_Light" width="41" height="41"/>
-        <image name="cancelNormal_Light" width="41" height="41"/>
-    </resources>
 </document>

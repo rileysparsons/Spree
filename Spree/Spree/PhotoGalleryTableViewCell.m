@@ -18,14 +18,15 @@
     self.photoGalleryControl.frame = CGRectMake(10, self.center.y, 5, 10);
     self.photoGalleryControl.numberOfPages = 3;
     self.photoGalleryControl.currentPage = 0;
-    self.photoGalleryControl.currentPageIndicatorTintColor = [UIColor spreeLightYellow];
+    self.photoGalleryControl.currentPageIndicatorTintColor = [UIColor spreeDarkYellow];
     [self addSubview:self.photoGalleryControl];
     self.photoGallery.delegate = self;
     
     CAGradientLayer *gradient = [CAGradientLayer layer];
     gradient.frame = self.bottomGradient.bounds;
-    gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor clearColor] CGColor], (id)[[UIColor blackColor] CGColor], nil];
+    gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor clearColor] CGColor], (id)[[UIColor spreeOffBlack] CGColor], nil];
     [self.bottomGradient.layer insertSublayer:gradient atIndex:0];
+    [self.editButton setHidden:YES];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -139,6 +140,10 @@
     CGSize pagesScrollViewSize = self.photoGallery.frame.size;
     self.photoGallery.contentSize = CGSizeMake(pagesScrollViewSize.width * self.pageImages.count, pagesScrollViewSize.height);
     [self loadVisiblePages];
+}
+
+-(void)enableEditMode{
+    self.editButton.hidden = NO;
 }
 
 

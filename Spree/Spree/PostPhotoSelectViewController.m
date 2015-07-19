@@ -7,15 +7,17 @@
 //
 
 #import "PostPhotoSelectViewController.h"
-#import "PhotoSelectTableViewCell.h"
+#import "PhotoDisplayTableViewCell.h"
+#import "PhotoSelectFooterView.h"
 #import "AddPhotoHeaderView.h"
 #import "UIColor+SpreeColor.h"
 #import <YHRoundBorderedButton/YHRoundBorderedButton.h>
 #import <CTAssetsPickerController/CTAssetsPickerController.h>
 
-@interface PostPhotoSelectViewController () <CTAssetsPickerControllerDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface PostPhotoSelectViewController () <CTAssetsPickerControllerDelegate, UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property NSMutableArray *photoArray;
+@property UIButton *countBarButton;
 
 @end
 
@@ -35,13 +37,15 @@ int currentPhotoCount = 0;
     
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.autoresizesSubviews = YES;
-    self.tableView.estimatedRowHeight = 100.0f;
+    self.tableView.estimatedRowHeight = 180.0f;
     
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.shadowImage = [UIImage new];
     self.navigationController.view.backgroundColor = [UIColor spreeOffWhite];
     self.view.backgroundColor = [UIColor spreeOffWhite];
     self.tableView.backgroundColor = [UIColor spreeOffWhite];
+    
+    
     self.navigationController.navigationBar.backgroundColor = [UIColor spreeOffWhite];
     [[UIApplication sharedApplication] setStatusBarStyle: UIStatusBarStyleDefault];
     
@@ -49,36 +53,37 @@ int currentPhotoCount = 0;
     self.extendedLayoutIncludesOpaqueBars=NO;
     self.automaticallyAdjustsScrollViewInsets=NO;
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancelWorkflow)];
-    self.navigationItem.leftBarButtonItem.tintColor = [UIColor spreeRed];
+    UIButton *cancel = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 40)];
+    cancel.backgroundColor = [UIColor clearColor];
+    cancel.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [cancel setImage:[UIImage imageNamed:@"backNormal_Dark"] forState:UIControlStateNormal];
+    [cancel setImage:[UIImage imageNamed:@"backHighlight_Dark"] forState:UIControlStateHighlighted];
+    [cancel addTarget:self action:@selector(cancelWorkflow) forControlEvents:UIControlEventTouchUpInside];
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:cancel];
+    
+    self.countBarButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.countBarButton.frame = CGRectZero;
+    self.countBarButton.titleLabel.font = [UIFont fontWithName:@"Lato-Bold" size:16];
+    
+    self.countBarButton.userInteractionEnabled = NO;
+    [self.countBarButton setTitle:[NSString stringWithFormat:@"%d", maxImageCount-currentPhotoCount] forState:UIControlStateNormal];
+    [self.countBarButton setTitleColor:[UIColor spreeDarkBlue] forState:UIControlStateNormal];
+    [self.countBarButton sizeToFit];
+    self.countBarButton.backgroundColor = [UIColor clearColor];
+    
+    UIBarButtonItem *countBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.countBarButton];
     
     UIButton *nextButton = [[YHRoundBorderedButton alloc] init];
     [nextButton setTitle:@"Next" forState:UIControlStateNormal];
     [nextButton addTarget:self action:@selector(nextBarButtonItemTouched:) forControlEvents:UIControlEventTouchUpInside];
     [nextButton sizeToFit];
+    [nextButton.titleLabel setFont:[UIFont fontWithName:@"Lato-Regular" size:16]];
     [nextButton setTintColor:[UIColor spreeDarkBlue]];
     [nextButton setTitleColor:[UIColor spreeOffWhite] forState:UIControlStateHighlighted];
     
-    [self.navigationItem setRightBarButtonItems:@[[[UIBarButtonItem alloc] initWithCustomView:nextButton]] animated:YES];
+    [self.navigationItem setRightBarButtonItems:@[[[UIBarButtonItem alloc] initWithCustomView:nextButton], countBarButtonItem] animated:YES];
 
-    CTAssetsPickerController *picker = [[CTAssetsPickerController alloc] init];
-    picker.delegate = self;
-    picker.assetsFilter = [ALAssetsFilter allPhotos];
-    picker.title = @"Add a few pictures";
-    
-    picker.showsNumberOfAssets = YES;
-    [picker.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
-
-    [picker.navigationItem setTitle:@"Photos"];
-    
-    [self presentViewController:picker animated:YES completion:NULL];
-    picker.navigationItem.title = @"Test";
-    picker.navigationController.navigationBar.shadowImage = [UIImage new];
-    picker.navigationController.view.backgroundColor = [UIColor spreeOffWhite];
-    picker.navigationController.navigationBar.backgroundColor = [UIColor clearColor];
-    [[UIApplication sharedApplication] setStatusBarStyle: UIStatusBarStyleDefault];
-
-    // Do any additional setup after loading the view.
 }
 
 - (void)assetsPickerController:(CTAssetsPickerController *)picker didFinishPickingAssets:(NSArray *)assets
@@ -86,13 +91,21 @@ int currentPhotoCount = 0;
     [picker dismissViewControllerAnimated:YES completion:nil];
     
     for (ALAsset *asset  in assets){
-        [self.photoArray replaceObjectAtIndex:[assets indexOfObject:asset] withObject:[UIImage imageWithCGImage:asset.defaultRepresentation.fullScreenImage]];
+        [self.photoArray replaceObjectAtIndex:currentPhotoCount withObject:[UIImage imageWithCGImage:asset.defaultRepresentation.fullScreenImage]];
         currentPhotoCount++;
     }
-    
+    NSLog(@"CURRENT PHOTOS %d. Current remaining %d", currentPhotoCount, maxImageCount-currentPhotoCount);
+    [self updatePhotoCount];
     [self.tableView reloadData];
-    NSLog(@"%d", currentPhotoCount);
     [self performSelector:@selector(scrollToBottom) withObject:nil afterDelay:0.1];
+}
+
+-(BOOL)fieldIsFilled{
+    if (currentPhotoCount > 0 && currentPhotoCount <= maxImageCount){
+        return YES;
+    } else {
+        return NO;
+    }
 }
 
 - (void)scrollToBottom
@@ -109,11 +122,11 @@ int currentPhotoCount = 0;
 
 - (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldSelectAsset:(ALAsset *)asset
 {
-    if (picker.selectedAssets.count >= 4)
+    if (picker.selectedAssets.count >= (maxImageCount-currentPhotoCount))
     {
         UIAlertView *alertView =
-        [[UIAlertView alloc] initWithTitle:@"Attention"
-                                   message:@"Please select not more than 10 assets"
+        [[UIAlertView alloc] initWithTitle:@"Too many photos"
+                                   message:[NSString stringWithFormat:@"Select a maximum of %d photos.", maxImageCount]
                                   delegate:nil
                          cancelButtonTitle:nil
                          otherButtonTitles:@"OK", nil];
@@ -133,26 +146,32 @@ int currentPhotoCount = 0;
         [alertView show];
     }
     
-    return (picker.selectedAssets.count < 4 && asset.defaultRepresentation != nil);
+    return (picker.selectedAssets.count < (maxImageCount-currentPhotoCount) && asset.defaultRepresentation != nil);
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    if (currentPhotoCount == maxImageCount){
-        return maxImageCount;
+    return currentPhotoCount;
+}
+
+-(void)updatePhotoCount{
+    if (currentPhotoCount <= maxImageCount){
+        self.countBarButton.tintColor = [UIColor spreeDarkBlue];
     } else {
-        return currentPhotoCount+1;
+        self.countBarButton.tintColor = [UIColor spreeRed];
     }
+    [self.countBarButton setTitle:[NSString stringWithFormat:@"%d", maxImageCount-currentPhotoCount] forState:UIControlStateNormal];
+    [[self.navigationItem.rightBarButtonItems objectAtIndex:0] setEnabled: [self fieldIsFilled]];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *CellIdentifier = @"Cell";
     
-    PhotoSelectTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+     PhotoDisplayTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        NSArray *nibFiles = [[NSBundle mainBundle] loadNibNamed:@"PhotoSelectTableViewCell" owner:self options:nil];
+        NSArray *nibFiles = [[NSBundle mainBundle] loadNibNamed:@"PhotoDisplayTableViewCell" owner:self options:nil];
         for(id currentObject in nibFiles){
             if ([currentObject isKindOfClass:[UITableViewCell class]]){
-                cell = (PhotoSelectTableViewCell*)currentObject;
+                cell = (PhotoDisplayTableViewCell*)currentObject;
                 break;
             }
         }
@@ -162,10 +181,9 @@ int currentPhotoCount = 0;
     cell.deleteButton.tag = indexPath.row;
     
     if ([[self.photoArray objectAtIndex:indexPath.row] isKindOfClass:[NSNull class]]) {
-        [cell emptyCellMode];
-        [cell.pickPhotoButton addTarget:self action:@selector(pickPhotoButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
-        [cell.takePhotoButton addTarget:self action:@selector(takephotoButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
+
     } else {
+        NSLog(@"%@", [self.photoArray objectAtIndex:indexPath.row]);
         [cell initWithImage:[self.photoArray objectAtIndex:indexPath.row]];
         [cell.deleteButton addTarget:self action:@selector(deleteButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -179,8 +197,8 @@ int currentPhotoCount = 0;
     [self.photoArray removeObjectAtIndex:indexOfDeletedPhoto];
     [self.photoArray insertObject:[NSNull null] atIndex:self.photoArray.count];
     currentPhotoCount--;
-    
     NSLog(@"After Delete %@", self.photoArray);
+    [self updatePhotoCount];
     [self.tableView reloadData];
 }
 
@@ -193,6 +211,13 @@ int currentPhotoCount = 0;
     }
     return 0;
     
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    if (section == 0) {
+        return 100;
+    }
+    return 0;
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
@@ -215,7 +240,31 @@ int currentPhotoCount = 0;
     return 0;
 }
 
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    if (section == 0){
+        UIView * footer = [self.tableView headerViewForSection:0];
+        PhotoSelectFooterView *custom =[[PhotoSelectFooterView alloc] init];
+        if (footer == nil){
+            NSArray *nibFiles = [[NSBundle mainBundle] loadNibNamed:@"PhotoSelectFooterView" owner:self options:nil];
+            for(id currentObject in nibFiles){
+                if ([currentObject isKindOfClass:[PhotoSelectFooterView class]]){
+                    custom = currentObject;
+                    custom.buttonWidthLayoutContraint.constant = self.tableView.frame.size.width/2;
+                    [custom.pickPhotoButton addTarget:self action:@selector(pickPhotoButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
+                    [custom.takePhotoButton addTarget:self action:@selector(takePhotoButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
+                    break;
+                }
+            }
+        }
+        return custom;
+    }
+    return 0;
+}
+
 -(void)cancelWorkflow{
+    if (self.postingWorkflow.post.photoArray == nil){
+        currentPhotoCount = 0;
+    }
     self.postingWorkflow.step--;
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -236,11 +285,58 @@ int currentPhotoCount = 0;
 }
 
 -(void)takePhotoButtonTouched:(id)sender{
+    UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
+        [imagePickerController setSourceType:UIImagePickerControllerSourceTypeCamera];
+    }
+    [imagePickerController setDelegate:self];
+    [self presentViewController:imagePickerController animated:YES completion:nil];
     
 }
 
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    if (currentPhotoCount >= maxImageCount){
+        UIAlertView *alertView =
+        [[UIAlertView alloc] initWithTitle:@"Too many photos"
+                                   message:[NSString stringWithFormat:@"Select a maximum of %d photos.", maxImageCount]
+                                  delegate:nil
+                         cancelButtonTitle:nil
+                         otherButtonTitles:@"OK", nil];
+        
+        [alertView show];
+    } else {
+        NSBlockOperation *saveImage = [NSBlockOperation blockOperationWithBlock:^{
+            UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+            NSLog(@"%@", image);
+            [self.photoArray replaceObjectAtIndex:currentPhotoCount withObject:image];
+        }];
+        
+        [saveImage setCompletionBlock:^{
+            currentPhotoCount++;
+            [self.tableView reloadData];
+            [self updatePhotoCount];
+        }];
+        NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+        [queue addOperation:saveImage];
+    }
+}
+
+
 -(void)pickPhotoButtonTouched:(id)sender{
+    CTAssetsPickerController *picker = [[CTAssetsPickerController alloc] init];
+    picker.delegate = self;
+    picker.assetsFilter = [ALAssetsFilter allPhotos];
+    picker.title = @"Add a few pictures";
     
+    picker.showsNumberOfAssets = YES;
+    [picker.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    picker.navigationController.navigationBar.shadowImage = [UIImage new];
+    picker.navigationController.view.backgroundColor = [UIColor spreeOffWhite];
+    picker.navigationController.navigationBar.backgroundColor = [UIColor clearColor];
+    [[UIApplication sharedApplication] setStatusBarStyle: UIStatusBarStyleDefault];
+    
+    [self presentViewController:picker animated:YES completion:nil];
 }
 
 /*

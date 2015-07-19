@@ -11,6 +11,7 @@
 
 @interface PhotoGalleryTableViewCell : UITableViewCell <UIScrollViewDelegate>
 
+-(void)enableEditMode;
 - (void)loadVisiblePages;
 - (void)loadPage:(NSInteger)page;
 - (void)purgePage:(NSInteger)page;
@@ -23,5 +24,6 @@
 @property UIPageControl *photoGalleryControl;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UIView *bottomGradient;
+@property (weak, nonatomic) IBOutlet UIButton *editButton;
 
 @end

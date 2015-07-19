@@ -8,6 +8,7 @@
 
 #import "PostFieldViewController.h"
 #import "YHRoundBorderedButton.h"
+#import <IQUIView+IQKeyboardToolbar.h>
 
 @interface PostFieldViewController (){
     NSNumber* maxCharacter;
@@ -26,40 +27,43 @@
     [self setMaxCharacterLimit];
     self.navigationController.navigationItem.title = nil;
     self.fieldDisplayName = [self fieldTitleForField:self.fieldName];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancelWorkflow)];
-    self.navigationItem.leftBarButtonItem.tintColor = [UIColor spreeRed];
+    
+    UIButton *cancel = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 40)];
+    cancel.backgroundColor = [UIColor clearColor];
+    [cancel setImage:[UIImage imageNamed:@"backNormal_Dark"] forState:UIControlStateNormal];
+    [cancel setImage:[UIImage imageNamed:@"backHighlight_Dark"] forState:UIControlStateHighlighted];
+    cancel.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [cancel addTarget:self action:@selector(cancelWorkflow) forControlEvents:UIControlEventTouchUpInside];
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:cancel];
+    
     [self setupTextField];
-    UIButton *nextButton = [[YHRoundBorderedButton alloc] init];
-    [nextButton setTitle:@"Next" forState:UIControlStateNormal];
-    [nextButton addTarget:self action:@selector(nextBarButtonItemTouched:) forControlEvents:UIControlEventTouchUpInside];
-    [nextButton sizeToFit];
-    [nextButton setTintColor:[UIColor spreeDarkBlue]];
-    [nextButton setTitleColor:[UIColor spreeOffWhite] forState:UIControlStateHighlighted];
     
     [[UIApplication sharedApplication] setStatusBarStyle: UIStatusBarStyleDefault];
     
     self.countBarButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.countBarButton.frame = CGRectZero;
-    self.countBarButton.titleLabel.font = [UIFont systemFontOfSize:15];
+    self.countBarButton.titleLabel.font = [UIFont fontWithName:@"Lato-Bold" size:16];
     self.countBarButton.userInteractionEnabled = NO;
-    [self.countBarButton setTitle:[remainingCharacters stringValue] forState:UIControlStateNormal];
+    [self.countBarButton setTitle:[NSString stringWithFormat:@"%@ characters remaining", [remainingCharacters stringValue]] forState:UIControlStateNormal];
     [self.countBarButton setTitleColor:[UIColor spreeDarkBlue] forState:UIControlStateNormal];
     [self.countBarButton sizeToFit];
     self.countBarButton.backgroundColor = [UIColor clearColor];
     
     UIBarButtonItem *countBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.countBarButton];
-    [self.navigationItem setRightBarButtonItems:@[[[UIBarButtonItem alloc] initWithCustomView:nextButton], countBarButtonItem] animated:YES];
+    [self.navigationItem setRightBarButtonItems:@[countBarButtonItem] animated:YES];
     [[self.navigationItem.rightBarButtonItems objectAtIndex:0] setEnabled: [self fieldIsFilled]];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:NO];
-  
-    
-    
+
+    [self.fieldTextView performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.1f];
 }
 
 -(void)setupTextField{
+    
+    [self.fieldTextView addRightButtonOnKeyboardWithText:@"Next" target:self action:@selector(nextBarButtonItemTouched:) shouldShowPlaceholder:YES];
     self.fieldTextView.font = [UIFont systemFontOfSize:25.0f];
     self.fieldTextView.placeholder =NSLocalizedString(self.fieldDisplayName, @" ");
     self.fieldTextView.placeholderTextColor = [UIColor darkGrayColor];
@@ -76,8 +80,6 @@
         self.fieldTextView.text = @"0";
         [self textView:self.fieldTextView shouldChangeTextInRange:NSMakeRange(0, 0) replacementText:@"0"];
     }
-    [self.fieldTextView performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.5f];
-
 }
 
 -(void)setMaxCharacterLimit{
@@ -93,6 +95,8 @@
         limit = 10;
     } else if ([PF_POST_EVENT isEqualToString:self.fieldName]){
         limit = 60;
+    } else if ([PF_POST_BOOKFORCLASS  isEqualToString:self.fieldName]){
+        limit = 10;
     }
     maxCharacter = [NSNumber numberWithInt:limit];
     remainingCharacters = maxCharacter;
@@ -115,6 +119,8 @@
         return @"When is the date of event?";
     } else if ([PF_POST_EVENT isEqualToString:field]){
         return @"What is the name of the event?";
+    } else if ([PF_POST_BOOKFORCLASS isEqualToString:field]){
+        return @"What class is this for?";
     }
     return field;
 }
@@ -126,12 +132,14 @@
 
 -(void)textViewDidChange:(UITextView *)textView{
     if (self.fieldTextView.text.length <= [maxCharacter integerValue]){
-         self.countBarButton.tintColor = [UIColor spreeDarkBlue];
+        self.countBarButton.titleLabel.textColor = [UIColor spreeDarkBlue];
     } else {
-        self.countBarButton.tintColor = [UIColor spreeRed];
+        [self.countBarButton setTitleColor:[UIColor spreeRed] forState:UIControlStateNormal];
     }
     remainingCharacters = [NSNumber numberWithInt:(int)([maxCharacter integerValue] - (int)self.fieldTextView.text.length)];
-    self.countBarButton.titleLabel.text = [NSString stringWithFormat:@"%@", remainingCharacters];
+    [self.countBarButton setTitle:[NSString stringWithFormat:@"%@ characters remaining", [remainingCharacters stringValue]] forState:UIControlStateNormal];
+    [self.countBarButton sizeToFit];
+    [self.countBarButton setNeedsDisplay];
     [[self.navigationItem.rightBarButtonItems objectAtIndex:0] setEnabled: [self fieldIsFilled]];
 }
 
@@ -260,7 +268,7 @@
             textView.text = isDecimalNumber ? textInView : [numberFormatter stringFromNumber:number];
         }
         remainingCharacters = [NSNumber numberWithInt:(int)([maxCharacter integerValue] - (int)self.fieldTextView.text.length)];
-        self.countBarButton.titleLabel.text = [NSString stringWithFormat:@"%@", remainingCharacters];
+        [self.countBarButton setTitle:[NSString stringWithFormat:@"%@ characters remaining", [remainingCharacters stringValue]] forState:UIControlStateNormal];
         [[self.navigationItem.rightBarButtonItems objectAtIndex:0] setEnabled: [self fieldIsFilled]];
         return NO; // we return NO because we have manually edited the textField contents
     }

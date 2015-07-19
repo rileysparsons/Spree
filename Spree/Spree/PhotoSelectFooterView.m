@@ -1,38 +1,24 @@
 //
-//  PhotoSelectTableViewCell.m
+//  PhotoSelectFooterView.m
 //  Spree
 //
-//  Created by Riley Steele Parsons on 7/12/15.
+//  Created by Riley Steele Parsons on 7/17/15.
 //  Copyright (c) 2015 Riley Steele Parsons. All rights reserved.
 //
 
-#import "PhotoSelectTableViewCell.h"
+#import "PhotoSelectFooterView.h"
 #import <AVFoundation/AVFoundation.h>
 
-@interface PhotoSelectTableViewCell ()
+@interface PhotoSelectFooterView ()
 
 @property AVCaptureSession *liveFeedSession;
 
 @end
 
-@implementation PhotoSelectTableViewCell
+@implementation PhotoSelectFooterView
 
 
-- (void)awakeFromNib {
-    // Initialization code
-    float halfViewWidth = self.frame.size.width/2;
-    self.buttonWidthLayoutContraint.constant = halfViewWidth;
-
-    self.selectionStyle = UITableViewCellSelectionStyleNone;
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
-}
-
--(void)setupLiveCamera{
+-(void)setupLiveCameraForFrame:(CGRect)frame{
     self.liveFeedSession = [[AVCaptureSession alloc] init];
     self.liveFeedSession.sessionPreset = AVCaptureSessionPresetLow;
     NSError *error = nil;
@@ -46,18 +32,24 @@
     }
     
     AVCaptureVideoPreviewLayer *newCaptureVideoPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:self.liveFeedSession];
-    newCaptureVideoPreviewLayer.frame = self.takePhotoButton.bounds;
+    newCaptureVideoPreviewLayer.frame = frame;
     newCaptureVideoPreviewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
     [self.takePhotoButton.layer addSublayer:newCaptureVideoPreviewLayer];
     [self.liveFeedSession startRunning];
     CALayer *overlay = [CALayer layer];
-    overlay.frame = self.takePhotoButton.bounds;
+    [overlay setBounds:frame];
     overlay.backgroundColor = [[UIColor spreeDarkBlue] CGColor];
     overlay.opacity = 0.55f;
+    overlay.masksToBounds = YES;
     [self.takePhotoButton.layer addSublayer:overlay];
-    
 }
 
-
+/*
+// Only override drawRect: if you perform custom drawing.
+// An empty implementation adversely affects performance during animation.
+- (void)drawRect:(CGRect)rect {
+    // Drawing code
+}
+*/
 
 @end

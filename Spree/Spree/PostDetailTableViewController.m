@@ -40,6 +40,9 @@
     self.tableView.autoresizesSubviews = YES;
     self.tableView.estimatedRowHeight = 100.0f;
     
+    self.tableView.backgroundColor = [UIColor spreeOffWhite];
+    self.view.backgroundColor = [UIColor spreeOffWhite];
+    
     self.navigationItem.backBarButtonItem.title = @"";
     [self getUserForPost];
     [self setupNavigationBarImage];
@@ -159,8 +162,8 @@
     self.getButton = [[YHRoundBorderedButton alloc] init];
     [self.getButton addTarget:self action:@selector(priceButtonPressed) forControlEvents:UIControlEventTouchUpInside];
     [self.getButton sizeToFit];
-    [self.getButton setTintColor:[UIColor whiteColor]];
-    [self.getButton setTitleColor:[UIColor spreeBabyBlue] forState:UIControlStateHighlighted];
+    [self.getButton setTintColor:[UIColor spreeOffWhite]];
+    [self.getButton setTitleColor:[UIColor spreeDarkBlue] forState:UIControlStateHighlighted];
     UIBarButtonItem *getBarButton = [[UIBarButtonItem alloc] initWithCustomView:self.getButton];
     self.navigationItem.rightBarButtonItem = getBarButton;
     if ([self.post.type isEqualToString:POST_TYPE_TASK]){
