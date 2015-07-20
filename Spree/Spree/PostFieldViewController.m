@@ -25,9 +25,18 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self setMaxCharacterLimit];
-    self.navigationController.navigationItem.title = nil;
     self.fieldDisplayName = [self fieldTitleForField:self.fieldName];
-    
+    [self navigationBarButtons];
+    [self setupTextField];
+    [[UIApplication sharedApplication] setStatusBarStyle: UIStatusBarStyleDefault];
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:NO];
+    [self.fieldTextView performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.1f];
+}
+
+-(void)navigationBarButtons{
     UIButton *cancel = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 40)];
     cancel.backgroundColor = [UIColor clearColor];
     [cancel setImage:[UIImage imageNamed:@"backNormal_Dark"] forState:UIControlStateNormal];
@@ -36,11 +45,7 @@
     [cancel addTarget:self action:@selector(cancelWorkflow) forControlEvents:UIControlEventTouchUpInside];
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:cancel];
-    
-    [self setupTextField];
-    
-    [[UIApplication sharedApplication] setStatusBarStyle: UIStatusBarStyleDefault];
-    
+
     self.countBarButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.countBarButton.frame = CGRectZero;
     self.countBarButton.titleLabel.font = [UIFont fontWithName:@"Lato-Bold" size:16];
@@ -55,14 +60,7 @@
     [[self.navigationItem.rightBarButtonItems objectAtIndex:0] setEnabled: [self fieldIsFilled]];
 }
 
--(void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:NO];
-
-    [self.fieldTextView performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.1f];
-}
-
 -(void)setupTextField{
-    
     [self.fieldTextView addRightButtonOnKeyboardWithText:@"Next" target:self action:@selector(nextBarButtonItemTouched:) shouldShowPlaceholder:YES];
     self.fieldTextView.font = [UIFont systemFontOfSize:25.0f];
     self.fieldTextView.placeholder =NSLocalizedString(self.fieldDisplayName, @" ");
@@ -83,7 +81,6 @@
 }
 
 -(void)setMaxCharacterLimit{
-    
     int limit;
     if ([PF_POST_PRICE isEqualToString:self.fieldName]){
         limit = 10;
@@ -100,12 +97,6 @@
     }
     maxCharacter = [NSNumber numberWithInt:limit];
     remainingCharacters = maxCharacter;
-}
-
-- (void)didReceiveMemoryWarning {
-    
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 -(NSString *)fieldTitleForField:(NSString *)field{
@@ -143,17 +134,6 @@
     [[self.navigationItem.rightBarButtonItems objectAtIndex:0] setEnabled: [self fieldIsFilled]];
 }
 
-//-(void)textViewDidBeginEditing:(UITextView *)textView{
-//    NSString *testString;
-//    if ([self.fieldName isEqualToString: PF_POST_PRICE]){
-//        testString = self.fieldTextView.text;
-//        if (testString.length == 0){
-//            self.fieldTextView.text = [[NSLocale currentLocale] objectForKey:NSLocaleCurrencySymbol];
-//        }
-//    }
-//    [[self.navigationItem.rightBarButtonItems objectAtIndex:0] setEnabled: [self fieldIsFilled]];
-//}
-
 -(BOOL)fieldIsFilled{
     if ([remainingCharacters integerValue] >= 0 && [remainingCharacters integerValue]< [maxCharacter integerValue]){
         return YES;
@@ -161,26 +141,6 @@
         return NO;
     }
 }
-
-
-//-(void)setCharacterCountLabel{
-//    if (self.fieldTextView.text.length <= [maxCharacter integerValue]){
-//        self.characterCountLabel.textColor = [UIColor spreeDarkBlue];
-//    } else {
-//        self.characterCountLabel.textColor = [UIColor spreeRed];
-//    }
-//    self.characterCountLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)self.fieldTextView.text.length];
-//}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 - (NSNumber *)getPriceFromString:(NSString *)price{
     if ([price length] == 0) {
@@ -203,8 +163,6 @@
     UIViewController *nextViewController =[self.postingWorkflow nextViewController];
     [self.navigationController pushViewController:nextViewController animated:YES];
 }
-
-
 
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
     if ([self.fieldName isEqualToString: PF_POST_PRICE]){
@@ -274,6 +232,5 @@
     }
     return YES;
 }
-
 
 @end

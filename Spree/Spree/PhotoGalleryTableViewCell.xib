@@ -31,9 +31,9 @@
                         </connections>
                     </scrollView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vTF-Fw-Sz8">
-                        <rect key="frame" x="351" y="12" width="51" height="30"/>
+                        <rect key="frame" x="352" y="17" width="46" height="30"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="51" id="HEc-U4-F2m"/>
+                            <constraint firstAttribute="width" constant="46" id="HEc-U4-F2m"/>
                             <constraint firstAttribute="height" constant="30" id="W95-Q8-ErZ"/>
                         </constraints>
                         <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="15"/>
@@ -62,15 +62,17 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="Fre-YE-PjC" secondAttribute="trailing" id="C9p-fK-Cum"/>
+                    <constraint firstItem="vTF-Fw-Sz8" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="8" id="Ctd-yF-Ean"/>
                     <constraint firstItem="3FS-IB-baB" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Dnh-g3-c4g"/>
                     <constraint firstItem="Fre-YE-PjC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="-8" id="Ehr-WM-xtC"/>
                     <constraint firstItem="3FS-IB-baB" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="F8y-64-oUE"/>
+                    <constraint firstItem="vTF-Fw-Sz8" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="9" id="HXA-Ff-ae4"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="vTF-Fw-Sz8" secondAttribute="trailing" constant="8" id="KVT-8J-uKF"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="vTF-Fw-Sz8" secondAttribute="trailing" constant="8" id="Np1-a6-ufp"/>
                     <constraint firstAttribute="bottomMargin" secondItem="Fre-YE-PjC" secondAttribute="bottom" constant="-8" id="RC6-Q0-T0y"/>
                     <constraint firstItem="Fre-YE-PjC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="SCa-Jp-6Gb"/>
-                    <constraint firstItem="vTF-Fw-Sz8" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="4" id="Syx-bJ-Tbv"/>
                     <constraint firstAttribute="trailingMargin" secondItem="Fre-YE-PjC" secondAttribute="trailing" constant="-8" id="UER-E8-cpI"/>
                     <constraint firstAttribute="trailing" secondItem="3FS-IB-baB" secondAttribute="trailing" id="V7h-az-OSZ"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="vTF-Fw-Sz8" secondAttribute="trailing" constant="4" id="WON-Ka-a2A"/>
                     <constraint firstAttribute="bottom" secondItem="3FS-IB-baB" secondAttribute="bottom" id="cP9-zi-C05"/>
                     <constraint firstAttribute="bottom" secondItem="1e3-rS-02d" secondAttribute="bottom" constant="8" id="o4l-Rb-VPr"/>
                     <constraint firstAttribute="trailing" secondItem="1e3-rS-02d" secondAttribute="trailing" constant="8" id="sPG-pO-vNP"/>
@@ -81,6 +83,8 @@
                         <exclude reference="Ehr-WM-xtC"/>
                         <exclude reference="RC6-Q0-T0y"/>
                         <exclude reference="UER-E8-cpI"/>
+                        <exclude reference="Ctd-yF-Ean"/>
+                        <exclude reference="KVT-8J-uKF"/>
                     </mask>
                 </variation>
             </tableViewCellContentView>

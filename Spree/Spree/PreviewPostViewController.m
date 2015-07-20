@@ -7,10 +7,15 @@
 //
 
 #import "PreviewPostViewController.h"
+#import "PostDescriptionTableViewCell.h"
 #import "PostTitleTableViewCell.h"
 #import "PostUserTableViewCell.h"
 #import "PhotoGalleryTableViewCell.h"
 #import "BasicInfoTableViewCell.h"
+#import "EditPostFieldViewController.h"
+#import "EditPostPhotoSelectViewController.h"
+#import "PostPhotoSelectViewController.h"
+#import <IQUIView+IQKeyboardToolbar.h>
 #import <YHRoundBorderedButton/YHRoundBorderedButton.h>
 #import "AddPhotoHeaderView.h"
 
@@ -49,7 +54,24 @@
 }
 
 -(UITableViewCell *)cellForField:(NSString *)field {
-    if ([field isEqualToString:PF_POST_TITLE]){
+    [super cellForField:field];
+    if ([field isEqualToString:PF_POST_DESCRIPTION]){
+        static NSString *CellIdentifier = @"DescriptionCell";
+        PostDescriptionTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            NSArray *nibFiles = [[NSBundle mainBundle] loadNibNamed:@"PostDescriptionTableViewCell" owner:self options:nil];
+            for(id currentObject in nibFiles){
+                if ([currentObject isKindOfClass:[UITableViewCell class]]){
+                    cell = (PostDescriptionTableViewCell*)currentObject;
+                    break;
+                }
+            }
+        }
+        [cell.editDescriptionButton addTarget:self action:@selector(editButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
+        cell.editDescriptionButton.tag = [self.fields indexOfObject:PF_POST_DESCRIPTION];
+        [cell setDescriptionTextViewForPost:self.post];
+        return cell;
+    } else if ([field isEqualToString:PF_POST_TITLE]){
         static NSString *CellIdentifier = @"TitleCell";
         PostTitleTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
@@ -63,7 +85,9 @@
         }
         [cell enableEditMode];
         [cell setTitleforPost:self.post];
-        [cell setDescriptionTextViewForPost:self.post];
+        [cell.editTitleButton addTarget:self action:@selector(editButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
+        cell.editTitleButton.tag = [self.fields indexOfObject:PF_POST_TITLE];
+        [cell setTitleforPost:self.post];
         return cell;
     } else if ([field isEqualToString:PF_POST_PHOTOARRAY]){
         static NSString *CellIdentifier = @"PhotoGalleryCell";
@@ -78,9 +102,11 @@
             }
         }
         [cell enableEditMode];
+        [cell.editButton addTarget:self action:@selector(editButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
+        NSLog(@"TAG %ld", [self.fields indexOfObject:PF_POST_PHOTOARRAY]);
+        cell.editButton.tag = [self.fields indexOfObject:PF_POST_PHOTOARRAY];
         cell.dateLabel.hidden = YES;
         [super loadPostImagesForCell:cell];
-        [cell setDateLabelForPost:self.post];
         return cell;
     } else if ([field isEqualToString:PF_POST_USER]){
         static NSString *CellIdentifier = @"PostUserCell";
@@ -94,9 +120,8 @@
                 }
             }
         }
-        [cell enableEditMode];
+        cell.userInteractionEnabled = NO;
         cell.accessoryView = nil;
-        [cell setTag:2];
         [cell setUserLabelForPost:self.post];
         return cell;
     } else if ([field isEqualToString:PF_POST_BOOKFORCLASS]){
@@ -111,6 +136,8 @@
                 }
             }
         }
+        cell.editButton.tag = [self.fields indexOfObject:PF_POST_BOOKFORCLASS];
+        [cell.editButton addTarget:self action:@selector(editButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
         cell.titleLabel.text = self.post.bookForClass;
         [cell enableEditMode];
         return cell;
@@ -126,6 +153,8 @@
                 }
             }
         }
+        cell.editButton.tag = [self.fields indexOfObject:PF_POST_DATEFOREVENT];
+        [cell.editButton addTarget:self action:@selector(editButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
         cell.titleLabel.text = self.post.eventDate;
         [cell enableEditMode];
         return cell;
@@ -134,6 +163,7 @@
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     return cell;
 }
+
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     if (section == 0){
@@ -186,6 +216,36 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+-(void)editButtonTouched:(id)sender{
+    UIButton *editButton = (UIButton *)sender;
+    if ([[self.fields objectAtIndex:editButton.tag] isEqualToString:PF_POST_PHOTOARRAY]){
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewPost" bundle:[NSBundle mainBundle]];
+        EditPostPhotoSelectViewController *editPostPhotoViewController = [storyboard instantiateViewControllerWithIdentifier:@"EditPostPhotoSelectViewController"];
+        editPostPhotoViewController.photoArray = [[NSMutableArray alloc] initWithCapacity:3];
+        [editPostPhotoViewController.photoArray addObjectsFromArray:@[[NSNull null], [NSNull null], [NSNull null]]];
+        if (self.post.photoArray.count != 0){
+            for (PFFile *imageFile in self.post.photoArray){
+                [imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+                    if (!error) {
+                        UIImage *image = [UIImage imageWithData:data];
+                        [editPostPhotoViewController.photoArray insertObject:image atIndex:[self.post.photoArray indexOfObject:imageFile]];
+                        // image can now be set on a UIImageView
+                    }
+                }];
+            }
+        }
+        UINavigationController *navControl = [[UINavigationController alloc] initWithRootViewController:editPostPhotoViewController];
+        [self presentViewController:navControl animated:YES completion:nil];
+    } else {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewPost" bundle:[NSBundle mainBundle]];
+        EditPostFieldViewController *postFieldViewController = [storyboard instantiateViewControllerWithIdentifier:@"EditPostFieldViewController"];
+        postFieldViewController.fieldName = [self.fields objectAtIndex:editButton.tag];
+        postFieldViewController.post = self.post;
+        postFieldViewController.fieldTextView.text = [self.fields objectAtIndex:editButton.tag];
+        UINavigationController *navControl = [[UINavigationController alloc] initWithRootViewController:postFieldViewController];
+        [self presentViewController:navControl animated:YES completion:nil];
+    }
+  }
 
 /*
 #pragma mark - Navigation

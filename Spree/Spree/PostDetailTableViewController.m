@@ -7,6 +7,7 @@
 //
 
 #import "PostDetailTableViewController.h"
+#import "PostDescriptionTableViewCell.h"
 #import "PostTitleTableViewCell.h"
 #import "PhotoGalleryTableViewCell.h"
 #import "PostUserTableViewCell.h"
@@ -94,7 +95,22 @@
 }
 
 -(UITableViewCell *)cellForField:(NSString *)field {
-    if ([field isEqualToString:PF_POST_TITLE]){
+    
+    if ([field isEqualToString:PF_POST_DESCRIPTION]){
+        static NSString *CellIdentifier = @"DescriptionCell";
+        PostDescriptionTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            NSArray *nibFiles = [[NSBundle mainBundle] loadNibNamed:@"PostDescriptionTableViewCell" owner:self options:nil];
+            for(id currentObject in nibFiles){
+                if ([currentObject isKindOfClass:[UITableViewCell class]]){
+                    cell = (PostDescriptionTableViewCell*)currentObject;
+                    break;
+                }
+            }
+        }
+        [cell setDescriptionTextViewForPost:self.post];
+        return cell;
+    } else if ([field isEqualToString:PF_POST_TITLE]){
         static NSString *CellIdentifier = @"TitleCell";
         PostTitleTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
@@ -107,7 +123,6 @@
             }
         }
         [cell setTitleforPost:self.post];
-        [cell setDescriptionTextViewForPost:self.post];
         return cell;
     } else if ([field isEqualToString:PF_POST_PHOTOARRAY]){
         static NSString *CellIdentifier = @"PhotoGalleryCell";

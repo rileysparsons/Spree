@@ -11,12 +11,9 @@
 @interface PostTitleTableViewCell : UITableViewCell
 
 -(void)setTitleforPost:(SpreePost *)post;
--(void)setDescriptionTextViewForPost:(SpreePost *)post;
 -(void)enableEditMode;
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
-@property (weak, nonatomic) IBOutlet UITextView *descriptionTextView;
 @property (weak, nonatomic) IBOutlet UIButton *editTitleButton;
-@property (weak, nonatomic) IBOutlet UIButton *editDescriptionButton;
 
 @end

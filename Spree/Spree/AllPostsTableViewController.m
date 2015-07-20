@@ -384,7 +384,7 @@
 // Detail View Setup
 
 -(NSArray *)fieldsForPostType:(NSString *)type{
-    NSMutableArray *fields = [NSMutableArray arrayWithArray:@[PF_POST_PHOTOARRAY, PF_POST_TITLE, PF_POST_USER]];
+    NSMutableArray *fields = [NSMutableArray arrayWithArray:@[PF_POST_PHOTOARRAY, PF_POST_TITLE, PF_POST_DESCRIPTION, PF_POST_USER]];
     if ([type isEqualToString:POST_TYPE_BOOKS]){
         [fields insertObject:PF_POST_BOOKFORCLASS atIndex:3];
     } else if ([type isEqualToString:POST_TYPE_TICKETS]){

@@ -16,8 +16,6 @@
 
 @interface PostPhotoSelectViewController () <CTAssetsPickerControllerDelegate, UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
-@property NSMutableArray *photoArray;
-@property UIButton *countBarButton;
 
 @end
 
@@ -26,33 +24,7 @@
 int maxImageCount = 3;
 int currentPhotoCount = 0;
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    NSLog(@"PHOTO SELECT");
-    
-    self.photoArray = [[NSMutableArray alloc] initWithCapacity:3];
-    [self.photoArray addObjectsFromArray:@[[NSNull null], [NSNull null], [NSNull null]]];
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
-    
-    self.tableView.rowHeight = UITableViewAutomaticDimension;
-    self.tableView.autoresizesSubviews = YES;
-    self.tableView.estimatedRowHeight = 180.0f;
-    
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
-    self.navigationController.navigationBar.shadowImage = [UIImage new];
-    self.navigationController.view.backgroundColor = [UIColor spreeOffWhite];
-    self.view.backgroundColor = [UIColor spreeOffWhite];
-    self.tableView.backgroundColor = [UIColor spreeOffWhite];
-    
-    
-    self.navigationController.navigationBar.backgroundColor = [UIColor spreeOffWhite];
-    [[UIApplication sharedApplication] setStatusBarStyle: UIStatusBarStyleDefault];
-    
-    self.edgesForExtendedLayout=UIRectEdgeNone;
-    self.extendedLayoutIncludesOpaqueBars=NO;
-    self.automaticallyAdjustsScrollViewInsets=NO;
-    
+- (void)navigationBarButtons {
     UIButton *cancel = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 40)];
     cancel.backgroundColor = [UIColor clearColor];
     cancel.imageView.contentMode = UIViewContentModeScaleAspectFit;
@@ -83,6 +55,37 @@ int currentPhotoCount = 0;
     [nextButton setTitleColor:[UIColor spreeOffWhite] forState:UIControlStateHighlighted];
     
     [self.navigationItem setRightBarButtonItems:@[[[UIBarButtonItem alloc] initWithCustomView:nextButton], countBarButtonItem] animated:YES];
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    NSLog(@"PHOTO SELECT");
+    if (self.photoArray == nil){
+        self.photoArray = [[NSMutableArray alloc] initWithCapacity:3];
+        [self.photoArray addObjectsFromArray:@[[NSNull null], [NSNull null], [NSNull null]]];
+    } 
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
+    self.tableView.autoresizesSubviews = YES;
+    self.tableView.estimatedRowHeight = 180.0f;
+    
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.shadowImage = [UIImage new];
+    self.navigationController.view.backgroundColor = [UIColor spreeOffWhite];
+    self.view.backgroundColor = [UIColor spreeOffWhite];
+    self.tableView.backgroundColor = [UIColor spreeOffWhite];
+    
+    
+    self.navigationController.navigationBar.backgroundColor = [UIColor spreeOffWhite];
+    [[UIApplication sharedApplication] setStatusBarStyle: UIStatusBarStyleDefault];
+    
+    self.edgesForExtendedLayout=UIRectEdgeNone;
+    self.extendedLayoutIncludesOpaqueBars=NO;
+    self.automaticallyAdjustsScrollViewInsets=NO;
+    
+    [self navigationBarButtons];
 
 }
 

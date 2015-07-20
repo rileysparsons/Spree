@@ -12,5 +12,11 @@
 @interface PostPhotoSelectViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property PostingWorkflow *postingWorkflow;
+@property NSMutableArray *photoArray;
+@property UIButton *countBarButton;
+
+-(void)navigationBarButtons;
 
 @end
+
+

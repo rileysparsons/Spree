@@ -29,6 +29,7 @@
 }
 
 - (void)viewDidLoad {
+    [super viewDidLoad];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.shadowImage = [UIImage new];
     self.navigationController.view.backgroundColor = [UIColor spreeOffWhite];
@@ -41,7 +42,6 @@
     self.automaticallyAdjustsScrollViewInsets=NO;
     
     
-    [super viewDidLoad];
     UIButton *cancel = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 25, 25)];
     cancel.backgroundColor = [UIColor clearColor];
     [cancel setBackgroundImage:[UIImage imageNamed:@"cancelOffBlack"] forState:UIControlStateNormal];

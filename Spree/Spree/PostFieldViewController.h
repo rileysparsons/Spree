@@ -20,6 +20,8 @@
 @property SpreePost *post;
 @property PostingWorkflow *postingWorkflow;
 
+-(void)setupTextField;
+-(void)navigationBarButtons;
 - (void)nextBarButtonItemTouched:(id)sender;
 
 @end

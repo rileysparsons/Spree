@@ -20,17 +20,6 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x1g-QR-Jf3">
-                        <rect key="frame" x="266" y="1" width="46" height="41.5"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="46" id="oHc-wC-Sxa"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="15"/>
-                        <state key="normal" title="Edit">
-                            <color key="titleColor" red="0.034740071740000003" green="0.29351189729999999" blue="0.58873707060000002" alpha="1" colorSpace="calibratedRGB"/>
-                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                        </state>
-                    </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fsw-Ow-A74">
                         <rect key="frame" x="8" y="0.0" width="214" height="43.5"/>
                         <constraints>
@@ -40,17 +29,40 @@
                         <color key="textColor" red="0.16666857900000001" green="0.18534906209999999" blue="0.19849607350000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x1g-QR-Jf3">
+                        <rect key="frame" x="266" y="8" width="46" height="27.5"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="46" id="oHc-wC-Sxa"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="15"/>
+                        <state key="normal" title="Edit">
+                            <color key="titleColor" red="0.034740071740000003" green="0.29351189729999999" blue="0.58873707060000002" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="x1g-QR-Jf3" firstAttribute="leading" secondItem="Fsw-Ow-A74" secondAttribute="trailing" constant="44" id="1Ee-DR-FjD"/>
+                    <constraint firstItem="x1g-QR-Jf3" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="KUt-6Q-cRy"/>
                     <constraint firstItem="x1g-QR-Jf3" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="1" id="Kko-5X-eB0"/>
                     <constraint firstAttribute="bottomMargin" secondItem="Fsw-Ow-A74" secondAttribute="bottom" constant="-8" id="ONG-cy-yl9"/>
                     <constraint firstAttribute="centerY" secondItem="Fsw-Ow-A74" secondAttribute="centerY" id="QJB-4n-Iy5"/>
+                    <constraint firstItem="x1g-QR-Jf3" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="eqK-nX-DYC"/>
                     <constraint firstItem="Fsw-Ow-A74" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="f7M-YZ-QfU"/>
                     <constraint firstAttribute="bottom" secondItem="x1g-QR-Jf3" secondAttribute="bottom" constant="1" id="i1o-Q7-fo4"/>
                     <constraint firstItem="Fsw-Ow-A74" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-8" id="iQH-no-yEs"/>
                     <constraint firstAttribute="trailing" secondItem="x1g-QR-Jf3" secondAttribute="trailing" constant="8" id="kOR-CO-mAK"/>
+                    <constraint firstItem="x1g-QR-Jf3" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottomMargin" id="o3a-cG-wGs"/>
+                    <constraint firstItem="x1g-QR-Jf3" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="qfP-WZ-BBD"/>
                 </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="KUt-6Q-cRy"/>
+                        <exclude reference="Kko-5X-eB0"/>
+                        <exclude reference="i1o-Q7-fo4"/>
+                        <exclude reference="qfP-WZ-BBD"/>
+                    </mask>
+                </variation>
             </tableViewCellContentView>
             <color key="backgroundColor" red="0.96558624510000002" green="0.97044742110000004" blue="0.97035741809999998" alpha="1" colorSpace="calibratedRGB"/>
             <connections>
