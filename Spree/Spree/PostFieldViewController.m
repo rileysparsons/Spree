@@ -61,6 +61,10 @@
 }
 
 -(void)setupTextField{
+    NSLog(@"POSTING WORKFLOW:  %@", self.postingWorkflow);
+    if (self.postingWorkflow.post[self.fieldName]){
+        self.fieldTextView.text = self.postingWorkflow.post[self.fieldName];
+    }
     [self.fieldTextView addRightButtonOnKeyboardWithText:@"Next" target:self action:@selector(nextBarButtonItemTouched:) shouldShowPlaceholder:YES];
     self.fieldTextView.font = [UIFont systemFontOfSize:25.0f];
     self.fieldTextView.placeholder =NSLocalizedString(self.fieldDisplayName, @" ");

@@ -31,7 +31,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupButtons];
-    
+    self.postingWorkflow.post = self.post;
     UIButton *cancel = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 40)];
     cancel.backgroundColor = [UIColor clearColor];
     cancel.imageView.contentMode = UIViewContentModeScaleAspectFit;
@@ -227,8 +227,9 @@
             for (PFFile *imageFile in self.post.photoArray){
                 [imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
                     if (!error) {
+                        NSLog(@"Index %lu", (unsigned long)[self.post.photoArray indexOfObject:imageFile]);
                         UIImage *image = [UIImage imageWithData:data];
-                        [editPostPhotoViewController.photoArray insertObject:image atIndex:[self.post.photoArray indexOfObject:imageFile]];
+                        [editPostPhotoViewController.photoArray replaceObjectAtIndex:[self.post.photoArray indexOfObject:imageFile] withObject:image];
                         // image can now be set on a UIImageView
                     }
                 }];
@@ -240,21 +241,11 @@
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewPost" bundle:[NSBundle mainBundle]];
         EditPostFieldViewController *postFieldViewController = [storyboard instantiateViewControllerWithIdentifier:@"EditPostFieldViewController"];
         postFieldViewController.fieldName = [self.fields objectAtIndex:editButton.tag];
-        postFieldViewController.post = self.post;
-        postFieldViewController.fieldTextView.text = [self.fields objectAtIndex:editButton.tag];
+        postFieldViewController.postingWorkflow = self.postingWorkflow;
         UINavigationController *navControl = [[UINavigationController alloc] initWithRootViewController:postFieldViewController];
         [self presentViewController:navControl animated:YES completion:nil];
     }
   }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

@@ -35,6 +35,7 @@
     self.navigationController.view.backgroundColor = [UIColor spreeOffWhite];
     self.navigationController.navigationBar.backgroundColor = [UIColor clearColor];
     self.navigationItem.titleView = [self titleLabel];
+    
     [[UIApplication sharedApplication] setStatusBarStyle: UIStatusBarStyleDefault];
     
     self.edgesForExtendedLayout=UIRectEdgeNone;
@@ -121,7 +122,7 @@
 
 -(void)dismissViewControllerAnimated:(BOOL)flag completion:(void (^)(void))completion{
     [super dismissViewControllerAnimated:YES completion:nil];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    [[UIApplication sharedApplication] setStatusBarStyle: UIStatusBarStyleDefault];
 }
 
 -(UIView *)titleLabel{

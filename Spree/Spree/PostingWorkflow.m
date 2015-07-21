@@ -88,6 +88,7 @@
     NSArray *previewFields = [self fieldsForPostType:self.type[@"type"]];
     [previewPostViewController setFields:previewFields];
     previewPostViewController.post = self.post;
+    previewPostViewController.postingWorkflow = self;
     return previewPostViewController;
 }
     

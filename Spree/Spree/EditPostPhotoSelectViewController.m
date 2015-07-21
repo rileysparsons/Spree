@@ -7,6 +7,7 @@
 //
 
 #import "EditPostPhotoSelectViewController.h"
+#import "PreviewPostViewController.h"
 #import <YHRoundBorderedButton/YHRoundBorderedButton.h>
 
 @interface EditPostPhotoSelectViewController ()
@@ -45,6 +46,7 @@
     // Override super class cancel button setup, so that the modal dismisses.
     UIButton *cancel = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 25, 25)];
     cancel.backgroundColor = [UIColor clearColor];
+    cancel.tag = 1;
     [cancel setBackgroundImage:[UIImage imageNamed:@"cancelOffBlack"] forState:UIControlStateNormal];
     [cancel setBackgroundImage:[UIImage imageNamed:@"cancelHighlight"] forState:UIControlStateHighlighted];
     [cancel addTarget:self action:@selector(doneWithEdit:) forControlEvents:UIControlEventTouchUpInside];
@@ -56,8 +58,18 @@
     if (button.tag == 1){
         
     } else {
-        
+        NSMutableArray *fileArray = [[NSMutableArray alloc] initWithCapacity:3];
+        for (id photo in self.photoArray) {
+            if ([photo isKindOfClass:[UIImage class]]){
+                NSData* data = UIImageJPEGRepresentation(photo, 0.5f);
+                PFFile *imageFile = [PFFile fileWithName:@"Image.jpg" data:data];
+                [fileArray addObject:imageFile];
+            }
+        }
+        ((PreviewPostViewController*)((UINavigationController *)self.presentingViewController).topViewController).post[PF_POST_PHOTOARRAY] = fileArray;
+        [((PreviewPostViewController*)((UINavigationController *)self.presentingViewController).topViewController).tableView reloadData];
     }
+    
     [self dismissViewControllerAnimated: YES completion:nil];
 }
 

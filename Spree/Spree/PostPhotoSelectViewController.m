@@ -59,11 +59,29 @@ int currentPhotoCount = 0;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSLog(@"PHOTO SELECT");
-    if (self.photoArray == nil){
+    NSLog(@"PHOTO SELECT: %@", self.postingWorkflow.post.photoArray);
+    currentPhotoCount = 0;
+    if (self.postingWorkflow.post.photoArray != nil){
+        self.photoArray =[[NSMutableArray alloc] initWithCapacity:3];
+        [self.photoArray addObjectsFromArray:@[[NSNull null], [NSNull null], [NSNull null]]];
+        for (PFFile *imageFile in self.postingWorkflow.post.photoArray){
+            [imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+                if (!error) {
+                    UIImage *image = [UIImage imageWithData:data];
+                    NSLog(@"image %@", image);
+                    [self.photoArray replaceObjectAtIndex:[self.postingWorkflow.post.photoArray indexOfObject:imageFile] withObject:image];
+                    currentPhotoCount++;
+                    [self.tableView reloadData];
+                    // image can now be set on a UIImageView
+                }
+            }];
+        }
+    } else {
         self.photoArray = [[NSMutableArray alloc] initWithCapacity:3];
         [self.photoArray addObjectsFromArray:@[[NSNull null], [NSNull null], [NSNull null]]];
-    } 
+    }
+
+
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
@@ -268,6 +286,7 @@ int currentPhotoCount = 0;
     if (self.postingWorkflow.post.photoArray == nil){
         currentPhotoCount = 0;
     }
+
     self.postingWorkflow.step--;
     [self.navigationController popViewControllerAnimated:YES];
 }
