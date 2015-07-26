@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "SpreePost.h"
+#import "PhotoGalleryTableViewCell.h"
 
 @interface PostDetailTableViewController : UITableViewController
 
@@ -16,5 +17,10 @@
 @property SpreePost *post;
 
 @property PFUser *poster;
+
+-(UITableViewCell *)cellForField:(NSString *)field;
+
+-(UITableViewCell *)loadPostImagesForCell:(PhotoGalleryTableViewCell *)cell;
+
 
 @end

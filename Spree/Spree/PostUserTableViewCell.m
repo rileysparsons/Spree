@@ -13,7 +13,7 @@
 
 - (void)awakeFromNib {
     // Initialization code
-    self.accessoryView = [MSCellAccessory accessoryWithType:FLAT_DISCLOSURE_INDICATOR color:[UIColor spreeBabyBlue]];
+    self.accessoryView = [MSCellAccessory accessoryWithType:FLAT_DISCLOSURE_INDICATOR color:[UIColor spreeDarkBlue]];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -46,5 +46,6 @@
         }
     }];
 }
+
 
 @end

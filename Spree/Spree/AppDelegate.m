@@ -37,21 +37,29 @@
 
     [DDLog addLogger:[DDASLLogger sharedInstance]];
     [DDLog addLogger:[DDTTYLogger sharedInstance]];
-
+    for (NSString* family in [UIFont familyNames])
+    {
+        NSLog(@"%@", family);
+        
+        for (NSString* name in [UIFont fontNamesForFamilyName: family])
+        {
+            NSLog(@"  %@", name);
+        }
+    }
 //    _locationManager = [[CLLocationManager alloc] init];
 //    [_locationManager setDelegate:self];
 //    [_locationManager requestWhenInUseAuthorization];
 //    [_locationManager startUpdatingLocation];
 //    self.locationManager = _locationManager;
 
-    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
-    [[UINavigationBar appearance] setBarTintColor:[UIColor spreeBabyBlue]];
-    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor], NSFontAttributeName: [UIFont fontWithName:@"Helvetica-Neue" size:0.0],
+    [[UINavigationBar appearance] setTintColor:[UIColor spreeOffBlack]];
+    [[UINavigationBar appearance] setBarTintColor:[UIColor spreeOffWhite]];
+    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor spreeDarkBlue], NSFontAttributeName: [UIFont fontWithName:@"Lato" size:0.0],
         }];
-    [[UITabBar appearance] setTintColor:[UIColor spreeBabyBlue]];
+    [[UITabBar appearance] setTintColor:[UIColor spreeDarkBlue]];
     [[UITabBar appearance] setBackgroundColor:[UIColor whiteColor]];
     [[UITabBar appearance] setTranslucent:NO];
-    [[UISegmentedControl appearance] setTintColor:[UIColor spreeBabyBlue]];
+    [[UISegmentedControl appearance] setTintColor:[UIColor spreeDarkBlue]];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
 
     if (![PFUser currentUser]) {

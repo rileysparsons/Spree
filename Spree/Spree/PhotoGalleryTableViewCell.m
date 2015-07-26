@@ -11,6 +11,19 @@
 
 @implementation PhotoGalleryTableViewCell
 
+
+- (void)setFrame:(CGRect)frame {
+    if(frame.size.width != self.bounds.size.width) {
+        [super setFrame:frame];
+        self.contentView.bounds = CGRectMake(0, 0, frame.size.width, frame.size.height);
+        [self.contentView layoutIfNeeded];
+    }
+    else {
+        [super setFrame:frame];
+    }
+}
+
+
 - (void)awakeFromNib {
     // Initialization code
     self.photoGalleryControl = [[UIPageControl alloc] init];
@@ -18,14 +31,15 @@
     self.photoGalleryControl.frame = CGRectMake(10, self.center.y, 5, 10);
     self.photoGalleryControl.numberOfPages = 3;
     self.photoGalleryControl.currentPage = 0;
-    self.photoGalleryControl.currentPageIndicatorTintColor = [UIColor spreeLightYellow];
+    self.photoGalleryControl.currentPageIndicatorTintColor = [UIColor spreeDarkYellow];
     [self addSubview:self.photoGalleryControl];
     self.photoGallery.delegate = self;
     
     CAGradientLayer *gradient = [CAGradientLayer layer];
     gradient.frame = self.bottomGradient.bounds;
-    gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor clearColor] CGColor], (id)[[UIColor blackColor] CGColor], nil];
+    gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor clearColor] CGColor], (id)[[UIColor spreeOffBlack] CGColor], nil];
     [self.bottomGradient.layer insertSublayer:gradient atIndex:0];
+    [self.editButton setHidden:YES];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -35,10 +49,11 @@
 }
 
 - (void)setPhotoGalleryForImages:(NSArray*)images{
+    [self layoutSubviews];
     CGSize pagesScrollViewSize = self.photoGallery.frame.size;
-    self.photoGallery.contentSize = CGSizeMake(pagesScrollViewSize.width * self.pageImages.count, pagesScrollViewSize.height);
-    NSLog(@"%@", images);
     self.pageImages = images;
+    self.photoGallery.contentSize = CGSizeMake(self.frame.size.width * self.pageImages.count, pagesScrollViewSize.height);
+    NSLog(@"IMAGES FROM CELL %@ and width %f, with screen %f, and count %lu", images, pagesScrollViewSize.width, self.frame.size.width, (unsigned long)images.count);
     [self setupGallery];
     self.photoGallery.contentOffset = CGPointZero;
     if (images.count == 1){
@@ -71,6 +86,7 @@
         // 2
         CGRect frame = self.photoGallery.bounds;
         frame.origin.x = frame.size.width * page;
+        NSLog(@"%f", frame.origin.x);
         frame.origin.y = 0.0f;
         
         // 3
@@ -139,6 +155,14 @@
     CGSize pagesScrollViewSize = self.photoGallery.frame.size;
     self.photoGallery.contentSize = CGSizeMake(pagesScrollViewSize.width * self.pageImages.count, pagesScrollViewSize.height);
     [self loadVisiblePages];
+}
+
+-(void)layoutSubviews{
+    [super layoutSubviews];
+}
+
+-(void)enableEditMode{
+    self.editButton.hidden = NO;
 }
 
 

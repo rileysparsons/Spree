@@ -1,49 +1,82 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="Lato-Regular.ttf">
+            <string>Lato-Regular</string>
+            <string>Lato-Regular</string>
+        </mutableArray>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="167" id="KGk-i7-Jjw" customClass="PostTitleTableViewCell">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="167"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="60" id="KGk-i7-Jjw" customClass="PostTitleTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="321" height="60"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yvp-lM-zC2">
-                        <rect key="frame" x="8" y="8" width="304" height="22"/>
-                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
+                        <rect key="frame" x="8" y="8" width="251" height="43.5"/>
+                        <constraints>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="zdd-lb-oKg"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="18"/>
+                        <color key="textColor" red="0.16666857898235321" green="0.18534906208515167" blue="0.19849607348442078" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="highlightedColor" red="0.16666857900000001" green="0.18534906209999999" blue="0.19849607350000001" alpha="1" colorSpace="calibratedRGB"/>
                     </label>
-                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eTU-zh-Su8">
-                        <rect key="frame" x="8" y="38" width="304" height="120"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                    </textView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M2n-WO-bnE">
+                        <rect key="frame" x="267" y="8" width="46" height="43.5"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="BND-Xc-R21"/>
+                            <constraint firstAttribute="width" constant="46" id="ncD-Kq-veN"/>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="rJg-FN-V0A"/>
+                            <constraint firstAttribute="width" constant="46" id="smm-BM-Bll"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="15"/>
+                        <state key="normal" title="Edit">
+                            <color key="titleColor" red="0.03474007174372673" green="0.29351189732551575" blue="0.58873707056045532" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="BND-Xc-R21"/>
+                                <exclude reference="ncD-Kq-veN"/>
+                            </mask>
+                        </variation>
+                    </button>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="M2n-WO-bnE" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="591-gE-7xo"/>
                     <constraint firstItem="yvp-lM-zC2" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="8Kz-JC-DY2"/>
                     <constraint firstItem="yvp-lM-zC2" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="AoB-Wj-BXL"/>
-                    <constraint firstItem="eTU-zh-Su8" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottomMargin" id="EIK-Ud-vfn"/>
-                    <constraint firstItem="eTU-zh-Su8" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="ISf-29-rTR"/>
+                    <constraint firstItem="M2n-WO-bnE" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="CS7-Eg-glq"/>
                     <constraint firstItem="yvp-lM-zC2" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="SKI-0u-vyP"/>
-                    <constraint firstItem="eTU-zh-Su8" firstAttribute="top" secondItem="yvp-lM-zC2" secondAttribute="bottom" constant="8" id="mCc-Ah-2hL"/>
-                    <constraint firstItem="eTU-zh-Su8" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="ndH-Y1-g0P"/>
+                    <constraint firstItem="M2n-WO-bnE" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottomMargin" id="aiM-yI-NSD"/>
+                    <constraint firstItem="M2n-WO-bnE" firstAttribute="leading" secondItem="yvp-lM-zC2" secondAttribute="trailing" constant="8" id="dEB-ZU-8ah"/>
+                    <constraint firstItem="M2n-WO-bnE" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-4" id="nSY-QN-TOt"/>
+                    <constraint firstItem="M2n-WO-bnE" firstAttribute="leading" secondItem="yvp-lM-zC2" secondAttribute="trailing" id="oEj-0b-cWd"/>
+                    <constraint firstItem="yvp-lM-zC2" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottomMargin" id="r3O-kG-ORx"/>
                 </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="AoB-Wj-BXL"/>
+                        <exclude reference="nSY-QN-TOt"/>
+                        <exclude reference="oEj-0b-cWd"/>
+                    </mask>
+                </variation>
             </tableViewCellContentView>
+            <color key="backgroundColor" red="0.96558624505996704" green="0.97044742107391357" blue="0.97035741806030273" alpha="1" colorSpace="calibratedRGB"/>
             <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
             <connections>
-                <outlet property="descriptionTextView" destination="eTU-zh-Su8" id="vri-QS-YdE"/>
+                <outlet property="editTitleButton" destination="M2n-WO-bnE" id="cDg-0s-rW8"/>
                 <outlet property="titleLabel" destination="yvp-lM-zC2" id="2fX-wg-dLC"/>
             </connections>
-            <point key="canvasLocation" x="139" y="259.5"/>
+            <point key="canvasLocation" x="139.5" y="206"/>
         </tableViewCell>
     </objects>
 </document>

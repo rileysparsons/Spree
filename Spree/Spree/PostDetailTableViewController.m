@@ -7,6 +7,7 @@
 //
 
 #import "PostDetailTableViewController.h"
+#import "PostDescriptionTableViewCell.h"
 #import "PostTitleTableViewCell.h"
 #import "PhotoGalleryTableViewCell.h"
 #import "PostUserTableViewCell.h"
@@ -39,6 +40,9 @@
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.autoresizesSubviews = YES;
     self.tableView.estimatedRowHeight = 100.0f;
+    
+    self.tableView.backgroundColor = [UIColor spreeOffWhite];
+    self.view.backgroundColor = [UIColor spreeOffWhite];
     
     self.navigationItem.backBarButtonItem.title = @"";
     [self getUserForPost];
@@ -91,7 +95,22 @@
 }
 
 -(UITableViewCell *)cellForField:(NSString *)field {
-    if ([field isEqualToString:PF_POST_TITLE]){
+    
+    if ([field isEqualToString:PF_POST_DESCRIPTION]){
+        static NSString *CellIdentifier = @"DescriptionCell";
+        PostDescriptionTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            NSArray *nibFiles = [[NSBundle mainBundle] loadNibNamed:@"PostDescriptionTableViewCell" owner:self options:nil];
+            for(id currentObject in nibFiles){
+                if ([currentObject isKindOfClass:[UITableViewCell class]]){
+                    cell = (PostDescriptionTableViewCell*)currentObject;
+                    break;
+                }
+            }
+        }
+        [cell setDescriptionTextViewForPost:self.post];
+        return cell;
+    } else if ([field isEqualToString:PF_POST_TITLE]){
         static NSString *CellIdentifier = @"TitleCell";
         PostTitleTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
@@ -104,7 +123,6 @@
             }
         }
         [cell setTitleforPost:self.post];
-        [cell setDescriptionTextViewForPost:self.post];
         return cell;
     } else if ([field isEqualToString:PF_POST_PHOTOARRAY]){
         static NSString *CellIdentifier = @"PhotoGalleryCell";
@@ -159,8 +177,8 @@
     self.getButton = [[YHRoundBorderedButton alloc] init];
     [self.getButton addTarget:self action:@selector(priceButtonPressed) forControlEvents:UIControlEventTouchUpInside];
     [self.getButton sizeToFit];
-    [self.getButton setTintColor:[UIColor whiteColor]];
-    [self.getButton setTitleColor:[UIColor spreeBabyBlue] forState:UIControlStateHighlighted];
+    [self.getButton setTintColor:[UIColor spreeOffWhite]];
+    [self.getButton setTitleColor:[UIColor spreeDarkBlue] forState:UIControlStateHighlighted];
     UIBarButtonItem *getBarButton = [[UIBarButtonItem alloc] initWithCustomView:self.getButton];
     self.navigationItem.rightBarButtonItem = getBarButton;
     if ([self.post.type isEqualToString:POST_TYPE_TASK]){

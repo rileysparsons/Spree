@@ -12,6 +12,8 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    self.editTitleButton.hidden = YES;
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -26,10 +28,8 @@
     self.titleLabel.preferredMaxLayoutWidth = self.bounds.size.width - 40;
 }
 
--(void)setDescriptionTextViewForPost:(SpreePost *)post{
-    self.descriptionTextView.text = post.userDescription;
-    self.descriptionTextView.scrollEnabled = NO;
-    [self.descriptionTextView sizeToFit];
+-(void)enableEditMode{
+    self.editTitleButton.hidden = NO;
 }
 
 @end

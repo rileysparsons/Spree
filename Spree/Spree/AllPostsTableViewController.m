@@ -10,11 +10,11 @@
 #import "PostTableViewCell.h"
 #import "SpreePost.h"
 #import "PostDetailViewController.h"
-#import "NewPostTypeSelectionViewController.h"
 #import "RatingViewController.h"
 #import "AppDelegate.h"
 #import "AppConstant.h"
 #import "PostDetailTableViewController.h"
+#import "SelectPostTypeViewController.h"
 
 @interface AllPostsTableViewController () {
 
@@ -70,6 +70,7 @@
     [self setupRefreshControl];
     UIImage *image = [UIImage imageNamed:@"spreeTitleStylized.png"];
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:image];
+    self.navigationItem.titleView.tintColor = [UIColor spreeDarkBlue];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadObjects) name:@"ReloadTable" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadObjects) name:@"PostMade" object:nil];
 
@@ -118,7 +119,7 @@
 - (UIBarButtonItem *)composeButton {
     if (!_composeButton) {
         _composeButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemCompose target: self action: @selector(NewPostBarButtonItemPressed:)];
-        [_composeButton setTintColor:[UIColor whiteColor]];
+        [_composeButton setTintColor:[UIColor spreeDarkBlue]];
     }
     return _composeButton;
 }
@@ -373,9 +374,9 @@
 }
 
 - (void)NewPostBarButtonItemPressed:(id)sender {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    NewPostTypeSelectionViewController *newPostSelectTypeViewController = [storyboard instantiateViewControllerWithIdentifier:@"NewPostSelectTypeViewController"];
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController: newPostSelectTypeViewController];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewPost" bundle:nil];
+    SelectPostTypeViewController *selectPostTypeViewController = [storyboard instantiateViewControllerWithIdentifier:@"SelectPostTypeViewController"];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController: selectPostTypeViewController];
     
     [self.navigationController presentViewController:navigationController animated:YES completion:nil];
 }
@@ -383,7 +384,7 @@
 // Detail View Setup
 
 -(NSArray *)fieldsForPostType:(NSString *)type{
-    NSMutableArray *fields = [NSMutableArray arrayWithArray:@[PF_POST_PHOTOARRAY, PF_POST_TITLE, PF_POST_USER]];
+    NSMutableArray *fields = [NSMutableArray arrayWithArray:@[PF_POST_PHOTOARRAY, PF_POST_TITLE, PF_POST_DESCRIPTION, PF_POST_USER]];
     if ([type isEqualToString:POST_TYPE_BOOKS]){
         [fields insertObject:PF_POST_BOOKFORCLASS atIndex:3];
     } else if ([type isEqualToString:POST_TYPE_TICKETS]){

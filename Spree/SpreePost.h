@@ -21,6 +21,7 @@
 @property (nonatomic) NSString *network;
 @property (nonatomic) NSString *subtitle;
 @property (nonatomic) PFUser *taskClaimedBy;
+@property (nonatomic) PFObject *typePointer;
 @property (nonatomic) NSDate *dateForEvent;
 @property BOOL removed;
 @property BOOL sold;

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="Lato-Bold.ttf">
+            <string>Lato-Bold</string>
+            <string>Lato-Bold</string>
+        </mutableArray>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="PhotoSelectFooterView">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="slx-Sn-50P">
+                    <rect key="frame" x="300" y="0.0" width="300" height="600"/>
+                    <color key="backgroundColor" red="0.16666857900000001" green="0.18534906209999999" blue="0.19849607350000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="300" id="NFQ-D3-3op"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="15"/>
+                    <state key="normal" title="Take a photo">
+                        <color key="titleColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="NFQ-D3-3op"/>
+                        </mask>
+                    </variation>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2T1-mc-0Xv">
+                    <rect key="frame" x="0.0" y="0.0" width="300" height="600"/>
+                    <color key="backgroundColor" red="0.16666857900000001" green="0.18534906209999999" blue="0.19849607350000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="300" id="Ujs-AE-dzz"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="15"/>
+                    <state key="normal" title="Pick a photo">
+                        <color key="titleColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleShadowColor" red="0.16666857900000001" green="0.18534906209999999" blue="0.19849607350000001" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="slx-Sn-50P" secondAttribute="trailing" id="JHr-PT-him"/>
+                <constraint firstItem="slx-Sn-50P" firstAttribute="leading" secondItem="2T1-mc-0Xv" secondAttribute="trailing" id="JgN-ma-iXc"/>
+                <constraint firstAttribute="bottom" secondItem="2T1-mc-0Xv" secondAttribute="bottom" id="V0j-Zn-Wpd"/>
+                <constraint firstItem="2T1-mc-0Xv" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="cVy-d3-Kcf"/>
+                <constraint firstAttribute="bottom" secondItem="slx-Sn-50P" secondAttribute="bottom" id="fm8-R0-Mz6"/>
+                <constraint firstItem="slx-Sn-50P" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="mHe-u3-t0i"/>
+                <constraint firstItem="2T1-mc-0Xv" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="o1h-Bu-Dc5"/>
+            </constraints>
+            <connections>
+                <outlet property="buttonWidthLayoutContraint" destination="Ujs-AE-dzz" id="smz-l6-WQw"/>
+                <outlet property="pickPhotoButton" destination="2T1-mc-0Xv" id="WLx-DV-Why"/>
+                <outlet property="takePhotoButton" destination="slx-Sn-50P" id="5fn-EK-zKK"/>
+            </connections>
+            <point key="canvasLocation" x="481" y="195"/>
+        </view>
+    </objects>
+</document>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="Lato-Bold.ttf">
+            <string>Lato-Bold</string>
+            <string>Lato-Bold</string>
+        </mutableArray>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleAspectFill" selectionStyle="default" indentationWidth="10" rowHeight="181" id="KGk-i7-Jjw" customClass="PhotoSelectTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="181"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nu7-w9-dWV">
+                        <rect key="frame" x="0.0" y="0.0" width="160" height="180.5"/>
+                        <color key="backgroundColor" red="0.16666857900000001" green="0.18534906209999999" blue="0.19849607350000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="160" id="NQe-Qu-VfL"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="15"/>
+                        <state key="normal" title="Pick a photo">
+                            <color key="titleColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="titleShadowColor" red="0.16666857898235321" green="0.18534906208515167" blue="0.19849607348442078" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LaM-Vm-Js9">
+                        <rect key="frame" x="160" y="0.0" width="160" height="180.5"/>
+                        <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="15"/>
+                        <state key="normal" title="Take a photo">
+                            <color key="titleColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                    </button>
+                </subviews>
+                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="nu7-w9-dWV" secondAttribute="bottom" id="3UP-OP-3tU"/>
+                    <constraint firstItem="nu7-w9-dWV" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="8Xt-YV-kBB"/>
+                    <constraint firstItem="LaM-Vm-Js9" firstAttribute="width" secondItem="nu7-w9-dWV" secondAttribute="width" id="GJk-UZ-uaD"/>
+                    <constraint firstItem="LaM-Vm-Js9" firstAttribute="leading" secondItem="nu7-w9-dWV" secondAttribute="leading" constant="160" id="HiU-UV-e7U"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="LaM-Vm-Js9" secondAttribute="bottom" constant="-8" id="Lum-SG-1kc"/>
+                    <constraint firstItem="nu7-w9-dWV" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="RVq-YJ-bj8"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="LaM-Vm-Js9" secondAttribute="trailing" constant="-8" id="Y9M-S6-Lwu"/>
+                    <constraint firstItem="LaM-Vm-Js9" firstAttribute="leading" secondItem="nu7-w9-dWV" secondAttribute="trailing" id="sxI-Pi-LXc"/>
+                    <constraint firstItem="LaM-Vm-Js9" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-8" id="yeS-eO-dPY"/>
+                </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="GJk-UZ-uaD"/>
+                        <exclude reference="HiU-UV-e7U"/>
+                    </mask>
+                </variation>
+            </tableViewCellContentView>
+            <color key="backgroundColor" red="0.96558624510000002" green="0.97044742110000004" blue="0.97035741809999998" alpha="1" colorSpace="calibratedRGB"/>
+            <connections>
+                <outlet property="buttonWidthLayoutContraint" destination="NQe-Qu-VfL" id="p2Y-bU-XEn"/>
+                <outlet property="pickPhotoButton" destination="nu7-w9-dWV" id="Jbe-k5-yMe"/>
+                <outlet property="takePhotoButton" destination="LaM-Vm-Js9" id="2bm-K9-2cT"/>
+            </connections>
+            <point key="canvasLocation" x="226" y="376.5"/>
+        </tableViewCell>
+    </objects>
+</document>

@@ -490,7 +490,7 @@
 }
 
 - (void)claimPost {
-    DDLogVerbose(@"Claim post");
+//    DDLogVerbose(@"Claim post");
     self.navigationItem.rightBarButtonItem = self.unclaimButton;
     [self.detailPost setTaskClaimed:YES];
     [self.detailPost setTaskClaimedBy:[PFUser currentUser]];
@@ -508,7 +508,7 @@
 }
 
 - (void)unclaimPost {
-    DDLogVerbose(@"Unclaim post");
+//    DDLogVerbose(@"Unclaim post");
     self.navigationItem.rightBarButtonItem = self.claimButton;
     [self.detailPost removeObjectForKey:@"taskClaimed"];
     [self.detailPost removeObjectForKey:@"taskClaimedBy"];
