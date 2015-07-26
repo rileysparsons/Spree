@@ -61,27 +61,8 @@ int currentPhotoCount = 0;
     [super viewDidLoad];
     NSLog(@"PHOTO SELECT: %@", self.postingWorkflow.post.photoArray);
     currentPhotoCount = 0;
-    if (self.postingWorkflow.post.photoArray != nil){
-        self.photoArray =[[NSMutableArray alloc] initWithCapacity:3];
-        [self.photoArray addObjectsFromArray:@[[NSNull null], [NSNull null], [NSNull null]]];
-        for (PFFile *imageFile in self.postingWorkflow.post.photoArray){
-            [imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-                if (!error) {
-                    UIImage *image = [UIImage imageWithData:data];
-                    NSLog(@"image %@", image);
-                    [self.photoArray replaceObjectAtIndex:[self.postingWorkflow.post.photoArray indexOfObject:imageFile] withObject:image];
-                    currentPhotoCount++;
-                    [self.tableView reloadData];
-                    // image can now be set on a UIImageView
-                }
-            }];
-        }
-    } else {
-        self.photoArray = [[NSMutableArray alloc] initWithCapacity:3];
-        [self.photoArray addObjectsFromArray:@[[NSNull null], [NSNull null], [NSNull null]]];
-    }
-
-
+    [self getChangesToPost];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getChangesToPost) name:@"ReloadPost" object:nil];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
@@ -104,7 +85,18 @@ int currentPhotoCount = 0;
     self.automaticallyAdjustsScrollViewInsets=NO;
     
     [self navigationBarButtons];
-
+    
+    self.header = [[AddPhotoHeaderView alloc] initWithFrame:CGRectZero];
+    NSArray *nibFiles = [[NSBundle mainBundle] loadNibNamed:@"AddPhotoHeaderView" owner:self options:nil];
+    for(id currentObject in nibFiles){
+        if ([currentObject isKindOfClass:[UIView class]]){
+            self.header = currentObject;
+            break;
+        }
+    }
+    [self.header setFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 200)];
+    [self.header layoutSubviews];
+    self.tableView.tableHeaderView = self.header;
 }
 
 - (void)assetsPickerController:(CTAssetsPickerController *)picker didFinishPickingAssets:(NSArray *)assets
@@ -113,6 +105,9 @@ int currentPhotoCount = 0;
     
     for (ALAsset *asset  in assets){
         [self.photoArray replaceObjectAtIndex:currentPhotoCount withObject:[UIImage imageWithCGImage:asset.defaultRepresentation.fullScreenImage]];
+        NSData* data = UIImageJPEGRepresentation([UIImage imageWithCGImage:asset.defaultRepresentation.fullScreenImage], 0.5f);
+        PFFile *imageFile = [PFFile fileWithName:@"Image.jpg" data:data];
+        [self.fileArray replaceObjectAtIndex:currentPhotoCount withObject:imageFile];
         currentPhotoCount++;
     }
     NSLog(@"CURRENT PHOTOS %d. Current remaining %d", currentPhotoCount, maxImageCount-currentPhotoCount);
@@ -198,25 +193,34 @@ int currentPhotoCount = 0;
         }
     }
     
+    
     [cell.deleteButton addTarget:self action:@selector(deleteButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
     cell.deleteButton.tag = indexPath.row;
     
     if ([[self.photoArray objectAtIndex:indexPath.row] isKindOfClass:[NSNull class]]) {
 
     } else {
-        NSLog(@"%@", [self.photoArray objectAtIndex:indexPath.row]);
         [cell initWithImage:[self.photoArray objectAtIndex:indexPath.row]];
         [cell.deleteButton addTarget:self action:@selector(deleteButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
     }
+    
+    
+    CGSize sysSize = [cell.contentView systemLayoutSizeFittingSize:CGSizeMake(self.tableView.bounds.size.width, CGFLOAT_MAX)];
+    cell.contentView.bounds = CGRectMake(0,0, sysSize.width, sysSize.height);
+    [cell.contentView layoutIfNeeded];
+    
     return cell;
 }
 
 -(void)deleteButtonTouched:(id)sender{
     
     NSInteger indexOfDeletedPhoto = [(UIButton *)sender tag];
- 
+    
     [self.photoArray removeObjectAtIndex:indexOfDeletedPhoto];
     [self.photoArray insertObject:[NSNull null] atIndex:self.photoArray.count];
+    
+    [self.fileArray removeObjectAtIndex:indexOfDeletedPhoto];
+    [self.fileArray insertObject:[NSNull null] atIndex:self.fileArray.count];
     currentPhotoCount--;
     NSLog(@"After Delete %@", self.photoArray);
     [self updatePhotoCount];
@@ -226,13 +230,6 @@ int currentPhotoCount = 0;
 -(void)addPhotoButtonTouched:(id)sender{
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    if (section == 0) {
-        return 150;
-    }
-    return 0;
-    
-}
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     if (section == 0) {
@@ -241,25 +238,7 @@ int currentPhotoCount = 0;
     return 0;
 }
 
--(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    if (section == 0){
-        UIView * topHeader = [self.tableView headerViewForSection:0];
-        AddPhotoHeaderView *custom =[[AddPhotoHeaderView alloc] init];
-        if (topHeader == nil){
-            NSArray *nibFiles = [[NSBundle mainBundle] loadNibNamed:@"AddPhotoHeaderView" owner:self options:nil];
-            for(id currentObject in nibFiles){
-                if ([currentObject isKindOfClass:[AddPhotoHeaderView class]]){
-                    custom = currentObject;
-                    custom.titleLabel.text = @"Those photos look great. Want to add another?";
-                    [custom sizeToFit];
-                    break;
-                }
-            }
-        }
-        return custom;
-    }
-    return 0;
-}
+
 
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
     if (section == 0){
@@ -292,15 +271,9 @@ int currentPhotoCount = 0;
 }
 
 - (void)nextBarButtonItemTouched:(id)sender{
-    NSMutableArray *fileArray = [[NSMutableArray alloc] initWithCapacity:3];
-    for (id photo in self.photoArray) {
-        if ([photo isKindOfClass:[UIImage class]]){
-            NSData* data = UIImageJPEGRepresentation(photo, 0.5f);
-            PFFile *imageFile = [PFFile fileWithName:@"Image.jpg" data:data];
-            [fileArray addObject:imageFile];
-        }
-    }
-    self.postingWorkflow.post[@"photoArray"] = fileArray;
+    self.postingWorkflow.photosForDisplay = self.photoArray;
+    
+    self.postingWorkflow.post.photoArray = self.fileArray;
     self.postingWorkflow.step++;
     UIViewController *nextViewController =[self.postingWorkflow nextViewController];
     [self.navigationController pushViewController:nextViewController animated:YES];
@@ -330,7 +303,9 @@ int currentPhotoCount = 0;
     } else {
         NSBlockOperation *saveImage = [NSBlockOperation blockOperationWithBlock:^{
             UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
-            NSLog(@"%@", image);
+            NSData* data = UIImageJPEGRepresentation(image, 0.5f);
+            PFFile *imageFile = [PFFile fileWithName:@"Image.jpg" data:data];
+            [self.fileArray replaceObjectAtIndex:currentPhotoCount withObject:imageFile];
             [self.photoArray replaceObjectAtIndex:currentPhotoCount withObject:image];
         }];
         
@@ -359,6 +334,30 @@ int currentPhotoCount = 0;
     [[UIApplication sharedApplication] setStatusBarStyle: UIStatusBarStyleDefault];
     
     [self presentViewController:picker animated:YES completion:nil];
+}
+
+-(void)getChangesToPost{
+    self.photoArray = [[NSMutableArray alloc] initWithCapacity:maxImageCount];
+    self.fileArray =[[NSMutableArray alloc] initWithCapacity:maxImageCount];
+    [self.photoArray addObjectsFromArray:@[[NSNull null], [NSNull null], [NSNull null]]];
+    [self.fileArray addObjectsFromArray:@[[NSNull null], [NSNull null], [NSNull null]]];
+    currentPhotoCount = 0;
+    if (self.postingWorkflow.post.photoArray){
+        
+        for (PFFile *file in self.postingWorkflow.post.photoArray) {
+            [self.fileArray replaceObjectAtIndex:[self.postingWorkflow.post.photoArray indexOfObject:file] withObject:file];
+        }
+        
+        for (UIImage *image in self.postingWorkflow.photosForDisplay){
+            if ([image isKindOfClass:[UIImage class]]){
+                [self.photoArray replaceObjectAtIndex:[self.postingWorkflow.photosForDisplay indexOfObject:image] withObject:image];
+                currentPhotoCount++;
+            }
+            
+        }
+        
+        [self.tableView reloadData];
+    }
 }
 
 /*

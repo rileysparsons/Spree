@@ -49,6 +49,19 @@
     [cancel setBackgroundImage:[UIImage imageNamed:@"cancelHighlight"] forState:UIControlStateHighlighted];
     [cancel addTarget:self action:@selector(dismissViewControllerAnimated:completion:) forControlEvents:UIControlEventTouchUpInside];
     [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:cancel]];
+    
+    self.header = [[SelectPostTypeHeaderView alloc] initWithFrame:CGRectZero];
+    NSArray *nibFiles = [[NSBundle mainBundle] loadNibNamed:@"SelectPostTypeHeaderView" owner:self options:nil];
+    for(id currentObject in nibFiles){
+        if ([currentObject isKindOfClass:[UIView class]]){
+            self.header = currentObject;
+            break;
+        }
+    }
+    [self.header setFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 200)];
+    [self.header layoutSubviews];
+    self.tableView.tableHeaderView = self.header;
+    
     // Do any additional setup after loading the view.
 }
 
@@ -57,31 +70,6 @@
     // Dispose of any resources that can be recreated.
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    if (section == 0) {
-         return 150;
-    } else {
-        return 40;
-    }
-
-}
-
--(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    if (section == 0){
-        UIView *header = [tableView headerViewForSection:0];
-        if (header == nil){
-            NSArray *nibFiles = [[NSBundle mainBundle] loadNibNamed:@"SelectPostTypeHeaderView" owner:self options:nil];
-            for(id currentObject in nibFiles){
-                if ([currentObject isKindOfClass:[UIView class]]){
-                    header = currentObject;
-                    break;
-                }
-            }
-        }
-        return header;
-    }
-    return 0;
-}
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object{
     static NSString *CellIdentifier = @"Cell";
@@ -95,7 +83,6 @@
             }
         }
     }
-    NSLog(@"%@", object[@"subType"]);
     cell.accessoryType = UITableViewCellAccessoryNone;
     cell.accessoryView = [MSCellAccessory accessoryWithType:FLAT_DISCLOSURE_INDICATOR color:[UIColor spreeOffBlack]];
     [cell initWithObject:object];

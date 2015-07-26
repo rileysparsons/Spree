@@ -15,35 +15,39 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What are you listing on Spree?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2c0-fb-XUB">
-                    <rect key="frame" x="47" y="240" width="506" height="119"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TM0-B7-gti">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What are you listing on Spree?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2c0-fb-XUB">
+                            <rect key="frame" x="47" y="241" width="506" height="119"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="119" id="wGr-C3-Eye"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="25"/>
+                            <color key="textColor" red="0.16666857900000001" green="0.18534906209999999" blue="0.19849607350000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="highlightedColor" red="0.16666857900000001" green="0.18534906209999999" blue="0.19849607350000001" alpha="1" colorSpace="calibratedRGB"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="119" id="wGr-C3-Eye"/>
+                        <constraint firstAttribute="centerX" secondItem="2c0-fb-XUB" secondAttribute="centerX" id="7yJ-ZJ-9g0"/>
+                        <constraint firstItem="2c0-fb-XUB" firstAttribute="leading" secondItem="TM0-B7-gti" secondAttribute="leading" constant="47" id="9eA-11-HEC"/>
+                        <constraint firstAttribute="centerY" secondItem="2c0-fb-XUB" secondAttribute="centerY" id="AZK-PK-7dh"/>
+                        <constraint firstAttribute="trailing" secondItem="2c0-fb-XUB" secondAttribute="trailing" constant="47" id="C5F-E3-8Zv"/>
                     </constraints>
-                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="25"/>
-                    <color key="textColor" red="0.16666857900000001" green="0.18534906209999999" blue="0.19849607350000001" alpha="1" colorSpace="calibratedRGB"/>
-                    <color key="highlightedColor" red="0.16666857900000001" green="0.18534906209999999" blue="0.19849607350000001" alpha="1" colorSpace="calibratedRGB"/>
-                </label>
+                </view>
             </subviews>
             <color key="backgroundColor" red="0.96558624505996704" green="0.97044742107391357" blue="0.97035741806030273" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="2c0-fb-XUB" secondAttribute="trailing" constant="40" id="6HZ-vL-c0D"/>
-                <constraint firstAttribute="centerX" secondItem="2c0-fb-XUB" secondAttribute="centerX" id="71D-57-sx8"/>
-                <constraint firstAttribute="centerY" secondItem="2c0-fb-XUB" secondAttribute="centerY" id="GXd-o4-AI5"/>
-                <constraint firstAttribute="trailing" secondItem="2c0-fb-XUB" secondAttribute="trailing" constant="47" id="H3W-XP-h7A"/>
-                <constraint firstItem="2c0-fb-XUB" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="47" id="SZo-Iw-mjd"/>
-                <constraint firstItem="2c0-fb-XUB" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="40" id="qid-J0-NP1"/>
+                <constraint firstAttribute="trailing" secondItem="TM0-B7-gti" secondAttribute="trailing" id="Erp-vU-Vfm"/>
+                <constraint firstItem="TM0-B7-gti" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="cJm-j0-mTr"/>
+                <constraint firstAttribute="bottom" secondItem="TM0-B7-gti" secondAttribute="bottom" id="dBg-di-V7y"/>
+                <constraint firstItem="TM0-B7-gti" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="vGe-x3-kdK"/>
             </constraints>
-            <variation key="default">
-                <mask key="constraints">
-                    <exclude reference="6HZ-vL-c0D"/>
-                    <exclude reference="qid-J0-NP1"/>
-                </mask>
-            </variation>
             <connections>
                 <outlet property="titleLabel" destination="2c0-fb-XUB" id="eWp-Gw-hdL"/>
             </connections>
-            <point key="canvasLocation" x="512" y="397"/>
+            <point key="canvasLocation" x="481" y="263"/>
         </view>
     </objects>
 </document>

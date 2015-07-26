@@ -26,6 +26,7 @@
     self = [super init];
     if (self){
         self.type = type;
+        self.photosForDisplay = [[NSMutableArray alloc] init];
         [self setupRequiredFields];
     }
     return self;
@@ -84,7 +85,8 @@
 }
 
 -(UIViewController *)presentPreviewPostController{
-    PreviewPostViewController *previewPostViewController = [[PreviewPostViewController alloc] init];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewPost" bundle:nil];
+    PreviewPostViewController *previewPostViewController = [storyboard instantiateViewControllerWithIdentifier:@"PreviewPostViewController"];
     NSArray *previewFields = [self fieldsForPostType:self.type[@"type"]];
     [previewPostViewController setFields:previewFields];
     previewPostViewController.post = self.post;

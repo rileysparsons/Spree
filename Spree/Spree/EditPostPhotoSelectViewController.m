@@ -18,7 +18,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSLog(@"PHOTOS: %@", self.photoArray);
+    
     
     // Do any additional setup after loading the view.
 }
@@ -58,16 +58,10 @@
     if (button.tag == 1){
         
     } else {
-        NSMutableArray *fileArray = [[NSMutableArray alloc] initWithCapacity:3];
-        for (id photo in self.photoArray) {
-            if ([photo isKindOfClass:[UIImage class]]){
-                NSData* data = UIImageJPEGRepresentation(photo, 0.5f);
-                PFFile *imageFile = [PFFile fileWithName:@"Image.jpg" data:data];
-                [fileArray addObject:imageFile];
-            }
-        }
-        ((PreviewPostViewController*)((UINavigationController *)self.presentingViewController).topViewController).post[PF_POST_PHOTOARRAY] = fileArray;
+        self.postingWorkflow.post.photoArray = self.fileArray;
+        self.postingWorkflow.photosForDisplay = self.photoArray;
         [((PreviewPostViewController*)((UINavigationController *)self.presentingViewController).topViewController).tableView reloadData];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloadPost" object:nil];
     }
     
     [self dismissViewControllerAnimated: YES completion:nil];

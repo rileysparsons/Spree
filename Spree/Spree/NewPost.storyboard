@@ -74,23 +74,30 @@
             <point key="canvasLocation" x="907" y="-3949"/>
         </scene>
         <!--Preview Post View Controller-->
-        <scene sceneID="MSY-Lf-QOp">
+        <scene sceneID="NdL-ZY-e68">
             <objects>
-                <viewController id="1fT-z7-9tI" customClass="PreviewPostViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="XpZ-o4-2hy"/>
-                        <viewControllerLayoutGuide type="bottom" id="cYd-gQ-7Ou"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="bOA-j2-bLc">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                <tableViewController storyboardIdentifier="PreviewPostViewController" id="OKE-9A-QxD" customClass="PreviewPostViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="S4B-nX-SLh">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="tg6-cj-GTA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="gXR-o1-hgJ">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gXR-o1-hgJ" id="eWw-vj-ls3">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="OKE-9A-QxD" id="Wqf-Mr-5Ry"/>
+                            <outlet property="delegate" destination="OKE-9A-QxD" id="tPU-gi-1Hj"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5NP-AT-A8l" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1459" y="-3949"/>
+            <point key="canvasLocation" x="1444" y="-4340"/>
         </scene>
         <!--Post Photo Select View Controller-->
         <scene sceneID="oTT-14-cOE">

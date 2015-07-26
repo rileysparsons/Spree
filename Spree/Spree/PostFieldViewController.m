@@ -60,11 +60,22 @@
     [[self.navigationItem.rightBarButtonItems objectAtIndex:0] setEnabled: [self fieldIsFilled]];
 }
 
--(void)setupTextField{
-    NSLog(@"POSTING WORKFLOW:  %@", self.postingWorkflow);
+-(void)setupTextField {
     if (self.postingWorkflow.post[self.fieldName]){
-        self.fieldTextView.text = self.postingWorkflow.post[self.fieldName];
+        if ([self.fieldName isEqualToString:PF_POST_PRICE]){
+           self.fieldTextView.text = [NSString stringWithFormat:@"$%@", ((NSNumber *)self.postingWorkflow.post[self.fieldName]).stringValue];
+             NSLog(@"%@", ((NSNumber *)self.postingWorkflow.post[self.fieldName]).stringValue);
+        } else {
+           self.fieldTextView.text = self.postingWorkflow.post[self.fieldName];
+        }
+    } else {
+        if ([self.fieldName isEqualToString: PF_POST_PRICE] && self.fieldTextView.text){
+            [self.fieldTextView setKeyboardType:UIKeyboardTypeDecimalPad];
+            self.fieldTextView.text = @"0";
+            [self textView:self.fieldTextView shouldChangeTextInRange:NSMakeRange(0, 0) replacementText:@"0"];
+        }
     }
+    
     [self.fieldTextView addRightButtonOnKeyboardWithText:@"Next" target:self action:@selector(nextBarButtonItemTouched:) shouldShowPlaceholder:YES];
     self.fieldTextView.font = [UIFont systemFontOfSize:25.0f];
     self.fieldTextView.placeholder =NSLocalizedString(self.fieldDisplayName, @" ");
@@ -77,11 +88,6 @@
     self.fieldTextView.floatingLabelShouldLockToTop = NO;
     self.fieldTextView.backgroundColor = [UIColor clearColor];
     self.fieldTextView.delegate = self;
-    if ([self.fieldName isEqualToString: PF_POST_PRICE] && self.fieldTextView.text){
-        [self.fieldTextView setKeyboardType:UIKeyboardTypeDecimalPad];
-        self.fieldTextView.text = @"0";
-        [self textView:self.fieldTextView shouldChangeTextInRange:NSMakeRange(0, 0) replacementText:@"0"];
-    }
 }
 
 -(void)setMaxCharacterLimit{

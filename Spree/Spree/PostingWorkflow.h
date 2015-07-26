@@ -12,6 +12,7 @@
 @interface PostingWorkflow : NSObject
 
 @property SpreePost *post;
+@property NSMutableArray *photosForDisplay;
 @property NSMutableArray *uncompletedFields;
 @property int step;
 

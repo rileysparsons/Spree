@@ -42,6 +42,7 @@
     [cancel addTarget:self action:@selector(cancelWorkflow) forControlEvents:UIControlEventTouchUpInside];
     [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:cancel]];
     
+    self.header.titleLabel.text =  [NSString stringWithFormat:@"Great! What type of %@ is it?", [self.type lowercaseString]];
     // Do any additional setup after loading the view.
 }
 
@@ -73,23 +74,6 @@
     return self.subTypes.count;
 }
 
--(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    if (section == 0){
-        UIView * topHeader = [self.tableView headerViewForSection:0];SelectPostTypeHeaderView *custom =[[SelectPostTypeHeaderView alloc] init];
-        if (topHeader == nil){
-            NSArray *nibFiles = [[NSBundle mainBundle] loadNibNamed:@"SelectPostTypeHeaderView" owner:self options:nil];
-            for(id currentObject in nibFiles){
-                if ([currentObject isKindOfClass:[SelectPostTypeHeaderView class]]){
-                    custom = currentObject;
-                    custom.titleLabel.text = [NSString stringWithFormat:@"Great! What type of %@ is it?", [self.type lowercaseString]];
-                    break;
-                }
-            }
-        }
-        return custom;
-    }
-    return 0;
-}
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSLog(@"POST: %@", self.post);

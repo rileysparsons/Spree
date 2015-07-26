@@ -15,22 +15,34 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="One more thing..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tSg-3U-rgE">
-                    <rect key="frame" x="47" y="284.5" width="506" height="30"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cFo-yg-jON">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="Add a couple photos." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tSg-3U-rgE">
+                            <rect key="frame" x="47" y="285" width="506" height="30"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="30" id="3WH-lN-RCG"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="25"/>
+                            <color key="textColor" red="0.16666857900000001" green="0.18534906209999999" blue="0.19849607350000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="highlightedColor" red="0.16666857900000001" green="0.18534906209999999" blue="0.19849607350000001" alpha="1" colorSpace="calibratedRGB"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" red="0.96558624510000002" green="0.97044742110000004" blue="0.97035741809999998" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstAttribute="height" priority="500" constant="119" id="FUZ-Gh-l2s"/>
+                        <constraint firstAttribute="trailing" secondItem="tSg-3U-rgE" secondAttribute="trailing" constant="47" id="3Mf-Gy-V1L"/>
+                        <constraint firstAttribute="centerY" secondItem="tSg-3U-rgE" secondAttribute="centerY" id="7nB-P7-DjP"/>
+                        <constraint firstItem="tSg-3U-rgE" firstAttribute="leading" secondItem="cFo-yg-jON" secondAttribute="leading" constant="47" id="fVe-zf-ni1"/>
+                        <constraint firstAttribute="centerX" secondItem="tSg-3U-rgE" secondAttribute="centerX" id="oWj-H8-1IE"/>
                     </constraints>
-                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="25"/>
-                    <color key="textColor" red="0.16666857900000001" green="0.18534906209999999" blue="0.19849607350000001" alpha="1" colorSpace="calibratedRGB"/>
-                    <color key="highlightedColor" red="0.16666857900000001" green="0.18534906209999999" blue="0.19849607350000001" alpha="1" colorSpace="calibratedRGB"/>
-                </label>
+                </view>
             </subviews>
             <color key="backgroundColor" red="0.96558624505996704" green="0.97044742107391357" blue="0.97035741806030273" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstAttribute="centerX" secondItem="tSg-3U-rgE" secondAttribute="centerX" id="Roc-SQ-nfp"/>
-                <constraint firstAttribute="trailing" secondItem="tSg-3U-rgE" secondAttribute="trailing" constant="47" id="ShY-wC-LTF"/>
-                <constraint firstAttribute="centerY" secondItem="tSg-3U-rgE" secondAttribute="centerY" id="Vfa-iB-L7c"/>
-                <constraint firstItem="tSg-3U-rgE" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="47" id="YN6-SC-W33"/>
+                <constraint firstItem="cFo-yg-jON" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="FsT-7M-uje"/>
+                <constraint firstAttribute="trailing" secondItem="cFo-yg-jON" secondAttribute="trailing" id="Omx-C2-Igg"/>
+                <constraint firstItem="cFo-yg-jON" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="bSR-4D-we4"/>
+                <constraint firstAttribute="bottom" secondItem="cFo-yg-jON" secondAttribute="bottom" id="wMJ-SJ-WUD"/>
             </constraints>
             <connections>
                 <outlet property="titleLabel" destination="tSg-3U-rgE" id="729-Sk-yHM"/>

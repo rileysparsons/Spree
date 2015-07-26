@@ -17,6 +17,16 @@
 
 @implementation PhotoSelectTableViewCell
 
+- (void)setFrame:(CGRect)frame {
+    if(frame.size.width != self.bounds.size.width) {
+        [super setFrame:frame];
+        self.contentView.bounds = CGRectMake(0, 0, frame.size.width, frame.size.height);
+        [self.contentView layoutIfNeeded];
+    }
+    else {
+        [super setFrame:frame];
+    }
+}
 
 - (void)awakeFromNib {
     // Initialization code

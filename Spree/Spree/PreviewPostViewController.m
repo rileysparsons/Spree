@@ -31,7 +31,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupButtons];
-    self.postingWorkflow.post = self.post;
     UIButton *cancel = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 40)];
     cancel.backgroundColor = [UIColor clearColor];
     cancel.imageView.contentMode = UIViewContentModeScaleAspectFit;
@@ -54,7 +53,6 @@
 }
 
 -(UITableViewCell *)cellForField:(NSString *)field {
-    [super cellForField:field];
     if ([field isEqualToString:PF_POST_DESCRIPTION]){
         static NSString *CellIdentifier = @"DescriptionCell";
         PostDescriptionTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -87,7 +85,6 @@
         [cell setTitleforPost:self.post];
         [cell.editTitleButton addTarget:self action:@selector(editButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
         cell.editTitleButton.tag = [self.fields indexOfObject:PF_POST_TITLE];
-        [cell setTitleforPost:self.post];
         return cell;
     } else if ([field isEqualToString:PF_POST_PHOTOARRAY]){
         static NSString *CellIdentifier = @"PhotoGalleryCell";
@@ -101,12 +98,23 @@
                 }
             }
         }
+        NSMutableArray *tempArray = [[NSMutableArray alloc] initWithCapacity:3];
+        for (id object in self.postingWorkflow.photosForDisplay){
+            if ([object isKindOfClass:[UIImage class]]){
+                [tempArray addObject:object];
+            }
+        }
+        
+        CGSize sysSize = [cell.contentView systemLayoutSizeFittingSize:CGSizeMake(self.tableView.bounds.size.width, CGFLOAT_MAX)];
+        cell.contentView.bounds = CGRectMake(0,0, sysSize.width, sysSize.height);
+        [cell.contentView layoutIfNeeded];
+        
+        [cell setPhotoGalleryForImages:tempArray];
         [cell enableEditMode];
         [cell.editButton addTarget:self action:@selector(editButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
-        NSLog(@"TAG %ld", [self.fields indexOfObject:PF_POST_PHOTOARRAY]);
+        NSLog(@"Number of photos %@", self.postingWorkflow.photosForDisplay);
         cell.editButton.tag = [self.fields indexOfObject:PF_POST_PHOTOARRAY];
         cell.dateLabel.hidden = YES;
-        [super loadPostImagesForCell:cell];
         return cell;
     } else if ([field isEqualToString:PF_POST_USER]){
         static NSString *CellIdentifier = @"PostUserCell";
@@ -165,6 +173,7 @@
 }
 
 
+
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     if (section == 0){
         UIView * topHeader = [self.tableView headerViewForSection:0];
@@ -221,20 +230,7 @@
     if ([[self.fields objectAtIndex:editButton.tag] isEqualToString:PF_POST_PHOTOARRAY]){
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewPost" bundle:[NSBundle mainBundle]];
         EditPostPhotoSelectViewController *editPostPhotoViewController = [storyboard instantiateViewControllerWithIdentifier:@"EditPostPhotoSelectViewController"];
-        editPostPhotoViewController.photoArray = [[NSMutableArray alloc] initWithCapacity:3];
-        [editPostPhotoViewController.photoArray addObjectsFromArray:@[[NSNull null], [NSNull null], [NSNull null]]];
-        if (self.post.photoArray.count != 0){
-            for (PFFile *imageFile in self.post.photoArray){
-                [imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-                    if (!error) {
-                        NSLog(@"Index %lu", (unsigned long)[self.post.photoArray indexOfObject:imageFile]);
-                        UIImage *image = [UIImage imageWithData:data];
-                        [editPostPhotoViewController.photoArray replaceObjectAtIndex:[self.post.photoArray indexOfObject:imageFile] withObject:image];
-                        // image can now be set on a UIImageView
-                    }
-                }];
-            }
-        }
+        editPostPhotoViewController.postingWorkflow = self.postingWorkflow;
         UINavigationController *navControl = [[UINavigationController alloc] initWithRootViewController:editPostPhotoViewController];
         [self presentViewController:navControl animated:YES completion:nil];
     } else {

@@ -11,6 +11,19 @@
 
 @implementation PhotoGalleryTableViewCell
 
+
+- (void)setFrame:(CGRect)frame {
+    if(frame.size.width != self.bounds.size.width) {
+        [super setFrame:frame];
+        self.contentView.bounds = CGRectMake(0, 0, frame.size.width, frame.size.height);
+        [self.contentView layoutIfNeeded];
+    }
+    else {
+        [super setFrame:frame];
+    }
+}
+
+
 - (void)awakeFromNib {
     // Initialization code
     self.photoGalleryControl = [[UIPageControl alloc] init];
@@ -36,10 +49,11 @@
 }
 
 - (void)setPhotoGalleryForImages:(NSArray*)images{
+    [self layoutSubviews];
     CGSize pagesScrollViewSize = self.photoGallery.frame.size;
-    self.photoGallery.contentSize = CGSizeMake(pagesScrollViewSize.width * self.pageImages.count, pagesScrollViewSize.height);
-    NSLog(@"%@", images);
     self.pageImages = images;
+    self.photoGallery.contentSize = CGSizeMake(self.frame.size.width * self.pageImages.count, pagesScrollViewSize.height);
+    NSLog(@"IMAGES FROM CELL %@ and width %f, with screen %f, and count %lu", images, pagesScrollViewSize.width, self.frame.size.width, (unsigned long)images.count);
     [self setupGallery];
     self.photoGallery.contentOffset = CGPointZero;
     if (images.count == 1){
@@ -72,6 +86,7 @@
         // 2
         CGRect frame = self.photoGallery.bounds;
         frame.origin.x = frame.size.width * page;
+        NSLog(@"%f", frame.origin.x);
         frame.origin.y = 0.0f;
         
         // 3
@@ -140,6 +155,10 @@
     CGSize pagesScrollViewSize = self.photoGallery.frame.size;
     self.photoGallery.contentSize = CGSizeMake(pagesScrollViewSize.width * self.pageImages.count, pagesScrollViewSize.height);
     [self loadVisiblePages];
+}
+
+-(void)layoutSubviews{
+    [super layoutSubviews];
 }
 
 -(void)enableEditMode{

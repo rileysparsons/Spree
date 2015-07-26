@@ -7,7 +7,10 @@
 //
 
 #import "PostTypeViewController.h"
+#import "SelectPostTypeHeaderView.h"
 
 @interface SelectPostTypeViewController : PostTypeViewController
+
+@property SelectPostTypeHeaderView *header;
 
 @end
