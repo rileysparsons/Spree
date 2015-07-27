@@ -437,7 +437,9 @@
     self.searchQuery = [PFQuery queryWithClassName:@"Post"];
     [self.searchQuery whereKeyExists:@"title"];  //this is based on whatever query you are trying to accomplish
     [self.searchQuery whereKeyExists:@"price"]; //this is based on whatever query you are trying to accomplish
-    [self.searchQuery whereKey:@"title" containsString:searchTerm];
+    
+    [self.searchQuery whereKey:@"title" matchesRegex:searchTerm modifiers:@"i"];
+    
     
     [self.searchQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error){
         if (!error){
