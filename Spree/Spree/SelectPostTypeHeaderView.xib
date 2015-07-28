@@ -28,7 +28,7 @@
                             <color key="highlightedColor" red="0.16666857900000001" green="0.18534906209999999" blue="0.19849607350000001" alpha="1" colorSpace="calibratedRGB"/>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" red="0.96558624510000002" green="0.97044742110000004" blue="0.97035741809999998" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="centerX" secondItem="2c0-fb-XUB" secondAttribute="centerX" id="7yJ-ZJ-9g0"/>
                         <constraint firstItem="2c0-fb-XUB" firstAttribute="leading" secondItem="TM0-B7-gti" secondAttribute="leading" constant="47" id="9eA-11-HEC"/>

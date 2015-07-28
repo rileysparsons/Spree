@@ -68,14 +68,24 @@
     appDelegate.window.rootViewController = self.tabBarController;
     
     [self setupRefreshControl];
-    UIImage *image = [UIImage imageNamed:@"spreeTitleStylized.png"];
-    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:image];
-    self.navigationItem.titleView.tintColor = [UIColor spreeDarkBlue];
+    
+    // Bar title
+    UILabel *titleLabel=[[UILabel alloc] initWithFrame:CGRectMake(0,0, 150, 40)];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    titleLabel.text= @"CAMPUS";
+    titleLabel.textColor=[UIColor spreeOffBlack];
+    titleLabel.font = [UIFont fontWithName:@"Lato-Bold" size: 17.0];
+    titleLabel.backgroundColor =[UIColor clearColor];
+    titleLabel.adjustsFontSizeToFitWidth=YES;
+    self.navigationItem.titleView=titleLabel;
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadObjects) name:@"ReloadTable" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadObjects) name:@"PostMade" object:nil];
 
     self.navigationItem.rightBarButtonItems = @[self.composeButton];
-
+    
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
     // Check if buyer needs to rate the seller
     PFQuery *query = [PFQuery queryWithClassName:@"RatingQueue"];
     [query whereKey:@"user" equalTo:[PFUser currentUser]];
@@ -183,7 +193,9 @@
 
 - (void)resetAnimation
 {
+    CGRect refreshBounds = self.refreshControl.bounds;
     // Reset our flags and background color
+    [self.compass_spinner setTransform:CGAffineTransformIdentity];    
     
     self.isRefreshAnimating = NO;
     self.isRefreshIconsOverlap = NO;
@@ -192,9 +204,7 @@
 
 - (void)animateRefreshView
 {
-    // Background color to loop through for our color view
-    NSArray *colorArray = @[[UIColor spreeRed],[UIColor spreeDarkBlue],[UIColor spreeLightYellow],[UIColor spreeBabyBlue],[UIColor spreeDarkYellow]];
-    static int colorIndex = 0;
+
     
     // Flag that we are animating
     self.isRefreshAnimating = YES;
@@ -205,8 +215,6 @@
                          // Rotate the spinner by M_PI_2 = PI/2 = 90 degrees
                          [self.compass_spinner setTransform:CGAffineTransformRotate(self.compass_spinner.transform, M_PI_2)];
                          // Change the background color
-                         self.refreshColorView.backgroundColor = [colorArray objectAtIndex:colorIndex];
-                         colorIndex = (colorIndex + 1) % colorArray.count;
                      }
                      completion:^(BOOL finished) {
                          
@@ -353,7 +361,7 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 60;
+    return 80;
 }
 
 #pragma mark - Navigation
@@ -379,6 +387,47 @@
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController: selectPostTypeViewController];
     
     [self.navigationController presentViewController:navigationController animated:YES completion:nil];
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    if (section == 0) {
+        UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 35)];
+        UIColor *typeBackgroundColor = [UIColor spreeOffWhite];
+        
+        // Background color
+        headerView.backgroundColor = typeBackgroundColor;
+        
+        UIView *whiteView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 35)];
+        whiteView.backgroundColor = [UIColor spreeOffWhite];
+        [headerView addSubview:whiteView];
+        
+        UILabel *labelHeader = [[UILabel alloc] initWithFrame:CGRectMake(5, 0, whiteView.frame.size.width, whiteView.frame.size.height
+                                                                         )];
+        labelHeader.font = [UIFont fontWithName:@"Lato-Regular" size:16];
+        labelHeader.textColor = [UIColor spreeOffBlack];
+        
+        [whiteView addSubview:labelHeader];
+
+            labelHeader.text = @"Recent Posts at Santa Clara";
+            return headerView;
+    }
+    return 0;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    if (section == 0)
+        return 35;
+    
+    return 0;
+}
+
+- (PFTableViewCell *)tableView:(UITableView *)tableView cellForNextPageAtIndexPath:(NSIndexPath *)indexPath{
+    PFTableViewCell *loadMore  = [[PFTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"LoadMore"];
+    loadMore.textLabel.textColor = [UIColor spreeOffBlack];
+    loadMore.textLabel.font = [UIFont fontWithName:@"Lato-Regular" size:20.0];
+    loadMore.backgroundColor = [UIColor spreeOffWhite];
+    loadMore.textLabel.text = @"See more posts...";
+    return loadMore;
 }
 
 // Detail View Setup

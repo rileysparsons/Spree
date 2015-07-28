@@ -35,19 +35,26 @@
     // Do any additional setup after loading the view, typically from a nib.
     self.postTypeArray = [[NSArray alloc] initWithObjects:@"Tasks", @"Books", @"Tickets", @"Electronics", @"Free", @"Furniture", @"Clothing", nil];
     iconColorArray = [[NSArray alloc] initWithObjects:[UIColor spreeDarkBlue], [UIColor spreeRed], [UIColor spreeBabyBlue], [UIColor spreeDarkYellow], [UIColor spreeLightYellow],[UIColor spreeDarkBlue], [UIColor spreeRed], [UIColor spreeBabyBlue], [UIColor spreeDarkYellow], [UIColor spreeLightYellow], nil];
-//    self.navigationItem.title = @"Spree";
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.rowHeight = 60;
     
-    UIImage *image = [UIImage imageNamed:@"spreeTitleStylized.png"];
-    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:image];
+    // Bar title
+    UILabel *titleLabel=[[UILabel alloc] initWithFrame:CGRectMake(0,0, 150, 40)];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    titleLabel.text= @"POSTS";
+    titleLabel.textColor=[UIColor spreeOffBlack];
+    titleLabel.font = [UIFont fontWithName:@"Lato-Bold" size: 17.0];
+    titleLabel.backgroundColor =[UIColor clearColor];
+    titleLabel.adjustsFontSizeToFitWidth=YES;
+    self.navigationItem.titleView=titleLabel;
+    
+    [self.view setBackgroundColor:[UIColor spreeOffWhite]];
+    [self.tableView setBackgroundColor:[UIColor spreeOffWhite]];
+
     
     [self setupRefreshControl];
-//    refreshControl = [[UIRefreshControl alloc] init];
-//    refreshControl.tintColor = [UIColor spreeRed];
-//    [refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
-//    [self.tableView addSubview:refreshControl];
+    
     [self addCoachMarks];
 }
 
@@ -251,9 +258,6 @@
 
 - (void)animateRefreshView
 {
-    // Background color to loop through for our color view
-    NSArray *colorArray = @[[UIColor spreeRed],[UIColor spreeDarkBlue],[UIColor spreeLightYellow],[UIColor spreeBabyBlue],[UIColor spreeDarkYellow]];
-    static int colorIndex = 0;
     
     // Flag that we are animating
     self.isRefreshAnimating = YES;
@@ -264,9 +268,7 @@
                          // Rotate the spinner by M_PI_2 = PI/2 = 90 degrees
                          [self.compass_spinner setTransform:CGAffineTransformRotate(self.compass_spinner.transform, M_PI_2)];
                          // Change the background color
-                         self.refreshColorView.backgroundColor = [colorArray objectAtIndex:colorIndex];
-                         colorIndex = (colorIndex + 1) % colorArray.count;
-                     }
+                    }
                      completion:^(BOOL finished) {
                          
                          // If still refreshing, keep spinning, else reset
@@ -281,7 +283,7 @@
 - (void)resetAnimation
 {
     // Reset our flags and background color
-
+    self.compass_spinner.transform = CGAffineTransformIdentity;
     self.isRefreshAnimating = NO;
     self.isRefreshIconsOverlap = NO;
     self.refreshColorView.backgroundColor = [UIColor clearColor];
