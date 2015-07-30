@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
@@ -508,6 +509,7 @@
                         <segue destination="Kp9-uZ-NNT" kind="show" identifier="ShowUserPosts" id="yXt-gx-NKr"/>
                         <segue destination="Ddc-WH-Gjz" kind="show" identifier="showTerms" id="u22-4Q-tN1"/>
                         <segue destination="Cdg-0u-Hq2" kind="presentation" identifier="show_welcome" id="sfe-qj-XrF"/>
+                        <segue destination="sD7-i8-wT7" kind="show" identifier="showContactUs" id="rZA-IE-oMl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
@@ -571,10 +573,10 @@
             </objects>
             <point key="canvasLocation" x="2948" y="360"/>
         </scene>
-        <!--Text View View Controller-->
+        <!--Terms and Conditions-->
         <scene sceneID="plx-fl-l8u">
             <objects>
-                <viewController id="Ddc-WH-Gjz" customClass="TextViewViewController" sceneMemberID="viewController">
+                <viewController title="Terms and Conditions" id="Ddc-WH-Gjz" customClass="TextViewViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="dNY-wX-sZV"/>
                         <viewControllerLayoutGuide type="bottom" id="nnE-4N-gbV"/>
@@ -606,7 +608,78 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hKA-sg-3n1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2006" y="1298"/>
+            <point key="canvasLocation" x="1985" y="1298"/>
+        </scene>
+        <!--Contact Us-->
+        <scene sceneID="f1b-Ew-4St">
+            <objects>
+                <viewController title="Contact Us" id="sD7-i8-wT7" customClass="ContactUsViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="8Vd-uq-v6o"/>
+                        <viewControllerLayoutGuide type="bottom" id="pBb-R8-AbO"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="cEd-Us-iSR">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Have a problem? Let us know. Need some help? We would be happy to help you out. Don't worry, we never save or share your email." lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wQa-Mx-9PV">
+                                <rect key="frame" x="16" y="72" width="382" height="57"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="57" id="ZRW-BL-Rkh"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Email Address" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="g9W-be-7Wc">
+                                <rect key="frame" x="16" y="137" width="382" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Category" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6jp-ZS-cfq">
+                                <rect key="frame" x="16" y="175" width="382" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" editable="NO" text="Please select a category" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6ta-qL-Zxp">
+                                <rect key="frame" x="16" y="213" width="382" height="200"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="textColor" red="0.80000001192092896" green="0.80000001192092896" blue="0.80000001192092896" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OKT-gz-rVb">
+                                <rect key="frame" x="0.0" y="20" width="414" height="44"/>
+                            </navigationBar>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="g9W-be-7Wc" firstAttribute="leading" secondItem="6jp-ZS-cfq" secondAttribute="leading" id="IT1-Jd-1qA"/>
+                            <constraint firstItem="g9W-be-7Wc" firstAttribute="leading" secondItem="cEd-Us-iSR" secondAttribute="leadingMargin" id="IdG-qe-7xx"/>
+                            <constraint firstItem="wQa-Mx-9PV" firstAttribute="top" secondItem="8Vd-uq-v6o" secondAttribute="bottom" constant="8" symbolic="YES" id="LOr-tb-lyb"/>
+                            <constraint firstItem="6jp-ZS-cfq" firstAttribute="top" secondItem="g9W-be-7Wc" secondAttribute="bottom" constant="8" symbolic="YES" id="LYQ-OO-bqM"/>
+                            <constraint firstItem="6jp-ZS-cfq" firstAttribute="leading" secondItem="6ta-qL-Zxp" secondAttribute="leading" id="fz3-Zb-zOT"/>
+                            <constraint firstItem="wQa-Mx-9PV" firstAttribute="leading" secondItem="g9W-be-7Wc" secondAttribute="leading" id="h0d-Ya-h6L"/>
+                            <constraint firstItem="6jp-ZS-cfq" firstAttribute="trailing" secondItem="6ta-qL-Zxp" secondAttribute="trailing" id="h8A-fj-Gs9"/>
+                            <constraint firstItem="6ta-qL-Zxp" firstAttribute="top" secondItem="6jp-ZS-cfq" secondAttribute="bottom" constant="8" symbolic="YES" id="iZt-iY-y21"/>
+                            <constraint firstItem="g9W-be-7Wc" firstAttribute="top" secondItem="wQa-Mx-9PV" secondAttribute="bottom" constant="8" symbolic="YES" id="isw-Q7-GH8"/>
+                            <constraint firstItem="wQa-Mx-9PV" firstAttribute="trailing" secondItem="g9W-be-7Wc" secondAttribute="trailing" id="opt-N6-hfg"/>
+                            <constraint firstItem="6ta-qL-Zxp" firstAttribute="trailing" secondItem="cEd-Us-iSR" secondAttribute="trailingMargin" id="pCk-7x-wU4"/>
+                            <constraint firstItem="g9W-be-7Wc" firstAttribute="trailing" secondItem="6jp-ZS-cfq" secondAttribute="trailing" id="u1Z-ZW-UAy"/>
+                        </constraints>
+                    </view>
+                    <toolbarItems/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
+                    <connections>
+                        <outlet property="categoryTextField" destination="6jp-ZS-cfq" id="9v3-wA-Cta"/>
+                        <outlet property="descriptionTextView" destination="6ta-qL-Zxp" id="GZr-JR-Y9F"/>
+                        <outlet property="emailTextField" destination="g9W-be-7Wc" id="lbI-zD-z8L"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3hL-ZJ-GQ1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2570" y="1298"/>
         </scene>
         <!--User Posts Table View Controller-->
         <scene sceneID="zcI-kF-QQo">
