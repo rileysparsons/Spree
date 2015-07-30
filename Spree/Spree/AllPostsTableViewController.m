@@ -82,13 +82,22 @@
     appDelegate.window.rootViewController = self.tabBarController;
     
     [self setupRefreshControl];
-    UIImage *image = [UIImage imageNamed:@"spreeTitleStylized.png"];
-    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:image];
-    self.navigationItem.titleView.tintColor = [UIColor spreeDarkBlue];
+    
+    // Bar title
+    UILabel *titleLabel=[[UILabel alloc] initWithFrame:CGRectMake(0,0, 150, 40)];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    titleLabel.text= @"CAMPUS";
+    titleLabel.textColor=[UIColor spreeOffBlack];
+    titleLabel.font = [UIFont fontWithName:@"Lato-Bold" size: 17.0];
+    titleLabel.backgroundColor =[UIColor clearColor];
+    titleLabel.adjustsFontSizeToFitWidth=YES;
+    self.navigationItem.titleView=titleLabel;
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadObjects) name:@"ReloadTable" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadObjects) name:@"PostMade" object:nil];
 
     self.navigationItem.rightBarButtonItems = @[self.composeButton];
+
 
     // Search set up (Excerpt from official Apple Example)
     
@@ -97,8 +106,10 @@
     self.searchController.searchResultsUpdater = self;
     [self.searchController.searchBar sizeToFit];
     self.tableView.tableHeaderView = self.searchController.searchBar;
+
     
     // we want to be the delegate for our filtered table so didSelectRowAtIndexPath is called for both tables
+    [self.resultsTableController.tableView setFrame:CGRectZero];
     self.resultsTableController.tableView.delegate = self;
     self.searchController.delegate = self;
     self.searchController.dimsBackgroundDuringPresentation = NO; // default is YES
@@ -111,6 +122,7 @@
     // hierarchy until it finds the root view controller or one that defines a presentation context.
     //
     self.definesPresentationContext = YES;  // know where you want UISearchController to be displayed
+
     
     // Check if buyer needs to rate the seller
     PFQuery *query = [PFQuery queryWithClassName:@"RatingQueue"];
@@ -231,6 +243,10 @@
 - (void)resetAnimation
 {
     // Reset our flags and background color
+    [UIView animateWithDuration:0.5f animations:^{
+        [self.compass_spinner setTransform:CGAffineTransformIdentity];
+        
+    }];
     
     self.isRefreshAnimating = NO;
     self.isRefreshIconsOverlap = NO;
@@ -239,9 +255,7 @@
 
 - (void)animateRefreshView
 {
-    // Background color to loop through for our color view
-    NSArray *colorArray = @[[UIColor spreeRed],[UIColor spreeDarkBlue],[UIColor spreeLightYellow],[UIColor spreeBabyBlue],[UIColor spreeDarkYellow]];
-    static int colorIndex = 0;
+
     
     // Flag that we are animating
     self.isRefreshAnimating = YES;
@@ -252,8 +266,6 @@
                          // Rotate the spinner by M_PI_2 = PI/2 = 90 degrees
                          [self.compass_spinner setTransform:CGAffineTransformRotate(self.compass_spinner.transform, M_PI_2)];
                          // Change the background color
-                         self.refreshColorView.backgroundColor = [colorArray objectAtIndex:colorIndex];
-                         colorIndex = (colorIndex + 1) % colorArray.count;
                      }
                      completion:^(BOOL finished) {
                          
@@ -400,7 +412,7 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 60;
+    return 80;
 }
 
 #pragma mark - Navigation
@@ -457,6 +469,47 @@
         }
     }];
 }
+//-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+//    if (section == 0) {
+//        UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 35)];
+//        UIColor *typeBackgroundColor = [UIColor spreeOffWhite];
+//        
+//        // Background color
+//        headerView.backgroundColor = typeBackgroundColor;
+//        
+//        UIView *whiteView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 35)];
+//        whiteView.backgroundColor = [UIColor spreeOffWhite];
+//        [headerView addSubview:whiteView];
+//        
+//        UILabel *labelHeader = [[UILabel alloc] initWithFrame:CGRectMake(5, 0, whiteView.frame.size.width, whiteView.frame.size.height
+//                                                                         )];
+//        labelHeader.font = [UIFont fontWithName:@"Lato-Regular" size:16];
+//        labelHeader.textColor = [UIColor spreeOffBlack];
+//        
+//        [whiteView addSubview:labelHeader];
+//
+//            labelHeader.text = @"Recent Posts at Santa Clara";
+//            return headerView;
+//    }
+//    return 0;
+//}
+
+//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+//    if (section == 0)
+//        return 35;
+//    
+//    return 0;
+//}
+
+- (PFTableViewCell *)tableView:(UITableView *)tableView cellForNextPageAtIndexPath:(NSIndexPath *)indexPath{
+    PFTableViewCell *loadMore  = [[PFTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"LoadMore"];
+    loadMore.textLabel.textColor = [UIColor spreeOffBlack];
+    loadMore.textLabel.font = [UIFont fontWithName:@"Lato-Regular" size:20.0];
+    loadMore.backgroundColor = [UIColor spreeOffWhite];
+    loadMore.textLabel.text = @"See more posts...";
+    return loadMore;
+
+}
 
 // Detail View Setup
 
@@ -492,7 +545,9 @@
 // Implement this method if the default presentation is not adequate for your purposes.
 //
 - (void)presentSearchController:(UISearchController *)searchController {
-    
+    self.pullToRefreshEnabled = NO;
+    self.refreshControl.enabled = false;
+    self.refreshControl = nil;
 }
 
 - (void)willPresentSearchController:(UISearchController *)searchController {
@@ -500,6 +555,8 @@
 }
 
 - (void)didPresentSearchController:(UISearchController *)searchController {
+    [self.tableView setContentInset:UIEdgeInsetsMake(26,0,0,0)];
+    [self.tableView setScrollIndicatorInsets:UIEdgeInsetsMake(64,0,0,0)];
     // do something after the search controller is presented
 }
 
@@ -508,6 +565,11 @@
 }
 
 - (void)didDismissSearchController:(UISearchController *)searchController {
+    [self setupRefreshControl];
+    [self.tableView setContentInset:UIEdgeInsetsMake(64,0,0,0)];
+    [self.tableView setScrollIndicatorInsets:UIEdgeInsetsMake(64,0,0,0)];
+
+    self.pullToRefreshEnabled = YES;
     // do something after the search controller is dismissed
 }
 

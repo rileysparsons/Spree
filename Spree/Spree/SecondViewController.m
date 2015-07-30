@@ -36,6 +36,16 @@
 
     [spreeFooter addSubview:spreeLabel];
      */
+    
+    UILabel *titleLabel=[[UILabel alloc] initWithFrame:CGRectMake(0,0, 150, 40)];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    titleLabel.text= @"MORE";
+    titleLabel.textColor=[UIColor spreeOffBlack];
+    titleLabel.font = [UIFont fontWithName:@"Lato-Bold" size: 17.0];
+    titleLabel.backgroundColor =[UIColor clearColor];
+    titleLabel.adjustsFontSizeToFitWidth=YES;
+    self.navigationItem.titleView=titleLabel;
+    
     UIImageView *spreeWhite = [[UIImageView alloc] initWithFrame:CGRectMake(0, 45, self.view.frame.size.width, 90)];
     spreeWhite.image = [UIImage imageNamed:@"spreeLogoWhite"];
     spreeWhite.contentMode = UIViewContentModeScaleAspectFit;
@@ -52,8 +62,9 @@
     _secondSectionArray = [[NSArray alloc] initWithObjects:@"Terms and conditions",nil];
     
     self.nameLabel.text = [PFUser currentUser][@"name"];
+
+
     
-    [self setUpBackgroundGradient];
 
     // Add notification center for updating the posts cell for requests
     
@@ -92,23 +103,10 @@
     }
 }
 
--(void) setUpBackgroundGradient{
-    CALayer *red = [CALayer layer];
-    red.frame = self.view.bounds;
-    red.backgroundColor = [[UIColor redColor] CGColor];
-    red.opacity = 1.0f;
-    [self.view.layer insertSublayer:red atIndex:0];
-    
-    CALayer *white = [CALayer layer];
-    white.frame = self.view.bounds;
-    white.backgroundColor = [[UIColor whiteColor] CGColor];
-    white.opacity = 0.4f;
-    [self.view.layer insertSublayer:white atIndex:1];
-}
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.settingsTableView.frame.size.width, 35)];
-    UIColor *typeBackgroundColor = [UIColor spreeRed];
+    UIColor *typeBackgroundColor = [UIColor spreeOffWhite];
     
     // Background color
     headerView.backgroundColor = typeBackgroundColor;
@@ -120,7 +118,7 @@
     UILabel *labelHeader = [[UILabel alloc] initWithFrame:CGRectMake(5, 0, whiteView.frame.size.width, whiteView.frame.size.height
                                                                      )];
     labelHeader.font = [UIFont fontWithName:@"Helvetica" size:16];
-    labelHeader.textColor = [UIColor whiteColor];
+    labelHeader.textColor = [UIColor spreeOffBlack];
     
     [whiteView addSubview:labelHeader];
     
@@ -167,16 +165,16 @@
      if (indexPath.section == 0){
          cell.textLabel.text = [_firstSectionArray objectAtIndex:indexPath.row];
          if (indexPath.row == 1) {
-             cell.accessoryView = [MSCellAccessory accessoryWithType:FLAT_DISCLOSURE_INDICATOR color:[UIColor spreeRed] highlightedColor:[UIColor grayColor]];
+             cell.accessoryView = [MSCellAccessory accessoryWithType:FLAT_DISCLOSURE_INDICATOR color:[UIColor spreeDarkBlue] highlightedColor:[UIColor grayColor]];
              if (expiredPostCount != 0){
-                 cell.detailTextLabel.textColor = [UIColor spreeRed];
+                 cell.detailTextLabel.textColor = [UIColor spreeOffBlack];
                  if (expiredPostCount == 1) {
                      cell.detailTextLabel.text = [NSString stringWithFormat:@"%ld expired post!", (long)expiredPostCount];
                  } else {
                      cell.detailTextLabel.text = [NSString stringWithFormat:@"%ld expired posts!", (long)expiredPostCount];
                  }
              } else {
-                 cell.detailTextLabel.textColor = [UIColor spreeDarkYellow];
+                 cell.detailTextLabel.textColor = [UIColor spreeDarkBlue];
                  cell.detailTextLabel.text = @"All posts are active";
              }
          }

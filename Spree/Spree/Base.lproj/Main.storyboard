@@ -7,6 +7,14 @@
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="Lato-Regular.ttf">
+            <string>Lato-Regular</string>
+            <string>Lato-Regular</string>
+            <string>Lato-Regular</string>
+            <string>Lato-Regular</string>
+        </mutableArray>
+    </customFonts>
     <scenes>
         <!--All Messages View Controller-->
         <scene sceneID="kXI-xy-ay0">
@@ -416,11 +424,11 @@
                                     <constraint firstAttribute="height" constant="21" id="WXh-xu-bfc"/>
                                     <constraint firstAttribute="width" constant="169" id="WiL-P5-sl1"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="15"/>
+                                <color key="textColor" red="0.16666857900000001" green="0.18534906209999999" blue="0.19849607350000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="35" sectionFooterHeight="35" translatesAutoresizingMaskIntoConstraints="NO" id="AFq-JN-QoM">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="35" sectionFooterHeight="35" translatesAutoresizingMaskIntoConstraints="NO" id="AFq-JN-QoM">
                                 <rect key="frame" x="0.0" y="171" width="414" height="565"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -436,18 +444,19 @@
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bvj-iS-OZ0">
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="16"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="u1u-Rf-nEg">
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.96558624510000002" green="0.97044742110000004" blue="0.97035741809999998" alpha="1" colorSpace="calibratedRGB"/>
                                     </tableViewCell>
                                 </prototypes>
                                 <variation key="default">
@@ -461,14 +470,14 @@
                                     <outlet property="delegate" destination="8rJ-Kc-sve" id="QNr-wK-IfS"/>
                                 </connections>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yyF-xU-mhh">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yyF-xU-mhh">
                                 <rect key="frame" x="123" y="130" width="169" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="17"/>
+                                <color key="textColor" red="0.16666857900000001" green="0.18534906209999999" blue="0.19849607350000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.96558624510000002" green="0.97044742110000004" blue="0.97035741809999998" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="yyF-xU-mhh" firstAttribute="top" secondItem="QPZ-aR-TUO" secondAttribute="bottom" constant="16" id="3ks-73-2xP"/>
                             <constraint firstAttribute="bottom" secondItem="AFq-JN-QoM" secondAttribute="bottom" id="FjH-Fi-7cD"/>
@@ -629,7 +638,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <inset key="separatorInset" minX="75" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <color key="sectionIndexColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="sectionIndexBackgroundColor" red="0.96558624505996704" green="0.97044742107391357" blue="0.97035741806030273" alpha="1" colorSpace="calibratedRGB"/>
                         <connections>
                             <outlet property="dataSource" destination="fQ3-fG-0Fk" id="SER-6T-jZV"/>
                             <outlet property="delegate" destination="fQ3-fG-0Fk" id="HgE-nA-8T6"/>
@@ -637,7 +646,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="9bA-Os-hm3">
                         <barButtonItem key="rightBarButtonItem" style="done" systemItem="compose" id="mAB-Zk-PPn">
-                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="tintColor" red="0.034740071740000003" green="0.29351189729999999" blue="0.58873707060000002" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="newPostButtonPressed:" destination="fQ3-fG-0Fk" id="Szu-I4-JBG"/>
                             </connections>
@@ -768,7 +777,7 @@
                     <tabBar key="tabBar" contentMode="scaleAspectFit" id="W28-zg-YXA">
                         <rect key="frame" x="0.0" y="975" width="768" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.96558624510000002" green="0.97044742110000004" blue="0.97035741809999998" alpha="1" colorSpace="calibratedRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="7ka-LY-u60" kind="relationship" relationship="viewControllers" id="rVr-LX-nGM"/>
@@ -1123,11 +1132,12 @@
         <scene sceneID="81W-Mg-mTv">
             <objects>
                 <tableViewController id="zny-BO-81a" customClass="AllPostsTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Vpv-xo-3rY">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Vpv-xo-3rY">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <inset key="separatorInset" minX="75" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <color key="backgroundColor" red="0.96558624510000002" green="0.97044742110000004" blue="0.97035741809999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="separatorColor" red="0.16666857900000001" green="0.18534906209999999" blue="0.19849607350000001" alpha="0.10000000000000001" colorSpace="calibratedRGB"/>
+                        <color key="sectionIndexBackgroundColor" red="0.96558624510000002" green="0.97044742110000004" blue="0.97035741809999998" alpha="1" colorSpace="calibratedRGB"/>
                         <connections>
                             <outlet property="dataSource" destination="zny-BO-81a" id="tbA-hd-7Fi"/>
                             <outlet property="delegate" destination="zny-BO-81a" id="mLB-LI-HQp"/>

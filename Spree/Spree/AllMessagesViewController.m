@@ -26,8 +26,6 @@
         // The className to query on
         self.parseClassName = PF_RECENT_CLASS_NAME;
 
-        self.title = @"Messages";
-
         // Whether the built-in pull-to-refresh is enabled
         self.pullToRefreshEnabled = YES;
 
@@ -40,6 +38,18 @@
 
 -(void)viewDidLoad{
     [super viewDidLoad];
+    
+    
+    UILabel *titleLabel=[[UILabel alloc] initWithFrame:CGRectMake(0,0, 150, 40)];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    titleLabel.text= @"MESSAGES";
+    titleLabel.textColor=[UIColor spreeOffBlack];
+    titleLabel.font = [UIFont fontWithName:@"Lato-Bold" size: 17.0];
+    titleLabel.backgroundColor =[UIColor clearColor];
+    titleLabel.adjustsFontSizeToFitWidth=YES;
+    self.navigationItem.titleView=titleLabel;
+    
+    
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     self.tableView.separatorInset = UIEdgeInsetsMake(0, 75, 0, 0);
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadObjectsOnDelay) name:@"reloadMessages" object:nil];

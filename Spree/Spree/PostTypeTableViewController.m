@@ -47,6 +47,8 @@
     [super viewDidLoad];
     UIImage *image = [UIImage imageNamed:@"spreeTitleStylized.png"];
     self.title = self.postType;
+    self.view.backgroundColor = [UIColor spreeOffWhite];
+    self.tableView.backgroundColor = [UIColor spreeOffWhite];
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:image];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadObjects) name:@"ReloadTable" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadObjects) name:@"PostMade" object:nil];

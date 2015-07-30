@@ -108,7 +108,11 @@
                 }
             }
         }
+        
         [cell setDescriptionTextViewForPost:self.post];
+        CGSize sysSize = [cell.contentView systemLayoutSizeFittingSize:CGSizeMake(self.tableView.bounds.size.width, CGFLOAT_MAX)];
+        cell.contentView.bounds = CGRectMake(0,0, sysSize.width, sysSize.height);
+        [cell.contentView layoutIfNeeded];
         return cell;
     } else if ([field isEqualToString:PF_POST_TITLE]){
         static NSString *CellIdentifier = @"TitleCell";
@@ -118,6 +122,7 @@
             for(id currentObject in nibFiles){
                 if ([currentObject isKindOfClass:[UITableViewCell class]]){
                     cell = (PostTitleTableViewCell*)currentObject;
+                    [cell setTitleforPost:self.post];
                     break;
                 }
             }
@@ -147,12 +152,12 @@
             for(id currentObject in nibFiles){
                 if ([currentObject isKindOfClass:[UITableViewCell class]]){
                     cell = (PostUserTableViewCell*)currentObject;
+                    [cell setTag:2];
+                    [cell setUserLabelForPost:self.post];
                     break;
                 }
             }
         }
-        [cell setTag:2];
-        [cell setUserLabelForPost:self.post];
         return cell;
     } else if ([field isEqualToString:PF_POST_BOOKFORCLASS]){
         static NSString *CellIdentifier = @"PostClassCell";
@@ -272,7 +277,7 @@
         PFQuery *query = [PFUser query];
         [query whereKey:@"objectId" equalTo:self.post.user.objectId];
         [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-            NSLog(@"%@", object);
+            NSLog(@"THIS: %@", object);
             self.poster = (PFUser *)object;
 //            NSString *date = [NSDateFormatter localizedStringFromDate:[self.post createdAt] dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterNoStyle];
 //            _postDateUserLabel.text = [NSString stringWithFormat:@"Posted by %@ on %@", (_poster[@"name"]) ? _poster[@"name"] : _poster[@"username"], date];
