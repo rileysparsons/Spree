@@ -6,7 +6,7 @@
 //
 
 #import "WelcomeViewController.h"
-#import "HomeViewController.h"
+#import "BrowseViewController.h"
 #import "LoginViewController.h"
 #import "SignUpViewController.h"
 #import "AppDelegate.h"
@@ -34,7 +34,7 @@
 
         [self presentViewController:loginViewController animated:NO completion:NULL];
     } else {
-        HomeViewController *mainFeed= [self.storyboard instantiateViewControllerWithIdentifier:@"home"];
+        BrowseViewController *mainFeed= [self.storyboard instantiateViewControllerWithIdentifier:@"home"];
         [self presentViewController:mainFeed animated:NO completion:NULL];
     }
 }

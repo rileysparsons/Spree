@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Riley Steele Parsons. All rights reserved.
 //
 
-#import "HomeViewController.h"
+#import "BrowseViewController.h"
 #import "PostTypeTableViewController.h"
 #import "PostTypeTableViewCell.h"
 #import "WSCoachMarksView.h"
@@ -14,7 +14,7 @@
 #import "SelectPostTypeViewController.h"
 #import "SpreePost.h"
 
-@interface HomeViewController () {
+@interface BrowseViewController () {
     WSCoachMarksView *coachMarksView;
     NSArray *iconColorArray;
 }
@@ -28,7 +28,7 @@
 
 @end
 
-@implementation HomeViewController
+@implementation BrowseViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

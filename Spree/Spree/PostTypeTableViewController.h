@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 Riley Steele Parsons. All rights reserved.
 //
 
-#import "AllPostsTableViewController.h"
+#import "PostTableViewController.h"
 
-@interface PostTypeTableViewController : AllPostsTableViewController
+@interface PostTypeTableViewController : PostTableViewController
 
 @property NSString *postType;
 

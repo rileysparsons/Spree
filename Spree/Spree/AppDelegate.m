@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "HomeViewController.h"
+#import "BrowseViewController.h"
 #import "LoginViewController.h"
 #import "PostDetailViewController.h"
 #import "SpreePost.h"
