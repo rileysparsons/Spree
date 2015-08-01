@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
@@ -429,7 +428,7 @@
                                 <color key="textColor" red="0.16666857900000001" green="0.18534906209999999" blue="0.19849607350000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="35" sectionFooterHeight="35" translatesAutoresizingMaskIntoConstraints="NO" id="AFq-JN-QoM">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="35" sectionFooterHeight="35" translatesAutoresizingMaskIntoConstraints="NO" id="AFq-JN-QoM">
                                 <rect key="frame" x="0.0" y="171" width="414" height="565"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -471,7 +470,7 @@
                                     <outlet property="delegate" destination="8rJ-Kc-sve" id="QNr-wK-IfS"/>
                                 </connections>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yyF-xU-mhh">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yyF-xU-mhh">
                                 <rect key="frame" x="123" y="130" width="169" height="21"/>
                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="17"/>
                                 <color key="textColor" red="0.16666857900000001" green="0.18534906209999999" blue="0.19849607350000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -701,10 +700,10 @@
             </objects>
             <point key="canvasLocation" x="3540" y="1242"/>
         </scene>
-        <!--Home View Controller-->
+        <!--Browse View Controller-->
         <scene sceneID="cUw-BT-dQx">
             <objects>
-                <tableViewController id="fQ3-fG-0Fk" customClass="HomeViewController" sceneMemberID="viewController">
+                <tableViewController id="fQ3-fG-0Fk" customClass="BrowseViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Pwz-Bi-t3F">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1201,10 +1200,10 @@
             </objects>
             <point key="canvasLocation" x="750" y="66"/>
         </scene>
-        <!--All Posts Table View Controller-->
+        <!--Home View Controller-->
         <scene sceneID="81W-Mg-mTv">
             <objects>
-                <tableViewController id="zny-BO-81a" customClass="AllPostsTableViewController" sceneMemberID="viewController">
+                <tableViewController id="zny-BO-81a" customClass="HomeViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Vpv-xo-3rY">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1703,6 +1702,7 @@
         <scene sceneID="v8f-Ro-Y3x">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7ka-LY-u60" sceneMemberID="viewController">
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <tabBarItem key="tabBarItem" title="All" image="AllTabBarIcon" id="P8w-qH-Vxp"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ooW-nh-A8d">

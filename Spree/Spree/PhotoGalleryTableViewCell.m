@@ -9,7 +9,7 @@
 #import "PhotoGalleryTableViewCell.h"
 #import "converter.h"
 
-@implementation PhotoGalleryTableViewCell
+@implementation PhotoGalleryTableViewCell 
 
 
 - (void)setFrame:(CGRect)frame {
