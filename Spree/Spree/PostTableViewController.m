@@ -102,6 +102,8 @@
 
             // Delete from the queue
             [object deleteInBackground];
+        } else {
+            NSLog(@"No ratings required");
         }
     }];
 }

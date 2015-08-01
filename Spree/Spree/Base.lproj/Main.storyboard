@@ -640,27 +640,31 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" editable="NO" text="Please select a category" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6ta-qL-Zxp">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Please select a category" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6ta-qL-Zxp">
                                 <rect key="frame" x="16" y="213" width="382" height="200"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="textColor" red="0.80000001192092896" green="0.80000001192092896" blue="0.80000001192092896" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OKT-gz-rVb">
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OKT-gz-rVb">
                                 <rect key="frame" x="0.0" y="20" width="414" height="44"/>
                             </navigationBar>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="OKT-gz-rVb" firstAttribute="leading" secondItem="cEd-Us-iSR" secondAttribute="leading" id="3nT-BM-xJ9"/>
+                            <constraint firstItem="6ta-qL-Zxp" firstAttribute="centerX" secondItem="OKT-gz-rVb" secondAttribute="centerX" id="7ka-0f-hTo"/>
                             <constraint firstItem="g9W-be-7Wc" firstAttribute="leading" secondItem="6jp-ZS-cfq" secondAttribute="leading" id="IT1-Jd-1qA"/>
                             <constraint firstItem="g9W-be-7Wc" firstAttribute="leading" secondItem="cEd-Us-iSR" secondAttribute="leadingMargin" id="IdG-qe-7xx"/>
                             <constraint firstItem="wQa-Mx-9PV" firstAttribute="top" secondItem="8Vd-uq-v6o" secondAttribute="bottom" constant="8" symbolic="YES" id="LOr-tb-lyb"/>
                             <constraint firstItem="6jp-ZS-cfq" firstAttribute="top" secondItem="g9W-be-7Wc" secondAttribute="bottom" constant="8" symbolic="YES" id="LYQ-OO-bqM"/>
+                            <constraint firstItem="OKT-gz-rVb" firstAttribute="bottom" secondItem="8Vd-uq-v6o" secondAttribute="bottom" id="X9R-wS-nL4"/>
                             <constraint firstItem="6jp-ZS-cfq" firstAttribute="leading" secondItem="6ta-qL-Zxp" secondAttribute="leading" id="fz3-Zb-zOT"/>
                             <constraint firstItem="wQa-Mx-9PV" firstAttribute="leading" secondItem="g9W-be-7Wc" secondAttribute="leading" id="h0d-Ya-h6L"/>
                             <constraint firstItem="6jp-ZS-cfq" firstAttribute="trailing" secondItem="6ta-qL-Zxp" secondAttribute="trailing" id="h8A-fj-Gs9"/>
                             <constraint firstItem="6ta-qL-Zxp" firstAttribute="top" secondItem="6jp-ZS-cfq" secondAttribute="bottom" constant="8" symbolic="YES" id="iZt-iY-y21"/>
+                            <constraint firstItem="pBb-R8-AbO" firstAttribute="top" secondItem="6ta-qL-Zxp" secondAttribute="bottom" constant="279" id="ib7-jt-cmd"/>
                             <constraint firstItem="g9W-be-7Wc" firstAttribute="top" secondItem="wQa-Mx-9PV" secondAttribute="bottom" constant="8" symbolic="YES" id="isw-Q7-GH8"/>
                             <constraint firstItem="wQa-Mx-9PV" firstAttribute="trailing" secondItem="g9W-be-7Wc" secondAttribute="trailing" id="opt-N6-hfg"/>
                             <constraint firstItem="6ta-qL-Zxp" firstAttribute="trailing" secondItem="cEd-Us-iSR" secondAttribute="trailingMargin" id="pCk-7x-wU4"/>

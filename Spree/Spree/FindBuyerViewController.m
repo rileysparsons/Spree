@@ -58,8 +58,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object {
 
-    NSLog(@"Choose user OBJECTS: %@", object);
-
     static NSString *CellIdentifier = @"cell";
     PFTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (!cell) {
