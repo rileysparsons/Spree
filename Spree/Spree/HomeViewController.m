@@ -80,7 +80,6 @@
     [headerView setNeedsLayout];
     [headerView layoutIfNeeded];
     CGFloat height = [headerView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
-     NSLog(@"header :%f", height);
     headerView.frame = ({
         CGRect headerFrame = headerView.frame;
         headerFrame.size.height = height;

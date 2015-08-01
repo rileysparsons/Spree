@@ -190,7 +190,6 @@
 
 - (void) imagePickerController: (UIImagePickerController *) picker
  didFinishPickingMediaWithInfo: (NSDictionary *) info {
-    NSLog(@"%ld", (long)selectedPhotoButton);
     UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
     switch (selectedPhotoButton) {
         case 1:
@@ -264,7 +263,6 @@
         }
         [actionSheet dismissWithClickedButtonIndex:2 animated:YES];
     }
-    NSLog(@"%@", photoDictionary);
 }
 
 #pragma mark - UITextFieldDelegate
@@ -308,7 +306,6 @@
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
-    NSLog(@"MEETS REQUIREMENTS: %d", [self checkForRequiredFields]);
 
     BOOL isPriceField;
     NSString *testString;
@@ -475,7 +472,6 @@
         if (!error){
             if (succeeded == YES) {
                 [PFAnalytics trackEvent:@"newPost" dimensions:@{@"photoCount" : [NSString stringWithFormat:@"%d", (int)fileArray.count], @"type" : self.post.type}];
-                NSLog(@"Save in background successful");
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"PostMade" object:nil];
                 [self.navigationController dismissViewControllerAnimated:YES completion:nil];
             }
@@ -488,7 +484,6 @@
 
 -(BOOL)checkForRequiredFields {
 
-    NSLog(@"%@", [PFUser currentUser]);
     if ([[[PFUser currentUser] objectForKey:@"emailVerified"] boolValue]){
 
         if ([[self getUserDescription] length] == 0 || [[self getUserDescription] isEqualToString:POST_VIEW_DESCRIPTION]){

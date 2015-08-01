@@ -84,9 +84,7 @@
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     } else if (self.objects.count > 0 ){
         self.tableView.backgroundView.hidden = YES;
-        NSLog(@"Objects did load");
     }
-    NSLog(@"%lu", self.objects.count);
     // This method is called every time objects are loaded from Parse via the PFQuery
 }
 
@@ -118,8 +116,6 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object {
-
-    NSLog(@"RECENTS OBJECTS: %@", object);
 
     static NSString *CellIdentifier = @"CellIdentifier";
 

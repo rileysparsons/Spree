@@ -75,7 +75,6 @@
 - (void) datePickerDateChanged:(UIDatePicker *)paramDatePicker{
         NSString *date = [self.dateFormatter stringFromDate: paramDatePicker.date];
         _timeSelection = date;
-        NSLog(@"Selected date = %@", date);
 }
 
 // The number of columns of data
@@ -100,7 +99,6 @@
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
     _locationSelection = _pickerData[row];
-    NSLog(@"Selection: %@",_pickerData[row]);
 }
 
 - (void)dismissView {
@@ -110,7 +108,6 @@
 
 -(void)postMessage{
     ChatView *chat = [[ChatView alloc] initWith:self.groupId post:self.post title:[[PFUser currentUser] objectForKey:@"username"]];
-    NSLog(@"GroupId: %@, Post: %@", self.groupId, self.post);
     NSString *output;
     output = @"Let's meet up on ";
     output = [output stringByAppendingString:_timeSelection];
