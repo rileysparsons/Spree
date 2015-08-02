@@ -71,6 +71,7 @@
 
 	[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[scrollview]|" options:0 metrics:nil views:@{@"scrollview":self.scrollview}]];
 	[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[scrollview]|" options:0 metrics:nil views:@{@"scrollview":self.scrollview}]];
+     NSLog(@"%@", self.navigationController);
 }
 
 - (void)viewWillAppear:(BOOL)animated {

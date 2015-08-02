@@ -10,6 +10,11 @@
 #import "BrowseViewController.h"
 #import "LoginViewController.h"
 #import "PostDetailViewController.h"
+#import "FinalOnboardingViewController.h"
+#import "RTWalkthroughViewController.h"
+#import "RTWalkthroughPageViewController.h"
+#import "BaseOnboardingViewController.h"
+#import "LoginViewController.h"
 #import "SpreePost.h"
 #import "ChatView.h"
 #import <ParseCrashReporting/ParseCrashReporting.h>
@@ -18,7 +23,7 @@
 
 #import <Accelerate/Accelerate.h>
 
-@interface AppDelegate ()
+@interface AppDelegate () <RTWalkthroughViewControllerDelegate>
 
 @end
 
@@ -54,10 +59,7 @@
     [[UISegmentedControl appearance] setTintColor:[UIColor spreeDarkBlue]];
     
     if (![PFUser currentUser]) {
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        LoginViewController *loginViewController = [storyboard instantiateViewControllerWithIdentifier:@"login"];
-        self.window.rootViewController = loginViewController;
-        [self.window makeKeyAndVisible];
+        [self showOnboardingFlow];
     }
     
     if ([PFUser currentUser]) {
@@ -70,6 +72,14 @@
         [application registerForRemoteNotifications];
     }
     return YES;
+}
+
+- (void)showOnboardingFlow {
+    UIStoryboard *stb = [UIStoryboard storyboardWithName:@"Walkthrough" bundle:nil];
+    UINavigationController *base = [stb instantiateViewControllerWithIdentifier:@"base"];
+    
+    self.window.rootViewController = base;
+    [self.window makeKeyAndVisible];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
