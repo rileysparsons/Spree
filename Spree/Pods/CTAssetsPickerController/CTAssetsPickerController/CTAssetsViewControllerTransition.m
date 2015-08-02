@@ -1,7 +1,6 @@
 /*
- CTAssetsViewControllerTransition.m
  
- The MIT License (MIT)
+ MIT License (MIT)
  
  Copyright (c) 2013 Clement CN Tsang
  
@@ -26,8 +25,10 @@
  */
 
 #import "CTAssetsViewControllerTransition.h"
-#import "CTAssetsViewController.h"
+#import "CTAssetsGridViewController.h"
 #import "CTAssetsPageViewController.h"
+#import "CTAssetItemViewController.h"
+#import "CTAssetScrollView.h"
 
 
 
@@ -57,23 +58,31 @@
     
     if (self.operation == UINavigationControllerOperationPush)
     {
-        CTAssetsViewController *fromVC      = (CTAssetsViewController *)[transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+        CTAssetsGridViewController *fromVC  = (CTAssetsGridViewController *)[transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
         CTAssetsPageViewController *toVC    = (CTAssetsPageViewController *)[transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+        CTAssetItemViewController *iVC      = (CTAssetItemViewController *)toVC.viewControllers[0];
         NSIndexPath *indexPath              = [NSIndexPath indexPathForItem:toVC.pageIndex inSection:0];
         
         UIView *cellView        = [fromVC.collectionView cellForItemAtIndexPath:indexPath];
-        UIImageView *imageView  = (UIImageView *)[((UIViewController *)toVC.viewControllers[0]).view viewWithTag:1];
+        UIImageView *imageView  = [[UIImageView alloc] initWithImage:iVC.image];
         UIView *snapshot        = [self resizedSnapshot:imageView];
         
         CGPoint cellCenter  = [fromVC.view convertPoint:cellView.center fromView:cellView.superview];
         CGPoint snapCenter  = toVC.view.center;
         
         // Find the scales of snapshot
-        float startScale    = MAX(cellView.frame.size.width / snapshot.frame.size.width,
-                                  cellView.frame.size.height / snapshot.frame.size.height);
+        float startScale        = MAX(cellView.frame.size.width / snapshot.frame.size.width,
+                                      cellView.frame.size.height / snapshot.frame.size.height);
         
-        float endScale      = MIN(toVC.view.frame.size.width / snapshot.frame.size.width,
-                                  toVC.view.frame.size.height / snapshot.frame.size.height);
+        float minScale          = MIN(toVC.view.frame.size.width / snapshot.frame.size.width,
+                                      toVC.view.frame.size.height / snapshot.frame.size.height);
+        
+        float perspectiveScale  = MAX(toVC.view.frame.size.width / snapshot.frame.size.width,
+                                      toVC.view.frame.size.height / snapshot.frame.size.height);
+        
+        BOOL canPerspectiveZoom = ([self canPerspectiveZoomWithImageSize:iVC.image.size boundsSize:toVC.view.bounds.size]);
+        
+        float endScale          = (canPerspectiveZoom) ? perspectiveScale : minScale;
         
         // Find the bounds of the snapshot mask
         float width         = snapshot.bounds.size.width;
@@ -113,7 +122,6 @@
                          }
                          completion:^(BOOL finished){
                              toVC.view.alpha   = 1;
-                             toVC.navigationController.toolbarHidden = YES;
                              [snapshot removeFromSuperview];
                              [transitionContext completeTransition:YES];
                          }];
@@ -122,16 +130,18 @@
     else
     {
         CTAssetsPageViewController *fromVC  = (CTAssetsPageViewController *)[transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-        CTAssetsViewController *toVC        = (CTAssetsViewController *)[transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+        CTAssetsGridViewController *toVC    = (CTAssetsGridViewController *)[transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+        CTAssetItemViewController *iVC      = (CTAssetItemViewController *)fromVC.viewControllers[0];
         NSIndexPath *indexPath              = [NSIndexPath indexPathForItem:fromVC.pageIndex inSection:0];
         
         // Scroll to index path
         [toVC.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
         [toVC.collectionView layoutIfNeeded];
-        
-        UIView *cellView        = [toVC.collectionView cellForItemAtIndexPath:indexPath];
-        UIImageView *imageView  = (UIImageView *)[((UIViewController *)fromVC.viewControllers[0]).view viewWithTag:1];
-        UIView *snapshot        = [self resizedSnapshot:imageView];
+
+        UIView *cellView                = [toVC.collectionView cellForItemAtIndexPath:indexPath];
+        CTAssetScrollView *scrollView   = iVC.view.subviews[0];
+        UIImageView *imageView          = scrollView.imageView;
+        UIView *snapshot                = [self resizedSnapshot:imageView];
         
         CGPoint cellCenter  = [toVC.view convertPoint:cellView.center fromView:cellView.superview];
         CGPoint snapCenter  = fromVC.view.center;
@@ -176,20 +186,25 @@
                              snapshot.transform         = CGAffineTransformMakeScale(endScale, endScale);
                              snapshot.layer.mask.bounds = endBounds;
                              snapshot.center            = cellCenter;
+                             toVC.navigationController.toolbar.alpha = 0;
                          }
                          completion:^(BOOL finished){
-                             
-                             if (toVC.collectionView.indexPathsForSelectedItems.count > 0)
-                             {
-                                 dispatch_async(dispatch_get_main_queue(), ^{
-                                     [toVC.navigationController setToolbarHidden:NO animated:YES];
-                                 });
-                             }
-                             
                              [snapshot removeFromSuperview];
                              [transitionContext completeTransition:YES];
                          }];
     }
+}
+
+
+#pragma mark - Perspective Zoom
+
+- (BOOL)canPerspectiveZoomWithImageSize:(CGSize)imageSize boundsSize:(CGSize)boundsSize
+{
+    CGFloat imageRatio  = imageSize.width / imageSize.height;
+    CGFloat boundsRatio = boundsSize.width / boundsSize.height;
+    
+    // can perform perspective zoom when the difference of aspect ratios is smaller than 20%
+    return (fabs( (imageRatio - boundsRatio) / boundsRatio ) < 0.2f);
 }
 
 
@@ -199,6 +214,9 @@
 - (UIView *)resizedSnapshot:(UIImageView *)imageView
 {
     CGSize size = imageView.frame.size;
+    
+    if (CGSizeEqualToSize(size, CGSizeZero))
+        return nil;
     
     UIGraphicsBeginImageContextWithOptions(size, YES, 0);
     

@@ -1,1 +1,1 @@
-../../../CTAssetsPickerController/CTAssetsPickerController/NSBundle+CTAssetsPickerController.h
+../../../CTAssetsPickerController/CTAssetsPickerController/Categories/NSBundle+CTAssetsPickerController.h

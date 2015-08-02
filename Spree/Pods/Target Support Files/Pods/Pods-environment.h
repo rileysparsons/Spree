@@ -14,9 +14,9 @@
 
 // CTAssetsPickerController
 #define COCOAPODS_POD_AVAILABLE_CTAssetsPickerController
-#define COCOAPODS_VERSION_MAJOR_CTAssetsPickerController 2
-#define COCOAPODS_VERSION_MINOR_CTAssetsPickerController 9
-#define COCOAPODS_VERSION_PATCH_CTAssetsPickerController 5
+#define COCOAPODS_VERSION_MAJOR_CTAssetsPickerController 3
+#define COCOAPODS_VERSION_MINOR_CTAssetsPickerController 0
+#define COCOAPODS_VERSION_PATCH_CTAssetsPickerController 0
 
 // CocoaLumberjack
 #define COCOAPODS_POD_AVAILABLE_CocoaLumberjack
@@ -48,6 +48,12 @@
 #define COCOAPODS_VERSION_MINOR_IQKeyboardManager 2
 #define COCOAPODS_VERSION_PATCH_IQKeyboardManager 4
 
+// InfinitePagingView
+#define COCOAPODS_POD_AVAILABLE_InfinitePagingView
+#define COCOAPODS_VERSION_MAJOR_InfinitePagingView 0
+#define COCOAPODS_VERSION_MINOR_InfinitePagingView 0
+#define COCOAPODS_VERSION_PATCH_InfinitePagingView 1
+
 // JSQMessagesViewController
 #define COCOAPODS_POD_AVAILABLE_JSQMessagesViewController
 #define COCOAPODS_VERSION_MAJOR_JSQMessagesViewController 7
@@ -74,21 +80,29 @@
 
 // Parse
 #define COCOAPODS_POD_AVAILABLE_Parse
-#define COCOAPODS_VERSION_MAJOR_Parse 1
-#define COCOAPODS_VERSION_MINOR_Parse 7
-#define COCOAPODS_VERSION_PATCH_Parse 5
+// This library does not follow semantic-versioning,
+// so we were not able to define version macros.
+// Please contact the author.
+// Version: 1.7.5.3.
 
 // ParseCrashReporting
 #define COCOAPODS_POD_AVAILABLE_ParseCrashReporting
-#define COCOAPODS_VERSION_MAJOR_ParseCrashReporting 1
-#define COCOAPODS_VERSION_MINOR_ParseCrashReporting 7
-#define COCOAPODS_VERSION_PATCH_ParseCrashReporting 5
+// This library does not follow semantic-versioning,
+// so we were not able to define version macros.
+// Please contact the author.
+// Version: 1.7.5.3.
 
 // ParseUI
 #define COCOAPODS_POD_AVAILABLE_ParseUI
 #define COCOAPODS_VERSION_MAJOR_ParseUI 1
 #define COCOAPODS_VERSION_MINOR_ParseUI 1
 #define COCOAPODS_VERSION_PATCH_ParseUI 4
+
+// PureLayout
+#define COCOAPODS_POD_AVAILABLE_PureLayout
+#define COCOAPODS_VERSION_MAJOR_PureLayout 2
+#define COCOAPODS_VERSION_MINOR_PureLayout 0
+#define COCOAPODS_VERSION_PATCH_PureLayout 6
 
 // STCollapseTableView
 #define COCOAPODS_POD_AVAILABLE_STCollapseTableView

@@ -1,1 +1,1 @@
-PODS_CTASSETSPICKERCONTROLLER_OTHER_LDFLAGS = -framework "AssetsLibrary" -framework "MediaPlayer"
+PODS_CTASSETSPICKERCONTROLLER_OTHER_LDFLAGS = -framework "Photos"

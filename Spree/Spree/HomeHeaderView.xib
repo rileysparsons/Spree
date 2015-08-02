@@ -1,35 +1,36 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7706"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeHeaderView">
+            <connections>
+                <outlet property="photoGallery" destination="B2l-aL-zSa" id="lcY-iu-8yn"/>
+            </connections>
+        </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="HomeHeaderView">
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
             <rect key="frame" x="0.0" y="0.0" width="600" height="200"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eWR-TF-f8h">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B2l-aL-zSa" customClass="InfinitePagingView">
                     <rect key="frame" x="0.0" y="0.0" width="600" height="200"/>
-                    <color key="backgroundColor" red="0.96558624510000002" green="0.97044742110000004" blue="0.97035741809999998" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" red="0.16666857900000001" green="0.18534906209999999" blue="0.19849607350000001" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="200" id="uLa-XF-tka"/>
+                        <constraint firstAttribute="height" constant="200" id="aHe-nn-Q1T"/>
                     </constraints>
-                </scrollView>
+                </view>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="0.16666857900000001" green="0.18534906209999999" blue="0.19849607350000001" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstItem="eWR-TF-f8h" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="PtC-by-uI9"/>
-                <constraint firstAttribute="trailing" secondItem="eWR-TF-f8h" secondAttribute="trailing" id="bdy-2k-ZWd"/>
-                <constraint firstAttribute="bottom" secondItem="eWR-TF-f8h" secondAttribute="bottom" id="dMg-sb-Tcq"/>
-                <constraint firstItem="eWR-TF-f8h" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="uOd-mi-owq"/>
+                <constraint firstAttribute="trailing" secondItem="B2l-aL-zSa" secondAttribute="trailing" id="8Rn-Sg-ahS"/>
+                <constraint firstItem="B2l-aL-zSa" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Hts-Ks-A0h"/>
+                <constraint firstAttribute="bottom" secondItem="B2l-aL-zSa" secondAttribute="bottom" id="Iq6-08-2qM"/>
+                <constraint firstItem="B2l-aL-zSa" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="ie6-t8-wGe"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <connections>
-                <outlet property="photoGallery" destination="eWR-TF-f8h" id="DS1-qp-kM6"/>
-            </connections>
-            <point key="canvasLocation" x="403" y="-67"/>
+            <point key="canvasLocation" x="432" y="-66"/>
         </view>
     </objects>
 </document>

@@ -1,7 +1,6 @@
 /*
- CTAssetsViewControllerTransition.h
  
- The MIT License (MIT)
+ MIT License (MIT)
  
  Copyright (c) 2013 Clement CN Tsang
  

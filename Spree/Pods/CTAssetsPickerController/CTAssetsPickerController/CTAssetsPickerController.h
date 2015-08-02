@@ -1,7 +1,6 @@
 /*
- CTAssetsPickerController.h
  
- The MIT License (MIT)
+ MIT License (MIT)
  
  Copyright (c) 2013 Clement CN Tsang
  
@@ -27,7 +26,7 @@
 
 
 #import <UIKit/UIKit.h>
-#import <AssetsLibrary/AssetsLibrary.h>
+#import <Photos/Photos.h>
 
 
 
@@ -44,24 +43,43 @@
 @property (nonatomic, weak) id <CTAssetsPickerControllerDelegate> delegate;
 
 /**
- *  The assetsLibrary.
+ *  Set the `assetCollectionSubtypes` to specify which asset collections (albums) to be shown in the picker.
  *
- *  You can set your own custom assetsLibrary of the picker.
+ *  You can specify which albums and their order to be shown in the picker by creating an `NSArray` of `NSNumber`
+ *  that containing the value of `PHAssetCollectionSubtype`.
  */
-@property (nonatomic, strong) ALAssetsLibrary *assetsLibrary;
+@property (nonatomic, copy) NSArray *assetCollectionSubtypes;
 
 /**
- *  Set the `ALAssetsFilter` to filter the picker contents.
+ *  Set the `defaultAssetCollection` to specify which asset collection (album) is the default asset collection.
  *
- *  @see [- assetsPickerController:shouldShowAsset:]([CTAssetsPickerControllerDelegate assetsPickerController:shouldShowAsset:])
- *  @see [- assetsPickerController:shouldEnableAsset:]([CTAssetsPickerControllerDelegate assetsPickerController:shouldEnableAsset:])
+ *  If the `defaultAssetCollection` is explictly set, the picker initially shows the content of default asset
+ *  collection instead of a list of albums. By default, there are no default asset collection.
+ *
+ *  If there are more than one asset collections that match the subtype value of `defaultAssetCollection`, the
+ *  first matched asset collection will be the default asset collection.
  */
-@property (nonatomic, strong) ALAssetsFilter *assetsFilter;
+@property (nonatomic, assign) PHAssetCollectionSubtype defaultAssetCollection;
+
+/**
+ *  Set the `PHFetchOptions` to specify options when fetching asset collections (albums).
+ *
+ *  @see assetsFetchOptions
+ */
+@property (nonatomic, strong) PHFetchOptions *assetCollectionFetchOptions;
+
+/**
+ *  Set the `PHFetchOptions` to specify options when fetching assets.
+ *
+ *  @see assetCollectionFetchOptions
+ */
+@property (nonatomic, strong) PHFetchOptions *assetsFetchOptions;
+
 
 /**
  *  The selected assets.
  *
- *  It contains selected `ALAsset` objects. The order of the objects is the selection order.
+ *  It contains selected `PHAsset` objects. The order of the objects is the selection order.
  *  
  *  You can use this property to select assets initially when presenting the picker.
  */
@@ -74,6 +92,16 @@
  *  set this property’s value to `NO`.
  */
 @property (nonatomic, assign) BOOL showsCancelButton;
+
+/**
+ *  Determines whether or not the empty albums is shown in the album list.
+ *
+ *  All albums are visible by default. To hide albums without assets matched with `assetsFetchOptions`,
+ *  set this property’s value to `NO`.
+ *
+ *  @see assetsFetchOptions
+ */
+@property (nonatomic, assign) BOOL showsEmptyAlbums;
 
 /**
  *  Determines whether or not the number of assets is shown in the album list.
@@ -92,11 +120,11 @@
 @property (nonatomic, assign) BOOL alwaysEnableDoneButton;
 
 /**
- *  The navigation controller of the picker hierarchy. (read-only)
+ *  The split view controller of the picker hierarchy. (read-only)
  *
- *  This property contains the child navigation controller of the picker.
+ *  This property contains the child split view controller of the picker.
  */
-@property (nonatomic, readonly, strong) UINavigationController *childNavigationController;
+@property (nonatomic, readonly, strong) UISplitViewController *childSplitViewController;
 
 
 /**
@@ -110,7 +138,7 @@
  *
  *  @see deselectAsset:
  */
-- (void)selectAsset:(ALAsset *)asset;
+- (void)selectAsset:(PHAsset *)asset;
 
 /**
  *  Deselects an asset in the picker.
@@ -119,7 +147,7 @@
  *
  *  @see selectAsset:
  */
-- (void)deselectAsset:(ALAsset *)asset;
+- (void)deselectAsset:(PHAsset *)asset;
 
 @end
 
@@ -134,8 +162,8 @@
  *  To dismiss the picker, call the `dismissViewControllerAnimated:completion:` method of the presenting controller
  *  responsible for displaying `CTAssetsPickerController` object.
  *
- *  The picked assets can be processed by accessing the `defaultRepresentation` property.
- *  It returns an `ALAssetRepresentation` object which encapsulates one of the representations of `ALAsset` object.
+ *  The picked assets are `PHAsset` objects and contain only metadata. The underlying image or video data for any given asset might not be stored on the local device.
+ *  You have to use `PHImageManager` object for loading image or video data associated with a `PHAsset`.
  */
 @protocol CTAssetsPickerControllerDelegate <NSObject>
 
@@ -148,7 +176,7 @@
  *  Tells the delegate that the user finish picking photos or videos.
  *
  *  @param picker The controller object managing the assets picker interface.
- *  @param assets An array containing picked `ALAsset` objects.
+ *  @param assets An array containing picked `PHAsset` objects.
  *
  *  @see assetsPickerControllerDidCancel:
  */
@@ -167,54 +195,36 @@
 
 
 /**
- *  @name Enabling Assets Group
+ *  @name Configuting Asset Selection View
  */
 
 /**
- *  Ask the delegate if the specified assets group should be shown.
+ *  Ask the delegate the layout of asset selection view (UICollectionView).
  *
  *  @param picker The controller object managing the assets picker interface.
- *  @param group  The assets group to be shown.
+ *  @param contentSize  The bounds size of current view.
+ *  @param trait The trait collection of current view.
  *
- *  @return `YES` if the assets group should be shown or `NO` if it should not.
+ *  @return Custom `UICollectionViewLayout` for the asset selection view.
  */
-- (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldShowAssetsGroup:(ALAssetsGroup *)group;
+- (UICollectionViewLayout *)assetsPickerController:(CTAssetsPickerController *)picker collectionViewLayoutForContentSize:(CGSize)contentSize traitCollection:(UITraitCollection *)trait;
 
 
 /**
- *  @name Showing Content of Default Assets Group
- */
-
-/**
- *  Ask the delegate if the specified assets group is the default assets group.
- *
- *  The picker initially shows the content of default assets group instead of a list of albums. By default,
- *  there are no default assets groups.
+ *  Ask the delegate if the asset selection view should sroll to bottom on shown.
  *
  *  @param picker The controller object managing the assets picker interface.
- *  @param group  The assets group to be process.
+ *  @param assetCollection  The asset collection of asset selection view.
  *
- *  @return `YES` if the assets group is the default assets group or `NO` if it is not.
+ *  @return `YES` (the default) if the asset grid should scroll to bottom on shown or `NO` if it should not.
  */
-- (BOOL)assetsPickerController:(CTAssetsPickerController *)picker isDefaultAssetsGroup:(ALAssetsGroup *)group;
+
+- (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldScrollToBottomForAssetCollection:(PHAssetCollection *)assetCollection;
 
 
 /**
  *  @name Enabling Assets
  */
-
-/**
- *  Ask the delegate if the specified asset shoule be shown.
- *
- *  @param picker The controller object managing the assets picker interface.
- *  @param asset  The asset to be shown.
- *
- *  @return `YES` if the asset should be shown or `NO` if it should not.
- *
- *  @see [assetsFilter]([CTAssetsPickerController assetsFilter])
- *  @see assetsPickerController:shouldEnableAsset:
- */
-- (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldShowAsset:(ALAsset *)asset;
 
 /**
  *  Ask the delegate if the specified asset should be enabled for selection.
@@ -224,10 +234,9 @@
  *
  *  @return `YES` if the asset should be enabled or `NO` if it should not.
  *
- *  @see [assetsFilter]([CTAssetsPickerController assetsFilter])
  *  @see assetsPickerController:shouldShowAsset:
  */
-- (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldEnableAsset:(ALAsset *)asset;
+- (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldEnableAsset:(PHAsset *)asset;
 
 
 /**
@@ -244,7 +253,7 @@
  *
  *  @see assetsPickerController:shouldDeselectAsset:
  */
-- (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldSelectAsset:(ALAsset *)asset;
+- (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldSelectAsset:(PHAsset *)asset;
 
 /**
  *  Tells the delegate that the asset was selected.
@@ -254,7 +263,7 @@
  *
  *  @see assetsPickerController:didDeselectAsset:
  */
-- (void)assetsPickerController:(CTAssetsPickerController *)picker didSelectAsset:(ALAsset *)asset;
+- (void)assetsPickerController:(CTAssetsPickerController *)picker didSelectAsset:(PHAsset *)asset;
 
 /**
  *  Asks the delegate if the specified asset should be deselected.
@@ -266,7 +275,7 @@
  *
  *  @see assetsPickerController:shouldSelectAsset:
  */
-- (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldDeselectAsset:(ALAsset *)asset;
+- (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldDeselectAsset:(PHAsset *)asset;
 
 /**
  *  Tells the delegate that the item at the specified path was deselected.
@@ -276,7 +285,7 @@
  *
  *  @see assetsPickerController:didSelectAsset:
  */
-- (void)assetsPickerController:(CTAssetsPickerController *)picker didDeselectAsset:(ALAsset *)asset;
+- (void)assetsPickerController:(CTAssetsPickerController *)picker didDeselectAsset:(PHAsset *)asset;
 
 
 
@@ -292,7 +301,7 @@
  *
  *  @return `YES` if the asset should be highlighted or `NO` if it should not.
  */
-- (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldHighlightAsset:(ALAsset *)asset;
+- (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldHighlightAsset:(PHAsset *)asset;
 
 /**
  *  Tells the delegate that asset was highlighted.
@@ -302,7 +311,7 @@
  *
  *  @see assetsPickerController:didUnhighlightAsset:
  */
-- (void)assetsPickerController:(CTAssetsPickerController *)picker didHighlightAsset:(ALAsset *)asset;
+- (void)assetsPickerController:(CTAssetsPickerController *)picker didHighlightAsset:(PHAsset *)asset;
 
 
 /**
@@ -313,7 +322,8 @@
  *
  *  @see assetsPickerController:didHighlightAsset:
  */
-- (void)assetsPickerController:(CTAssetsPickerController *)picker didUnhighlightAsset:(ALAsset *)asset;
+- (void)assetsPickerController:(CTAssetsPickerController *)picker didUnhighlightAsset:(PHAsset *)asset;
+
 
 
 
@@ -322,23 +332,23 @@
  */
 
 /**
- *  Sent when the assets are selected or deselected
+ *  Sent when the assets selected or deselected
  *
  *  The notification’s `object` is an `NSArray` object of selected assets
  */
-extern NSString * const CTAssetsPickerSelectedAssetsChangedNotification;
+extern NSString * const CTAssetsPickerSelectedAssetsDidChangeNotification;
 
 /**
  *  Sent when asset is selected
  *
- *  The notification’s `object` is an `ALAsset` object
+ *  The notification’s `object` is a `PHAsset` that is selected
  */
 extern NSString * const CTAssetsPickerDidSelectAssetNotification;
 
 /**
  *  Sent when asset is deselected
  *
- *  The notification’s `object` is an `ALAsset` object
+ *  The notification’s `object` is a `PHAsset` that is deselected
  */
 extern NSString * const CTAssetsPickerDidDeselectAssetNotification;
 

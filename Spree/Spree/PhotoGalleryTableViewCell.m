@@ -89,7 +89,7 @@
         NSLog(@"%f", frame.origin.x);
         frame.origin.y = 0.0f;
         
-        // 3
+          // 3
         UIImageView *newPageView = [[UIImageView alloc] initWithImage:[self.pageImages objectAtIndex:page]];
         newPageView.contentMode = UIViewContentModeScaleAspectFill;
         newPageView.frame = frame;

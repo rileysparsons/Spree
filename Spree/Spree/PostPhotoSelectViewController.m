@@ -102,17 +102,23 @@ int currentPhotoCount = 0;
 - (void)assetsPickerController:(CTAssetsPickerController *)picker didFinishPickingAssets:(NSArray *)assets
 {
     [picker dismissViewControllerAnimated:YES completion:nil];
+    PHImageRequestOptions *options =[[PHImageRequestOptions alloc] init];
+    options.resizeMode = PHImageRequestOptionsResizeModeExact;
+    options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
     
-    for (ALAsset *asset  in assets){
-        [self.photoArray replaceObjectAtIndex:currentPhotoCount withObject:[UIImage imageWithCGImage:asset.defaultRepresentation.fullScreenImage]];
-        NSData* data = UIImageJPEGRepresentation([UIImage imageWithCGImage:asset.defaultRepresentation.fullScreenImage], 0.5f);
-        PFFile *imageFile = [PFFile fileWithName:@"Image.jpg" data:data];
-        [self.fileArray replaceObjectAtIndex:currentPhotoCount withObject:imageFile];
-        currentPhotoCount++;
+    for (PHAsset *asset  in assets){
+        PHImageManager *manager = [PHImageManager defaultManager];
+        [manager requestImageForAsset:asset targetSize:PHImageManagerMaximumSize contentMode:PHImageContentModeAspectFill options:options resultHandler:^(UIImage *result, NSDictionary *info) {
+            [self.photoArray replaceObjectAtIndex:currentPhotoCount withObject:result];
+            NSData* data = UIImageJPEGRepresentation(result, 0.5f);
+            PFFile *imageFile = [PFFile fileWithName:@"Image.jpg" data:data];
+            [self.fileArray replaceObjectAtIndex:currentPhotoCount withObject:imageFile];
+            currentPhotoCount++;
+            [self updatePhotoCount];
+            [self.tableView reloadData];
+        }];
     }
     NSLog(@"CURRENT PHOTOS %d. Current remaining %d", currentPhotoCount, maxImageCount-currentPhotoCount);
-    [self updatePhotoCount];
-    [self.tableView reloadData];
     [self performSelector:@selector(scrollToBottom) withObject:nil afterDelay:0.1];
 }
 
@@ -136,7 +142,7 @@ int currentPhotoCount = 0;
 }
 
 
-- (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldSelectAsset:(ALAsset *)asset
+- (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldSelectAsset:(PHAsset *)asset
 {
     if (picker.selectedAssets.count >= (maxImageCount-currentPhotoCount))
     {
@@ -150,19 +156,7 @@ int currentPhotoCount = 0;
         [alertView show];
     }
     
-    if (!asset.defaultRepresentation)
-    {
-        UIAlertView *alertView =
-        [[UIAlertView alloc] initWithTitle:@"Attention"
-                                   message:@"Your asset has not yet been downloaded to your device"
-                                  delegate:nil
-                         cancelButtonTitle:nil
-                         otherButtonTitles:@"OK", nil];
-        
-        [alertView show];
-    }
-    
-    return (picker.selectedAssets.count < (maxImageCount-currentPhotoCount) && asset.defaultRepresentation != nil);
+    return (picker.selectedAssets.count < (maxImageCount-currentPhotoCount));
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -321,19 +315,26 @@ int currentPhotoCount = 0;
 
 
 -(void)pickPhotoButtonTouched:(id)sender{
-    CTAssetsPickerController *picker = [[CTAssetsPickerController alloc] init];
-    picker.delegate = self;
-    picker.assetsFilter = [ALAssetsFilter allPhotos];
-    picker.title = @"Add a few pictures";
     
-    picker.showsNumberOfAssets = YES;
-    [picker.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
-    picker.navigationController.navigationBar.shadowImage = [UIImage new];
-    picker.navigationController.view.backgroundColor = [UIColor spreeOffWhite];
-    picker.navigationController.navigationBar.backgroundColor = [UIColor clearColor];
-    [[UIApplication sharedApplication] setStatusBarStyle: UIStatusBarStyleDefault];
-    
-    [self presentViewController:picker animated:YES completion:nil];
+    [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status){
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            // init picker
+            CTAssetsPickerController *picker = [[CTAssetsPickerController alloc] init];
+            [picker.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+            picker.navigationController.navigationBar.shadowImage = [UIImage new];
+            picker.navigationController.view.backgroundColor = [UIColor spreeOffWhite];
+            picker.navigationController.navigationBar.backgroundColor = [UIColor clearColor];
+            [[UIApplication sharedApplication] setStatusBarStyle: UIStatusBarStyleDefault];
+
+            picker.title = @"Add a few pictures";
+            // set delegate
+            picker.delegate = self;
+            picker.showsNumberOfAssets = YES;
+            // present picker
+            [self presentViewController:picker animated:YES completion:nil];
+        });
+    }];
 }
 
 -(void)getChangesToPost{
