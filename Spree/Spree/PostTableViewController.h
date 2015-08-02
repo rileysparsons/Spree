@@ -7,8 +7,9 @@
 //
 
 #import "PostDetailTableViewController.h"
+#import "RTWalkthroughPageViewController.h"
 
-@interface PostTableViewController : PFQueryTableViewController
+@interface PostTableViewController : PFQueryTableViewController <RTWalkthroughPageViewControllerDelegate>
 
 
 @property (nonatomic, strong) PostDetailTableViewController *postDetailTableViewController;
