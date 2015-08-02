@@ -1,7 +1,6 @@
 /*
- CTAssetItemViewController.h
  
- The MIT License (MIT)
+ MIT License (MIT)
  
  Copyright (c) 2013 Clement CN Tsang
  
@@ -26,29 +25,18 @@
  */
 
 #import <UIKit/UIKit.h>
-#import <AssetsLibrary/AssetsLibrary.h>
-
-@protocol CTAssetItemViewControllerDataSource;
-
-
+#import <Photos/Photos.h>
 
 
 
 @interface CTAssetItemViewController : UIViewController
 
-+ (CTAssetItemViewController *)assetItemViewControllerForPageIndex:(NSInteger)pageIndex;
+@property (nonatomic, strong, readonly) PHAsset *asset;
+@property (nonatomic, strong, readonly) UIImage *image;
 
-@property (nonatomic, weak) id<CTAssetItemViewControllerDataSource> dataSource;
-@property (nonatomic, assign) NSInteger pageIndex;
++ (CTAssetItemViewController *)assetItemViewControllerForAsset:(PHAsset *)asset;
 
-@end
-
-
-
-
-
-@protocol CTAssetItemViewControllerDataSource <NSObject>
-@required
-- (ALAsset *)assetAtIndex:(NSUInteger)index;
+- (void)playAsset:(id)sender;
+- (void)pauseAsset:(id)sender;
 
 @end

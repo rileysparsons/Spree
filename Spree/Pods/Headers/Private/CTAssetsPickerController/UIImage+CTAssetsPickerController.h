@@ -1,1 +1,1 @@
-../../../CTAssetsPickerController/CTAssetsPickerController/UIImage+CTAssetsPickerController.h
+../../../CTAssetsPickerController/CTAssetsPickerController/Categories/UIImage+CTAssetsPickerController.h

@@ -11,6 +11,7 @@
 @interface HeaderSlideView : UIView
 @property (weak, nonatomic) IBOutlet UIImageView *backgroundImage;
 @property (weak, nonatomic) IBOutlet UILabel *slideTitle;
+@property (nonatomic, strong) HeaderSlideView *customView;
 
 
 -(void)setTitleWithString:(NSString *)title;

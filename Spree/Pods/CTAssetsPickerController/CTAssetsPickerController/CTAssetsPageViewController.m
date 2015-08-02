@@ -1,7 +1,6 @@
 /*
- CTAssetsPageViewController.m
  
- The MIT License (MIT)
+ MIT License (MIT)
  
  Copyright (c) 2013 Clement CN Tsang
  
@@ -28,17 +27,26 @@
 #import "CTAssetsPageViewController.h"
 #import "CTAssetItemViewController.h"
 #import "CTAssetScrollView.h"
+#import "NSNumberFormatter+CTAssetsPickerController.h"
 #import "NSBundle+CTAssetsPickerController.h"
+#import "UIImage+CTAssetsPickerController.h"
+#import "PHAsset+CTAssetsPickerController.h"
 
 
 
 
 
 @interface CTAssetsPageViewController ()
-<UIPageViewControllerDataSource, UIPageViewControllerDelegate, CTAssetItemViewControllerDataSource>
+<UIPageViewControllerDataSource, UIPageViewControllerDelegate>
 
-@property (nonatomic, strong) NSArray *assets;
 @property (nonatomic, assign, getter = isStatusBarHidden) BOOL statusBarHidden;
+
+@property (nonatomic, copy) NSArray *assets;
+//@property (nonatomic, strong) PHFetchResult *fetchResult;
+@property (nonatomic, strong, readonly) PHAsset *asset;
+
+@property (nonatomic, strong) UIBarButtonItem *playButton;
+@property (nonatomic, strong) UIBarButtonItem *pauseButton;
 
 @end
 
@@ -48,26 +56,38 @@
 
 @implementation CTAssetsPageViewController
 
-- (id)initWithAssets:(NSArray *)assets
+- (instancetype)initWithFetchResult:(PHFetchResult *)fetchResult
+{
+    NSMutableArray *assets = [NSMutableArray new];
+    
+    for (PHAsset *asset in fetchResult)
+        [assets addObject:asset];
+    
+    return [self initWithAssets:[NSArray arrayWithArray:assets]];
+}
+
+- (instancetype)initWithAssets:(NSArray *)assets
 {
     self = [super initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll
                     navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal
                                   options:@{UIPageViewControllerOptionInterPageSpacingKey:@30.f}];
+    
     if (self)
     {
-        self.assets                 = assets;
-        self.dataSource             = self;
-        self.delegate               = self;
-        self.view.backgroundColor   = [UIColor whiteColor];
+        self.assets     = assets;
+        self.dataSource = self;
+        self.delegate   = self;
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
     
     return self;
 }
 
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self setupViews];
     [self addNotificationObserver];
 }
 
@@ -78,24 +98,93 @@
 
 - (BOOL)prefersStatusBarHidden
 {
-    return self.isStatusBarHidden;
+    if (self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact)
+        return YES;
+    else
+        return self.isStatusBarHidden;
 }
 
 
-#pragma mark - Update Title
 
-- (void)setTitleIndex:(NSInteger)index
+#pragma mark - Setup
+
+- (void)setupViews
 {
-    NSInteger count = self.assets.count;
-    self.title      = [NSString stringWithFormat:CTAssetsPickerControllerLocalizedString(@"%ld of %ld"), index, count];
+    self.view.backgroundColor = [UIColor whiteColor];
+}
+
+- (void)setupButtons
+{
+    if (!self.playButton)
+    {
+        UIImage *playImage = [UIImage ctassetsPickerImageNamed:@"PlayButton"];
+        playImage = [playImage imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        
+        UIBarButtonItem *playButton =
+        [[UIBarButtonItem alloc] initWithImage:playImage style:UIBarButtonItemStyleDone target:self action:@selector(playAsset:)];
+        
+        self.playButton = playButton;
+    }
+    
+    if (!self.pauseButton)
+    {
+        UIImage *pasueImage = [UIImage ctassetsPickerImageNamed:@"PauseButton"];
+        pasueImage = [pasueImage imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        
+        UIBarButtonItem *pauseButton =
+        [[UIBarButtonItem alloc] initWithImage:pasueImage style:UIBarButtonItemStylePlain target:self action:@selector(pauseAsset:)];
+        
+        self.pauseButton = pauseButton;
+    }
 }
 
 
-#pragma mark - Page Index
+#pragma mark - Update title
+
+- (void)updateTitle:(NSInteger)index
+{
+    NSNumberFormatter *nf = [NSNumberFormatter new];
+
+    NSInteger count = self.assets.count;
+    self.title      = [NSString stringWithFormat:CTAssetsPickerLocalizedString(@"%@ of %@", nil),
+                       [nf ctassetsPickerStringFromAssetsCount:index],
+                       [nf ctassetsPickerStringFromAssetsCount:count]];
+}
+
+
+#pragma mark - Update toolbar
+
+- (void)updateToolbar
+{
+    [self setupButtons];
+    
+    if ([self.asset ctassetsPickerIsVideo])
+        self.toolbarItems = @[[self toolbarSpace], self.playButton, [self toolbarSpace]];
+    else
+        self.toolbarItems = nil;
+}
+
+- (void)replaceToolbarButton:(UIBarButtonItem *)button
+{
+    if (button)
+    {
+        UIBarButtonItem *space = [self toolbarSpace];
+        self.toolbarItems = @[space, button, space];
+    }
+}
+
+- (UIBarButtonItem *)toolbarSpace
+{
+    return [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+}
+
+
+
+#pragma mark - Accessors
 
 - (NSInteger)pageIndex
 {
-    return ((CTAssetItemViewController *)self.viewControllers[0]).pageIndex;
+    return [self.assets indexOfObject:self.asset];
 }
 
 - (void)setPageIndex:(NSInteger)pageIndex
@@ -104,142 +193,234 @@
     
     if (pageIndex >= 0 && pageIndex < count)
     {
-        CTAssetItemViewController *page = [CTAssetItemViewController assetItemViewControllerForPageIndex:pageIndex];
-        page.dataSource = self;
+        PHAsset *asset = [self.assets objectAtIndex:pageIndex];
+        
+        CTAssetItemViewController *page = [CTAssetItemViewController assetItemViewControllerForAsset:asset];
         
         [self setViewControllers:@[page]
                        direction:UIPageViewControllerNavigationDirectionForward
                         animated:NO
                       completion:NULL];
         
-        [self setTitleIndex:pageIndex + 1];
+        [self updateTitle:pageIndex + 1];
+        [self updateToolbar];
     }
 }
 
+- (PHAsset *)asset
+{
+    return ((CTAssetItemViewController *)self.viewControllers[0]).asset;
+}
 
-#pragma mark - UIPageViewControllerDataSource
+
+#pragma mark - Page view controller data source
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController
 {
-    NSInteger index = ((CTAssetItemViewController *)viewController).pageIndex;
+    PHAsset *asset = ((CTAssetItemViewController *)viewController).asset;
+    NSInteger index = [self.assets indexOfObject:asset];
     
     if (index > 0)
     {
-        CTAssetItemViewController *page = [CTAssetItemViewController assetItemViewControllerForPageIndex:(index - 1)];
-        page.dataSource = self;
-        
-        return page;
+        PHAsset *beforeAsset = [self.assets objectAtIndex:(index - 1)];
+        return [CTAssetItemViewController assetItemViewControllerForAsset:beforeAsset];
     }
-    
+
     return nil;
 }
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController
 {
+    PHAsset *asset  = ((CTAssetItemViewController *)viewController).asset;
+    NSInteger index = [self.assets indexOfObject:asset];
     NSInteger count = self.assets.count;
-    NSInteger index = ((CTAssetItemViewController *)viewController).pageIndex;
     
     if (index < count - 1)
     {
-        CTAssetItemViewController *page = [CTAssetItemViewController assetItemViewControllerForPageIndex:(index + 1)];
-        page.dataSource = self;
-        
-        return page;
+        PHAsset *afterAsset = [self.assets objectAtIndex:(index + 1)];
+        return [CTAssetItemViewController assetItemViewControllerForAsset:afterAsset];
     }
     
     return nil;
 }
 
 
-#pragma mark - UIPageViewControllerDelegate
+#pragma mark - Page view controller delegate
 
 - (void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray *)previousViewControllers transitionCompleted:(BOOL)completed
 {
     if (completed)
     {
-        CTAssetItemViewController *vc   = (CTAssetItemViewController *)pageViewController.viewControllers[0];
-        NSInteger index                 = vc.pageIndex + 1;
+        CTAssetItemViewController *vc = (CTAssetItemViewController *)pageViewController.viewControllers[0];
+        NSInteger index = [self.assets indexOfObject:vc.asset] + 1;
         
-        [self setTitleIndex:index];
+        [self updateTitle:index];
+        [self updateToolbar];
     }
 }
 
+- (void)pageViewController:(UIPageViewController *)pageViewController willTransitionToViewControllers:(NSArray *)pendingViewControllers
+{
+    [self.navigationController setToolbarHidden:YES animated:YES];
+}
 
-#pragma mark - Notification Observer
+
+#pragma mark - Notification observer
 
 - (void)addNotificationObserver
 {
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     
     [center addObserver:self
-               selector:@selector(scrollViewTapped:)
-                   name:CTAssetScrollViewTappedNotification
+               selector:@selector(assetScrollViewDidTap:)
+                   name:CTAssetScrollViewDidTapNotification
                  object:nil];
+    
+    [center addObserver:self
+               selector:@selector(assetScrollViewPlayerDidPlayToEnd:)
+                   name:AVPlayerItemDidPlayToEndTimeNotification
+                 object:nil];    
+    
+    [center addObserver:self
+               selector:@selector(assetScrollViewPlayerWillPlay:)
+                   name:CTAssetScrollViewPlayerWillPlayNotification
+                 object:nil];
+    
+    [center addObserver:self
+               selector:@selector(assetScrollViewPlayerWillPause:)
+                   name:CTAssetScrollViewPlayerWillPauseNotification
+                 object:nil];    
 }
 
 - (void)removeNotificationObserver
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:CTAssetScrollViewTappedNotification object:nil];
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    
+    [center removeObserver:self name:CTAssetScrollViewDidTapNotification object:nil];
+    [center removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
+    [center removeObserver:self name:CTAssetScrollViewPlayerWillPlayNotification object:nil];
+    [center removeObserver:self name:CTAssetScrollViewPlayerWillPauseNotification object:nil];
 }
 
 
-#pragma mark - Tap Gesture
+#pragma mark - Notification events
 
-- (void)scrollViewTapped:(NSNotification *)notification
+- (void)assetScrollViewDidTap:(NSNotification *)notification
 {
     UITapGestureRecognizer *gesture = (UITapGestureRecognizer *)notification.object;
     
     if (gesture.numberOfTapsRequired == 1)
-        [self toogleNavigationBar:gesture];
+    {
+        [self toogleBackgroundColor:gesture];
+        [self toogleControls:gesture];
+    }
 }
 
-
-#pragma mark - Fade in / away navigation bar
-
-- (void)toogleNavigationBar:(id)sender
+- (void)assetScrollViewPlayerDidPlayToEnd:(NSNotification *)notification
 {
-	if (self.isStatusBarHidden)
-		[self fadeNavigationBarIn];
-    else
-		[self fadeNavigationBarAway];
+    [self replaceToolbarButton:self.playButton];
+    
+    [UIView animateWithDuration:0.2
+                     animations:^{
+                         self.view.backgroundColor = [UIColor whiteColor];
+                     }];
+    
+    [self fadeInControls:self.navigationController];
 }
 
-- (void)fadeNavigationBarAway
+- (void)assetScrollViewPlayerWillPlay:(NSNotification *)notification
+{
+    [self replaceToolbarButton:self.pauseButton];
+    
+    [UIView animateWithDuration:0.2
+                     animations:^{
+                         self.view.backgroundColor = [UIColor blackColor];
+                     }];
+    
+    [self fadeAwayControls:self.navigationController];
+}
+
+- (void)assetScrollViewPlayerWillPause:(NSNotification *)notification
+{
+    [self replaceToolbarButton:self.playButton];
+}
+
+
+#pragma mark - Toogle background color
+
+- (void)toogleBackgroundColor:(id)sender
+{
+    UIColor *color = (self.view.backgroundColor == UIColor.whiteColor) ?
+    [UIColor blackColor] : [UIColor whiteColor];
+    
+    [UIView animateWithDuration:0.2
+                     animations:^{
+                         self.view.backgroundColor = color;
+                     }];
+}
+
+
+#pragma mark - Toogle controls
+
+- (void)toogleControls:(id)sender
+{
+    UINavigationController *nav = self.navigationController;
+    
+    if (self.isStatusBarHidden)
+        [self fadeInControls:nav];
+    else
+        [self fadeAwayControls:nav];
+}
+
+- (void)fadeInControls:(UINavigationController *)nav
+{
+    self.statusBarHidden = NO;
+    
+    [nav setNavigationBarHidden:NO];
+    [nav.navigationBar setAlpha:0.0f];
+    
+    if ([self.asset ctassetsPickerIsVideo])
+    {
+        [nav setToolbarHidden:NO];
+        [nav.toolbar setAlpha:0.0f];
+    }
+    
+    [UIView animateWithDuration:0.2
+                     animations:^{
+                         [self setNeedsStatusBarAppearanceUpdate];
+                         [nav.navigationBar setAlpha:1.0f];
+                         
+                         if ([self.asset ctassetsPickerIsVideo])
+                             [nav.toolbar setAlpha:1.0f];
+                     }];
+}
+
+- (void)fadeAwayControls:(UINavigationController *)nav
 {
     self.statusBarHidden = YES;
     
     [UIView animateWithDuration:0.2
                      animations:^{
                          [self setNeedsStatusBarAppearanceUpdate];
-                         [self.navigationController.navigationBar setAlpha:0.0f];
-                         [self.navigationController setNavigationBarHidden:YES];
-                         self.view.backgroundColor = [UIColor blackColor];
-                     }
-                     completion:^(BOOL finished){
-                         
-                     }];
-}
-
-- (void)fadeNavigationBarIn
-{
-    self.statusBarHidden = NO;
-    [self.navigationController setNavigationBarHidden:NO];
-    
-    [UIView animateWithDuration:0.2
-                     animations:^{
-                         [self setNeedsStatusBarAppearanceUpdate];
-                         [self.navigationController.navigationBar setAlpha:1.0f];
-                         self.view.backgroundColor = [UIColor whiteColor];
+                         [nav setNavigationBarHidden:YES animated:NO];
+                         [nav setToolbarHidden:YES animated:NO];
+                         [nav.navigationBar setAlpha:0.0f];
+                         [nav.toolbar setAlpha:0.0f];
                      }];
 }
 
 
+#pragma mark - Playback
 
-#pragma mark - CTAssetItemViewControllerDataSource
-
-- (ALAsset *)assetAtIndex:(NSUInteger)index;
+- (void)playAsset:(id)sender
 {
-    return [self.assets objectAtIndex:index];
+    [((CTAssetItemViewController *)self.viewControllers[0]) playAsset:sender];
 }
+
+- (void)pauseAsset:(id)sender
+{
+    [((CTAssetItemViewController *)self.viewControllers[0]) pauseAsset:sender];
+}
+
 
 @end

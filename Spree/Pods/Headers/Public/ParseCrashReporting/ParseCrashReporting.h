@@ -1,1 +1,1 @@
-../../../ParseCrashReporting/ParseCrashReporting.framework/Headers/ParseCrashReporting.h
+../../../ParseCrashReporting/ParseCrashReporting.h

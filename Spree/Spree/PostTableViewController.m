@@ -82,6 +82,9 @@
     titleLabel.adjustsFontSizeToFitWidth=YES;
     self.navigationItem.titleView=titleLabel;
     
+    self.view.backgroundColor = [UIColor spreeOffWhite];
+    self.tableView.backgroundColor = [UIColor spreeOffWhite];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadObjects) name:@"ReloadTable" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadObjects) name:@"PostMade" object:nil];
 

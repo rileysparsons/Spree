@@ -10,7 +10,7 @@
 #import "HomeHeaderView.h"
 #import "HeaderSlideView.h"
 
-@interface HomeViewController ()
+@interface HomeViewController () <InfinitePagingViewDelegate>
 
 @property HomeHeaderView *header;
 
@@ -21,51 +21,33 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.header = [[HomeHeaderView alloc] init];
-    NSArray *nibFiles = [[NSBundle mainBundle] loadNibNamed:@"HomeHeaderView" owner:self options:nil];
-    for(id currentObject in nibFiles){
-        if ([currentObject isKindOfClass:[UIView class]]){
-            self.header = currentObject;
-            break;
-        }
+    self.header = [[HomeHeaderView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 200)];
+    self.header.photoGallery.pageSize = CGSizeMake(self.tableView.frame.size.width, 200);
+    for (UIView *view  in [self headerSlides]){
+        [self.header.photoGallery addPageView:view];
     }
-    [self.header setFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 200)];
+    [NSTimer scheduledTimerWithTimeInterval:4.0f target:self.header.photoGallery selector:@selector(scrollToNextPage) userInfo:nil repeats:YES];
     self.tableView.tableHeaderView = self.header;
 }
 
 -(NSArray *)headerSlides{
-    HeaderSlideView *view1 = [[HeaderSlideView alloc] init];
-    HeaderSlideView *view2 = [[HeaderSlideView alloc] init];
-    HeaderSlideView *view3 = [[HeaderSlideView alloc] init];
+    HeaderSlideView *view1 = [[HeaderSlideView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 200)];
+    HeaderSlideView *view2 = [[HeaderSlideView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 200)];
+    HeaderSlideView *view3 = [[HeaderSlideView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 200)];
+
+    view1.backgroundImage.backgroundColor = [UIColor spreeOffBlack];
+    view2.backgroundImage.backgroundColor = [UIColor spreeOffBlack];
+    view3.backgroundImage.backgroundColor = [UIColor spreeOffBlack];
     
-    NSArray *nibFiles = [[NSBundle mainBundle] loadNibNamed:@"HeaderSlideView" owner:self options:nil];
-    for(id currentObject in nibFiles){
-        if ([currentObject isKindOfClass:[UIView class]]){
-            view1 = currentObject;
-            break;
-        }
-    }
+    view1.slideTitle.textColor = [UIColor spreeOffWhite];
+    view2.slideTitle.textColor = [UIColor spreeOffWhite];
+    view3.slideTitle.textColor = [UIColor spreeOffWhite];
 
-    for(id currentObject in nibFiles){
-        if ([currentObject isKindOfClass:[UIView class]]){
-            view2 = currentObject;
-            break;
-        }
-    }
 
-    for(id currentObject in nibFiles){
-        if ([currentObject isKindOfClass:[UIView class]]){
-            view3 = currentObject;
-            break;
-        }
-    }
-
-    [view1 setFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 200)];
-    [view2 setFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 200)];
-    [view3 setFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 200)];
-    [view1 setTitleWithString:@"View 1"];
-    [view2 setTitleWithString:@"View 2"];
-    [view3 setTitleWithString:@"View 3"];
+    [view1 setTitleWithString:@"Santa Clara University"];
+    [view2 setTitleWithString:@"Couches"];
+    [view3 setTitleWithString:@"Textbooks"];
+    
     return [[NSArray alloc] initWithObjects:view1,view2,view3, nil];
 }
 

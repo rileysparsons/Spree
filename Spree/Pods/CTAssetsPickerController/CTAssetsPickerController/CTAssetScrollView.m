@@ -1,7 +1,6 @@
 /*
- CTAssetScrollView.m
  
- The MIT License (MIT)
+ MIT License (MIT)
  
  Copyright (c) 2013 Clement CN Tsang
  
@@ -25,31 +24,43 @@
  
  */
 
-#import <MediaPlayer/MediaPlayer.h>
+#import <PureLayout/PureLayout.h>
 #import "CTAssetScrollView.h"
-#import "ALAsset+assetType.h"
-#import "ALAsset+accessibilityLabel.h"
+#import "CTAssetPlayButton.h"
+#import "PHAsset+CTAssetsPickerController.h"
 #import "NSBundle+CTAssetsPickerController.h"
 #import "UIImage+CTAssetsPickerController.h"
 
 
 
 
-NSString * const CTAssetScrollViewTappedNotification = @"CTAssetScrollViewTappedNotification";
+NSString * const CTAssetScrollViewDidTapNotification = @"CTAssetScrollViewDidTapNotification";
+NSString * const CTAssetScrollViewPlayerWillPlayNotification = @"CTAssetScrollViewPlayerWillPlayNotification";
+NSString * const CTAssetScrollViewPlayerWillPauseNotification = @"CTAssetScrollViewPlayerWillPauseNotification";
 
 
 
 
-@interface CTAssetScrollView () <UIScrollViewDelegate>
+@interface CTAssetScrollView ()
+<UIScrollViewDelegate, UIGestureRecognizerDelegate>
 
-@property (nonatomic, strong) UIImageView   *imageView;
-@property (nonatomic, assign) CGSize        imageSize;
+@property (nonatomic, strong) PHAsset *asset;
+@property (nonatomic, strong) UIImage *image;
+@property (nonatomic, strong) AVPlayer *player;
 
-@property (nonatomic, assign) CGPoint       pointToCenterAfterResize;
-@property (nonatomic, assign) CGFloat       scaleToRestoreAfterResize;
+@property (nonatomic, assign) BOOL didLoadPlayerItem;
 
-@property (nonatomic, strong) UIButton                  *playButton;
-@property (nonatomic, strong) MPMoviePlayerController   *player;
+@property (nonatomic, assign) CGFloat perspectiveZoomScale;
+
+@property (nonatomic, strong) UIImageView *imageView;
+
+@property (nonatomic, strong) UIProgressView *progressView;
+@property (nonatomic, strong) UIActivityIndicatorView *activityView;
+@property (nonatomic, strong) CTAssetPlayButton *playButton;
+
+@property (nonatomic, assign) BOOL shouldUpdateConstraints;
+@property (nonatomic, assign) BOOL didSetupConstraints;
+
 
 @end
 
@@ -59,19 +70,21 @@ NSString * const CTAssetScrollViewTappedNotification = @"CTAssetScrollViewTapped
 
 @implementation CTAssetScrollView
 
-- (id)initWithFrame:(CGRect)frame
+- (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     
     if (self)
     {
+        _shouldUpdateConstraints            = YES;
         self.showsVerticalScrollIndicator   = NO;
         self.showsHorizontalScrollIndicator = NO;
         self.bouncesZoom                    = YES;
         self.decelerationRate               = UIScrollViewDecelerationRateFast;
         self.delegate                       = self;
         
-        [self addNotificationObserver];        
+        [self setupViews];
+        [self addGestureRecognizers];
     }
     
     return self;
@@ -79,167 +92,237 @@ NSString * const CTAssetScrollViewTappedNotification = @"CTAssetScrollViewTapped
 
 - (void)dealloc
 {
-    [self removeNotificationObserver];
-}
-
-- (void)layoutSubviews
-{
-    [super layoutSubviews];
-    
-    // center the zoom view as it becomes smaller than the size of the screen
-    CGSize boundsSize       = self.bounds.size;
-    CGRect frameToCenter    = self.imageView.frame;
-    
-    // center horizontally
-    if (frameToCenter.size.width < boundsSize.width)
-        frameToCenter.origin.x = (boundsSize.width - frameToCenter.size.width) / 2;
-    else
-        frameToCenter.origin.x = 0;
-    
-    // center vertically
-    if (frameToCenter.size.height < boundsSize.height)
-        frameToCenter.origin.y = (boundsSize.height - frameToCenter.size.height) / 2;
-    else
-        frameToCenter.origin.y = 0;
-    
-    self.imageView.frame    = frameToCenter;
-    self.player.view.frame  = frameToCenter;
-}
-
-- (void)setIndex:(NSUInteger)index
-{
-    _index = index;
-    [self displayImageAtIndex:index];
-    [self addGestureRecognizers];
-}
-
-- (void)setFrame:(CGRect)frame
-{
-    BOOL sizeChanging = !CGSizeEqualToSize(frame.size, self.frame.size);
-    
-    if (sizeChanging)
-        [self prepareToResize];
-    
-    [super setFrame:frame];
-    
-    if (sizeChanging)
-        [self recoverFromResizing];
+    [self removePlayerNotificationObserver];
+    [self removePlayerLoadedTimeRangesObserver];
+    [self removePlayerRateObserver];
 }
 
 
+#pragma mark - Setup
 
-#pragma mark - Notification Observer
-
-- (void)addNotificationObserver
+- (void)setupViews
 {
-    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    UIImageView *imageView = [UIImageView new];
+    imageView.isAccessibilityElement    = YES;
+    imageView.accessibilityTraits       = UIAccessibilityTraitImage;
+    self.imageView = imageView;
     
-    [center addObserver:self
-               selector:@selector(playbackStateDidChange:)
-                   name:MPMoviePlayerPlaybackStateDidChangeNotification
-                 object:nil];
+    [self addSubview:self.imageView];
     
-    [center addObserver:self
-               selector:@selector(playbackDidFinish:)
-                   name:MPMoviePlayerPlaybackDidFinishNotification
-                 object:nil];
+    UIProgressView *progressView =
+    [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
+    self.progressView = progressView;
     
-    [center addObserver:self
-               selector:@selector(playerWillExitFullscreen:)
-                   name:MPMoviePlayerWillExitFullscreenNotification
-                 object:nil];
-}
-
-- (void)removeNotificationObserver
-{
-    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-
-    [center removeObserver:self name:MPMoviePlayerPlaybackStateDidChangeNotification object:nil];
-    [center removeObserver:self name:MPMoviePlayerPlaybackDidFinishNotification object:nil];
-    [center removeObserver:self name:MPMoviePlayerWillExitFullscreenNotification object:nil];
+    [self addSubview:self.progressView];
+    
+    UIActivityIndicatorView *activityView =
+    [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    
+    self.activityView = activityView;
+    
+    [self addSubview:self.activityView];
+    
+    CTAssetPlayButton *playButton = [CTAssetPlayButton newAutoLayoutView];
+    self.playButton = playButton;
+    [self addSubview:self.playButton];
 }
 
 
+#pragma mark - Update auto layout constraints
 
-#pragma mark - UIScrollViewDelegate
-
-- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
+- (void)updateConstraints
 {
-    return self.imageView;
-}
-
-
-
-#pragma mark - Configure scrollView to display new image
-
-- (void)displayImageAtIndex:(NSUInteger)index
-{
-    if ([self.dataSource respondsToSelector:@selector(assetAtIndex:)])
+    if (!self.didSetupConstraints)
     {
-        // scale image properly
-        ALAsset *asset = [self.dataSource assetAtIndex:index];
-        CGFloat scale  = ([asset isVideo]) ? 0.5f : 1.0f;
+        [self autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero];
+        [self updateProgressConstraints];
+        [self updateActivityConstraints];
+        [self updateButtonConstraints];
         
-        UIImage *image;
+        self.didSetupConstraints = YES;
+    }
+
+    [self updateContentFrame];
+    [super updateConstraints];
+}
+
+- (void)updateProgressConstraints
+{
+    [UIView autoSetPriority:UILayoutPriorityDefaultLow forConstraints:^{
+        [self.progressView autoConstrainAttribute:ALAttributeLeading toAttribute:ALAttributeLeading ofView:self.superview withMultiplier:1 relation:NSLayoutRelationEqual];
+        [self.progressView autoConstrainAttribute:ALAttributeTrailing toAttribute:ALAttributeTrailing ofView:self.superview withMultiplier:1 relation:NSLayoutRelationEqual];
+        [self.progressView autoConstrainAttribute:ALAttributeBottom toAttribute:ALAttributeBottom ofView:self.superview withMultiplier:1 relation:NSLayoutRelationEqual];
+    }];
+    
+    [UIView autoSetPriority:UILayoutPriorityDefaultHigh forConstraints:^{
+        [self.progressView autoConstrainAttribute:ALAttributeLeading toAttribute:ALAttributeLeading ofView:self.imageView withMultiplier:1 relation:NSLayoutRelationGreaterThanOrEqual];
+        [self.progressView autoConstrainAttribute:ALAttributeTrailing toAttribute:ALAttributeTrailing ofView:self.imageView withMultiplier:1 relation:NSLayoutRelationLessThanOrEqual];
+        [self.progressView autoConstrainAttribute:ALAttributeBottom toAttribute:ALAttributeBottom ofView:self.imageView withMultiplier:1 relation:NSLayoutRelationLessThanOrEqual];
+    }];
+}
+
+- (void)updateActivityConstraints
+{
+    [self.activityView autoAlignAxis:ALAxisVertical toSameAxisOfView:self.superview];
+    [self.activityView autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self.superview];
+}
+
+- (void)updateButtonConstraints
+{
+    [self.playButton autoAlignAxis:ALAxisVertical toSameAxisOfView:self.superview];
+    [self.playButton autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self.superview];
+}
+
+- (void)updateContentFrame
+{
+    CGSize boundsSize = self.bounds.size;
+    
+    CGFloat w = self.zoomScale * self.asset.pixelWidth;
+    CGFloat h = self.zoomScale * self.asset.pixelHeight;
+    
+    CGFloat dx = (boundsSize.width - w) / 2.0;
+    CGFloat dy = (boundsSize.height - h) / 2.0;
+
+    self.contentOffset = CGPointZero;
+    self.imageView.frame = CGRectMake(dx, dy, w, h);
+}
+
+
+
+#pragma mark - Start/stop loading animation
+
+- (void)startActivityAnimating
+{
+    [self.playButton setHidden:YES];
+    [self.activityView startAnimating];
+    [self postPlayerWillPlayNotification];
+}
+
+- (void)stopActivityAnimating
+{
+    [self.playButton setHidden:NO];
+    [self.activityView stopAnimating];
+    [self postPlayerWillPauseNotification];
+}
+
+
+#pragma mark - Set progress
+
+- (void)setProgress:(CGFloat)progress
+{
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:(progress < 1)];
+    [self.progressView setProgress:progress animated:(progress < 1)];
+    [self.progressView setHidden:(progress == 1)];
+}
+
+// To mimic image downloading progress
+// as PHImageRequestOptions does not work as expected
+- (void)mimicProgress
+{
+    CGFloat progress = self.progressView.progress;
+
+    if (progress < 0.95)
+    {
+        int lowerbound = progress * 100 + 1;
+        int upperbound = 95;
         
-        if (asset.defaultRepresentation)
-        {
-            image = [UIImage imageWithCGImage:asset.defaultRepresentation.fullScreenImage
-                                        scale:scale
-                                  orientation:UIImageOrientationUp];
-        }
-        else
-        {
-            image = [UIImage ctassetsPickerControllerImageNamed:@"CTAssetsPickerEmptyAsset"];
-        }
+        int random = lowerbound + arc4random() % (upperbound - lowerbound);
+        CGFloat randomProgress = random / 100.0f;
+
+        [self setProgress:randomProgress];
         
-        // clear the previous image
-        [self.imageView removeFromSuperview];
-        self.imageView = nil;
-        
-        // reset our zoomScale to 1.0 before doing any further calculations
-        self.zoomScale = 1.0;
-        
-        // make a new UIImageView for the new image
-        self.imageView = [[UIImageView alloc] initWithImage:image];
-        
-        self.imageView.isAccessibilityElement   = YES;
-        self.imageView.accessibilityTraits      = UIAccessibilityTraitImage;
-        self.imageView.accessibilityLabel       = asset.accessibilityLabel;
-        self.imageView.tag                      = 1;
-        
-        [self addSubview:self.imageView];        
-        [self configureForImageSize:image.size];
-        
-        if ([asset isVideo])
-            [self addVideoPlayButton];
+        NSInteger randomDelay = 1 + arc4random() % (3 - 1);
+        [self performSelector:@selector(mimicProgress) withObject:nil afterDelay:randomDelay];
     }
 }
 
 
-- (void)configureForImageSize:(CGSize)imageSize
+#pragma mark - asset size
+
+- (CGSize)assetSize
 {
-    self.imageSize      = imageSize;
-    self.contentSize    = imageSize;
-    
-    [self setMaxMinZoomScalesForCurrentBounds];
-    
-    self.zoomScale      = self.minimumZoomScale;
+    return CGSizeMake(self.asset.pixelWidth, self.asset.pixelHeight);
 }
 
-- (void)setMaxMinZoomScalesForCurrentBounds
+
+#pragma mark - Bind asset image
+
+- (void)bind:(PHAsset *)asset image:(UIImage *)image requestInfo:(NSDictionary *)info
 {
-    CGSize boundsSize = self.bounds.size;
+    self.asset = asset;
+    self.imageView.accessibilityLabel = asset.accessibilityLabel;    
+    self.playButton.hidden = [asset ctassetsPickerIsPhoto];
     
-    CGFloat xScale = boundsSize.width  / self.imageSize.width;    // the scale needed to perfectly fit the image width-wise
-    CGFloat yScale = boundsSize.height / self.imageSize.height;   // the scale needed to perfectly fit the image height-wise
+    BOOL isDegraded = [info[PHImageResultIsDegradedKey] boolValue];
+    
+    if (self.image == nil || !isDegraded)
+    {
+        BOOL zoom = (!self.image);
+        self.image = image;
+        self.imageView.image = image;
+        
+        if (isDegraded)
+            [self mimicProgress];
+        else
+            [self setProgress:1];
+
+        [self setNeedsUpdateConstraints];
+        [self updateConstraintsIfNeeded];        
+        [self updateZoomScalesAndZoom:zoom];
+    }
+}
+
+
+#pragma mark - Bind player item
+
+- (void)bind:(AVPlayerItem *)playerItem requestInfo:(NSDictionary *)info
+{
+    [self unbindPlayerItem];
+    
+    AVPlayer *player = [AVPlayer playerWithPlayerItem:playerItem];
+    AVPlayerLayer *playerLayer = [AVPlayerLayer playerLayerWithPlayer:player];
+    playerLayer.videoGravity = AVLayerVideoGravityResizeAspect;
+
+    CALayer *layer = self.imageView.layer;
+    [layer addSublayer:playerLayer];
+    [playerLayer setFrame:layer.bounds];
+    
+    self.player = player;
+
+    [self addPlayerNotificationObserver];
+    [self addPlayerLoadedTimeRangesObserver];
+}
+
+- (void)unbindPlayerItem
+{
+    [self removePlayerNotificationObserver];
+    [self removePlayerLoadedTimeRangesObserver];
+
+    for (CALayer *layer in self.imageView.layer.sublayers)
+        [layer removeFromSuperlayer];
+    
+    self.player = nil;
+}
+
+
+
+#pragma mark - Upate zoom scales
+
+- (void)updateZoomScalesAndZoom:(BOOL)zoom
+{
+    if (!self.asset)
+        return;
+    
+    CGSize assetSize    = [self assetSize];
+    CGSize boundsSize   = self.bounds.size;
+    
+    CGFloat xScale = boundsSize.width / assetSize.width;    //scale needed to perfectly fit the image width-wise
+    CGFloat yScale = boundsSize.height / assetSize.height;  //scale needed to perfectly fit the image height-wise
     
     CGFloat minScale = MIN(xScale, yScale);
-    CGFloat maxScale = 2.0 * minScale;
+    CGFloat maxScale = 3.0 * minScale;
     
-    ALAsset *asset = [self.dataSource assetAtIndex:self.index];
-    
-    if ([asset isVideo] || !asset.defaultRepresentation)
+    if ([self.asset ctassetsPickerIsVideo])
     {
         self.minimumZoomScale = minScale;
         self.maximumZoomScale = minScale;
@@ -250,65 +333,128 @@ NSString * const CTAssetScrollViewTappedNotification = @"CTAssetScrollViewTapped
         self.minimumZoomScale = minScale;
         self.maximumZoomScale = maxScale;
     }
+    
+    // update perspective zoom scale
+    self.perspectiveZoomScale = (boundsSize.width > boundsSize.height) ? xScale : yScale;
+    
+    if (zoom)
+        [self zoomToInitialScale];
 }
 
 
 
-#pragma mark - Rotation support
+#pragma mark - Zoom
 
-- (void)prepareToResize
+- (void)zoomToInitialScale
 {
-    CGPoint boundsCenter = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
-    self.pointToCenterAfterResize = [self convertPoint:boundsCenter toView:self.imageView];
-    
-    self.scaleToRestoreAfterResize = self.zoomScale;
-    
-    // If we're at the minimum zoom scale, preserve that by returning 0, which will be converted to the minimum
-    // allowable scale when the scale is restored.
-    if (self.scaleToRestoreAfterResize <= self.minimumZoomScale + FLT_EPSILON)
-        self.scaleToRestoreAfterResize = 0;
+    if ([self canPerspectiveZoom])
+        [self zoomToPerspectiveZoomScaleAnimated:NO];
+    else
+        [self zoomToMinimumZoomScaleAnimated:NO];
 }
 
-- (void)recoverFromResizing
+- (void)zoomToMinimumZoomScaleAnimated:(BOOL)animated
 {
-    [self setMaxMinZoomScalesForCurrentBounds];
-    
-    // Step 1: restore zoom scale, first making sure it is within the allowable range.
-    self.zoomScale = MIN(self.maximumZoomScale, MAX(self.minimumZoomScale, self.scaleToRestoreAfterResize));
-    
-    
-    // Step 2: restore center point, first making sure it is within the allowable range.
-    
-    // 2a: convert our desired center point back to our own coordinate space
-    CGPoint boundsCenter = [self convertPoint:self.pointToCenterAfterResize fromView:self.imageView];
-    
-    // 2b: calculate the content offset that would yield that center point
-    CGPoint offset = CGPointMake(boundsCenter.x - self.bounds.size.width / 2.0,
-                                 boundsCenter.y - self.bounds.size.height / 2.0);
-    
-    // 2c: restore offset, adjusted to be within the allowable range
-    CGPoint maxOffset = [self maximumContentOffset];
-    CGPoint minOffset = [self minimumContentOffset];
-    offset.x = MAX(minOffset.x, MIN(maxOffset.x, offset.x));
-    offset.y = MAX(minOffset.y, MIN(maxOffset.y, offset.y));
-    self.contentOffset = offset;
+    [self setZoomScale:self.minimumZoomScale animated:animated];
 }
 
-- (CGPoint)maximumContentOffset
+- (void)zoomToMaximumZoomScaleWithGestureRecognizer:(UITapGestureRecognizer *)recognizer
 {
-    CGSize contentSize = self.contentSize;
-    CGSize boundsSize = self.bounds.size;
-    return CGPointMake(contentSize.width - boundsSize.width, contentSize.height - boundsSize.height);
+    CGRect zoomRect = [self zoomRectWithScale:self.maximumZoomScale withCenter:[recognizer locationInView:recognizer.view]];
+
+    self.shouldUpdateConstraints = NO;
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        [self zoomToRect:zoomRect animated:NO];
+        
+        CGRect frame = self.imageView.frame;
+        frame.origin.x = 0;
+        frame.origin.y = 0;
+
+        self.imageView.frame = frame;
+    }];
 }
 
-- (CGPoint)minimumContentOffset
+
+#pragma mark - Perspective zoom
+
+- (BOOL)canPerspectiveZoom
 {
-    return CGPointZero;
+    CGSize assetSize    = [self assetSize];
+    CGSize boundsSize   = self.bounds.size;
+    
+    CGFloat assetRatio  = assetSize.width / assetSize.height;
+    CGFloat boundsRatio = boundsSize.width / boundsSize.height;
+    
+    // can perform perspective zoom when the difference of aspect ratios is smaller than 20%
+    return (fabs( (assetRatio - boundsRatio) / boundsRatio ) < 0.2f);
+}
+
+- (void)zoomToPerspectiveZoomScaleAnimated:(BOOL)animated;
+{
+    CGRect zoomRect = [self zoomRectWithScale:self.perspectiveZoomScale];
+    [self zoomToRect:zoomRect animated:animated];
+}
+
+- (CGRect)zoomRectWithScale:(CGFloat)scale
+{
+    CGSize targetSize;
+    targetSize.width    = self.bounds.size.width / scale;
+    targetSize.height   = self.bounds.size.height / scale;
+    
+    CGPoint targetOrigin;
+    targetOrigin.x      = (self.asset.pixelWidth - targetSize.width) / 2.0;
+    targetOrigin.y      = (self.asset.pixelHeight - targetSize.height) / 2.0;
+    
+    CGRect zoomRect;
+    zoomRect.origin = targetOrigin;
+    zoomRect.size   = targetSize;
+
+    return zoomRect;
 }
 
 
+#pragma mark - Zoom with gesture recognizer
 
-#pragma mark - Gesture Recognizer
+- (void)zoomWithGestureRecognizer:(UITapGestureRecognizer *)recognizer
+{
+    if (self.minimumZoomScale == self.maximumZoomScale)
+        return;
+    
+    if ([self canPerspectiveZoom])
+    {
+        if ((self.zoomScale >= self.minimumZoomScale && self.zoomScale < self.perspectiveZoomScale) ||
+            (self.zoomScale <= self.maximumZoomScale && self.zoomScale > self.perspectiveZoomScale))
+            [self zoomToPerspectiveZoomScaleAnimated:YES];
+        else
+            [self zoomToMaximumZoomScaleWithGestureRecognizer:recognizer];
+        
+        return;
+    }
+    
+    if (self.zoomScale < self.maximumZoomScale)
+        [self zoomToMaximumZoomScaleWithGestureRecognizer:recognizer];
+    else
+        [self zoomToMinimumZoomScaleAnimated:YES];
+}
+
+- (CGRect)zoomRectWithScale:(CGFloat)scale withCenter:(CGPoint)center
+{
+    center = [self.imageView convertPoint:center fromView:self];
+    
+    CGRect zoomRect;
+    
+    zoomRect.size.height = self.imageView.frame.size.height / scale;
+    zoomRect.size.width  = self.imageView.frame.size.width  / scale;
+    
+    zoomRect.origin.x    = center.x - ((zoomRect.size.width / 2.0));
+    zoomRect.origin.y    = center.y - ((zoomRect.size.height / 2.0));
+    
+    return zoomRect;
+}
+
+
+#pragma mark - Gesture recognizers
 
 - (void)addGestureRecognizers
 {
@@ -318,150 +464,222 @@ NSString * const CTAssetScrollViewTappedNotification = @"CTAssetScrollViewTapped
     [doubleTap setNumberOfTapsRequired:2.0];
     [singleTap requireGestureRecognizerToFail:doubleTap];
     
+    [singleTap setDelegate:self];
+    [doubleTap setDelegate:self];
+    
     [self addGestureRecognizer:singleTap];
     [self addGestureRecognizer:doubleTap];
 }
 
 
-
-#pragma mark - Handle Tapping
+#pragma mark - Handle tappings
 
 - (void)handleTapping:(UITapGestureRecognizer *)recognizer
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:CTAssetScrollViewTappedNotification object:recognizer];
+    [[NSNotificationCenter defaultCenter] postNotificationName:CTAssetScrollViewDidTapNotification object:recognizer];
     
     if (recognizer.numberOfTapsRequired == 2)
-        [self toggleZooming:recognizer];
+        [self zoomWithGestureRecognizer:recognizer];
+}
+
+
+#pragma mark - Scroll view delegate
+
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
+{
+    return self.imageView;
+}
+
+- (void)scrollViewWillBeginZooming:(UIScrollView *)scrollView withView:(UIView *)view
+{
+    self.shouldUpdateConstraints = YES;
+}
+
+- (void)scrollViewDidZoom:(UIScrollView *)scrollView
+{
+    [self setScrollEnabled:(self.zoomScale != self.perspectiveZoomScale)];
+    
+    if (self.shouldUpdateConstraints)
+    {
+        [self setNeedsUpdateConstraints];
+        [self updateConstraintsIfNeeded];
+    }
+}
+
+
+#pragma mark - Gesture recognizer delegate
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    return ![touch.view isDescendantOfView:self.playButton];
+}
+
+
+#pragma mark - Notification observer
+
+- (void)addPlayerNotificationObserver
+{
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    
+    [center addObserver:self
+               selector:@selector(applicationWillResignActive:)
+                   name:UIApplicationWillResignActiveNotification
+                 object:nil];
+}
+
+- (void)removePlayerNotificationObserver
+{
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+
+    [center removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
 }
 
 
 
-#pragma mark - Toggle Zooming
+#pragma mark - Video player item key-value observer
 
-- (void)toggleZooming:(UITapGestureRecognizer *)recognizer
+- (void)addPlayerLoadedTimeRangesObserver
 {
-    if (self.minimumZoomScale == self.maximumZoomScale)
-    {
-        return;
+    [self.player addObserver:self
+                  forKeyPath:@"currentItem.loadedTimeRanges"
+                     options:NSKeyValueObservingOptionNew
+                     context:nil];
+}
+
+- (void)removePlayerLoadedTimeRangesObserver
+{
+    @try {
+        [self.player removeObserver:self forKeyPath:@"currentItem.loadedTimeRanges"];
     }
-    else if (self.zoomScale > self.minimumZoomScale)
-    {
-        [self setZoomScale:self.minimumZoomScale animated:YES];
+    @catch (NSException *exception) {
+        // do noting
     }
-    else
+}
+
+- (void)addPlayerRateObserver
+{
+    [self.player addObserver:self
+                  forKeyPath:@"rate"
+                     options:NSKeyValueObservingOptionNew
+                     context:nil];
+}
+
+- (void)removePlayerRateObserver
+{
+    @try {
+        [self.player removeObserver:self forKeyPath:@"rate"];
+    }
+    @catch (NSException *exception) {
+        // do noting
+    }    
+}
+
+
+#pragma mark - Video playback Key-Value changed
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if (object == self.player && [keyPath isEqual:@"currentItem.loadedTimeRanges"])
     {
-        CGRect zoomRect =
-        [self zoomRectWithScale:self.maximumZoomScale
-                     withCenter:[recognizer locationInView:recognizer.view]];
+        NSArray *timeRanges = [change objectForKey:NSKeyValueChangeNewKey];
+
+        if (timeRanges && [timeRanges count])
+        {
+            CMTimeRange timeRange = [timeRanges.firstObject CMTimeRangeValue];
+            
+            if (CMTIME_COMPARE_INLINE(timeRange.duration, ==, self.player.currentItem.duration))
+                [self performSelector:@selector(playerDidLoadItem:) withObject:object];
+        }
+    }
+    
+    if (object == self.player && [keyPath isEqual:@"rate"])
+    {
+        CGFloat rate = [[change valueForKey:NSKeyValueChangeNewKey] floatValue];
         
-        [self zoomToRect:zoomRect animated:YES];
+        if (rate > 0)
+            [self performSelector:@selector(playerDidPlay:) withObject:object];
+        
+        if (rate == 0)
+            [self performSelector:@selector(playerDidPause:) withObject:object];
     }
-}
-
-- (CGRect)zoomRectWithScale:(float)scale withCenter:(CGPoint)center {
-    
-    CGRect zoomRect;
-    
-    zoomRect.size.height = [self.imageView frame].size.height / scale;
-    zoomRect.size.width  = [self.imageView frame].size.width  / scale;
-    
-    center = [self.imageView convertPoint:center fromView:self];
-    
-    zoomRect.origin.x    = center.x - ((zoomRect.size.width / 2.0));
-    zoomRect.origin.y    = center.y - ((zoomRect.size.height / 2.0));
-    
-    return zoomRect;
-}
-
-
-
-#pragma mark - Video Player
-
-- (void)createVideoPlayer
-{
-    ALAsset *asset = [self.dataSource assetAtIndex:self.index];
-    
-    self.player = [[MPMoviePlayerController alloc] initWithContentURL:asset.defaultRepresentation.url];
-    self.player.controlStyle    = MPMovieControlStyleFullscreen;
-    self.player.shouldAutoplay  = NO;
-
-    [self insertSubview:self.player.view belowSubview:self.imageView];
-    [self layoutIfNeeded];
-}
-
-
-- (void)addVideoPlayButton
-{
-    UIImage *image   = [UIImage ctassetsPickerControllerImageNamed:@"CTAssetsPickerPlay"];
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    
-    [button setImage:image forState:UIControlStateNormal];
-    [button addTarget:self action:@selector(playVideo:) forControlEvents:UIControlEventTouchUpInside];
-    
-    button.accessibilityLabel = CTAssetsPickerControllerLocalizedString(@"Play");
-    button.translatesAutoresizingMaskIntoConstraints = NO;
-    
-    self.playButton = button;
-    
-    [self addSubview:self.playButton];
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:self.playButton
-                                                     attribute:NSLayoutAttributeCenterX
-                                                     relatedBy:NSLayoutRelationEqual
-                                                        toItem:self
-                                                     attribute:NSLayoutAttributeCenterX
-                                                    multiplier:1.0f
-                                                      constant:0.0f]];
-    
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:self.playButton
-                                                     attribute:NSLayoutAttributeCenterY
-                                                     relatedBy:NSLayoutRelationEqual
-                                                        toItem:self
-                                                     attribute:NSLayoutAttributeCenterY
-                                                    multiplier:1.0f
-                                                      constant:0.0f]];
-}
-
-
-
-#pragma mark - Play Video
-
-- (void)playVideo:(id)sender
-{
-    if (!self.player)
-        [self createVideoPlayer];
-    
-    [self.player setControlStyle:MPMovieControlStyleFullscreen];
-    [self.player setFullscreen:YES animated:YES];
-    [self.player play];
 }
 
 
 
 #pragma mark - Notifications
 
-- (void)playbackStateDidChange:(NSNotification *)notification
+- (void)postPlayerWillPlayNotification
 {
-    MPMoviePlayerController *player = notification.object;
-    if (![player isEqual:self.player] && player.playbackState == MPMoviePlaybackStatePlaying)
+    [[NSNotificationCenter defaultCenter] postNotificationName:CTAssetScrollViewPlayerWillPlayNotification object:nil];
+}
+
+- (void)postPlayerWillPauseNotification
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:CTAssetScrollViewPlayerWillPauseNotification object:nil];
+}
+
+
+#pragma mark - Playback events
+
+- (void)applicationWillResignActive:(NSNotification *)notification
+{
+    [self pauseVideo];
+}
+
+
+- (void)playerDidPlay:(id)sender
+{
+    [self setProgress:1];
+    [self.playButton setHidden:YES];
+    [self.activityView stopAnimating];
+}
+
+
+- (void)playerDidPause:(id)sender
+{
+    [self.playButton setHidden:NO];
+}
+
+- (void)playerDidLoadItem:(id)sender
+{
+    if (!self.didLoadPlayerItem)
     {
-        [self.player.view removeFromSuperview];
-        self.player = nil;
+        [self setDidLoadPlayerItem:YES];
+        [self addPlayerRateObserver];
+        
+        [self.activityView stopAnimating];
+        [self playVideo];
     }
 }
 
-- (void)playbackDidFinish:(NSNotification *)notification
+
+#pragma mark - Playback
+
+- (void)playVideo
 {
-    MPMoviePlayerController *player = notification.object;
-    [player setFullscreen:NO animated:YES];
+    if (self.didLoadPlayerItem)
+    {
+        if (CMTIME_COMPARE_INLINE(self.player.currentTime, == , self.player.currentItem.duration))
+            [self.player seekToTime:kCMTimeZero];
+        
+        [self postPlayerWillPlayNotification];
+        [self.player play];
+    }
 }
 
-- (void)playerWillExitFullscreen:(NSNotification *)notification
+- (void)pauseVideo
 {
-    MPMoviePlayerController *player = notification.object;
-    [player setControlStyle:MPMovieControlStyleNone];
-    
-    [self sendSubviewToBack:self.imageView];
-    [self bringSubviewToFront:self.playButton];
+    if (self.didLoadPlayerItem)
+    {
+        [self postPlayerWillPauseNotification];
+        [self.player pause];
+    }
+    else
+    {
+        [self stopActivityAnimating];
+        [self unbindPlayerItem];
+    }
 }
+
 
 @end

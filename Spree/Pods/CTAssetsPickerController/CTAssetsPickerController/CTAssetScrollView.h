@@ -1,7 +1,6 @@
 /*
- CTAssetScrollView.h
  
- The MIT License (MIT)
+ MIT License (MIT)
  
  Copyright (c) 2013 Clement CN Tsang
  
@@ -27,18 +26,36 @@
 
 #import <UIKit/UIKit.h>
 #import "CTAssetItemViewController.h"
+#import "CTAssetPlayButton.h"
 
 
 
 
-extern NSString * const CTAssetScrollViewTappedNotification;
-
-
+extern NSString * const CTAssetScrollViewDidTapNotification;
+extern NSString * const CTAssetScrollViewPlayerWillPlayNotification;
+extern NSString * const CTAssetScrollViewPlayerWillPauseNotification;
 
 
 @interface CTAssetScrollView : UIScrollView
 
-@property (nonatomic, weak) id<CTAssetItemViewControllerDataSource> dataSource;
-@property (nonatomic) NSUInteger index;
+@property (nonatomic, strong, readonly) UIImage *image;
+@property (nonatomic, strong, readonly) AVPlayer *player;
+
+@property (nonatomic, strong, readonly) UIImageView *imageView;
+@property (nonatomic, strong, readonly) CTAssetPlayButton *playButton;
+
+
+- (void)startActivityAnimating;
+- (void)stopActivityAnimating;
+
+- (void)setProgress:(CGFloat)progress;
+
+- (void)bind:(PHAsset *)asset image:(UIImage *)image requestInfo:(NSDictionary *)info;
+- (void)bind:(AVPlayerItem *)playerItem requestInfo:(NSDictionary *)info;
+
+- (void)updateZoomScalesAndZoom:(BOOL)zoom;
+
+- (void)playVideo;
+- (void)pauseVideo;
 
 @end
