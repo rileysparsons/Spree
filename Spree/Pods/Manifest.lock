@@ -1,5 +1,6 @@
 PODS:
   - Bolts/Tasks (1.2.0)
+  - Branch (0.10.7)
   - CocoaLumberjack (2.0.1):
     - CocoaLumberjack/Default (= 2.0.1)
     - CocoaLumberjack/Extensions (= 2.0.1)
@@ -30,6 +31,7 @@ PODS:
   - YHRoundBorderedButton (0.1.0)
 
 DEPENDENCIES:
+  - Branch
   - CocoaLumberjack
   - CTAssetsPickerController
   - InfinitePagingView
@@ -52,11 +54,12 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   JSQMessagesViewController:
-    :commit: da6136da261777d9d92733a7774f5414401ef73a
+    :commit: ec2e0a9a399ddece9f24accee0ad44f3859092db
     :git: https://github.com/jessesquires/JSQMessagesViewController.git
 
 SPEC CHECKSUMS:
   Bolts: d176cb1e0012175589e389a9db49b85e27787576
+  Branch: f7eacb4dce433e73e813dfd01b47d7c9338207df
   CocoaLumberjack: 019d1361244274a6138c788c6cb80baabc13fb8f
   CTAssetsPickerController: 4f88e226f23fbe67b421cf8b9520ebfb03ab82ff
   InfinitePagingView: 2d9876c6171274b59d7128c0fcacb4ab492313f2

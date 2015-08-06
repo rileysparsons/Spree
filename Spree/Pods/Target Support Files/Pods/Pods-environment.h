@@ -12,6 +12,12 @@
 #define COCOAPODS_VERSION_MINOR_Bolts_Tasks 2
 #define COCOAPODS_VERSION_PATCH_Bolts_Tasks 0
 
+// Branch
+#define COCOAPODS_POD_AVAILABLE_Branch
+#define COCOAPODS_VERSION_MAJOR_Branch 0
+#define COCOAPODS_VERSION_MINOR_Branch 10
+#define COCOAPODS_VERSION_PATCH_Branch 7
+
 // CTAssetsPickerController
 #define COCOAPODS_POD_AVAILABLE_CTAssetsPickerController
 #define COCOAPODS_VERSION_MAJOR_CTAssetsPickerController 3
