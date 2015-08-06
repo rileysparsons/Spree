@@ -20,18 +20,54 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    UIButton *cancel = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 40)];
-    cancel.backgroundColor = [UIColor clearColor];
-    cancel.imageView.contentMode = UIViewContentModeScaleAspectFit;
-    [cancel setImage:[UIImage imageNamed:@"backNormal_Dark"] forState:UIControlStateNormal];
-    [cancel setImage:[UIImage imageNamed:@"backHighlight_Dark"] forState:UIControlStateHighlighted];
-    [cancel addTarget:self action:@selector(backButtonTouched) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:cancel];
+    UIButton *back = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 40)];
+    back.backgroundColor = [UIColor clearColor];
+    back.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [back setImage:[UIImage imageNamed:@"backNormal_Dark"] forState:UIControlStateNormal];
+    [back setImage:[UIImage imageNamed:@"backHighlight_Dark"] forState:UIControlStateHighlighted];
+    [back addTarget:self action:@selector(backButtonTouched) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:back];
+    
+    UIButton *nextButton = [[UIButton alloc] init];
+    [nextButton setTitle:@"Next" forState:UIControlStateNormal];
+    [nextButton addTarget:self action:@selector(nextButtonTouched) forControlEvents:UIControlEventTouchUpInside];
+    [nextButton sizeToFit];
+    [nextButton.titleLabel setFont:[UIFont fontWithName:@"Lato-Regular" size:16]];
+    [nextButton setTintColor:[UIColor spreeDarkBlue]];
+    [nextButton setTitleColor:[UIColor spreeDarkBlue] forState:UIControlStateNormal];
+    [self.navigationItem setRightBarButtonItems:@[[[UIBarButtonItem alloc] initWithCustomView:nextButton]] animated:YES];
+    
+    self.titleView =[[UILabel alloc] initWithFrame:CGRectMake(0,0, 150, 40)];
+    self.titleView.textAlignment = NSTextAlignmentCenter;
+    self.titleView.textColor=[UIColor spreeOffBlack];
+    self.titleView.font = [UIFont fontWithName:@"Lato-Regular" size: 18.0];
+    self.titleView.backgroundColor =[UIColor clearColor];
+    self.titleView.adjustsFontSizeToFitWidth=YES;
+    self.navigationItem.titleView=self.titleView;
+    
+    if (self.loginWorkflow.newUser){
+        self.titleView.text = @"Sign up";
+    } else {
+        self.titleView.text = @"Log in";
+    }
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    if (self.loginWorkflow.newUser){
+        self.titleView.text = @"Sign up";
+    } else {
+        self.titleView.text = @"Log in";
+    }
 }
 
 -(void)backButtonTouched{
     self.loginWorkflow.step--;
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+-(void)nextButtonTouched{
+
 }
 
 -(void)shakeAnimation:(UIView*) view {
@@ -86,5 +122,11 @@
     return YES;
 }
 
+-(void)didCheckForNewUser:(NSString *)email{
+    if (self.loginWorkflow.newUser){
+        self.titleView.text = @"Sign up";
+        [self.titleView setNeedsDisplay];
+    }
+}
 
 @end

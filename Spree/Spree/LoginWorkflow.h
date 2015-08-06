@@ -26,6 +26,7 @@
 @property int step;
 @property id<LoginWorkflowDelegate> delegate;
 @property PFObject *campus;
+@property BOOL newUser;
 
 @end
 
@@ -39,5 +40,6 @@
 
 - (BOOL)didFailToCompleteWorkflow:(LoginWorkflow *)loginWorkflow withError:(NSError*)error;
 
+- (void)didCheckForNewUser:(NSString *)email;
 
 @end
