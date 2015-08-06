@@ -218,7 +218,7 @@
                                     <action selector="close:" destination="iCZ-fu-ugV" eventType="touchUpInside" id="J8V-K9-MJP"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7JM-XP-0D0" userLabel="Prev">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7JM-XP-0D0" userLabel="Prev">
                                 <rect key="frame" x="16" y="530" width="50" height="50"/>
                                 <state key="normal" image="leftarrow.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
