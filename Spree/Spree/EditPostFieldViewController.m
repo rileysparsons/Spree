@@ -8,7 +8,6 @@
 
 #import "EditPostFieldViewController.h"
 #import "PreviewPostViewController.h"
-#import <IQUIView+IQKeyboardToolbar.h>
 
 @interface EditPostFieldViewController ()
 
@@ -37,7 +36,7 @@
 -(void)setupTextField{
     // Allow the keyboard toolbar to dismiss the view.
     [super setupTextField];
-    [self.fieldTextView addRightButtonOnKeyboardWithText:@"Done" target:self action:@selector(doneWithEdit:) shouldShowPlaceholder:YES];
+//    [self.fieldTextView addRightButtonOnKeyboardWithText:@"Done" target:self action:@selector(doneWithEdit:) shouldShowPlaceholder:YES];
 }
 
 - (void)doneWithEdit:(id)sender{

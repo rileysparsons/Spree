@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "LoginWorkflow.h"
 
-@interface LoginAuthorizationViewController : UIViewController
+@interface LoginAuthorizationViewController : UIViewController <LoginWorkflowDelegate>
 
 @property LoginWorkflow *loginWorkflow;
+- (IBAction)authorizeButtonTapped:(id)sender;
 
 @end

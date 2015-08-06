@@ -42,12 +42,6 @@
 #define COCOAPODS_VERSION_MINOR_CocoaLumberjack_Extensions 0
 #define COCOAPODS_VERSION_PATCH_CocoaLumberjack_Extensions 1
 
-// IQKeyboardManager
-#define COCOAPODS_POD_AVAILABLE_IQKeyboardManager
-#define COCOAPODS_VERSION_MAJOR_IQKeyboardManager 3
-#define COCOAPODS_VERSION_MINOR_IQKeyboardManager 2
-#define COCOAPODS_VERSION_PATCH_IQKeyboardManager 4
-
 // InfinitePagingView
 #define COCOAPODS_POD_AVAILABLE_InfinitePagingView
 #define COCOAPODS_VERSION_MAJOR_InfinitePagingView 0
@@ -109,6 +103,12 @@
 #define COCOAPODS_VERSION_MAJOR_STCollapseTableView 0
 #define COCOAPODS_VERSION_MINOR_STCollapseTableView 1
 #define COCOAPODS_VERSION_PATCH_STCollapseTableView 1
+
+// TPKeyboardAvoiding
+#define COCOAPODS_POD_AVAILABLE_TPKeyboardAvoiding
+#define COCOAPODS_VERSION_MAJOR_TPKeyboardAvoiding 1
+#define COCOAPODS_VERSION_MINOR_TPKeyboardAvoiding 2
+#define COCOAPODS_VERSION_PATCH_TPKeyboardAvoiding 9
 
 // WSCoachMarksView
 #define COCOAPODS_POD_AVAILABLE_WSCoachMarksView

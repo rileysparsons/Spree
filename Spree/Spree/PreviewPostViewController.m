@@ -15,7 +15,6 @@
 #import "EditPostFieldViewController.h"
 #import "EditPostPhotoSelectViewController.h"
 #import "PostPhotoSelectViewController.h"
-#import <IQUIView+IQKeyboardToolbar.h>
 #import <YHRoundBorderedButton/YHRoundBorderedButton.h>
 #import "AddPhotoHeaderView.h"
 

@@ -19,17 +19,17 @@
                     <rect key="frame" x="0.0" y="0.0" width="600" height="170"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select your campus." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s97-em-6Cu">
-                            <rect key="frame" x="206" y="74" width="189" height="21"/>
+                            <rect key="frame" x="200" y="69" width="201" height="32"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="189" id="1nk-JL-qyJ"/>
-                                <constraint firstAttribute="height" constant="21" id="Pcz-VH-LoN"/>
+                                <constraint firstAttribute="width" constant="201" id="1nk-JL-qyJ"/>
+                                <constraint firstAttribute="height" constant="32" id="Pcz-VH-LoN"/>
                             </constraints>
-                            <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="19"/>
+                            <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="22"/>
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" red="0.96558624510000002" green="0.97044742110000004" blue="0.97035741809999998" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="centerY" secondItem="s97-em-6Cu" secondAttribute="centerY" id="866-Mg-l9n"/>
                         <constraint firstAttribute="centerY" secondItem="s97-em-6Cu" secondAttribute="centerY" id="cYW-hv-oNK"/>
@@ -38,7 +38,7 @@
                     </constraints>
                 </view>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="0.96558624510000002" green="0.97044742110000004" blue="0.97035741809999998" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="bKo-bv-bCh" secondAttribute="bottom" id="FBu-I0-hRF"/>
                 <constraint firstItem="bKo-bv-bCh" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="QEW-T1-PGW"/>

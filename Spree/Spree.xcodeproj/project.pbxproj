@@ -50,7 +50,7 @@
 		143D91D21B6BBB1F00E2F493 /* HeaderSlideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 143D91D11B6BBB1F00E2F493 /* HeaderSlideView.m */; };
 		143D91D41B6BBB3F00E2F493 /* HeaderSlideView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 143D91D31B6BBB3F00E2F493 /* HeaderSlideView.xib */; };
 		143D91DB1B6DF7D900E2F493 /* FinalOnboardingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 143D91DA1B6DF7D900E2F493 /* FinalOnboardingViewController.m */; };
-		143D91DE1B6DF9AC00E2F493 /* LoginInputViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 143D91DD1B6DF9AC00E2F493 /* LoginInputViewController.m */; };
+		143D91DE1B6DF9AC00E2F493 /* LoginEmailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 143D91DD1B6DF9AC00E2F493 /* LoginEmailViewController.m */; };
 		143D91E11B6DFAE700E2F493 /* LoginWorkflow.m in Sources */ = {isa = PBXBuildFile; fileRef = 143D91E01B6DFAE700E2F493 /* LoginWorkflow.m */; };
 		143D91E71B6DFDAC00E2F493 /* LoginCampusTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 143D91E61B6DFDAC00E2F493 /* LoginCampusTableViewController.m */; };
 		143D91EA1B6DFE7500E2F493 /* LoginAuthorizationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 143D91E91B6DFE7500E2F493 /* LoginAuthorizationViewController.m */; };
@@ -58,6 +58,10 @@
 		143D91EF1B6E051A00E2F493 /* LoginCampusHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 143D91EE1B6E051A00E2F493 /* LoginCampusHeaderView.xib */; };
 		143D91F11B6E717D00E2F493 /* Walkthrough.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 143D91F01B6E717D00E2F493 /* Walkthrough.storyboard */; };
 		143D91F41B6E7A5200E2F493 /* BaseOnboardingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 143D91F31B6E7A5200E2F493 /* BaseOnboardingViewController.m */; };
+		143D91F71B6F228C00E2F493 /* LoginPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 143D91F61B6F228C00E2F493 /* LoginPasswordViewController.m */; };
+		143D91FB1B71881400E2F493 /* SelectCampusTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 143D91F91B71881400E2F493 /* SelectCampusTableViewCell.m */; };
+		143D91FC1B71881400E2F493 /* SelectCampusTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 143D91FA1B71881400E2F493 /* SelectCampusTableViewCell.xib */; };
+		143D91FF1B71C75000E2F493 /* LoginFieldViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 143D91FE1B71C75000E2F493 /* LoginFieldViewController.m */; };
 		144D55571B40A5490003B752 /* PostingWorkflow.m in Sources */ = {isa = PBXBuildFile; fileRef = 144D55561B40A5490003B752 /* PostingWorkflow.m */; };
 		144D55621B4D66F40003B752 /* SelectPostTypeHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 144D55611B4D66F40003B752 /* SelectPostTypeHeaderView.xib */; };
 		144D556D1B4E11920003B752 /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 144D55631B4E11920003B752 /* Lato-Black.ttf */; };
@@ -234,8 +238,8 @@
 		143D91D31B6BBB3F00E2F493 /* HeaderSlideView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeaderSlideView.xib; sourceTree = "<group>"; };
 		143D91D91B6DF7D900E2F493 /* FinalOnboardingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FinalOnboardingViewController.h; sourceTree = "<group>"; };
 		143D91DA1B6DF7D900E2F493 /* FinalOnboardingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FinalOnboardingViewController.m; sourceTree = "<group>"; };
-		143D91DC1B6DF9AC00E2F493 /* LoginInputViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginInputViewController.h; sourceTree = "<group>"; };
-		143D91DD1B6DF9AC00E2F493 /* LoginInputViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginInputViewController.m; sourceTree = "<group>"; };
+		143D91DC1B6DF9AC00E2F493 /* LoginEmailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginEmailViewController.h; sourceTree = "<group>"; };
+		143D91DD1B6DF9AC00E2F493 /* LoginEmailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginEmailViewController.m; sourceTree = "<group>"; };
 		143D91DF1B6DFAE700E2F493 /* LoginWorkflow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginWorkflow.h; sourceTree = "<group>"; };
 		143D91E01B6DFAE700E2F493 /* LoginWorkflow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginWorkflow.m; sourceTree = "<group>"; };
 		143D91E51B6DFDAC00E2F493 /* LoginCampusTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginCampusTableViewController.h; sourceTree = "<group>"; };
@@ -248,6 +252,13 @@
 		143D91F01B6E717D00E2F493 /* Walkthrough.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Walkthrough.storyboard; sourceTree = "<group>"; };
 		143D91F21B6E7A5200E2F493 /* BaseOnboardingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseOnboardingViewController.h; sourceTree = "<group>"; };
 		143D91F31B6E7A5200E2F493 /* BaseOnboardingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseOnboardingViewController.m; sourceTree = "<group>"; };
+		143D91F51B6F228C00E2F493 /* LoginPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginPasswordViewController.h; sourceTree = "<group>"; };
+		143D91F61B6F228C00E2F493 /* LoginPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginPasswordViewController.m; sourceTree = "<group>"; };
+		143D91F81B71881400E2F493 /* SelectCampusTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectCampusTableViewCell.h; sourceTree = "<group>"; };
+		143D91F91B71881400E2F493 /* SelectCampusTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectCampusTableViewCell.m; sourceTree = "<group>"; };
+		143D91FA1B71881400E2F493 /* SelectCampusTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectCampusTableViewCell.xib; sourceTree = "<group>"; };
+		143D91FD1B71C75000E2F493 /* LoginFieldViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginFieldViewController.h; sourceTree = "<group>"; };
+		143D91FE1B71C75000E2F493 /* LoginFieldViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginFieldViewController.m; sourceTree = "<group>"; };
 		144D55551B40A5490003B752 /* PostingWorkflow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostingWorkflow.h; sourceTree = "<group>"; };
 		144D55561B40A5490003B752 /* PostingWorkflow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostingWorkflow.m; sourceTree = "<group>"; };
 		144D55611B4D66F40003B752 /* SelectPostTypeHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectPostTypeHeaderView.xib; sourceTree = "<group>"; };
@@ -493,6 +504,9 @@
 		140CF9041A3E0F9600134C4D /* TableViewCells */ = {
 			isa = PBXGroup;
 			children = (
+				143D91F81B71881400E2F493 /* SelectCampusTableViewCell.h */,
+				143D91F91B71881400E2F493 /* SelectCampusTableViewCell.m */,
+				143D91FA1B71881400E2F493 /* SelectCampusTableViewCell.xib */,
 				142CB05E1B5303B600969066 /* PhotoSelectTableViewCell.h */,
 				142CB05F1B5303B600969066 /* PhotoSelectTableViewCell.m */,
 				142CB0601B5303B600969066 /* PhotoSelectTableViewCell.xib */,
@@ -526,8 +540,12 @@
 			children = (
 				143D91E81B6DFE7500E2F493 /* LoginAuthorizationViewController.h */,
 				143D91E91B6DFE7500E2F493 /* LoginAuthorizationViewController.m */,
-				143D91DC1B6DF9AC00E2F493 /* LoginInputViewController.h */,
-				143D91DD1B6DF9AC00E2F493 /* LoginInputViewController.m */,
+				143D91DC1B6DF9AC00E2F493 /* LoginEmailViewController.h */,
+				143D91DD1B6DF9AC00E2F493 /* LoginEmailViewController.m */,
+				143D91FD1B71C75000E2F493 /* LoginFieldViewController.h */,
+				143D91FE1B71C75000E2F493 /* LoginFieldViewController.m */,
+				143D91F51B6F228C00E2F493 /* LoginPasswordViewController.h */,
+				143D91F61B6F228C00E2F493 /* LoginPasswordViewController.m */,
 				14CE47221B6AF41E004FA4D1 /* HomeViewController.h */,
 				14CE47231B6AF41E004FA4D1 /* HomeViewController.m */,
 				140CF8E01A3BBFB200134C4D /* SecondViewController.h */,
@@ -971,6 +989,7 @@
 				140CF8E51A3BBFB200134C4D /* Main.storyboard in Resources */,
 				144D55701B4E11920003B752 /* Lato-BoldItalic.ttf in Resources */,
 				4E0E820B1B40DE1800E18975 /* leftarrow@2x.png in Resources */,
+				143D91FC1B71881400E2F493 /* SelectCampusTableViewCell.xib in Resources */,
 				140CF9091A3E157700134C4D /* Podfile in Resources */,
 				14CAB3C01B5948150081979C /* PhotoDisplayTableViewCell.xib in Resources */,
 				144D556E1B4E11920003B752 /* Lato-BlackItalic.ttf in Resources */,
@@ -1076,7 +1095,7 @@
 				1415245D1B4084D2007EE405 /* PostFieldViewController.m in Sources */,
 				1404739D1ABD308D00C0F8EF /* PostTypeTableViewController.m in Sources */,
 				F743C95C1AE6412400C14781 /* SignUpViewController.m in Sources */,
-				143D91DE1B6DF9AC00E2F493 /* LoginInputViewController.m in Sources */,
+				143D91DE1B6DF9AC00E2F493 /* LoginEmailViewController.m in Sources */,
 				143D91D21B6BBB1F00E2F493 /* HeaderSlideView.m in Sources */,
 				142CB0611B5303B600969066 /* PhotoSelectTableViewCell.m in Sources */,
 				14C38DB81B29311D0039862E /* PostUserTableViewCell.m in Sources */,
@@ -1101,6 +1120,7 @@
 				F76258EB1AF2044E003B67D4 /* RatingViewController.m in Sources */,
 				4E0E82041B40DC0200E18975 /* RTWalkthroughViewController.m in Sources */,
 				14A416801B05700600EA4DA2 /* SpreeSprintTableViewCell.m in Sources */,
+				143D91F71B6F228C00E2F493 /* LoginPasswordViewController.m in Sources */,
 				14ABE1081A96A59000B805D0 /* NewTicketsPostView.m in Sources */,
 				F78600BD1AEB422100402B1F /* push.m in Sources */,
 				142CB0581B52351400969066 /* PostPhotoSelectViewController.m in Sources */,
@@ -1112,6 +1132,7 @@
 				F70FACF51AEB501700057E6E /* converter.m in Sources */,
 				14ABE1041A96893C00B805D0 /* NewDefaultPostView.m in Sources */,
 				F7715E9B1AEC05AD005DDEFF /* AllMessagesViewController.m in Sources */,
+				143D91FB1B71881400E2F493 /* SelectCampusTableViewCell.m in Sources */,
 				14CAB3BF1B5948150081979C /* PhotoDisplayTableViewCell.m in Sources */,
 				1404739A1ABD267E00C0F8EF /* UserPostsTableViewController.m in Sources */,
 				142CB04F1B51A0C900969066 /* SelectPostSubTypeViewController.m in Sources */,
@@ -1119,6 +1140,7 @@
 				4E0E82031B40DC0200E18975 /* RTWalkthroughPageViewController.m in Sources */,
 				F7AFBB421AF4CC0A00D3148B /* FindBuyerViewController.m in Sources */,
 				1415244F1B406B55007EE405 /* PostTypeViewController.m in Sources */,
+				143D91FF1B71C75000E2F493 /* LoginFieldViewController.m in Sources */,
 				14CE47241B6AF41E004FA4D1 /* HomeViewController.m in Sources */,
 				CFFEE9291B0487BF002CD29A /* MeetUpViewController.m in Sources */,
 				14CAB3C91B5C34D10081979C /* BasicInfoTableViewCell.m in Sources */,

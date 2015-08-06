@@ -47,11 +47,10 @@
 
 -(void)walkthroughControllerDidClose:(RTWalkthroughViewController *)controller{
     LoginWorkflow *loginWorkflow = [[LoginWorkflow alloc] init];
-    [self.navigationController pushViewController:[loginWorkflow firstViewController] animated:NO];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController dismissViewControllerAnimated:NO completion:nil];
+    [self.navigationController pushViewController:[loginWorkflow firstViewController] animated:YES];
     NSLog(@"%@", self.navigationController);
 }
-
 
 /*
 #pragma mark - Navigation

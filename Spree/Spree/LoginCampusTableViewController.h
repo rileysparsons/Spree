@@ -9,8 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "LoginWorkflow.h"
 
-@interface LoginCampusTableViewController : UITableViewController
+@interface LoginCampusTableViewController : PFQueryTableViewController <LoginWorkflowDelegate>
 
 @property LoginWorkflow *loginWorkflow;
-
 @end

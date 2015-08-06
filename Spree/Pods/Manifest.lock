@@ -11,7 +11,6 @@ PODS:
   - CTAssetsPickerController (3.0.0):
     - PureLayout (~> 2.0.0)
   - InfinitePagingView (0.0.1)
-  - IQKeyboardManager (3.2.4)
   - JSQMessagesViewController (7.1.0):
     - JSQSystemSoundPlayer (~> 2.0.1)
   - JSQSystemSoundPlayer (2.0.1)
@@ -26,6 +25,7 @@ PODS:
     - Parse (~> 1.7)
   - PureLayout (2.0.6)
   - STCollapseTableView (0.1.1)
+  - TPKeyboardAvoiding (1.2.9)
   - WSCoachMarksView (0.2)
   - YHRoundBorderedButton (0.1.0)
 
@@ -33,7 +33,6 @@ DEPENDENCIES:
   - CocoaLumberjack
   - CTAssetsPickerController
   - InfinitePagingView
-  - IQKeyboardManager
   - JSQMessagesViewController (from `https://github.com/jessesquires/JSQMessagesViewController.git`,
     branch `develop`)
   - JVFloatLabeledTextField
@@ -42,6 +41,7 @@ DEPENDENCIES:
   - ParseCrashReporting
   - ParseUI
   - STCollapseTableView
+  - TPKeyboardAvoiding
   - WSCoachMarksView (~> 0.2)
   - YHRoundBorderedButton
 
@@ -52,7 +52,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   JSQMessagesViewController:
-    :commit: da6136da261777d9d92733a7774f5414401ef73a
+    :commit: ec2e0a9a399ddece9f24accee0ad44f3859092db
     :git: https://github.com/jessesquires/JSQMessagesViewController.git
 
 SPEC CHECKSUMS:
@@ -60,7 +60,6 @@ SPEC CHECKSUMS:
   CocoaLumberjack: 019d1361244274a6138c788c6cb80baabc13fb8f
   CTAssetsPickerController: 4f88e226f23fbe67b421cf8b9520ebfb03ab82ff
   InfinitePagingView: 2d9876c6171274b59d7128c0fcacb4ab492313f2
-  IQKeyboardManager: 555b1231fefafb21b19278d7cca72986a27b748b
   JSQMessagesViewController: ca11f86fa68ca70835f05e169df9244147c1dc40
   JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
   JVFloatLabeledTextField: ea4a3d8387ddd43724c472bb2b8ab39b79af05d4
@@ -70,6 +69,7 @@ SPEC CHECKSUMS:
   ParseUI: d1228541b02a36a7354c8f47747f5f7a89cf1ff0
   PureLayout: f25f0bb904d5ccfe6e31da3cb869185259f02e0d
   STCollapseTableView: edd40eacf9411ce862da921f83e0b7b1680fac4d
+  TPKeyboardAvoiding: ff1ee4e5a5a0c119b965552af8f183868ea20207
   WSCoachMarksView: d1653c058c8289a300ddf28af9dd49eb659c9c42
   YHRoundBorderedButton: 2180f04094db264cace8db88eae977d78a3b4633
 

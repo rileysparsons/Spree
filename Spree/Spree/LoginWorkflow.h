@@ -8,14 +8,36 @@
 
 #import <Foundation/Foundation.h>
 
-@interface LoginWorkflow : NSObject
+@protocol LoginWorkflowDelegate;
+
+@interface LoginWorkflow : NSObject 
 
 -(id)nextViewController;
 -(id)previousViewController;
 -(id)firstViewController;
 -(void)cancelWorkflow;
+-(void)completeWorkflow;
+-(void)setPasswordForUser:(NSString*)password;
+-(void)setEmailForUser:(NSString *)email;
+-(void)setCampusForUser:(PFObject *)campus;
 
-@property PFUser *user;
 @property UINavigationController *loginNavigationController;
+@property NSMutableArray *viewControllersForFields;
+@property int step;
+@property id<LoginWorkflowDelegate> delegate;
+@property PFObject *campus;
+
+@end
+
+@protocol LoginWorkflowDelegate <NSObject>
+
+@optional
+
+- (BOOL)shouldBeginToCompleteWorkflow:(LoginWorkflow *)loginWorkflow;
+
+- (BOOL)didCompleteWorkflow:(LoginWorkflow *)loginWorkflow;
+
+- (BOOL)didFailToCompleteWorkflow:(LoginWorkflow *)loginWorkflow withError:(NSError*)error;
+
 
 @end

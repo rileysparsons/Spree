@@ -7,19 +7,21 @@
 //
 
 #import "LoginWorkflow.h"
-#import "LoginInputViewController.h"
+#import "LoginEmailViewController.h"
 #import "LoginCampusTableViewController.h"
 #import "LoginAuthorizationViewController.h"
+#import "LoginPasswordViewController.h"
+#import "BrowseViewController.h"
 
 @interface LoginWorkflow ()
 
-@property NSMutableArray *viewControllersForFields;
 @property NSMutableArray *remainingFields;
-
+@property BOOL newUser;
+@property NSString *password;
+@property NSString *username;
+@property PFUser *user;
 
 @end
-
-int step = 0;
 
 @implementation LoginWorkflow
 
@@ -34,41 +36,79 @@ int step = 0;
 
 -(void)prepareWorkflow{
     UIStoryboard *stb = [UIStoryboard storyboardWithName:@"Walkthrough" bundle:nil];
-    LoginInputViewController *passwordInputViewController = [stb instantiateViewControllerWithIdentifier:@"PasswordInput"];
-    LoginInputViewController *emailInputViewController = [stb instantiateViewControllerWithIdentifier:@"EmailInput"];
+    LoginPasswordViewController *passwordInputViewController =  [stb instantiateViewControllerWithIdentifier:NSStringFromClass([LoginPasswordViewController class])];
+    LoginEmailViewController *emailInputViewController = [stb instantiateViewControllerWithIdentifier:@"EmailInput"];
     LoginCampusTableViewController *campusInputViewController =
     [stb instantiateViewControllerWithIdentifier:NSStringFromClass([LoginCampusTableViewController class])];
+    
     emailInputViewController.loginWorkflow = self;
     passwordInputViewController.loginWorkflow = self;
     campusInputViewController.loginWorkflow = self;
+    
+    
+    
+    self.delegate = passwordInputViewController;
+    
+    self.user = [PFUser user];
+    self.campus = [[PFObject alloc] initWithClassName:@"Campus"];
     
     self.loginNavigationController = [[UINavigationController alloc] init];
     self.viewControllersForFields = [[NSMutableArray alloc] initWithObjects:campusInputViewController,emailInputViewController, passwordInputViewController, nil];
     self.remainingFields = [[NSMutableArray alloc] initWithObjects: @"campus", @"email", @"password",nil];
 }
 
+-(void)setEmailForUser:(NSString *)email{
+    self.username = email;
+    
+    self.user.username = email;
+    self.user.email = email;
+    
+    PFQuery *userQuery = [PFUser query];
+    [userQuery whereKey:@"email" equalTo:email];
+    [userQuery getFirstObjectInBackgroundWithBlock: ^(PFObject *result, NSError *error){
+        if (result){
+            self.newUser = NO;
+        } else {
+            self.newUser = YES;
+            [self userIsNew];
+        }
+    }];
+}
+
+-(void)setPasswordForUser:(NSString*)password{
+    self.user.password = password;
+    self.password = password;
+    NSLog(@"%@", self.user.password);
+}
+
+-(void)setCampusForUser:(PFObject *)campus{
+    self.campus = campus;
+}
+
 -(void)userIsNew{
+    NSLog(@"NEW");
     UIStoryboard *stb = [UIStoryboard storyboardWithName:@"Walkthrough" bundle:nil];
     LoginAuthorizationViewController *authorizationViewController = [stb instantiateViewControllerWithIdentifier:NSStringFromClass([LoginAuthorizationViewController class])];
     authorizationViewController.loginWorkflow = self;
-
+    self.delegate = authorizationViewController;
     [self.viewControllersForFields addObject:authorizationViewController];
-    
     [self.remainingFields addObject:@"facebook"];
 }
 
 -(id)firstViewController{
+    NSLog(@"Count %@, index %d", self.viewControllersForFields, self.step);
     return [self.viewControllersForFields objectAtIndex:0];
 }
 
 -(id)nextViewController{
-    step++;
-    return [self.viewControllersForFields objectAtIndex:step];
+    self.step++;
+    NSLog(@"Count %@, index %d", self.viewControllersForFields, self.step);
+    return [self.viewControllersForFields objectAtIndex:self.step];
 }
 
 -(id)previousViewController{
-    step--;
-    return [self.viewControllersForFields objectAtIndex:step];
+    self.step--;
+    return [self.viewControllersForFields objectAtIndex:self.step];
 }
 
 -(void)cancelWorkflow {
@@ -77,7 +117,29 @@ int step = 0;
     self.remainingFields = nil;
 }
 
-
+-(void)completeWorkflow{
+    NSLog(@"User:%@ username %@ password %@", self.user, self.username, self.password);
+    if (self.newUser) {
+         NSLog(@"signup");
+        [self.user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (!error) {
+                [self.delegate didCompleteWorkflow:self];
+            } else  {
+                [self.delegate didFailToCompleteWorkflow:self withError:error];
+            }
+        }];
+    } else {
+        [PFUser logInWithUsernameInBackground:self.username password:self.password block:^(PFUser *user, NSError *error)
+        {
+            if (!error){
+                NSLog(@"login");
+                [self.delegate didCompleteWorkflow:self];
+            } else  {
+                [self.delegate didFailToCompleteWorkflow:self withError:error];
+            }
+        }];
+    }
+}
 
 
 @end

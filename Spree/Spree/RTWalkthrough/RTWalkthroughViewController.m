@@ -84,6 +84,7 @@
 - (IBAction)nextPage:(id)sender {
 	
 	if ((self.currentPage + 1) < self.controllers.count) {
+        if (self.currentPage )
 		
 		if ([self.delegate respondsToSelector:@selector(walkthroughControllerWentNext:)])
 			[self.delegate walkthroughControllerWentNext:self];
