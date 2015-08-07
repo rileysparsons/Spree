@@ -16,9 +16,9 @@
 @interface LoginWorkflow ()
 
 @property NSMutableArray *remainingFields;
-@property BOOL newUser;
 @property NSString *password;
 @property NSString *username;
+@property NSString *email;
 @property PFUser *user;
 
 @end
@@ -59,9 +59,7 @@
 
 -(void)setEmailForUser:(NSString *)email{
     self.username = email;
-    
-    self.user.username = email;
-    self.user.email = email;
+    self.email = email;
     
     PFQuery *userQuery = [PFUser query];
     [userQuery whereKey:@"email" equalTo:email];
@@ -69,16 +67,17 @@
         if (result){
             self.newUser = NO;
         } else {
-            self.newUser = YES;
-            [self userIsNew];
+            if (!self.newUser){
+                self.newUser = YES;
+                [self userIsNew];
+            }
         }
+        [self.delegate didCheckForNewUser:email];
     }];
 }
 
 -(void)setPasswordForUser:(NSString*)password{
-    self.user.password = password;
     self.password = password;
-    NSLog(@"%@", self.user.password);
 }
 
 -(void)setCampusForUser:(PFObject *)campus{
@@ -119,6 +118,10 @@
 
 -(void)completeWorkflow{
     NSLog(@"User:%@ username %@ password %@", self.user, self.username, self.password);
+    self.user.username = self.username;
+    self.user.password = self.password;
+    self.user.email = self.email;
+    
     if (self.newUser) {
          NSLog(@"signup");
         [self.user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {

@@ -19,15 +19,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
     self.textField.autocorrectionType = UITextAutocorrectionTypeNo;
     self.textField.secureTextEntry = YES;
-    self.textField.placeholder = @"Enter Password";
+    
+    
 //    [self.textField addRightButtonOnKeyboardWithText:@"Next" target:self action:@selector(nextBarButtonItemTouched:) shouldShowPlaceholder:YES];
     // Do any additional setup after loading the view.
 }
 
-- (void)nextBarButtonItemTouched:(id)sender {
+-(void)viewWillAppear:(BOOL)animated{
+    if(self.loginWorkflow.newUser){
+        self.promptLabel.text = @"Great, now enter a password.";
+    } else {
+        self.promptLabel.text = @"Great, now enter your password.";
+    }
+}
+
+- (void)nextButtonTouched{
     if (self.textField.text && self.textField.text.length != 0) {
         [self.loginWorkflow setPasswordForUser:self.textField.text];
         NSLog(@"%lu, %d", (unsigned long)self.loginWorkflow.viewControllersForFields.count, self.loginWorkflow.step+1);

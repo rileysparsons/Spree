@@ -19,6 +19,8 @@
 //    [self.textField addRightButtonOnKeyboardWithText:@"Next" target:self action:@selector(nextBarButtonItemTouched:) shouldShowPlaceholder:YES];
     
     // Do any additional setup after loading the view.
+    
+    self.titleView.text = @"Log in";
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -27,15 +29,15 @@
     self.domainLabel.text = domainName;
 }
 
-- (void)nextBarButtonItemTouched:(id)sender {
-    
+- (void)nextButtonTouched{
+
     if (self.textField.text && self.textField.text.length != 0) {
         NSString *fullEmail = [NSString stringWithFormat:@"%@%@", self.textField.text, self.domainLabel.text];
+        NSLog(@"%@", fullEmail);
         [self.loginWorkflow setEmailForUser:fullEmail];
         if (self.loginWorkflow.viewControllersForFields.count <= (self.loginWorkflow.step+1)){
             [self.loginWorkflow completeWorkflow];
         } else {
-            [self.loginWorkflow setEmailForUser:fullEmail];
             [self.navigationController pushViewController:[self.loginWorkflow nextViewController] animated:YES];
         }
     } else {

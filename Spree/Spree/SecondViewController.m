@@ -10,6 +10,7 @@
 #import "TextViewViewController.h"
 #import "ContactUsViewController.h"
 #import "SpreePost.h"
+#import "AppDelegate.h"
 #import <CoreGraphics/CoreGraphics.h>
 #import "MSCellAccessory.h"
 
@@ -216,8 +217,14 @@
     if (alertView.tag == 0){
         if (buttonIndex == 1) {
             [PFUser logOut];
-
-            [self performSegueWithIdentifier:@"show_welcome" sender:self];
+            AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+            UIStoryboard *stb = [UIStoryboard storyboardWithName:@"Walkthrough" bundle:nil];
+            UINavigationController *base = [stb instantiateViewControllerWithIdentifier:@"base"];
+            [UIView transitionWithView:appDelegate.window
+                              duration:0.5
+                               options:UIViewAnimationOptionTransitionFlipFromLeft
+                            animations:^{ appDelegate.window.rootViewController = base; }
+                            completion:nil];
         }
     }
 }

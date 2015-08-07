@@ -13,9 +13,11 @@
 @interface LoginFieldViewController : UIViewController <LoginWorkflowDelegate>
 
 @property LoginWorkflow *loginWorkflow;
+@property UILabel *titleView;
 
 -(void)shakeAnimation:(UIView*) view;
 -(void)backButtonTouched;
+-(void)nextButtonTouched;
 
 @end
 
