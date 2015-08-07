@@ -276,8 +276,8 @@
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="rbr-GC-LwN"/>
-                                <exclude reference="GJu-R3-BeC"/>
                                 <exclude reference="k42-RC-AjJ"/>
+                                <exclude reference="GJu-R3-BeC"/>
                                 <exclude reference="2Pg-cF-t57"/>
                                 <exclude reference="E6X-Od-LV3"/>
                                 <exclude reference="isp-8G-Lrr"/>
