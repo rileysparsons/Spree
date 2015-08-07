@@ -18,10 +18,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.textField.delegate = self;
     self.textField.autocorrectionType = UITextAutocorrectionTypeNo;
     self.textField.secureTextEntry = YES;
-    
+    self.textField.returnKeyType = UIReturnKeyGo;
     
 //    [self.textField addRightButtonOnKeyboardWithText:@"Next" target:self action:@selector(nextBarButtonItemTouched:) shouldShowPlaceholder:YES];
     // Do any additional setup after loading the view.
@@ -36,6 +36,7 @@
 }
 
 - (void)nextButtonTouched{
+    [self resignFirstResponder];
     if (self.textField.text && self.textField.text.length != 0) {
         [self.loginWorkflow setPasswordForUser:self.textField.text];
         NSLog(@"%lu, %d", (unsigned long)self.loginWorkflow.viewControllersForFields.count, self.loginWorkflow.step+1);
@@ -53,6 +54,11 @@
         //                          cancelButtonTitle:@"ok"
         //                          otherButtonTitles:nil] show];
     }
+}
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [self nextButtonTouched];
+    return YES;
 }
 
 @end

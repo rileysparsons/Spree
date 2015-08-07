@@ -10,7 +10,7 @@
 #import "LoginFieldViewController.h"
 #import <JVFloatLabeledTextField.h>
 
-@interface LoginEmailViewController : LoginFieldViewController
+@interface LoginEmailViewController : LoginFieldViewController <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *textField;
 @property (weak, nonatomic) IBOutlet UILabel *domainLabel;

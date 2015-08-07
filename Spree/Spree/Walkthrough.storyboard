@@ -8,6 +8,9 @@
         <mutableArray key="Lato-Bold.ttf">
             <string>Lato-Bold</string>
         </mutableArray>
+        <mutableArray key="Lato-Light.ttf">
+            <string>Lato-Light</string>
+        </mutableArray>
         <mutableArray key="Lato-Regular.ttf">
             <string>Lato-Regular</string>
             <string>Lato-Regular</string>
@@ -526,13 +529,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KKb-aD-CKS">
-                                <rect key="frame" x="260" y="358" width="80" height="30"/>
+                                <rect key="frame" x="220" y="354" width="159" height="34"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="IVU-qt-6GI"/>
-                                    <constraint firstAttribute="width" constant="80" id="IYb-pH-vSW"/>
+                                    <constraint firstAttribute="height" constant="34" id="IVU-qt-6GI"/>
+                                    <constraint firstAttribute="width" constant="159" id="IYb-pH-vSW"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="18"/>
-                                <state key="normal" title="Authorize">
+                                <state key="normal" title="Authorize Facebook">
                                     <color key="titleColor" red="0.16666857900000001" green="0.18534906209999999" blue="0.19849607350000001" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -540,11 +543,24 @@
                                     <action selector="authorizeButtonTapped:" destination="Lfw-Kg-9Ff" eventType="touchUpInside" id="gYq-h8-8K6"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Facebook keeps Spree social, but we'll never post something without permission. We promise." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iPo-b8-pSM">
+                                <rect key="frame" x="50.5" y="396" width="500.5" height="64"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="64" id="gqe-TI-W0d"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Lato-Light" family="Lato" pointSize="14"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="iPo-b8-pSM" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="lhk-F8-oMw" secondAttribute="leadingMargin" constant="16" id="7fL-7Z-5w7"/>
+                            <constraint firstAttribute="centerX" secondItem="iPo-b8-pSM" secondAttribute="centerX" id="bJb-Ji-Uv5"/>
                             <constraint firstAttribute="centerX" secondItem="KKb-aD-CKS" secondAttribute="centerX" id="eUb-jb-Ixc"/>
+                            <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="iPo-b8-pSM" secondAttribute="trailing" constant="16" id="iM9-LF-roB"/>
                             <constraint firstItem="Pcl-gr-E9j" firstAttribute="top" secondItem="KKb-aD-CKS" secondAttribute="bottom" constant="212" id="icA-3A-RHe"/>
+                            <constraint firstItem="iPo-b8-pSM" firstAttribute="top" secondItem="KKb-aD-CKS" secondAttribute="bottom" constant="8" id="sLv-UX-sEx"/>
                         </constraints>
                     </view>
                 </viewController>

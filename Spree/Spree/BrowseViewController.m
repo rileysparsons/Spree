@@ -388,13 +388,20 @@
             }
         }
         sprintCell.accessoryView = [MSCellAccessory accessoryWithType: FLAT_DISCLOSURE_INDICATOR color:[UIColor spreeBabyBlue] highlightedColor:[UIColor spreeLightYellow]];
+        sprintCell.accessoryView.backgroundColor = [UIColor spreeOffWhite];
         return sprintCell;
     }
+    cell.accessoryView.backgroundColor = [UIColor spreeOffWhite];
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self performSegueWithIdentifier:@"DisplayPosts" sender:self];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    cell.backgroundColor = [UIColor spreeOffWhite];
 }
 
 

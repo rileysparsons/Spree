@@ -19,7 +19,8 @@
 //    [self.textField addRightButtonOnKeyboardWithText:@"Next" target:self action:@selector(nextBarButtonItemTouched:) shouldShowPlaceholder:YES];
     
     // Do any additional setup after loading the view.
-    
+    self.textField.delegate = self;
+    self.textField.returnKeyType = UIReturnKeyGo;
     self.titleView.text = @"Log in";
 }
 
@@ -30,7 +31,7 @@
 }
 
 - (void)nextButtonTouched{
-
+    [self resignFirstResponder];
     if (self.textField.text && self.textField.text.length != 0) {
         NSString *fullEmail = [NSString stringWithFormat:@"%@%@", self.textField.text, self.domainLabel.text];
         NSLog(@"%@", fullEmail);
@@ -51,6 +52,10 @@
     }
 }
 
+-(BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [self nextButtonTouched];
+    return YES;
+}
 
 
 @end
