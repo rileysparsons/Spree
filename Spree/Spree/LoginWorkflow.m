@@ -67,8 +67,10 @@
         if (result){
             self.newUser = NO;
         } else {
-            self.newUser = YES;
-            [self userIsNew];
+            if (!self.newUser){
+                self.newUser = YES;
+                [self userIsNew];
+            }
         }
         [self.delegate didCheckForNewUser:email];
     }];

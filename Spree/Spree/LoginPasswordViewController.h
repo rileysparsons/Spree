@@ -13,5 +13,6 @@
 @interface LoginPasswordViewController : LoginFieldViewController
 
 @property (weak, nonatomic) IBOutlet UITextField *textField;
+@property (weak, nonatomic) IBOutlet UILabel *promptLabel;
 
 @end

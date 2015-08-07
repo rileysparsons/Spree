@@ -109,7 +109,21 @@
 	}
 }
 
-- (IBAction)close:(id)sender {
+- (IBAction)skip:(id)sender {
+    if ((self.currentPage + 1) < self.controllers.count) {
+        if (self.currentPage )
+            
+            if ([self.delegate respondsToSelector:@selector(walkthroughControllerWentNext:)])
+                [self.delegate walkthroughControllerWentNext:self];
+        
+        CGRect frame = self.scrollview.frame;
+        frame.origin.x = (CGFloat)(self.controllers.count-1) * frame.size.width;
+        [self.scrollview setContentOffset:frame.origin animated:YES];
+    }
+}
+
+
+- (void)close:(id)sender {
 	
 	if ([self.delegate respondsToSelector:@selector(walkthroughControllerDidClose:)])
 		[self.delegate walkthroughControllerDidClose:self];

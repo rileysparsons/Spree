@@ -21,13 +21,18 @@
     
     self.textField.autocorrectionType = UITextAutocorrectionTypeNo;
     self.textField.secureTextEntry = YES;
-    self.textField.placeholder = @"Enter Password";
+    
+    
 //    [self.textField addRightButtonOnKeyboardWithText:@"Next" target:self action:@selector(nextBarButtonItemTouched:) shouldShowPlaceholder:YES];
     // Do any additional setup after loading the view.
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    
+    if(self.loginWorkflow.newUser){
+        self.promptLabel.text = @"Great, now enter a password.";
+    } else {
+        self.promptLabel.text = @"Great, now enter your password.";
+    }
 }
 
 - (void)nextButtonTouched{
