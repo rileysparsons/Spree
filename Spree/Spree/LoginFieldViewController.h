@@ -7,13 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LoginWorkflow.h"
 
 
-@interface LoginFieldViewController : UIViewController <LoginWorkflowDelegate>
+@interface LoginFieldViewController : UIViewController
 
-@property LoginWorkflow *loginWorkflow;
 @property UILabel *titleView;
+@property UIButton *nextButton;
 
 -(void)shakeAnimation:(UIView*) view;
 -(void)backButtonTouched;

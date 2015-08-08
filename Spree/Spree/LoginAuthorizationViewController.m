@@ -8,7 +8,9 @@
 
 #import "LoginAuthorizationViewController.h"
 #import "AppDelegate.h"
+#import <ParseFacebookUtils/PFFacebookUtils.h>
 #import "PostTableViewController.h"
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
 
 @interface LoginAuthorizationViewController ()
 
@@ -35,18 +37,6 @@
     // Dispose of any resources that can be recreated.
 }
 
--(BOOL)didCompleteWorkflow:(LoginWorkflow *)loginWorkflow{
-    NSLog(@"%@", self.navigationController.presentingViewController);
-    UIStoryboard *stb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    PostTableViewController *postTableViewController = [stb instantiateInitialViewController];
-    [UIView transitionWithView:appDelegate.window
-                      duration:0.5
-                       options:UIViewAnimationOptionTransitionFlipFromLeft
-                    animations:^{ appDelegate.window.rootViewController = postTableViewController; }
-                    completion:nil];
-    return YES;
-}
 
 /*
 #pragma mark - Navigation
@@ -59,15 +49,60 @@
 */
 
 -(void)backButtonTouched{
-    self.loginWorkflow.step--;
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.delegate logInAuthorizationViewControllerWentBackwards:self];
 }
 
 - (IBAction)authorizeButtonTapped:(id)sender {
-    if (self.loginWorkflow.viewControllersForFields.count <= (self.loginWorkflow.step+1)){
-        [self.loginWorkflow completeWorkflow];
-    } else {
-        [self.navigationController pushViewController:[self.loginWorkflow nextViewController] animated:YES];
+    NSLog(@"%d", [PFFacebookUtils isLinkedWithUser:self.user]);
+    if (![PFFacebookUtils isLinkedWithUser:self.user]) {
+        [PFFacebookUtils linkUser:self.user permissions:@[@"user_friends",@"publish_actions",@"user_managed_groups"] block:^(BOOL succeeded, NSError *error){
+            if (succeeded){
+                FBRequest *request = [FBRequest requestForMe];
+                [request setSession:[PFFacebookUtils session]];
+                // Send request to Facebook
+                [request startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+                    NSLog(@"1.5");
+                    if (!error) {
+                        NSLog(@"2");
+                        NSLog(@"currentUser: %@",[PFUser currentUser]);
+                        NSLog(@"result: %@",result);
+                        // Store the current user's Facebook ID on the user
+                        [[PFUser currentUser] setObject:[result objectForKey:@"id"]
+                                                 forKey:@"fbId"];
+                        [[PFUser currentUser] saveInBackground];
+                        [self fetchBasicInfo];
+                        [self.delegate logInAuthorizationViewController:self didAuthorizeFacebookForUser:self.user];
+                    } else {
+                        NSLog(@"3, %@",error);
+                    }
+                }];
+            } else {
+                NSLog(@"%@", error);
+                [self.delegate logInAuthorizationViewController:self didFailToAuthorizeFacebookForUser:self.user];
+            }
+        }];
     }
 }
+
+- (IBAction)optOutButtonTapped:(id)sender {
+    [self.delegate logInAuthorizationViewController:self userDidOptOut:self.user];
+}
+
+-(void)fetchBasicInfo{
+
+    if ([FBSDKAccessToken currentAccessToken]) {
+        [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me/picture?type=large&redirect=false" parameters:nil]
+         startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+             if (!error) {
+                 NSLog(@"%@", result);
+                 UIImage *profileImage = [[UIImage alloc] initWithData:result];
+                 self.profileImageView.image = profileImage;
+             } else {
+                 NSLog(@"%@", error);
+             }
+         }];
+    }
+}
+
+
 @end

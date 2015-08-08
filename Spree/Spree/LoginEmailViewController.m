@@ -26,36 +26,41 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    NSString *domainName = [NSString stringWithFormat:@"@%@.edu", self.loginWorkflow.campus[@"networkCode"]];
-    self.domainLabel.text = domainName;
+    self.domainLabel.text = self.domain;
 }
 
 - (void)nextButtonTouched{
     [self resignFirstResponder];
-    if (self.textField.text && self.textField.text.length != 0) {
-        NSString *fullEmail = [NSString stringWithFormat:@"%@%@", self.textField.text, self.domainLabel.text];
-        NSLog(@"%@", fullEmail);
-        [self.loginWorkflow setEmailForUser:fullEmail];
-        if (self.loginWorkflow.viewControllersForFields.count <= (self.loginWorkflow.step+1)){
-            [self.loginWorkflow completeWorkflow];
-        } else {
-            [self.navigationController pushViewController:[self.loginWorkflow nextViewController] animated:YES];
-        }
+    NSString *fullEmail = [NSString stringWithFormat:@"%@%@", self.textField.text, self.domain];
+    self.user.username = fullEmail;
+    self.user.email = fullEmail;
+    self.nextButton.enabled = NO;
+    if ([self.delegate logInViewController:self shouldBeginLogInWithEmail:self.textField.text]){
+        PFQuery *userQuery = [PFUser query];
+        [userQuery whereKey:@"email" equalTo:fullEmail];
+        [userQuery getFirstObjectInBackgroundWithBlock: ^(PFObject *result, NSError *error){
+            if (result){
+                [self.delegate logInViewController:self didCheckEmail:self.textField.text userExists:YES];
+                self.nextButton.enabled = YES;
+            } else {
+                [self.delegate logInViewController:self didCheckEmail:self.textField.text userExists:NO];
+                self.nextButton.enabled = YES;
+            }
+        }];
     } else {
         [self shakeAnimation:self.textField];
-//        [[[UIAlertView alloc] initWithTitle:@"Missing Information"
-//                                    message:@"Make sure you fill out all of the information!"
-//                                   delegate:nil
-//                          cancelButtonTitle:@"ok"
-//                          otherButtonTitles:nil] show];
-        
+        self.nextButton.enabled = YES;
     }
+}
+
+
+-(void)backButtonTouched{
+    [self.delegate logInViewControllerWentBackwards:self];
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
     [self nextButtonTouched];
     return YES;
 }
-
 
 @end

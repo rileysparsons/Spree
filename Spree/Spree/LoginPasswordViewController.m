@@ -23,36 +23,51 @@
     self.textField.secureTextEntry = YES;
     self.textField.returnKeyType = UIReturnKeyGo;
     
-//    [self.textField addRightButtonOnKeyboardWithText:@"Next" target:self action:@selector(nextBarButtonItemTouched:) shouldShowPlaceholder:YES];
+//    [self.textField addRightButtonOnKeyboardWithText:@"Next" target:self action:@selector(nextBarButtonItemTouched :) shouldShowPlaceholder:YES];
     // Do any additional setup after loading the view.
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    if(self.loginWorkflow.newUser){
+    if(self.userIsNew){
         self.promptLabel.text = @"Great, now enter a password.";
     } else {
         self.promptLabel.text = @"Great, now enter your password.";
     }
 }
 
+-(void)backButtonTouched{
+    [self.delegate logInViewControllerWentBackwards:self];
+}
+
 - (void)nextButtonTouched{
-    [self resignFirstResponder];
-    if (self.textField.text && self.textField.text.length != 0) {
-        [self.loginWorkflow setPasswordForUser:self.textField.text];
-        NSLog(@"%lu, %d", (unsigned long)self.loginWorkflow.viewControllersForFields.count, self.loginWorkflow.step+1);
-        if (self.loginWorkflow.viewControllersForFields.count <= (self.loginWorkflow.step+1)){
-            [self.loginWorkflow completeWorkflow];
+    if (!self.userIsNew){
+        if ([self.delegate logInViewController:self shouldBeginLogInWithPassword:self.textField.text]){
+            NSLog(@"%@", self.user.username);
+            [PFUser logInWithUsernameInBackground:self.user.username password:self.textField.text block:^(PFUser *user, NSError *error)
+             {
+                 if (!error){
+                     NSLog(@"login");
+                     [self.delegate logInViewController:self didLogInUser:user];
+                 } else  {
+                     [self.delegate logInViewController:self didFailToLogInWithError:error];
+                 }
+             }];
         } else {
-            NSLog(@"%@", self.textField.text);
-            [self.navigationController pushViewController:[self.loginWorkflow nextViewController] animated:YES];
+            [self shakeAnimation:self.textField];
         }
     } else {
-        [self shakeAnimation:self.textField];
-        //        [[[UIAlertView alloc] initWithTitle:@"Missing Information"
-        //                                    message:@"Make sure you fill out all of the information!"
-        //                                   delegate:nil
-        //                          cancelButtonTitle:@"ok"
-        //                          otherButtonTitles:nil] show];
+        if ([self.delegate signupViewController:self shouldBeginSignInWithPassword:self.textField.text]){
+            self.user.password = self.textField.text;
+            [self.user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if (!error) {
+                    [self.delegate signupViewController:self didSignUpUser:self.user];
+                } else  {
+                    [self.delegate signupViewController:self didFailToSignUpWithError:error];
+                }
+            }];
+        } else {
+            [self shakeAnimation:self.textField];
+        }
     }
 }
 

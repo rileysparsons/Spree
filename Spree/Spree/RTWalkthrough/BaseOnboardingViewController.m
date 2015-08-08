@@ -10,19 +10,48 @@
 #import "RTWalkthroughPageViewController.h"
 #import "RTWalkthroughViewController.h"
 #import "FinalOnboardingViewController.h"
-#import "LoginWorkflow.h"
+#import "LoginCampusTableViewController.h"
+#import "LoginAuthorizationViewController.h"
+#import "PostTableViewController.h"
+#import <ParseFacebookUtils/PFFacebookUtils.h>
+#import "AppDelegate.h"
 
 @interface BaseOnboardingViewController ()
 
+@property LoginAuthorizationViewController *authorizationViewController;
+@property LoginPasswordViewController *passwordViewController;
+@property LoginEmailViewController *emailViewController;
+@property LoginCampusTableViewController *campusViewController;
+@property PFUser *user;
+@property NSMutableArray *loginWorkflowViewControllers;
+
 @end
+
+
 
 @implementation BaseOnboardingViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self startOnboarding];
+    [self prepareLoginWorkflow];
+    self.user = [PFUser user];
     
     // Do any additional setup after loading the view.
+}
+
+-(void)prepareLoginWorkflow{
+    UIStoryboard *stb = [UIStoryboard storyboardWithName:@"Walkthrough" bundle:nil];
+    self.authorizationViewController =  [stb instantiateViewControllerWithIdentifier:NSStringFromClass([LoginAuthorizationViewController class])];
+    [self.authorizationViewController setDelegate:self];
+    self.passwordViewController =  [stb instantiateViewControllerWithIdentifier:NSStringFromClass([LoginPasswordViewController class])];
+    [self.passwordViewController setDelegate:self];
+    self.emailViewController = [stb instantiateViewControllerWithIdentifier:@"EmailInput"];
+    [self.emailViewController setDelegate:self];
+    self.campusViewController =
+    [stb instantiateViewControllerWithIdentifier:NSStringFromClass([LoginCampusTableViewController class])];
+    self.campusViewController.user = [PFUser user];
+    [self.campusViewController setDelegate:self];
 }
 
 -(void)startOnboarding{
@@ -37,7 +66,7 @@
     [walkthrough addViewController:pageTwo];
     [walkthrough addViewController:pageZero];
     [walkthrough addViewController:final];
-    [self presentViewController:walkthrough animated:YES completion:nil];
+    [self presentViewController:walkthrough animated:NO completion:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -46,20 +75,178 @@
 }
 
 -(void)walkthroughControllerDidClose:(RTWalkthroughViewController *)controller{
-    LoginWorkflow *loginWorkflow = [[LoginWorkflow alloc] init];
+    NSLog(@"called");
     [self.navigationController dismissViewControllerAnimated:NO completion:nil];
-    [self.navigationController pushViewController:[loginWorkflow firstViewController] animated:YES];
-    NSLog(@"%@", self.navigationController);
+    [self.navigationController pushViewController:self.campusViewController animated:YES];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+-(BOOL)logInViewController:(LoginEmailViewController *)logInController shouldBeginLogInWithEmail:(NSString *)email{
+    if (email && email.length != 0) {
+        return YES;
+    }
+    
+    [[[UIAlertView alloc] initWithTitle:@"Invalid Email"
+                                message:@"Make sure you've given us a valid email."
+                               delegate:nil
+                      cancelButtonTitle:@"OK"
+                      otherButtonTitles:nil] show];
+    return NO; // Interrupt login process
 }
-*/
+
+-(void)logInViewController:(LoginEmailViewController *)logInController didCheckEmail:(NSString *)email userExists:(BOOL)exists{
+    if (exists){
+        self.passwordViewController.userIsNew = NO;
+    } else {
+        self.passwordViewController.userIsNew = YES;
+    }
+    NSLog(@"%@", self.navigationController.viewControllers);
+    self.passwordViewController.user = logInController.user;
+    NSLog(@"%@", logInController.user);
+    [self.navigationController pushViewController:self.passwordViewController animated:YES];
+}
+
+#pragma mark - LoginAuthorizationViewControllerDelegate Methods
+
+- (void)logInAuthorizationViewController:(LoginAuthorizationViewController *)logInController didAuthorizeFacebookForUser:(PFUser *)user{
+
+
+    
+    [self closeOnboarding];
+}
+
+- (void)logInAuthorizationViewController:(LoginAuthorizationViewController *)logInController didFailToAuthorizeFacebookForUser:(PFUser *)user{
+    [[[UIAlertView alloc] initWithTitle:@"Facebook Authorization Failed"
+                                message:@"Something went wrong. Please try again."
+                               delegate:nil
+                      cancelButtonTitle:@"OK"
+                      otherButtonTitles:nil] show];
+}
+
+- (void)logInAuthorizationViewControllerWentBackwards:(LoginAuthorizationViewController *)authorizationController{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)logInAuthorizationViewController:(LoginAuthorizationViewController *)authorizationController userDidOptOut:(PFUser *)user{
+    [self closeOnboarding];
+}
+
+#pragma mark - LoginCampusTableViewController Method
+
+-(void)loginCampusTableViewController:(LoginCampusTableViewController *)loginCampusTableViewController didSelectCampus:(PFObject *)campus{
+    NSString *fullDomain = [NSString stringWithFormat:@"@%@.edu", campus[@"networkCode"]];
+    self.emailViewController.domain = fullDomain;
+    self.emailViewController.user = loginCampusTableViewController.user;
+    NSLog(@"%@", loginCampusTableViewController.user);
+    [self.navigationController pushViewController:self.emailViewController animated:YES];
+}
+
+#pragma mark - LoginPasswordViewControllerDelegate
+
+-(BOOL)logInViewController:(LoginPasswordViewController *)logInController shouldBeginLogInWithPassword:(NSString *)password{
+    NSLog(@"%@", password);
+    if (password && password.length != 0) {
+        return YES;
+    }
+    
+    [[[UIAlertView alloc] initWithTitle:@"No Password?"
+                                message:@"Something went wrong. Check if you gave us a password."
+                               delegate:nil
+                      cancelButtonTitle:@"OK"
+                      otherButtonTitles:nil] show];
+    return NO; // Interrupt login process
+}
+
+
+-(void)logInViewController:(LoginPasswordViewController *)logInController didLogInUser:(PFUser *)user{
+    if (![PFFacebookUtils isLinkedWithUser:user]){
+        self.authorizationViewController.user = user;
+        [self.navigationController pushViewController:self.authorizationViewController animated:YES];
+    } else {
+        [self closeOnboarding];
+    }
+}
+
+- (void)logInViewController:(LoginPasswordViewController *)logInController
+    didFailToLogInWithError:(NSError *)error{
+    [[[UIAlertView alloc] initWithTitle:@"Login Failed"
+                                message:@"Something went wrong. Please try again."
+                               delegate:nil
+                      cancelButtonTitle:@"OK"
+                      otherButtonTitles:nil] show];
+}
+
+-(void)logInViewControllerWentBackwards:(LoginPasswordViewController *)logInController{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+
+-(void)signupViewController:(LoginPasswordViewController *)signupController didSignUpUser:(PFUser *)user{
+    [self incrementUserCountForCampus:user[@"campus"]];
+    self.authorizationViewController.user = user;
+    [self.navigationController pushViewController:self.authorizationViewController animated:YES];
+}
+
+-(void)signupViewController:(LoginPasswordViewController *)signupController didFailToSignUpWithError:(NSError *)error{
+    [[[UIAlertView alloc] initWithTitle:@"Sign Up Failed"
+                                message:@"Something went wrong. Please try again."
+                               delegate:nil
+                      cancelButtonTitle:@"OK"
+                      otherButtonTitles:nil] show];
+}
+
+- (BOOL)signupViewController:(LoginPasswordViewController *)signupController shouldBeginSignInWithPassword:(NSString *)password{
+    NSLog(@"%@", password);
+    if (password && password.length != 0){
+        return YES;
+    }
+    return NO;
+}
+
+
+//// Sent to the delegate when a PFUser is signed up.
+//- (void)signUpViewController:(PFSignUpViewController *)signUpController didSignUpUser:(PFUser *)user {
+//    UIApplication* sharedApplication = [UIApplication sharedApplication];
+//    UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert |
+//                                                    UIUserNotificationTypeBadge |
+//                                                    UIUserNotificationTypeSound);
+//    UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:userNotificationTypes
+//                                                                             categories:nil];
+//    [sharedApplication registerUserNotificationSettings:settings];
+//    [sharedApplication registerForRemoteNotifications];
+//    [self dismissViewControllerAnimated:YES completion:nil];
+//}
+//
+//// Sent to the delegate when the sign up attempt fails.
+//- (void)signUpViewController:(PFSignUpViewController *)signUpController didFailToSignUpWithError:(NSError *)error {
+//    NSLog(@"Failed to sign up...");
+//}
+//
+//// Sent to the delegate when the sign up screen is dismissed.
+//- (void)signUpViewControllerDidCancelSignUp:(PFSignUpViewController *)signUpController {
+//    NSLog(@"User dismissed the signUpViewController");
+//}
+
+#pragma mark - Base Methods
+
+-(void)closeOnboarding{
+    UIStoryboard *stb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    PostTableViewController *postTableViewController = [stb instantiateInitialViewController];
+    [UIView transitionWithView:appDelegate.window
+                      duration:0.5
+                       options:UIViewAnimationOptionTransitionFlipFromLeft
+                    animations:^{ appDelegate.window.rootViewController = postTableViewController; }
+                    completion:nil];
+}
+
+-(void)incrementUserCountForCampus:(PFObject *)campus{
+    
+    // Increment the current value of the quantity key by 1
+    [campus incrementKey:@"userCount"];
+    
+    // Save
+    [campus saveInBackground];
+}
+
 
 @end
