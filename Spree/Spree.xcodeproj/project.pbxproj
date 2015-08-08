@@ -244,7 +244,6 @@
 		143D91E01B6DFAE700E2F493 /* LoginWorkflow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginWorkflow.m; sourceTree = "<group>"; };
 		143D91E51B6DFDAC00E2F493 /* LoginCampusTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginCampusTableViewController.h; sourceTree = "<group>"; };
 		143D91E61B6DFDAC00E2F493 /* LoginCampusTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginCampusTableViewController.m; sourceTree = "<group>"; };
-		143D91E81B6DFE7500E2F493 /* LoginAuthorizationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginAuthorizationViewController.h; sourceTree = "<group>"; };
 		143D91E91B6DFE7500E2F493 /* LoginAuthorizationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginAuthorizationViewController.m; sourceTree = "<group>"; };
 		143D91EB1B6E04D200E2F493 /* LoginCampusHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginCampusHeaderView.h; sourceTree = "<group>"; };
 		143D91EC1B6E04D200E2F493 /* LoginCampusHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginCampusHeaderView.m; sourceTree = "<group>"; };
@@ -296,6 +295,7 @@
 		14ABE1061A96A59000B805D0 /* NewTicketsPostView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewTicketsPostView.h; sourceTree = "<group>"; };
 		14ABE1071A96A59000B805D0 /* NewTicketsPostView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewTicketsPostView.m; sourceTree = "<group>"; };
 		14ABE1091A96A59F00B805D0 /* NewTicketsPostView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewTicketsPostView.xib; sourceTree = "<group>"; };
+		14B934831B76C6B600DDA5EB /* LoginAuthorizationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginAuthorizationViewController.h; sourceTree = "<group>"; };
 		14BE5C851AAD442A00C60C56 /* NewPostInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewPostInfoViewController.h; sourceTree = "<group>"; };
 		14BE5C861AAD442A00C60C56 /* NewPostInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewPostInfoViewController.m; sourceTree = "<group>"; };
 		14C38DA01B27F3BA0039862E /* PostDetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostDetailTableViewController.h; sourceTree = "<group>"; };
@@ -538,7 +538,7 @@
 		140CF91A1A3F755B00134C4D /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				143D91E81B6DFE7500E2F493 /* LoginAuthorizationViewController.h */,
+				14B934831B76C6B600DDA5EB /* LoginAuthorizationViewController.h */,
 				143D91E91B6DFE7500E2F493 /* LoginAuthorizationViewController.m */,
 				143D91DC1B6DF9AC00E2F493 /* LoginEmailViewController.h */,
 				143D91DD1B6DF9AC00E2F493 /* LoginEmailViewController.m */,

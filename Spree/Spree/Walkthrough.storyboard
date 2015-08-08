@@ -594,7 +594,7 @@
                         </variation>
                     </view>
                     <connections>
-                        <outlet property="profileImageView" destination="DMn-am-cn9" id="qkg-0R-BVB"/>
+                        <outlet property="profileImageView" destination="DMn-am-cn9" id="TQA-f0-8HR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kT5-oe-UrK" userLabel="First Responder" sceneMemberID="firstResponder"/>
