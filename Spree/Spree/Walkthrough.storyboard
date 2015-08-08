@@ -23,6 +23,7 @@
             <string>Lato-Regular</string>
             <string>Lato-Regular</string>
             <string>Lato-Regular</string>
+            <string>Lato-Regular</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -536,7 +537,7 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="18"/>
                                 <state key="normal" title="Authorize Facebook">
-                                    <color key="titleColor" red="0.16666857900000001" green="0.18534906209999999" blue="0.19849607350000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleColor" red="0.034740071740000003" green="0.29351189729999999" blue="0.58873707060000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -544,7 +545,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Facebook keeps Spree social, but we'll never post something without permission. We promise." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iPo-b8-pSM">
-                                <rect key="frame" x="50.5" y="396" width="500.5" height="64"/>
+                                <rect key="frame" x="50" y="396" width="500.5" height="64"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="64" id="gqe-TI-W0d"/>
                                 </constraints>
@@ -552,17 +553,49 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DMn-am-cn9">
+                                <rect key="frame" x="236" y="95" width="128" height="128"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="128" id="Lgw-Cu-8Jd"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lKN-gM-1uB">
+                                <rect key="frame" x="264" y="539" width="71" height="30"/>
+                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="15"/>
+                                <state key="normal" title="No thanks.">
+                                    <color key="titleColor" red="0.16666857900000001" green="0.18534906209999999" blue="0.19849607350000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="optOutButtonTapped:" destination="Lfw-Kg-9Ff" eventType="touchUpInside" id="Izh-8K-MgO"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="centerX" secondItem="DMn-am-cn9" secondAttribute="centerX" id="17b-s1-bal"/>
+                            <constraint firstAttribute="centerX" secondItem="DMn-am-cn9" secondAttribute="centerX" id="55H-cY-GEA"/>
                             <constraint firstItem="iPo-b8-pSM" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="lhk-F8-oMw" secondAttribute="leadingMargin" constant="16" id="7fL-7Z-5w7"/>
+                            <constraint firstItem="lKN-gM-1uB" firstAttribute="top" secondItem="iPo-b8-pSM" secondAttribute="bottom" constant="79" id="ENn-43-Y2Q"/>
+                            <constraint firstItem="Pcl-gr-E9j" firstAttribute="top" secondItem="lKN-gM-1uB" secondAttribute="bottom" constant="31" id="JxV-kB-ieP"/>
+                            <constraint firstItem="DMn-am-cn9" firstAttribute="top" secondItem="CRR-oa-SJk" secondAttribute="bottom" constant="75" id="STb-cL-L2t"/>
+                            <constraint firstAttribute="centerX" secondItem="lKN-gM-1uB" secondAttribute="centerX" id="TjF-I7-9s3"/>
                             <constraint firstAttribute="centerX" secondItem="iPo-b8-pSM" secondAttribute="centerX" id="bJb-Ji-Uv5"/>
                             <constraint firstAttribute="centerX" secondItem="KKb-aD-CKS" secondAttribute="centerX" id="eUb-jb-Ixc"/>
                             <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="iPo-b8-pSM" secondAttribute="trailing" constant="16" id="iM9-LF-roB"/>
                             <constraint firstItem="Pcl-gr-E9j" firstAttribute="top" secondItem="KKb-aD-CKS" secondAttribute="bottom" constant="212" id="icA-3A-RHe"/>
                             <constraint firstItem="iPo-b8-pSM" firstAttribute="top" secondItem="KKb-aD-CKS" secondAttribute="bottom" constant="8" id="sLv-UX-sEx"/>
+                            <constraint firstItem="KKb-aD-CKS" firstAttribute="top" secondItem="DMn-am-cn9" secondAttribute="bottom" constant="131" id="xFC-Hx-1GY"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="icA-3A-RHe"/>
+                            </mask>
+                        </variation>
                     </view>
+                    <connections>
+                        <outlet property="profileImageView" destination="DMn-am-cn9" id="qkg-0R-BVB"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kT5-oe-UrK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -7,9 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LoginWorkflow.h"
 
-@interface LoginCampusTableViewController : PFQueryTableViewController <LoginWorkflowDelegate>
+@protocol LoginCampusTableViewControllerDelegate;
 
-@property LoginWorkflow *loginWorkflow;
+@interface LoginCampusTableViewController : PFQueryTableViewController
+@property PFUser *user;
+@property id<LoginCampusTableViewControllerDelegate> delegate;
+
+@end
+
+
+@protocol LoginCampusTableViewControllerDelegate <NSObject>
+
+@optional
+
+-(void)loginCampusTableViewController:(LoginCampusTableViewController *)loginCampusTableViewController didSelectCampus:(PFObject *)campus;
+
 @end

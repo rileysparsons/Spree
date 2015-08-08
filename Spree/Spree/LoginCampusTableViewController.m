@@ -54,12 +54,8 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     PFObject *campus = [self objectAtIndexPath:indexPath];
-    [self.loginWorkflow setCampusForUser:campus];
-    if (self.loginWorkflow.viewControllersForFields.count <= (self.loginWorkflow.step+1)){
-        [self.loginWorkflow completeWorkflow];
-    } else {
-        [self.navigationController pushViewController:[self.loginWorkflow nextViewController] animated:YES];
-    }
+    self.user[@"campus"] = campus;
+    [self.delegate loginCampusTableViewController:self didSelectCampus:campus];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

@@ -13,7 +13,7 @@
 @interface LoginFieldViewController ()
 
 @end
-
+ 
 @implementation LoginFieldViewController
 
 - (void)viewDidLoad {
@@ -45,30 +45,20 @@
     self.titleView.adjustsFontSizeToFitWidth=YES;
     self.navigationItem.titleView=self.titleView;
     
-    if (self.loginWorkflow.newUser){
-        self.titleView.text = @"Sign up";
-    } else {
-        self.titleView.text = @"Log in";
-    }
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    if (self.loginWorkflow.newUser){
-        self.titleView.text = @"Sign up";
-    } else {
-        self.titleView.text = @"Log in";
-    }
 }
 
 -(void)backButtonTouched{
-    self.loginWorkflow.step--;
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(void)nextButtonTouched{
 
 }
+
 
 -(void)shakeAnimation:(UIView*) view {
     const int reset = 5;
@@ -100,33 +90,6 @@
                              return;
                          }
                      }];
-}
-
-- (BOOL)didFailToCompleteWorkflow:(LoginWorkflow *)loginWorkflow withError:(NSError*)error{
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:error.localizedDescription delegate:self cancelButtonTitle:@"Try Again" otherButtonTitles: nil];
-    [alert show];
-    return YES;
-}
-
--(BOOL)didCompleteWorkflow:(LoginWorkflow *)loginWorkflow{
-    NSLog(@"%@", self.navigationController.presentingViewController);
-    UIStoryboard *stb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    PostTableViewController *postTableViewController = [stb instantiateViewControllerWithIdentifier:@"home"];
-    NSLog(@"%@", [stb instantiateInitialViewController]);
-    [UIView transitionWithView:appDelegate.window
-                      duration:0.5
-                       options:UIViewAnimationOptionTransitionFlipFromLeft
-                    animations:^{ appDelegate.window.rootViewController = postTableViewController; }
-                    completion:nil];
-    return YES;
-}
-
--(void)didCheckForNewUser:(NSString *)email{
-    if (self.loginWorkflow.newUser){
-        self.titleView.text = @"Sign up";
-        [self.titleView setNeedsDisplay];
-    }
 }
 
 @end

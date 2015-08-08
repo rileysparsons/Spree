@@ -1,4 +1,9 @@
 PODS:
+  - Bolts (1.2.0):
+    - Bolts/AppLinks (= 1.2.0)
+    - Bolts/Tasks (= 1.2.0)
+  - Bolts/AppLinks (1.2.0):
+    - Bolts/Tasks
   - Bolts/Tasks (1.2.0)
   - CocoaLumberjack (2.0.1):
     - CocoaLumberjack/Default (= 2.0.1)
@@ -10,6 +15,17 @@ PODS:
     - CocoaLumberjack/Default
   - CTAssetsPickerController (3.0.0):
     - PureLayout (~> 2.0.0)
+  - Facebook-iOS-SDK (3.23.2):
+    - Bolts (~> 1.0)
+  - FBSDKCoreKit (4.4.0):
+    - Bolts (~> 1.1)
+    - FBSDKCoreKit/arc (= 4.4.0)
+    - FBSDKCoreKit/no-arc (= 4.4.0)
+  - FBSDKCoreKit/arc (4.4.0):
+    - Bolts (~> 1.1)
+  - FBSDKCoreKit/no-arc (4.4.0):
+    - Bolts (~> 1.1)
+    - FBSDKCoreKit/arc
   - InfinitePagingView (0.0.1)
   - JSQMessagesViewController (7.1.0):
     - JSQSystemSoundPlayer (~> 2.0.1)
@@ -20,6 +36,10 @@ PODS:
     - Bolts/Tasks (>= 1.2.0)
   - ParseCrashReporting (1.7.5.3):
     - Bolts/Tasks (>= 1.2.0)
+    - Parse (~> 1.7.5.3)
+  - ParseFacebookUtils (1.7.5.3):
+    - Bolts/Tasks (>= 1.2.0)
+    - Facebook-iOS-SDK (~> 3.23)
     - Parse (~> 1.7.5.3)
   - ParseUI (1.1.4):
     - Parse (~> 1.7)
@@ -32,6 +52,7 @@ PODS:
 DEPENDENCIES:
   - CocoaLumberjack
   - CTAssetsPickerController
+  - FBSDKCoreKit
   - InfinitePagingView
   - JSQMessagesViewController (from `https://github.com/jessesquires/JSQMessagesViewController.git`,
     branch `develop`)
@@ -39,6 +60,7 @@ DEPENDENCIES:
   - MSCellAccessory
   - Parse
   - ParseCrashReporting
+  - ParseFacebookUtils
   - ParseUI
   - STCollapseTableView
   - TPKeyboardAvoiding
@@ -52,13 +74,15 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   JSQMessagesViewController:
-    :commit: ec2e0a9a399ddece9f24accee0ad44f3859092db
+    :commit: e6480b57ea17aba67bbf358677724593c50a5467
     :git: https://github.com/jessesquires/JSQMessagesViewController.git
 
 SPEC CHECKSUMS:
   Bolts: d176cb1e0012175589e389a9db49b85e27787576
   CocoaLumberjack: 019d1361244274a6138c788c6cb80baabc13fb8f
   CTAssetsPickerController: 4f88e226f23fbe67b421cf8b9520ebfb03ab82ff
+  Facebook-iOS-SDK: cd87f0b2f0c1d9574b44e8fa2baacc275524bac3
+  FBSDKCoreKit: 75bdd75c980e811db218488d99dd93b7740f4474
   InfinitePagingView: 2d9876c6171274b59d7128c0fcacb4ab492313f2
   JSQMessagesViewController: ca11f86fa68ca70835f05e169df9244147c1dc40
   JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
@@ -66,6 +90,7 @@ SPEC CHECKSUMS:
   MSCellAccessory: 8265f3cd2386c1f372da00232472605ab11426e4
   Parse: 373adbb1ad2e34d383542c3b28f678c49ebe4881
   ParseCrashReporting: 36d2e2770d7502d943b81c013acd5193946ced46
+  ParseFacebookUtils: 008a24dc35884519ed6a6750648beb5149f1fad9
   ParseUI: d1228541b02a36a7354c8f47747f5f7a89cf1ff0
   PureLayout: f25f0bb904d5ccfe6e31da3cb869185259f02e0d
   STCollapseTableView: edd40eacf9411ce862da921f83e0b7b1680fac4d

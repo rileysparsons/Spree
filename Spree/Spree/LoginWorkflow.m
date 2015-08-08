@@ -41,14 +41,6 @@
     LoginCampusTableViewController *campusInputViewController =
     [stb instantiateViewControllerWithIdentifier:NSStringFromClass([LoginCampusTableViewController class])];
     
-    emailInputViewController.loginWorkflow = self;
-    passwordInputViewController.loginWorkflow = self;
-    campusInputViewController.loginWorkflow = self;
-    
-    
-    
-    self.delegate = passwordInputViewController;
-    
     self.user = [PFUser user];
     self.campus = [[PFObject alloc] initWithClassName:@"Campus"];
     
@@ -88,7 +80,6 @@
     NSLog(@"NEW");
     UIStoryboard *stb = [UIStoryboard storyboardWithName:@"Walkthrough" bundle:nil];
     LoginAuthorizationViewController *authorizationViewController = [stb instantiateViewControllerWithIdentifier:NSStringFromClass([LoginAuthorizationViewController class])];
-    authorizationViewController.loginWorkflow = self;
     self.delegate = authorizationViewController;
     [self.viewControllersForFields addObject:authorizationViewController];
     [self.remainingFields addObject:@"facebook"];
