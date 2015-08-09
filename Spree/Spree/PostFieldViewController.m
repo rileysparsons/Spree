@@ -8,7 +8,6 @@
 
 #import "PostFieldViewController.h"
 #import "YHRoundBorderedButton.h"
-#import <IQUIView+IQKeyboardToolbar.h>
 
 @interface PostFieldViewController (){
     NSNumber* maxCharacter;
@@ -76,7 +75,7 @@
         }
     }
     
-    [self.fieldTextView addRightButtonOnKeyboardWithText:@"Next" target:self action:@selector(nextBarButtonItemTouched:) shouldShowPlaceholder:YES];
+//    [self.fieldTextView addRightButtonOnKeyboardWithText:@"Next" target:self action:@selector(nextBarButtonItemTouched:) shouldShowPlaceholder:YES];
     self.fieldTextView.font = [UIFont systemFontOfSize:25.0f];
     self.fieldTextView.placeholder =NSLocalizedString(self.fieldDisplayName, @" ");
     self.fieldTextView.placeholderTextColor = [UIColor darkGrayColor];

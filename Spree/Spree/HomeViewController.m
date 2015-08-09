@@ -35,6 +35,9 @@
     HeaderSlideView *view2 = [[HeaderSlideView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 200)];
     HeaderSlideView *view3 = [[HeaderSlideView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 200)];
 
+    
+    view1.backgroundImage.image = [UIImage imageNamed:@"missionsantaclara"];
+    
     view1.backgroundImage.backgroundColor = [UIColor spreeOffBlack];
     view2.backgroundImage.backgroundColor = [UIColor spreeOffBlack];
     view3.backgroundImage.backgroundColor = [UIColor spreeOffBlack];

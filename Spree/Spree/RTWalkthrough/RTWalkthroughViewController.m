@@ -71,6 +71,8 @@
 
 	[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[scrollview]|" options:0 metrics:nil views:@{@"scrollview":self.scrollview}]];
 	[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[scrollview]|" options:0 metrics:nil views:@{@"scrollview":self.scrollview}]];
+     NSLog(@"%@", self.navigationController);
+    [self updateUI];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -83,6 +85,7 @@
 - (IBAction)nextPage:(id)sender {
 	
 	if ((self.currentPage + 1) < self.controllers.count) {
+        if (self.currentPage )
 		
 		if ([self.delegate respondsToSelector:@selector(walkthroughControllerWentNext:)])
 			[self.delegate walkthroughControllerWentNext:self];
@@ -107,7 +110,21 @@
 	}
 }
 
-- (IBAction)close:(id)sender {
+- (IBAction)skip:(id)sender {
+    if ((self.currentPage + 1) < self.controllers.count) {
+        if (self.currentPage )
+            
+            if ([self.delegate respondsToSelector:@selector(walkthroughControllerWentNext:)])
+                [self.delegate walkthroughControllerWentNext:self];
+        
+        CGRect frame = self.scrollview.frame;
+        frame.origin.x = (CGFloat)(self.controllers.count-1) * frame.size.width;
+        [self.scrollview setContentOffset:frame.origin animated:YES];
+    }
+}
+
+
+- (void)close:(id)sender {
 	
 	if ([self.delegate respondsToSelector:@selector(walkthroughControllerDidClose:)])
 		[self.delegate walkthroughControllerDidClose:self];

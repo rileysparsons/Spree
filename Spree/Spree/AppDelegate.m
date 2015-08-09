@@ -10,15 +10,22 @@
 #import "BrowseViewController.h"
 #import "LoginViewController.h"
 #import "PostDetailViewController.h"
+#import "FinalOnboardingViewController.h"
+#import "RTWalkthroughViewController.h"
+#import "RTWalkthroughPageViewController.h"
+#import "BaseOnboardingViewController.h"
+#import "LoginViewController.h"
 #import "SpreePost.h"
 #import "ChatView.h"
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <ParseFacebookUtils/PFFacebookUtils.h>
 #import <ParseCrashReporting/ParseCrashReporting.h>
 
 
 
 #import <Accelerate/Accelerate.h>
 
-@interface AppDelegate ()
+@interface AppDelegate () <RTWalkthroughViewControllerDelegate>
 
 @end
 
@@ -43,7 +50,9 @@
 //    [_locationManager requestWhenInUseAuthorization];
 //    [_locationManager startUpdatingLocation];
 //    self.locationManager = _locationManager;
-
+    
+    [PFFacebookUtils initializeFacebook];
+    
     [[UINavigationBar appearance] setTintColor:[UIColor spreeOffBlack]];
     [[UINavigationBar appearance] setBarTintColor:[UIColor spreeOffWhite]];
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor spreeDarkBlue], NSFontAttributeName: [UIFont fontWithName:@"Lato" size:0.0],
@@ -54,10 +63,7 @@
     [[UISegmentedControl appearance] setTintColor:[UIColor spreeDarkBlue]];
     
     if (![PFUser currentUser]) {
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        LoginViewController *loginViewController = [storyboard instantiateViewControllerWithIdentifier:@"login"];
-        self.window.rootViewController = loginViewController;
-        [self.window makeKeyAndVisible];
+        [self showOnboardingFlow];
     }
     
     if ([PFUser currentUser]) {
@@ -69,12 +75,23 @@
         [application registerUserNotificationSettings:settings];
         [application registerForRemoteNotifications];
     }
+    
+
+    
     return YES;
+}
+
+- (void)showOnboardingFlow {
+    UIStoryboard *stb = [UIStoryboard storyboardWithName:@"Walkthrough" bundle:nil];
+    UINavigationController *base = [stb instantiateViewControllerWithIdentifier:@"base"];
+    
+    self.window.rootViewController = base;
+    [self.window makeKeyAndVisible];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     PFInstallation *currentInstallation = [PFInstallation currentInstallation];
-     
+    [FBSDKAppEvents activateApp];
     if (currentInstallation.badge != 0) {
         NSLog(@"current installation: %ld", (long)currentInstallation.badge);
         currentInstallation.badge = 0;
@@ -82,6 +99,15 @@
     }
 }
 
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation {
+    
+    return [FBAppCall handleOpenURL:url
+                         sourceApplication:sourceApplication
+                               withSession:[PFFacebookUtils session]];
+}
 
 - (void)applicationWillTerminate:(UIApplication *)application {
 }

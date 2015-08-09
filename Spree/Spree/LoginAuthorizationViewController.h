@@ -10,29 +10,28 @@
 
 @protocol LoginAuthorizationViewControllerDelegate;
 
-@interface LoginAuthorizationViewController : UIViewController
 
+@interface LoginAuthorizationViewController : UIViewController <UITextFieldDelegate>
+
+
+
+@property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
 @property PFUser *user;
 @property id<LoginAuthorizationViewControllerDelegate> delegate;
-@property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
-- (IBAction)authorizeButtonTapped:(id)sender;
+
 - (IBAction)optOutButtonTapped:(id)sender;
+- (IBAction)authorizeButtonTapped:(id)sender;
 
 
 @end
 
 @protocol LoginAuthorizationViewControllerDelegate <NSObject>
 
+@optional
 
-///--------------------------------------
-/// @name Responding to Actions
-///--------------------------------------
+- (void)logInAuthorizationViewController:(LoginAuthorizationViewController *)logInController didAuthorizeFacebookForUser:(PFUser *)user;
 
-- (void)logInAuthorizationViewController:(LoginAuthorizationViewController *)authorizationController didAuthorizeFacebookForUser:(PFUser *)user;
-
-
-- (void)logInAuthorizationViewController:(LoginAuthorizationViewController *)authorizationController
-               didFailToAuthorizeFacebookForUser:(PFUser *)user;
+- (void)logInAuthorizationViewController:(LoginAuthorizationViewController *)logInController didFailToAuthorizeFacebookForUser:(PFUser *)user;
 
 - (void)logInAuthorizationViewControllerWentBackwards:(LoginAuthorizationViewController *)authorizationController;
 
@@ -41,4 +40,6 @@
 
 
 
+
 @end
+
