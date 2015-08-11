@@ -28,13 +28,13 @@
 #define COCOAPODS_POD_AVAILABLE_Branch
 #define COCOAPODS_VERSION_MAJOR_Branch 0
 #define COCOAPODS_VERSION_MINOR_Branch 10
-#define COCOAPODS_VERSION_PATCH_Branch 7
+#define COCOAPODS_VERSION_PATCH_Branch 9
 
 // CTAssetsPickerController
 #define COCOAPODS_POD_AVAILABLE_CTAssetsPickerController
 #define COCOAPODS_VERSION_MAJOR_CTAssetsPickerController 3
 #define COCOAPODS_VERSION_MINOR_CTAssetsPickerController 0
-#define COCOAPODS_VERSION_PATCH_CTAssetsPickerController 0
+#define COCOAPODS_VERSION_PATCH_CTAssetsPickerController 1
 
 // CocoaLumberjack
 #define COCOAPODS_POD_AVAILABLE_CocoaLumberjack
@@ -63,26 +63,26 @@
 // FBSDKCoreKit
 #define COCOAPODS_POD_AVAILABLE_FBSDKCoreKit
 #define COCOAPODS_VERSION_MAJOR_FBSDKCoreKit 4
-#define COCOAPODS_VERSION_MINOR_FBSDKCoreKit 4
+#define COCOAPODS_VERSION_MINOR_FBSDKCoreKit 5
 #define COCOAPODS_VERSION_PATCH_FBSDKCoreKit 0
 
 // FBSDKCoreKit/arc
 #define COCOAPODS_POD_AVAILABLE_FBSDKCoreKit_arc
 #define COCOAPODS_VERSION_MAJOR_FBSDKCoreKit_arc 4
-#define COCOAPODS_VERSION_MINOR_FBSDKCoreKit_arc 4
+#define COCOAPODS_VERSION_MINOR_FBSDKCoreKit_arc 5
 #define COCOAPODS_VERSION_PATCH_FBSDKCoreKit_arc 0
 
 // FBSDKCoreKit/no-arc
 #define COCOAPODS_POD_AVAILABLE_FBSDKCoreKit_no_arc
 #define COCOAPODS_VERSION_MAJOR_FBSDKCoreKit_no_arc 4
-#define COCOAPODS_VERSION_MINOR_FBSDKCoreKit_no_arc 4
+#define COCOAPODS_VERSION_MINOR_FBSDKCoreKit_no_arc 5
 #define COCOAPODS_VERSION_PATCH_FBSDKCoreKit_no_arc 0
 
-// Facebook-iOS-SDK
-#define COCOAPODS_POD_AVAILABLE_Facebook_iOS_SDK
-#define COCOAPODS_VERSION_MAJOR_Facebook_iOS_SDK 3
-#define COCOAPODS_VERSION_MINOR_Facebook_iOS_SDK 23
-#define COCOAPODS_VERSION_PATCH_Facebook_iOS_SDK 2
+// FBSDKLoginKit
+#define COCOAPODS_POD_AVAILABLE_FBSDKLoginKit
+#define COCOAPODS_VERSION_MAJOR_FBSDKLoginKit 4
+#define COCOAPODS_VERSION_MINOR_FBSDKLoginKit 5
+#define COCOAPODS_VERSION_PATCH_FBSDKLoginKit 0
 
 // InfinitePagingView
 #define COCOAPODS_POD_AVAILABLE_InfinitePagingView
@@ -128,8 +128,8 @@
 // Please contact the author.
 // Version: 1.7.5.3.
 
-// ParseFacebookUtils
-#define COCOAPODS_POD_AVAILABLE_ParseFacebookUtils
+// ParseFacebookUtilsV4
+#define COCOAPODS_POD_AVAILABLE_ParseFacebookUtilsV4
 // This library does not follow semantic-versioning,
 // so we were not able to define version macros.
 // Please contact the author.

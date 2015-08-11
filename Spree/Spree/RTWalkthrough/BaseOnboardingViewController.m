@@ -13,7 +13,7 @@
 #import "LoginCampusTableViewController.h"
 #import "LoginAuthorizationViewController.h"
 #import "PostTableViewController.h"
-#import <ParseFacebookUtils/PFFacebookUtils.h>
+#import <ParseFacebookUtilsV4/PFFacebookUtils.h>
 #import "AppDelegate.h"
 
 @interface BaseOnboardingViewController ()

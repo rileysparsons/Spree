@@ -18,7 +18,7 @@
 #import "SpreePost.h"
 #import "ChatView.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
-#import <ParseFacebookUtils/PFFacebookUtils.h>
+#import <ParseFacebookUtilsV4/PFFacebookUtils.h>
 #import <ParseCrashReporting/ParseCrashReporting.h>
 
 
@@ -51,7 +51,7 @@
 //    [_locationManager startUpdatingLocation];
 //    self.locationManager = _locationManager;
     
-    [PFFacebookUtils initializeFacebook];
+    [PFFacebookUtils initializeFacebookWithApplicationLaunchOptions:launchOptions];
     
     [[UINavigationBar appearance] setTintColor:[UIColor spreeOffBlack]];
     [[UINavigationBar appearance] setBarTintColor:[UIColor spreeOffWhite]];
@@ -104,9 +104,7 @@
   sourceApplication:(NSString *)sourceApplication
          annotation:(id)annotation {
     
-    return [FBAppCall handleOpenURL:url
-                         sourceApplication:sourceApplication
-                               withSession:[PFFacebookUtils session]];
+    return [[FBSDKApplicationDelegate sharedInstance] application:application openURL:url sourceApplication:sourceApplication annotation:annotation];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
