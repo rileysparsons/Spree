@@ -13,6 +13,7 @@
             <string>Lato-Regular</string>
             <string>Lato-Regular</string>
             <string>Lato-Regular</string>
+            <string>Lato-Regular</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -406,10 +407,10 @@
             </objects>
             <point key="canvasLocation" x="5796" y="-2507"/>
         </scene>
-        <!--More-->
+        <!--Me-->
         <scene sceneID="wg7-f3-ORb">
             <objects>
-                <viewController storyboardIdentifier="SecondViewController" title="More" id="8rJ-Kc-sve" customClass="MeViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SecondViewController" title="Me" id="8rJ-Kc-sve" customClass="MeViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="L7p-HK-0SC"/>
                         <viewControllerLayoutGuide type="bottom" id="Djb-ko-YwX"/>
@@ -429,13 +430,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yyF-xU-mhh">
-                                <rect key="frame" x="123" y="180" width="169" height="20"/>
+                                <rect key="frame" x="123" y="180" width="169" height="20.5"/>
                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="17"/>
                                 <color key="textColor" red="0.16666857900000001" green="0.18534906209999999" blue="0.19849607350000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="35" sectionFooterHeight="35" translatesAutoresizingMaskIntoConstraints="NO" id="AFq-JN-QoM">
-                                <rect key="frame" x="0.0" y="237" width="414" height="499"/>
+                                <rect key="frame" x="0.0" y="264" width="414" height="471.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="456" id="hlG-RC-l9i"/>
@@ -484,11 +485,18 @@
                                     <constraint firstAttribute="width" constant="100" id="xgJ-Vt-0hV"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Santa Clara University (Verified Student) " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RfR-sC-p8k">
+                                <rect key="frame" x="64" y="237" width="286" height="19.5"/>
+                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="16"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.96558624510000002" green="0.97044742110000004" blue="0.97035741809999998" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="yyF-xU-mhh" firstAttribute="top" secondItem="QPZ-aR-TUO" secondAttribute="bottom" constant="16" id="3ks-73-2xP"/>
                             <constraint firstAttribute="bottom" secondItem="AFq-JN-QoM" secondAttribute="bottom" id="FjH-Fi-7cD"/>
+                            <constraint firstItem="RfR-sC-p8k" firstAttribute="top" secondItem="QPZ-aR-TUO" secondAttribute="bottom" constant="8" id="HQu-fz-6zG"/>
                             <constraint firstAttribute="centerX" secondItem="IzB-T8-Uaf" secondAttribute="centerX" id="Jrg-ff-tAJ"/>
                             <constraint firstItem="QPZ-aR-TUO" firstAttribute="top" secondItem="yyF-xU-mhh" secondAttribute="bottom" constant="8" id="Oxs-21-inO"/>
                             <constraint firstItem="QPZ-aR-TUO" firstAttribute="top" secondItem="yyF-xU-mhh" secondAttribute="bottom" constant="8" id="PVY-Q1-FAW"/>
@@ -500,7 +508,9 @@
                             <constraint firstItem="AFq-JN-QoM" firstAttribute="top" secondItem="yyF-xU-mhh" secondAttribute="bottom" constant="17" id="aO4-UG-TcY"/>
                             <constraint firstItem="AFq-JN-QoM" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leading" id="e8V-Cx-xaL"/>
                             <constraint firstItem="QPZ-aR-TUO" firstAttribute="leading" secondItem="yyF-xU-mhh" secondAttribute="leading" id="mMp-Gf-Irq"/>
+                            <constraint firstAttribute="centerX" secondItem="RfR-sC-p8k" secondAttribute="centerX" id="ulx-Ab-XqX"/>
                             <constraint firstItem="AFq-JN-QoM" firstAttribute="centerX" secondItem="yyF-xU-mhh" secondAttribute="centerX" id="w5b-S8-S2k"/>
+                            <constraint firstItem="AFq-JN-QoM" firstAttribute="top" secondItem="RfR-sC-p8k" secondAttribute="bottom" constant="8" id="w9R-1l-sfg"/>
                             <constraint firstItem="IzB-T8-Uaf" firstAttribute="top" secondItem="L7p-HK-0SC" secondAttribute="bottom" constant="8" id="wiH-sw-TbF"/>
                             <constraint firstItem="AFq-JN-QoM" firstAttribute="top" secondItem="QPZ-aR-TUO" secondAttribute="bottom" constant="8" id="xuZ-E9-K7N"/>
                             <constraint firstItem="QPZ-aR-TUO" firstAttribute="trailing" secondItem="yyF-xU-mhh" secondAttribute="trailing" id="yMS-cP-dKm"/>
@@ -510,11 +520,12 @@
                             <mask key="constraints">
                                 <exclude reference="3ks-73-2xP"/>
                                 <exclude reference="SiA-lY-ycX"/>
+                                <exclude reference="Oxs-21-inO"/>
+                                <exclude reference="zGR-iA-KGb"/>
                                 <exclude reference="TQU-fg-otu"/>
                                 <exclude reference="Zq8-oC-P6s"/>
                                 <exclude reference="aO4-UG-TcY"/>
-                                <exclude reference="Oxs-21-inO"/>
-                                <exclude reference="zGR-iA-KGb"/>
+                                <exclude reference="xuZ-E9-K7N"/>
                             </mask>
                         </variation>
                     </view>
@@ -528,6 +539,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="nameLabel" destination="yyF-xU-mhh" id="MJu-mT-CKG"/>
+                        <outlet property="networkLabel" destination="RfR-sC-p8k" id="2If-y9-1GA"/>
                         <outlet property="postCountLabel" destination="QPZ-aR-TUO" id="Pfy-YB-oIa"/>
                         <outlet property="profileImageView" destination="IzB-T8-Uaf" id="h58-Lg-VT7"/>
                         <outlet property="settingsTableView" destination="AFq-JN-QoM" id="XH8-WU-FSF"/>
@@ -539,10 +551,10 @@
             </objects>
             <point key="canvasLocation" x="1334" y="88"/>
         </scene>
-        <!--Settings View Controller-->
+        <!--Settings-->
         <scene sceneID="pQY-cY-zTl">
             <objects>
-                <tableViewController id="mM5-wa-UZB" customClass="SettingsViewController" sceneMemberID="viewController">
+                <tableViewController title="Settings" id="mM5-wa-UZB" customClass="SettingsViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="OXf-up-TTs">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -560,6 +572,7 @@
                             <outlet property="delegate" destination="mM5-wa-UZB" id="c2n-0P-Twi"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Settings" id="GU9-M6-wA6"/>
                     <connections>
                         <segue destination="Ddc-WH-Gjz" kind="show" identifier="showTerms" id="7Fw-xf-oUy"/>
                         <segue destination="sD7-i8-wT7" kind="show" identifier="showContactUs" id="D6e-fD-y2c"/>
@@ -1239,11 +1252,11 @@
             </objects>
             <point key="canvasLocation" x="3186" y="-754"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Me-->
         <scene sceneID="Pgz-Jv-u2O">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Uv8-dp-nhT" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" systemItem="more" id="cPa-gy-q4n"/>
+                <navigationController title="Me" automaticallyAdjustsScrollViewInsets="NO" id="Uv8-dp-nhT" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Me" id="cPa-gy-q4n"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="VDW-O5-49n">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

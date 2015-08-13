@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="bfv-Ws-xAn">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -530,7 +531,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KKb-aD-CKS">
-                                <rect key="frame" x="220" y="354" width="159" height="34"/>
+                                <rect key="frame" x="220" y="383" width="159" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="IVU-qt-6GI"/>
                                     <constraint firstAttribute="width" constant="159" id="IYb-pH-vSW"/>
@@ -545,7 +546,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Facebook keeps Spree social, but we'll never post something without permission. We promise." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iPo-b8-pSM">
-                                <rect key="frame" x="50" y="396" width="500.5" height="64"/>
+                                <rect key="frame" x="50" y="425" width="500.5" height="64"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="64" id="gqe-TI-W0d"/>
                                 </constraints>
@@ -565,18 +566,19 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D14-pX-jIC" customClass="FBSDKProfilePictureView">
-                                <rect key="frame" x="250" y="137" width="100" height="100"/>
+                                <rect key="frame" x="235" y="137" width="129" height="129"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="Q11-PF-l2e"/>
-                                    <constraint firstAttribute="width" constant="100" id="lKQ-yl-D3H"/>
+                                    <constraint firstAttribute="width" secondItem="D14-pX-jIC" secondAttribute="height" multiplier="1:1" id="76C-4V-ysl"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="75" id="Q11-PF-l2e"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="75" id="lKQ-yl-D3H"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="iPo-b8-pSM" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="lhk-F8-oMw" secondAttribute="leadingMargin" constant="16" id="7fL-7Z-5w7"/>
-                            <constraint firstItem="lKN-gM-1uB" firstAttribute="top" secondItem="iPo-b8-pSM" secondAttribute="bottom" constant="79" id="ENn-43-Y2Q"/>
+                            <constraint firstItem="lKN-gM-1uB" firstAttribute="top" secondItem="iPo-b8-pSM" secondAttribute="bottom" constant="50" id="ENn-43-Y2Q"/>
                             <constraint firstItem="D14-pX-jIC" firstAttribute="top" secondItem="CRR-oa-SJk" secondAttribute="bottom" constant="117" id="HKH-vH-Fnq"/>
                             <constraint firstItem="Pcl-gr-E9j" firstAttribute="top" secondItem="lKN-gM-1uB" secondAttribute="bottom" constant="31" id="JxV-kB-ieP"/>
                             <constraint firstAttribute="centerX" secondItem="D14-pX-jIC" secondAttribute="centerX" id="OM0-wc-vpe"/>

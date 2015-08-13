@@ -14,6 +14,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *settingsTableView;
 @property (weak, nonatomic) IBOutlet UILabel *postCountLabel;
 @property (weak, nonatomic) IBOutlet FBSDKProfilePictureView *profileImageView;
+@property (weak, nonatomic) IBOutlet UILabel *networkLabel;
 
 - (IBAction)settingsButtonTouched:(id)sender;
 

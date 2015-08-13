@@ -39,7 +39,7 @@
     
     UILabel *titleLabel=[[UILabel alloc] initWithFrame:CGRectMake(0,0, 150, 40)];
     titleLabel.textAlignment = NSTextAlignmentCenter;
-    titleLabel.text= @"MORE";
+    titleLabel.text= @"ME";
     titleLabel.textColor=[UIColor spreeOffBlack];
     titleLabel.font = [UIFont fontWithName:@"Lato-Bold" size: 17.0];
     titleLabel.backgroundColor =[UIColor clearColor];
@@ -55,7 +55,7 @@
     
     self.nameLabel.text = [PFUser currentUser][@"name"];
 
-
+    [self networkLabelText];
     [self loadFacebookInformation];
     
 
@@ -68,6 +68,16 @@
     [super viewDidAppear:animated];
     [self updateTableView];
     [self.settingsTableView reloadData];
+}
+
+-(void)networkLabelText{
+    [[PFUser currentUser][@"campus"] fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error){
+        if ([PFUser currentUser][@"emailVerified"]){
+            self.networkLabel.text = [NSString stringWithFormat:@"%@ (Verified Student)", [PFUser currentUser][@"campus"][@"campusName"]];
+        } else {
+            self.networkLabel.text = [NSString stringWithFormat:@"%@", [PFUser currentUser][@"campus"][@"campusName"]];
+        }
+    }];
 }
 
 -(void)updateTableView{
@@ -245,7 +255,7 @@
 
 -(UITableViewCell *)yourPostsTableViewCell{
     UITableViewCell *yourPostsCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:kYourPostsTitle];
-    yourPostsCell.detailTextLabel.font = [UIFont fontWithName:@"Lato-Regular" size:16];
+    yourPostsCell.detailTextLabel.font = [UIFont fontWithName:@"Lato-Regular" size:15];
     yourPostsCell.textLabel.text = kYourPostsTitle;
     yourPostsCell.textLabel.font = [UIFont fontWithName:@"Lato-Regular" size:18];
     yourPostsCell.textLabel.textColor = [UIColor spreeOffBlack];

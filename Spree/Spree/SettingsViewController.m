@@ -29,6 +29,15 @@
     [super viewDidLoad];
     [self updateTableViewModel];
     [self.tableView reloadData];
+    
+    UILabel *titleLabel=[[UILabel alloc] initWithFrame:CGRectMake(0,0, 150, 40)];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    titleLabel.text= @"SETTINGS";
+    titleLabel.textColor=[UIColor spreeOffBlack];
+    titleLabel.font = [UIFont fontWithName:@"Lato-Bold" size: 17.0];
+    titleLabel.backgroundColor =[UIColor clearColor];
+    titleLabel.adjustsFontSizeToFitWidth=YES;
+    self.navigationItem.titleView=titleLabel;
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -101,16 +110,19 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     // Configure the cell...
     static NSString *CellIdentifier = @"Cell";
-    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        cell.textLabel.font = [UIFont fontWithName:@"Lato-Regular" size:18];
+        cell.textLabel.textColor = [UIColor spreeOffBlack];
     }
     
     if (indexPath.section == 0){
         cell.textLabel.text = [_firstSectionArray objectAtIndex:indexPath.row];
-    } else if (indexPath.section == 1){
-        cell.textLabel.text = [_secondSectionArray objectAtIndex:indexPath.row];
+        if (![[self.firstSectionArray objectAtIndex:indexPath.row] isEqualToString:kDeauthorizeFacebookTitle]){
+            cell.accessoryView = [MSCellAccessory accessoryWithType:FLAT_DISCLOSURE_INDICATOR color:[UIColor spreeDarkBlue] highlightedColor:[UIColor spreeDarkYellow]];
+        }
     }
     return cell;
 }
