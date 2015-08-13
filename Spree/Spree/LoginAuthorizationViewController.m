@@ -55,30 +55,54 @@
 
 - (IBAction)authorizeButtonTapped:(id)sender {
     
-    
-    FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
-    [login logInWithReadPermissions:@[@"email"] handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
-        if (error) {
-            // Process error
-        } else if (result.isCancelled) {
-            // Handle cancellations
-        } else {
-            FBSDKAccessToken *accessToken = [FBSDKAccessToken currentAccessToken];
-            // Link PFUser with FBSDKAccessToken
-            [PFFacebookUtils linkUserInBackground:[PFUser currentUser]
-                                  withAccessToken:accessToken
-                                            block:^(BOOL succeeded, NSError *error) {
-                                                if (succeeded) {
-                                                    NSLog(@"Woohoo, the user is linked with Facebook!");
-                                                }
-                                            }];
-
-        }
-    }];
+//    
+//    if (![PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]) {
+        [PFFacebookUtils linkUserInBackground:[PFUser currentUser] withReadPermissions:nil block:^(BOOL succeeded, NSError *error){
+                    if (succeeded){
+                    FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:nil];
+//                         Send request to Facebook
+                        [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+                            if (!error) {
+                                                        NSLog(@"2");
+                                                        NSLog(@"currentUser: %@",[PFUser currentUser]);
+                                                        NSLog(@"result: %@",result);
+                                                        // Store the current user's Facebook ID on the user
+                                                        [[PFUser currentUser] setObject:[result objectForKey:@"id"]
+                                                                                 forKey:@"fbId"];
+                                                        [[PFUser currentUser] saveInBackground];
+                                                        [self fetchBasicInfo];
+                                                        NSLog(@"ACCESS %@", [FBSDKAccessToken currentAccessToken]);
+                                                        [self.delegate logInAuthorizationViewController:self didAuthorizeFacebookForUser:self.user];
+                                                    } else {
+                                                        NSLog(@"3, %@",error);
+                                                    }
+                        }];
+                    
+                    }
+        }];
+//    FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
+//    [login logInWithReadPermissions:@[@"email"] handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
+//        if (error) {
+//            // Process error
+//        } else if (result.isCancelled) {
+//            // Handle cancellations
+//        } else {
+//            FBSDKAccessToken *accessToken = [FBSDKAccessToken currentAccessToken];
+//            // Link PFUser with FBSDKAccessToken
+//            [PFFacebookUtils linkUserInBackground:[PFUser currentUser]
+//                                  withAccessToken:accessToken
+//                                            block:^(BOOL succeeded, NSError *error) {
+//                                                if (succeeded) {
+//                                                    NSLog(@"Woohoo, the user is linked with Facebook!");
+//                                                }
+//                                            }];
+//
+//        }
+//    }];
     
 //    
 //    if (![PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]) {
-//        [PFFacebookUtils linkUserInBackground:[PFUser currentUser] withAccessToken:[ block:<#(nullable PFBooleanResultBlock(nullable )block#>]
+//        [PFFacebookUtils linkUserInBackground:[PFUser currentUser] withAccessToken:[ block:(nullable PFBooleanResultBlock(nullable )block]
 //        [PFFacebookUtils linkUser:[PFUser currentUser] permissions:@[@"user_friends",@"publish_actions",@"user_managed_groups"] block:^(BOOL succeeded, NSError *error){
 //            if (succeeded){
 //                FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:nil];
@@ -107,6 +131,8 @@
 //        }];
 //        
 //    }
+
+
 }
 
 - (IBAction)optOutButtonTapped:(id)sender {
@@ -114,19 +140,7 @@
 }
 
 -(void)fetchBasicInfo{
-
-    if ([FBSDKAccessToken currentAccessToken]) {
-        [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me/picture?type=large&redirect=false" parameters:nil]
-         startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
-             if (!error) {
-                 NSLog(@"%@", result);
-                 UIImage *profileImage = [[UIImage alloc] initWithData:result];
-                 self.profileImageView.image = profileImage;
-             } else {
-                 NSLog(@"%@", error);
-             }
-         }];
-    }
+    self.profileImageView.profileID = [PFUser currentUser][@"fbId"];
 }
 
 
