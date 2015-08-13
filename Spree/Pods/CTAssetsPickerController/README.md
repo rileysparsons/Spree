@@ -30,7 +30,7 @@ Xcode 6 and iOS 8.
 
     ````
     platform :ios, '8.0'
-    pod 'CTAssetsPickerController',  '~> 3.0.0-beta.1'
+    pod 'CTAssetsPickerController',  '~> 3.0.0'
     ````
     	
 2. [Manual Setup](https://github.com/chiunam/CTAssetsPickerController/wiki/Manual-Setup-(v3))
@@ -56,6 +56,10 @@ Xcode 6 and iOS 8.
         
             // set delegate
             picker.delegate = self;
+            
+            // to present picker as a form sheet on iPad
+            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+                picker.modalPresentationStyle = UIModalPresentationFormSheet;
             
             // present picker
             [self presentViewController:picker animated:YES completion:nil];

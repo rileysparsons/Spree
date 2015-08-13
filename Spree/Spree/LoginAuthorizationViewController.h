@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
 
 @protocol LoginAuthorizationViewControllerDelegate;
 
@@ -15,7 +16,7 @@
 
 
 
-@property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
+@property (weak, nonatomic) IBOutlet FBSDKProfilePictureView *profileImageView;
 @property PFUser *user;
 @property id<LoginAuthorizationViewControllerDelegate> delegate;
 
