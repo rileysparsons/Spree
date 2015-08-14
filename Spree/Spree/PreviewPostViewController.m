@@ -217,6 +217,9 @@
 
 -(void)postButtonPressed{
     NSLog(@"POSTED!");
+    [self.post saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error){
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }];
 }
 
 -(void)backButtonPressed{
