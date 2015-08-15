@@ -17,10 +17,12 @@
 #import "ChatView.h"
 #import "recent.h"
 #import <YHRoundBorderedButton.h>
+#import "Branch.h"
 
 @interface PostDetailTableViewController ()
 
 @property YHRoundBorderedButton* getButton;
+@property YHRoundBorderedButton* shareButton;
 @property BOOL currentUserPost;
 
 @end
@@ -47,12 +49,11 @@
     self.navigationItem.backBarButtonItem.title = @"";
     [self getUserForPost];
     [self setupNavigationBarImage];
-    [self setupPriceButton];
+    [self setupBarButtons];
     [self updatePostStatus];
     // Navigation bar UI
     
     // Setting the poster property
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -178,20 +179,33 @@
 
 #pragma mark - UI Setup
 
--(void)setupPriceButton{
+-(void)setupBarButtons{
     self.getButton = [[YHRoundBorderedButton alloc] init];
     [self.getButton addTarget:self action:@selector(priceButtonPressed) forControlEvents:UIControlEventTouchUpInside];
     [self.getButton sizeToFit];
-    [self.getButton setTintColor:[UIColor spreeOffWhite]];
+    [self.getButton setTintColor:[UIColor spreeDarkBlue]];
     [self.getButton setTitleColor:[UIColor spreeDarkBlue] forState:UIControlStateHighlighted];
     UIBarButtonItem *getBarButton = [[UIBarButtonItem alloc] initWithCustomView:self.getButton];
-    self.navigationItem.rightBarButtonItem = getBarButton;
+    //self.navigationItem.rightBarButtonItem = getBarButton;
+    
+    
+    
+    
+    self.shareButton = [[YHRoundBorderedButton alloc] init];
+    [self.shareButton addTarget:self action:@selector(shareButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+    [self.shareButton sizeToFit];
+    [self.shareButton setTintColor:[UIColor spreeDarkBlue]];
+    [self.shareButton setTitleColor:[UIColor spreeDarkBlue] forState:UIControlStateHighlighted];
+    UIBarButtonItem *getShareButton = [[UIBarButtonItem alloc] initWithCustomView:self.shareButton];
+    NSArray *tempArray2= [[NSArray alloc] initWithObjects:getBarButton, getShareButton, nil];
+    self.navigationItem.rightBarButtonItems=tempArray2;
+
+    [self.shareButton setTitle:[NSString stringWithFormat:@"Share"] forState:UIControlStateNormal];
     if ([self.post.type isEqualToString:POST_TYPE_TASK]){
         [self.getButton setTitle:@"CLAIM" forState:UIControlStateNormal];
     } else {
         [self.getButton setTitle:[NSString stringWithFormat:@"$%@", self.post.price.stringValue] forState:UIControlStateNormal];
-    }
-}
+    }}
 
 -(void)setupNavigationBarImage{
     if ([self.post.type isEqualToString:POST_TYPE_TASK]){
@@ -256,6 +270,22 @@
     
     [self actionChat:groupId post:self.post];
 }
+
+
+-(void)shareButtonPressed{
+    
+    //dictionary passed into the link that contains the object ID of the post that is being shared
+    NSMutableDictionary *objectId = [NSMutableDictionary dictionary];
+    [objectId setObject:self.post.objectId forKey:@"object ID"];
+    
+    //creates custom url that contains info put into it using the dictionary 
+    [[Branch getInstance] getContentUrlWithParams:objectId andChannel:@"viewer" andCallback:^(NSString *url, NSError *error) {
+        NSLog(@"OBJECT ID: %@", self.post.objectId);
+        NSLog(@"URL: %@", url);
+    }];
+    
+}
+
 
 - (void)actionChat:(NSString *)groupId post:(PFObject *)post_
 {
