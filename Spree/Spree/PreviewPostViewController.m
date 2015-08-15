@@ -216,7 +216,8 @@
 }
 
 -(void)postButtonPressed{
-    NSLog(@"POSTED!");
+    NSLog(@"POSTED: %@", self.post);
+
     [self.post saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error){
         [self dismissViewControllerAnimated:YES completion:nil];
     }];
@@ -237,7 +238,7 @@
         [self presentViewController:navControl animated:YES completion:nil];
     } else {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewPost" bundle:[NSBundle mainBundle]];
-        EditPostFieldViewController *postFieldViewController = [storyboard instantiateViewControllerWithIdentifier:@"EditPostFieldViewController"];
+        EditPostFieldViewController *postFieldViewController = [storyboard instantiateViewControllerWithIdentifier:@"PostFieldViewController"];
         postFieldViewController.fieldName = [self.fields objectAtIndex:editButton.tag];
         postFieldViewController.postingWorkflow = self.postingWorkflow;
         UINavigationController *navControl = [[UINavigationController alloc] initWithRootViewController:postFieldViewController];

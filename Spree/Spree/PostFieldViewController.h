@@ -13,7 +13,7 @@
 
 @interface PostFieldViewController : UIViewController <UITextViewDelegate>
 
-@property (weak, nonatomic) IBOutlet JVFloatLabeledTextView *fieldTextView;
+@property (weak, nonatomic) IBOutlet UITextView *fieldTextView;
 @property NSString *fieldName;
 @property NSString *fieldDisplayName;
 @property NSArray *requiredFields;

@@ -54,8 +54,16 @@
     [self.countBarButton sizeToFit];
     self.countBarButton.backgroundColor = [UIColor clearColor];
     
+    UIButton *nextButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 40)];
+    nextButton.backgroundColor = [UIColor clearColor];
+    [nextButton setImage:[UIImage imageNamed:@"forwardNormal_Dark"] forState:UIControlStateNormal];
+    [nextButton setImage:[UIImage imageNamed:@"forwardHighlight_Dark"] forState:UIControlStateHighlighted];
+    nextButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [nextButton addTarget:self action:@selector(nextBarButtonItemTouched:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *nextBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:nextButton];
+    
     UIBarButtonItem *countBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.countBarButton];
-    [self.navigationItem setRightBarButtonItems:@[countBarButtonItem] animated:YES];
+    [self.navigationItem setRightBarButtonItems:@[nextBarButtonItem, countBarButtonItem] animated:YES];
     [[self.navigationItem.rightBarButtonItems objectAtIndex:0] setEnabled: [self fieldIsFilled]];
 }
 
@@ -77,14 +85,14 @@
     
 //    [self.fieldTextView addRightButtonOnKeyboardWithText:@"Next" target:self action:@selector(nextBarButtonItemTouched:) shouldShowPlaceholder:YES];
     self.fieldTextView.font = [UIFont systemFontOfSize:25.0f];
-    self.fieldTextView.placeholder =NSLocalizedString(self.fieldDisplayName, @" ");
-    self.fieldTextView.placeholderTextColor = [UIColor darkGrayColor];
-    self.fieldTextView.floatingLabelFont = [UIFont boldSystemFontOfSize:15.0f];
-    self.fieldTextView.floatingLabelTextColor = [UIColor spreeDarkBlue];
-    self.fieldTextView.floatingLabel.backgroundColor = [UIColor clearColor];
-    self.fieldTextView.floatingLabelYPadding = -20.0f;
+//    self.fieldTextView.placeholder =NSLocalizedString(self.fieldDisplayName, @" ");
+//    self.fieldTextView.placeholderTextColor = [UIColor darkGrayColor];
+//    self.fieldTextView.floatingLabelFont = [UIFont boldSystemFontOfSize:15.0f];
+//    self.fieldTextView.floatingLabelTextColor = [UIColor spreeDarkBlue];
+//    self.fieldTextView.floatingLabel.backgroundColor = [UIColor clearColor];
+//    self.fieldTextView.floatingLabelYPadding = -20.0f;
     self.fieldTextView.tintColor = [UIColor spreeDarkBlue];
-    self.fieldTextView.floatingLabelShouldLockToTop = NO;
+//    self.fieldTextView.floatingLabelShouldLockToTop = NO;
     self.fieldTextView.backgroundColor = [UIColor clearColor];
     self.fieldTextView.delegate = self;
 }
@@ -239,7 +247,14 @@
         [[self.navigationItem.rightBarButtonItems objectAtIndex:0] setEnabled: [self fieldIsFilled]];
         return NO; // we return NO because we have manually edited the textField contents
     }
+    
     return YES;
 }
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [self nextBarButtonItemTouched:nil];
+    return YES;
+}
+
 
 @end
