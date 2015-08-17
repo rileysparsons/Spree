@@ -93,18 +93,20 @@
     SpreePost *post = [[SpreePost alloc] init];
     post.typePointer = [self objectAtIndexPath:indexPath];
     post.user = [PFUser currentUser];
-    if ([[self objectAtIndexPath:indexPath] objectForKey:@"subType"]){
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewPost" bundle:nil];
-        SelectPostSubTypeViewController *selectPostSubTypeViewController = [storyboard instantiateViewControllerWithIdentifier:@"SelectPostSubTypeViewController"];
-        selectPostSubTypeViewController.post = post;
-        selectPostSubTypeViewController.subTypes = [[self objectAtIndexPath:indexPath] objectForKey:@"subType"];
-        selectPostSubTypeViewController.type = [self objectAtIndexPath:indexPath][@"type"];
-        [self.navigationController pushViewController:selectPostSubTypeViewController animated:YES];
-    } else {
-        PostingWorkflow *postingWorkflow = [[PostingWorkflow alloc] initWithType:post.typePointer];
-        postingWorkflow.post = post;
-        [self.navigationController pushViewController:[postingWorkflow nextViewController] animated:YES];
-    }
+    
+    PFQuery *subtype = [PFQuery queryWithClassName:@"PostSubtype"];
+    [subtype getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error){
+        if (object){
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewPost" bundle:nil];
+            SelectPostSubTypeViewController *selectPostSubTypeViewController = [storyboard instantiateViewControllerWithIdentifier:@"SelectPostSubTypeViewController"];
+            selectPostSubTypeViewController.post = post;
+            [self.navigationController pushViewController:selectPostSubTypeViewController animated:YES];
+        } else {
+            PostingWorkflow *postingWorkflow = [[PostingWorkflow alloc] initWithType:post.typePointer];
+            postingWorkflow.post = post;
+            [self.navigationController pushViewController:[postingWorkflow nextViewController] animated:YES];
+        }
+    }];
 }
 
 -(void)dismissViewControllerAnimated:(BOOL)flag completion:(void (^)(void))completion{
