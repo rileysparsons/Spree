@@ -96,14 +96,14 @@
     
     PFQuery *subtype = [PFQuery queryWithClassName:@"PostSubtype"];
     [subtype getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error){
+        PostingWorkflow *postingWorkflow = [[PostingWorkflow alloc] initWithPost:post];
         if (object){
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewPost" bundle:nil];
             SelectPostSubTypeViewController *selectPostSubTypeViewController = [storyboard instantiateViewControllerWithIdentifier:@"SelectPostSubTypeViewController"];
+            selectPostSubTypeViewController.workflow = postingWorkflow;
             selectPostSubTypeViewController.post = post;
             [self.navigationController pushViewController:selectPostSubTypeViewController animated:YES];
         } else {
-            PostingWorkflow *postingWorkflow = [[PostingWorkflow alloc] initWithType:post.typePointer];
-            postingWorkflow.post = post;
             [self.navigationController pushViewController:[postingWorkflow nextViewController] animated:YES];
         }
     }];

@@ -18,6 +18,7 @@
 
 -(UIViewController *)nextViewController;
 -(id)initWithType:(PFObject *)type;
+-(id)initWithPost:(SpreePost *)post;
 -(UIViewController *)presentPreviewPostController;
 
 

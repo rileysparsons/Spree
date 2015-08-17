@@ -77,9 +77,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSLog(@"POST: %@", self.post);
-    PostingWorkflow *postingWorkflow = [[PostingWorkflow alloc] initWithType:self.post.typePointer];
-    postingWorkflow.post = self.post;
-    [self.navigationController pushViewController:[postingWorkflow nextViewController] animated:YES];
+    [self.navigationController pushViewController:[self.workflow nextViewController] animated:YES];
 }
 
 -(void)cancelWorkflow{

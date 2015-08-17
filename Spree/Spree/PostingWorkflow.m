@@ -22,6 +22,16 @@
 
 @implementation PostingWorkflow
 
+-(id)initWithPost:(SpreePost *)post{
+    self = [super init];
+    if (self){
+        self.post = post;
+        self.photosForDisplay = [[NSMutableArray alloc] init];
+        [self setupRequiredFields];
+    }
+    return self;
+}
+
 -(id)initWithType:(PFObject *)type{
     self = [super init];
     if (self){
