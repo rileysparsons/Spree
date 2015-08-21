@@ -18,9 +18,15 @@
 
 @property PFUser *poster;
 
+-(void)initWithPost:(SpreePost *)post;
+
 -(UITableViewCell *)cellForField:(NSString *)field;
 
 -(UITableViewCell *)loadPostImagesForCell:(PhotoGalleryTableViewCell *)cell;
+
+@property NSArray *existingFields;
+@property NSArray *existingFieldsForTable;
+
 
 
 @end

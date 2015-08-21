@@ -76,7 +76,8 @@
 
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSLog(@"POST: %@", self.post);
+//    self.workflow.
+    self.workflow.post[@"subtype"] = [self objectAtIndexPath:indexPath];
     [self.navigationController pushViewController:[self.workflow nextViewController] animated:YES];
 }
 

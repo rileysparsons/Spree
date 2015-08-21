@@ -18,14 +18,22 @@
 #import "recent.h"
 #import <YHRoundBorderedButton.h>
 
+
+
 @interface PostDetailTableViewController ()
 
 @property YHRoundBorderedButton* getButton;
 @property BOOL currentUserPost;
-
 @end
 
 @implementation PostDetailTableViewController
+
+-(void)initWithPost:(SpreePost *)post{
+    self.post = post;
+    
+    [self.post.typePointer fetchIfNeededInBackgroundWithTarget:self selector:@selector(initializeArrayForTable)];
+    
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -55,11 +63,6 @@
     
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -72,7 +75,7 @@
 #warning Incomplete method implementation.
     // Return the number of rows in the section.
     if (section == 0)
-        return self.fields.count;
+        return self.existingFieldsForTable.count;
     return 0;
 }
 
@@ -90,9 +93,10 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0)
-        return [self cellForField:self.fields[indexPath.row]];
+        return [self cellForField:[self.existingFieldsForTable objectAtIndex:indexPath.row][@"field"]];
     return 0;
 }
+
 
 -(UITableViewCell *)cellForField:(NSString *)field {
     
@@ -268,6 +272,7 @@
 }
 
 -(void)getUserForPost{
+    NSLog(@"%@", self.post.user);
     if (([[(PFUser *)self.post.user objectId] isEqualToString: [[PFUser currentUser] objectId]])){
         //        UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithTitle:@"Delete" style:UIBarButtonItemStyleBordered target:self actio:@selector(deleteButtonSelected)];
         self.poster = [PFUser currentUser];
@@ -375,5 +380,37 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+-(void)initializeArrayForTable{
+    
+    NSMutableArray *existingFields = [[NSMutableArray alloc] init];
+    NSMutableArray *fieldsFromType = [[NSMutableArray alloc] init];
+    NSMutableArray *existingFieldsForTable = [[NSMutableArray alloc] init];
+    
+    [fieldsFromType addObjectsFromArray:self.post.typePointer[@"fields"]];
+    //        //Add subtype fields
+    //        [fieldsFromType addObjectsFromArray:post];
+    for (id field in fieldsFromType){
+        if (self.post[field[@"field"]]){
+            [existingFields addObject:field];
+            if (![field[@"field"] isEqualToString:PF_POST_PRICE]){
+                [existingFieldsForTable addObject:field];
+            }
+        }
+    }
+    
+    self.existingFields = existingFields;
+    
+    NSSortDescriptor *sortDescriptor;
+    sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"priority"
+                                                 ascending:YES];
+    NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+    NSMutableArray *sortedExistingFieldArray = [[NSMutableArray alloc] initWithArray:[existingFieldsForTable sortedArrayUsingDescriptors:sortDescriptors]];
+    
+    self.existingFieldsForTable = sortedExistingFieldArray;
+
+    //
+    [self.tableView reloadData];
+}
 
 @end

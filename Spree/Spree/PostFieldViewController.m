@@ -9,22 +9,32 @@
 #import "PostFieldViewController.h"
 #import "YHRoundBorderedButton.h"
 
+
 @interface PostFieldViewController (){
     NSNumber* maxCharacter;
     NSNumber* remainingCharacters;
 }
 
-@property UIButton *countBarButton;
-
 @end
 
 @implementation PostFieldViewController
 
+-(void)initializeViewControllerWithField:(NSDictionary *)field{
+    self.prompt = field[@"prompt"];
+    self.fieldTitle = field[@"field"];
+    if (field[@"characterLimit"]){
+        maxCharacter = field[@"characterLimit"];
+        remainingCharacters = maxCharacter;
+        self.accessoryView = [[PostingInputAccessoryView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 40)];
+        self.fieldTextView.inputAccessoryView = self.accessoryView;
+        [self formatRemainingCharacterLabel];
+    }
+    self.navigationItem.title = self.prompt;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self setMaxCharacterLimit];
-    self.fieldDisplayName = [self fieldTitleForField:self.fieldName];
     [self navigationBarButtons];
     [self setupTextField];
     [[UIApplication sharedApplication] setStatusBarStyle: UIStatusBarStyleDefault];
@@ -44,15 +54,6 @@
     [cancel addTarget:self action:@selector(cancelWorkflow) forControlEvents:UIControlEventTouchUpInside];
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:cancel];
-
-    self.countBarButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.countBarButton.frame = CGRectZero;
-    self.countBarButton.titleLabel.font = [UIFont fontWithName:@"Lato-Bold" size:16];
-    self.countBarButton.userInteractionEnabled = NO;
-    [self.countBarButton setTitle:[NSString stringWithFormat:@"%@ characters remaining", [remainingCharacters stringValue]] forState:UIControlStateNormal];
-    [self.countBarButton setTitleColor:[UIColor spreeDarkBlue] forState:UIControlStateNormal];
-    [self.countBarButton sizeToFit];
-    self.countBarButton.backgroundColor = [UIColor clearColor];
     
     UIButton *nextButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 40)];
     nextButton.backgroundColor = [UIColor clearColor];
@@ -62,21 +63,20 @@
     [nextButton addTarget:self action:@selector(nextBarButtonItemTouched:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *nextBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:nextButton];
     
-    UIBarButtonItem *countBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.countBarButton];
-    [self.navigationItem setRightBarButtonItems:@[nextBarButtonItem, countBarButtonItem] animated:YES];
+    [self.navigationItem setRightBarButtonItems:@[nextBarButtonItem] animated:YES];
     [[self.navigationItem.rightBarButtonItems objectAtIndex:0] setEnabled: [self fieldIsFilled]];
 }
 
 -(void)setupTextField {
-    if (self.postingWorkflow.post[self.fieldName]){
-        if ([self.fieldName isEqualToString:PF_POST_PRICE]){
-           self.fieldTextView.text = [NSString stringWithFormat:@"$%@", ((NSNumber *)self.postingWorkflow.post[self.fieldName]).stringValue];
-             NSLog(@"%@", ((NSNumber *)self.postingWorkflow.post[self.fieldName]).stringValue);
+    if (self.postingWorkflow.post[self.fieldTitle]){
+        if ([self.fieldTitle isEqualToString:PF_POST_PRICE]){
+           self.fieldTextView.text = [NSString stringWithFormat:@"$%@", ((NSNumber *)self.postingWorkflow.post[self.fieldTitle]).stringValue];
+             NSLog(@"%@", ((NSNumber *)self.postingWorkflow.post[self.fieldTitle]).stringValue);
         } else {
-           self.fieldTextView.text = self.postingWorkflow.post[self.fieldName];
+           self.fieldTextView.text = self.postingWorkflow.post[self.fieldTitle];
         }
     } else {
-        if ([self.fieldName isEqualToString: PF_POST_PRICE] && self.fieldTextView.text){
+        if ([self.fieldTitle isEqualToString: PF_POST_PRICE] && self.fieldTextView.text){
             [self.fieldTextView setKeyboardType:UIKeyboardTypeDecimalPad];
             self.fieldTextView.text = @"0";
             [self textView:self.fieldTextView shouldChangeTextInRange:NSMakeRange(0, 0) replacementText:@"0"];
@@ -97,84 +97,51 @@
     self.fieldTextView.delegate = self;
 }
 
--(void)setMaxCharacterLimit{
-    int limit;
-    if ([PF_POST_PRICE isEqualToString:self.fieldName]){
-        limit = 10;
-    } else if ([PF_POST_DESCRIPTION isEqualToString:self.fieldName]){
-        limit = 140;
-    } else if ([PF_POST_TITLE isEqualToString:self.fieldName]){
-        limit = 60;
-    } else if ([PF_POST_DATEFOREVENT isEqualToString:self.fieldName]){
-        limit = 10;
-    } else if ([PF_POST_EVENT isEqualToString:self.fieldName]){
-        limit = 60;
-    } else if ([PF_POST_BOOKFORCLASS  isEqualToString:self.fieldName]){
-        limit = 10;
-    }
-    maxCharacter = [NSNumber numberWithInt:limit];
-    remainingCharacters = maxCharacter;
-}
-
--(NSString *)fieldTitleForField:(NSString *)field{
-    if ([PF_POST_PRICE isEqualToString:field]){
-        return @"Enter price.";
-    } else if ([PF_POST_DESCRIPTION isEqualToString:field]){
-        return @"Write a short description.";
-    } else if ([PF_POST_TITLE isEqualToString:field]){
-        return @"Title your post.";
-    } else if ([PF_POST_DATEFOREVENT isEqualToString:field]){
-        return @"When is the date of event?";
-    } else if ([PF_POST_EVENT isEqualToString:field]){
-        return @"What is the name of the event?";
-    } else if ([PF_POST_BOOKFORCLASS isEqualToString:field]){
-        return @"What class is this for?";
-    }
-    return field;
-}
 
 -(void)cancelWorkflow{
     self.postingWorkflow.step--;
     [self.navigationController popViewControllerAnimated:YES];
 }
 
--(void)textViewDidChange:(UITextView *)textView{
-    if (self.fieldTextView.text.length <= [maxCharacter integerValue]){
-        self.countBarButton.titleLabel.textColor = [UIColor spreeDarkBlue];
-    } else {
-        [self.countBarButton setTitleColor:[UIColor spreeRed] forState:UIControlStateNormal];
+- (void)formatRemainingCharacterLabel {
+    if (maxCharacter != nil){
+        if (self.fieldTextView.text.length <= [maxCharacter integerValue]){
+            self.accessoryView.remainingCharacterLabel.textColor = [UIColor spreeOffBlack];
+        } else {
+            self.accessoryView.remainingCharacterLabel.textColor = [UIColor spreeRed];
+        }
+        remainingCharacters = [NSNumber numberWithInt:(int)([maxCharacter integerValue] - (int)self.fieldTextView.text.length)];
+        self.accessoryView.remainingCharacterLabel.text = [NSString stringWithFormat:@"%@ characters remaining", [remainingCharacters stringValue]];
     }
-    remainingCharacters = [NSNumber numberWithInt:(int)([maxCharacter integerValue] - (int)self.fieldTextView.text.length)];
-    [self.countBarButton setTitle:[NSString stringWithFormat:@"%@ characters remaining", [remainingCharacters stringValue]] forState:UIControlStateNormal];
-    [self.countBarButton sizeToFit];
-    [self.countBarButton setNeedsDisplay];
+}
+
+-(void)textViewDidChange:(UITextView *)textView{
+    [self formatRemainingCharacterLabel];
     [[self.navigationItem.rightBarButtonItems objectAtIndex:0] setEnabled: [self fieldIsFilled]];
 }
 
 -(BOOL)fieldIsFilled{
-    if ([remainingCharacters integerValue] >= 0 && [remainingCharacters integerValue]< [maxCharacter integerValue]){
-        return YES;
+    NSLog(@"%@", maxCharacter);
+    if (maxCharacter){
+        if ([remainingCharacters integerValue] >= 0 && [remainingCharacters integerValue]< [maxCharacter integerValue]){
+            return YES;
+        } else {
+            return NO;
+        }
     } else {
-        return NO;
+        if (self.fieldTextView.text && self.fieldTextView.text.length > 0){
+            return YES;
+        }
     }
-}
-
-- (NSNumber *)getPriceFromString:(NSString *)price{
-    if ([price length] == 0) {
-        return 0;
-    }
-    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
-    formatter.numberStyle = NSNumberFormatterDecimalStyle;
-    NSNumber *priceNumber = [formatter numberFromString:[[price componentsSeparatedByString:@"$"] objectAtIndex:1]];
-    return priceNumber;
+    return NO;
 }
 
 - (void)nextBarButtonItemTouched:(id)sender {
-     NSLog(@"%@", self.fieldTextView.text);
-    if ([self.fieldName isEqualToString: PF_POST_PRICE])
-        self.postingWorkflow.post[self.fieldName] = [self getPriceFromString:self.fieldTextView.text];
-    else
-        self.postingWorkflow.post[self.fieldName] = self.fieldTextView.text;
+    NSLog(@"%@", self.fieldTextView.text);
+    
+    
+    self.postingWorkflow.post[self.fieldTitle] = self.fieldTextView.text;
+    
     
     self.postingWorkflow.step++;
     UIViewController *nextViewController =[self.postingWorkflow nextViewController];
@@ -182,72 +149,7 @@
 }
 
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
-    if ([self.fieldName isEqualToString: PF_POST_PRICE]){
-        NSString *textInView  = textView.text;
-        NSString *decimalSeperator = @".";
-        NSCharacterSet *charSet    = nil;
-        NSString *numberChars      = @"0123456789";
-        
-        
-        // the number formatter will only be instantiated once ...
-        
-        static NSNumberFormatter *numberFormatter;
-        if (!numberFormatter)
-        {
-            numberFormatter = [[NSNumberFormatter alloc] init];
-            numberFormatter.numberStyle           = NSNumberFormatterCurrencyStyle;
-            numberFormatter.maximumFractionDigits = 10;
-            numberFormatter.minimumFractionDigits = 0;
-            numberFormatter.decimalSeparator      = decimalSeperator;
-            numberFormatter.usesGroupingSeparator = NO;
-        }
-        
-        
-        // create a character set of valid chars (numbers and optionally a decimal sign) ...
-        
-        NSRange decimalRange = [textInView rangeOfString:decimalSeperator];
-        BOOL isDecimalNumber = (decimalRange.location != NSNotFound);
-        if (isDecimalNumber)
-        {
-            charSet = [NSCharacterSet characterSetWithCharactersInString:numberChars];
-        }
-        else
-        {
-            numberChars = [numberChars stringByAppendingString:decimalSeperator];
-            charSet = [NSCharacterSet characterSetWithCharactersInString:numberChars];
-        }
-        
-        
-        // remove amy characters from the string that are not a number or decimal sign ...
-        
-        NSCharacterSet *invertedCharSet = [charSet invertedSet];
-        NSString *trimmedString = [text stringByTrimmingCharactersInSet:invertedCharSet];
-        textInView = [textInView stringByReplacingCharactersInRange:range withString:trimmedString];
-        
-        
-        // whenever a decimalSeperator is entered, we'll just update the textField.
-        // whenever other chars are entered, we'll calculate the new number and update the textField accordingly.
-        
-        if ([text isEqualToString:decimalSeperator] == YES)
-        {
-            textView.text = textInView;
-        }
-        else
-        {
-            NSNumber *number = [numberFormatter numberFromString:textInView];
-            NSLog(@"number: %@", number);
-            if (number == nil)
-            {
-                number = [NSNumber numberWithInt:0];
-            }
-            textView.text = isDecimalNumber ? textInView : [numberFormatter stringFromNumber:number];
-        }
-        remainingCharacters = [NSNumber numberWithInt:(int)([maxCharacter integerValue] - (int)self.fieldTextView.text.length)];
-        [self.countBarButton setTitle:[NSString stringWithFormat:@"%@ characters remaining", [remainingCharacters stringValue]] forState:UIControlStateNormal];
-        [[self.navigationItem.rightBarButtonItems objectAtIndex:0] setEnabled: [self fieldIsFilled]];
-        return NO; // we return NO because we have manually edited the textField contents
-    }
-    
+    [[self.navigationItem.rightBarButtonItems objectAtIndex:0] setEnabled: [self fieldIsFilled]];
     return YES;
 }
 
@@ -255,6 +157,7 @@
     [self nextBarButtonItemTouched:nil];
     return YES;
 }
+
 
 
 @end

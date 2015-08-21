@@ -14,6 +14,8 @@
 @property SpreePost *post;
 @property NSMutableArray *photosForDisplay;
 @property NSMutableArray *uncompletedFields;
+@property (retain, nonatomic) PFObject* type;
+@property (retain, nonatomic) PFObject* subtype;
 @property int step;
 
 -(UIViewController *)nextViewController;

@@ -51,7 +51,8 @@
     // Dispose of any resources that can be recreated.
 }
 
--(UITableViewCell *)cellForField:(NSString *)field {
+-(UITableViewCell *)cellForField:(NSString*)field {
+    NSLog(@"%@", self.existingFieldsForTable);
     if ([field isEqualToString:PF_POST_DESCRIPTION]){
         static NSString *CellIdentifier = @"DescriptionCell";
         PostDescriptionTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -65,7 +66,7 @@
             }
         }
         [cell.editDescriptionButton addTarget:self action:@selector(editButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
-        cell.editDescriptionButton.tag = [self.fields indexOfObject:PF_POST_DESCRIPTION];
+        cell.editDescriptionButton.tag = [self indexOfField:field];
         [cell setDescriptionTextViewForPost:self.post];
         return cell;
     } else if ([field isEqualToString:PF_POST_TITLE]){
@@ -83,7 +84,7 @@
         [cell enableEditMode];
         [cell setTitleforPost:self.post];
         [cell.editTitleButton addTarget:self action:@selector(editButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
-        cell.editTitleButton.tag = [self.fields indexOfObject:PF_POST_TITLE];
+        cell.editTitleButton.tag = [self indexOfField:field];
         return cell;
     } else if ([field isEqualToString:PF_POST_PHOTOARRAY]){
         static NSString *CellIdentifier = @"PhotoGalleryCell";
@@ -112,7 +113,7 @@
         [cell enableEditMode];
         [cell.editButton addTarget:self action:@selector(editButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
         NSLog(@"Number of photos %@", self.postingWorkflow.photosForDisplay);
-        cell.editButton.tag = [self.fields indexOfObject:PF_POST_PHOTOARRAY];
+        cell.editButton.tag = [self indexOfField:field];;
         cell.dateLabel.hidden = YES;
         return cell;
     } else if ([field isEqualToString:PF_POST_USER]){
@@ -143,7 +144,7 @@
                 }
             }
         }
-        cell.editButton.tag = [self.fields indexOfObject:PF_POST_BOOKFORCLASS];
+        cell.editButton.tag = [self indexOfField:field];
         [cell.editButton addTarget:self action:@selector(editButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
         cell.titleLabel.text = self.post.bookForClass;
         [cell enableEditMode];
@@ -160,7 +161,7 @@
                 }
             }
         }
-        cell.editButton.tag = [self.fields indexOfObject:PF_POST_DATEFOREVENT];
+        cell.editButton.tag = [self indexOfField:field];
         [cell.editButton addTarget:self action:@selector(editButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
         cell.titleLabel.text = self.post.eventDate;
         [cell enableEditMode];
@@ -230,7 +231,8 @@
 
 -(void)editButtonTouched:(id)sender{
     UIButton *editButton = (UIButton *)sender;
-    if ([[self.fields objectAtIndex:editButton.tag] isEqualToString:PF_POST_PHOTOARRAY]){
+    NSLog(@"Tag %ld", (long)editButton.tag);
+    if ([[self.existingFieldsForTable objectAtIndex:editButton.tag][@"field"] isEqualToString:PF_POST_PHOTOARRAY]){
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewPost" bundle:[NSBundle mainBundle]];
         EditPostPhotoSelectViewController *editPostPhotoViewController = [storyboard instantiateViewControllerWithIdentifier:@"EditPostPhotoSelectViewController"];
         editPostPhotoViewController.postingWorkflow = self.postingWorkflow;
@@ -238,13 +240,18 @@
         [self presentViewController:navControl animated:YES completion:nil];
     } else {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewPost" bundle:[NSBundle mainBundle]];
-        EditPostFieldViewController *postFieldViewController = [storyboard instantiateViewControllerWithIdentifier:@"PostFieldViewController"];
-        postFieldViewController.fieldName = [self.fields objectAtIndex:editButton.tag];
+        EditPostFieldViewController *postFieldViewController = [storyboard instantiateViewControllerWithIdentifier:@"EditPostFieldViewController"];
+        [postFieldViewController initializeViewControllerWithField:[self.existingFieldsForTable objectAtIndex:editButton.tag]];
         postFieldViewController.postingWorkflow = self.postingWorkflow;
         UINavigationController *navControl = [[UINavigationController alloc] initWithRootViewController:postFieldViewController];
         [self presentViewController:navControl animated:YES completion:nil];
     }
   }
 
+-(NSUInteger)indexOfField:(NSString*)field{
+    NSArray *arrayWithPlaces = [self.existingFieldsForTable valueForKey:@"field"];
+    NSUInteger index = [arrayWithPlaces indexOfObject:field];
+    return index;
+}
 
 @end

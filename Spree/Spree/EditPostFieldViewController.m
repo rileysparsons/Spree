@@ -17,13 +17,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    [self navigationBarButtons];
     // Do any additional setup after loading the view.
 }
 
 -(void)navigationBarButtons{
-    [super navigationBarButtons];
-    // Override super class cancel button setup, so that the modal dismisses.
     UIButton *cancel = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 25, 25)];
     cancel.tag = 1;
     cancel.backgroundColor = [UIColor clearColor];
@@ -44,7 +42,7 @@
     if (button.tag == 1){
         
     } else {
-        ((PreviewPostViewController*)((UINavigationController *)self.presentingViewController).topViewController).post[self.fieldName] = self.fieldTextView.text;
+        ((PreviewPostViewController*)((UINavigationController *)self.presentingViewController).topViewController).post[self.fieldTitle] = self.fieldTextView.text;
         [((PreviewPostViewController*)((UINavigationController *)self.presentingViewController).topViewController).tableView reloadData];
     }
     [self.fieldTextView resignFirstResponder];
