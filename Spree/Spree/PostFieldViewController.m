@@ -29,7 +29,6 @@
         self.fieldTextView.inputAccessoryView = self.accessoryView;
         [self formatRemainingCharacterLabel];
     }
-    self.navigationItem.title = self.prompt;
 }
 
 - (void)viewDidLoad {
@@ -46,12 +45,12 @@
 }
 
 -(void)navigationBarButtons{
-    UIButton *cancel = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 40)];
+    UIButton *cancel = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 25, 25)];
     cancel.backgroundColor = [UIColor clearColor];
-    [cancel setImage:[UIImage imageNamed:@"backNormal_Dark"] forState:UIControlStateNormal];
-    [cancel setImage:[UIImage imageNamed:@"backHighlight_Dark"] forState:UIControlStateHighlighted];
-    cancel.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [cancel setBackgroundImage:[UIImage imageNamed:@"cancelOffBlack"] forState:UIControlStateNormal];
+    [cancel setBackgroundImage:[UIImage imageNamed:@"cancelHighlight"] forState:UIControlStateHighlighted];
     [cancel addTarget:self action:@selector(cancelWorkflow) forControlEvents:UIControlEventTouchUpInside];
+    [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:cancel]];
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:cancel];
     
@@ -68,6 +67,13 @@
 }
 
 -(void)setupTextField {
+    
+    self.fieldTextView.font = [UIFont systemFontOfSize:25.0f];
+    
+    UIFont *placeholderFont = [UIFont fontWithName:@"Lato-Regular" size:25.0f];
+    
+    NSDictionary *attributedPlaceholderDictionary = @{NSFontAttributeName : placeholderFont, NSForegroundColorAttributeName : [[UIColor spreeOffBlack] colorWithAlphaComponent:0.5f]};
+    
     if (self.postingWorkflow.post[self.fieldTitle]){
         if ([self.fieldTitle isEqualToString:PF_POST_PRICE]){
            self.fieldTextView.text = [NSString stringWithFormat:@"$%@", ((NSNumber *)self.postingWorkflow.post[self.fieldTitle]).stringValue];
@@ -75,32 +81,25 @@
         } else {
            self.fieldTextView.text = self.postingWorkflow.post[self.fieldTitle];
         }
-    } else {
-        if ([self.fieldTitle isEqualToString: PF_POST_PRICE] && self.fieldTextView.text){
-            [self.fieldTextView setKeyboardType:UIKeyboardTypeDecimalPad];
-            self.fieldTextView.text = @"0";
-            [self textView:self.fieldTextView shouldChangeTextInRange:NSMakeRange(0, 0) replacementText:@"0"];
-        }
     }
-    
-//    [self.fieldTextView addRightButtonOnKeyboardWithText:@"Next" target:self action:@selector(nextBarButtonItemTouched:) shouldShowPlaceholder:YES];
-    self.fieldTextView.font = [UIFont systemFontOfSize:25.0f];
-//    self.fieldTextView.placeholder =NSLocalizedString(self.fieldDisplayName, @" ");
-//    self.fieldTextView.placeholderTextColor = [UIColor darkGrayColor];
-//    self.fieldTextView.floatingLabelFont = [UIFont boldSystemFontOfSize:15.0f];
-//    self.fieldTextView.floatingLabelTextColor = [UIColor spreeDarkBlue];
-//    self.fieldTextView.floatingLabel.backgroundColor = [UIColor clearColor];
-//    self.fieldTextView.floatingLabelYPadding = -20.0f;
+    if ([self.fieldTitle isEqualToString: PF_POST_PRICE]){
+        NSAttributedString *placeholder = [[NSAttributedString alloc] initWithString:@"0.00" attributes:attributedPlaceholderDictionary];
+        [self.fieldTextView setKeyboardType:UIKeyboardTypeNumberPad];
+        self.fieldTextView.attributedPlaceholder = placeholder;
+    } else {
+        NSAttributedString *placeholder = [[NSAttributedString alloc] initWithString:self.prompt attributes:attributedPlaceholderDictionary];
+        self.fieldTextView.attributedPlaceholder = placeholder;
+    }
     self.fieldTextView.tintColor = [UIColor spreeDarkBlue];
-//    self.fieldTextView.floatingLabelShouldLockToTop = NO;
     self.fieldTextView.backgroundColor = [UIColor clearColor];
     self.fieldTextView.delegate = self;
 }
 
 
 -(void)cancelWorkflow{
-    self.postingWorkflow.step--;
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.fieldTextView resignFirstResponder];
+    self.postingWorkflow = nil;
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)formatRemainingCharacterLabel {

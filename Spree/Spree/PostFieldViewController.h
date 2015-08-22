@@ -8,13 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import <JVFloatLabeledTextField/JVFloatLabeledTextView.h>
+#import <SAMTextView/SAMTextView.h>
 #import "PostingWorkflow.h"
 #import "SpreePost.h"
 #import "PostingInputAccessoryView.h"
 
 @interface PostFieldViewController : UIViewController <UITextViewDelegate>
 
-@property (weak, nonatomic) IBOutlet UITextView *fieldTextView;
+@property (weak, nonatomic) IBOutlet SAMTextView *fieldTextView;
 @property NSString *fieldTitle;
 @property NSString *prompt;
 @property NSArray *requiredFields;
