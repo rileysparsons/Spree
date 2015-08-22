@@ -19,9 +19,9 @@
 
 @implementation PostFieldViewController
 
--(void)initializeViewControllerWithField:(NSDictionary *)field{
-    self.prompt = field[@"prompt"];
-    self.fieldTitle = field[@"field"];
+-(void)initWithField:(NSDictionary *)field post:(SpreePost *)post{
+    [super initWithField:field post:post];
+    
     if (field[@"characterLimit"]){
         maxCharacter = field[@"characterLimit"];
         remainingCharacters = maxCharacter;
@@ -31,10 +31,22 @@
     }
 }
 
+-(void)initWithField:(NSDictionary *)field postingWorkflow:(PostingWorkflow *)postingWorkflow{
+    [super initWithField:field postingWorkflow:postingWorkflow];
+    if (field[@"characterLimit"]){
+        maxCharacter = field[@"characterLimit"];
+        remainingCharacters = maxCharacter;
+        self.accessoryView = [[PostingInputAccessoryView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 40)];
+        self.fieldTextView.inputAccessoryView = self.accessoryView;
+        [self formatRemainingCharacterLabel];
+    }
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self navigationBarButtons];
+    [self.nextButton setEnabled: [self fieldIsFilled]];
     [self setupTextField];
     [[UIApplication sharedApplication] setStatusBarStyle: UIStatusBarStyleDefault];
 }
@@ -44,27 +56,7 @@
     [self.fieldTextView performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.1f];
 }
 
--(void)navigationBarButtons{
-    UIButton *cancel = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 25, 25)];
-    cancel.backgroundColor = [UIColor clearColor];
-    [cancel setBackgroundImage:[UIImage imageNamed:@"cancelOffBlack"] forState:UIControlStateNormal];
-    [cancel setBackgroundImage:[UIImage imageNamed:@"cancelHighlight"] forState:UIControlStateHighlighted];
-    [cancel addTarget:self action:@selector(cancelWorkflow) forControlEvents:UIControlEventTouchUpInside];
-    [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:cancel]];
-    
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:cancel];
-    
-    UIButton *nextButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 40)];
-    nextButton.backgroundColor = [UIColor clearColor];
-    [nextButton setImage:[UIImage imageNamed:@"forwardNormal_Dark"] forState:UIControlStateNormal];
-    [nextButton setImage:[UIImage imageNamed:@"forwardHighlight_Dark"] forState:UIControlStateHighlighted];
-    nextButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
-    [nextButton addTarget:self action:@selector(nextBarButtonItemTouched:) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *nextBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:nextButton];
-    
-    [self.navigationItem setRightBarButtonItems:@[nextBarButtonItem] animated:YES];
-    [[self.navigationItem.rightBarButtonItems objectAtIndex:0] setEnabled: [self fieldIsFilled]];
-}
+#pragma mark - Custom UI Formatting
 
 -(void)setupTextField {
     
@@ -79,6 +71,7 @@
            self.fieldTextView.text = [NSString stringWithFormat:@"$%@", ((NSNumber *)self.postingWorkflow.post[self.fieldTitle]).stringValue];
              NSLog(@"%@", ((NSNumber *)self.postingWorkflow.post[self.fieldTitle]).stringValue);
         } else {
+            NSLog(@"%@", self.postingWorkflow);
            self.fieldTextView.text = self.postingWorkflow.post[self.fieldTitle];
         }
     }
@@ -95,13 +88,6 @@
     self.fieldTextView.delegate = self;
 }
 
-
--(void)cancelWorkflow{
-    [self.fieldTextView resignFirstResponder];
-    self.postingWorkflow = nil;
-    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-}
-
 - (void)formatRemainingCharacterLabel {
     if (maxCharacter != nil){
         if (self.fieldTextView.text.length <= [maxCharacter integerValue]){
@@ -114,10 +100,7 @@
     }
 }
 
--(void)textViewDidChange:(UITextView *)textView{
-    [self formatRemainingCharacterLabel];
-    [[self.navigationItem.rightBarButtonItems objectAtIndex:0] setEnabled: [self fieldIsFilled]];
-}
+#pragma mark - Data Validation
 
 -(BOOL)fieldIsFilled{
     NSLog(@"%@", maxCharacter);
@@ -135,21 +118,16 @@
     return NO;
 }
 
-- (void)nextBarButtonItemTouched:(id)sender {
-    NSLog(@"%@", self.fieldTextView.text);
-    
-    
-    self.postingWorkflow.post[self.fieldTitle] = self.fieldTextView.text;
-    
-    
-    self.postingWorkflow.step++;
-    UIViewController *nextViewController =[self.postingWorkflow nextViewController];
-    [self.navigationController pushViewController:nextViewController animated:YES];
-}
+#pragma mark - TextView Delegate Methods
 
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
     [[self.navigationItem.rightBarButtonItems objectAtIndex:0] setEnabled: [self fieldIsFilled]];
     return YES;
+}
+
+-(void)textViewDidChange:(UITextView *)textView{
+    [self formatRemainingCharacterLabel];
+    [[self.navigationItem.rightBarButtonItems objectAtIndex:0] setEnabled: [self fieldIsFilled]];
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
@@ -158,5 +136,14 @@
 }
 
 
+- (void)nextBarButtonItemTouched:(id)sender {
+    [super nextBarButtonItemTouched:sender];
+    self.postingWorkflow.post[self.fieldTitle] = self.fieldTextView.text;
+}
+
+-(void)cancelWorkflow{
+    [super cancelWorkflow];
+    [self.fieldTextView resignFirstResponder];
+}
 
 @end

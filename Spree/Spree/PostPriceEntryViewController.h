@@ -7,15 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PostFieldViewController.h"
+#import "PostingDataEntryViewController.h"
 
-@interface PostPriceEntryViewController : PostFieldViewController <UITextFieldDelegate>
+@interface PostPriceEntryViewController : PostingDataEntryViewController <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *symbolLabel;
 
 @property (weak, nonatomic) IBOutlet UITextField *priceTextField;
 @property (weak, nonatomic) IBOutlet UIView *priceEntryView;
 
--(void)initWithField:(NSString *)field;
 
 @end

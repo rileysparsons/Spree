@@ -12,20 +12,15 @@
 #import "PostingWorkflow.h"
 #import "SpreePost.h"
 #import "PostingInputAccessoryView.h"
+#import "PostingDataEntryViewController.h"
 
-@interface PostFieldViewController : UIViewController <UITextViewDelegate>
+@interface PostFieldViewController : PostingDataEntryViewController <UITextViewDelegate>
 
 @property (weak, nonatomic) IBOutlet SAMTextView *fieldTextView;
-@property NSString *fieldTitle;
-@property NSString *prompt;
 @property NSArray *requiredFields;
-@property SpreePost *post;
-@property PostingWorkflow *postingWorkflow;
 @property PostingInputAccessoryView *accessoryView;
 
--(void)initializeViewControllerWithField:(NSDictionary *)field;
 -(void)setupTextField;
--(void)navigationBarButtons;
 - (void)nextBarButtonItemTouched:(id)sender;
 
 @end

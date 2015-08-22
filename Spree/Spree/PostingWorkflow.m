@@ -92,26 +92,23 @@
 
 -(UIViewController *)nextViewController{
     NSLog(@"Remaining fields: %@", self.uncompletedFields);
-
+    
     if (self.uncompletedFields.count <= self.step){
         return [self presentPreviewPostController];
     } else {
+        NSDictionary *nextField = [self.uncompletedFields objectAtIndex:self.step];
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewPost" bundle:nil];
-        if ([[self.uncompletedFields objectAtIndex:self.step][@"dataType"] isEqualToString: @"string"]){
+        if ([nextField[@"dataType"] isEqualToString: @"string"]){
             PostFieldViewController *postFieldViewController = [storyboard instantiateViewControllerWithIdentifier:@"PostFieldViewController"];
-            [postFieldViewController initializeViewControllerWithField:[self.uncompletedFields objectAtIndex:self.step]];
-            postFieldViewController.postingWorkflow = self;
-            postFieldViewController.post = self.post;
+            [postFieldViewController initWithField:nextField postingWorkflow:self];
             return postFieldViewController;
-        } else if ([[self.uncompletedFields objectAtIndex:self.step][@"dataType"] isEqualToString: @"geoPoint"]){
+        } else if ([nextField[@"dataType"] isEqualToString: @"geoPoint"]){
             
-        } else if ([[self.uncompletedFields objectAtIndex:self.step][@"dataType"] isEqualToString: @"number"]){
+        } else if ([nextField[@"dataType"] isEqualToString: @"number"]){
             PostPriceEntryViewController *postPriceEntryViewController = [storyboard instantiateViewControllerWithIdentifier:@"PostPriceEntryViewController"];
-            [postPriceEntryViewController initWithField:[self.uncompletedFields objectAtIndex:self.step]];
-            postPriceEntryViewController.postingWorkflow = self;
-            postPriceEntryViewController.post = self.post;
+            [postPriceEntryViewController initWithField:nextField postingWorkflow:self];
             return postPriceEntryViewController;
-        } else if ([[self.uncompletedFields objectAtIndex:self.step][@"dataType"] isEqualToString: @"image"]){
+        } else if ([nextField[@"dataType"] isEqualToString: @"image"]){
             PostPhotoSelectViewController *postPhotoSelectViewController = [storyboard instantiateViewControllerWithIdentifier:@"PostPhotoSelectViewController"];
             postPhotoSelectViewController.postingWorkflow = self;
 

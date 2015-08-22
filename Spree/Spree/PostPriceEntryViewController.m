@@ -16,8 +16,20 @@
 
 @implementation PostPriceEntryViewController
 
--(void)initWithField:(NSDictionary *)field{
-    self.fieldTitle = field[@"field"];
+-(void)initWithField:(NSDictionary *)field post:(SpreePost *)post{
+    [super initWithField:field post:post];
+    if ([field[@"field"] isEqualToString:PF_POST_PRICE]){
+        self.symbolLabel.text = @"$";
+        if (field[@"maxCharacter"]) {
+            maxCharacter = field[@"maxCharacter"];
+        } else {
+            maxCharacter = [NSNumber numberWithInt:4];
+        }
+    }
+}
+
+-(void)initWithField:(NSDictionary *)field postingWorkflow:(PostingWorkflow *)postingWorkflow{
+    [super initWithField:field postingWorkflow:postingWorkflow];
     if ([field[@"field"] isEqualToString:PF_POST_PRICE]){
         self.symbolLabel.text = @"$";
         if (field[@"maxCharacter"]) {
@@ -85,6 +97,11 @@
     formatter.numberStyle = NSNumberFormatterNoStyle;
     NSNumber *priceNumber = [formatter numberFromString:price];
     return priceNumber;
+}
+
+-(void)cancelWorkflow{
+    [super cancelWorkflow];
+    [self.priceTextField resignFirstResponder];
 }
 
 @end

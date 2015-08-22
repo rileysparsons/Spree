@@ -30,20 +30,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupButtons];
-    UIButton *cancel = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 40)];
-    cancel.backgroundColor = [UIColor clearColor];
-    cancel.imageView.contentMode = UIViewContentModeScaleAspectFit;
-    [cancel setImage:[UIImage imageNamed:@"backNormal_Dark"] forState:UIControlStateNormal];
-    [cancel setImage:[UIImage imageNamed:@"backHighlight_Dark"] forState:UIControlStateHighlighted];
-    [cancel addTarget:self action:@selector(backButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-    
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:cancel];
     
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.shadowImage = [UIImage new];
     self.navigationController.view.backgroundColor = [UIColor spreeOffWhite];
     self.navigationController.navigationBar.backgroundColor = [UIColor spreeOffWhite];
+    
     // Do any additional setup after loading the view.
+    
+    
+    NSLog(@"Workflow %@", self.postingWorkflow);
+    NSLog(@"Post %@", self.postingWorkflow.post);
 }
 
 - (void)didReceiveMemoryWarning {
@@ -202,18 +199,23 @@
 }
 
 -(void)setupButtons{
-    self.postButton = [[YHRoundBorderedButton alloc] init];
-    [self.postButton addTarget:self action:@selector(postButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-    [self.postButton sizeToFit];
-    [self.postButton.titleLabel setFont:[UIFont fontWithName:@"Lato-Regular" size:16]];
-    [self.postButton setTintColor:[UIColor spreeDarkBlue]];
-    [self.postButton setTitleColor:[UIColor spreeOffBlack] forState:UIControlStateHighlighted];
-    [self.postButton setTitle:@"POST" forState:UIControlStateNormal];
-    UIBarButtonItem *getBarButton = [[UIBarButtonItem alloc] initWithCustomView:self.postButton];
-    self.navigationItem.rightBarButtonItem = getBarButton;
+    UIButton *cancel = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 40)];
+    cancel.backgroundColor = [UIColor clearColor];
+    cancel.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [cancel setImage:[UIImage imageNamed:@"cancelOffBlack"] forState:UIControlStateNormal];
+    [cancel setImage:[UIImage imageNamed:@"cancelHighlight"] forState:UIControlStateHighlighted];
+    [cancel addTarget:self action:@selector(cancelPost) forControlEvents:UIControlEventTouchUpInside];
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(backButtonPressed)];
-    self.navigationItem.leftBarButtonItem.tintColor = [UIColor spreeRed];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:cancel];
+    
+    UIButton *postButton = [[UIButton alloc] initWithFrame:CGRectZero];
+    postButton.backgroundColor = [UIColor clearColor];
+    [postButton setTitle:@"Post" forState:UIControlStateNormal];
+    [postButton setTitleColor:[UIColor spreeDarkBlue] forState:UIControlStateNormal];
+    [postButton sizeToFit];
+    [postButton addTarget:self action:@selector(postButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:postButton];
+
 }
 
 -(void)postButtonPressed{
@@ -224,9 +226,9 @@
     }];
 }
 
--(void)backButtonPressed{
-    self.postingWorkflow.step--;
-    [self.navigationController popViewControllerAnimated:YES];
+-(void)cancelPost{
+    self.postingWorkflow = nil;
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 -(void)editButtonTouched:(id)sender{
@@ -241,8 +243,7 @@
     } else {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewPost" bundle:[NSBundle mainBundle]];
         EditPostFieldViewController *postFieldViewController = [storyboard instantiateViewControllerWithIdentifier:@"EditPostFieldViewController"];
-        [postFieldViewController initializeViewControllerWithField:[self.existingFieldsForTable objectAtIndex:editButton.tag]];
-        postFieldViewController.postingWorkflow = self.postingWorkflow;
+        [postFieldViewController initWithField:[self.existingFieldsForTable objectAtIndex:editButton.tag] post:self.post];
         UINavigationController *navControl = [[UINavigationController alloc] initWithRootViewController:postFieldViewController];
         [self presentViewController:navControl animated:YES completion:nil];
     }
