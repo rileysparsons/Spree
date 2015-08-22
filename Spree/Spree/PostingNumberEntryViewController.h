@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "PostingDataEntryViewController.h"
 
-@interface PostPriceEntryViewController : PostingDataEntryViewController <UITextFieldDelegate>
+@interface PostingNumberEntryViewController : PostingDataEntryViewController <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *symbolLabel;
 

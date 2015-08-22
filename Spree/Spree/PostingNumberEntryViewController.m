@@ -6,15 +6,15 @@
 //  Copyright (c) 2015 Riley Steele Parsons. All rights reserved.
 //
 
-#import "PostPriceEntryViewController.h"
+#import "PostingNumberEntryViewController.h"
 
-@interface PostPriceEntryViewController (){
+@interface PostingNumberEntryViewController (){
     NSNumber *maxCharacter;
 }
 
 @end
 
-@implementation PostPriceEntryViewController
+@implementation PostingNumberEntryViewController
 
 -(void)initWithField:(NSDictionary *)field post:(SpreePost *)post{
     [super initWithField:field post:post];

@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 Riley Steele Parsons. All rights reserved.
 //
 
-#import "PostFieldViewController.h"
+#import "PostingStringEntryViewController.h"
 
-@interface EditPostFieldViewController : PostFieldViewController
+@interface EditPostFieldViewController : PostingStringEntryViewController
 
 @end

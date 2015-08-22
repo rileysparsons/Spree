@@ -7,10 +7,10 @@
 //
 
 #import "PostingWorkflow.h"
-#import "PostFieldViewController.h"
+#import "PostingStringEntryViewController.h"
 #import "PreviewPostViewController.h"
 #import "PostPhotoSelectViewController.h"
-#import "PostPriceEntryViewController.h"
+#import "PostingNumberEntryViewController.h"
 
 
 
@@ -99,13 +99,13 @@
         NSDictionary *nextField = [self.uncompletedFields objectAtIndex:self.step];
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewPost" bundle:nil];
         if ([nextField[@"dataType"] isEqualToString: @"string"]){
-            PostFieldViewController *postFieldViewController = [storyboard instantiateViewControllerWithIdentifier:@"PostFieldViewController"];
+            PostingStringEntryViewController *postFieldViewController = [storyboard instantiateViewControllerWithIdentifier:@"PostFieldViewController"];
             [postFieldViewController initWithField:nextField postingWorkflow:self];
             return postFieldViewController;
         } else if ([nextField[@"dataType"] isEqualToString: @"geoPoint"]){
             
         } else if ([nextField[@"dataType"] isEqualToString: @"number"]){
-            PostPriceEntryViewController *postPriceEntryViewController = [storyboard instantiateViewControllerWithIdentifier:@"PostPriceEntryViewController"];
+            PostingNumberEntryViewController *postPriceEntryViewController = [storyboard instantiateViewControllerWithIdentifier:@"PostPriceEntryViewController"];
             [postPriceEntryViewController initWithField:nextField postingWorkflow:self];
             return postPriceEntryViewController;
         } else if ([nextField[@"dataType"] isEqualToString: @"image"]){

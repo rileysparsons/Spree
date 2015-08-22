@@ -14,7 +14,7 @@
 #import "PostingInputAccessoryView.h"
 #import "PostingDataEntryViewController.h"
 
-@interface PostFieldViewController : PostingDataEntryViewController <UITextViewDelegate>
+@interface PostingStringEntryViewController : PostingDataEntryViewController <UITextViewDelegate>
 
 @property (weak, nonatomic) IBOutlet SAMTextView *fieldTextView;
 @property NSArray *requiredFields;

@@ -33,10 +33,10 @@
             </objects>
             <point key="canvasLocation" x="-132" y="-3949"/>
         </scene>
-        <!--Post Field View Controller-->
+        <!--Posting String Entry View Controller-->
         <scene sceneID="UEW-mZ-YHC">
             <objects>
-                <viewController storyboardIdentifier="PostFieldViewController" id="n1u-NM-UgY" customClass="PostFieldViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PostFieldViewController" id="n1u-NM-UgY" customClass="PostingStringEntryViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Yrg-5O-e3u"/>
                         <viewControllerLayoutGuide type="bottom" id="DfI-at-nTW"/>
@@ -183,10 +183,10 @@
             </objects>
             <point key="canvasLocation" x="386" y="-3949"/>
         </scene>
-        <!--Post Price Entry View Controller-->
+        <!--Posting Number Entry View Controller-->
         <scene sceneID="ys5-NY-81n">
             <objects>
-                <viewController storyboardIdentifier="PostPriceEntryViewController" id="1Yo-Wc-N4r" customClass="PostPriceEntryViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PostPriceEntryViewController" id="1Yo-Wc-N4r" customClass="PostingNumberEntryViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="QL3-LT-NkG"/>
                         <viewControllerLayoutGuide type="bottom" id="a4I-p1-9zq"/>

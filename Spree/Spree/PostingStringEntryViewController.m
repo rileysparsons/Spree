@@ -6,18 +6,18 @@
 //
 //
 
-#import "PostFieldViewController.h"
+#import "PostingStringEntryViewController.h"
 #import "YHRoundBorderedButton.h"
 
 
-@interface PostFieldViewController (){
+@interface PostingStringEntryViewController (){
     NSNumber* maxCharacter;
     NSNumber* remainingCharacters;
 }
 
 @end
 
-@implementation PostFieldViewController
+@implementation PostingStringEntryViewController
 
 -(void)initWithField:(NSDictionary *)field post:(SpreePost *)post{
     [super initWithField:field post:post];
