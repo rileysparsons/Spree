@@ -220,9 +220,23 @@
 
 -(void)postButtonPressed{
     NSLog(@"POSTED: %@", self.post);
-
-    [self.post saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error){
-        [self dismissViewControllerAnimated:YES completion:nil];
+    [self.post setExpired:NO];
+    [self.post setSold:NO];
+    self.post.photoArray = [self sanitizePhotoArray:self.post.photoArray];
+    [[PFUser currentUser][@"campus"] fetchInBackgroundWithBlock:^(PFObject *object, NSError *error){
+        if (error){
+            NSLog(@"Campus was not fetched");
+        } else {
+           [self.post setNetwork:object[@"networkCode"]];
+            [self.post saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error){
+                if (error){
+                    NSLog(@"Failed to post with reason: %@", error);
+                } else {
+                    [self dismissViewControllerAnimated:YES completion:nil];
+                }
+            }]; 
+        }
+        
     }];
 }
 
@@ -253,6 +267,16 @@
     NSArray *arrayWithPlaces = [self.existingFieldsForTable valueForKey:@"field"];
     NSUInteger index = [arrayWithPlaces indexOfObject:field];
     return index;
+}
+
+-(NSArray *)sanitizePhotoArray:(NSArray*)photoArray{
+    NSMutableArray *purePhotoArray = [[NSMutableArray alloc] initWithCapacity:3];
+    for (id item in photoArray) {
+        if ([item isKindOfClass:[PFFile class]]){
+            [purePhotoArray addObject:item];
+        }
+    }
+    return purePhotoArray;
 }
 
 @end
