@@ -11,6 +11,7 @@
 #import "PreviewPostViewController.h"
 #import "PostPhotoSelectViewController.h"
 #import "PostingNumberEntryViewController.h"
+#import "PostingLocationEntryViewController.h"
 
 
 
@@ -103,7 +104,9 @@
             [postFieldViewController initWithField:nextField postingWorkflow:self];
             return postFieldViewController;
         } else if ([nextField[@"dataType"] isEqualToString: @"geoPoint"]){
-            
+            PostingLocationEntryViewController *postingLocationEntryViewController = [storyboard instantiateViewControllerWithIdentifier:@"PostingLocationEntryViewController"];
+            [postingLocationEntryViewController initWithField:nextField postingWorkflow:self];
+            return postingLocationEntryViewController;
         } else if ([nextField[@"dataType"] isEqualToString: @"number"]){
             PostingNumberEntryViewController *postPriceEntryViewController = [storyboard instantiateViewControllerWithIdentifier:@"PostPriceEntryViewController"];
             [postPriceEntryViewController initWithField:nextField postingWorkflow:self];

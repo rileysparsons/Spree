@@ -11,7 +11,7 @@
 #import "UIColor+SpreeColor.h"
 #import "WSCoachMarksView.h"
 
-@interface PostTypeTableViewController (){
+@interface PostTypeTableViewController () <UISearchControllerDelegate, UITableViewDataSource, UITableViewDelegate, UISearchResultsUpdating, UISearchBarDelegate>{
     WSCoachMarksView *coachMarksView;
 }
 
@@ -70,7 +70,6 @@
     self.searchController.searchResultsUpdater = self;
     [self.searchController.searchBar sizeToFit];
     self.tableView.tableHeaderView = self.searchController.searchBar;
-    
     
     // we want to be the delegate for our filtered table so didSelectRowAtIndexPath is called for both tables
     [self.resultsTableController.tableView setFrame:CGRectZero];

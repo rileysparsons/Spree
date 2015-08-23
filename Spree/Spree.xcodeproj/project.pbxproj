@@ -39,6 +39,7 @@
 		1415245A1B4076BE007EE405 /* SelectPostTypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 141524591B4076BE007EE405 /* SelectPostTypeViewController.m */; };
 		1415245D1B4084D2007EE405 /* PostingStringEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1415245C1B4084D2007EE405 /* PostingStringEntryViewController.m */; };
 		1415245F1B4086AA007EE405 /* NewPost.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1415245E1B4086AA007EE405 /* NewPost.storyboard */; };
+		141AECA71B89186400F0012B /* PostingLocationEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 141AECA61B89186400F0012B /* PostingLocationEntryViewController.m */; };
 		142CB04F1B51A0C900969066 /* SelectPostSubTypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 142CB04E1B51A0C900969066 /* SelectPostSubTypeViewController.m */; };
 		142CB0521B51B76800969066 /* SelectPostTypeHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 142CB0511B51B76800969066 /* SelectPostTypeHeaderView.m */; };
 		142CB0551B51D31A00969066 /* PreviewPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 142CB0541B51D31A00969066 /* PreviewPostViewController.m */; };
@@ -224,6 +225,8 @@
 		1415245B1B4084D2007EE405 /* PostingStringEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostingStringEntryViewController.h; sourceTree = "<group>"; };
 		1415245C1B4084D2007EE405 /* PostingStringEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostingStringEntryViewController.m; sourceTree = "<group>"; };
 		1415245E1B4086AA007EE405 /* NewPost.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = NewPost.storyboard; sourceTree = "<group>"; };
+		141AECA51B89186400F0012B /* PostingLocationEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostingLocationEntryViewController.h; sourceTree = "<group>"; };
+		141AECA61B89186400F0012B /* PostingLocationEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostingLocationEntryViewController.m; sourceTree = "<group>"; };
 		142CB04D1B51A0C900969066 /* SelectPostSubTypeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectPostSubTypeViewController.h; sourceTree = "<group>"; };
 		142CB04E1B51A0C900969066 /* SelectPostSubTypeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectPostSubTypeViewController.m; sourceTree = "<group>"; };
 		142CB0501B51B76800969066 /* SelectPostTypeHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectPostTypeHeaderView.h; sourceTree = "<group>"; };
@@ -679,6 +682,8 @@
 				142CB04E1B51A0C900969066 /* SelectPostSubTypeViewController.m */,
 				142CB0531B51D31A00969066 /* PreviewPostViewController.h */,
 				142CB0541B51D31A00969066 /* PreviewPostViewController.m */,
+				141AECA51B89186400F0012B /* PostingLocationEntryViewController.h */,
+				141AECA61B89186400F0012B /* PostingLocationEntryViewController.m */,
 				1415245E1B4086AA007EE405 /* NewPost.storyboard */,
 				14AB0EC21B84CA8900BD06EB /* PostingNumberEntryViewController.h */,
 				14AB0EC51B87F63300BD06EB /* PostingDataEntryViewController.h */,
@@ -1151,6 +1156,7 @@
 				143D91F71B6F228C00E2F493 /* LoginPasswordViewController.m in Sources */,
 				14ABE1081A96A59000B805D0 /* NewTicketsPostView.m in Sources */,
 				F78600BD1AEB422100402B1F /* push.m in Sources */,
+				141AECA71B89186400F0012B /* PostingLocationEntryViewController.m in Sources */,
 				142CB0581B52351400969066 /* PostPhotoSelectViewController.m in Sources */,
 				1491BBA41B336F38004F43CA /* ResultsTableViewController.m in Sources */,
 				14C8214D1B2FE36C00A1B513 /* ProfileViewController.m in Sources */,
