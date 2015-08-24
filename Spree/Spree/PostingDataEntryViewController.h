@@ -14,6 +14,7 @@
 @property SpreePost *post;
 @property PostingWorkflow *postingWorkflow;
 @property NSString *fieldTitle;
+@property NSDictionary *fieldDictionary;
 @property UIButton *cancelButton;
 @property UIButton *nextButton;
 @property NSString *prompt;

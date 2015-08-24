@@ -137,8 +137,13 @@
 
 
 - (void)nextBarButtonItemTouched:(id)sender {
-    [super nextBarButtonItemTouched:sender];
     self.postingWorkflow.post[self.fieldTitle] = self.fieldTextView.text;
+    if (self.presentedWithinWorkflow){
+        [self.postingWorkflow.post[@"completedFields"] addObject:self.fieldDictionary];
+        self.postingWorkflow.step++;
+        UIViewController *nextViewController =[self.postingWorkflow nextViewController];
+        [self.navigationController pushViewController:nextViewController animated:YES];
+    }
 }
 
 -(void)cancelWorkflow{

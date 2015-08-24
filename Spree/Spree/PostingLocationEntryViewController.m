@@ -296,10 +296,14 @@
 #pragma mark - Workflow
 
 -(void)nextBarButtonItemTouched:(id)sender{
-    [super nextBarButtonItemTouched:sender];
-    
     PFGeoPoint *geopoint = [PFGeoPoint geoPointWithLocation:[(CLPlacemark *)[self.locationMapView.annotations objectAtIndex:0] location]];
     self.postingWorkflow.post[self.fieldTitle] = geopoint;
+    if (self.presentedWithinWorkflow){
+        [self.postingWorkflow.post[@"completedFields"] addObject:self.fieldDictionary];
+        self.postingWorkflow.step++;
+        UIViewController *nextViewController =[self.postingWorkflow nextViewController];
+        [self.navigationController pushViewController:nextViewController animated:YES];
+    }
 }
 
 #pragma mark - Data Validation

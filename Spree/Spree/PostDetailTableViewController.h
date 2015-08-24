@@ -25,7 +25,8 @@
 -(UITableViewCell *)loadPostImagesForCell:(PhotoGalleryTableViewCell *)cell;
 
 @property NSArray *existingFields;
-@property NSArray *existingFieldsForTable;
+@property NSMutableArray *existingFieldsForTable;
+@property NSMutableArray *detailCells;
 
 
 

@@ -17,6 +17,7 @@
 -(void)initWithField:(NSDictionary *)field post:(SpreePost *)post{
     self.presentedWithinWorkflow = NO;
     self.prompt = field[@"prompt"];
+    self.fieldDictionary = field;
     self.fieldTitle = field[@"field"];
     self.post = post;
 }
@@ -24,6 +25,7 @@
 -(void)initWithField:(NSDictionary *)field postingWorkflow:(PostingWorkflow *)postingWorkflow{
     self.presentedWithinWorkflow = YES;
     self.prompt = field[@"prompt"];
+    self.fieldDictionary = field;
     self.fieldTitle = field[@"field"];
     self.postingWorkflow = postingWorkflow;
 }
@@ -59,12 +61,7 @@
 }
 
 - (void)nextBarButtonItemTouched:(id)sender {
-    if (self.presentedWithinWorkflow){
-        [self.postingWorkflow.post[@"completedFields"] addObject:self.fieldTitle];
-        self.postingWorkflow.step++;
-        UIViewController *nextViewController =[self.postingWorkflow nextViewController];
-        [self.navigationController pushViewController:nextViewController animated:YES];
-    }
+    
 }
 
 

@@ -44,6 +44,7 @@
 //    self.existingFieldsForTable = self.post[@"completedFields"];
     NSLog(@"Workflow %@", self.postingWorkflow);
     NSLog(@"Post %@", self.postingWorkflow.post);
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -52,7 +53,7 @@
 }
 
 -(UITableViewCell *)cellForField:(NSString*)field {
-    NSLog(@"%@", self.existingFieldsForTable);
+
     if ([field isEqualToString:PF_POST_DESCRIPTION]){
         static NSString *CellIdentifier = @"DescriptionCell";
         PostDescriptionTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -167,17 +168,7 @@
         [cell enableEditMode];
         return cell;
     } else if ([field isEqualToString:@"pickupLocation"] || [field isEqualToString:@"destinationLocation"]){
-        static NSString *CellIdentifier = @"MapCell";
-        PostMapTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        if (cell == nil) {
-            NSArray *nibFiles = [[NSBundle mainBundle] loadNibNamed:@"PostMapTableViewCell" owner:self options:nil];
-            for(id currentObject in nibFiles){
-                if ([currentObject isKindOfClass:[UITableViewCell class]]){
-                    cell = (PostMapTableViewCell*)currentObject;
-                    break;
-                }
-            }
-        }
+        PostMapTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"PostMapTableViewCell"];
         [cell setLocationsFromPost:self.post];
         [cell enableEditMode];
         return cell;
@@ -276,14 +267,14 @@
     } else {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewPost" bundle:[NSBundle mainBundle]];
         EditPostFieldViewController *postFieldViewController = [storyboard instantiateViewControllerWithIdentifier:@"EditPostFieldViewController"];
-        [postFieldViewController initWithField:[self.existingFieldsForTable objectAtIndex:editButton.tag] post:self.post];
+        [postFieldViewController initWithField:[self.existingFields objectAtIndex:editButton.tag] post:self.post];
         UINavigationController *navControl = [[UINavigationController alloc] initWithRootViewController:postFieldViewController];
         [self presentViewController:navControl animated:YES completion:nil];
     }
   }
 
 -(NSUInteger)indexOfField:(NSString*)field{
-    NSUInteger index = [self.existingFieldsForTable indexOfObject:field];
+    NSUInteger index = [self.existingFields indexOfObject:field];
     return index;
 }
 
@@ -296,5 +287,6 @@
     }
     return purePhotoArray;
 }
+
 
 @end
