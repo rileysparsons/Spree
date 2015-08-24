@@ -33,6 +33,7 @@
     self = [super init];
     if (self){
         self.post = post;
+        self.post[@"completedFields"] = [[NSMutableArray alloc] init];
         self.allFields = [[NSMutableArray alloc] init];
         self.uncompletedFields = [[NSMutableArray alloc] init];
         self.photosForDisplay = [[NSMutableArray alloc] init];

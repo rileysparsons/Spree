@@ -13,6 +13,7 @@
 #import "PhotoGalleryTableViewCell.h"
 #import "BasicInfoTableViewCell.h"
 #import "EditPostFieldViewController.h"
+#import "PostMapTableViewCell.h"
 #import "EditPostPhotoSelectViewController.h"
 #import "PostPhotoSelectViewController.h"
 #import <YHRoundBorderedButton/YHRoundBorderedButton.h>
@@ -38,7 +39,9 @@
     
     // Do any additional setup after loading the view.
     
+    NSLog(@"Post %@", self.post);
     
+//    self.existingFieldsForTable = self.post[@"completedFields"];
     NSLog(@"Workflow %@", self.postingWorkflow);
     NSLog(@"Post %@", self.postingWorkflow.post);
 }
@@ -163,7 +166,23 @@
         cell.titleLabel.text = self.post.eventDate;
         [cell enableEditMode];
         return cell;
+    } else if ([field isEqualToString:@"pickupLocation"] || [field isEqualToString:@"destinationLocation"]){
+        static NSString *CellIdentifier = @"MapCell";
+        PostMapTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            NSArray *nibFiles = [[NSBundle mainBundle] loadNibNamed:@"PostMapTableViewCell" owner:self options:nil];
+            for(id currentObject in nibFiles){
+                if ([currentObject isKindOfClass:[UITableViewCell class]]){
+                    cell = (PostMapTableViewCell*)currentObject;
+                    break;
+                }
+            }
+        }
+        [cell setLocationsFromPost:self.post];
+        [cell enableEditMode];
+        return cell;
     }
+
     static NSString *CellIdentifier = @"DefaultCell";
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     return cell;
@@ -264,8 +283,7 @@
   }
 
 -(NSUInteger)indexOfField:(NSString*)field{
-    NSArray *arrayWithPlaces = [self.existingFieldsForTable valueForKey:@"field"];
-    NSUInteger index = [arrayWithPlaces indexOfObject:field];
+    NSUInteger index = [self.existingFieldsForTable indexOfObject:field];
     return index;
 }
 

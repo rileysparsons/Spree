@@ -11,6 +11,7 @@
 #import "PostTitleTableViewCell.h"
 #import "PhotoGalleryTableViewCell.h"
 #import "PostUserTableViewCell.h"
+#import "PostMapTableViewCell.h"
 #import "ProfileViewController.h"
 #import "ChatView.h"
 #import "common.h"
@@ -31,7 +32,9 @@
 -(void)initWithPost:(SpreePost *)post{
     self.post = post;
     
-    [self.post.typePointer fetchIfNeededInBackgroundWithTarget:self selector:@selector(initializeArrayForTable)];
+    if (self.post[@"completedFields"]){
+        self.existingFieldsForTable = self.post[@"completedFields"];
+    }
     
 }
 
@@ -93,7 +96,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0)
-        return [self cellForField:[self.existingFieldsForTable objectAtIndex:indexPath.row][@"field"]];
+        return [self cellForField:[self.existingFieldsForTable objectAtIndex:indexPath.row]];
     return 0;
 }
 
@@ -172,6 +175,20 @@
         static NSString *CellIdentifier = @"PostEventDateCell";
         UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         cell.textLabel.text = self.post.eventDate;
+        return cell;
+    }else if ([field isEqualToString:@"pickupLocation"] || [field isEqualToString:@"destinationLocation"]){
+        static NSString *CellIdentifier = @"MapCell";
+        PostMapTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            NSArray *nibFiles = [[NSBundle mainBundle] loadNibNamed:@"PostMapTableViewCell" owner:self options:nil];
+            for(id currentObject in nibFiles){
+                if ([currentObject isKindOfClass:[UITableViewCell class]]){
+                    cell = (PostMapTableViewCell*)currentObject;
+                    break;
+                }
+            }
+        }
+        [cell setLocationsFromPost:self.post];
         return cell;
     }
     
@@ -381,36 +398,6 @@
 }
 */
 
--(void)initializeArrayForTable{
-    
-    NSMutableArray *existingFields = [[NSMutableArray alloc] init];
-    NSMutableArray *fieldsFromType = [[NSMutableArray alloc] init];
-    NSMutableArray *existingFieldsForTable = [[NSMutableArray alloc] init];
-    
-    [fieldsFromType addObjectsFromArray:self.post.typePointer[@"fields"]];
-    //        //Add subtype fields
-    //        [fieldsFromType addObjectsFromArray:post];
-    for (id field in fieldsFromType){
-        if (self.post[field[@"field"]]){
-            [existingFields addObject:field];
-            if (![field[@"field"] isEqualToString:PF_POST_PRICE]){
-                [existingFieldsForTable addObject:field];
-            }
-        }
-    }
-    
-    self.existingFields = existingFields;
-    
-    NSSortDescriptor *sortDescriptor;
-    sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"priority"
-                                                 ascending:YES];
-    NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
-    NSMutableArray *sortedExistingFieldArray = [[NSMutableArray alloc] initWithArray:[existingFieldsForTable sortedArrayUsingDescriptors:sortDescriptors]];
-    
-    self.existingFieldsForTable = sortedExistingFieldArray;
 
-    //
-    [self.tableView reloadData];
-}
 
 @end

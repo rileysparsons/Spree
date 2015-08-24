@@ -60,6 +60,7 @@
 
 - (void)nextBarButtonItemTouched:(id)sender {
     if (self.presentedWithinWorkflow){
+        [self.postingWorkflow.post[@"completedFields"] addObject:self.fieldTitle];
         self.postingWorkflow.step++;
         UIViewController *nextViewController =[self.postingWorkflow nextViewController];
         [self.navigationController pushViewController:nextViewController animated:YES];

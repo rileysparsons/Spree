@@ -35,6 +35,8 @@
     [self setupSearchController];
     [self setupLocationManager];
     
+    [[self.navigationItem.rightBarButtonItems objectAtIndex:0] setEnabled:[self userSelectedLocation]];
+    
     self.definesPresentationContext = YES;
 }
 
@@ -62,7 +64,9 @@
     self.searchController.searchBar.backgroundColor = [UIColor spreeOffWhite];
     self.searchController.searchBar.barTintColor = [UIColor spreeOffWhite];
     self.searchController.searchBar.tintColor = [UIColor spreeDarkBlue];
+    self.searchController.searchBar.searchBarStyle = UISearchBarStyleMinimal;
     [self.topView addSubview: self.searchController.searchBar];
+
     // Add SearchController's search bar to our view and bring it to front
     [self.view bringSubviewToFront:self.containingTopView];
 }
@@ -80,7 +84,12 @@
 
 -(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
     [self.locationMapView removeAnnotations:self.locationMapView.annotations];
-    
+    [[self.navigationItem.rightBarButtonItems objectAtIndex:0] setEnabled:[self userSelectedLocation]];
+}
+
+-(BOOL)searchBar:(UISearchBar *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+    [[self.navigationItem.rightBarButtonItems objectAtIndex:0] setEnabled:[self userSelectedLocation]];
+    return YES;
 }
 #pragma mark - UISearchControllerDelegate
 
@@ -174,6 +183,10 @@
         [self.searchController setActive:NO];
 }
 
+-(void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views{
+    [[self.navigationItem.rightBarButtonItems objectAtIndex:0] setEnabled:[self userSelectedLocation]];
+}
+
 #pragma mark - Location
 
 - (void) setupLocationManager {
@@ -225,7 +238,9 @@
         self.locationManager.distanceFilter = 10;
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
         [self.locationManager startUpdatingLocation];
-        [self.locationMapView setUserTrackingMode:MKUserTrackingModeFollow animated:YES];
+        [self.locationMapView setRegion:MKCoordinateRegionMakeWithDistance(self.locationManager.location.coordinate, 1000, 1000)];
+        [self.locationMapView setUserTrackingMode:MKUserTrackingModeFollow animated:NO];
+
         return YES;
     } else {
         return NO;
@@ -270,7 +285,7 @@
     [self.locationMapView addAnnotation:item.placemark];
     [self.locationMapView selectAnnotation:item.placemark animated:YES];
     
-    [self.locationMapView setCenterCoordinate:item.placemark.location.coordinate animated:YES];
+    [self.locationMapView setCenterCoordinate:item.placemark.location.coordinate animated:NO];
     
     [self.locationMapView setUserTrackingMode:MKUserTrackingModeNone];
     
@@ -282,6 +297,21 @@
 
 -(void)nextBarButtonItemTouched:(id)sender{
     [super nextBarButtonItemTouched:sender];
+    
+    PFGeoPoint *geopoint = [PFGeoPoint geoPointWithLocation:[(CLPlacemark *)[self.locationMapView.annotations objectAtIndex:0] location]];
+    self.postingWorkflow.post[self.fieldTitle] = geopoint;
+}
+
+#pragma mark - Data Validation
+
+
+-(BOOL)userSelectedLocation{
+    NSLog(@"%lu", (unsigned long)[self.locationMapView annotations].count);
+    if ([self.locationMapView annotations].count > 1){
+        return YES;
+    } else {
+        return NO;
+    }
 }
 
 @end
