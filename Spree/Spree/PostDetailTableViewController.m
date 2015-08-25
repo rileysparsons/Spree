@@ -12,6 +12,7 @@
 #import "PhotoGalleryTableViewCell.h"
 #import "PostUserTableViewCell.h"
 #import "PostMapTableViewCell.h"
+#import "PostMessageTableViewCell.h"
 #import "ProfileViewController.h"
 #import "ChatView.h"
 #import "common.h"
@@ -281,7 +282,7 @@
 
 #pragma mark - Button Selectors
 
--(void)priceButtonPressed{
+-(void)messageButtonTouched{
     PFUser *user2 = self.poster;
     PFUser *user1 = [PFUser currentUser];
     
@@ -387,8 +388,20 @@
         } else if ([field[@"dataType"] isEqualToString:@"image"]){
             [self.existingFieldsForTable addObject:field];
         }
-        [self.existingFieldsForTable sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"priority" ascending:YES]]];
     }
+    [self.existingFieldsForTable sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"priority" ascending:YES]]];
+    [self addOtherRowsForTable];
+}
+
+-(void)addOtherRowsForTable{
+    NSDictionary *profileField = @{
+                                   @"dataType" : @"profile"
+                                   };
+    NSDictionary *messageField = @{
+                                   @"dataType" : @"message"
+                                   };
+    [self.existingFieldsForTable insertObject:profileField atIndex:1];
+    [self.existingFieldsForTable insertObject:messageField atIndex:2];
 }
 
 -(UITableViewCell *)cellForField:(NSDictionary *)field {
@@ -443,9 +456,25 @@
         NSString *dateString = [dateFormatter stringFromDate:self.post[field[@"field"]]];
         [dateCell.textLabel setText:dateString];
         return dateCell;
+    } else if ([field[@"dataType"] isEqualToString:@"profile"]){
+        NSString *className = NSStringFromClass([PostUserTableViewCell class]);
+        UINib *nib = [UINib nibWithNibName:className bundle:nil];
+        [self.tableView registerNib:nib forCellReuseIdentifier:className];
+        PostUserTableViewCell *userCell = [self.tableView dequeueReusableCellWithIdentifier:className];
+        [userCell setUserLabelForPost:self.post];
+        return userCell;
+    }else if ([field[@"dataType"] isEqualToString:@"message"]){
+        NSString *className = NSStringFromClass([PostMessageTableViewCell class]);
+        UINib *nib = [UINib nibWithNibName:className bundle:nil];
+        [self.tableView registerNib:nib forCellReuseIdentifier:className];
+        PostMessageTableViewCell *messageCell = [self.tableView dequeueReusableCellWithIdentifier:className];
+        [messageCell.messageButton addTarget:self action:@selector(messageButtonTouched) forControlEvents:UIControlEventTouchUpInside];
+        [messageCell setMessageButtonForPost:self.post];
+        return messageCell;
     }
     return 0;
 }
+
 
 
 @end

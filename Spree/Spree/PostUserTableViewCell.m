@@ -14,6 +14,19 @@
 - (void)awakeFromNib {
     // Initialization code
     self.accessoryView = [MSCellAccessory accessoryWithType:FLAT_DISCLOSURE_INDICATOR color:[UIColor spreeDarkBlue]];
+    self.userImageView.profileID = [PFUser currentUser][@"fbId"];
+    CAShapeLayer *circle = [CAShapeLayer layer];
+    // Make a circular shape
+    UIBezierPath *circularPath=[UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, self.userImageView.frame.size.width, self.userImageView.frame.size.height) cornerRadius:MAX(self.userImageView.frame.size.width, self.userImageView.frame.size.height)];
+    
+    circle.path = circularPath.CGPath;
+    
+    // Configure the apperence of the circle
+    circle.fillColor = [UIColor blackColor].CGColor;
+    circle.strokeColor = [UIColor blackColor].CGColor;
+    circle.lineWidth = 0;
+    
+    self.userImageView.layer.mask=circle;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

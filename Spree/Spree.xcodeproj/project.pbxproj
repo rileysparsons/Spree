@@ -45,6 +45,8 @@
 		141AECBA1B8A886E00F0012B /* PreviewPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 141AECB91B8A886E00F0012B /* PreviewPostViewController.m */; };
 		141AECBD1B8BCF6000F0012B /* PostingDateEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 141AECBC1B8BCF6000F0012B /* PostingDateEntryViewController.m */; };
 		141AECC01B8CDD6100F0012B /* EditPostingLocationEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 141AECBF1B8CDD6100F0012B /* EditPostingLocationEntryViewController.m */; };
+		141AECC41B8D14E200F0012B /* PostMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 141AECC21B8D14E200F0012B /* PostMessageTableViewCell.m */; };
+		141AECC51B8D14E200F0012B /* PostMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 141AECC31B8D14E200F0012B /* PostMessageTableViewCell.xib */; };
 		142CB04F1B51A0C900969066 /* SelectPostSubTypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 142CB04E1B51A0C900969066 /* SelectPostSubTypeViewController.m */; };
 		142CB0521B51B76800969066 /* SelectPostTypeHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 142CB0511B51B76800969066 /* SelectPostTypeHeaderView.m */; };
 		142CB0581B52351400969066 /* PostPhotoSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 142CB0571B52351400969066 /* PostPhotoSelectViewController.m */; };
@@ -239,6 +241,9 @@
 		141AECBC1B8BCF6000F0012B /* PostingDateEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostingDateEntryViewController.m; sourceTree = "<group>"; };
 		141AECBE1B8CDD6100F0012B /* EditPostingLocationEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditPostingLocationEntryViewController.h; sourceTree = "<group>"; };
 		141AECBF1B8CDD6100F0012B /* EditPostingLocationEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditPostingLocationEntryViewController.m; sourceTree = "<group>"; };
+		141AECC11B8D14E200F0012B /* PostMessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostMessageTableViewCell.h; sourceTree = "<group>"; };
+		141AECC21B8D14E200F0012B /* PostMessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostMessageTableViewCell.m; sourceTree = "<group>"; };
+		141AECC31B8D14E200F0012B /* PostMessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostMessageTableViewCell.xib; sourceTree = "<group>"; };
 		142CB04D1B51A0C900969066 /* SelectPostSubTypeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectPostSubTypeViewController.h; sourceTree = "<group>"; };
 		142CB04E1B51A0C900969066 /* SelectPostSubTypeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectPostSubTypeViewController.m; sourceTree = "<group>"; };
 		142CB0501B51B76800969066 /* SelectPostTypeHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectPostTypeHeaderView.h; sourceTree = "<group>"; };
@@ -781,6 +786,9 @@
 		14C821441B2CF9F900A1B513 /* Post Detail Cells */ = {
 			isa = PBXGroup;
 			children = (
+				141AECC11B8D14E200F0012B /* PostMessageTableViewCell.h */,
+				141AECC21B8D14E200F0012B /* PostMessageTableViewCell.m */,
+				141AECC31B8D14E200F0012B /* PostMessageTableViewCell.xib */,
 				14CAB3D01B5C54C40081979C /* PostDescriptionTableViewCell.h */,
 				14CAB3D11B5C54C40081979C /* PostDescriptionTableViewCell.m */,
 				14CAB3D31B5C54E20081979C /* PostDescriptionTableViewCell.xib */,
@@ -1037,6 +1045,7 @@
 				4E0E820B1B40DE1800E18975 /* leftarrow@2x.png in Resources */,
 				143D91FC1B71881400E2F493 /* SelectCampusTableViewCell.xib in Resources */,
 				140CF9091A3E157700134C4D /* Podfile in Resources */,
+				141AECC51B8D14E200F0012B /* PostMessageTableViewCell.xib in Resources */,
 				14CAB3C01B5948150081979C /* PhotoDisplayTableViewCell.xib in Resources */,
 				144D556E1B4E11920003B752 /* Lato-BlackItalic.ttf in Resources */,
 				14C38DB91B29311D0039862E /* PostUserTableViewCell.xib in Resources */,
@@ -1192,6 +1201,7 @@
 				1404739A1ABD267E00C0F8EF /* UserPostsTableViewController.m in Sources */,
 				142CB04F1B51A0C900969066 /* SelectPostSubTypeViewController.m in Sources */,
 				F75728431B015BC7005F5FED /* NewGenericPostView.m in Sources */,
+				141AECC41B8D14E200F0012B /* PostMessageTableViewCell.m in Sources */,
 				4E0E82031B40DC0200E18975 /* RTWalkthroughPageViewController.m in Sources */,
 				141AECB71B8A77D400F0012B /* PostMapTableViewCell.m in Sources */,
 				F7AFBB421AF4CC0A00D3148B /* FindBuyerViewController.m in Sources */,
