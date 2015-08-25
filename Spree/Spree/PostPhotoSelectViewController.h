@@ -15,6 +15,7 @@
 @property PostingWorkflow *postingWorkflow;
 @property NSMutableArray *photoArray;
 @property NSMutableArray *fileArray;
+@property NSDictionary *fieldDictionary;
 @property UIButton *countBarButton;
 @property AddPhotoHeaderView *header;
 

@@ -25,7 +25,7 @@
 
 @property YHRoundBorderedButton* getButton;
 @property BOOL currentUserPost;
-@property BOOL hasCompletedFields;
+
 @end
 
 @implementation PostDetailTableViewController
@@ -35,13 +35,13 @@
     self.existingFieldsForTable = [[NSMutableArray alloc] init];
     if (self.post[@"completedFields"]){
         self.existingFields = self.post[@"completedFields"];
-        self.detailCells = [[NSMutableArray alloc] init];
         self.hasCompletedFields = YES;
         [self organizeTableForFields];
     } else {
         [self.post.typePointer fetchIfNeededInBackgroundWithBlock:^(PFObject *type, NSError *error){
             self.existingFields = self.post.typePointer[@"fields"];
             [self organizeTableForFields];
+            [self.tableView reloadData];
         }];
     }
 }
@@ -84,9 +84,10 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
+    NSLog(@"%lu", self.existingFieldsForTable.count);
     if (self.hasCompletedFields == YES){
         if (section == 0)
-            return self.detailCells.count;
+            return self.existingFieldsForTable.count;
         return 0;
     }else {
         if (section == 0)
@@ -110,17 +111,17 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.hasCompletedFields == YES){
         if (indexPath.section == 0)
-            return [self.detailCells objectAtIndex:indexPath.row][@"cell"];
+            return [self cellForField:[self.existingFieldsForTable objectAtIndex:indexPath.row]];
         return 0;
     } else {
         if (indexPath.section == 0)
-            return [self cellForField:[self.existingFieldsForTable objectAtIndex:indexPath.row][@"field"]];
+            return [self cellForOldField:[self.existingFieldsForTable objectAtIndex:indexPath.row][@"field"]];
         return 0;
     }
 }
 
 
--(UITableViewCell *)cellForField:(NSString *)field {
+-(UITableViewCell *)cellForOldField:(NSString *)field {
     
     if ([field isEqualToString:PF_POST_DESCRIPTION]){
         static NSString *CellIdentifier = @"DescriptionCell";
@@ -365,90 +366,76 @@
     }
 }
 
+
+
+//
+
 -(void)organizeTableForFields{
-    if (self.hasCompletedFields) {
-        for (id field in self.existingFields){
-            if ([field[@"dataType"] isEqualToString:@"geoPoint"]){
-                NSDictionary *mapCellDictionary;
-                for (id dictionary in self.detailCells){
-                    if ([dictionary[@"name"] isEqualToString:@"map"]){
-                        mapCellDictionary = dictionary;
-                    }
+    for (id field in self.existingFields){
+        if ([field[@"dataType"] isEqualToString:@"geoPoint"]){
+            NSDictionary *mapCellDictionary;
+            for (id dictionary in self.existingFieldsForTable){
+                if ([dictionary[@"name"] isEqualToString:@"map"]){
+                    mapCellDictionary = dictionary;
                 }
-                if (!mapCellDictionary){
-                    NSString *className = NSStringFromClass([PostMapTableViewCell class]);
-                    UINib *nib = [UINib nibWithNibName:className bundle:nil];
-                    [self.tableView registerNib:nib forCellReuseIdentifier:@"PostMapTableViewCell"];
-                    PostMapTableViewCell *mapCell = [self.tableView dequeueReusableCellWithIdentifier:@"PostMapTableViewCell"];
-                    [mapCell setLocationsFromPost:self.post];
-                    NSDictionary *dictionary;
-                    if (field[@"priority"])
-                        dictionary = @{@"name" : @"map", @"cell" : mapCell, @"priority" : field[@"priority"]};
-                    else
-                        dictionary = @{@"name" : @"map", @"cell" : mapCell, @"priority" : @100};
-                    [self.detailCells addObject:dictionary];
-                }
-            } else if ([field[@"dataType"] isEqualToString:@"string"]){
-                if ([field[@"field"] isEqualToString:@"userDescription"]){
-                    NSString *className = NSStringFromClass([PostDescriptionTableViewCell class]);
-                    UINib *nib = [UINib nibWithNibName:className bundle:nil];
-                    [self.tableView registerNib:nib forCellReuseIdentifier:className];
-                    PostDescriptionTableViewCell *descriptionCell = [self.tableView dequeueReusableCellWithIdentifier:className];
-                    [descriptionCell setDescriptionTextViewForPost:self.post];
-                    NSDictionary *dictionary;
-                    if (field[@"priority"])
-                        dictionary = @{@"name" : @"description", @"cell" : descriptionCell, @"priority" : field[@"priority"]};
-                    else
-                        dictionary = @{@"name" : @"description", @"cell" : descriptionCell, @"priority" : @100};
-                    [self.detailCells addObject:dictionary];
-                } else if ([field[@"field"] isEqualToString:@"title"]){
-                    NSString *className = NSStringFromClass([PostTitleTableViewCell class]);
-                    UINib *nib = [UINib nibWithNibName:className bundle:nil];
-                    [self.tableView registerNib:nib forCellReuseIdentifier:className];
-                    PostTitleTableViewCell *titleCell = [self.tableView dequeueReusableCellWithIdentifier:className];
-                    [titleCell setTitleforPost:self.post];
-                    NSDictionary *dictionary;
-                    if (field[@"priority"])
-                        dictionary = @{@"name" : @"title", @"cell" : titleCell, @"priority" : field[@"priority"]};
-                    else
-                        dictionary = @{@"name" : @"title", @"cell" : titleCell, @"priority" : @100};
-                    [self.detailCells addObject:dictionary];
-                } else {
-                    UITableViewCell *otherCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"other"];
-                    [otherCell.textLabel setText:self.post[field[@"field"]]];
-                    NSDictionary *dictionary;
-                    if (field[@"priority"])
-                        dictionary = @{@"name" : @"other", @"cell" : otherCell, @"priority" : field[@"priority"]};
-                    else
-                        dictionary = @{@"name" : @"other", @"cell" : otherCell, @"priority" : @100};
-                    [self.detailCells addObject:dictionary];
-                }
-            } else if ([field[@"dataType"] isEqualToString:@"photos"]){
-                NSString *className = NSStringFromClass([PhotoGalleryTableViewCell class]);
-                UINib *nib = [UINib nibWithNibName:className bundle:nil];
-                [self.tableView registerNib:nib forCellReuseIdentifier:className];
-                PhotoGalleryTableViewCell *photoCell = [self.tableView dequeueReusableCellWithIdentifier:className];
-                [self loadPostImagesForCell:photoCell];
-                [photoCell setDateLabelForPost:self.post];
-                NSDictionary *dictionary;
-                if (field[@"priority"])
-                    dictionary = @{@"name" : @"photo", @"cell" : photoCell, @"priority" : field[@"priority"]};
-                else
-                    dictionary = @{@"name" : @"photo", @"cell" : photoCell, @"priority" : @100};
-                [self.detailCells addObject:dictionary];
             }
-        }
-        [self.detailCells sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"priority" ascending:YES]]];
-    } else {
-        for (id field in self.existingFields){
-            if (self.post[field[@"field"]]){
+            if (!mapCellDictionary){
                 [self.existingFieldsForTable addObject:field];
             }
+        } else if ([field[@"dataType"] isEqualToString:@"string"]){
+            [self.existingFieldsForTable addObject:field];
+        } else if ([field[@"dataType"] isEqualToString:@"image"]){
+            [self.existingFieldsForTable addObject:field];
         }
+        [self.existingFieldsForTable sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"priority" ascending:YES]]];
     }
-    [self.tableView reloadData];
 }
 
+-(UITableViewCell *)cellForField:(NSDictionary *)field {
+    if ([field[@"dataType"] isEqualToString:@"geoPoint"]){
+        NSString *className = NSStringFromClass([PostMapTableViewCell class]);
+        UINib *nib = [UINib nibWithNibName:className bundle:nil];
+        [self.tableView registerNib:nib forCellReuseIdentifier:@"PostMapTableViewCell"];
+        PostMapTableViewCell *mapCell = [self.tableView dequeueReusableCellWithIdentifier:@"PostMapTableViewCell"];
+        [mapCell setLocationsFromPost:self.post];
+        return mapCell;
+    } else if ([field[@"dataType"] isEqualToString:@"string"]){
+        if ([field[@"field"] isEqualToString:@"userDescription"]){
+            NSString *className = NSStringFromClass([PostDescriptionTableViewCell class]);
+            UINib *nib = [UINib nibWithNibName:className bundle:nil];
+            [self.tableView registerNib:nib forCellReuseIdentifier:className];
+            PostDescriptionTableViewCell *descriptionCell = [self.tableView dequeueReusableCellWithIdentifier:className];
+            [descriptionCell setDescriptionTextViewForPost:self.post];
+            return descriptionCell;
+        } else if ([field[@"field"] isEqualToString:@"title"]){
+            NSString *className = NSStringFromClass([PostTitleTableViewCell class]);
+            UINib *nib = [UINib nibWithNibName:className bundle:nil];
+            [self.tableView registerNib:nib forCellReuseIdentifier:className];
+            PostTitleTableViewCell *titleCell = [self.tableView dequeueReusableCellWithIdentifier:className];
+            [titleCell setTitleforPost:self.post];
+
+            return titleCell;
+        } else {
+            UITableViewCell *otherCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"other"];
+            [otherCell setBackgroundColor:[UIColor spreeOffWhite]];
+            otherCell.textLabel.textColor = [UIColor spreeOffBlack];
+            otherCell.textLabel.font = [UIFont fontWithName:@"Lato-Regular" size:18];
+            [otherCell.textLabel setText:self.post[field[@"field"]]];
+            return otherCell;
+        }
+    } else if ([field[@"dataType"] isEqualToString:@"image"]){
+        NSString *className = NSStringFromClass([PhotoGalleryTableViewCell class]);
+        UINib *nib = [UINib nibWithNibName:className bundle:nil];
+        [self.tableView registerNib:nib forCellReuseIdentifier:className];
+        PhotoGalleryTableViewCell *photoCell = [self.tableView dequeueReusableCellWithIdentifier:className];
+        [photoCell setDateLabelForPost:self.post];
+
+
+        [self loadPostImagesForCell:photoCell];
+        return photoCell;
+    }
+    return 0;
+}
 
 
 @end

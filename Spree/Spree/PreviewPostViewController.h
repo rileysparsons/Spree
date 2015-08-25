@@ -14,4 +14,6 @@
 
 @property PostingWorkflow *postingWorkflow;
 
+-(void)initWithPost:(SpreePost *)post workflow:(PostingWorkflow *)workflow;
+
 @end

@@ -12,6 +12,7 @@
 #import "PostPhotoSelectViewController.h"
 #import "PostingNumberEntryViewController.h"
 #import "PostingLocationEntryViewController.h"
+#import "PostingDateEntryViewController.h"
 
 
 
@@ -115,7 +116,12 @@
         } else if ([nextField[@"dataType"] isEqualToString: @"image"]){
             PostPhotoSelectViewController *postPhotoSelectViewController = [storyboard instantiateViewControllerWithIdentifier:@"PostPhotoSelectViewController"];
             postPhotoSelectViewController.postingWorkflow = self;
-
+            postPhotoSelectViewController.fieldDictionary = nextField;
+            return postPhotoSelectViewController;
+        } else if ([nextField[@"dataType"] isEqualToString: @"date"]){
+        PostingDateEntryViewController *postPhotoSelectViewController = [storyboard instantiateViewControllerWithIdentifier:@"PostingDateEntryViewController"];
+            [postPhotoSelectViewController initWithField:nextField postingWorkflow:self];
+            
             return postPhotoSelectViewController;
         }
     }
@@ -130,9 +136,10 @@
     for (id field in self.allFields){
         [previewFields addObject:field[@"field"]];
     }
-    
-    [previewPostViewController initWithPost:self.post];
-    previewPostViewController.postingWorkflow = self;
+    NSLog(@"PHotos for display %@", self.photosForDisplay);
+//    previewPostViewController.post = self.post;
+//    previewPostViewController.postingWorkflow = self;
+    [previewPostViewController initWithPost:self.post workflow:self];
     return previewPostViewController;
 }
 
