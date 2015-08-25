@@ -31,6 +31,7 @@
             [annotations addObject:annotation];
         }
     }
+    [self.postMapView removeAnnotations:self.postMapView.annotations];
     [self.postMapView addAnnotations:annotations];
     [self.postMapView showAnnotations:self.postMapView.annotations animated:NO];
 }

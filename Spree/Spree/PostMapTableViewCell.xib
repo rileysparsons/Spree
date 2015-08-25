@@ -39,9 +39,6 @@
                             <color key="titleColor" red="0.16666857898235321" green="0.18534906208515167" blue="0.19849607348442078" alpha="1" colorSpace="calibratedRGB"/>
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
-                        <connections>
-                            <action selector="editButtonTouched:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="edg-t0-FPM"/>
-                        </connections>
                     </button>
                 </subviews>
                 <constraints>

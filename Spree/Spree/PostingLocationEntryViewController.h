@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UIView *topView;
 @property (weak, nonatomic) IBOutlet UIImageView *accentIcon;
 @property (weak, nonatomic) IBOutlet UIView *containingTopView;
+@property PFGeoPoint *selectedGeoPoint;
 
 @property NSDictionary *selectedLocation;
 @property (nonatomic, strong) UISearchController *searchController;

@@ -433,6 +433,16 @@
 
         [self loadPostImagesForCell:photoCell];
         return photoCell;
+    } else if ([field[@"dataType"] isEqualToString:@"date"]){
+        UITableViewCell *dateCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"other"];
+        [dateCell setBackgroundColor:[UIColor spreeOffWhite]];
+        dateCell.textLabel.textColor = [UIColor spreeOffBlack];
+        dateCell.textLabel.font = [UIFont fontWithName:@"Lato-Regular" size:18];
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"MM/dd/yyyy hh:mma"];
+        NSString *dateString = [dateFormatter stringFromDate:self.post[field[@"field"]]];
+        [dateCell.textLabel setText:dateString];
+        return dateCell;
     }
     return 0;
 }

@@ -13,6 +13,7 @@
 #import "PhotoGalleryTableViewCell.h"
 #import "BasicInfoTableViewCell.h"
 #import "EditPostFieldViewController.h"
+#import "EditPostingLocationEntryViewController.h"
 #import "PostMapTableViewCell.h"
 #import "EditPostPhotoSelectViewController.h"
 #import "PostPhotoSelectViewController.h"
@@ -60,133 +61,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-//-(UITableViewCell *)cellForField:(NSString*)field {
-//
-//    if ([field isEqualToString:PF_POST_DESCRIPTION]){
-//        static NSString *CellIdentifier = @"DescriptionCell";
-//        PostDescriptionTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-//        if (cell == nil) {
-//            NSArray *nibFiles = [[NSBundle mainBundle] loadNibNamed:@"PostDescriptionTableViewCell" owner:self options:nil];
-//            for(id currentObject in nibFiles){
-//                if ([currentObject isKindOfClass:[UITableViewCell class]]){
-//                    cell = (PostDescriptionTableViewCell*)currentObject;
-//                    break;
-//                }
-//            }
-//        }
-//        [cell.editDescriptionButton addTarget:self action:@selector(editButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
-//        cell.editDescriptionButton.tag = [self indexOfField:field];
-//        [cell setDescriptionTextViewForPost:self.post];
-//        return cell;
-//    } else if ([field isEqualToString:PF_POST_TITLE]){
-//        static NSString *CellIdentifier = @"TitleCell";
-//        PostTitleTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-//        if (cell == nil) {
-//            NSArray *nibFiles = [[NSBundle mainBundle] loadNibNamed:@"PostTitleTableViewCell" owner:self options:nil];
-//            for(id currentObject in nibFiles){
-//                if ([currentObject isKindOfClass:[UITableViewCell class]]){
-//                    cell = (PostTitleTableViewCell*)currentObject;
-//                    break;
-//                }
-//            }
-//        }
-//        [cell enableEditMode];
-//        [cell setTitleforPost:self.post];
-//        [cell.editTitleButton addTarget:self action:@selector(editButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
-//        cell.editTitleButton.tag = [self indexOfField:field];
-//        return cell;
-//    } else if ([field isEqualToString:PF_POST_PHOTOARRAY]){
-//        static NSString *CellIdentifier = @"PhotoGalleryCell";
-//        PhotoGalleryTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-//        if (cell == nil) {
-//            NSArray *nibFiles = [[NSBundle mainBundle] loadNibNamed:@"PhotoGalleryTableViewCell" owner:self options:nil];
-//            for(id currentObject in nibFiles){
-//                if ([currentObject isKindOfClass:[UITableViewCell class]]){
-//                    cell = (PhotoGalleryTableViewCell*)currentObject;
-//                    break;
-//                }
-//            }
-//        }
-//        NSMutableArray *tempArray = [[NSMutableArray alloc] initWithCapacity:3];
-//        for (id object in self.postingWorkflow.photosForDisplay){
-//            if ([object isKindOfClass:[UIImage class]]){
-//                [tempArray addObject:object];
-//            }
-//        }
-//        
-//        CGSize sysSize = [cell.contentView systemLayoutSizeFittingSize:CGSizeMake(self.tableView.bounds.size.width, CGFLOAT_MAX)];
-//        cell.contentView.bounds = CGRectMake(0,0, sysSize.width, sysSize.height);
-//        [cell.contentView layoutIfNeeded];
-//        
-//        [cell setPhotoGalleryForImages:tempArray];
-//        [cell enableEditMode];
-//        [cell.editButton addTarget:self action:@selector(editButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
-//        NSLog(@"Number of photos %@", self.postingWorkflow.photosForDisplay);
-//        cell.editButton.tag = [self indexOfField:field];;
-//        cell.dateLabel.hidden = YES;
-//        return cell;
-//    } else if ([field isEqualToString:PF_POST_USER]){
-//        static NSString *CellIdentifier = @"PostUserCell";
-//        PostUserTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-//        if (cell == nil) {
-//            NSArray *nibFiles = [[NSBundle mainBundle] loadNibNamed:@"PostUserTableViewCell" owner:self options:nil];
-//            for(id currentObject in nibFiles){
-//                if ([currentObject isKindOfClass:[UITableViewCell class]]){
-//                    cell = (PostUserTableViewCell*)currentObject;
-//                    break;
-//                }
-//            }
-//        }
-//        cell.userInteractionEnabled = NO;
-//        cell.accessoryView = nil;
-//        [cell setUserLabelForPost:self.post];
-//        return cell;
-//    } else if ([field isEqualToString:PF_POST_BOOKFORCLASS]){
-//        static NSString *CellIdentifier = @"PostClassCell";
-//        BasicInfoTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-//        if (cell == nil) {
-//            NSArray *nibFiles = [[NSBundle mainBundle] loadNibNamed:@"BasicInfoTableViewCell" owner:self options:nil];
-//            for(id currentObject in nibFiles){
-//                if ([currentObject isKindOfClass:[UITableViewCell class]]){
-//                    cell = (BasicInfoTableViewCell*)currentObject;
-//                    break;
-//                }
-//            }
-//        }
-//        cell.editButton.tag = [self indexOfField:field];
-//        [cell.editButton addTarget:self action:@selector(editButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
-//        cell.titleLabel.text = self.post.bookForClass;
-//        [cell enableEditMode];
-//        return cell;
-//    } else if ([field isEqualToString:PF_POST_DATEFOREVENT]){
-//        static NSString *CellIdentifier = @"PostEventDateCell";
-//        BasicInfoTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-//        if (cell == nil) {
-//            NSArray *nibFiles = [[NSBundle mainBundle] loadNibNamed:@"BasicInfoTableViewCell" owner:self options:nil];
-//            for(id currentObject in nibFiles){
-//                if ([currentObject isKindOfClass:[UITableViewCell class]]){
-//                    cell = (BasicInfoTableViewCell*)currentObject;
-//                    break;
-//                }
-//            }
-//        }
-//        cell.editButton.tag = [self indexOfField:field];
-//        [cell.editButton addTarget:self action:@selector(editButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
-//        cell.titleLabel.text = self.post.eventDate;
-//        [cell enableEditMode];
-//        return cell;
-//    } else if ([field isEqualToString:@"pickupLocation"] || [field isEqualToString:@"destinationLocation"]){
-//        PostMapTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"PostMapTableViewCell"];
-//        [cell setLocationsFromPost:self.post];
-//        [cell enableEditMode];
-//        return cell;
-//    }
-//
-//    static NSString *CellIdentifier = @"DefaultCell";
-//    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-//    return cell;
-//}
 
 
 
@@ -282,12 +156,12 @@
         [postFieldViewController initWithField:[self.existingFieldsForTable objectAtIndex:indexPath.row] post:self.post];
         UINavigationController *navControl = [[UINavigationController alloc] initWithRootViewController:postFieldViewController];
         [self presentViewController:navControl animated:YES completion:nil];
-//    } else if ([[self.detailCells objectAtIndex:editButton.tag][@"dataType"] isEqualToString:@"geoPoint"]) {
-//        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewPost" bundle:[NSBundle mainBundle]];
-//        EditPostFieldViewController *postFieldViewController = [storyboard instantiateViewControllerWithIdentifier:@"EditPostFieldViewController"];
-//        [postFieldViewController initWithField:[self.existingFields objectAtIndex:editButton.tag] post:self.post];
-//        UINavigationController *navControl = [[UINavigationController alloc] initWithRootViewController:postFieldViewController];
-//        [self presentViewController:navControl animated:YES completion:nil];
+    } else if ([[self.existingFieldsForTable objectAtIndex:indexPath.row][@"dataType"] isEqualToString:@"geoPoint"]) {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewPost" bundle:[NSBundle mainBundle]];
+        EditPostingLocationEntryViewController *postFieldViewController = [storyboard instantiateViewControllerWithIdentifier:@"EditPostingLocationEntryViewController"];
+        [postFieldViewController initWithField:[self.existingFieldsForTable objectAtIndex:indexPath.row] post:self.post];
+        UINavigationController *navControl = [[UINavigationController alloc] initWithRootViewController:postFieldViewController];
+        [self presentViewController:navControl animated:YES completion:nil];
     }
   }
 
@@ -322,6 +196,8 @@
             [self.existingFieldsForTable addObject:field];
         } else if ([field[@"dataType"] isEqualToString:@"image"]){
             [self.existingFieldsForTable addObject:field];
+        } else if ([field[@"dataType"] isEqualToString:@"date"]){
+            [self.existingFieldsForTable addObject:field];
         }
     [self.existingFieldsForTable sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"priority" ascending:YES]]];
     }
@@ -334,7 +210,7 @@
         [self.tableView registerNib:nib forCellReuseIdentifier:@"PostMapTableViewCell"];
         PostMapTableViewCell *mapCell = [self.tableView dequeueReusableCellWithIdentifier:@"PostMapTableViewCell"];
         mapCell.editButton.hidden = NO;
-        [mapCell.editButton addTarget:self action:@selector(editButton) forControlEvents:UIControlEventTouchUpInside];
+        [mapCell.editButton addTarget:self action:@selector(editButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
         [mapCell setLocationsFromPost:self.post];
         return mapCell;
     } else if ([field[@"dataType"] isEqualToString:@"string"]){
@@ -382,6 +258,16 @@
         [photoCell.editButton addTarget:self action:@selector(editButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
         photoCell.dateLabel.hidden = YES;
         return photoCell;
+    } else if ([field[@"dataType"] isEqualToString:@"date"]){
+        UITableViewCell *dateCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"other"];
+        [dateCell setBackgroundColor:[UIColor spreeOffWhite]];
+        dateCell.textLabel.textColor = [UIColor spreeOffBlack];
+        dateCell.textLabel.font = [UIFont fontWithName:@"Lato-Regular" size:18];
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"MM/dd/yyyy hh:mma"];
+        NSString *dateString = [dateFormatter stringFromDate:self.post[field[@"field"]]];
+        [dateCell.textLabel setText:dateString];
+        return dateCell;
     }
     return 0;
 }

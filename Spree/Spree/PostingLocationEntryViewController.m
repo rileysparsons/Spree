@@ -16,6 +16,7 @@
 @property (nonatomic, strong) NSArray *searchResults;
 @property CLLocationManager *locationManager;
 
+
 // for state restoration
 @property BOOL searchControllerWasActive;
 @property BOOL searchControllerSearchFieldWasFirstResponder;
@@ -282,6 +283,8 @@
     
     NSLog(@"Selected \"%@\"", item.placemark.name);
     
+    self.selectedGeoPoint = [PFGeoPoint geoPointWithLocation:item.placemark.location];
+    
     [self.locationMapView addAnnotation:item.placemark];
     [self.locationMapView selectAnnotation:item.placemark animated:YES];
     
@@ -296,8 +299,7 @@
 #pragma mark - Workflow
 
 -(void)nextBarButtonItemTouched:(id)sender{
-    PFGeoPoint *geopoint = [PFGeoPoint geoPointWithLocation:[(CLPlacemark *)[self.locationMapView.annotations objectAtIndex:0] location]];
-    self.postingWorkflow.post[self.fieldTitle] = geopoint;
+    self.postingWorkflow.post[self.fieldTitle] = self.selectedGeoPoint;
     if (self.presentedWithinWorkflow){
         [self.postingWorkflow.post[@"completedFields"] addObject:self.fieldDictionary];
         self.postingWorkflow.step++;

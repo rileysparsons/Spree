@@ -312,6 +312,94 @@
             </objects>
             <point key="canvasLocation" x="-243" y="-3125"/>
         </scene>
+        <!--Edit Posting Location Entry View Controller-->
+        <scene sceneID="cda-AG-dtM">
+            <objects>
+                <viewController storyboardIdentifier="EditPostingLocationEntryViewController" id="Tuu-60-KvI" customClass="EditPostingLocationEntryViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="mgH-qK-Ff7"/>
+                        <viewControllerLayoutGuide type="bottom" id="UFy-Gq-Iro"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="gtb-GD-5Of">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="HHh-Ib-CJr">
+                                <rect key="frame" x="0.0" y="124" width="414" height="612"/>
+                            </mapView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q3t-Zz-pfA">
+                                <rect key="frame" x="16" y="72" width="382" height="44"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="x8N-QL-vaM">
+                                        <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="x8N-QL-vaM" secondAttribute="height" multiplier="1:1" id="rta-d0-S4X"/>
+                                        </constraints>
+                                    </imageView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ReH-VH-pO6">
+                                        <rect key="frame" x="52" y="0.0" width="330" height="44"/>
+                                        <color key="backgroundColor" red="0.96558624510000002" green="0.97044742110000004" blue="0.97035741809999998" alpha="1" colorSpace="calibratedRGB"/>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" red="0.96558624510000002" green="0.97044742110000004" blue="0.97035741809999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="62y-hS-3uX"/>
+                                    <constraint firstItem="x8N-QL-vaM" firstAttribute="top" secondItem="q3t-Zz-pfA" secondAttribute="top" id="IcJ-8W-tfQ"/>
+                                    <constraint firstItem="x8N-QL-vaM" firstAttribute="leading" secondItem="q3t-Zz-pfA" secondAttribute="leading" id="NVs-03-or9"/>
+                                    <constraint firstItem="x8N-QL-vaM" firstAttribute="leading" secondItem="q3t-Zz-pfA" secondAttribute="leading" id="SdW-MX-LC2"/>
+                                    <constraint firstAttribute="width" constant="202" id="Vfa-HI-Niv"/>
+                                    <constraint firstAttribute="height" constant="30" id="Znj-oK-JEA"/>
+                                    <constraint firstAttribute="bottom" secondItem="x8N-QL-vaM" secondAttribute="bottom" id="bfH-B5-ntM"/>
+                                    <constraint firstAttribute="bottom" secondItem="x8N-QL-vaM" secondAttribute="bottom" id="cKA-8b-Q34"/>
+                                    <constraint firstAttribute="trailing" secondItem="ReH-VH-pO6" secondAttribute="trailing" id="e2u-eZ-p8d"/>
+                                    <constraint firstItem="ReH-VH-pO6" firstAttribute="top" secondItem="q3t-Zz-pfA" secondAttribute="top" id="oId-16-xNG"/>
+                                    <constraint firstItem="x8N-QL-vaM" firstAttribute="top" secondItem="q3t-Zz-pfA" secondAttribute="top" id="q6j-eu-f8E"/>
+                                    <constraint firstItem="ReH-VH-pO6" firstAttribute="leading" secondItem="x8N-QL-vaM" secondAttribute="trailing" constant="8" id="sU8-eE-fKY"/>
+                                    <constraint firstAttribute="width" constant="135" id="u4N-BC-uab"/>
+                                    <constraint firstAttribute="bottom" secondItem="ReH-VH-pO6" secondAttribute="bottom" id="xHI-4J-pYP"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="u4N-BC-uab"/>
+                                        <exclude reference="Vfa-HI-Niv"/>
+                                        <exclude reference="Znj-oK-JEA"/>
+                                        <exclude reference="cKA-8b-Q34"/>
+                                        <exclude reference="SdW-MX-LC2"/>
+                                        <exclude reference="IcJ-8W-tfQ"/>
+                                    </mask>
+                                </variation>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="HHh-Ib-CJr" secondAttribute="trailing" constant="-16" id="7tD-Sx-h6b"/>
+                            <constraint firstItem="HHh-Ib-CJr" firstAttribute="top" secondItem="q3t-Zz-pfA" secondAttribute="bottom" constant="8" id="9O5-HG-ow9"/>
+                            <constraint firstItem="q3t-Zz-pfA" firstAttribute="leading" secondItem="gtb-GD-5Of" secondAttribute="leadingMargin" id="FXP-SZ-UV0"/>
+                            <constraint firstItem="q3t-Zz-pfA" firstAttribute="trailing" secondItem="gtb-GD-5Of" secondAttribute="trailingMargin" id="NwP-dB-k5n"/>
+                            <constraint firstItem="HHh-Ib-CJr" firstAttribute="top" secondItem="gtb-GD-5Of" secondAttribute="topMargin" id="Qlp-0X-D2U"/>
+                            <constraint firstItem="HHh-Ib-CJr" firstAttribute="leading" secondItem="gtb-GD-5Of" secondAttribute="leadingMargin" constant="-16" id="XvR-XZ-3Md"/>
+                            <constraint firstItem="UFy-Gq-Iro" firstAttribute="top" secondItem="HHh-Ib-CJr" secondAttribute="bottom" id="lwg-Rl-jVx"/>
+                            <constraint firstItem="q3t-Zz-pfA" firstAttribute="top" secondItem="mgH-qK-Ff7" secondAttribute="bottom" constant="8" id="nFB-mQ-KSs"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="Qlp-0X-D2U"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
+                    <connections>
+                        <outlet property="accentIcon" destination="x8N-QL-vaM" id="lvq-Aq-rsr"/>
+                        <outlet property="containingTopView" destination="q3t-Zz-pfA" id="BcW-wh-wuE"/>
+                        <outlet property="locationMapView" destination="HHh-Ib-CJr" id="gea-Bc-6Qs"/>
+                        <outlet property="topView" destination="ReH-VH-pO6" id="bkL-S3-Fyi"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sjj-2S-c6c" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-243" y="-2292"/>
+        </scene>
         <!--Posting Number Entry View Controller-->
         <scene sceneID="ys5-NY-81n">
             <objects>
