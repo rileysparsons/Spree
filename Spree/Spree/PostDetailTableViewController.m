@@ -70,6 +70,9 @@
     [self updatePostStatus];
     // Navigation bar UI
     
+    [self addCustomBackButton];
+    
+    
     // Setting the poster property
     UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(shareButtonTouched)];
     
@@ -498,6 +501,16 @@
 
 -(void)shareButtonTouched{
     
+}
+
+-(void)addCustomBackButton{
+    UIButton *back = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 40)];
+    back.backgroundColor = [UIColor clearColor];
+    back.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [back setImage:[UIImage imageNamed:@"backNormal_Dark"] forState:UIControlStateNormal];
+    [back setImage:[UIImage imageNamed:@"backHighlight_Dark"] forState:UIControlStateHighlighted];
+    [back addTarget:self.navigationController action:@selector(popViewControllerAnimated:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:back];
 }
 
 @end
