@@ -7,6 +7,8 @@
 //
 
 #import "PostMessageTableViewCell.h"
+#import <ParseFacebookUtilsV4/PFFacebookUtils.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
 
 @implementation PostMessageTableViewCell
 
@@ -16,7 +18,21 @@
 
 -(void)setMessageButtonForPost:(SpreePost*)post{
     [post.user fetchInBackgroundWithBlock:^(PFObject *object, NSError *error){
-        [self.messageButton setTitle:[NSString stringWithFormat:@"Message %@", object[@"username"]] forState:UIControlStateNormal];
+        if (object[@"fbId"]){
+            NSString *graphPath = [NSString stringWithFormat:@"%@?fields=first_name", object[@"fbId"]];
+            FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:graphPath parameters:nil];
+            //                         Send request to Facebook
+            [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+                if (!error) {
+                    [self.messageButton setTitle:[NSString stringWithFormat:@"Message %@", result[@"first_name"]
+                                                  ] forState:UIControlStateNormal];
+                } else {
+                    NSLog(@"3, %@",error);
+                }
+            }];
+        } else {
+            [self.messageButton setTitle:[NSString stringWithFormat:@"Message %@", object[@"username"]] forState:UIControlStateNormal];
+        }
     }];
 }
 
