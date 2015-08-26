@@ -102,12 +102,10 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if ([tableView cellForRowAtIndexPath:indexPath].tag == 2){
-        ProfileViewController *profileViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"Profile"
-         ];
-        NSLog(@"Poster in %@", self.poster);
+    NSDictionary *selectedField = [self.existingFieldsForTable objectAtIndex:indexPath.row];
+    if ([selectedField[@"field"]isEqualToString:@"profile"]){
+        ProfileViewController *profileViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"Profile"];
         profileViewController.detailUser = self.poster;
-        NSLog(@"USER: %@", profileViewController.detailUser);
         [self.navigationController pushViewController:profileViewController animated:YES];
     }
 }
