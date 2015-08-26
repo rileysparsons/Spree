@@ -21,6 +21,7 @@
 - (id)initWithCoder:(NSCoder *)aCoder {
     self = [super initWithCoder:aCoder];
     if (self) {
+        self.parseClassName = @"PostSubtype";
         // Whether the built-in pull-to-refresh is enabled
         self.pullToRefreshEnabled = NO;
         self.loadingViewEnabled = NO;
@@ -47,7 +48,9 @@
 }
 
 -(PFQuery *)queryForTable{
-    return 0;
+    PFQuery *query = [PFQuery queryWithClassName:self.parseClassName];
+    [query whereKey:@"parentType" equalTo:self.post.typePointer];
+    return query;
 }
 
 
@@ -66,20 +69,17 @@
     }
     cell.accessoryType = UITableViewCellAccessoryNone;
     cell.accessoryView = [MSCellAccessory accessoryWithType:FLAT_DISCLOSURE_INDICATOR color:[UIColor spreeOffBlack]];
-    cell.typeLabel.text = [self.subTypes objectAtIndex:indexPath.row];
+    cell.typeLabel.text = [self.objects objectAtIndex:indexPath.row][@"subtype"];
     return cell;
 }
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return self.subTypes.count;
-}
 
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSLog(@"POST: %@", self.post);
-    PostingWorkflow *postingWorkflow = [[PostingWorkflow alloc] initWithType:self.post.typePointer];
-    postingWorkflow.post = self.post;
-    [self.navigationController pushViewController:[postingWorkflow nextViewController] animated:YES];
+//    self.workflow.
+    self.workflow.post[@"subtype"] = [self objectAtIndexPath:indexPath];
+    [self.workflow setSubtype:[self objectAtIndexPath:indexPath]];
+    [self.navigationController pushViewController:[self.workflow nextViewController] animated:YES];
 }
 
 -(void)cancelWorkflow{

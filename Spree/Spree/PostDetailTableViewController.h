@@ -18,9 +18,17 @@
 
 @property PFUser *poster;
 
--(UITableViewCell *)cellForField:(NSString *)field;
+@property BOOL hasCompletedFields;
+
+-(void)initWithPost:(SpreePost *)post;
+
+-(UITableViewCell *)cellForField:(NSDictionary *)field;
 
 -(UITableViewCell *)loadPostImagesForCell:(PhotoGalleryTableViewCell *)cell;
 
+-(void)organizeTableForFields;
+
+@property NSArray *existingFields;
+@property NSMutableArray *existingFieldsForTable;
 
 @end

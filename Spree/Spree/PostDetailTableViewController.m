@@ -11,12 +11,16 @@
 #import "PostTitleTableViewCell.h"
 #import "PhotoGalleryTableViewCell.h"
 #import "PostUserTableViewCell.h"
+#import "PostMapTableViewCell.h"
+#import "PostMessageTableViewCell.h"
 #import "ProfileViewController.h"
 #import "ChatView.h"
 #import "common.h"
 #import "ChatView.h"
 #import "recent.h"
 #import <YHRoundBorderedButton.h>
+
+
 
 @interface PostDetailTableViewController ()
 
@@ -27,6 +31,22 @@
 
 @implementation PostDetailTableViewController
 
+-(void)initWithPost:(SpreePost *)post{
+    self.post = post;
+    self.existingFieldsForTable = [[NSMutableArray alloc] init];
+    if (self.post[@"completedFields"]){
+        self.existingFields = self.post[@"completedFields"];
+        self.hasCompletedFields = YES;
+        [self organizeTableForFields];
+    } else {
+        [self.post.typePointer fetchIfNeededInBackgroundWithBlock:^(PFObject *type, NSError *error){
+            self.existingFields = self.post.typePointer[@"fields"];
+            [self organizeTableForFields];
+            [self.tableView reloadData];
+        }];
+    }
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -35,7 +55,7 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
+    NSLog(@"Post %@", self.post);
     // Table View Set up
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.autoresizesSubviews = YES;
@@ -45,35 +65,36 @@
     self.view.backgroundColor = [UIColor spreeOffWhite];
     
     self.navigationItem.backBarButtonItem.title = @"";
+    [self.post.typePointer fetchIfNeededInBackgroundWithTarget:self selector:@selector(setupTitle)];
     [self getUserForPost];
-    [self setupNavigationBarImage];
-    [self setupPriceButton];
     [self updatePostStatus];
     // Navigation bar UI
     
     // Setting the poster property
+    UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(shareButtonTouched)];
     
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    self.navigationItem.rightBarButtonItem = shareButton;
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    if (section == 0)
-        return self.fields.count;
-    return 0;
+    NSLog(@"%lu", self.existingFieldsForTable.count);
+    if (self.hasCompletedFields == YES){
+        if (section == 0)
+            return self.existingFieldsForTable.count;
+        return 0;
+    }else {
+        if (section == 0)
+            return self.existingFieldsForTable.count;
+        return 0;
+    }
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -89,12 +110,19 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0)
-        return [self cellForField:self.fields[indexPath.row]];
-    return 0;
+    if (self.hasCompletedFields == YES){
+        if (indexPath.section == 0)
+            return [self cellForField:[self.existingFieldsForTable objectAtIndex:indexPath.row]];
+        return 0;
+    } else {
+        if (indexPath.section == 0)
+            return [self cellForOldField:[self.existingFieldsForTable objectAtIndex:indexPath.row][@"field"]];
+        return 0;
+    }
 }
 
--(UITableViewCell *)cellForField:(NSString *)field {
+
+-(UITableViewCell *)cellForOldField:(NSString *)field {
     
     if ([field isEqualToString:PF_POST_DESCRIPTION]){
         static NSString *CellIdentifier = @"DescriptionCell";
@@ -143,6 +171,7 @@
         }
         [self loadPostImagesForCell:cell];
         [cell setDateLabelForPost:self.post];
+        [cell setupPriceLabelForPost:self.post];
         return cell;
     } else if ([field isEqualToString:PF_POST_USER]){
         static NSString *CellIdentifier = @"PostUserCell";
@@ -169,6 +198,27 @@
         UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         cell.textLabel.text = self.post.eventDate;
         return cell;
+    }else if ([field isEqualToString:@"pickupLocation"] || [field isEqualToString:@"destinationLocation"]){
+        static NSString *CellIdentifier = @"MapCell";
+        
+        PostMapTableViewCell* cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        [cell setLocationsFromPost:self.post];
+        return cell;
+    } else if ([field isEqualToString:@"profile"]){
+        NSString *className = NSStringFromClass([PostUserTableViewCell class]);
+        UINib *nib = [UINib nibWithNibName:className bundle:nil];
+        [self.tableView registerNib:nib forCellReuseIdentifier:className];
+        PostUserTableViewCell *userCell = [self.tableView dequeueReusableCellWithIdentifier:className];
+        [userCell setUserLabelForPost:self.post];
+        return userCell;
+    } else if ([field isEqualToString:@"message"]){
+        NSString *className = NSStringFromClass([PostMessageTableViewCell class]);
+        UINib *nib = [UINib nibWithNibName:className bundle:nil];
+        [self.tableView registerNib:nib forCellReuseIdentifier:className];
+        PostMessageTableViewCell *messageCell = [self.tableView dequeueReusableCellWithIdentifier:className];
+        [messageCell.messageButton addTarget:self action:@selector(messageButtonTouched) forControlEvents:UIControlEventTouchUpInside];
+        [messageCell setMessageButtonForPost:self.post];
+        return messageCell;
     }
     
     static NSString *CellIdentifier = @"DefaultCell";
@@ -178,54 +228,7 @@
 
 #pragma mark - UI Setup
 
--(void)setupPriceButton{
-    self.getButton = [[YHRoundBorderedButton alloc] init];
-    [self.getButton addTarget:self action:@selector(priceButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-    [self.getButton sizeToFit];
-    [self.getButton setTintColor:[UIColor spreeOffWhite]];
-    [self.getButton setTitleColor:[UIColor spreeDarkBlue] forState:UIControlStateHighlighted];
-    UIBarButtonItem *getBarButton = [[UIBarButtonItem alloc] initWithCustomView:self.getButton];
-    self.navigationItem.rightBarButtonItem = getBarButton;
-    if ([self.post.type isEqualToString:POST_TYPE_TASK]){
-        [self.getButton setTitle:@"CLAIM" forState:UIControlStateNormal];
-    } else {
-        [self.getButton setTitle:[NSString stringWithFormat:@"$%@", self.post.price.stringValue] forState:UIControlStateNormal];
-    }
-}
 
--(void)setupNavigationBarImage{
-    if ([self.post.type isEqualToString:POST_TYPE_TASK]){
-        UIImageView *navBarIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sprintCellIconWhite"]];
-        navBarIcon.frame = CGRectMake(0, 0, 25, 25);
-        navBarIcon.contentMode = UIViewContentModeScaleAspectFit;
-        self.navigationItem.titleView = navBarIcon;
-    } else if ([self.post.type isEqualToString:POST_TYPE_TICKETS]){
-        UIImageView *navBarIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"BookTypeIconSmall"]];
-        navBarIcon.frame = CGRectMake(0, 0, 25, 25);
-        navBarIcon.contentMode = UIViewContentModeScaleAspectFit;
-        self.navigationItem.titleView = navBarIcon;
-    } else if ([self.post.type isEqualToString:POST_TYPE_CLOTHING]){
-        UIImageView *navBarIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"clothingCellIconWhite"]];
-        navBarIcon.frame = CGRectMake(0, 0, 25, 25);
-        navBarIcon.contentMode = UIViewContentModeScaleAspectFit;
-        self.navigationItem.titleView = navBarIcon;
-    } else if ([self.post.type isEqualToString:POST_TYPE_FURNITURE]){
-        UIImageView *navBarIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"furnitureCellIconWhite"]];
-        navBarIcon.frame = CGRectMake(0, 0, 25, 25);
-        navBarIcon.contentMode = UIViewContentModeScaleAspectFit;
-        self.navigationItem.titleView = navBarIcon;
-    } else if ([self.post.type isEqualToString:POST_TYPE_BOOKS]){
-        UIImageView *navBarIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"BookTypeIconSmall"]];
-        navBarIcon.frame = CGRectMake(0, 0, 25, 25);
-        navBarIcon.contentMode = UIViewContentModeScaleAspectFit;
-        self.navigationItem.titleView = navBarIcon;
-    } else if ([self.post.type isEqualToString:POST_TYPE_ELECTRONICS]){
-        UIImageView *navBarIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ElectronicsTypeIconSmall"]];
-        navBarIcon.frame = CGRectMake(0, 0, 25, 25);
-        navBarIcon.contentMode = UIViewContentModeScaleAspectFit;
-        self.navigationItem.titleView = navBarIcon;
-    }
-}
 
 #pragma mark - Post Images
 
@@ -248,7 +251,7 @@
 
 #pragma mark - Button Selectors
 
--(void)priceButtonPressed{
+-(void)messageButtonTouched{
     PFUser *user2 = self.poster;
     PFUser *user1 = [PFUser currentUser];
     
@@ -268,6 +271,7 @@
 }
 
 -(void)getUserForPost{
+    NSLog(@"%@", self.post.user);
     if (([[(PFUser *)self.post.user objectId] isEqualToString: [[PFUser currentUser] objectId]])){
         //        UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithTitle:@"Delete" style:UIBarButtonItemStyleBordered target:self actio:@selector(deleteButtonSelected)];
         self.poster = [PFUser currentUser];
@@ -332,48 +336,168 @@
     }
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
+//
 
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
+-(void)organizeTableForFields{
+    for (id field in self.existingFields){
+        if ([field[@"dataType"] isEqualToString:@"geoPoint"]){
+            NSDictionary *mapCellDictionary;
+            for (id dictionary in self.existingFieldsForTable){
+                if ([dictionary[@"name"] isEqualToString:@"map"]){
+                    mapCellDictionary = dictionary;
+                }
+            }
+            if (!mapCellDictionary){
+                [self.existingFieldsForTable addObject:field];
+            }
+        } else if ([field[@"dataType"] isEqualToString:@"string"] && ![field[@"field"] isEqualToString:@"title"]){
+            [self.existingFieldsForTable addObject:field];
+        } else if ([field[@"dataType"] isEqualToString:@"image"]){
+            [self.existingFieldsForTable addObject:field];
+        }
+    }
+    [self.existingFieldsForTable sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"priority" ascending:YES]]];
+    [self addOtherRowsForTable];
 }
-*/
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+-(void)addOtherRowsForTable{
+    NSDictionary *profileField = @{
+                                   @"field" : @"profile"
+                                   };
+    NSDictionary *messageField = @{
+                                   @"field" : @"message"
+                                   };
+    [self.existingFieldsForTable insertObject:profileField atIndex:1];
+    [self.existingFieldsForTable insertObject:messageField atIndex:2];
 }
-*/
+
+-(UITableViewCell *)cellForField:(NSDictionary *)field {
+    if ([field[@"dataType"] isEqualToString:@"geoPoint"]){
+        NSString *className = NSStringFromClass([PostMapTableViewCell class]);
+        UINib *nib = [UINib nibWithNibName:className bundle:nil];
+        [self.tableView registerNib:nib forCellReuseIdentifier:@"PostMapTableViewCell"];
+        PostMapTableViewCell *mapCell = [self.tableView dequeueReusableCellWithIdentifier:@"PostMapTableViewCell"];
+        [mapCell setLocationsFromPost:self.post];
+        return mapCell;
+    } else if ([field[@"dataType"] isEqualToString:@"string"]){
+        if ([field[@"field"] isEqualToString:@"userDescription"]){
+            NSString *className = NSStringFromClass([PostDescriptionTableViewCell class]);
+            UINib *nib = [UINib nibWithNibName:className bundle:nil];
+            [self.tableView registerNib:nib forCellReuseIdentifier:className];
+            PostDescriptionTableViewCell *descriptionCell = [self.tableView dequeueReusableCellWithIdentifier:className];
+            [descriptionCell setDescriptionTextViewForPost:self.post];
+            return descriptionCell;
+        } else{
+            UITableViewCell *otherCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"other"];
+            [otherCell setBackgroundColor:[UIColor spreeOffWhite]];
+            otherCell.textLabel.textColor = [UIColor spreeOffBlack];
+            otherCell.textLabel.font = [UIFont fontWithName:@"Lato-Regular" size:18];
+            [otherCell.textLabel setText:self.post[field[@"field"]]];
+            return otherCell;
+        }
+    } else if ([field[@"dataType"] isEqualToString:@"image"]){
+        NSString *className = NSStringFromClass([PhotoGalleryTableViewCell class]);
+        UINib *nib = [UINib nibWithNibName:className bundle:nil];
+        [self.tableView registerNib:nib forCellReuseIdentifier:className];
+        PhotoGalleryTableViewCell *photoCell = [self.tableView dequeueReusableCellWithIdentifier:className];
+        [photoCell setDateLabelForPost:self.post];
+        [photoCell setupPriceLabelForPost:self.post];
+        
+        [self loadPostImagesForCell:photoCell];
+        return photoCell;
+    } else if ([field[@"dataType"] isEqualToString:@"date"]){
+        UITableViewCell *dateCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"other"];
+        [dateCell setBackgroundColor:[UIColor spreeOffWhite]];
+        dateCell.textLabel.textColor = [UIColor spreeOffBlack];
+        dateCell.textLabel.font = [UIFont fontWithName:@"Lato-Regular" size:18];
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"MM/dd/yyyy hh:mma"];
+        NSString *dateString = [dateFormatter stringFromDate:self.post[field[@"field"]]];
+        [dateCell.textLabel setText:dateString];
+        return dateCell;
+    } else if ([field[@"field"] isEqualToString:@"profile"]){
+        NSString *className = NSStringFromClass([PostUserTableViewCell class]);
+        UINib *nib = [UINib nibWithNibName:className bundle:nil];
+        [self.tableView registerNib:nib forCellReuseIdentifier:className];
+        PostUserTableViewCell *userCell = [self.tableView dequeueReusableCellWithIdentifier:className];
+        [userCell setUserLabelForPost:self.post];
+        return userCell;
+    }else if ([field[@"field"] isEqualToString:@"message"]){
+        NSString *className = NSStringFromClass([PostMessageTableViewCell class]);
+        UINib *nib = [UINib nibWithNibName:className bundle:nil];
+        [self.tableView registerNib:nib forCellReuseIdentifier:className];
+        PostMessageTableViewCell *messageCell = [self.tableView dequeueReusableCellWithIdentifier:className];
+        [messageCell.messageButton addTarget:self action:@selector(messageButtonTouched) forControlEvents:UIControlEventTouchUpInside];
+        [messageCell setMessageButtonForPost:self.post];
+        return messageCell;
+    }
+    return 0;
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 30)];
+    footerView.backgroundColor = [UIColor clearColor];
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"MM/dd/yyyy"];
+    NSString *dateString = [dateFormatter stringFromDate:self.post.createdAt];
+    NSString *fullDateString = [NSString stringWithFormat:@"Posted on %@", dateString];
+    label.font = [UIFont fontWithName:@"Lato-Regular" size:16];
+    label.textColor = [UIColor spreeOffBlack];
+    label.text = fullDateString;
+    [label setFrame:CGRectMake(8, 8, footerView.frame.size.width, 30)];
+    
+    [footerView addSubview:label];
+    
+    return footerView;
+}
+                    
+-(void)setupTitle{
+
+    CGRect headerTitleSubtitleFrame = CGRectMake(0, 0, 200, 44);
+    UIView* _headerTitleSubtitleView = [[UILabel alloc] initWithFrame:headerTitleSubtitleFrame];
+    _headerTitleSubtitleView.backgroundColor = [UIColor clearColor];
+    _headerTitleSubtitleView.autoresizesSubviews = YES;
+    
+    CGRect titleFrame = CGRectMake(0, 2, 200, 24);
+    UILabel *titleView = [[UILabel alloc] initWithFrame:titleFrame];
+    titleView.backgroundColor = [UIColor clearColor];
+    titleView.font = [UIFont fontWithName:@"Lato-Regular" size:17];
+    titleView.textAlignment = NSTextAlignmentCenter;
+    titleView.textColor = [UIColor spreeOffBlack];
+    titleView.text = self.post.title;
+    titleView.adjustsFontSizeToFitWidth = YES;
+    [_headerTitleSubtitleView addSubview:titleView];
+    
+    CGRect subtitleFrame = CGRectMake(0, 24, 200, 44-24);
+    UILabel *subtitleView = [[UILabel alloc] initWithFrame:subtitleFrame];
+    subtitleView.backgroundColor = [UIColor clearColor];
+    subtitleView.font = [UIFont fontWithName:@"Lato-Regular" size:12];
+    subtitleView.textAlignment = NSTextAlignmentCenter;
+    subtitleView.textColor = [UIColor spreeOffBlack];
+    subtitleView.text = self.post.typePointer[@"type"];
+    subtitleView.text = [subtitleView.text uppercaseString];
+    subtitleView.adjustsFontSizeToFitWidth = YES;
+    [_headerTitleSubtitleView addSubview:subtitleView];
+    
+    _headerTitleSubtitleView.autoresizingMask = (UIViewAutoresizingFlexibleLeftMargin |
+                                                 UIViewAutoresizingFlexibleRightMargin |
+                                                 UIViewAutoresizingFlexibleTopMargin |
+                                                 UIViewAutoresizingFlexibleBottomMargin);
+    
+    self.navigationItem.titleView = _headerTitleSubtitleView;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return 30;
+}
+
+-(void)shareButtonTouched{
+    
+}
 
 @end

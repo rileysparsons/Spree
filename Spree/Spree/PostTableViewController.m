@@ -249,6 +249,7 @@
 
 - (void)objectsDidLoad:(NSError *)error {
     [super objectsDidLoad:error];
+    NSLog(@"Size of all objects: %lu", sizeof([self.objects objectAtIndex:0]));
     UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
     if (self.objects.count == 0){
         // Display a message when the table is empty
@@ -390,9 +391,7 @@
 
         self.postDetailTableViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PostDetail"];
 
-        [self.postDetailTableViewController setFields:[self fieldsForPostType:[[self objectAtIndexPath:indexPath]objectForKey:PF_POST_TYPE]]];
-        NSLog(@"%@", [self fieldsForPostType:[[self objectAtIndexPath:indexPath]objectForKey:PF_POST_TYPE]]);
-        [self.postDetailTableViewController setPost:selectedPost];
+        [self.postDetailTableViewController initWithPost:selectedPost];
         [self.navigationController pushViewController:self.postDetailTableViewController animated:YES];
         [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
