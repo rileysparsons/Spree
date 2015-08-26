@@ -17,6 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupForUser];
+    [self formatProfilePicture];
 }
 
 -(void)setupForUser{
@@ -40,19 +41,19 @@
     }];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+-(void)formatProfilePicture{
+    CAShapeLayer *circle = [CAShapeLayer layer];
+    // Make a circular shape
+    UIBezierPath *circularPath=[UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, self.profileImage.frame.size.width, self.profileImage.frame.size.height) cornerRadius:MAX(self.profileImage.frame.size.width, self.profileImage.frame.size.height)];
+    
+    circle.path = circularPath.CGPath;
+    
+    // Configure the apperence of the circle
+    circle.fillColor = [UIColor blackColor].CGColor;
+    circle.strokeColor = [UIColor blackColor].CGColor;
+    circle.lineWidth = 0;
+    
+    self.profileImage.layer.mask=circle;
+
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 @end

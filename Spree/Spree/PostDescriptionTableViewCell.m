@@ -19,6 +19,8 @@
     self.descriptionTextView.text = post.userDescription;
     self.descriptionTextView.scrollEnabled = NO;
     [self.descriptionTextView sizeToFit];
+    CGSize sizeThatShouldFitTheContent = [self.descriptionTextView sizeThatFits:CGSizeMake(self.frame.size.width, MAXFLOAT)];
+    self.textViewHeight.constant = sizeThatShouldFitTheContent.height;
 }
 
 -(void)enableEditMode{

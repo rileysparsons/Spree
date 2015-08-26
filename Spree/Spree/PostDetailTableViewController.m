@@ -70,6 +70,9 @@
     [self updatePostStatus];
     // Navigation bar UI
     
+    [self addCustomBackButton];
+    
+    
     // Setting the poster property
     UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(shareButtonTouched)];
     
@@ -99,12 +102,10 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if ([tableView cellForRowAtIndexPath:indexPath].tag == 2){
-        ProfileViewController *profileViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"Profile"
-         ];
-        NSLog(@"Poster in %@", self.poster);
+    NSDictionary *selectedField = [self.existingFieldsForTable objectAtIndex:indexPath.row];
+    if ([selectedField[@"field"]isEqualToString:@"profile"]){
+        ProfileViewController *profileViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"Profile"];
         profileViewController.detailUser = self.poster;
-        NSLog(@"USER: %@", profileViewController.detailUser);
         [self.navigationController pushViewController:profileViewController animated:YES];
     }
 }
@@ -498,6 +499,16 @@
 
 -(void)shareButtonTouched{
     
+}
+
+-(void)addCustomBackButton{
+    UIButton *back = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 40)];
+    back.backgroundColor = [UIColor clearColor];
+    back.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [back setImage:[UIImage imageNamed:@"backNormal_Dark"] forState:UIControlStateNormal];
+    [back setImage:[UIImage imageNamed:@"backHighlight_Dark"] forState:UIControlStateHighlighted];
+    [back addTarget:self.navigationController action:@selector(popViewControllerAnimated:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:back];
 }
 
 @end
