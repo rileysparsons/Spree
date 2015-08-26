@@ -272,6 +272,24 @@
     return 0;
 }
 
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 30)];
+    footerView.backgroundColor = [UIColor clearColor];
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"MM/dd/yyyy"];
+    NSString *dateString = [dateFormatter stringFromDate:[NSDate date]];
+    NSString *fullDateString = [NSString stringWithFormat:@"Posted on %@", dateString];
+    label.font = [UIFont fontWithName:@"Lato-Regular" size:16];
+    label.textColor = [UIColor spreeOffBlack];
+    label.text = fullDateString;
+    [label setFrame:CGRectMake(8, 8, footerView.frame.size.width, 30)];
+    
+    [footerView addSubview:label];
+    
+    return footerView;
+}
 
 
 @end

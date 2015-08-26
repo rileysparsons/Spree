@@ -15,9 +15,8 @@
 }
 
 -(void)setMessageButtonForPost:(SpreePost*)post{
-    [post.user fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error){
-        NSString *messageTitle = [NSString stringWithFormat:@"Message %@", object[@"username"]];
-        self.messageButton.titleLabel.text = messageTitle;
+    [post.user fetchInBackgroundWithBlock:^(PFObject *object, NSError *error){
+        [self.messageButton setTitle:[NSString stringWithFormat:@"Message %@", object[@"username"]] forState:UIControlStateNormal];
     }];
 }
 

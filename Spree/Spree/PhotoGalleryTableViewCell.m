@@ -26,15 +26,8 @@
 
 - (void)awakeFromNib {
     // Initialization code
-    self.photoGalleryControl = [[UIPageControl alloc] init];
-    self.photoGalleryControl.transform = CGAffineTransformMakeRotation(M_PI_2);
-    self.photoGalleryControl.frame = CGRectMake(10, self.center.y, 5, 10);
-    self.photoGalleryControl.numberOfPages = 3;
-    self.photoGalleryControl.currentPage = 0;
-    self.photoGalleryControl.currentPageIndicatorTintColor = [UIColor spreeDarkYellow];
-    [self addSubview:self.photoGalleryControl];
     self.photoGallery.delegate = self;
-    
+    self.counterLabel.text = [NSString stringWithFormat:@"1/%lu", self.pageViews.count];
     CAGradientLayer *gradient = [CAGradientLayer layer];
     gradient.frame = self.bottomGradient.bounds;
     gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor clearColor] CGColor], (id)[[UIColor spreeOffBlack] CGColor], nil];
@@ -56,14 +49,32 @@
     NSLog(@"IMAGES FROM CELL %@ and width %f, with screen %f, and count %lu", images, pagesScrollViewSize.width, self.frame.size.width, (unsigned long)images.count);
     [self setupGallery];
     self.photoGallery.contentOffset = CGPointZero;
-    if (images.count == 1){
-        self.photoGalleryControl.hidden = YES;
-    }
+//    if (images.count == 1){
+//        self.counterLabel.hidden = YES;
+//    } else {
+//        self.counterLabel.hidden = NO;
+//    }
 }
 
 -(void)setDateLabelForPost:(SpreePost *)post{
     NSTimeInterval seconds = [[NSDate date] timeIntervalSinceDate:post.createdAt];
     self.dateLabel.text = TimeElapsed(seconds);
+}
+
+-(void)setupPriceLabelForPost:(SpreePost *)post{
+    NSString *priceString = [NSString stringWithFormat:@"$%@", post.price];
+    self.priceLabel.text = priceString;
+    CAShapeLayer *circle = [CAShapeLayer layer];
+    // Make a circular shape
+    UIBezierPath *circularPath=[UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, self.priceView.frame.size.width, self.priceView.frame.size.height) cornerRadius:MAX(self.priceView.frame.size.width, self.priceView.frame.size.height)];
+    
+    circle.path = circularPath.CGPath;
+    
+    // Configure the apperence of the circle
+    circle.fillColor = [UIColor spreeOffWhite].CGColor;
+    circle.strokeColor = [UIColor spreeOffWhite].CGColor;
+    circle.lineWidth = 0;
+    self.priceView.layer.mask=circle;
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -119,7 +130,9 @@
     NSInteger page = (NSInteger)floor((self.photoGallery.contentOffset.x * 2.0f + pageWidth) / (pageWidth * 2.0f));
     
     // Update the page control (Removed)
-    self.photoGalleryControl.currentPage = page;
+    NSString *currentPage = [@(page+1) stringValue];
+    NSString *totalPages = [@(self.pageViews.count) stringValue];
+    self.counterLabel.text = [NSString stringWithFormat:@"%@/%@", currentPage, totalPages];
     
     // Work out which pages you want to load
     NSInteger firstPage = page - 1;
@@ -146,6 +159,10 @@
     
     self.photoGalleryControl.currentPage = 0;
     self.photoGalleryControl.numberOfPages = pageCount;
+    
+    NSString *currentPage = [@(1) stringValue];
+    NSString *totalPages = [@(pageCount) stringValue];
+    self.counterLabel.text = [NSString stringWithFormat:@"%@/%@", currentPage, totalPages];
     
     // 3
     self.pageViews = [[NSMutableArray alloc] init];

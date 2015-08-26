@@ -5,26 +5,29 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <mutableArray key="Lato-Bold.ttf">
+            <string>Lato-Bold</string>
+            <string>Lato-Bold</string>
+        </mutableArray>
         <mutableArray key="Lato-Regular.ttf">
-            <string>Lato-Regular</string>
             <string>Lato-Regular</string>
         </mutableArray>
     </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="PhotoGalleryTableViewCell">
-            <rect key="frame" x="0.0" y="0.0" width="414" height="200"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="215" id="KGk-i7-Jjw" customClass="PhotoGalleryTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="215"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="redraw" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3FS-IB-baB">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="199"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="215"/>
                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="199" id="nbP-rG-4Xa"/>
+                            <constraint firstAttribute="height" constant="215" id="nbP-rG-4Xa"/>
                         </constraints>
                         <connections>
                             <outlet property="delegate" destination="-1" id="342-nW-ss1"/>
@@ -44,21 +47,37 @@
                         </state>
                     </button>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fre-YE-PjC">
-                        <rect key="frame" x="0.0" y="148" width="414" height="51"/>
+                        <rect key="frame" x="0.0" y="163" width="414" height="51"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1/4" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SSF-dF-2gw">
+                                <rect key="frame" x="8" y="21" width="28" height="22"/>
+                                <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="18"/>
+                                <color key="textColor" red="0.96558624510000002" green="0.97044742110000004" blue="0.97035741809999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <constraints>
                             <constraint firstAttribute="height" constant="51" id="APd-1K-xmT"/>
+                            <constraint firstAttribute="bottom" secondItem="SSF-dF-2gw" secondAttribute="bottom" constant="8" id="Pql-gs-BBU"/>
+                            <constraint firstItem="SSF-dF-2gw" firstAttribute="leading" secondItem="Fre-YE-PjC" secondAttribute="leading" constant="8" id="aH0-O1-7KX"/>
                         </constraints>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1e3-rS-02d">
-                        <rect key="frame" x="326" y="170" width="80" height="21"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="asX-2R-1i6">
+                        <rect key="frame" x="338" y="138" width="60" height="60"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="$100" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VJi-KN-PQB">
+                                <rect key="frame" x="11" y="19" width="39" height="21"/>
+                                <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="14"/>
+                                <color key="textColor" red="0.16666857900000001" green="0.18534906209999999" blue="0.19849607350000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.96558624510000002" green="0.97044742110000004" blue="0.97035741809999998" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="80" id="TdJ-jh-YFu"/>
-                            <constraint firstAttribute="height" constant="21" id="ePi-4N-fjG"/>
+                            <constraint firstAttribute="width" constant="60" id="cEN-su-yWq"/>
+                            <constraint firstAttribute="height" constant="60" id="yjr-V9-a6K"/>
                         </constraints>
-                        <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="15"/>
-                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="Fre-YE-PjC" secondAttribute="trailing" id="C9p-fK-Cum"/>
@@ -70,18 +89,20 @@
                     <constraint firstAttribute="trailingMargin" secondItem="vTF-Fw-Sz8" secondAttribute="trailing" constant="8" id="KVT-8J-uKF"/>
                     <constraint firstAttribute="trailingMargin" secondItem="vTF-Fw-Sz8" secondAttribute="trailing" constant="8" id="Np1-a6-ufp"/>
                     <constraint firstAttribute="bottomMargin" secondItem="Fre-YE-PjC" secondAttribute="bottom" constant="-8" id="RC6-Q0-T0y"/>
+                    <constraint firstItem="Fre-YE-PjC" firstAttribute="top" secondItem="asX-2R-1i6" secondAttribute="bottom" constant="-34" id="RL4-Xq-gg7"/>
                     <constraint firstItem="Fre-YE-PjC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="SCa-Jp-6Gb"/>
                     <constraint firstAttribute="trailingMargin" secondItem="Fre-YE-PjC" secondAttribute="trailing" constant="-8" id="UER-E8-cpI"/>
                     <constraint firstAttribute="trailing" secondItem="3FS-IB-baB" secondAttribute="trailing" id="V7h-az-OSZ"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="asX-2R-1i6" secondAttribute="bottom" constant="8" id="an0-Oo-jBP"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="asX-2R-1i6" secondAttribute="trailing" constant="8" id="cLj-U8-hty"/>
                     <constraint firstAttribute="bottom" secondItem="3FS-IB-baB" secondAttribute="bottom" id="cP9-zi-C05"/>
-                    <constraint firstAttribute="bottom" secondItem="1e3-rS-02d" secondAttribute="bottom" constant="8" id="o4l-Rb-VPr"/>
-                    <constraint firstAttribute="trailing" secondItem="1e3-rS-02d" secondAttribute="trailing" constant="8" id="sPG-pO-vNP"/>
                     <constraint firstAttribute="bottom" secondItem="Fre-YE-PjC" secondAttribute="bottom" id="yJe-Jb-6Db"/>
                 </constraints>
                 <variation key="default">
                     <mask key="constraints">
                         <exclude reference="Ehr-WM-xtC"/>
                         <exclude reference="RC6-Q0-T0y"/>
+                        <exclude reference="RL4-Xq-gg7"/>
                         <exclude reference="UER-E8-cpI"/>
                         <exclude reference="Ctd-yF-Ean"/>
                         <exclude reference="KVT-8J-uKF"/>
@@ -90,11 +111,13 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="bottomGradient" destination="Fre-YE-PjC" id="6dU-Kc-xcj"/>
-                <outlet property="dateLabel" destination="1e3-rS-02d" id="IrU-Fs-7xX"/>
+                <outlet property="counterLabel" destination="SSF-dF-2gw" id="4vo-I4-gx1"/>
                 <outlet property="editButton" destination="vTF-Fw-Sz8" id="Vag-R2-nW3"/>
                 <outlet property="photoGallery" destination="3FS-IB-baB" id="r6z-ph-Us3"/>
+                <outlet property="priceLabel" destination="VJi-KN-PQB" id="xkB-9J-Was"/>
+                <outlet property="priceView" destination="asX-2R-1i6" id="ih8-99-aww"/>
             </connections>
-            <point key="canvasLocation" x="278" y="278"/>
+            <point key="canvasLocation" x="278" y="285.5"/>
         </tableViewCell>
     </objects>
 </document>

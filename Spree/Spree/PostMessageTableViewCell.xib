@@ -23,12 +23,13 @@
                         <rect key="frame" x="8" y="0.0" width="304" height="43.5"/>
                         <color key="backgroundColor" red="0.034740071740000003" green="0.29351189729999999" blue="0.58873707060000002" alpha="1" colorSpace="calibratedRGB"/>
                         <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="17"/>
-                        <state key="normal" title="Message Marco">
+                        <state key="normal">
                             <color key="titleColor" red="0.96558624505996704" green="0.97044742107391357" blue="0.97035741806030273" alpha="1" colorSpace="calibratedRGB"/>
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
                     </button>
                 </subviews>
+                <color key="backgroundColor" red="0.96558624510000002" green="0.97044742110000004" blue="0.97035741809999998" alpha="1" colorSpace="calibratedRGB"/>
                 <constraints>
                     <constraint firstItem="7TB-lw-qwf" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="9Tf-pt-yGx"/>
                     <constraint firstItem="7TB-lw-qwf" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="B8O-Pl-bwC"/>
