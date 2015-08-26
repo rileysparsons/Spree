@@ -24,7 +24,6 @@
 
 @interface PostDetailTableViewController ()
 
-@property YHRoundBorderedButton* getButton;
 @property BOOL currentUserPost;
 
 @end
@@ -33,11 +32,12 @@
 
 -(void)initWithPost:(SpreePost *)post{
     self.post = post;
-    self.existingFieldsForTable = [[NSMutableArray alloc] init];
-    if (self.post[@"completedFields"]){
+    self.existingFieldsForTable = [[NSMutableArray alloc] init]; // Existing Fields Will Hold Dictionaries Representing Cell Data Once Filtered.
+    
+    if (self.post[@"completedFields"]){ // This check ensures that posts made before August 2015 will still be able to be opened
         self.existingFields = self.post[@"completedFields"];
         self.hasCompletedFields = YES;
-        [self organizeTableForFields];
+        [self organizeTableForFields]; // This removes fields from completed fields that will not be shown as cells in the table view
     } else {
         [self.post.typePointer fetchIfNeededInBackgroundWithBlock:^(PFObject *type, NSError *error){
             self.existingFields = self.post.typePointer[@"fields"];
@@ -53,33 +53,29 @@
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     NSLog(@"Post %@", self.post);
+    
     // Table View Set up
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.autoresizesSubviews = YES;
     self.tableView.estimatedRowHeight = 100.0f;
-    
     self.tableView.backgroundColor = [UIColor spreeOffWhite];
+    
+    // View Set Up
     self.view.backgroundColor = [UIColor spreeOffWhite];
+
+    [self.post.typePointer fetchIfNeededInBackgroundWithTarget:self selector:@selector(setupTitle)]; // Sets up the custom title view based on the type of the post
     
-    self.navigationItem.backBarButtonItem.title = @"";
-    [self.post.typePointer fetchIfNeededInBackgroundWithTarget:self selector:@selector(setupTitle)];
     [self getUserForPost];
-    [self updatePostStatus];
+    
     // Navigation bar UI
-    
     [self addCustomBackButton];
+
     
-    
-    // Setting the poster property
-    UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(shareButtonTouched)];
-    
-    self.navigationItem.rightBarButtonItem = shareButton;
+    [self updatePostStatus];
 }
 
-#pragma mark - Table view data source
+#pragma mark - Table View
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
@@ -88,16 +84,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-    NSLog(@"%lu", self.existingFieldsForTable.count);
-    if (self.hasCompletedFields == YES){
-        if (section == 0)
-            return self.existingFieldsForTable.count;
-        return 0;
-    }else {
-        if (section == 0)
-            return self.existingFieldsForTable.count;
-        return 0;
-    }
+    return self.existingFieldsForTable.count;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -117,11 +104,36 @@
         return 0;
     } else {
         if (indexPath.section == 0)
-            return [self cellForOldField:[self.existingFieldsForTable objectAtIndex:indexPath.row][@"field"]];
+            return [self cellForOldField:[self.existingFieldsForTable objectAtIndex:indexPath.row][@"field"]]; // This method takes a string value for the field and returns cells.
         return 0;
     }
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return 30;
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 30)];
+    footerView.backgroundColor = [UIColor clearColor];
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"MM/dd/yyyy"];
+    NSString *dateString = [dateFormatter stringFromDate:self.post.createdAt];
+    NSString *fullDateString = [NSString stringWithFormat:@"Posted on %@", dateString];
+    label.font = [UIFont fontWithName:@"Lato-Regular" size:16];
+    label.textColor = [UIColor spreeOffBlack];
+    label.text = fullDateString;
+    [label setFrame:CGRectMake(8, 8, footerView.frame.size.width, 30)];
+    
+    [footerView addSubview:label];
+    
+    return footerView;
+}
+
+# pragma mark - Cell Producing Methods
 
 -(UITableViewCell *)cellForOldField:(NSString *)field {
     
@@ -137,7 +149,6 @@
                 }
             }
         }
-        
         [cell setDescriptionTextViewForPost:self.post];
         CGSize sysSize = [cell.contentView systemLayoutSizeFittingSize:CGSizeMake(self.tableView.bounds.size.width, CGFLOAT_MAX)];
         cell.contentView.bounds = CGRectMake(0,0, sysSize.width, sysSize.height);
@@ -227,153 +238,6 @@
     return cell;
 }
 
-#pragma mark - UI Setup
-
-
-
-#pragma mark - Post Images
-
--(UITableViewCell *)loadPostImagesForCell:(PhotoGalleryTableViewCell *)cell{
-    if (self.post.photoArray.count != 0){
-        NSMutableArray *tempPhotoArray = [[NSMutableArray alloc] initWithCapacity:3];
-        for (PFFile *imageFile in self.post.photoArray){
-            [imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-                if (!error) {
-                    UIImage *image = [UIImage imageWithData:data];
-                    [tempPhotoArray addObject:image];
-                    [cell setPhotoGalleryForImages:tempPhotoArray];
-                    // image can now be set on a UIImageView
-                }
-            }];
-        }
-    }
-    return 0;
-}
-
-#pragma mark - Button Selectors
-
--(void)messageButtonTouched{
-    PFUser *user2 = self.poster;
-    PFUser *user1 = [PFUser currentUser];
-    
-    NSString *groupId = StartPrivateChat(user1, user2);
-    
-    [self actionChat:groupId post:self.post];
-}
-
-- (void)actionChat:(NSString *)groupId post:(PFObject *)post_
-{
-    ChatView *chatView = [[ChatView alloc] initWith:groupId post:post_ title:self.poster[@"username"]];
-    NSLog(@"%@", self.poster[@"username"]);
-    self.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:chatView animated:YES];
-    // Unhide the tabbar when we go back
-    self.hidesBottomBarWhenPushed = NO;
-}
-
--(void)getUserForPost{
-    NSLog(@"%@", self.post.user);
-    if (([[(PFUser *)self.post.user objectId] isEqualToString: [[PFUser currentUser] objectId]])){
-        //        UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithTitle:@"Delete" style:UIBarButtonItemStyleBordered target:self actio:@selector(deleteButtonSelected)];
-        self.poster = [PFUser currentUser];
-        self.currentUserPost = YES;
-        [self updatePostStatus];
-    } else {
-        PFQuery *query = [PFUser query];
-        [query whereKey:@"objectId" equalTo:self.post.user.objectId];
-        [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-            NSLog(@"THIS: %@", object);
-            self.poster = (PFUser *)object;
-//            NSString *date = [NSDateFormatter localizedStringFromDate:[self.post createdAt] dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterNoStyle];
-//            _postDateUserLabel.text = [NSString stringWithFormat:@"Posted by %@ on %@", (_poster[@"name"]) ? _poster[@"name"] : _poster[@"username"], date];
-//            [self _loadData];
-        }];
-    }
-}
-
--(void)userControlButtonTouched{
-    UIAlertController *userControl = [UIAlertController alertControllerWithTitle:@"Post Control" message:@"Decide if your post should stay or go" preferredStyle:UIAlertControllerStyleActionSheet];
-    UIAlertAction* cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
-                                                          handler:^(UIAlertAction * action) {
-                                                              [userControl dismissViewControllerAnimated:YES completion:nil];
-                                                          }];
-    UIAlertAction* itemSold = [UIAlertAction actionWithTitle:@"This item has been sold" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        self.post.sold = YES;
-        [self.post saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error){
-            if (succeeded){
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloadTable" object:nil];
-            }
-        }];
-        [userControl dismissViewControllerAnimated:YES completion:nil];
-    }];
-    UIAlertAction* deletePost = [UIAlertAction actionWithTitle:@"Delete post" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
-        self.post.removed = YES;
-        [self.post saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error){
-            if (succeeded){
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloadTable" object:nil];
-                
-            }
-        }];
-        [self.navigationController popViewControllerAnimated:YES];
-    }];
-    [userControl addAction:cancel];
-    [userControl addAction:deletePost];
-    [userControl addAction:itemSold];
-    [self presentViewController:userControl animated:YES completion:nil];
-}
-
--(void)updatePostStatus{
-    if (self.currentUserPost){
-        if (!self.post.sold){
-            UIBarButtonItem *userControlButton = [[UIBarButtonItem alloc] initWithTitle:@"\u2699" style:UIBarButtonItemStylePlain target:self action:@selector(userControlButtonTouched)];
-            UIFont *f1 = [UIFont fontWithName:@"Helvetica" size:24.0];
-            NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:f1, NSFontAttributeName, nil]; [userControlButton setTitleTextAttributes:dict forState:UIControlStateNormal];
-            self.navigationItem.rightBarButtonItem = userControlButton;
-            self.currentUserPost = YES;
-        } else {
-            [self.getButton setTitle:@"SOLD" forState:UIControlStateNormal];
-            [self.getButton setUserInteractionEnabled:NO];
-        }
-    }
-}
-
-
-
-//
-
--(void)organizeTableForFields{
-    for (id field in self.existingFields){
-        if ([field[@"dataType"] isEqualToString:@"geoPoint"]){
-            NSDictionary *mapCellDictionary;
-            for (id dictionary in self.existingFieldsForTable){
-                if ([dictionary[@"name"] isEqualToString:@"map"]){
-                    mapCellDictionary = dictionary;
-                }
-            }
-            if (!mapCellDictionary){
-                [self.existingFieldsForTable addObject:field];
-            }
-        } else if ([field[@"dataType"] isEqualToString:@"string"] && ![field[@"field"] isEqualToString:@"title"]){
-            [self.existingFieldsForTable addObject:field];
-        } else if ([field[@"dataType"] isEqualToString:@"image"]){
-            [self.existingFieldsForTable addObject:field];
-        }
-    }
-    [self.existingFieldsForTable sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"priority" ascending:YES]]];
-    [self addOtherRowsForTable];
-}
-
--(void)addOtherRowsForTable{
-    NSDictionary *profileField = @{
-                                   @"field" : @"profile"
-                                   };
-    NSDictionary *messageField = @{
-                                   @"field" : @"message"
-                                   };
-    [self.existingFieldsForTable insertObject:profileField atIndex:1];
-    [self.existingFieldsForTable insertObject:messageField atIndex:2];
-}
-
 -(UITableViewCell *)cellForField:(NSDictionary *)field {
     if ([field[@"dataType"] isEqualToString:@"geoPoint"]){
         NSString *className = NSStringFromClass([PostMapTableViewCell class]);
@@ -437,26 +301,125 @@
     return 0;
 }
 
--(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
-    
-    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 30)];
-    footerView.backgroundColor = [UIColor clearColor];
-    
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"MM/dd/yyyy"];
-    NSString *dateString = [dateFormatter stringFromDate:self.post.createdAt];
-    NSString *fullDateString = [NSString stringWithFormat:@"Posted on %@", dateString];
-    label.font = [UIFont fontWithName:@"Lato-Regular" size:16];
-    label.textColor = [UIColor spreeOffBlack];
-    label.text = fullDateString;
-    [label setFrame:CGRectMake(8, 8, footerView.frame.size.width, 30)];
-    
-    [footerView addSubview:label];
-    
-    return footerView;
+#pragma mark - Post Images
+
+-(UITableViewCell *)loadPostImagesForCell:(PhotoGalleryTableViewCell *)cell{
+    if (self.post.photoArray.count != 0){
+        NSMutableArray *tempPhotoArray = [[NSMutableArray alloc] initWithCapacity:3];
+        for (PFFile *imageFile in self.post.photoArray){
+            [imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+                if (!error) {
+                    UIImage *image = [UIImage imageWithData:data];
+                    [tempPhotoArray addObject:image];
+                    [cell setPhotoGalleryForImages:tempPhotoArray];
+                    // image can now be set on a UIImageView
+                }
+            }];
+        }
+    }
+    return 0;
 }
-                    
+
+#pragma mark - Opening Chat
+
+-(void)messageButtonTouched{
+    PFUser *user2 = self.poster;
+    PFUser *user1 = [PFUser currentUser];
+    
+    NSString *groupId = StartPrivateChat(user1, user2);
+    
+    [self actionChat:groupId post:self.post];
+}
+
+- (void)actionChat:(NSString *)groupId post:(PFObject *)post_
+{
+    ChatView *chatView = [[ChatView alloc] initWith:groupId post:post_ title:self.poster[@"username"]];
+    NSLog(@"%@", self.poster[@"username"]);
+    self.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:chatView animated:YES];
+    // Unhide the tabbar when we go back
+    self.hidesBottomBarWhenPushed = NO;
+}
+
+-(void)userControlButtonTouched{
+    UIAlertController *userControl = [UIAlertController alertControllerWithTitle:@"Post Control" message:@"Decide if your post should stay or go" preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction* cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
+                                                          handler:^(UIAlertAction * action) {
+                                                              [userControl dismissViewControllerAnimated:YES completion:nil];
+                                                          }];
+    UIAlertAction* itemSold = [UIAlertAction actionWithTitle:@"This item has been sold" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        self.post.sold = YES;
+        [self.post saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error){
+            if (succeeded){
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloadTable" object:nil];
+            }
+        }];
+        [userControl dismissViewControllerAnimated:YES completion:nil];
+    }];
+    UIAlertAction* deletePost = [UIAlertAction actionWithTitle:@"Delete post" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+        self.post.removed = YES;
+        [self.post saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error){
+            if (succeeded){
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloadTable" object:nil];
+                
+            }
+        }];
+        [self.navigationController popViewControllerAnimated:YES];
+    }];
+    [userControl addAction:cancel];
+    [userControl addAction:deletePost];
+    [userControl addAction:itemSold];
+    [self presentViewController:userControl animated:YES completion:nil];
+}
+
+-(void)updatePostStatus{
+    if (self.currentUserPost){
+        if (!self.post.sold){
+            UIBarButtonItem *userControlButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(userControlButtonTouched)];
+            UIFont *f1 = [UIFont fontWithName:@"Lato-Regular" size:18];
+            NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:f1, NSFontAttributeName, nil]; [userControlButton setTitleTextAttributes:dict forState:UIControlStateNormal];
+            
+            UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(shareButtonTouched)];
+            self.navigationItem.rightBarButtonItem = shareButton;
+            self.navigationItem.rightBarButtonItems = @[shareButton, userControlButton];
+        }
+    } else {
+        UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(shareButtonTouched)];
+        self.navigationItem.rightBarButtonItem = shareButton;
+    }
+}
+
+#pragma mark - Organizing Data
+
+-(void)organizeTableForFields{
+    for (id field in self.existingFields){
+        if ([field[@"dataType"] isEqualToString:@"geoPoint"]){
+            [self.existingFieldsForTable addObject:field];
+        } else if ([field[@"dataType"] isEqualToString:@"string"] && ![field[@"field"] isEqualToString:@"title"]){
+            [self.existingFieldsForTable addObject:field];
+        } else if ([field[@"dataType"] isEqualToString:@"image"]){
+            [self.existingFieldsForTable addObject:field];
+        }
+    }
+    [self.existingFieldsForTable sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"priority" ascending:YES]]]; // Most field dictionaries stored on the backend hold a priority key value pair that indicates where they should appear in a table view.
+    [self addOtherRowsForTable]; // This call inserts other placeholder cells not present in the "existingFields" property.
+}
+
+// This adds a placeholder dictionary for cells that will be displayed, but were not present in the completed fields dictionary
+
+-(void)addOtherRowsForTable{
+    NSDictionary *profileField = @{
+                                   @"field" : @"profile" // This holds a place for the profile cell
+                                   };
+    NSDictionary *messageField = @{
+                                   @"field" : @"message" // This holds a place for the cell that will contain the message button
+                                   };
+    [self.existingFieldsForTable insertObject:profileField atIndex:1];
+    [self.existingFieldsForTable insertObject:messageField atIndex:2];
+}
+
+
+
 -(void)setupTitle{
 
     CGRect headerTitleSubtitleFrame = CGRectMake(0, 0, 200, 44);
@@ -493,10 +456,6 @@
     self.navigationItem.titleView = _headerTitleSubtitleView;
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 30;
-}
-
 -(void)shareButtonTouched{
     
 }
@@ -509,6 +468,21 @@
     [back setImage:[UIImage imageNamed:@"backHighlight_Dark"] forState:UIControlStateHighlighted];
     [back addTarget:self.navigationController action:@selector(popViewControllerAnimated:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:back];
+}
+
+-(void)getUserForPost{
+    
+    if (([[(PFUser *)self.post.user objectId] isEqualToString: [[PFUser currentUser] objectId]])){
+        self.poster = [PFUser currentUser];
+        self.currentUserPost = YES;
+        [self updatePostStatus];
+    } else {
+        PFQuery *query = [PFUser query];
+        [query whereKey:@"objectId" equalTo:self.post.user.objectId];
+        [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+            self.poster = (PFUser *)object;
+        }];
+    }
 }
 
 @end
