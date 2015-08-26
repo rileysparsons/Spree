@@ -134,10 +134,7 @@
         self.objects[indexPath.row] : self.resultsTableController.filteredProducts[indexPath.row];
         
         self.postDetailTableViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PostDetail"];
-        
-        [self.postDetailTableViewController setFields:[self fieldsForPostType:[[self objectAtIndexPath:indexPath]objectForKey:PF_POST_TYPE]]];
-        NSLog(@"%@", [self fieldsForPostType:[[self objectAtIndexPath:indexPath]objectForKey:PF_POST_TYPE]]);
-        [self.postDetailTableViewController setPost:selectedPost];
+        [self.postDetailTableViewController initWithPost:selectedPost];
         [self.navigationController pushViewController:self.postDetailTableViewController animated:YES];
         [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
