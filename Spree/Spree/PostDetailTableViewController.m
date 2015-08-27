@@ -459,21 +459,6 @@
     self.navigationItem.titleView = _headerTitleSubtitleView;
 }
 
--(void)shareButtonTouched{
-    if (self.post.photoArray.count == 1){
-        SinglePhotoPostShareView *shareView = [[SinglePhotoPostShareView alloc] initWithFrame:CGRectMake(0, 0, 504, 504)];
-        shareView.delegate = self;
-        [shareView initWithPost:self.post];
-    } else if (self.post.photoArray.count == 2){
-        DoublePhotoPostShareView *shareView = [[DoublePhotoPostShareView alloc] initWithFrame:CGRectMake(0, 0, 504, 504)];
-        shareView.delegate = self;
-        [shareView initWithPost:self.post];
-    } else if (self.post.photoArray.count == 3){
-        TriplePhotoPostShareView *shareView = [[TriplePhotoPostShareView alloc] initWithFrame:CGRectMake(0, 0, 504, 504)];
-        shareView.delegate = self;
-        [shareView initWithPost:self.post];
-    }
-}
 
 -(void)addCustomBackButton{
     UIButton *back = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 40)];
@@ -500,14 +485,46 @@
     }
 }
 
--(void)viewInitializedForPost:(PostShareView *)view{
-    UIImage *image = [view captureView];
-     UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+#pragma mark - Share Function
+
+-(void)shareButtonTouched{
+    if (self.post.photoArray.count == 1){
+        SinglePhotoPostShareView *shareView = [[SinglePhotoPostShareView alloc] initWithFrame:CGRectMake(0, 0, 504, 504)];
+        shareView.delegate = self;
+        [shareView initWithPost:self.post];
+    } else if (self.post.photoArray.count == 2){
+        DoublePhotoPostShareView *shareView = [[DoublePhotoPostShareView alloc] initWithFrame:CGRectMake(0, 0, 504, 504)];
+        shareView.delegate = self;
+        [shareView initWithPost:self.post];
+    } else if (self.post.photoArray.count == 3){
+        TriplePhotoPostShareView *shareView = [[TriplePhotoPostShareView alloc] initWithFrame:CGRectMake(0, 0, 504, 504)];
+        shareView.delegate = self;
+        [shareView initWithPost:self.post];
+    }
 }
 
-//-(void)viewInitializedForPost:(DoublePhotoFacebookShareView *)view{
-//    UIImage *image = [view captureView];
-//     UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
-//}
+-(void)viewInitializedForPost:(PostShareView *)view{
+    UIImage *image = [view captureView];
+    [self presentActivityViewWithImage:image];
+}
+
+-(void)presentActivityViewWithImage:(UIImage *)image{
+    
+    NSString *shareString = [NSString stringWithFormat:@"Check out this post on Spree!"];
+    // This will contain the link to the post via branch.
+    
+    NSArray *excludedTypes = @[UIActivityTypeAddToReadingList, UIActivityTypeAirDrop, UIActivityTypeAssignToContact, UIActivityTypePostToFlickr, UIActivityTypePostToTwitter, UIActivityTypePostToWeibo, UIActivityTypePrint, UIActivityTypePostToTencentWeibo];
+    
+    UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[shareString, image]
+                                      applicationActivities:nil];
+    activityViewController.excludedActivityTypes = excludedTypes;
+    [self.navigationController presentViewController:activityViewController
+                                    animated:YES
+                                     completion:^{
+                                         
+                                     }];
+}
+
+
 
 @end
