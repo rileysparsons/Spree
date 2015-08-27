@@ -15,7 +15,6 @@
 		140CF8DF1A3BBFB200134C4D /* BrowseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 140CF8DE1A3BBFB200134C4D /* BrowseViewController.m */; };
 		140CF8E21A3BBFB200134C4D /* MeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 140CF8E11A3BBFB200134C4D /* MeViewController.m */; };
 		140CF8E51A3BBFB200134C4D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 140CF8E31A3BBFB200134C4D /* Main.storyboard */; };
-		140CF8E71A3BBFB200134C4D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 140CF8E61A3BBFB200134C4D /* Images.xcassets */; };
 		140CF8EA1A3BBFB200134C4D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 140CF8E81A3BBFB200134C4D /* LaunchScreen.xib */; };
 		140CF8F61A3BBFB300134C4D /* CampEazyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 140CF8F51A3BBFB300134C4D /* CampEazyTests.m */; };
 		140CF9021A3E086800134C4D /* PostTypeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 140CF9001A3E086800134C4D /* PostTypeTableViewCell.m */; };
@@ -76,6 +75,7 @@
 		14423CD51B8E8F68002CB026 /* PostShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14423CD41B8E8F68002CB026 /* PostShareView.m */; };
 		14423CD81B8E9AC5002CB026 /* TriplePhotoPostShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14423CD71B8E9AC5002CB026 /* TriplePhotoPostShareView.m */; };
 		14423CDA1B8E9AD0002CB026 /* TriplePhotoPostShareView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14423CD91B8E9AD0002CB026 /* TriplePhotoPostShareView.xib */; };
+		14423CDC1B8F95E7002CB026 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14423CDB1B8F95E7002CB026 /* Images.xcassets */; };
 		144D55571B40A5490003B752 /* PostingWorkflow.m in Sources */ = {isa = PBXBuildFile; fileRef = 144D55561B40A5490003B752 /* PostingWorkflow.m */; };
 		144D55621B4D66F40003B752 /* SelectPostTypeHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 144D55611B4D66F40003B752 /* SelectPostTypeHeaderView.xib */; };
 		144D556D1B4E11920003B752 /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 144D55631B4E11920003B752 /* Lato-Black.ttf */; };
@@ -204,7 +204,6 @@
 		140CF8E01A3BBFB200134C4D /* MeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeViewController.h; sourceTree = "<group>"; };
 		140CF8E11A3BBFB200134C4D /* MeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MeViewController.m; sourceTree = "<group>"; };
 		140CF8E41A3BBFB200134C4D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		140CF8E61A3BBFB200134C4D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		140CF8E91A3BBFB200134C4D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		140CF8EF1A3BBFB300134C4D /* SpreeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpreeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		140CF8F41A3BBFB300134C4D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -300,6 +299,7 @@
 		14423CD61B8E9AC5002CB026 /* TriplePhotoPostShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TriplePhotoPostShareView.h; sourceTree = "<group>"; };
 		14423CD71B8E9AC5002CB026 /* TriplePhotoPostShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TriplePhotoPostShareView.m; sourceTree = "<group>"; };
 		14423CD91B8E9AD0002CB026 /* TriplePhotoPostShareView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TriplePhotoPostShareView.xib; sourceTree = "<group>"; };
+		14423CDB1B8F95E7002CB026 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		144D55551B40A5490003B752 /* PostingWorkflow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostingWorkflow.h; sourceTree = "<group>"; };
 		144D55561B40A5490003B752 /* PostingWorkflow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostingWorkflow.m; sourceTree = "<group>"; };
 		144D55611B4D66F40003B752 /* SelectPostTypeHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectPostTypeHeaderView.xib; sourceTree = "<group>"; };
@@ -511,7 +511,6 @@
 				140CF91A1A3F755B00134C4D /* ViewControllers */,
 				144D55771B4E11A40003B752 /* Resources */,
 				143D91D51B6D70A400E2F493 /* Custom Views */,
-				140CF8E61A3BBFB200134C4D /* Images.xcassets */,
 				140CF8E31A3BBFB200134C4D /* Main.storyboard */,
 				143D91F01B6E717D00E2F493 /* Walkthrough.storyboard */,
 				140CF8E81A3BBFB200134C4D /* LaunchScreen.xib */,
@@ -526,6 +525,7 @@
 		140CF8D61A3BBFB200134C4D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				14423CDB1B8F95E7002CB026 /* Images.xcassets */,
 				F7AFBB451AF5FDF800D3148B /* Open Source */,
 				F78600B61AEB40D400402B1F /* AppConstant.h */,
 				F743C9591AE6409700C14781 /* PrefixHeader.pch */,
@@ -1099,12 +1099,12 @@
 				141524571B4070E5007EE405 /* PostTypeSelectionTableViewCell.xib in Resources */,
 				14CE47211B6AF040004FA4D1 /* HomeHeaderView.xib in Resources */,
 				14CAB3CA1B5C34D10081979C /* BasicInfoTableViewCell.xib in Resources */,
+				14423CDC1B8F95E7002CB026 /* Images.xcassets in Resources */,
 				144D55621B4D66F40003B752 /* SelectPostTypeHeaderView.xib in Resources */,
 				1415245F1B4086AA007EE405 /* NewPost.storyboard in Resources */,
 				144D55721B4E11920003B752 /* Lato-HairlineItalic.ttf in Resources */,
 				141AECB81B8A77D400F0012B /* PostMapTableViewCell.xib in Resources */,
 				143D91EF1B6E051A00E2F493 /* LoginCampusHeaderView.xib in Resources */,
-				140CF8E71A3BBFB200134C4D /* Images.xcassets in Resources */,
 				4E0E82091B40DD2F00E18975 /* rightarrow@2x.png in Resources */,
 				14FD56E11B2CF6170086A2AE /* PostTitleTableViewCell.xib in Resources */,
 				142CB0621B5303B600969066 /* PhotoSelectTableViewCell.xib in Resources */,
