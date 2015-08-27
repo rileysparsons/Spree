@@ -44,7 +44,7 @@
     [super viewDidLoad];
     [self formatPriceEntryView];
     self.priceTextField.delegate = self;
-    
+    self.promptLabel.text = self.prompt;
 }
 
 -(void)formatPriceEntryView{

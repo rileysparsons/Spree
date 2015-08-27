@@ -360,12 +360,12 @@
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
-                                        <exclude reference="u4N-BC-uab"/>
                                         <exclude reference="Vfa-HI-Niv"/>
                                         <exclude reference="Znj-oK-JEA"/>
-                                        <exclude reference="cKA-8b-Q34"/>
-                                        <exclude reference="SdW-MX-LC2"/>
+                                        <exclude reference="u4N-BC-uab"/>
                                         <exclude reference="IcJ-8W-tfQ"/>
+                                        <exclude reference="SdW-MX-LC2"/>
+                                        <exclude reference="cKA-8b-Q34"/>
                                     </mask>
                                 </variation>
                             </view>
@@ -504,6 +504,7 @@
                     <connections>
                         <outlet property="priceEntryView" destination="mMQ-BG-L9t" id="iK8-2M-mA8"/>
                         <outlet property="priceTextField" destination="Egs-bV-5LV" id="nK4-ws-biy"/>
+                        <outlet property="promptLabel" destination="2lz-VW-SbQ" id="xfF-ar-dKv"/>
                         <outlet property="symbolLabel" destination="eA9-yM-sch" id="8YA-ja-bqb"/>
                     </connections>
                 </viewController>

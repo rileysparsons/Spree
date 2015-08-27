@@ -18,6 +18,7 @@
 @property UIButton *cancelButton;
 @property UIButton *nextButton;
 @property NSString *prompt;
+@property NSString *clientFacingName;
 
 @property BOOL presentedWithinWorkflow;
 

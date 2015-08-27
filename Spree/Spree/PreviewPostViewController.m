@@ -51,9 +51,8 @@
     
     NSLog(@"Post %@", self.post);
     NSLog(@"Workflow %@", self.postingWorkflow);
-//    self.existingFieldsForTable = self.post[@"completedFields"];
-//    NSLog(@"Workflow %@", self.postingWorkflow);
-//    NSLog(@"Post %@", self.postingWorkflow.post);
+
+    
 
 }
 
@@ -264,6 +263,7 @@
             }
         }
         [photoCell setPhotoGalleryForImages:tempArray];
+        [photoCell setupPriceLabelForPost:self.post];
         [photoCell enableEditMode];
         [photoCell.editButton addTarget:self action:@selector(editButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
         photoCell.dateLabel.hidden = YES;
