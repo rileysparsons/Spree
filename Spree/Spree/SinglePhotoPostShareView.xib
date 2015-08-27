@@ -76,12 +76,6 @@
                     <color key="textColor" red="0.16666857900000001" green="0.18534906209999999" blue="0.19849607350000001" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Evs-mJ-78n">
-                    <rect key="frame" x="8" y="161" width="288" height="338"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="338" id="oMp-QP-kXX"/>
-                    </constraints>
-                </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EhT-IB-KDZ">
                     <rect key="frame" x="532" y="30" width="60" height="60"/>
                     <subviews>
@@ -120,10 +114,10 @@
                         </mask>
                     </variation>
                 </view>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="D4V-H6-LOa">
-                    <rect key="frame" x="304" y="161" width="288" height="338"/>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Evs-mJ-78n">
+                    <rect key="frame" x="8" y="161" width="584" height="338"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="338" id="Kft-hx-ccy"/>
+                        <constraint firstAttribute="height" constant="338" id="oMp-QP-kXX"/>
                     </constraints>
                 </imageView>
             </subviews>
@@ -131,17 +125,13 @@
             <constraints>
                 <constraint firstItem="EhT-IB-KDZ" firstAttribute="top" secondItem="2zg-HN-gib" secondAttribute="top" constant="30" id="0yD-fV-Bbp"/>
                 <constraint firstItem="bmW-MT-ucU" firstAttribute="leading" secondItem="2zg-HN-gib" secondAttribute="leading" constant="8" id="1HD-So-OfP"/>
-                <constraint firstItem="D4V-H6-LOa" firstAttribute="width" secondItem="Evs-mJ-78n" secondAttribute="width" id="2UE-5h-tF8"/>
                 <constraint firstItem="Evs-mJ-78n" firstAttribute="leading" secondItem="2zg-HN-gib" secondAttribute="leading" constant="8" id="4NR-4a-YI9"/>
                 <constraint firstItem="Rle-CI-iP4" firstAttribute="top" secondItem="2zg-HN-gib" secondAttribute="top" constant="8" id="6hC-Vx-erW"/>
-                <constraint firstAttribute="trailing" secondItem="D4V-H6-LOa" secondAttribute="trailing" constant="8" id="COR-b0-pWX"/>
                 <constraint firstItem="uNq-u4-qDw" firstAttribute="leading" secondItem="Rle-CI-iP4" secondAttribute="trailing" constant="8" id="FDK-jz-cuX"/>
                 <constraint firstItem="Evs-mJ-78n" firstAttribute="top" secondItem="bmW-MT-ucU" secondAttribute="bottom" constant="8" id="HKo-v4-ipr"/>
                 <constraint firstItem="EhT-IB-KDZ" firstAttribute="leading" secondItem="uNq-u4-qDw" secondAttribute="trailing" constant="8" id="LoH-kq-Hje"/>
                 <constraint firstItem="9Rp-og-Ma3" firstAttribute="top" secondItem="2zg-HN-gib" secondAttribute="top" constant="8" id="OhW-Lz-35I"/>
-                <constraint firstItem="D4V-H6-LOa" firstAttribute="leading" secondItem="Evs-mJ-78n" secondAttribute="trailing" constant="8" id="Ol5-FC-2we"/>
                 <constraint firstItem="uNq-u4-qDw" firstAttribute="top" secondItem="9Rp-og-Ma3" secondAttribute="bottom" constant="8" id="OpO-NQ-HHU"/>
-                <constraint firstItem="D4V-H6-LOa" firstAttribute="leading" secondItem="Evs-mJ-78n" secondAttribute="trailing" constant="8" id="Pna-BY-XZN"/>
                 <constraint firstItem="Rle-CI-iP4" firstAttribute="leading" secondItem="2zg-HN-gib" secondAttribute="leading" constant="8" id="SvI-By-a4B"/>
                 <constraint firstItem="9Rp-og-Ma3" firstAttribute="leading" secondItem="Rle-CI-iP4" secondAttribute="trailing" constant="8" id="TJu-s9-42H"/>
                 <constraint firstItem="9Rp-og-Ma3" firstAttribute="top" relation="greaterThanOrEqual" secondItem="2zg-HN-gib" secondAttribute="top" constant="30" id="UZx-cz-yjw"/>
@@ -149,8 +139,8 @@
                 <constraint firstItem="bmW-MT-ucU" firstAttribute="top" secondItem="Rle-CI-iP4" secondAttribute="bottom" constant="20" id="Y2t-Sk-y4r"/>
                 <constraint firstItem="9Rp-og-Ma3" firstAttribute="top" secondItem="2zg-HN-gib" secondAttribute="top" constant="30" id="cxp-Ku-jnF"/>
                 <constraint firstItem="uNq-u4-qDw" firstAttribute="top" secondItem="9Rp-og-Ma3" secondAttribute="bottom" constant="8" id="eso-70-lG8"/>
-                <constraint firstItem="D4V-H6-LOa" firstAttribute="top" secondItem="bmW-MT-ucU" secondAttribute="bottom" constant="8" id="hcA-DC-szw"/>
                 <constraint firstAttribute="trailing" secondItem="bmW-MT-ucU" secondAttribute="trailing" constant="8" id="huk-Xr-i1K"/>
+                <constraint firstAttribute="trailing" secondItem="Evs-mJ-78n" secondAttribute="trailing" constant="8" id="ngj-uT-PFe"/>
                 <constraint firstAttribute="trailing" secondItem="uNq-u4-qDw" secondAttribute="trailing" constant="8" id="obd-nh-fad"/>
                 <constraint firstItem="9Rp-og-Ma3" firstAttribute="leading" secondItem="Rle-CI-iP4" secondAttribute="trailing" constant="8" id="rx6-f7-MVT"/>
                 <constraint firstItem="9Rp-og-Ma3" firstAttribute="leading" secondItem="Rle-CI-iP4" secondAttribute="trailing" constant="8" id="sKQ-fs-VD0"/>
@@ -162,12 +152,12 @@
             <variation key="default">
                 <mask key="constraints">
                     <exclude reference="OhW-Lz-35I"/>
-                    <exclude reference="vzu-RJ-RMe"/>
-                    <exclude reference="UZx-cz-yjw"/>
                     <exclude reference="TJu-s9-42H"/>
+                    <exclude reference="UZx-cz-yjw"/>
+                    <exclude reference="vzu-RJ-RMe"/>
+                    <exclude reference="FDK-jz-cuX"/>
                     <exclude reference="eso-70-lG8"/>
                     <exclude reference="obd-nh-fad"/>
-                    <exclude reference="FDK-jz-cuX"/>
                 </mask>
             </variation>
         </view>

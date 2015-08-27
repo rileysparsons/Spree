@@ -488,16 +488,22 @@
 #pragma mark - Share Function
 
 -(void)shareButtonTouched{
-    if (self.post.photoArray.count == 1){
+    if (self.post.photoArray.count > 0){
+        if (self.post.photoArray.count == 1){
+            SinglePhotoPostShareView *shareView = [[SinglePhotoPostShareView alloc] initWithFrame:CGRectMake(0, 0, 504, 504)];
+            shareView.delegate = self;
+            [shareView initWithPost:self.post];
+        } else if (self.post.photoArray.count == 2){
+            DoublePhotoPostShareView *shareView = [[DoublePhotoPostShareView alloc] initWithFrame:CGRectMake(0, 0, 504, 504)];
+            shareView.delegate = self;
+            [shareView initWithPost:self.post];
+        } else if (self.post.photoArray.count == 3){
+            TriplePhotoPostShareView *shareView = [[TriplePhotoPostShareView alloc] initWithFrame:CGRectMake(0, 0, 504, 504)];
+            shareView.delegate = self;
+            [shareView initWithPost:self.post];
+        }
+    }else if (self.post[@"location"]){
         SinglePhotoPostShareView *shareView = [[SinglePhotoPostShareView alloc] initWithFrame:CGRectMake(0, 0, 504, 504)];
-        shareView.delegate = self;
-        [shareView initWithPost:self.post];
-    } else if (self.post.photoArray.count == 2){
-        DoublePhotoPostShareView *shareView = [[DoublePhotoPostShareView alloc] initWithFrame:CGRectMake(0, 0, 504, 504)];
-        shareView.delegate = self;
-        [shareView initWithPost:self.post];
-    } else if (self.post.photoArray.count == 3){
-        TriplePhotoPostShareView *shareView = [[TriplePhotoPostShareView alloc] initWithFrame:CGRectMake(0, 0, 504, 504)];
         shareView.delegate = self;
         [shareView initWithPost:self.post];
     }
