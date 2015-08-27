@@ -69,6 +69,13 @@
 		143D91FB1B71881400E2F493 /* SelectCampusTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 143D91F91B71881400E2F493 /* SelectCampusTableViewCell.m */; };
 		143D91FC1B71881400E2F493 /* SelectCampusTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 143D91FA1B71881400E2F493 /* SelectCampusTableViewCell.xib */; };
 		143D91FF1B71C75000E2F493 /* LoginFieldViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 143D91FE1B71C75000E2F493 /* LoginFieldViewController.m */; };
+		14423CCB1B8D9A08002CB026 /* SinglePhotoPostShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14423CCA1B8D9A08002CB026 /* SinglePhotoPostShareView.m */; };
+		14423CCD1B8D9AC9002CB026 /* SinglePhotoPostShareView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14423CCC1B8D9AC9002CB026 /* SinglePhotoPostShareView.xib */; };
+		14423CCF1B8E7856002CB026 /* DoublePhotoPostShareView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14423CCE1B8E7856002CB026 /* DoublePhotoPostShareView.xib */; };
+		14423CD21B8E786B002CB026 /* DoublePhotoPostShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14423CD11B8E786B002CB026 /* DoublePhotoPostShareView.m */; };
+		14423CD51B8E8F68002CB026 /* PostShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14423CD41B8E8F68002CB026 /* PostShareView.m */; };
+		14423CD81B8E9AC5002CB026 /* TriplePhotoPostShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14423CD71B8E9AC5002CB026 /* TriplePhotoPostShareView.m */; };
+		14423CDA1B8E9AD0002CB026 /* TriplePhotoPostShareView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14423CD91B8E9AD0002CB026 /* TriplePhotoPostShareView.xib */; };
 		144D55571B40A5490003B752 /* PostingWorkflow.m in Sources */ = {isa = PBXBuildFile; fileRef = 144D55561B40A5490003B752 /* PostingWorkflow.m */; };
 		144D55621B4D66F40003B752 /* SelectPostTypeHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 144D55611B4D66F40003B752 /* SelectPostTypeHeaderView.xib */; };
 		144D556D1B4E11920003B752 /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 144D55631B4E11920003B752 /* Lato-Black.ttf */; };
@@ -282,6 +289,17 @@
 		143D91FA1B71881400E2F493 /* SelectCampusTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectCampusTableViewCell.xib; sourceTree = "<group>"; };
 		143D91FD1B71C75000E2F493 /* LoginFieldViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginFieldViewController.h; sourceTree = "<group>"; };
 		143D91FE1B71C75000E2F493 /* LoginFieldViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginFieldViewController.m; sourceTree = "<group>"; };
+		14423CC91B8D9A08002CB026 /* SinglePhotoPostShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinglePhotoPostShareView.h; sourceTree = "<group>"; };
+		14423CCA1B8D9A08002CB026 /* SinglePhotoPostShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SinglePhotoPostShareView.m; sourceTree = "<group>"; };
+		14423CCC1B8D9AC9002CB026 /* SinglePhotoPostShareView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SinglePhotoPostShareView.xib; sourceTree = "<group>"; };
+		14423CCE1B8E7856002CB026 /* DoublePhotoPostShareView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DoublePhotoPostShareView.xib; sourceTree = "<group>"; };
+		14423CD01B8E786B002CB026 /* DoublePhotoPostShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoublePhotoPostShareView.h; sourceTree = "<group>"; };
+		14423CD11B8E786B002CB026 /* DoublePhotoPostShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoublePhotoPostShareView.m; sourceTree = "<group>"; };
+		14423CD31B8E8F68002CB026 /* PostShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostShareView.h; sourceTree = "<group>"; };
+		14423CD41B8E8F68002CB026 /* PostShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostShareView.m; sourceTree = "<group>"; };
+		14423CD61B8E9AC5002CB026 /* TriplePhotoPostShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TriplePhotoPostShareView.h; sourceTree = "<group>"; };
+		14423CD71B8E9AC5002CB026 /* TriplePhotoPostShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TriplePhotoPostShareView.m; sourceTree = "<group>"; };
+		14423CD91B8E9AD0002CB026 /* TriplePhotoPostShareView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TriplePhotoPostShareView.xib; sourceTree = "<group>"; };
 		144D55551B40A5490003B752 /* PostingWorkflow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostingWorkflow.h; sourceTree = "<group>"; };
 		144D55561B40A5490003B752 /* PostingWorkflow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostingWorkflow.m; sourceTree = "<group>"; };
 		144D55611B4D66F40003B752 /* SelectPostTypeHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectPostTypeHeaderView.xib; sourceTree = "<group>"; };
@@ -656,6 +674,17 @@
 		143D91D51B6D70A400E2F493 /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
+				14423CC91B8D9A08002CB026 /* SinglePhotoPostShareView.h */,
+				14423CCC1B8D9AC9002CB026 /* SinglePhotoPostShareView.xib */,
+				14423CD61B8E9AC5002CB026 /* TriplePhotoPostShareView.h */,
+				14423CD71B8E9AC5002CB026 /* TriplePhotoPostShareView.m */,
+				14423CD91B8E9AD0002CB026 /* TriplePhotoPostShareView.xib */,
+				14423CCA1B8D9A08002CB026 /* SinglePhotoPostShareView.m */,
+				14423CCE1B8E7856002CB026 /* DoublePhotoPostShareView.xib */,
+				14423CD01B8E786B002CB026 /* DoublePhotoPostShareView.h */,
+				14423CD11B8E786B002CB026 /* DoublePhotoPostShareView.m */,
+				14423CD31B8E8F68002CB026 /* PostShareView.h */,
+				14423CD41B8E8F68002CB026 /* PostShareView.m */,
 				140CF9041A3E0F9600134C4D /* TableViewCells */,
 				14CAB3C11B59539A0081979C /* PhotoSelectFooterView.h */,
 				14CAB3C21B59539A0081979C /* PhotoSelectFooterView.m */,
@@ -1041,8 +1070,10 @@
 				14ABE0FF1A95AAD400B805D0 /* NewBooksPostView.xib in Resources */,
 				14ABE1011A96892A00B805D0 /* NewDefaultPostView.xib in Resources */,
 				140CF8E51A3BBFB200134C4D /* Main.storyboard in Resources */,
+				14423CDA1B8E9AD0002CB026 /* TriplePhotoPostShareView.xib in Resources */,
 				144D55701B4E11920003B752 /* Lato-BoldItalic.ttf in Resources */,
 				4E0E820B1B40DE1800E18975 /* leftarrow@2x.png in Resources */,
+				14423CCD1B8D9AC9002CB026 /* SinglePhotoPostShareView.xib in Resources */,
 				143D91FC1B71881400E2F493 /* SelectCampusTableViewCell.xib in Resources */,
 				140CF9091A3E157700134C4D /* Podfile in Resources */,
 				141AECC51B8D14E200F0012B /* PostMessageTableViewCell.xib in Resources */,
@@ -1056,6 +1087,7 @@
 				14CAB3D41B5C54E20081979C /* PostDescriptionTableViewCell.xib in Resources */,
 				14ABE10A1A96A59F00B805D0 /* NewTicketsPostView.xib in Resources */,
 				144D55751B4E11920003B752 /* Lato-LightItalic.ttf in Resources */,
+				14423CCF1B8E7856002CB026 /* DoublePhotoPostShareView.xib in Resources */,
 				144D556D1B4E11920003B752 /* Lato-Black.ttf in Resources */,
 				144D556F1B4E11920003B752 /* Lato-Bold.ttf in Resources */,
 				140CF9031A3E086800134C4D /* PostTypeTableViewCell.xib in Resources */,
@@ -1156,11 +1188,14 @@
 				14AB0EBF1B82C25D00BD06EB /* PostingInputAccessoryView.m in Sources */,
 				143D91D21B6BBB1F00E2F493 /* HeaderSlideView.m in Sources */,
 				142CB0611B5303B600969066 /* PhotoSelectTableViewCell.m in Sources */,
+				14423CCB1B8D9A08002CB026 /* SinglePhotoPostShareView.m in Sources */,
+				14423CD21B8E786B002CB026 /* DoublePhotoPostShareView.m in Sources */,
 				14C38DB81B29311D0039862E /* PostUserTableViewCell.m in Sources */,
 				14CAB3C31B59539A0081979C /* PhotoSelectFooterView.m in Sources */,
 				14ABE0FD1A95AAC200B805D0 /* NewBooksPostView.m in Sources */,
 				140CF8DC1A3BBFB200134C4D /* AppDelegate.m in Sources */,
 				144FBE641AACEB05008BB4DA /* NewPostTypeSelectionViewController.m in Sources */,
+				14423CD81B8E9AC5002CB026 /* TriplePhotoPostShareView.m in Sources */,
 				1415245A1B4076BE007EE405 /* SelectPostTypeViewController.m in Sources */,
 				140CF8DF1A3BBFB200134C4D /* BrowseViewController.m in Sources */,
 				14C38DA21B27F3BA0039862E /* PostDetailTableViewController.m in Sources */,
@@ -1208,6 +1243,7 @@
 				1415244F1B406B55007EE405 /* PostTypeViewController.m in Sources */,
 				143D91FF1B71C75000E2F493 /* LoginFieldViewController.m in Sources */,
 				14CE47241B6AF41E004FA4D1 /* HomeViewController.m in Sources */,
+				14423CD51B8E8F68002CB026 /* PostShareView.m in Sources */,
 				CFFEE9291B0487BF002CD29A /* MeetUpViewController.m in Sources */,
 				14CAB3C91B5C34D10081979C /* BasicInfoTableViewCell.m in Sources */,
 				14E66B9B1A45ECFF008184C1 /* PostDetailViewController.m in Sources */,
