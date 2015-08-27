@@ -15,5 +15,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *postTimeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *typeIcon;
+@property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
 
 @end

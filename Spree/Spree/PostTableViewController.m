@@ -346,6 +346,8 @@
             }
         }
         
+        cell.descriptionLabel.text = [NSString stringWithFormat:@"\u201C%@\u201D", post.userDescription];
+        
         NSDate *dateCreatedGMT = [post updatedAt];
         NSTimeInterval timeSince = dateCreatedGMT.timeIntervalSinceNow;
         double timeSinceInDays = timeSince/60/60/24*(-1);
@@ -354,7 +356,7 @@
             int roundedInteger = (int)roundedValue;
             NSNumber *numberSince = [NSNumber numberWithInt:roundedInteger];
             NSString *timeSincePost = [numberSince stringValue];
-            NSString *timeWithUnits = [NSString stringWithFormat:(@"%@d"), timeSincePost];
+            NSString *timeWithUnits = [NSString stringWithFormat:(@"Posted %@ days ago"), timeSincePost];
             cell.postTimeLabel.text = timeWithUnits;
         } else {
             double timeSinceInHours = timeSinceInDays*24;
@@ -363,14 +365,14 @@
                 int roundedInteger = (int)timeSinceInHoursRounded;
                 NSNumber *numberSince = [NSNumber numberWithInt:roundedInteger];
                 NSString *timeSincePost = [numberSince stringValue];
-                NSString *timeWithUnits = [NSString stringWithFormat:(@"%@h"), timeSincePost];
+                NSString *timeWithUnits = [NSString stringWithFormat:(@"Posted %@ hours ago"), timeSincePost];
                 cell.postTimeLabel.text = timeWithUnits;
             } else {
                 double timeSinceInMinutes = timeSinceInHours*60;
                 int roundedInteger = (int)timeSinceInMinutes;
                 NSNumber *numberSince = [NSNumber numberWithInt:roundedInteger];
                 NSString *timeSincePost = [numberSince stringValue];
-                NSString *timeWithUnits = [NSString stringWithFormat:(@"%@m"), timeSincePost];
+                NSString *timeWithUnits = [NSString stringWithFormat:(@"Posted %@m minutes ago"), timeSincePost];
                 cell.postTimeLabel.text = timeWithUnits;
             }
         }
