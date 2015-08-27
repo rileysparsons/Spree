@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "SpreePost.h"
 #import "PhotoGalleryTableViewCell.h"
+#import "PostShareView.h"
 
-@interface PostDetailTableViewController : UITableViewController
+@interface PostDetailTableViewController : UITableViewController <PostShareViewDelegate>
 
 @property NSArray *fields;
 

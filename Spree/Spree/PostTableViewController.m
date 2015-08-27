@@ -286,7 +286,8 @@
     NSLog(@"%@", [PFUser currentUser]);
     [query whereKey:@"network" equalTo:[[PFUser currentUser] objectForKey:@"network"]];
     [query includeKey:@"objectId"];
-    
+    [query includeKey:@"typePointer"];
+    [query includeKey:@"user"];
     return query;
 }
 
