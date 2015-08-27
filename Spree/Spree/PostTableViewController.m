@@ -28,6 +28,7 @@
 @property (nonatomic, strong) UIView *refreshColorView;
 @property (nonatomic, strong) UIImageView *compass_background;
 @property (nonatomic, strong) UIImageView *compass_spinner;
+@property UILabel *headerLabel;
 @property (assign) BOOL isRefreshIconsOverlap;
 @property (assign) BOOL isRefreshAnimating;
 @property (retain, nonatomic) UIBarButtonItem *composeButton;
@@ -111,6 +112,7 @@
             NSLog(@"No ratings required");
         }
     }];
+
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -419,18 +421,32 @@
         whiteView.backgroundColor = [UIColor spreeOffWhite];
         [headerView addSubview:whiteView];
         
-        UILabel *labelHeader = [[UILabel alloc] initWithFrame:CGRectMake(5, 0, whiteView.frame.size.width, 35
+        self.headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 0, whiteView.frame.size.width, 35
                                                                          )];
-        labelHeader.font = [UIFont fontWithName:@"Lato-Regular" size:16];
-        labelHeader.textColor = [UIColor spreeOffBlack];
+        self.headerLabel.font = [UIFont fontWithName:@"Lato-Regular" size:16];
+        self.headerLabel.textColor = [UIColor spreeOffBlack];
         
-        [whiteView addSubview:labelHeader];
-
-            labelHeader.text = @"Recent Posts at Santa Clara";
-            return headerView;
+        if ([PFUser currentUser][@"campus"]){
+            NSString *headerString = [NSString stringWithFormat:@"Recent Posts at %@", [PFUser currentUser][@"campus"][@"name"]];
+            self.headerLabel.text = headerString;
+        } else {
+            NSString *headerString = @"Recent Posts";
+            self.headerLabel.text = headerString;
+        }
+        PFQuery *userQuery = [PFUser query];
+        [userQuery includeKey:@"campus"];
+        [userQuery getObjectInBackgroundWithId:[[PFUser currentUser] objectId] block:^(PFObject *user, NSError *error){
+            NSLog(@"%@", user);
+            self.headerLabel.text = [NSString stringWithFormat:@"Recent Posts at %@", user[@"campus"][@"campusName"]];
+            [self.headerLabel setNeedsDisplay];
+            
+        }];
+        [whiteView addSubview:self.headerLabel];
+        return headerView;
     }
     return 0;
 }
+
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if (section == 0)
