@@ -314,8 +314,8 @@
         if (post.price == 0 || [post.price  isEqual: @(0)]){
             cell.priceLabel.text = @"Free";
         } else {
-            float priceFloat = [post.price floatValue];
-            NSString *price = [NSString stringWithFormat:@"$%.2f", priceFloat];
+            int priceFloat = [post.price intValue];
+            NSString *price = [NSString stringWithFormat:@"$%d", priceFloat];
             cell.priceLabel.text = price;
         }
         
