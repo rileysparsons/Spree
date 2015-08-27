@@ -108,29 +108,39 @@
     [postButton sizeToFit];
     [postButton addTarget:self action:@selector(postButtonPressed) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:postButton];
+}
 
+-(void)updatePostStatus{
+    
 }
 
 -(void)postButtonPressed{
     NSLog(@"POSTED: %@", self.post);
     [self.post setExpired:NO];
     [self.post setSold:NO];
+    self.post[@"expirationDate"] = [[NSDate date] dateByAddingTimeInterval:864000];
     self.post.photoArray = [self sanitizePhotoArray:self.post.photoArray];
-    [[PFUser currentUser][@"campus"] fetchInBackgroundWithBlock:^(PFObject *object, NSError *error){
+    
+    
+    PFQuery *userQuery = [PFUser query];
+    [userQuery includeKey:@"campus"];
+    
+    [userQuery getObjectInBackgroundWithId:[[PFUser currentUser] objectId] block:^(PFObject *user, NSError *error){
         if (error){
             NSLog(@"Campus was not fetched");
         } else {
-           [self.post setNetwork:object[@"networkCode"]];
+            [self.post setNetwork:user[@"campus"][@"networkCode"]];
             [self.post saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error){
                 if (error){
                     NSLog(@"Failed to post with reason: %@", error);
                 } else {
                     [self dismissViewControllerAnimated:YES completion:nil];
                 }
-            }]; 
+            }];
         }
-        
     }];
+
+    
 }
 
 -(void)cancelPost{
