@@ -54,6 +54,7 @@
         }];
         
     }
+    self.postAuthorLabel.adjustsFontSizeToFitWidth = YES;
     
     NSString *authorTitlePrefix;
     

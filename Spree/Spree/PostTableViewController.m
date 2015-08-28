@@ -283,8 +283,9 @@
     PFQuery *query = [PFQuery queryWithClassName:self.parseClassName];
     [query whereKey:@"expired" equalTo:[NSNumber numberWithBool:NO]];
     [query whereKey:@"sold" equalTo:[NSNumber numberWithBool:NO]];
+    [query whereKeyDoesNotExist:@"removed"];
     [query whereKey:@"network" equalTo:[PFUser currentUser]];
-    [query orderByDescending:@"updatedAt"];
+    [query orderByDescending:@"createdAt"];
     NSLog(@"%@", [PFUser currentUser]);
     [query whereKey:@"network" equalTo:[[PFUser currentUser] objectForKey:@"network"]];
     [query includeKey:@"objectId"];
@@ -348,7 +349,7 @@
         
         cell.descriptionLabel.text = [NSString stringWithFormat:@"\u201C%@\u201D", post.userDescription];
         
-        NSDate *dateCreatedGMT = [post updatedAt];
+        NSDate *dateCreatedGMT = [post createdAt];
         NSTimeInterval timeSince = dateCreatedGMT.timeIntervalSinceNow;
         double timeSinceInDays = timeSince/60/60/24*(-1);
         if (timeSinceInDays > 1){

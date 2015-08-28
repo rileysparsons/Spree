@@ -74,6 +74,10 @@
     self.tableView.tableHeaderView = headerView;
 }
 
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    [self.header.photoGallery scrollToNextPage];
+}
 
 
 
