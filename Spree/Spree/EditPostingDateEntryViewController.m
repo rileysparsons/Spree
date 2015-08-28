@@ -1,19 +1,19 @@
 //
-//  EditPostFieldViewController.m
+//  EditPostingDateEntryViewController.m
 //  Spree
 //
-//  Created by Riley Steele Parsons on 7/19/15.
+//  Created by Riley Steele Parsons on 8/27/15.
 //  Copyright (c) 2015 Riley Steele Parsons. All rights reserved.
 //
 
-#import "EditPostFieldViewController.h"
+#import "EditPostingDateEntryViewController.h"
 #import "PreviewPostViewController.h"
 
-@interface EditPostFieldViewController ()
+@interface EditPostingDateEntryViewController ()
 
 @end
 
-@implementation EditPostFieldViewController
+@implementation EditPostingDateEntryViewController
 
 - (void)initWithField:(NSDictionary *)field post:(SpreePost *)post{
     [super initWithField:field post:post];
@@ -24,7 +24,7 @@
     [self navigationBarButtons];
     // Do any additional setup after loading the view.
     if (self.post[self.fieldTitle]){
-        self.fieldTextView.text = self.post[self.fieldTitle];
+        self.datePicker.date = self.post[self.fieldTitle];
     }
 }
 
@@ -54,12 +54,12 @@
     if (button.tag == 1){
         
     } else if (button.tag == 2){
-        ((PreviewPostViewController*)((UINavigationController *)self.presentingViewController).topViewController).post[self.fieldTitle] = self.fieldTextView.text;
+        ((PreviewPostViewController*)((UINavigationController *)self.presentingViewController).topViewController).post[self.fieldTitle] = self.datePicker.date;
         [((PreviewPostViewController*)((UINavigationController *)self.presentingViewController).topViewController).tableView reloadData];
     }
     
-    [self.fieldTextView resignFirstResponder];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
 
 @end

@@ -13,6 +13,7 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    [self.editDescriptionButton setHidden:YES];
 }
 
 -(void)setDescriptionTextViewForPost:(SpreePost *)post{

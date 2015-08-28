@@ -14,6 +14,7 @@
 #import "PostMapTableViewCell.h"
 #import "PostMessageTableViewCell.h"
 #import "ProfileViewController.h"
+#import "BasicInfoTableViewCell.h"
 #import "DoublePhotoPostShareView.h"
 #import "SinglePhotoPostShareView.h"
 #import "TriplePhotoPostShareView.h"
@@ -242,6 +243,14 @@
 }
 
 -(UITableViewCell *)cellForField:(NSDictionary *)field {
+    
+    // This cell subclass covers any fields that do not have their own custom subclass.
+    NSString *className = NSStringFromClass([BasicInfoTableViewCell class]);
+    UINib *nib = [UINib nibWithNibName:className bundle:nil];
+    [self.tableView registerNib:nib forCellReuseIdentifier:className];
+    BasicInfoTableViewCell *basicInfoCell = [self.tableView dequeueReusableCellWithIdentifier:className];
+    
+    
     if ([field[@"dataType"] isEqualToString:@"geoPoint"]){
         NSString *className = NSStringFromClass([PostMapTableViewCell class]);
         UINib *nib = [UINib nibWithNibName:className bundle:nil];
@@ -258,12 +267,10 @@
             [descriptionCell setDescriptionTextViewForPost:self.post];
             return descriptionCell;
         } else{
-            UITableViewCell *otherCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"other"];
-            [otherCell setBackgroundColor:[UIColor spreeOffWhite]];
-            otherCell.textLabel.textColor = [UIColor spreeOffBlack];
-            otherCell.textLabel.font = [UIFont fontWithName:@"Lato-Regular" size:18];
-            [otherCell.textLabel setText:self.post[field[@"field"]]];
-            return otherCell;
+            [basicInfoCell.fieldTitleLabel setText:field[@"name"]];
+            [basicInfoCell.dataLabel setText:self.post[field[@"field"]]];
+            [basicInfoCell enableEditMode];
+            return basicInfoCell;
         }
     } else if ([field[@"dataType"] isEqualToString:@"image"]){
         NSString *className = NSStringFromClass([PhotoGalleryTableViewCell class]);
@@ -276,15 +283,12 @@
         [self loadPostImagesForCell:photoCell];
         return photoCell;
     } else if ([field[@"dataType"] isEqualToString:@"date"]){
-        UITableViewCell *dateCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"other"];
-        [dateCell setBackgroundColor:[UIColor spreeOffWhite]];
-        dateCell.textLabel.textColor = [UIColor spreeOffBlack];
-        dateCell.textLabel.font = [UIFont fontWithName:@"Lato-Regular" size:18];
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateFormat:@"MM/dd/yyyy hh:mma"];
         NSString *dateString = [dateFormatter stringFromDate:self.post[field[@"field"]]];
-        [dateCell.textLabel setText:dateString];
-        return dateCell;
+        [basicInfoCell.fieldTitleLabel setText:field[@"name"]];
+        [basicInfoCell.dataLabel setText:dateString];
+        return basicInfoCell;
     } else if ([field[@"field"] isEqualToString:@"profile"]){
         NSString *className = NSStringFromClass([PostUserTableViewCell class]);
         UINib *nib = [UINib nibWithNibName:className bundle:nil];

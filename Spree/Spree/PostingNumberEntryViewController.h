@@ -17,5 +17,6 @@
 @property (weak, nonatomic) IBOutlet UIView *priceEntryView;
 @property (weak, nonatomic) IBOutlet UILabel *promptLabel;
 
+- (NSNumber *)getNumberFromString:(NSString *)number;
 
 @end

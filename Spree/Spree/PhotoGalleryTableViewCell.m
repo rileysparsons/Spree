@@ -33,6 +33,7 @@
     gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor clearColor] CGColor], (id)[[UIColor spreeOffBlack] CGColor], nil];
     [self.bottomGradient.layer insertSublayer:gradient atIndex:0];
     [self.editButton setHidden:YES];
+    [self.editPriceButton setHidden:YES];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -180,6 +181,7 @@
 
 -(void)enableEditMode{
     self.editButton.hidden = NO;
+    self.editPriceButton.hidden = NO;
 }
 
 

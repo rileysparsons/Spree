@@ -80,23 +80,24 @@
 
 - (void)nextBarButtonItemTouched:(id)sender {
     if ([self.fieldTitle isEqualToString: PF_POST_PRICE])
-        self.postingWorkflow.post[self.fieldTitle] = [self getPriceFromString:self.priceTextField.text];
+        self.postingWorkflow.post[self.fieldTitle] = [self getNumberFromString:self.priceTextField.text];
     else
         self.postingWorkflow.post[self.fieldTitle] = self.priceTextField.text;
     
     self.postingWorkflow.step++;
+    [self.postingWorkflow.post[@"completedFields"] addObject:self.fieldDictionary];
     UIViewController *nextViewController =[self.postingWorkflow nextViewController];
     [self.navigationController pushViewController:nextViewController animated:YES];
 }
 
-- (NSNumber *)getPriceFromString:(NSString *)price{
-    if ([price length] == 0) {
+- (NSNumber *)getNumberFromString:(NSString *)number{
+    if ([number length] == 0) {
         return 0;
     }
     NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
     formatter.numberStyle = NSNumberFormatterNoStyle;
-    NSNumber *priceNumber = [formatter numberFromString:price];
-    return priceNumber;
+    NSNumber *formattedNumber = [formatter numberFromString:number];
+    return formattedNumber;
 }
 
 -(void)cancelWorkflow{

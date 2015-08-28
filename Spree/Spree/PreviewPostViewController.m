@@ -14,6 +14,8 @@
 #import "BasicInfoTableViewCell.h"
 #import "EditPostFieldViewController.h"
 #import "EditPostingLocationEntryViewController.h"
+#import "EditPostingNumberEntryViewController.h"
+#import "EditPostingDateEntryViewController.h"
 #import "PostMapTableViewCell.h"
 #import "EditPostPhotoSelectViewController.h"
 #import "PostPhotoSelectViewController.h"
@@ -153,21 +155,34 @@
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:buttonFrame.origin];
     NSLog(@"%ld", (long)indexPath.row);
     
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewPost" bundle:[NSBundle mainBundle]];
+    
     if ([[self.existingFieldsForTable objectAtIndex:indexPath.row][@"dataType"] isEqualToString:@"image"]){
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewPost" bundle:[NSBundle mainBundle]];
-        EditPostPhotoSelectViewController *editPostPhotoViewController = [storyboard instantiateViewControllerWithIdentifier:@"EditPostPhotoSelectViewController"];
-        editPostPhotoViewController.postingWorkflow = self.postingWorkflow;
-        UINavigationController *navControl = [[UINavigationController alloc] initWithRootViewController:editPostPhotoViewController];
-        [self presentViewController:navControl animated:YES completion:nil];
+        if (button.tag == 1){ // Price edit button is nested in photo cell
+
+            EditPostingNumberEntryViewController *editPostingNumberViewController = [storyboard instantiateViewControllerWithIdentifier:@"EditPostingNumberEntryViewController"];
+            [editPostingNumberViewController initWithField:[self getFieldForTitle:@"price"] post:self.post];
+            UINavigationController *navControl = [[UINavigationController alloc] initWithRootViewController:editPostingNumberViewController];
+            [self presentViewController:navControl animated:YES completion:nil];
+        } else if (button.tag == 2){
+            EditPostPhotoSelectViewController *editPostPhotoViewController = [storyboard instantiateViewControllerWithIdentifier:@"EditPostPhotoSelectViewController"];
+            editPostPhotoViewController.postingWorkflow = self.postingWorkflow;
+            UINavigationController *navControl = [[UINavigationController alloc] initWithRootViewController:editPostPhotoViewController];
+            [self presentViewController:navControl animated:YES completion:nil];
+        }
     } else if ([[self.existingFieldsForTable objectAtIndex:indexPath.row][@"dataType"] isEqualToString:@"string"]) {
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewPost" bundle:[NSBundle mainBundle]];
         EditPostFieldViewController *postFieldViewController = [storyboard instantiateViewControllerWithIdentifier:@"EditPostFieldViewController"];
         [postFieldViewController initWithField:[self.existingFieldsForTable objectAtIndex:indexPath.row] post:self.post];
         UINavigationController *navControl = [[UINavigationController alloc] initWithRootViewController:postFieldViewController];
         [self presentViewController:navControl animated:YES completion:nil];
     } else if ([[self.existingFieldsForTable objectAtIndex:indexPath.row][@"dataType"] isEqualToString:@"geoPoint"]) {
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewPost" bundle:[NSBundle mainBundle]];
+
         EditPostingLocationEntryViewController *postFieldViewController = [storyboard instantiateViewControllerWithIdentifier:@"EditPostingLocationEntryViewController"];
+        [postFieldViewController initWithField:[self.existingFieldsForTable objectAtIndex:indexPath.row] post:self.post];
+        UINavigationController *navControl = [[UINavigationController alloc] initWithRootViewController:postFieldViewController];
+        [self presentViewController:navControl animated:YES completion:nil];
+    } else if ([[self.existingFieldsForTable objectAtIndex:indexPath.row][@"dataType"] isEqualToString:@"date"]){
+        EditPostingDateEntryViewController *postFieldViewController = [storyboard instantiateViewControllerWithIdentifier:@"EditPostingDateEntryViewController"];
         [postFieldViewController initWithField:[self.existingFieldsForTable objectAtIndex:indexPath.row] post:self.post];
         UINavigationController *navControl = [[UINavigationController alloc] initWithRootViewController:postFieldViewController];
         [self presentViewController:navControl animated:YES completion:nil];
@@ -213,12 +228,19 @@
 }
 
 -(UITableViewCell *)cellForField:(NSDictionary *)field {
+    
+    // This cell subclass covers any fields that do not have their own custom subclass.
+    NSString *className = NSStringFromClass([BasicInfoTableViewCell class]);
+    UINib *nib = [UINib nibWithNibName:className bundle:nil];
+    [self.tableView registerNib:nib forCellReuseIdentifier:className];
+    BasicInfoTableViewCell *basicInfoCell = [self.tableView dequeueReusableCellWithIdentifier:className];
+    
     if ([field[@"dataType"] isEqualToString:@"geoPoint"]){
         NSString *className = NSStringFromClass([PostMapTableViewCell class]);
         UINib *nib = [UINib nibWithNibName:className bundle:nil];
         [self.tableView registerNib:nib forCellReuseIdentifier:@"PostMapTableViewCell"];
         PostMapTableViewCell *mapCell = [self.tableView dequeueReusableCellWithIdentifier:@"PostMapTableViewCell"];
-        mapCell.editButton.hidden = NO;
+        [mapCell editButton];
         [mapCell.editButton addTarget:self action:@selector(editButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
         [mapCell setLocationsFromPost:self.post];
         return mapCell;
@@ -228,6 +250,7 @@
             UINib *nib = [UINib nibWithNibName:className bundle:nil];
             [self.tableView registerNib:nib forCellReuseIdentifier:className];
             PostDescriptionTableViewCell *descriptionCell = [self.tableView dequeueReusableCellWithIdentifier:className];
+            [descriptionCell enableEditMode];
             [descriptionCell.editDescriptionButton addTarget:self action:@selector(editButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
             [descriptionCell setDescriptionTextViewForPost:self.post];
             return descriptionCell;
@@ -241,12 +264,11 @@
             [titleCell.editTitleButton addTarget:self action:@selector(editButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
             return titleCell;
         } else {
-            UITableViewCell *otherCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"other"];
-            [otherCell setBackgroundColor:[UIColor spreeOffWhite]];
-            otherCell.textLabel.textColor = [UIColor spreeOffBlack];
-            otherCell.textLabel.font = [UIFont fontWithName:@"Lato-Regular" size:18];
-            [otherCell.textLabel setText:self.post[field[@"field"]]];
-            return otherCell;
+            [basicInfoCell.fieldTitleLabel setText:[field[@"name"] capitalizedString]];
+            [basicInfoCell.dataLabel setText:self.post[field[@"field"]]];
+            [basicInfoCell enableEditMode];
+            [basicInfoCell.editButton addTarget:self action:@selector(editButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
+            return basicInfoCell;
         }
     } else if ([field[@"dataType"] isEqualToString:@"image"]){
         NSString *className = NSStringFromClass([PhotoGalleryTableViewCell class]);
@@ -265,19 +287,24 @@
         [photoCell setPhotoGalleryForImages:tempArray];
         [photoCell setupPriceLabelForPost:self.post];
         [photoCell enableEditMode];
+        photoCell.editPriceButton.tag = 1;
+        photoCell.editButton.tag = 2;
+        [photoCell.editPriceButton addTarget:self action:@selector(editButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
         [photoCell.editButton addTarget:self action:@selector(editButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
+        
         photoCell.dateLabel.hidden = YES;
+        
         return photoCell;
+        
     } else if ([field[@"dataType"] isEqualToString:@"date"]){
-        UITableViewCell *dateCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"other"];
-        [dateCell setBackgroundColor:[UIColor spreeOffWhite]];
-        dateCell.textLabel.textColor = [UIColor spreeOffBlack];
-        dateCell.textLabel.font = [UIFont fontWithName:@"Lato-Regular" size:18];
+        basicInfoCell.fieldTitleLabel.text = [field[@"name"] capitalizedString];
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateFormat:@"MM/dd/yyyy hh:mma"];
         NSString *dateString = [dateFormatter stringFromDate:self.post[field[@"field"]]];
-        [dateCell.textLabel setText:dateString];
-        return dateCell;
+        [basicInfoCell.dataLabel setText:dateString];
+        [basicInfoCell.editButton addTarget:self action:@selector(editButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
+        [basicInfoCell enableEditMode];
+        return basicInfoCell;
     }
     return 0;
 }
@@ -301,5 +328,14 @@
     return footerView;
 }
 
+-(NSDictionary *)getFieldForTitle:(NSString *)title{
+    NSLog(@"%@", self.post[@"completedFields"]);
+    for (NSDictionary *field in self.post[@"completedFields"]){
+        if ([field[@"field"] isEqualToString:title]){
+            return field;
+        }
+    }
+    return 0;
+}
 
 @end

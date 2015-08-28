@@ -13,6 +13,7 @@
 
 -(void)enableEditMode;
 @property (weak, nonatomic) IBOutlet UIButton *editButton;
-@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *dataLabel;
+@property (weak, nonatomic) IBOutlet UILabel *fieldTitleLabel;
 
 @end
