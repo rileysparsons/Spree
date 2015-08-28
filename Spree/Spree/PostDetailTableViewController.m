@@ -554,8 +554,6 @@
         self.post = (SpreePost *)object;
         [self.tableView reloadData];
         [self setupTitle];
-        [self.navigationController.navigationItem.titleView
-         setNeedsDisplay];
     }];
 }
 
