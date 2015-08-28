@@ -28,11 +28,21 @@
     self.fieldDictionary = field;
     self.fieldTitle = field[@"field"];
     self.postingWorkflow = postingWorkflow;
+    self.clientFacingName = field[@"name"];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self navigationBarButtons];
+    
+    UILabel *titleLabel=[[UILabel alloc] initWithFrame:CGRectMake(0,0, 150, 40)];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    titleLabel.text= [self.clientFacingName uppercaseString];
+    titleLabel.textColor=[UIColor spreeOffBlack];
+    titleLabel.font = [UIFont fontWithName:@"Lato-Regular" size: 15];
+    titleLabel.backgroundColor =[UIColor clearColor];
+    titleLabel.adjustsFontSizeToFitWidth=YES;
+    self.navigationItem.titleView=titleLabel;
 }
 
 -(void)navigationBarButtons{

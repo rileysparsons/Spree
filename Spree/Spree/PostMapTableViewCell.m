@@ -13,6 +13,7 @@
 
 
 - (void)awakeFromNib {
+    self.editButton.hidden = YES;
     self.postMapView.delegate = self;
     self.postMapView.userInteractionEnabled = NO;
     // Initialization code

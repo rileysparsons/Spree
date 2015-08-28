@@ -48,6 +48,7 @@
     // Do any additional setup after loading the view.
     [self.nextButton setEnabled: [self fieldIsFilled]];
     [self setupTextField];
+
     [[UIApplication sharedApplication] setStatusBarStyle: UIStatusBarStyleDefault];
 }
 

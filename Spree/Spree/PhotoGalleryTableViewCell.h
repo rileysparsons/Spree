@@ -21,6 +21,10 @@
 
 @property (weak, nonatomic) IBOutlet UIView *priceView;
 @property (weak, nonatomic) IBOutlet UILabel *priceLabel;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *editPhotosButtonHeight;
+@property (weak, nonatomic) IBOutlet UIButton *editPriceButton;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *editPricebuttonHeight;
 
 @property (weak, nonatomic) IBOutlet UILabel *counterLabel;
 @property (nonatomic, strong) NSArray *pageImages;

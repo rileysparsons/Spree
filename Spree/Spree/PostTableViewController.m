@@ -360,6 +360,7 @@
             cell.postTimeLabel.text = timeWithUnits;
         } else {
             double timeSinceInHours = timeSinceInDays*24;
+            double timeSinceInMinutes = timeSinceInHours*60;
             if (timeSinceInHours > 1){
                 double timeSinceInHoursRounded = round(timeSinceInHours);
                 int roundedInteger = (int)timeSinceInHoursRounded;
@@ -367,13 +368,15 @@
                 NSString *timeSincePost = [numberSince stringValue];
                 NSString *timeWithUnits = [NSString stringWithFormat:(@"Posted %@ hours ago"), timeSincePost];
                 cell.postTimeLabel.text = timeWithUnits;
-            } else {
-                double timeSinceInMinutes = timeSinceInHours*60;
+            } else if (timeSinceInMinutes > 1){
                 int roundedInteger = (int)timeSinceInMinutes;
                 NSNumber *numberSince = [NSNumber numberWithInt:roundedInteger];
                 NSString *timeSincePost = [numberSince stringValue];
                 NSString *timeWithUnits = [NSString stringWithFormat:(@"Posted %@m minutes ago"), timeSincePost];
                 cell.postTimeLabel.text = timeWithUnits;
+            } else {
+                NSString *message = @"Posted just now";
+                cell.postTimeLabel.text = message;
             }
         }
         return cell;
@@ -428,13 +431,6 @@
         self.headerLabel.font = [UIFont fontWithName:@"Lato-Regular" size:16];
         self.headerLabel.textColor = [UIColor spreeOffBlack];
         
-        if ([PFUser currentUser][@"campus"]){
-            NSString *headerString = [NSString stringWithFormat:@"Recent Posts at %@", [PFUser currentUser][@"campus"][@"name"]];
-            self.headerLabel.text = headerString;
-        } else {
-            NSString *headerString = @"Recent Posts";
-            self.headerLabel.text = headerString;
-        }
         PFQuery *userQuery = [PFUser query];
         [userQuery includeKey:@"campus"];
         [userQuery getObjectInBackgroundWithId:[[PFUser currentUser] objectId] block:^(PFObject *user, NSError *error){

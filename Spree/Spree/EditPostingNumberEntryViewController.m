@@ -1,19 +1,19 @@
 //
-//  EditPostFieldViewController.m
+//  EditPostingNumberEntryViewController.m
 //  Spree
 //
-//  Created by Riley Steele Parsons on 7/19/15.
+//  Created by Riley Steele Parsons on 8/27/15.
 //  Copyright (c) 2015 Riley Steele Parsons. All rights reserved.
 //
 
-#import "EditPostFieldViewController.h"
+#import "EditPostingNumberEntryViewController.h"
 #import "PreviewPostViewController.h"
 
-@interface EditPostFieldViewController ()
+@interface EditPostingNumberEntryViewController ()
 
 @end
 
-@implementation EditPostFieldViewController
+@implementation EditPostingNumberEntryViewController
 
 - (void)initWithField:(NSDictionary *)field post:(SpreePost *)post{
     [super initWithField:field post:post];
@@ -24,8 +24,9 @@
     [self navigationBarButtons];
     // Do any additional setup after loading the view.
     if (self.post[self.fieldTitle]){
-        self.fieldTextView.text = self.post[self.fieldTitle];
+        self.priceTextField.text = [self.post[self.fieldTitle] stringValue];
     }
+    
 }
 
 -(void)navigationBarButtons{
@@ -54,12 +55,12 @@
     if (button.tag == 1){
         
     } else if (button.tag == 2){
-        ((PreviewPostViewController*)((UINavigationController *)self.presentingViewController).topViewController).post[self.fieldTitle] = self.fieldTextView.text;
+        ((PreviewPostViewController*)((UINavigationController *)self.presentingViewController).topViewController).post[self.fieldTitle] = [self getNumberFromString:self.priceTextField.text];
         [((PreviewPostViewController*)((UINavigationController *)self.presentingViewController).topViewController).tableView reloadData];
     }
     
-    [self.fieldTextView resignFirstResponder];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
 
 @end

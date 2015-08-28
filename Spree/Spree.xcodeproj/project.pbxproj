@@ -76,6 +76,9 @@
 		14423CD81B8E9AC5002CB026 /* TriplePhotoPostShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14423CD71B8E9AC5002CB026 /* TriplePhotoPostShareView.m */; };
 		14423CDA1B8E9AD0002CB026 /* TriplePhotoPostShareView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14423CD91B8E9AD0002CB026 /* TriplePhotoPostShareView.xib */; };
 		14423CDC1B8F95E7002CB026 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14423CDB1B8F95E7002CB026 /* Images.xcassets */; };
+		14423CDF1B8FCD64002CB026 /* EditPostingNumberEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14423CDE1B8FCD64002CB026 /* EditPostingNumberEntryViewController.m */; };
+		14423CE21B8FDCF9002CB026 /* EditPostingDateEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14423CE11B8FDCF9002CB026 /* EditPostingDateEntryViewController.m */; };
+		14423CE51B8FE3EF002CB026 /* EditPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14423CE41B8FE3EF002CB026 /* EditPostViewController.m */; };
 		144D55571B40A5490003B752 /* PostingWorkflow.m in Sources */ = {isa = PBXBuildFile; fileRef = 144D55561B40A5490003B752 /* PostingWorkflow.m */; };
 		144D55621B4D66F40003B752 /* SelectPostTypeHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 144D55611B4D66F40003B752 /* SelectPostTypeHeaderView.xib */; };
 		144D556D1B4E11920003B752 /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 144D55631B4E11920003B752 /* Lato-Black.ttf */; };
@@ -300,6 +303,12 @@
 		14423CD71B8E9AC5002CB026 /* TriplePhotoPostShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TriplePhotoPostShareView.m; sourceTree = "<group>"; };
 		14423CD91B8E9AD0002CB026 /* TriplePhotoPostShareView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TriplePhotoPostShareView.xib; sourceTree = "<group>"; };
 		14423CDB1B8F95E7002CB026 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		14423CDD1B8FCD64002CB026 /* EditPostingNumberEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditPostingNumberEntryViewController.h; sourceTree = "<group>"; };
+		14423CDE1B8FCD64002CB026 /* EditPostingNumberEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditPostingNumberEntryViewController.m; sourceTree = "<group>"; };
+		14423CE01B8FDCF9002CB026 /* EditPostingDateEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditPostingDateEntryViewController.h; sourceTree = "<group>"; };
+		14423CE11B8FDCF9002CB026 /* EditPostingDateEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditPostingDateEntryViewController.m; sourceTree = "<group>"; };
+		14423CE31B8FE3EF002CB026 /* EditPostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditPostViewController.h; sourceTree = "<group>"; };
+		14423CE41B8FE3EF002CB026 /* EditPostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditPostViewController.m; sourceTree = "<group>"; };
 		144D55551B40A5490003B752 /* PostingWorkflow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostingWorkflow.h; sourceTree = "<group>"; };
 		144D55561B40A5490003B752 /* PostingWorkflow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostingWorkflow.m; sourceTree = "<group>"; };
 		144D55611B4D66F40003B752 /* SelectPostTypeHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectPostTypeHeaderView.xib; sourceTree = "<group>"; };
@@ -714,6 +723,8 @@
 		144D55541B409C060003B752 /* Posting Workflow */ = {
 			isa = PBXGroup;
 			children = (
+				14423CE01B8FDCF9002CB026 /* EditPostingDateEntryViewController.h */,
+				14423CE11B8FDCF9002CB026 /* EditPostingDateEntryViewController.m */,
 				144D55551B40A5490003B752 /* PostingWorkflow.h */,
 				144D55561B40A5490003B752 /* PostingWorkflow.m */,
 				142CB0561B52351400969066 /* PostPhotoSelectViewController.h */,
@@ -735,6 +746,8 @@
 				141AECA51B89186400F0012B /* PostingLocationEntryViewController.h */,
 				141AECA61B89186400F0012B /* PostingLocationEntryViewController.m */,
 				1415245E1B4086AA007EE405 /* NewPost.storyboard */,
+				14423CDD1B8FCD64002CB026 /* EditPostingNumberEntryViewController.h */,
+				14423CDE1B8FCD64002CB026 /* EditPostingNumberEntryViewController.m */,
 				14AB0EC21B84CA8900BD06EB /* PostingNumberEntryViewController.h */,
 				14AB0EC51B87F63300BD06EB /* PostingDataEntryViewController.h */,
 				14AB0EC61B87F63300BD06EB /* PostingDataEntryViewController.m */,
@@ -795,6 +808,8 @@
 		14C38D941B27AE0B0039862E /* Post Detail */ = {
 			isa = PBXGroup;
 			children = (
+				14423CE31B8FE3EF002CB026 /* EditPostViewController.h */,
+				14423CE41B8FE3EF002CB026 /* EditPostViewController.m */,
 				14C38DA01B27F3BA0039862E /* PostDetailTableViewController.h */,
 				14C38DA11B27F3BA0039862E /* PostDetailTableViewController.m */,
 				14E66B991A45ECFF008184C1 /* PostDetailViewController.h */,
@@ -1168,6 +1183,7 @@
 				140473971ABD002F00C0F8EF /* PostTableViewController.m in Sources */,
 				F78600BF1AEB422100402B1F /* common.m in Sources */,
 				14CAB3CF1B5C52580081979C /* EditPostFieldViewController.m in Sources */,
+				14423CE21B8FDCF9002CB026 /* EditPostingDateEntryViewController.m in Sources */,
 				143D91E11B6DFAE700E2F493 /* LoginWorkflow.m in Sources */,
 				140CF8E21A3BBFB200134C4D /* MeViewController.m in Sources */,
 				140CF9021A3E086800134C4D /* PostTypeTableViewCell.m in Sources */,
@@ -1221,6 +1237,7 @@
 				141AECC01B8CDD6100F0012B /* EditPostingLocationEntryViewController.m in Sources */,
 				F78600BD1AEB422100402B1F /* push.m in Sources */,
 				141AECA71B89186400F0012B /* PostingLocationEntryViewController.m in Sources */,
+				14423CE51B8FE3EF002CB026 /* EditPostViewController.m in Sources */,
 				142CB0581B52351400969066 /* PostPhotoSelectViewController.m in Sources */,
 				1491BBA41B336F38004F43CA /* ResultsTableViewController.m in Sources */,
 				14C8214D1B2FE36C00A1B513 /* ProfileViewController.m in Sources */,
@@ -1245,6 +1262,7 @@
 				14CE47241B6AF41E004FA4D1 /* HomeViewController.m in Sources */,
 				14423CD51B8E8F68002CB026 /* PostShareView.m in Sources */,
 				CFFEE9291B0487BF002CD29A /* MeetUpViewController.m in Sources */,
+				14423CDF1B8FCD64002CB026 /* EditPostingNumberEntryViewController.m in Sources */,
 				14CAB3C91B5C34D10081979C /* BasicInfoTableViewCell.m in Sources */,
 				14E66B9B1A45ECFF008184C1 /* PostDetailViewController.m in Sources */,
 				143D91F41B6E7A5200E2F493 /* BaseOnboardingViewController.m in Sources */,
