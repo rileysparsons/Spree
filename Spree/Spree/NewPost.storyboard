@@ -782,5 +782,31 @@
             </objects>
             <point key="canvasLocation" x="-877" y="-2292"/>
         </scene>
+        <!--Edit Post View Controller-->
+        <scene sceneID="ZvS-Yp-5YK">
+            <objects>
+                <tableViewController storyboardIdentifier="EditPostViewController" id="9E0-EM-hTL" customClass="EditPostViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="HqA-HR-m3Y">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="fch-U1-Gmk">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fch-U1-Gmk" id="sO6-6E-F0N">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="9E0-EM-hTL" id="8il-9a-Vwf"/>
+                            <outlet property="delegate" destination="9E0-EM-hTL" id="sM4-mi-xaT"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cer-19-dHT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1444" y="-3663"/>
+        </scene>
     </scenes>
 </document>

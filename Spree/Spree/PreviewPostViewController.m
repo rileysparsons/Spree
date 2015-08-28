@@ -31,6 +31,15 @@
 
 @implementation PreviewPostViewController
 
+-(void)initWithPost:(SpreePost *)post{
+    self.post = post;
+    self.existingFieldsForTable = [[NSMutableArray alloc] init];
+    self.existingFields = self.post[@"completedFields"];
+    self.hasCompletedFields = YES;
+    [self organizeTableForFields];
+}
+
+
 -(void)initWithPost:(SpreePost *)post workflow:(PostingWorkflow *)workflow{
     self.post = post;
     self.existingFieldsForTable = [[NSMutableArray alloc] init];
@@ -275,9 +284,7 @@
         UINib *nib = [UINib nibWithNibName:className bundle:nil];
         [self.tableView registerNib:nib forCellReuseIdentifier:className];
         PhotoGalleryTableViewCell *photoCell = [self.tableView dequeueReusableCellWithIdentifier:className];
-        [photoCell setDateLabelForPost:self.post];
         NSMutableArray *tempArray = [[NSMutableArray alloc] initWithCapacity:3];
-        NSLog(@"Photos for display %@", self.postingWorkflow.photosForDisplay);
         for (id object in self.postingWorkflow.photosForDisplay){
             if ([object isKindOfClass:[UIImage class]]){
                 [tempArray addObject:object];

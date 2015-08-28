@@ -18,6 +18,8 @@
 #import "DoublePhotoPostShareView.h"
 #import "SinglePhotoPostShareView.h"
 #import "TriplePhotoPostShareView.h"
+#import "PreviewPostViewController.h"
+#import "EditPostViewController.h"
 #import "ChatView.h"
 #import "common.h"
 #import "ChatView.h"
@@ -77,6 +79,8 @@
 
     
     [self updatePostStatus];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadPost) name:@"ReloadPost" object:nil];
 }
 
 #pragma mark - Table View
@@ -269,7 +273,6 @@
         } else{
             [basicInfoCell.fieldTitleLabel setText:field[@"name"]];
             [basicInfoCell.dataLabel setText:self.post[field[@"field"]]];
-            [basicInfoCell enableEditMode];
             return basicInfoCell;
         }
     } else if ([field[@"dataType"] isEqualToString:@"image"]){
@@ -349,11 +352,19 @@
 }
 
 -(void)userControlButtonTouched{
-    UIAlertController *userControl = [UIAlertController alertControllerWithTitle:@"Post Control" message:@"Decide if your post should stay or go" preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertController *userControl = [UIAlertController alertControllerWithTitle:@"Edit your post" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     UIAlertAction* cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
                                                           handler:^(UIAlertAction * action) {
                                                               [userControl dismissViewControllerAnimated:YES completion:nil];
                                                           }];
+
+    UIAlertAction* editItem = [UIAlertAction actionWithTitle:@"Edit post" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewPost" bundle:nil];
+        EditPostViewController *editPostViewController = [storyboard instantiateViewControllerWithIdentifier:@"EditPostViewController"];
+        [editPostViewController initWithPost:self.post];
+        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:editPostViewController];
+        [self presentViewController:navController animated:YES completion:nil];
+    }];
     UIAlertAction* itemSold = [UIAlertAction actionWithTitle:@"This item has been sold" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         self.post.sold = YES;
         [self.post saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error){
@@ -376,6 +387,7 @@
     [userControl addAction:cancel];
     [userControl addAction:deletePost];
     [userControl addAction:itemSold];
+    [userControl addAction:editItem];
     [self presentViewController:userControl animated:YES completion:nil];
 }
 
@@ -440,6 +452,7 @@
     titleView.font = [UIFont fontWithName:@"Lato-Regular" size:17];
     titleView.textAlignment = NSTextAlignmentCenter;
     titleView.textColor = [UIColor spreeOffBlack];
+    NSLog(@"TITLE %@", self.post);
     titleView.text = self.post.title;
     titleView.adjustsFontSizeToFitWidth = YES;
     [_headerTitleSubtitleView addSubview:titleView];
@@ -532,9 +545,18 @@
                                     animated:YES
                                      completion:^{
                                          
-                                     }];
+                                    }];
 }
 
-
+-(void)reloadPost{
+    PFQuery *query = [PFQuery queryWithClassName:@"Post"];
+    [query getObjectInBackgroundWithId:self.post.objectId block:^(PFObject *object, NSError *error){
+        self.post = (SpreePost *)object;
+        [self.tableView reloadData];
+        [self setupTitle];
+        [self.navigationController.navigationItem.titleView
+         setNeedsDisplay];
+    }];
+}
 
 @end
