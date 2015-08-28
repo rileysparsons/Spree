@@ -79,6 +79,7 @@
 		14423CDF1B8FCD64002CB026 /* EditPostingNumberEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14423CDE1B8FCD64002CB026 /* EditPostingNumberEntryViewController.m */; };
 		14423CE21B8FDCF9002CB026 /* EditPostingDateEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14423CE11B8FDCF9002CB026 /* EditPostingDateEntryViewController.m */; };
 		14423CE51B8FE3EF002CB026 /* EditPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14423CE41B8FE3EF002CB026 /* EditPostViewController.m */; };
+		14423CE81B9006BC002CB026 /* SpreeConfigManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 14423CE71B9006BC002CB026 /* SpreeConfigManager.m */; };
 		144D55571B40A5490003B752 /* PostingWorkflow.m in Sources */ = {isa = PBXBuildFile; fileRef = 144D55561B40A5490003B752 /* PostingWorkflow.m */; };
 		144D55621B4D66F40003B752 /* SelectPostTypeHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 144D55611B4D66F40003B752 /* SelectPostTypeHeaderView.xib */; };
 		144D556D1B4E11920003B752 /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 144D55631B4E11920003B752 /* Lato-Black.ttf */; };
@@ -309,6 +310,8 @@
 		14423CE11B8FDCF9002CB026 /* EditPostingDateEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditPostingDateEntryViewController.m; sourceTree = "<group>"; };
 		14423CE31B8FE3EF002CB026 /* EditPostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditPostViewController.h; sourceTree = "<group>"; };
 		14423CE41B8FE3EF002CB026 /* EditPostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditPostViewController.m; sourceTree = "<group>"; };
+		14423CE61B9006BC002CB026 /* SpreeConfigManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpreeConfigManager.h; sourceTree = "<group>"; };
+		14423CE71B9006BC002CB026 /* SpreeConfigManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpreeConfigManager.m; sourceTree = "<group>"; };
 		144D55551B40A5490003B752 /* PostingWorkflow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostingWorkflow.h; sourceTree = "<group>"; };
 		144D55561B40A5490003B752 /* PostingWorkflow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostingWorkflow.m; sourceTree = "<group>"; };
 		144D55611B4D66F40003B752 /* SelectPostTypeHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectPostTypeHeaderView.xib; sourceTree = "<group>"; };
@@ -513,6 +516,8 @@
 		140CF8D51A3BBFB200134C4D /* Spree */ = {
 			isa = PBXGroup;
 			children = (
+				14423CE61B9006BC002CB026 /* SpreeConfigManager.h */,
+				14423CE71B9006BC002CB026 /* SpreeConfigManager.m */,
 				140CF8DA1A3BBFB200134C4D /* AppDelegate.h */,
 				140CF8DB1A3BBFB200134C4D /* AppDelegate.m */,
 				143D91DF1B6DFAE700E2F493 /* LoginWorkflow.h */,
@@ -1244,6 +1249,7 @@
 				14FD56E01B2CF6170086A2AE /* PostTitleTableViewCell.m in Sources */,
 				F78600BE1AEB422100402B1F /* recent.m in Sources */,
 				141AECBD1B8BCF6000F0012B /* PostingDateEntryViewController.m in Sources */,
+				14423CE81B9006BC002CB026 /* SpreeConfigManager.m in Sources */,
 				14EFDAE71A89EC4F007510CC /* TextViewViewController.m in Sources */,
 				F70FACF51AEB501700057E6E /* converter.m in Sources */,
 				14ABE1041A96893C00B805D0 /* NewDefaultPostView.m in Sources */,
