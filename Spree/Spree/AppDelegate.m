@@ -40,9 +40,9 @@
     [branch initSessionWithLaunchOptions:launchOptions andRegisterDeepLinkHandler:^(NSDictionary *params, NSError *error) {
         
         // params are the deep linked params associated with the link that the user clicked before showing up.
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"main" bundle:[NSBundle mainBundle]];
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
         if ([params objectForKey:@"object id"]){
-            PostDetailTableViewController *postDetailTableViewController = [storyboard instantiateViewControllerWithIdentifier:@"DetailView"];
+            PostDetailTableViewController *postDetailTableViewController = [storyboard instantiateViewControllerWithIdentifier:@"PostDetail"];
             [postDetailTableViewController initializeWithObjectId:params[@"object id"]];
             [self.window.rootViewController presentViewController:postDetailTableViewController animated:YES completion:nil];
             //I assume this is where you should put the initialization
