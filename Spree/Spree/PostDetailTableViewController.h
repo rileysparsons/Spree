@@ -25,5 +25,6 @@
 
 -(UITableViewCell *)loadPostImagesForCell:(PhotoGalleryTableViewCell *)cell;
 
+-(void)initializeWithObjectId:(NSString *)string;
 
 @end
