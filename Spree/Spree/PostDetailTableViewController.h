@@ -9,9 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "SpreePost.h"
 #import "PhotoGalleryTableViewCell.h"
+#import "MessageUI/MessageUI.h"
 #import "PostShareView.h"
 
 @interface PostDetailTableViewController : UITableViewController <PostShareViewDelegate>
+
 
 @property NSArray *fields;
 
@@ -27,9 +29,12 @@
 
 -(UITableViewCell *)loadPostImagesForCell:(PhotoGalleryTableViewCell *)cell;
 
+-(void)initializeWithObjectId:(NSString *)string;
+
 -(void)organizeTableForFields;
 
 @property NSArray *existingFields;
 @property NSMutableArray *existingFieldsForTable;
+
 
 @end

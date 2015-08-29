@@ -405,6 +405,8 @@
                             <outlet property="delegate" destination="oB8-6T-ZIR" id="Ian-HS-h6h"/>
                         </connections>
                     </tableView>
+                    <toolbarItems/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Z6w-NM-nD9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -640,7 +642,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a6m-4I-3ti" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2948" y="360"/>
+            <point key="canvasLocation" x="2946" y="216"/>
         </scene>
         <!--Terms and Conditions-->
         <scene sceneID="plx-fl-l8u">

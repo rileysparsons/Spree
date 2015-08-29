@@ -25,6 +25,8 @@
 #import "ChatView.h"
 #import "recent.h"
 #import <YHRoundBorderedButton.h>
+#import "Branch.h"
+#import "MessageUI/MessageUI.h"
 
 
 
@@ -61,6 +63,8 @@
     
     NSLog(@"Post %@", self.post);
     
+    NSLog(@"POST %@", self.post);
+    
     // Table View Set up
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.autoresizesSubviews = YES;
@@ -73,14 +77,14 @@
     [self.post.typePointer fetchIfNeededInBackgroundWithTarget:self selector:@selector(setupTitle)]; // Sets up the custom title view based on the type of the post
     
     [self getUserForPost];
-    
-    // Navigation bar UI
-    [self addCustomBackButton];
+    [self updatePostStatus];
 
-    
+    // Navigation bar UI
+
     [self updatePostStatus];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadPost) name:@"ReloadPost" object:nil];
+
 }
 
 #pragma mark - Table View
@@ -246,6 +250,7 @@
     return cell;
 }
 
+
 -(UITableViewCell *)cellForField:(NSDictionary *)field {
     
     // This cell subclass covers any fields that do not have their own custom subclass.
@@ -341,6 +346,51 @@
     [self actionChat:groupId post:self.post];
 }
 
+
+-(void)shareButtonPressed{
+    
+    //dictionary passed into the link that contains the object ID of the post that is being shared
+    NSMutableDictionary *objectId = [NSMutableDictionary dictionary];
+    [objectId setObject:self.post.objectId forKey:@"object id"];
+    
+    //creates custom url that contains info put into it using the dictionary
+    
+    MFMessageComposeViewController *smsViewController = [[MFMessageComposeViewController alloc] init];
+    [smsViewController setMessageComposeDelegate:self];
+    
+    if ([MFMessageComposeViewController canSendText]) {
+    
+        [[Branch getInstance] getContentUrlWithParams:objectId andChannel:@"sms" andCallback:^(NSString *url, NSError *error) {
+            NSLog(@"OBJECT ID: %@", self.post.objectId);
+            NSLog(@"URL: %@", url);
+            
+            if(!error) {
+                smsViewController.body = [NSString stringWithFormat:@"Check out this post on Spree! %@", url];
+                [self presentViewController:smsViewController animated:true completion:nil];
+            }
+        }];
+    
+    }
+    
+    else {
+        UIAlertView * alert_Dialog = [[UIAlertView alloc] initWithTitle:@"No Message Support" message:@"This device does not support messaging" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert_Dialog show];
+        alert_Dialog = nil;
+    }
+    
+    
+}
+
+
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result {
+    
+    [self dismissViewControllerAnimated:true completion:nil];
+    
+}
+
+
+
+
 - (void)actionChat:(NSString *)groupId post:(PFObject *)post_
 {
     ChatView *chatView = [[ChatView alloc] initWith:groupId post:post_ title:self.poster[@"username"]];
@@ -349,6 +399,28 @@
     [self.navigationController pushViewController:chatView animated:YES];
     // Unhide the tabbar when we go back
     self.hidesBottomBarWhenPushed = NO;
+}
+
+
+-(void)getUserForPost{
+    if(self.post){
+        if (([[(PFUser *)self.post.user objectId] isEqualToString: [[PFUser currentUser] objectId]])){
+            //        UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithTitle:@"Delete" style:UIBarButtonItemStyleBordered target:self actio:@selector(deleteButtonSelected)];
+            self.poster = [PFUser currentUser];
+            self.currentUserPost = YES;
+            [self updatePostStatus];
+        } else {
+            PFQuery *query = [PFUser query];
+            [query whereKey:@"objectId" equalTo:self.post.user.objectId];
+            [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+                NSLog(@"THIS: %@", object);
+                self.poster = (PFUser *)object;
+    //            NSString *date = [NSDateFormatter localizedStringFromDate:[self.post createdAt] dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterNoStyle];
+    //            _postDateUserLabel.text = [NSString stringWithFormat:@"Posted by %@ on %@", (_poster[@"name"]) ? _poster[@"name"] : _poster[@"username"], date];
+    //            [self _loadData];
+            }];
+        }
+    }
 }
 
 -(void)userControlButtonTouched{
@@ -406,6 +478,21 @@
         UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(shareButtonTouched)];
         self.navigationItem.rightBarButtonItem = shareButton;
     }
+}
+
+-(void)initializeWithObjectId:(NSString *)string{
+    PFQuery *query = [PFQuery queryWithClassName:@"Post"];
+    NSLog(@"%@",string);
+    [query includeKey:@"user"];
+    [query getObjectInBackgroundWithId:string block:^(PFObject *object, NSError *error){
+        if (error){
+            
+        } else {
+            self.post = (SpreePost *)object;
+            [self getUserForPost];
+            [self.tableView reloadData];
+        }
+    }];
 }
 
 #pragma mark - Organizing Data
@@ -487,21 +574,6 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:back];
 }
 
--(void)getUserForPost{
-    
-    if (([[(PFUser *)self.post.user objectId] isEqualToString: [[PFUser currentUser] objectId]])){
-        self.poster = [PFUser currentUser];
-        self.currentUserPost = YES;
-        [self updatePostStatus];
-    } else {
-        PFQuery *query = [PFUser query];
-        [query whereKey:@"objectId" equalTo:self.post.user.objectId];
-        [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-            self.poster = (PFUser *)object;
-        }];
-    }
-}
-
 #pragma mark - Share Function
 
 -(void)shareButtonTouched{
@@ -533,19 +605,33 @@
 
 -(void)presentActivityViewWithImage:(UIImage *)image{
     
-    NSString *shareString = [NSString stringWithFormat:@"Check out this post on Spree!"];
-    // This will contain the link to the post via branch.
+    //dictionary passed into the link that contains the object ID of the post that is being shared
+    NSMutableDictionary *objectId = [NSMutableDictionary dictionary];
+    [objectId setObject:self.post.objectId forKey:@"object id"];
+    [[Branch getInstance] getContentUrlWithParams:objectId andChannel:@"sms" andCallback:^(NSString *url, NSError *error) {
+        NSLog(@"OBJECT ID: %@", self.post.objectId);
+        NSLog(@"URL: %@", url);
+        
+        if(!error) {
+            
+            NSString *shareString = [NSString stringWithFormat:@"Check out this post on Spree! %@", url];
+            // This will contain the link to the post via branch.
+            
+            NSArray *excludedTypes = @[UIActivityTypeAddToReadingList, UIActivityTypeAirDrop, UIActivityTypeAssignToContact, UIActivityTypePostToFlickr, UIActivityTypePostToTwitter, UIActivityTypePostToWeibo, UIActivityTypePrint, UIActivityTypePostToTencentWeibo];
+            
+            UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[shareString, image]
+                                                                                                 applicationActivities:nil];
+            activityViewController.excludedActivityTypes = excludedTypes;
+            [self.navigationController presentViewController:activityViewController
+                                                    animated:YES
+                                                  completion:^{
+                                                      
+                                                  }];
+            
+        }
+    }];
     
-    NSArray *excludedTypes = @[UIActivityTypeAddToReadingList, UIActivityTypeAirDrop, UIActivityTypeAssignToContact, UIActivityTypePostToFlickr, UIActivityTypePostToTwitter, UIActivityTypePostToWeibo, UIActivityTypePrint, UIActivityTypePostToTencentWeibo];
     
-    UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[shareString, image]
-                                      applicationActivities:nil];
-    activityViewController.excludedActivityTypes = excludedTypes;
-    [self.navigationController presentViewController:activityViewController
-                                    animated:YES
-                                     completion:^{
-                                         
-                                    }];
 }
 
 -(void)reloadPost{
@@ -554,6 +640,7 @@
         self.post = (SpreePost *)object;
         [self.tableView reloadData];
         [self setupTitle];
+
     }];
 }
 
