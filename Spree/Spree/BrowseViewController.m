@@ -9,13 +9,11 @@
 #import "BrowseViewController.h"
 #import "PostTypeTableViewController.h"
 #import "PostTypeTableViewCell.h"
-#import "WSCoachMarksView.h"
 #import "SpreeSprintTableViewCell.h"
 #import "SelectPostTypeViewController.h"
 #import "SpreePost.h"
 
 @interface BrowseViewController () {
-    WSCoachMarksView *coachMarksView;
     NSArray *iconColorArray;
 }
 
@@ -30,13 +28,28 @@
 
 @implementation BrowseViewController
 
+- (id)initWithCoder:(NSCoder *)aCoder {
+    self = [super initWithCoder:aCoder];
+    if (self) {
+        
+        // The className to query on
+        self.parseClassName = @"PostType";
+        
+        // Whether the built-in pull-to-refresh is enabled
+        self.pullToRefreshEnabled = YES;
+        
+        // Whether the built-in pagination is enabled
+        self.paginationEnabled = NO;
+        
+        self.loadingViewEnabled = NO;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    self.postTypeArray = [[NSArray alloc] initWithObjects:@"Tasks", @"Books", @"Tickets", @"Electronics", @"Free", @"Furniture", @"Clothing", nil];
-    iconColorArray = [[NSArray alloc] initWithObjects:[UIColor spreeDarkBlue], [UIColor spreeRed], [UIColor spreeBabyBlue], [UIColor spreeDarkYellow], [UIColor spreeLightYellow],[UIColor spreeDarkBlue], [UIColor spreeRed], [UIColor spreeBabyBlue], [UIColor spreeDarkYellow], [UIColor spreeLightYellow], nil];
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
+    
     self.tableView.rowHeight = 60;
     
     // Bar title
@@ -54,8 +67,7 @@
 
     
     [self setupRefreshControl];
-    
-    [self addCoachMarks];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -65,38 +77,10 @@
 
 -(void)refresh:(id)sender{
     [self.tableView reloadData];
- 
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-
-    // Show coach marks
-    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"WSCoachMarksShownForCompose"];
-    if (coachMarksShown == NO) {
-        // Don't show again
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"WSCoachMarksShownForCompose"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        // Or show coach marks after a second delay
-        [coachMarksView performSelector:@selector(start) withObject:nil afterDelay:1.0f];
-    }
-//    PFQuery *query = [PFQuery queryWithClassName:PF_RECENT_CLASS_NAME];
-//    [query whereKey:PF_RECENT_USER equalTo:[PFUser currentUser]];
-//    [query includeKey:PF_RECENT_LASTUSER];
-//    [query orderByDescending:PF_RECENT_UPDATEDACTION];
-//    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
-//     {
-//         if (objects)
-//         {
-//             int total = 0;
-//             for (PFObject *recent in objects)
-//             {
-//                 total += [recent[PF_RECENT_COUNTER] intValue];
-//             }
-//             UITabBarItem *item = self.tabBarController.tabBar.items[2];
-//             item.badgeValue = (total == 0) ? nil : [NSString stringWithFormat:@"%d", total];
-//         }
-//     }];
-
+    [super viewWillAppear:animated];
     PFQuery *expiredPostNumberQuery = [PFQuery queryWithClassName:@"Post"];
     [expiredPostNumberQuery whereKey:@"user" equalTo:[PFUser currentUser]];
     [expiredPostNumberQuery  findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
@@ -113,24 +97,22 @@
     }];
 }
 
--(void)viewWillDisappear:(BOOL)animated{
-    [NSObject cancelPreviousPerformRequestsWithTarget:coachMarksView selector:@selector(start) object:nil];
+-(PFQuery *)queryForTable{
+    PFQuery *query = [PFQuery queryWithClassName:self.parseClassName];
+    NSLog(@"%@", self.parseClassName);
+//    [query orderByDescending:@"count"];
+//    [query includeKey:@"subType"];
+
+    return query;
 }
 
--(void)addCoachMarks{
-    NSArray *coachMarks = @[
-                            @{
-                                @"rect": [NSValue valueWithCGRect:(CGRect){{self.view.frame.size.width -45, 25},{35, 35}}],
-                                @"caption": @"Post something on Spree!"
-                                }
-                            ];
-    coachMarksView = [[WSCoachMarksView alloc] initWithFrame:self.tabBarController.view.bounds coachMarks:coachMarks];
-    [self.tabBarController.view addSubview:coachMarksView];
-    coachMarksView.maskColor = [UIColor colorWithWhite:1 alpha:.95];
-    coachMarksView.lblCaption.textColor = [UIColor spreeBabyBlue];
-    coachMarksView.lblCaption.font = [UIFont fontWithName:@"EuphemiaUCAS-Bold" size:24];
+-(void)objectsWillLoad{
+    NSLog(@"Query %@", self.queryForTable);
 }
 
+-(void)objectsDidLoad:(nullable NSError *)error{
+    NSLog(@"%@", error);
+}
 
 - (void)setupRefreshControl
 {
@@ -292,9 +274,14 @@
 
 #pragma mark - Table view data source
 
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 1;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _postTypeArray.count;
+    return self.objects.count;
 }
 
 
@@ -313,8 +300,10 @@
         }
     }
     
-    // Configure the cell with the textContent of the Post as the cell's text label
     
+    cell.titleLabel.text = [self.objects objectAtIndex:indexPath.row][@"type"];
+    // Configure the cell with the textContent of the Post as the cell's text label
+    /*
     PFQuery *postQuery = [PFQuery queryWithClassName:@"Post"];
     if ([[_postTypeArray objectAtIndex:indexPath.row] isEqualToString:@"Free"]){
         PFQuery *query = [PFQuery queryWithClassName:@"Post"];
@@ -349,48 +338,52 @@
             }
         }];
     }
-    cell.titleLabel.text = [_postTypeArray objectAtIndex:indexPath.row];
+     
+     */
+//    cell.titleLabel.text = [self.objects objectAtIndex:indexPath.row];
     
-    if ([[_postTypeArray objectAtIndex:indexPath.row] isEqualToString: @"Books"]){
-        cell.accessoryView = [MSCellAccessory accessoryWithType: FLAT_DISCLOSURE_INDICATOR color:[iconColorArray objectAtIndex:indexPath.row] highlightedColor:[UIColor spreeLightYellow]];
-        cell.detailImage.image = [UIImage imageNamed:@"BookTypeIconSmall"];
-        cell.iconBackground.backgroundColor = [iconColorArray objectAtIndex:indexPath.row];
-    } else if ([[_postTypeArray objectAtIndex:indexPath.row] isEqualToString: @"Tickets"]){
-        cell.detailImage.image = [UIImage imageNamed:@"TicketTypeIconSmall"];
-        cell.accessoryView = [MSCellAccessory accessoryWithType: FLAT_DISCLOSURE_INDICATOR color:[iconColorArray objectAtIndex:indexPath.row] highlightedColor:[UIColor spreeLightYellow]];
-        cell.iconBackground.backgroundColor = [iconColorArray objectAtIndex:indexPath.row];
-    } else if ([[_postTypeArray objectAtIndex:indexPath.row] isEqualToString: @"Electronics"]){
-        cell.detailImage.image = [UIImage imageNamed:@"ElectronicsTypeIconSmall"];
-        cell.accessoryView = [MSCellAccessory accessoryWithType: FLAT_DISCLOSURE_INDICATOR color:[iconColorArray objectAtIndex:indexPath.row] highlightedColor:[UIColor spreeLightYellow]];
-        cell.iconBackground.backgroundColor = [iconColorArray objectAtIndex:indexPath.row];
-    } else if ([[_postTypeArray objectAtIndex:indexPath.row] isEqualToString: @"Free"]){
-        cell.detailImage.image = [UIImage imageNamed:@"freeGraphic"];
-        cell.accessoryView = [MSCellAccessory accessoryWithType: FLAT_DISCLOSURE_INDICATOR color:[iconColorArray objectAtIndex:indexPath.row] highlightedColor:[UIColor spreeLightYellow]];
-        cell.iconBackground.backgroundColor = [iconColorArray objectAtIndex:indexPath.row];
-    }
-    else if ([[_postTypeArray objectAtIndex:indexPath.row] isEqualToString: @"Furniture"]){
-        cell.detailImage.image = [UIImage imageNamed:@"furnitureCellIconWhite"];
-        cell.accessoryView = [MSCellAccessory accessoryWithType: FLAT_DISCLOSURE_INDICATOR color:[iconColorArray objectAtIndex:indexPath.row] highlightedColor:[UIColor spreeLightYellow]];
-        cell.iconBackground.backgroundColor = [iconColorArray objectAtIndex:indexPath.row];
-    } else if ([[_postTypeArray objectAtIndex:indexPath.row] isEqualToString: @"Clothing"]){
-        cell.detailImage.image = [UIImage imageNamed:@"clothingCellIconWhite"];
-        cell.accessoryView = [MSCellAccessory accessoryWithType: FLAT_DISCLOSURE_INDICATOR color:[iconColorArray objectAtIndex:indexPath.row] highlightedColor:[UIColor spreeLightYellow]];
-        cell.iconBackground.backgroundColor = [iconColorArray objectAtIndex:indexPath.row];
-    } else if ([[_postTypeArray objectAtIndex:indexPath.row] isEqualToString: @"Tasks"]){
-        SpreeSprintTableViewCell *sprintCell = [tableView dequeueReusableCellWithIdentifier:@"sprintCell"];
-        if (sprintCell == nil) {
-            NSArray *nibFiles = [[NSBundle mainBundle] loadNibNamed:@"SpreeSprintTableViewCell" owner:self options:nil];
-            for(id currentObject in nibFiles){
-                if ([currentObject isKindOfClass:[UITableViewCell class]]){
-                    sprintCell = (SpreeSprintTableViewCell*)currentObject;
-                    break;
-                }
-            }
-        }
-        sprintCell.accessoryView = [MSCellAccessory accessoryWithType: FLAT_DISCLOSURE_INDICATOR color:[UIColor spreeBabyBlue] highlightedColor:[UIColor spreeLightYellow]];
-        sprintCell.accessoryView.backgroundColor = [UIColor spreeOffWhite];
-        return sprintCell;
-    }
+    
+    
+//    if ([[_postTypeArray objectAtIndex:indexPath.row] isEqualToString: @"Books"]){
+//        cell.accessoryView = [MSCellAccessory accessoryWithType: FLAT_DISCLOSURE_INDICATOR color:[iconColorArray objectAtIndex:indexPath.row] highlightedColor:[UIColor spreeLightYellow]];
+//        cell.detailImage.image = [UIImage imageNamed:@"BookTypeIconSmall"];
+//        cell.iconBackground.backgroundColor = [iconColorArray objectAtIndex:indexPath.row];
+//    } else if ([[_postTypeArray objectAtIndex:indexPath.row] isEqualToString: @"Tickets"]){
+//        cell.detailImage.image = [UIImage imageNamed:@"TicketTypeIconSmall"];
+//        cell.accessoryView = [MSCellAccessory accessoryWithType: FLAT_DISCLOSURE_INDICATOR color:[iconColorArray objectAtIndex:indexPath.row] highlightedColor:[UIColor spreeLightYellow]];
+//        cell.iconBackground.backgroundColor = [iconColorArray objectAtIndex:indexPath.row];
+//    } else if ([[_postTypeArray objectAtIndex:indexPath.row] isEqualToString: @"Electronics"]){
+//        cell.detailImage.image = [UIImage imageNamed:@"ElectronicsTypeIconSmall"];
+//        cell.accessoryView = [MSCellAccessory accessoryWithType: FLAT_DISCLOSURE_INDICATOR color:[iconColorArray objectAtIndex:indexPath.row] highlightedColor:[UIColor spreeLightYellow]];
+//        cell.iconBackground.backgroundColor = [iconColorArray objectAtIndex:indexPath.row];
+//    } else if ([[_postTypeArray objectAtIndex:indexPath.row] isEqualToString: @"Free"]){
+//        cell.detailImage.image = [UIImage imageNamed:@"freeGraphic"];
+//        cell.accessoryView = [MSCellAccessory accessoryWithType: FLAT_DISCLOSURE_INDICATOR color:[iconColorArray objectAtIndex:indexPath.row] highlightedColor:[UIColor spreeLightYellow]];
+//        cell.iconBackground.backgroundColor = [iconColorArray objectAtIndex:indexPath.row];
+//    }
+//    else if ([[_postTypeArray objectAtIndex:indexPath.row] isEqualToString: @"Furniture"]){
+//        cell.detailImage.image = [UIImage imageNamed:@"furnitureCellIconWhite"];
+//        cell.accessoryView = [MSCellAccessory accessoryWithType: FLAT_DISCLOSURE_INDICATOR color:[iconColorArray objectAtIndex:indexPath.row] highlightedColor:[UIColor spreeLightYellow]];
+//        cell.iconBackground.backgroundColor = [iconColorArray objectAtIndex:indexPath.row];
+//    } else if ([[_postTypeArray objectAtIndex:indexPath.row] isEqualToString: @"Clothing"]){
+//        cell.detailImage.image = [UIImage imageNamed:@"clothingCellIconWhite"];
+//        cell.accessoryView = [MSCellAccessory accessoryWithType: FLAT_DISCLOSURE_INDICATOR color:[iconColorArray objectAtIndex:indexPath.row] highlightedColor:[UIColor spreeLightYellow]];
+//        cell.iconBackground.backgroundColor = [iconColorArray objectAtIndex:indexPath.row];
+//    } else if ([[_postTypeArray objectAtIndex:indexPath.row] isEqualToString: @"Tasks"]){
+//        SpreeSprintTableViewCell *sprintCell = [tableView dequeueReusableCellWithIdentifier:@"sprintCell"];
+//        if (sprintCell == nil) {
+//            NSArray *nibFiles = [[NSBundle mainBundle] loadNibNamed:@"SpreeSprintTableViewCell" owner:self options:nil];
+//            for(id currentObject in nibFiles){
+//                if ([currentObject isKindOfClass:[UITableViewCell class]]){
+//                    sprintCell = (SpreeSprintTableViewCell*)currentObject;
+//                    break;
+//                }
+//            }
+//        }
+//        sprintCell.accessoryView = [MSCellAccessory accessoryWithType: FLAT_DISCLOSURE_INDICATOR color:[UIColor spreeBabyBlue] highlightedColor:[UIColor spreeLightYellow]];
+//        sprintCell.accessoryView.backgroundColor = [UIColor spreeOffWhite];
+//        return sprintCell;
+//    }
     cell.accessoryView.backgroundColor = [UIColor spreeOffWhite];
     return cell;
 }
@@ -410,14 +403,8 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     if ([segue.identifier isEqualToString:@"DisplayPosts"]){
-        PostTypeTableViewCell *selectedCell = (PostTypeTableViewCell*)[self.tableView cellForRowAtIndexPath:self.tableView.indexPathForSelectedRow];
         PostTypeTableViewController *destinationViewController = segue.destinationViewController;
-        if ([[self.postTypeArray objectAtIndex:self.tableView.indexPathForSelectedRow.row] isEqualToString:@"Tasks"])
-            destinationViewController.postType = @"Tasks";
-        else
-            destinationViewController.postType = selectedCell.titleLabel.text;
-        
-        
+        destinationViewController.postType = [self.objects objectAtIndex:self.tableView.indexPathForSelectedRow.row];
     }
     
 }

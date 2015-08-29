@@ -6,9 +6,10 @@
 //  Copyright (c) 2014 Riley Steele Parsons. All rights reserved.
 //
 
-@interface BrowseViewController : UITableViewController < UITabBarDelegate, UITableViewDataSource> {
+@interface BrowseViewController : PFQueryTableViewController {
 
 }
+
 @property NSArray *postTypeArray;
 @property NSInteger pastPostNumber;
 

@@ -55,11 +55,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    UIImage *image = [UIImage imageNamed:@"spreeTitleStylized.png"];
-    self.title = self.postType;
+    self.title = self.postType[@"type"];
     self.view.backgroundColor = [UIColor spreeOffWhite];
     self.tableView.backgroundColor = [UIColor spreeOffWhite];
-    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:image];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadObjects) name:@"ReloadTable" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadObjects) name:@"PostMade" object:nil];
     
@@ -145,23 +144,11 @@
 
 - (PFQuery *)queryForTable{
     PFQuery *query = [PFQuery queryWithClassName:self.parseClassName];
-    if ([self.postType isEqualToString:@"Free"]){
-        PFQuery *query2 = [PFQuery queryWithClassName:self.parseClassName];
-        [query2 whereKeyDoesNotExist:@"price"];
-        [query whereKey:@"price" equalTo:[NSNumber numberWithFloat:0]];
-        [query whereKey:@"expired" equalTo:[NSNumber numberWithBool:NO]];
-        [query whereKey:@"sold" equalTo:[NSNumber numberWithBool:NO]];
-        [query whereKey:@"network" equalTo:[[PFUser currentUser] objectForKey:@"network"]];
-        PFQuery *finalQuery = [PFQuery orQueryWithSubqueries:@[query,query2]];
-        [finalQuery orderByDescending:@"updatedAt"];
-        return finalQuery;
-    }  else {
-        [query whereKey:@"type" equalTo:self.postType];
-        [query whereKey:@"expired" equalTo:[NSNumber numberWithBool:NO]];
-        [query whereKey:@"sold" equalTo:[NSNumber numberWithBool:NO]];
-        [query whereKey:@"network" equalTo:[[PFUser currentUser] objectForKey:@"network"]];
-        [query orderByDescending:@"updatedAt"];
-    }
+    [query whereKey:@"typePointer" equalTo:self.postType];
+    [query whereKey:@"expired" equalTo:[NSNumber numberWithBool:NO]];
+    [query whereKey:@"sold" equalTo:[NSNumber numberWithBool:NO]];
+    [query whereKey:@"network" equalTo:[[PFUser currentUser] objectForKey:@"network"]];
+    [query orderByDescending:@"updatedAt"];
     return query;
 }
 
@@ -172,8 +159,12 @@
     self.searchQuery = [PFQuery queryWithClassName:@"Post"];
     [self.searchQuery whereKeyExists:@"title"];  //this is based on whatever query you are trying to accomplish
     [self.searchQuery whereKeyExists:@"price"]; //this is based on whatever query you are trying to accomplish
+    [self.searchQuery whereKey:@"typePointer" equalTo:self.postType];
     
-    [self.searchQuery whereKey:@"title" matchesRegex:searchTerm modifiers:@"i"];
+    NSMutableArray *parts = [NSMutableArray arrayWithArray:[searchTerm componentsSeparatedByCharactersInSet:[NSCharacterSet  whitespaceCharacterSet]]];
+    [parts removeObjectIdenticalTo:@""];
+    
+    [self.searchQuery whereKey:@"keywords" containsAllObjectsInArray:parts];
     
     
     [self.searchQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error){

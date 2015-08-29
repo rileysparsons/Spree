@@ -387,7 +387,7 @@
             int roundedInteger = (int)roundedValue;
             NSNumber *numberSince = [NSNumber numberWithInt:roundedInteger];
             NSString *timeSincePost = [numberSince stringValue];
-            NSString *timeWithUnits = [NSString stringWithFormat:(@"Posted %@ days ago"), timeSincePost];
+            NSString *timeWithUnits = [NSString stringWithFormat:(@"%@ days ago"), timeSincePost];
             cell.postTimeLabel.text = timeWithUnits;
         } else {
             double timeSinceInHours = timeSinceInDays*24;
@@ -397,16 +397,16 @@
                 int roundedInteger = (int)timeSinceInHoursRounded;
                 NSNumber *numberSince = [NSNumber numberWithInt:roundedInteger];
                 NSString *timeSincePost = [numberSince stringValue];
-                NSString *timeWithUnits = [NSString stringWithFormat:(@"Posted %@ hours ago"), timeSincePost];
+                NSString *timeWithUnits = [NSString stringWithFormat:(@"%@ hours ago"), timeSincePost];
                 cell.postTimeLabel.text = timeWithUnits;
             } else if (timeSinceInMinutes > 1){
                 int roundedInteger = (int)timeSinceInMinutes;
                 NSNumber *numberSince = [NSNumber numberWithInt:roundedInteger];
                 NSString *timeSincePost = [numberSince stringValue];
-                NSString *timeWithUnits = [NSString stringWithFormat:(@"Posted %@m minutes ago"), timeSincePost];
+                NSString *timeWithUnits = [NSString stringWithFormat:(@"%@ minutes ago"), timeSincePost];
                 cell.postTimeLabel.text = timeWithUnits;
             } else {
-                NSString *message = @"Posted just now";
+                NSString *message = @"Just now";
                 cell.postTimeLabel.text = message;
             }
         }
