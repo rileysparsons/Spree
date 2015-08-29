@@ -9,8 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "SpreePost.h"
 #import "PhotoGalleryTableViewCell.h"
+#import "MessageUI/MessageUI.h"
 
-@interface PostDetailTableViewController : UITableViewController
+@interface PostDetailTableViewController : UITableViewController <MFMessageComposeViewControllerDelegate> {
+    
+}
 
 @property NSArray *fields;
 

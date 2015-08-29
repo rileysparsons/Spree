@@ -18,6 +18,7 @@
 #import "recent.h"
 #import <YHRoundBorderedButton.h>
 #import "Branch.h"
+#import "MessageUI/MessageUI.h"
 
 @interface PostDetailTableViewController ()
 
@@ -276,15 +277,44 @@
     
     //dictionary passed into the link that contains the object ID of the post that is being shared
     NSMutableDictionary *objectId = [NSMutableDictionary dictionary];
-    [objectId setObject:self.post.objectId forKey:@"object ID"];
+    [objectId setObject:self.post.objectId forKey:@"object id"];
     
-    //creates custom url that contains info put into it using the dictionary 
-    [[Branch getInstance] getContentUrlWithParams:objectId andChannel:@"viewer" andCallback:^(NSString *url, NSError *error) {
-        NSLog(@"OBJECT ID: %@", self.post.objectId);
-        NSLog(@"URL: %@", url);
-    }];
+    //creates custom url that contains info put into it using the dictionary
+    
+    MFMessageComposeViewController *smsViewController = [[MFMessageComposeViewController alloc] init];
+    [smsViewController setMessageComposeDelegate:self];
+    
+    if ([MFMessageComposeViewController canSendText]) {
+    
+        [[Branch getInstance] getContentUrlWithParams:objectId andChannel:@"sms" andCallback:^(NSString *url, NSError *error) {
+            NSLog(@"OBJECT ID: %@", self.post.objectId);
+            NSLog(@"URL: %@", url);
+            
+            if(!error) {
+                smsViewController.body = [NSString stringWithFormat:@"Check out this post on Spree! %@", url];
+                [self presentViewController:smsViewController animated:true completion:nil];
+            }
+        }];
+    
+    }
+    
+    else {
+        UIAlertView * alert_Dialog = [[UIAlertView alloc] initWithTitle:@"No Message Support" message:@"This device does not support messaging" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert_Dialog show];
+        alert_Dialog = nil;
+    }
+    
     
 }
+
+
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result {
+    
+    [self dismissViewControllerAnimated:true completion:nil];
+    
+}
+
+
 
 
 - (void)actionChat:(NSString *)groupId post:(PFObject *)post_

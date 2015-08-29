@@ -121,6 +121,7 @@
 		4E0E82041B40DC0200E18975 /* RTWalkthroughViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E0E82021B40DC0200E18975 /* RTWalkthroughViewController.m */; };
 		4E0E82091B40DD2F00E18975 /* rightarrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E0E82071B40DD2F00E18975 /* rightarrow@2x.png */; };
 		4E0E820B1B40DE1800E18975 /* leftarrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E0E820A1B40DE1800E18975 /* leftarrow@2x.png */; };
+		4E9275151B91400E0082B8A0 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9275141B91400E0082B8A0 /* MessageUI.framework */; };
 		4ECA453F1B48E0EB006C33FC /* ContactUsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ECA453E1B48E0EB006C33FC /* ContactUsViewController.m */; };
 		CFFEE9291B0487BF002CD29A /* MeetUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFFEE9281B0487BF002CD29A /* MeetUpViewController.m */; };
 		E2E410A83C907E40B1DB304C /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 38359AA3D2B23F9752A230C8 /* libPods.a */; };
@@ -352,6 +353,7 @@
 		4E0E82021B40DC0200E18975 /* RTWalkthroughViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTWalkthroughViewController.m; sourceTree = "<group>"; };
 		4E0E82071B40DD2F00E18975 /* rightarrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rightarrow@2x.png"; sourceTree = "<group>"; };
 		4E0E820A1B40DE1800E18975 /* leftarrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "leftarrow@2x.png"; sourceTree = "<group>"; };
+		4E9275141B91400E0082B8A0 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		4ECA453D1B48E0EB006C33FC /* ContactUsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactUsViewController.h; sourceTree = "<group>"; };
 		4ECA453E1B48E0EB006C33FC /* ContactUsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactUsViewController.m; sourceTree = "<group>"; };
 		A7F573D62D839D22544FF614 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -401,6 +403,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E9275151B91400E0082B8A0 /* MessageUI.framework in Frameworks */,
 				F72CF4F81AEB46A900144001 /* libstdc++.6.dylib in Frameworks */,
 				140CF91F1A3FBEC400134C4D /* AudioToolbox.framework in Frameworks */,
 				F72B2D0D1AE64A9D00F9A845 /* libsqlite3.dylib in Frameworks */,
@@ -796,6 +799,7 @@
 		CACF1256D5FA94F1B1209550 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4E9275141B91400E0082B8A0 /* MessageUI.framework */,
 				F72CF4F51AEB467100144001 /* libstdc++.6.dylib */,
 				F72B2D0C1AE64A9D00F9A845 /* libsqlite3.dylib */,
 				F72B2D0A1AE64A9400F9A845 /* libz.dylib */,

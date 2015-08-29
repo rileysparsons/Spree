@@ -21,8 +21,7 @@
 #import <ParseFacebookUtilsV4/PFFacebookUtils.h>
 #import <ParseCrashReporting/ParseCrashReporting.h>
 #import "Branch.h"
-
-
+#import "PostDetailTableViewController.h"
 #import <Accelerate/Accelerate.h>
 
 @interface AppDelegate () <RTWalkthroughViewControllerDelegate>
@@ -39,8 +38,18 @@
     //Branch.io stuff
     Branch *branch = [Branch getInstance];
     [branch initSessionWithLaunchOptions:launchOptions andRegisterDeepLinkHandler:^(NSDictionary *params, NSError *error) {
+        
         // params are the deep linked params associated with the link that the user clicked before showing up.
-        NSLog(@"deep link data: %@", [params description]);
+        
+        if ([params objectForKey:@"object id"]){
+            PostDetailTableViewController *postDetailTableViewController = [[PostDetailTableViewController alloc] initWithNibName:nil bundle:nil];
+            
+            //I assume this is where you should put the initialization
+            
+        }
+        
+        
+        
     }];
     
     
