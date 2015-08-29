@@ -12,6 +12,8 @@
 
 
 @property (nonatomic, strong) PostDetailTableViewController *postDetailTableViewController;
+@property NSDictionary *postQueryParameters;
+
 
 -(NSArray *)fieldsForPostType:(NSString *)type;
 - (IBAction)NewPostBarButtonItemPressed:(id)sender;
