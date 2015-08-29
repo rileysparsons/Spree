@@ -12,6 +12,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *backgroundImage;
 @property (weak, nonatomic) IBOutlet UILabel *slideTitle;
 @property (nonatomic, strong) HeaderSlideView *customView;
+@property (weak, nonatomic) IBOutlet UILabel *slideSubtitle;
 
 
 -(void)setTitleWithString:(NSString *)title;

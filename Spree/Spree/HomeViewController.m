@@ -9,10 +9,16 @@
 #import "HomeViewController.h"
 #import "HomeHeaderView.h"
 #import "HeaderSlideView.h"
+#import "SpreeConfigManager.h"
 
-@interface HomeViewController () <InfinitePagingViewDelegate>
+@interface HomeViewController () <InfinitePagingViewDelegate, UIGestureRecognizerDelegate>
 
 @property HomeHeaderView *header;
+@property NSMutableArray *slides; // For reference when touched
+@property NSMutableArray *metadata;
+@property NSTimeInterval lastTouchTime;
+@property NSInteger pagingViewIndex;
+
 
 @end
 
@@ -21,37 +27,65 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.header = [[HomeHeaderView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 200)];
-    self.header.photoGallery.pageSize = CGSizeMake(self.tableView.frame.size.width, 200);
-    for (UIView *view  in [self headerSlides]){
-        [self.header.photoGallery addPageView:view];
-    }
-    [NSTimer scheduledTimerWithTimeInterval:4.0f target:self.header.photoGallery selector:@selector(scrollToNextPage) userInfo:nil repeats:YES];
-    self.tableView.tableHeaderView = self.header;
+    [self setupHeaderSlides];
 }
 
--(NSArray *)headerSlides{
-    HeaderSlideView *view1 = [[HeaderSlideView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 200)];
-    HeaderSlideView *view2 = [[HeaderSlideView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 200)];
-    HeaderSlideView *view3 = [[HeaderSlideView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 200)];
+-(void)setupHeaderSlides{
+    
+    self.header = [[HomeHeaderView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 200)];
+    self.header.photoGallery.pageSize = CGSizeMake(self.tableView.frame.size.width, 200);
+    self.header.headerGestureRecognizer.delegate = self;
+    
+    HeaderSlideView *slide1 = [[HeaderSlideView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 200)];
+    [self.header.photoGallery addPageView: slide1];
+    HeaderSlideView *slide2 = [[HeaderSlideView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 200)];
+    [self.header.photoGallery addPageView: slide2];
+    HeaderSlideView *slide3 = [[HeaderSlideView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 200)];
+    [self.header.photoGallery addPageView: slide3];
+    
+    self.slides = [[NSMutableArray alloc] initWithArray:@[slide1, slide2, slide3]];
+    self.metadata = [[NSMutableArray alloc] init];
+    
+    PFQuery *userQuery = [PFUser query];
+    [userQuery includeKey:@"campus"];
+    [userQuery getObjectInBackgroundWithId:[[PFUser currentUser] objectId] block:^(PFObject *object, NSError *error){
+        if (!error){
+            
+            NSMutableArray *bannerMetadata = [[[SpreeConfigManager sharedManager] campusBannerSlidesForNetworkCode:object[@"campus"][@"networkCode"]] mutableCopy];
+            
+            [bannerMetadata sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"number" ascending:YES]]];
+            
+            for (HeaderSlideView *slideView in self.slides){
+                
+                 BOOL exists = [self.slides indexOfObject:slideView] < [bannerMetadata count] ? YES : NO;
+                if (exists){
+                    NSDictionary *bannerData = [bannerMetadata objectAtIndex:[self.slides indexOfObject:slideView]];
+                    
+                    if (bannerData[@"title"]){
+                        slideView.slideTitle.text = bannerData[@"title"];
+                    }
+                    
+                    if (bannerData[@"subtitle"]){
+                        slideView.slideSubtitle.text = bannerData[@"subtitle"];
+                    }
+                    
+                    slideView.slideTitle.textColor = [UIColor spreeOffWhite];
+                    slideView.backgroundImage.backgroundColor = [UIColor spreeOffBlack];
+                    
+                    [self.metadata addObject:bannerData];
+                }
+            }
+            
+            self.header.photoGallery.delegate = self;
+            NSLog(@"%@", self.header.photoGallery.delegate);
+            
+            [NSTimer scheduledTimerWithTimeInterval:4.0f target:self.header.photoGallery selector:@selector(scrollToNextPage) userInfo:nil repeats:YES];
+            self.tableView.tableHeaderView = self.header;
+        } else {
+            
+        }
+    }];
 
-    
-    view1.backgroundImage.image = [UIImage imageNamed:@"missionsantaclara"];
-    
-    view1.backgroundImage.backgroundColor = [UIColor spreeOffBlack];
-    view2.backgroundImage.backgroundColor = [UIColor spreeOffBlack];
-    view3.backgroundImage.backgroundColor = [UIColor spreeOffBlack];
-    
-    view1.slideTitle.textColor = [UIColor spreeOffWhite];
-    view2.slideTitle.textColor = [UIColor spreeOffWhite];
-    view3.slideTitle.textColor = [UIColor spreeOffWhite];
-
-
-    [view1 setTitleWithString:@"Santa Clara University"];
-    [view2 setTitleWithString:@"Couches"];
-    [view3 setTitleWithString:@"Textbooks"];
-    
-    return [[NSArray alloc] initWithObjects:view1,view2,view3, nil];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -80,5 +114,30 @@
 }
 
 
+
+-(void)userTouchedSlide{
+
+    BOOL exists = self.pagingViewIndex < [self.metadata count] ? YES : NO;
+    if (exists){
+        NSDictionary *slideMetadata = [self.metadata objectAtIndex:self.pagingViewIndex];
+        
+        if (slideMetadata[@"parameters"]){
+            PostTableViewController *postTableViewController = [[PostTableViewController alloc] initWithStyle:UITableViewStylePlain];
+            postTableViewController.postQueryParameters = slideMetadata[@"parameters"];
+            [self.navigationController pushViewController:postTableViewController animated:YES];
+        }
+    }
+    
+    NSLog(@"YES");
+}
+
+-(void)pagingView:(InfinitePagingView *)pagingView didEndDecelerating:(UIScrollView *)scrollView atPageIndex:(NSInteger)pageIndex{
+    self.pagingViewIndex = pageIndex;
+}
+
+-(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer{
+    [self userTouchedSlide];
+    return YES;
+}
 
 @end

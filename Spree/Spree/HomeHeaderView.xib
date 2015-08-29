@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeHeaderView">
             <connections>
+                <outlet property="headerGestureRecognizer" destination="Yhb-33-bnp" id="Ioz-h7-1J2"/>
                 <outlet property="photoGallery" destination="B2l-aL-zSa" id="lcY-iu-8yn"/>
             </connections>
         </placeholder>
@@ -17,9 +18,13 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B2l-aL-zSa" customClass="InfinitePagingView">
                     <rect key="frame" x="0.0" y="0.0" width="600" height="200"/>
                     <color key="backgroundColor" red="0.16666857900000001" green="0.18534906209999999" blue="0.19849607350000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <gestureRecognizers/>
                     <constraints>
                         <constraint firstAttribute="height" constant="200" id="aHe-nn-Q1T"/>
                     </constraints>
+                    <connections>
+                        <outletCollection property="gestureRecognizers" destination="Yhb-33-bnp" appends="YES" id="h88-pF-8zZ"/>
+                    </connections>
                 </view>
             </subviews>
             <color key="backgroundColor" red="0.16666857900000001" green="0.18534906209999999" blue="0.19849607350000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -30,7 +35,8 @@
                 <constraint firstItem="B2l-aL-zSa" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="ie6-t8-wGe"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="432" y="-66"/>
+            <point key="canvasLocation" x="338" y="-66"/>
         </view>
+        <tapGestureRecognizer id="Yhb-33-bnp"/>
     </objects>
 </document>

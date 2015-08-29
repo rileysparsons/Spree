@@ -39,8 +39,35 @@
 
 @implementation PostTableViewController
 
+- (id)initWithStyle:(UITableViewStyle)style {
+    self = [super initWithStyle:style];
+    if (self) {
+        // The className to query on
+        self.parseClassName = @"Post";
+        
+        // The key of the PFObject to display in the label of the default cell style
+        self.textKey = @"title";
+        
+        // Uncomment the following line to specify the key of a PFFile on the PFObject to display in the imageView of the default cell style
+        // self.imageKey = @"image";
+        
+        // Whether the built-in pull-to-refresh is enabled
+        self.pullToRefreshEnabled = NO;
+        
+        // Whether the built-in pagination is enabled
+        self.paginationEnabled = YES;
+        
+        // The number of objects to show per page
+        self.objectsPerPage = 25;
+        
+        self.loadingViewEnabled = NO;
+
+    }
+    return self;
+}
+
+
 -  (id)initWithCoder:(NSCoder *)aDecoder {
-    self = [super initWithClassName:@"Post"];
     self = [super initWithCoder:aDecoder];
     
     if (self) {
@@ -63,6 +90,8 @@
         
         // The number of objects to show per page
         self.objectsPerPage = 25;
+        
+        self.loadingViewEnabled = NO;
     }
     return self;
 }
@@ -284,14 +313,13 @@
     [query whereKey:@"expired" equalTo:[NSNumber numberWithBool:NO]];
     [query whereKey:@"sold" equalTo:[NSNumber numberWithBool:NO]];
     [query whereKeyDoesNotExist:@"removed"];
-    [query whereKey:@"network" equalTo:[PFUser currentUser]];
     [query orderByDescending:@"createdAt"];
     NSLog(@"%@", [PFUser currentUser]);
     [query whereKey:@"network" equalTo:[[PFUser currentUser] objectForKey:@"network"]];
     [query includeKey:@"objectId"];
     [query includeKey:@"typePointer"];
     [query includeKey:@"user"];
-    return query;
+    return [self addQueryParameters:self.postQueryParameters toQuery:query];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object
@@ -480,6 +508,38 @@
             // NEED TO ADD FIELDS
     }
     return fields;
+}
+
+-(PFQuery *)addQueryParameters:(NSDictionary *)parameters toQuery:(PFQuery *)query{
+    
+    NSLog(@"%@", parameters);
+    
+    if (parameters && query){
+        for (id parameter in parameters){
+            for (id key in parameter){
+                NSLog(@"%@, %@", key,parameter[key]);
+                
+                [query whereKey:key equalTo:parameter[key]];
+//                for (id constraint in parameter[key]){
+//                    NSLog(@"Constraint %@", constraint);
+//                    if ([constraint isEqualToString: @"__type"]){
+//                        if ([parameter[key][constraint] isEqualToString:@"Pointer"]){
+//                            PFQuery *pointerQuery = [PFQuery queryWithClassName:parameter[@"className"]];
+//                            [pointerQuery getObjectInBackgroundWithId:parameter[@"objectId"] block:^(PFObject *object, NSError *error){
+//                                if (!error){
+//                                    if (object)
+//                                        [query whereKey:key equalTo:object];
+//                                } else {
+//                                    NSLog(@"%@",error);
+//                                }
+//                            }];
+//                        }
+//                    }
+//                }
+            }
+        }
+    }
+    return query;
 }
 
 
