@@ -39,6 +39,8 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
+    NSLog(@"POST %@", self.post);
+    
     // Table View Set up
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.autoresizesSubviews = YES;
@@ -328,21 +330,23 @@
 }
 
 -(void)getUserForPost{
-    if (([[(PFUser *)self.post.user objectId] isEqualToString: [[PFUser currentUser] objectId]])){
-        //        UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithTitle:@"Delete" style:UIBarButtonItemStyleBordered target:self actio:@selector(deleteButtonSelected)];
-        self.poster = [PFUser currentUser];
-        self.currentUserPost = YES;
-        [self updatePostStatus];
-    } else {
-        PFQuery *query = [PFUser query];
-        [query whereKey:@"objectId" equalTo:self.post.user.objectId];
-        [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-            NSLog(@"THIS: %@", object);
-            self.poster = (PFUser *)object;
-//            NSString *date = [NSDateFormatter localizedStringFromDate:[self.post createdAt] dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterNoStyle];
-//            _postDateUserLabel.text = [NSString stringWithFormat:@"Posted by %@ on %@", (_poster[@"name"]) ? _poster[@"name"] : _poster[@"username"], date];
-//            [self _loadData];
-        }];
+    if(self.post){
+        if (([[(PFUser *)self.post.user objectId] isEqualToString: [[PFUser currentUser] objectId]])){
+            //        UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithTitle:@"Delete" style:UIBarButtonItemStyleBordered target:self actio:@selector(deleteButtonSelected)];
+            self.poster = [PFUser currentUser];
+            self.currentUserPost = YES;
+            [self updatePostStatus];
+        } else {
+            PFQuery *query = [PFUser query];
+            [query whereKey:@"objectId" equalTo:self.post.user.objectId];
+            [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+                NSLog(@"THIS: %@", object);
+                self.poster = (PFUser *)object;
+    //            NSString *date = [NSDateFormatter localizedStringFromDate:[self.post createdAt] dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterNoStyle];
+    //            _postDateUserLabel.text = [NSString stringWithFormat:@"Posted by %@ on %@", (_poster[@"name"]) ? _poster[@"name"] : _poster[@"username"], date];
+    //            [self _loadData];
+            }];
+        }
     }
 }
 
@@ -394,11 +398,15 @@
 
 -(void)initializeWithObjectId:(NSString *)string{
     PFQuery *query = [PFQuery queryWithClassName:@"Post"];
+    NSLog(@"%@",string);
+    [query includeKey:@"user"];
     [query getObjectInBackgroundWithId:string block:^(PFObject *object, NSError *error){
         if (error){
             
         } else {
             self.post = (SpreePost *)object;
+            [self getUserForPost];
+            [self.tableView reloadData];
         }
     }];
 }
