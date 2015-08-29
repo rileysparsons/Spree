@@ -34,7 +34,7 @@
 #define COCOAPODS_POD_AVAILABLE_CTAssetsPickerController
 #define COCOAPODS_VERSION_MAJOR_CTAssetsPickerController 3
 #define COCOAPODS_VERSION_MINOR_CTAssetsPickerController 0
-#define COCOAPODS_VERSION_PATCH_CTAssetsPickerController 1
+#define COCOAPODS_VERSION_PATCH_CTAssetsPickerController 3
 
 // CocoaLumberjack
 #define COCOAPODS_POD_AVAILABLE_CocoaLumberjack
@@ -64,25 +64,25 @@
 #define COCOAPODS_POD_AVAILABLE_FBSDKCoreKit
 #define COCOAPODS_VERSION_MAJOR_FBSDKCoreKit 4
 #define COCOAPODS_VERSION_MINOR_FBSDKCoreKit 5
-#define COCOAPODS_VERSION_PATCH_FBSDKCoreKit 0
+#define COCOAPODS_VERSION_PATCH_FBSDKCoreKit 1
 
 // FBSDKCoreKit/arc
 #define COCOAPODS_POD_AVAILABLE_FBSDKCoreKit_arc
 #define COCOAPODS_VERSION_MAJOR_FBSDKCoreKit_arc 4
 #define COCOAPODS_VERSION_MINOR_FBSDKCoreKit_arc 5
-#define COCOAPODS_VERSION_PATCH_FBSDKCoreKit_arc 0
+#define COCOAPODS_VERSION_PATCH_FBSDKCoreKit_arc 1
 
 // FBSDKCoreKit/no-arc
 #define COCOAPODS_POD_AVAILABLE_FBSDKCoreKit_no_arc
 #define COCOAPODS_VERSION_MAJOR_FBSDKCoreKit_no_arc 4
 #define COCOAPODS_VERSION_MINOR_FBSDKCoreKit_no_arc 5
-#define COCOAPODS_VERSION_PATCH_FBSDKCoreKit_no_arc 0
+#define COCOAPODS_VERSION_PATCH_FBSDKCoreKit_no_arc 1
 
 // FBSDKLoginKit
 #define COCOAPODS_POD_AVAILABLE_FBSDKLoginKit
 #define COCOAPODS_VERSION_MAJOR_FBSDKLoginKit 4
 #define COCOAPODS_VERSION_MINOR_FBSDKLoginKit 5
-#define COCOAPODS_VERSION_PATCH_FBSDKLoginKit 0
+#define COCOAPODS_VERSION_PATCH_FBSDKLoginKit 1
 
 // InfinitePagingView
 #define COCOAPODS_POD_AVAILABLE_InfinitePagingView
@@ -116,36 +116,39 @@
 
 // Parse
 #define COCOAPODS_POD_AVAILABLE_Parse
-// This library does not follow semantic-versioning,
-// so we were not able to define version macros.
-// Please contact the author.
-// Version: 1.7.5.3.
+#define COCOAPODS_VERSION_MAJOR_Parse 1
+#define COCOAPODS_VERSION_MINOR_Parse 8
+#define COCOAPODS_VERSION_PATCH_Parse 1
 
 // ParseCrashReporting
 #define COCOAPODS_POD_AVAILABLE_ParseCrashReporting
-// This library does not follow semantic-versioning,
-// so we were not able to define version macros.
-// Please contact the author.
-// Version: 1.7.5.3.
+#define COCOAPODS_VERSION_MAJOR_ParseCrashReporting 1
+#define COCOAPODS_VERSION_MINOR_ParseCrashReporting 8
+#define COCOAPODS_VERSION_PATCH_ParseCrashReporting 1
 
 // ParseFacebookUtilsV4
 #define COCOAPODS_POD_AVAILABLE_ParseFacebookUtilsV4
-// This library does not follow semantic-versioning,
-// so we were not able to define version macros.
-// Please contact the author.
-// Version: 1.7.5.3.
+#define COCOAPODS_VERSION_MAJOR_ParseFacebookUtilsV4 1
+#define COCOAPODS_VERSION_MINOR_ParseFacebookUtilsV4 8
+#define COCOAPODS_VERSION_PATCH_ParseFacebookUtilsV4 1
 
 // ParseUI
 #define COCOAPODS_POD_AVAILABLE_ParseUI
 #define COCOAPODS_VERSION_MAJOR_ParseUI 1
 #define COCOAPODS_VERSION_MINOR_ParseUI 1
-#define COCOAPODS_VERSION_PATCH_ParseUI 4
+#define COCOAPODS_VERSION_PATCH_ParseUI 5
 
 // PureLayout
 #define COCOAPODS_POD_AVAILABLE_PureLayout
 #define COCOAPODS_VERSION_MAJOR_PureLayout 2
 #define COCOAPODS_VERSION_MINOR_PureLayout 0
 #define COCOAPODS_VERSION_PATCH_PureLayout 6
+
+// SAMTextView
+#define COCOAPODS_POD_AVAILABLE_SAMTextView
+#define COCOAPODS_VERSION_MAJOR_SAMTextView 0
+#define COCOAPODS_VERSION_MINOR_SAMTextView 2
+#define COCOAPODS_VERSION_PATCH_SAMTextView 2
 
 // STCollapseTableView
 #define COCOAPODS_POD_AVAILABLE_STCollapseTableView

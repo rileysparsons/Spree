@@ -28,6 +28,7 @@
 @property (nonatomic, strong) UIView *refreshColorView;
 @property (nonatomic, strong) UIImageView *compass_background;
 @property (nonatomic, strong) UIImageView *compass_spinner;
+@property UILabel *headerLabel;
 @property (assign) BOOL isRefreshIconsOverlap;
 @property (assign) BOOL isRefreshAnimating;
 @property (retain, nonatomic) UIBarButtonItem *composeButton;
@@ -38,8 +39,35 @@
 
 @implementation PostTableViewController
 
+- (id)initWithStyle:(UITableViewStyle)style {
+    self = [super initWithStyle:style];
+    if (self) {
+        // The className to query on
+        self.parseClassName = @"Post";
+        
+        // The key of the PFObject to display in the label of the default cell style
+        self.textKey = @"title";
+        
+        // Uncomment the following line to specify the key of a PFFile on the PFObject to display in the imageView of the default cell style
+        // self.imageKey = @"image";
+        
+        // Whether the built-in pull-to-refresh is enabled
+        self.pullToRefreshEnabled = NO;
+        
+        // Whether the built-in pagination is enabled
+        self.paginationEnabled = YES;
+        
+        // The number of objects to show per page
+        self.objectsPerPage = 25;
+        
+        self.loadingViewEnabled = NO;
+
+    }
+    return self;
+}
+
+
 -  (id)initWithCoder:(NSCoder *)aDecoder {
-    self = [super initWithClassName:@"Post"];
     self = [super initWithCoder:aDecoder];
     
     if (self) {
@@ -62,6 +90,8 @@
         
         // The number of objects to show per page
         self.objectsPerPage = 25;
+        
+        self.loadingViewEnabled = NO;
     }
     return self;
 }
@@ -92,6 +122,8 @@
 
     self.navigationItem.rightBarButtonItems = @[self.composeButton];
     
+    self.postDetailTableViewController = [[PostDetailTableViewController alloc] init];
+    
     // Check if buyer needs to rate the seller
     PFQuery *query = [PFQuery queryWithClassName:@"RatingQueue"];
     [query whereKey:@"user" equalTo:[PFUser currentUser]];
@@ -111,6 +143,7 @@
             NSLog(@"No ratings required");
         }
     }];
+
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -249,6 +282,7 @@
 
 - (void)objectsDidLoad:(NSError *)error {
     [super objectsDidLoad:error];
+    NSLog(@"Size of all objects: %lu", sizeof([self.objects objectAtIndex:0]));
     UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
     if (self.objects.count == 0){
         // Display a message when the table is empty
@@ -280,13 +314,14 @@
     PFQuery *query = [PFQuery queryWithClassName:self.parseClassName];
     [query whereKey:@"expired" equalTo:[NSNumber numberWithBool:NO]];
     [query whereKey:@"sold" equalTo:[NSNumber numberWithBool:NO]];
-    [query whereKey:@"network" equalTo:[PFUser currentUser]];
-    [query orderByDescending:@"updatedAt"];
+    [query whereKeyDoesNotExist:@"removed"];
+    [query orderByDescending:@"createdAt"];
     NSLog(@"%@", [PFUser currentUser]);
     [query whereKey:@"network" equalTo:[[PFUser currentUser] objectForKey:@"network"]];
     [query includeKey:@"objectId"];
-    
-    return query;
+    [query includeKey:@"typePointer"];
+    [query includeKey:@"user"];
+    return [self addQueryParameters:self.postQueryParameters toQuery:query];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object
@@ -310,8 +345,8 @@
         if (post.price == 0 || [post.price  isEqual: @(0)]){
             cell.priceLabel.text = @"Free";
         } else {
-            float priceFloat = [post.price floatValue];
-            NSString *price = [NSString stringWithFormat:@"$%.2f", priceFloat];
+            int priceFloat = [post.price intValue];
+            NSString *price = [NSString stringWithFormat:@"$%d", priceFloat];
             cell.priceLabel.text = price;
         }
         
@@ -342,7 +377,9 @@
             }
         }
         
-        NSDate *dateCreatedGMT = [post updatedAt];
+        cell.descriptionLabel.text = [NSString stringWithFormat:@"\u201C%@\u201D", post.userDescription];
+        
+        NSDate *dateCreatedGMT = [post createdAt];
         NSTimeInterval timeSince = dateCreatedGMT.timeIntervalSinceNow;
         double timeSinceInDays = timeSince/60/60/24*(-1);
         if (timeSinceInDays > 1){
@@ -350,24 +387,27 @@
             int roundedInteger = (int)roundedValue;
             NSNumber *numberSince = [NSNumber numberWithInt:roundedInteger];
             NSString *timeSincePost = [numberSince stringValue];
-            NSString *timeWithUnits = [NSString stringWithFormat:(@"%@d"), timeSincePost];
+            NSString *timeWithUnits = [NSString stringWithFormat:(@"Posted %@ days ago"), timeSincePost];
             cell.postTimeLabel.text = timeWithUnits;
         } else {
             double timeSinceInHours = timeSinceInDays*24;
+            double timeSinceInMinutes = timeSinceInHours*60;
             if (timeSinceInHours > 1){
                 double timeSinceInHoursRounded = round(timeSinceInHours);
                 int roundedInteger = (int)timeSinceInHoursRounded;
                 NSNumber *numberSince = [NSNumber numberWithInt:roundedInteger];
                 NSString *timeSincePost = [numberSince stringValue];
-                NSString *timeWithUnits = [NSString stringWithFormat:(@"%@h"), timeSincePost];
+                NSString *timeWithUnits = [NSString stringWithFormat:(@"Posted %@ hours ago"), timeSincePost];
                 cell.postTimeLabel.text = timeWithUnits;
-            } else {
-                double timeSinceInMinutes = timeSinceInHours*60;
+            } else if (timeSinceInMinutes > 1){
                 int roundedInteger = (int)timeSinceInMinutes;
                 NSNumber *numberSince = [NSNumber numberWithInt:roundedInteger];
                 NSString *timeSincePost = [numberSince stringValue];
-                NSString *timeWithUnits = [NSString stringWithFormat:(@"%@m"), timeSincePost];
+                NSString *timeWithUnits = [NSString stringWithFormat:(@"Posted %@m minutes ago"), timeSincePost];
                 cell.postTimeLabel.text = timeWithUnits;
+            } else {
+                NSString *message = @"Posted just now";
+                cell.postTimeLabel.text = message;
             }
         }
         return cell;
@@ -387,12 +427,10 @@
         return;
     } else {
         SpreePost *selectedPost = self.objects[indexPath.row];
-
-        self.postDetailTableViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PostDetail"];
-
-        [self.postDetailTableViewController setFields:[self fieldsForPostType:[[self objectAtIndexPath:indexPath]objectForKey:PF_POST_TYPE]]];
-        NSLog(@"%@", [self fieldsForPostType:[[self objectAtIndexPath:indexPath]objectForKey:PF_POST_TYPE]]);
-        [self.postDetailTableViewController setPost:selectedPost];
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+        self.postDetailTableViewController = [storyboard instantiateViewControllerWithIdentifier:@"PostDetail"];
+        NSLog(@"%@", self.storyboard);
+        [self.postDetailTableViewController initWithPost:selectedPost];
         [self.navigationController pushViewController:self.postDetailTableViewController animated:YES];
         [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
@@ -419,18 +457,25 @@
         whiteView.backgroundColor = [UIColor spreeOffWhite];
         [headerView addSubview:whiteView];
         
-        UILabel *labelHeader = [[UILabel alloc] initWithFrame:CGRectMake(5, 0, whiteView.frame.size.width, 35
+        self.headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 0, whiteView.frame.size.width, 35
                                                                          )];
-        labelHeader.font = [UIFont fontWithName:@"Lato-Regular" size:16];
-        labelHeader.textColor = [UIColor spreeOffBlack];
+        self.headerLabel.font = [UIFont fontWithName:@"Lato-Regular" size:16];
+        self.headerLabel.textColor = [UIColor spreeOffBlack];
         
-        [whiteView addSubview:labelHeader];
-
-            labelHeader.text = @"Recent Posts at Santa Clara";
-            return headerView;
+        PFQuery *userQuery = [PFUser query];
+        [userQuery includeKey:@"campus"];
+        [userQuery getObjectInBackgroundWithId:[[PFUser currentUser] objectId] block:^(PFObject *user, NSError *error){
+            NSLog(@"%@", user);
+            self.headerLabel.text = [NSString stringWithFormat:@"Recent Posts at %@", user[@"campus"][@"campusName"]];
+            [self.headerLabel setNeedsDisplay];
+            
+        }];
+        [whiteView addSubview:self.headerLabel];
+        return headerView;
     }
     return 0;
 }
+
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if (section == 0)
@@ -465,6 +510,38 @@
             // NEED TO ADD FIELDS
     }
     return fields;
+}
+
+-(PFQuery *)addQueryParameters:(NSDictionary *)parameters toQuery:(PFQuery *)query{
+    
+    NSLog(@"%@", parameters);
+    
+    if (parameters && query){
+        for (id parameter in parameters){
+            for (id key in parameter){
+                NSLog(@"%@, %@", key,parameter[key]);
+                
+                [query whereKey:key equalTo:parameter[key]];
+//                for (id constraint in parameter[key]){
+//                    NSLog(@"Constraint %@", constraint);
+//                    if ([constraint isEqualToString: @"__type"]){
+//                        if ([parameter[key][constraint] isEqualToString:@"Pointer"]){
+//                            PFQuery *pointerQuery = [PFQuery queryWithClassName:parameter[@"className"]];
+//                            [pointerQuery getObjectInBackgroundWithId:parameter[@"objectId"] block:^(PFObject *object, NSError *error){
+//                                if (!error){
+//                                    if (object)
+//                                        [query whereKey:key equalTo:object];
+//                                } else {
+//                                    NSLog(@"%@",error);
+//                                }
+//                            }];
+//                        }
+//                    }
+//                }
+            }
+        }
+    }
+    return query;
 }
 
 

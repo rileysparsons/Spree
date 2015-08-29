@@ -10,10 +10,10 @@
 #import "SpreePost.h"
 #import "PhotoGalleryTableViewCell.h"
 #import "MessageUI/MessageUI.h"
+#import "PostShareView.h"
 
-@interface PostDetailTableViewController : UITableViewController <MFMessageComposeViewControllerDelegate> {
-    
-}
+@interface PostDetailTableViewController : UITableViewController <PostShareViewDelegate>
+
 
 @property NSArray *fields;
 
@@ -21,10 +21,20 @@
 
 @property PFUser *poster;
 
--(UITableViewCell *)cellForField:(NSString *)field;
+@property BOOL hasCompletedFields;
+
+-(void)initWithPost:(SpreePost *)post;
+
+-(UITableViewCell *)cellForField:(NSDictionary *)field;
 
 -(UITableViewCell *)loadPostImagesForCell:(PhotoGalleryTableViewCell *)cell;
 
 -(void)initializeWithObjectId:(NSString *)string;
+
+-(void)organizeTableForFields;
+
+@property NSArray *existingFields;
+@property NSMutableArray *existingFieldsForTable;
+
 
 @end

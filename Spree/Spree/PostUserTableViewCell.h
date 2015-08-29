@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "SpreePost.h"
 #import "EDStarRating.h"
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
 
 @interface PostUserTableViewCell : UITableViewCell
 
@@ -16,5 +17,6 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *userLabel;
 @property (weak, nonatomic) IBOutlet UILabel *ratingLabel;
+@property (weak, nonatomic) IBOutlet FBSDKProfilePictureView *userImageView;
 
 @end

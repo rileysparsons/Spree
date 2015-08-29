@@ -64,6 +64,7 @@
             <connections>
                 <outlet property="descriptionTextView" destination="8MO-RS-T1t" id="NRc-aU-CfJ"/>
                 <outlet property="editDescriptionButton" destination="d6D-c2-ue7" id="8eB-4c-Gv5"/>
+                <outlet property="textViewHeight" destination="Cln-Af-kFt" id="TsX-4i-yDl"/>
             </connections>
             <point key="canvasLocation" x="197" y="348"/>
         </tableViewCell>

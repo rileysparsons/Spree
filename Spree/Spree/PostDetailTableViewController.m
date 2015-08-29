@@ -11,7 +11,15 @@
 #import "PostTitleTableViewCell.h"
 #import "PhotoGalleryTableViewCell.h"
 #import "PostUserTableViewCell.h"
+#import "PostMapTableViewCell.h"
+#import "PostMessageTableViewCell.h"
 #import "ProfileViewController.h"
+#import "BasicInfoTableViewCell.h"
+#import "DoublePhotoPostShareView.h"
+#import "SinglePhotoPostShareView.h"
+#import "TriplePhotoPostShareView.h"
+#import "PreviewPostViewController.h"
+#import "EditPostViewController.h"
 #import "ChatView.h"
 #import "common.h"
 #import "ChatView.h"
@@ -20,15 +28,32 @@
 #import "Branch.h"
 #import "MessageUI/MessageUI.h"
 
+
+
 @interface PostDetailTableViewController ()
 
-@property YHRoundBorderedButton* getButton;
-@property YHRoundBorderedButton* shareButton;
 @property BOOL currentUserPost;
 
 @end
 
 @implementation PostDetailTableViewController
+
+-(void)initWithPost:(SpreePost *)post{
+    self.post = post;
+    self.existingFieldsForTable = [[NSMutableArray alloc] init]; // Existing Fields Will Hold Dictionaries Representing Cell Data Once Filtered.
+    
+    if (self.post[@"completedFields"]){ // This check ensures that posts made before August 2015 will still be able to be opened
+        self.existingFields = self.post[@"completedFields"];
+        self.hasCompletedFields = YES;
+        [self organizeTableForFields]; // This removes fields from completed fields that will not be shown as cells in the table view
+    } else {
+        [self.post.typePointer fetchIfNeededInBackgroundWithBlock:^(PFObject *type, NSError *error){
+            self.existingFields = self.post.typePointer[@"fields"];
+            [self organizeTableForFields];
+            [self.tableView reloadData];
+        }];
+    }
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -36,8 +61,7 @@
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    NSLog(@"Post %@", self.post);
     
     NSLog(@"POST %@", self.post);
     
@@ -45,60 +69,85 @@
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.autoresizesSubviews = YES;
     self.tableView.estimatedRowHeight = 100.0f;
-    
     self.tableView.backgroundColor = [UIColor spreeOffWhite];
+    
+    // View Set Up
     self.view.backgroundColor = [UIColor spreeOffWhite];
+
+    [self.post.typePointer fetchIfNeededInBackgroundWithTarget:self selector:@selector(setupTitle)]; // Sets up the custom title view based on the type of the post
     
-    self.navigationItem.backBarButtonItem.title = @"";
     [self getUserForPost];
-    [self setupNavigationBarImage];
-    [self setupBarButtons];
     [self updatePostStatus];
+
     // Navigation bar UI
+
+    [self updatePostStatus];
     
-    // Setting the poster property
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadPost) name:@"ReloadPost" object:nil];
+
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-#pragma mark - Table view data source
+#pragma mark - Table View
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    if (section == 0)
-        return self.fields.count;
-    return 0;
+    return self.existingFieldsForTable.count;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if ([tableView cellForRowAtIndexPath:indexPath].tag == 2){
-        ProfileViewController *profileViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"Profile"
-         ];
-        NSLog(@"Poster in %@", self.poster);
+    NSDictionary *selectedField = [self.existingFieldsForTable objectAtIndex:indexPath.row];
+    if ([selectedField[@"field"]isEqualToString:@"profile"]){
+        ProfileViewController *profileViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"Profile"];
         profileViewController.detailUser = self.poster;
-        NSLog(@"USER: %@", profileViewController.detailUser);
         [self.navigationController pushViewController:profileViewController animated:YES];
     }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0)
-        return [self cellForField:self.fields[indexPath.row]];
-    return 0;
+    if (self.hasCompletedFields == YES){
+        if (indexPath.section == 0)
+            return [self cellForField:[self.existingFieldsForTable objectAtIndex:indexPath.row]];
+        return 0;
+    } else {
+        if (indexPath.section == 0)
+            return [self cellForOldField:[self.existingFieldsForTable objectAtIndex:indexPath.row][@"field"]]; // This method takes a string value for the field and returns cells.
+        return 0;
+    }
 }
 
--(UITableViewCell *)cellForField:(NSString *)field {
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return 30;
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 30)];
+    footerView.backgroundColor = [UIColor clearColor];
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"MM/dd/yyyy"];
+    NSString *dateString = [dateFormatter stringFromDate:self.post.createdAt];
+    NSString *fullDateString = [NSString stringWithFormat:@"Posted on %@", dateString];
+    label.font = [UIFont fontWithName:@"Lato-Regular" size:16];
+    label.textColor = [UIColor spreeOffBlack];
+    label.text = fullDateString;
+    [label setFrame:CGRectMake(8, 8, footerView.frame.size.width, 30)];
+    
+    [footerView addSubview:label];
+    
+    return footerView;
+}
+
+# pragma mark - Cell Producing Methods
+
+-(UITableViewCell *)cellForOldField:(NSString *)field {
     
     if ([field isEqualToString:PF_POST_DESCRIPTION]){
         static NSString *CellIdentifier = @"DescriptionCell";
@@ -112,7 +161,6 @@
                 }
             }
         }
-        
         [cell setDescriptionTextViewForPost:self.post];
         CGSize sysSize = [cell.contentView systemLayoutSizeFittingSize:CGSizeMake(self.tableView.bounds.size.width, CGFLOAT_MAX)];
         cell.contentView.bounds = CGRectMake(0,0, sysSize.width, sysSize.height);
@@ -147,6 +195,7 @@
         }
         [self loadPostImagesForCell:cell];
         [cell setDateLabelForPost:self.post];
+        [cell setupPriceLabelForPost:self.post];
         return cell;
     } else if ([field isEqualToString:PF_POST_USER]){
         static NSString *CellIdentifier = @"PostUserCell";
@@ -173,6 +222,27 @@
         UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         cell.textLabel.text = self.post.eventDate;
         return cell;
+    }else if ([field isEqualToString:@"pickupLocation"] || [field isEqualToString:@"destinationLocation"]){
+        static NSString *CellIdentifier = @"MapCell";
+        
+        PostMapTableViewCell* cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        [cell setLocationsFromPost:self.post];
+        return cell;
+    } else if ([field isEqualToString:@"profile"]){
+        NSString *className = NSStringFromClass([PostUserTableViewCell class]);
+        UINib *nib = [UINib nibWithNibName:className bundle:nil];
+        [self.tableView registerNib:nib forCellReuseIdentifier:className];
+        PostUserTableViewCell *userCell = [self.tableView dequeueReusableCellWithIdentifier:className];
+        [userCell setUserLabelForPost:self.post];
+        return userCell;
+    } else if ([field isEqualToString:@"message"]){
+        NSString *className = NSStringFromClass([PostMessageTableViewCell class]);
+        UINib *nib = [UINib nibWithNibName:className bundle:nil];
+        [self.tableView registerNib:nib forCellReuseIdentifier:className];
+        PostMessageTableViewCell *messageCell = [self.tableView dequeueReusableCellWithIdentifier:className];
+        [messageCell.messageButton addTarget:self action:@selector(messageButtonTouched) forControlEvents:UIControlEventTouchUpInside];
+        [messageCell setMessageButtonForPost:self.post];
+        return messageCell;
     }
     
     static NSString *CellIdentifier = @"DefaultCell";
@@ -180,68 +250,70 @@
     return cell;
 }
 
-#pragma mark - UI Setup
 
--(void)setupBarButtons{
-    self.getButton = [[YHRoundBorderedButton alloc] init];
-    [self.getButton addTarget:self action:@selector(priceButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-    [self.getButton sizeToFit];
-    [self.getButton setTintColor:[UIColor spreeDarkBlue]];
-    [self.getButton setTitleColor:[UIColor spreeDarkBlue] forState:UIControlStateHighlighted];
-    UIBarButtonItem *getBarButton = [[UIBarButtonItem alloc] initWithCustomView:self.getButton];
-    //self.navigationItem.rightBarButtonItem = getBarButton;
+-(UITableViewCell *)cellForField:(NSDictionary *)field {
+    
+    // This cell subclass covers any fields that do not have their own custom subclass.
+    NSString *className = NSStringFromClass([BasicInfoTableViewCell class]);
+    UINib *nib = [UINib nibWithNibName:className bundle:nil];
+    [self.tableView registerNib:nib forCellReuseIdentifier:className];
+    BasicInfoTableViewCell *basicInfoCell = [self.tableView dequeueReusableCellWithIdentifier:className];
     
     
-    
-    
-    self.shareButton = [[YHRoundBorderedButton alloc] init];
-    [self.shareButton addTarget:self action:@selector(shareButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-    [self.shareButton sizeToFit];
-    [self.shareButton setTintColor:[UIColor spreeDarkBlue]];
-    [self.shareButton setTitleColor:[UIColor spreeDarkBlue] forState:UIControlStateHighlighted];
-    UIBarButtonItem *getShareButton = [[UIBarButtonItem alloc] initWithCustomView:self.shareButton];
-    NSArray *tempArray2= [[NSArray alloc] initWithObjects:getBarButton, getShareButton, nil];
-    self.navigationItem.rightBarButtonItems=tempArray2;
-
-    [self.shareButton setTitle:[NSString stringWithFormat:@"Share"] forState:UIControlStateNormal];
-    if ([self.post.type isEqualToString:POST_TYPE_TASK]){
-        [self.getButton setTitle:@"CLAIM" forState:UIControlStateNormal];
-    } else {
-        [self.getButton setTitle:[NSString stringWithFormat:@"$%@", self.post.price.stringValue] forState:UIControlStateNormal];
-    }}
-
--(void)setupNavigationBarImage{
-    if ([self.post.type isEqualToString:POST_TYPE_TASK]){
-        UIImageView *navBarIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sprintCellIconWhite"]];
-        navBarIcon.frame = CGRectMake(0, 0, 25, 25);
-        navBarIcon.contentMode = UIViewContentModeScaleAspectFit;
-        self.navigationItem.titleView = navBarIcon;
-    } else if ([self.post.type isEqualToString:POST_TYPE_TICKETS]){
-        UIImageView *navBarIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"BookTypeIconSmall"]];
-        navBarIcon.frame = CGRectMake(0, 0, 25, 25);
-        navBarIcon.contentMode = UIViewContentModeScaleAspectFit;
-        self.navigationItem.titleView = navBarIcon;
-    } else if ([self.post.type isEqualToString:POST_TYPE_CLOTHING]){
-        UIImageView *navBarIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"clothingCellIconWhite"]];
-        navBarIcon.frame = CGRectMake(0, 0, 25, 25);
-        navBarIcon.contentMode = UIViewContentModeScaleAspectFit;
-        self.navigationItem.titleView = navBarIcon;
-    } else if ([self.post.type isEqualToString:POST_TYPE_FURNITURE]){
-        UIImageView *navBarIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"furnitureCellIconWhite"]];
-        navBarIcon.frame = CGRectMake(0, 0, 25, 25);
-        navBarIcon.contentMode = UIViewContentModeScaleAspectFit;
-        self.navigationItem.titleView = navBarIcon;
-    } else if ([self.post.type isEqualToString:POST_TYPE_BOOKS]){
-        UIImageView *navBarIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"BookTypeIconSmall"]];
-        navBarIcon.frame = CGRectMake(0, 0, 25, 25);
-        navBarIcon.contentMode = UIViewContentModeScaleAspectFit;
-        self.navigationItem.titleView = navBarIcon;
-    } else if ([self.post.type isEqualToString:POST_TYPE_ELECTRONICS]){
-        UIImageView *navBarIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ElectronicsTypeIconSmall"]];
-        navBarIcon.frame = CGRectMake(0, 0, 25, 25);
-        navBarIcon.contentMode = UIViewContentModeScaleAspectFit;
-        self.navigationItem.titleView = navBarIcon;
+    if ([field[@"dataType"] isEqualToString:@"geoPoint"]){
+        NSString *className = NSStringFromClass([PostMapTableViewCell class]);
+        UINib *nib = [UINib nibWithNibName:className bundle:nil];
+        [self.tableView registerNib:nib forCellReuseIdentifier:@"PostMapTableViewCell"];
+        PostMapTableViewCell *mapCell = [self.tableView dequeueReusableCellWithIdentifier:@"PostMapTableViewCell"];
+        [mapCell setLocationsFromPost:self.post];
+        return mapCell;
+    } else if ([field[@"dataType"] isEqualToString:@"string"]){
+        if ([field[@"field"] isEqualToString:@"userDescription"]){
+            NSString *className = NSStringFromClass([PostDescriptionTableViewCell class]);
+            UINib *nib = [UINib nibWithNibName:className bundle:nil];
+            [self.tableView registerNib:nib forCellReuseIdentifier:className];
+            PostDescriptionTableViewCell *descriptionCell = [self.tableView dequeueReusableCellWithIdentifier:className];
+            [descriptionCell setDescriptionTextViewForPost:self.post];
+            return descriptionCell;
+        } else{
+            [basicInfoCell.fieldTitleLabel setText:field[@"name"]];
+            [basicInfoCell.dataLabel setText:self.post[field[@"field"]]];
+            return basicInfoCell;
+        }
+    } else if ([field[@"dataType"] isEqualToString:@"image"]){
+        NSString *className = NSStringFromClass([PhotoGalleryTableViewCell class]);
+        UINib *nib = [UINib nibWithNibName:className bundle:nil];
+        [self.tableView registerNib:nib forCellReuseIdentifier:className];
+        PhotoGalleryTableViewCell *photoCell = [self.tableView dequeueReusableCellWithIdentifier:className];
+        [photoCell setDateLabelForPost:self.post];
+        [photoCell setupPriceLabelForPost:self.post];
+        
+        [self loadPostImagesForCell:photoCell];
+        return photoCell;
+    } else if ([field[@"dataType"] isEqualToString:@"date"]){
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"MM/dd/yyyy hh:mma"];
+        NSString *dateString = [dateFormatter stringFromDate:self.post[field[@"field"]]];
+        [basicInfoCell.fieldTitleLabel setText:field[@"name"]];
+        [basicInfoCell.dataLabel setText:dateString];
+        return basicInfoCell;
+    } else if ([field[@"field"] isEqualToString:@"profile"]){
+        NSString *className = NSStringFromClass([PostUserTableViewCell class]);
+        UINib *nib = [UINib nibWithNibName:className bundle:nil];
+        [self.tableView registerNib:nib forCellReuseIdentifier:className];
+        PostUserTableViewCell *userCell = [self.tableView dequeueReusableCellWithIdentifier:className];
+        [userCell setUserLabelForPost:self.post];
+        return userCell;
+    }else if ([field[@"field"] isEqualToString:@"message"]){
+        NSString *className = NSStringFromClass([PostMessageTableViewCell class]);
+        UINib *nib = [UINib nibWithNibName:className bundle:nil];
+        [self.tableView registerNib:nib forCellReuseIdentifier:className];
+        PostMessageTableViewCell *messageCell = [self.tableView dequeueReusableCellWithIdentifier:className];
+        [messageCell.messageButton addTarget:self action:@selector(messageButtonTouched) forControlEvents:UIControlEventTouchUpInside];
+        [messageCell setMessageButtonForPost:self.post];
+        return messageCell;
     }
+    return 0;
 }
 
 #pragma mark - Post Images
@@ -263,9 +335,9 @@
     return 0;
 }
 
-#pragma mark - Button Selectors
+#pragma mark - Opening Chat
 
--(void)priceButtonPressed{
+-(void)messageButtonTouched{
     PFUser *user2 = self.poster;
     PFUser *user1 = [PFUser currentUser];
     
@@ -329,6 +401,7 @@
     self.hidesBottomBarWhenPushed = NO;
 }
 
+
 -(void)getUserForPost{
     if(self.post){
         if (([[(PFUser *)self.post.user objectId] isEqualToString: [[PFUser currentUser] objectId]])){
@@ -351,11 +424,19 @@
 }
 
 -(void)userControlButtonTouched{
-    UIAlertController *userControl = [UIAlertController alertControllerWithTitle:@"Post Control" message:@"Decide if your post should stay or go" preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertController *userControl = [UIAlertController alertControllerWithTitle:@"Edit your post" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     UIAlertAction* cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
                                                           handler:^(UIAlertAction * action) {
                                                               [userControl dismissViewControllerAnimated:YES completion:nil];
                                                           }];
+
+    UIAlertAction* editItem = [UIAlertAction actionWithTitle:@"Edit post" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewPost" bundle:nil];
+        EditPostViewController *editPostViewController = [storyboard instantiateViewControllerWithIdentifier:@"EditPostViewController"];
+        [editPostViewController initWithPost:self.post];
+        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:editPostViewController];
+        [self presentViewController:navController animated:YES completion:nil];
+    }];
     UIAlertAction* itemSold = [UIAlertAction actionWithTitle:@"This item has been sold" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         self.post.sold = YES;
         [self.post saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error){
@@ -378,21 +459,24 @@
     [userControl addAction:cancel];
     [userControl addAction:deletePost];
     [userControl addAction:itemSold];
+    [userControl addAction:editItem];
     [self presentViewController:userControl animated:YES completion:nil];
 }
 
 -(void)updatePostStatus{
     if (self.currentUserPost){
         if (!self.post.sold){
-            UIBarButtonItem *userControlButton = [[UIBarButtonItem alloc] initWithTitle:@"\u2699" style:UIBarButtonItemStylePlain target:self action:@selector(userControlButtonTouched)];
-            UIFont *f1 = [UIFont fontWithName:@"Helvetica" size:24.0];
+            UIBarButtonItem *userControlButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(userControlButtonTouched)];
+            UIFont *f1 = [UIFont fontWithName:@"Lato-Regular" size:18];
             NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:f1, NSFontAttributeName, nil]; [userControlButton setTitleTextAttributes:dict forState:UIControlStateNormal];
-            self.navigationItem.rightBarButtonItem = userControlButton;
-            self.currentUserPost = YES;
-        } else {
-            [self.getButton setTitle:@"SOLD" forState:UIControlStateNormal];
-            [self.getButton setUserInteractionEnabled:NO];
+            
+            UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(shareButtonTouched)];
+            self.navigationItem.rightBarButtonItem = shareButton;
+            self.navigationItem.rightBarButtonItems = @[shareButton, userControlButton];
         }
+    } else {
+        UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(shareButtonTouched)];
+        self.navigationItem.rightBarButtonItem = shareButton;
     }
 }
 
@@ -408,6 +492,155 @@
             [self getUserForPost];
             [self.tableView reloadData];
         }
+    }];
+}
+
+#pragma mark - Organizing Data
+
+-(void)organizeTableForFields{
+    for (id field in self.existingFields){
+        if ([field[@"dataType"] isEqualToString:@"geoPoint"]){
+            [self.existingFieldsForTable addObject:field];
+        } else if ([field[@"dataType"] isEqualToString:@"string"] && ![field[@"field"] isEqualToString:@"title"]){
+            [self.existingFieldsForTable addObject:field];
+        } else if ([field[@"dataType"] isEqualToString:@"image"]){
+            [self.existingFieldsForTable addObject:field];
+        }
+    }
+    [self.existingFieldsForTable sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"priority" ascending:YES]]]; // Most field dictionaries stored on the backend hold a priority key value pair that indicates where they should appear in a table view.
+    [self addOtherRowsForTable]; // This call inserts other placeholder cells not present in the "existingFields" property.
+}
+
+// This adds a placeholder dictionary for cells that will be displayed, but were not present in the completed fields dictionary
+
+-(void)addOtherRowsForTable{
+    NSDictionary *profileField = @{
+                                   @"field" : @"profile" // This holds a place for the profile cell
+                                   };
+    NSDictionary *messageField = @{
+                                   @"field" : @"message" // This holds a place for the cell that will contain the message button
+                                   };
+    [self.existingFieldsForTable insertObject:profileField atIndex:1];
+    [self.existingFieldsForTable insertObject:messageField atIndex:2];
+}
+
+
+
+-(void)setupTitle{
+
+    CGRect headerTitleSubtitleFrame = CGRectMake(0, 0, 200, 44);
+    UIView* _headerTitleSubtitleView = [[UILabel alloc] initWithFrame:headerTitleSubtitleFrame];
+    _headerTitleSubtitleView.backgroundColor = [UIColor clearColor];
+    _headerTitleSubtitleView.autoresizesSubviews = YES;
+    
+    CGRect titleFrame = CGRectMake(0, 2, 200, 24);
+    UILabel *titleView = [[UILabel alloc] initWithFrame:titleFrame];
+    titleView.backgroundColor = [UIColor clearColor];
+    titleView.font = [UIFont fontWithName:@"Lato-Regular" size:17];
+    titleView.textAlignment = NSTextAlignmentCenter;
+    titleView.textColor = [UIColor spreeOffBlack];
+    NSLog(@"TITLE %@", self.post);
+    titleView.text = self.post.title;
+    titleView.adjustsFontSizeToFitWidth = YES;
+    [_headerTitleSubtitleView addSubview:titleView];
+    
+    CGRect subtitleFrame = CGRectMake(0, 24, 200, 44-24);
+    UILabel *subtitleView = [[UILabel alloc] initWithFrame:subtitleFrame];
+    subtitleView.backgroundColor = [UIColor clearColor];
+    subtitleView.font = [UIFont fontWithName:@"Lato-Regular" size:12];
+    subtitleView.textAlignment = NSTextAlignmentCenter;
+    subtitleView.textColor = [UIColor spreeOffBlack];
+    subtitleView.text = self.post.typePointer[@"type"];
+    subtitleView.text = [subtitleView.text uppercaseString];
+    subtitleView.adjustsFontSizeToFitWidth = YES;
+    [_headerTitleSubtitleView addSubview:subtitleView];
+    
+    _headerTitleSubtitleView.autoresizingMask = (UIViewAutoresizingFlexibleLeftMargin |
+                                                 UIViewAutoresizingFlexibleRightMargin |
+                                                 UIViewAutoresizingFlexibleTopMargin |
+                                                 UIViewAutoresizingFlexibleBottomMargin);
+    
+    self.navigationItem.titleView = _headerTitleSubtitleView;
+}
+
+
+-(void)addCustomBackButton{
+    UIButton *back = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 40)];
+    back.backgroundColor = [UIColor clearColor];
+    back.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [back setImage:[UIImage imageNamed:@"backNormal_Dark"] forState:UIControlStateNormal];
+    [back setImage:[UIImage imageNamed:@"backHighlight_Dark"] forState:UIControlStateHighlighted];
+    [back addTarget:self.navigationController action:@selector(popViewControllerAnimated:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:back];
+}
+
+#pragma mark - Share Function
+
+-(void)shareButtonTouched{
+    if (self.post.photoArray.count > 0){
+        if (self.post.photoArray.count == 1){
+            SinglePhotoPostShareView *shareView = [[SinglePhotoPostShareView alloc] initWithFrame:CGRectMake(0, 0, 504, 504)];
+            shareView.delegate = self;
+            [shareView initWithPost:self.post];
+        } else if (self.post.photoArray.count == 2){
+            DoublePhotoPostShareView *shareView = [[DoublePhotoPostShareView alloc] initWithFrame:CGRectMake(0, 0, 504, 504)];
+            shareView.delegate = self;
+            [shareView initWithPost:self.post];
+        } else if (self.post.photoArray.count == 3){
+            TriplePhotoPostShareView *shareView = [[TriplePhotoPostShareView alloc] initWithFrame:CGRectMake(0, 0, 504, 504)];
+            shareView.delegate = self;
+            [shareView initWithPost:self.post];
+        }
+    }else if (self.post[@"location"]){
+        SinglePhotoPostShareView *shareView = [[SinglePhotoPostShareView alloc] initWithFrame:CGRectMake(0, 0, 504, 504)];
+        shareView.delegate = self;
+        [shareView initWithPost:self.post];
+    }
+}
+
+-(void)viewInitializedForPost:(PostShareView *)view{
+    UIImage *image = [view captureView];
+    [self presentActivityViewWithImage:image];
+}
+
+-(void)presentActivityViewWithImage:(UIImage *)image{
+    
+    //dictionary passed into the link that contains the object ID of the post that is being shared
+    NSMutableDictionary *objectId = [NSMutableDictionary dictionary];
+    [objectId setObject:self.post.objectId forKey:@"object id"];
+    [[Branch getInstance] getContentUrlWithParams:objectId andChannel:@"sms" andCallback:^(NSString *url, NSError *error) {
+        NSLog(@"OBJECT ID: %@", self.post.objectId);
+        NSLog(@"URL: %@", url);
+        
+        if(!error) {
+            
+            NSString *shareString = [NSString stringWithFormat:@"Check out this post on Spree! %@", url];
+            // This will contain the link to the post via branch.
+            
+            NSArray *excludedTypes = @[UIActivityTypeAddToReadingList, UIActivityTypeAirDrop, UIActivityTypeAssignToContact, UIActivityTypePostToFlickr, UIActivityTypePostToTwitter, UIActivityTypePostToWeibo, UIActivityTypePrint, UIActivityTypePostToTencentWeibo];
+            
+            UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[shareString, image]
+                                                                                                 applicationActivities:nil];
+            activityViewController.excludedActivityTypes = excludedTypes;
+            [self.navigationController presentViewController:activityViewController
+                                                    animated:YES
+                                                  completion:^{
+                                                      
+                                                  }];
+            
+        }
+    }];
+    
+    
+}
+
+-(void)reloadPost{
+    PFQuery *query = [PFQuery queryWithClassName:@"Post"];
+    [query getObjectInBackgroundWithId:self.post.objectId block:^(PFObject *object, NSError *error){
+        self.post = (SpreePost *)object;
+        [self.tableView reloadData];
+        [self setupTitle];
+
     }];
 }
 

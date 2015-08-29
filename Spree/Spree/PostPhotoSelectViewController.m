@@ -59,7 +59,7 @@ int currentPhotoCount = 0;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSLog(@"PHOTO SELECT: %@", self.postingWorkflow.post.photoArray);
+
     currentPhotoCount = 0;
     [self getChangesToPost];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getChangesToPost) name:@"ReloadPost" object:nil];
@@ -118,7 +118,6 @@ int currentPhotoCount = 0;
             [self.tableView reloadData];
         }];
     }
-    NSLog(@"CURRENT PHOTOS %d. Current remaining %d", currentPhotoCount, maxImageCount-currentPhotoCount);
     [self performSelector:@selector(scrollToBottom) withObject:nil afterDelay:0.1];
 }
 
@@ -216,7 +215,6 @@ int currentPhotoCount = 0;
     [self.fileArray removeObjectAtIndex:indexOfDeletedPhoto];
     [self.fileArray insertObject:[NSNull null] atIndex:self.fileArray.count];
     currentPhotoCount--;
-    NSLog(@"After Delete %@", self.photoArray);
     [self updatePhotoCount];
     [self.tableView reloadData];
 }
@@ -265,9 +263,10 @@ int currentPhotoCount = 0;
 }
 
 - (void)nextBarButtonItemTouched:(id)sender{
+    NSLog(@"PHOTO ARRAY %@", self.photoArray);
     self.postingWorkflow.photosForDisplay = self.photoArray;
-    
     self.postingWorkflow.post.photoArray = self.fileArray;
+    [self.postingWorkflow.post[@"completedFields"] addObject: self.fieldDictionary];
     self.postingWorkflow.step++;
     UIViewController *nextViewController =[self.postingWorkflow nextViewController];
     [self.navigationController pushViewController:nextViewController animated:YES];

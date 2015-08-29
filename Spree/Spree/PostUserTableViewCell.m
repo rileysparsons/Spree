@@ -14,6 +14,18 @@
 - (void)awakeFromNib {
     // Initialization code
     self.accessoryView = [MSCellAccessory accessoryWithType:FLAT_DISCLOSURE_INDICATOR color:[UIColor spreeDarkBlue]];
+    CAShapeLayer *circle = [CAShapeLayer layer];
+    // Make a circular shape
+    UIBezierPath *circularPath=[UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, self.userImageView.frame.size.width, self.userImageView.frame.size.height) cornerRadius:MAX(self.userImageView.frame.size.width, self.userImageView.frame.size.height)];
+    
+    circle.path = circularPath.CGPath;
+    
+    // Configure the apperence of the circle
+    circle.fillColor = [UIColor blackColor].CGColor;
+    circle.strokeColor = [UIColor blackColor].CGColor;
+    circle.lineWidth = 0;
+    
+    self.userImageView.layer.mask=circle;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -25,11 +37,20 @@
 - (void)setUserLabelForPost:(SpreePost *)post{
     PFUser *user = post.user;
     NSLog(@"Cell user %@", user);
-    [user fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+    [user fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
         self.userLabel.text = [(PFUser *)object username];
         [self setRatingForUser:(PFUser *)object];
+        if (object[@"fbId"])
+            self.userImageView.profileID = object[@"fbId"];
+        else
+            self.userImageView.profileID = @""
+            ;
+        [self.userImageView setNeedsImageUpdate];
     }];
+    NSLog(@"Profile %@", self.userImageView.profileID);
 }
+
+
 
 -(void)setRatingForUser:(PFUser*)user{
     PFQuery *ratingQuery = [PFQuery queryWithClassName:@"Rating"];

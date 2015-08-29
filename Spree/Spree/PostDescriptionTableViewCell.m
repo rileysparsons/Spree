@@ -13,12 +13,15 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    [self.editDescriptionButton setHidden:YES];
 }
 
 -(void)setDescriptionTextViewForPost:(SpreePost *)post{
     self.descriptionTextView.text = post.userDescription;
     self.descriptionTextView.scrollEnabled = NO;
     [self.descriptionTextView sizeToFit];
+    CGSize sizeThatShouldFitTheContent = [self.descriptionTextView sizeThatFits:CGSizeMake(self.frame.size.width, MAXFLOAT)];
+    self.textViewHeight.constant = sizeThatShouldFitTheContent.height;
 }
 
 -(void)enableEditMode{

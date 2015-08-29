@@ -22,6 +22,8 @@
 #import <ParseCrashReporting/ParseCrashReporting.h>
 #import "Branch.h"
 #import "PostDetailTableViewController.h"
+#import "SpreeConfigManager.h"
+
 #import <Accelerate/Accelerate.h>
 
 @interface AppDelegate () <RTWalkthroughViewControllerDelegate>
@@ -80,6 +82,8 @@
     [[UITabBar appearance] setBackgroundColor:[UIColor whiteColor]];
     [[UITabBar appearance] setTranslucent:NO];
     [[UISegmentedControl appearance] setTintColor:[UIColor spreeDarkBlue]];
+    
+    [[SpreeConfigManager sharedManager] fetchConfigIfNeeded];
     
     if (![PFUser currentUser]) {
         [self showOnboardingFlow];

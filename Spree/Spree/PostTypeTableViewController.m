@@ -11,7 +11,7 @@
 #import "UIColor+SpreeColor.h"
 #import "WSCoachMarksView.h"
 
-@interface PostTypeTableViewController (){
+@interface PostTypeTableViewController () <UISearchControllerDelegate, UITableViewDataSource, UITableViewDelegate, UISearchResultsUpdating, UISearchBarDelegate>{
     WSCoachMarksView *coachMarksView;
 }
 
@@ -70,7 +70,6 @@
     self.searchController.searchResultsUpdater = self;
     [self.searchController.searchBar sizeToFit];
     self.tableView.tableHeaderView = self.searchController.searchBar;
-    
     
     // we want to be the delegate for our filtered table so didSelectRowAtIndexPath is called for both tables
     [self.resultsTableController.tableView setFrame:CGRectZero];
@@ -135,10 +134,7 @@
         self.objects[indexPath.row] : self.resultsTableController.filteredProducts[indexPath.row];
         
         self.postDetailTableViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PostDetail"];
-        
-        [self.postDetailTableViewController setFields:[self fieldsForPostType:[[self objectAtIndexPath:indexPath]objectForKey:PF_POST_TYPE]]];
-        NSLog(@"%@", [self fieldsForPostType:[[self objectAtIndexPath:indexPath]objectForKey:PF_POST_TYPE]]);
-        [self.postDetailTableViewController setPost:selectedPost];
+        [self.postDetailTableViewController initWithPost:selectedPost];
         [self.navigationController pushViewController:self.postDetailTableViewController animated:YES];
         [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     }

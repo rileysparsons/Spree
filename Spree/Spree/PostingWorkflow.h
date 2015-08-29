@@ -14,10 +14,14 @@
 @property SpreePost *post;
 @property NSMutableArray *photosForDisplay;
 @property NSMutableArray *uncompletedFields;
+@property NSMutableArray *completedFields;
+@property (retain, nonatomic) PFObject* type;
+@property (retain, nonatomic) PFObject* subtype;
 @property int step;
 
 -(UIViewController *)nextViewController;
 -(id)initWithType:(PFObject *)type;
+-(id)initWithPost:(SpreePost *)post;
 -(UIViewController *)presentPreviewPostController;
 
 
