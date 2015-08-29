@@ -122,6 +122,8 @@
 
     self.navigationItem.rightBarButtonItems = @[self.composeButton];
     
+    self.postDetailTableViewController = [[PostDetailTableViewController alloc] init];
+    
     // Check if buyer needs to rate the seller
     PFQuery *query = [PFQuery queryWithClassName:@"RatingQueue"];
     [query whereKey:@"user" equalTo:[PFUser currentUser]];
@@ -425,9 +427,9 @@
         return;
     } else {
         SpreePost *selectedPost = self.objects[indexPath.row];
-
-        self.postDetailTableViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PostDetail"];
-
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+        self.postDetailTableViewController = [storyboard instantiateViewControllerWithIdentifier:@"PostDetail"];
+        NSLog(@"%@", self.storyboard);
         [self.postDetailTableViewController initWithPost:selectedPost];
         [self.navigationController pushViewController:self.postDetailTableViewController animated:YES];
         [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
