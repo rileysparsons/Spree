@@ -20,8 +20,9 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <ParseFacebookUtilsV4/PFFacebookUtils.h>
 #import <ParseCrashReporting/ParseCrashReporting.h>
+#import "Branch.h"
+#import "PostDetailTableViewController.h"
 #import "SpreeConfigManager.h"
-
 
 #import <Accelerate/Accelerate.h>
 
@@ -35,6 +36,26 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     // Register Parse Subclass
+    
+    //Branch.io stuff
+    Branch *branch = [Branch getInstance];
+    [branch initSessionWithLaunchOptions:launchOptions andRegisterDeepLinkHandler:^(NSDictionary *params, NSError *error) {
+        
+        // params are the deep linked params associated with the link that the user clicked before showing up.
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+        if ([params objectForKey:@"object id"]){
+            PostDetailTableViewController *postDetailTableViewController = [storyboard instantiateViewControllerWithIdentifier:@"PostDetail"];
+            [postDetailTableViewController initializeWithObjectId:params[@"object id"]];
+            [self.window.rootViewController presentViewController:postDetailTableViewController animated:YES completion:nil];
+            //I assume this is where you should put the initialization
+            
+        }
+        
+        
+        
+    }];
+    
+    
     
     [SpreePost registerSubclass];
     [ParseCrashReporting enable];
@@ -101,10 +122,10 @@
     }
 }
 
-- (BOOL)application:(UIApplication *)application
-            openURL:(NSURL *)url
-  sourceApplication:(NSString *)sourceApplication
-         annotation:(id)annotation {
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    
+    //Branch.io stuff
+    [[Branch getInstance] handleDeepLink:url];
     
     return [[FBSDKApplicationDelegate sharedInstance] application:application openURL:url sourceApplication:sourceApplication annotation:annotation];
 }

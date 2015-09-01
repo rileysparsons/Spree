@@ -21,8 +21,11 @@
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
+				<string>SpreeApp</string>
 				<string>fb746189822137028</string>
 			</array>
 		</dict>
@@ -87,5 +90,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>branch_key</key>
+	<string>key_live_jaaPnWOY3hk0cMXMV3cT8kkdBCco0X9y</string>
 </dict>
 </plist>

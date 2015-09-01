@@ -7,6 +7,7 @@
 //
 
 #import <CoreLocation/CoreLocation.h>
+#import "Branch.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, CLLocationManagerDelegate>
 
