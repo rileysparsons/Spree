@@ -493,7 +493,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Santa Clara University (Verified Student) " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RfR-sC-p8k">
                                 <rect key="frame" x="64" y="237" width="286" height="19.5"/>
                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="16"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -1238,11 +1238,11 @@
             </objects>
             <point key="canvasLocation" x="454" y="-1286"/>
         </scene>
-        <!--Categories-->
+        <!--Browse-->
         <scene sceneID="IKu-t9-2gH">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Q0o-QC-Tnc" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Categories" image="CategoriesTabBarIcon" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="Browse" image="browseTabBarIcon" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="vrZ-uQ-f8e">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1261,7 +1261,7 @@
         <scene sceneID="Pgz-Jv-u2O">
             <objects>
                 <navigationController title="Me" automaticallyAdjustsScrollViewInsets="NO" id="Uv8-dp-nhT" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Me" id="cPa-gy-q4n"/>
+                    <tabBarItem key="tabBarItem" title="Me" image="meTabBarIcon" id="cPa-gy-q4n"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="VDW-O5-49n">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1774,12 +1774,12 @@
             </objects>
             <point key="canvasLocation" x="3035" y="-2901"/>
         </scene>
-        <!--All-->
+        <!--Campus-->
         <scene sceneID="v8f-Ro-Y3x">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7ka-LY-u60" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
-                    <tabBarItem key="tabBarItem" title="All" image="AllTabBarIcon" id="P8w-qH-Vxp"/>
+                    <tabBarItem key="tabBarItem" title="Campus" image="campusTabBarIcon" id="P8w-qH-Vxp"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ooW-nh-A8d">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1794,11 +1794,11 @@
             </objects>
             <point key="canvasLocation" x="344" y="885"/>
         </scene>
-        <!--Messages-->
+        <!--Notifications-->
         <scene sceneID="U3B-8e-MJ2">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="S36-Pw-hGv" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Messages" image="chat" id="7w9-ch-LzQ"/>
+                    <tabBarItem key="tabBarItem" title="Notifications" image="notificationsTabBarIcon" id="7w9-ch-LzQ"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="LxW-fR-MAf">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -2067,9 +2067,10 @@
         </scene>
     </scenes>
     <resources>
-        <image name="AllTabBarIcon" width="31" height="34"/>
-        <image name="CategoriesTabBarIcon" width="28" height="27"/>
-        <image name="chat" width="32" height="32"/>
+        <image name="browseTabBarIcon" width="25" height="25"/>
+        <image name="campusTabBarIcon" width="27" height="26"/>
+        <image name="meTabBarIcon" width="27" height="26"/>
+        <image name="notificationsTabBarIcon" width="25" height="26"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="eMA-Qd-vQN"/>
