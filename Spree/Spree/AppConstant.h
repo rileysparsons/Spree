@@ -65,6 +65,13 @@
 #define     POST_TYPE_TASK                      @"Tasks"
 #define     POST_TYPE_FURNITURE                 @"Furniture"
 #define     POST_TYPE_TICKETS                   @"Tickets"
+#define     POST_TYPE_TASKSANDSERVICES          @"Tasks & Services"
+#define     POST_TYPE_KITCHEN                   @"Kitchen"
+#define     POST_TYPE_WHEELS                    @"Wheels"
+#define     POST_TYPE_SPORTS                    @"Sports"
+#define     POST_TYPE_OUTDOORS                  @"Outdoors"
+#define     POST_TYPE_ACCESSORIES               @"Acessories"
+
 
 
 #define		NOTIFICATION_APP_STARTED			@"NCAppStarted"

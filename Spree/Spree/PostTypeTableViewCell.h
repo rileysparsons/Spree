@@ -16,4 +16,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *detailImage;
 @property (weak, nonatomic) IBOutlet UIView *iconBackground;
 
+-(void)initWithPostType:(PFObject *)type;
+
 @end
