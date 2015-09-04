@@ -59,6 +59,7 @@
     [self loadFacebookInformation];
     
 
+    [self circularImage];
     // Add notification center for updating the posts cell for requests
     
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newPurchaseRequest) name:@"NewRequest" object:nil];
@@ -285,6 +286,20 @@
     return authorizeFacebookCell;
 }
 
+
+-(void)circularImage{
+    CAShapeLayer *circle = [CAShapeLayer layer];
+    // Make a circular shape
+    UIBezierPath *circularPath=[UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, self.profileImageView.frame.size.width, self.profileImageView.frame.size.height) cornerRadius:MAX(self.profileImageView.frame.size.width, self.profileImageView.frame.size.height)];
+    
+    circle.path = circularPath.CGPath;
+    
+    // Configure the apperence of the circle
+    circle.fillColor = [UIColor spreeOffWhite].CGColor;
+    circle.strokeColor = [UIColor spreeOffWhite].CGColor;
+    circle.lineWidth = 0;
+    self.profileImageView.layer.mask=circle;
+}
 
 
 
