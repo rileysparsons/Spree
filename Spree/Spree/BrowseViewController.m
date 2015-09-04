@@ -286,7 +286,7 @@
 
 
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(nullable PFObject *)object{
     static NSString *CellIdentifier = @"Cell";
     
     PostTypeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -300,12 +300,13 @@
         }
     }
     
-    
-    cell.titleLabel.text = [self.objects objectAtIndex:indexPath.row][@"type"];
+    [cell initWithPostType:object];
+    cell.titleLabel.text = object[@"type"];
     // Configure the cell with the textContent of the Post as the cell's text label
     /*
     PFQuery *postQuery = [PFQuery queryWithClassName:@"Post"];
-    if ([[_postTypeArray objectAtIndex:indexPath.row] isEqualToString:@"Free"]){
+    if ([[_postTypeArray objectAtI
+     ndex:indexPath.row] isEqualToString:@"Free"]){
         PFQuery *query = [PFQuery queryWithClassName:@"Post"];
         PFQuery *query2 = [PFQuery queryWithClassName:@"Post"];
         [query2 whereKeyDoesNotExist:@"price"];

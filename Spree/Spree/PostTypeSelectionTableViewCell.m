@@ -23,25 +23,25 @@
     // Configure the view for the selected state
 }
 
-- (void)initWithObject:(PFObject *)type{
-    self.typeLabel.text = type[@"type"];
-    [self setTypeImageforType:type[@"type"]];
-}
+//- (void)initWithObject:(PFObject *)type{
+//    self.typeLabel.text = type[@"type"];
+//    [self setTypeImageforType:type[@"type"]];
+//}
 
-- (void)setTypeImageforType:(NSString *)type{
-    if ([type isEqualToString:POST_TYPE_BOOKS]){
-
-    } else if ([type isEqualToString:POST_TYPE_CLOTHING]){
-        
-    } else if ([type isEqualToString:POST_TYPE_ELECTRONICS]){
-        
-    } else if ([type isEqualToString:POST_TYPE_FURNITURE]){
-        
-    } else if ([type isEqualToString:POST_TYPE_TASK]){
-        
-    } else if ([type isEqualToString:POST_TYPE_TICKETS]){
-        
-    }
-}
+//- (void)setTypeImageforType:(NSString *)type{
+//    if ([type isEqualToString:POST_TYPE_BOOKS]){
+//
+//    } else if ([type isEqualToString:POST_TYPE_CLOTHING]){
+//        
+//    } else if ([type isEqualToString:POST_TYPE_ELECTRONICS]){
+//        
+//    } else if ([type isEqualToString:POST_TYPE_FURNITURE]){
+//        
+//    } else if ([type isEqualToString:POST_TYPE_TASK]){
+//        
+//    } else if ([type isEqualToString:POST_TYPE_TICKETS]){
+//        
+//    }
+//}
 
 @end

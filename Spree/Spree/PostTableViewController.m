@@ -495,22 +495,22 @@
 }
 
 // Detail View Setup
-
--(NSArray *)fieldsForPostType:(NSString *)type{
-    NSMutableArray *fields = [NSMutableArray arrayWithArray:@[PF_POST_PHOTOARRAY, PF_POST_TITLE, PF_POST_DESCRIPTION, PF_POST_USER]];
-    if ([type isEqualToString:POST_TYPE_BOOKS]){
-        [fields insertObject:PF_POST_BOOKFORCLASS atIndex:3];
-    } else if ([type isEqualToString:POST_TYPE_TICKETS]){
-        [fields insertObject:PF_POST_DATEFOREVENT atIndex:3];
-    } else if ([type isEqualToString:POST_TYPE_CLOTHING]){
-        
-    } else if ([type isEqualToString:POST_TYPE_FURNITURE]){
-        
-    } else if ([type isEqualToString:POST_TYPE_TASK]){
-            // NEED TO ADD FIELDS
-    }
-    return fields;
-}
+//
+//-(NSArray *)fieldsForPostType:(NSString *)type{
+//    NSMutableArray *fields = [NSMutableArray arrayWithArray:@[PF_POST_PHOTOARRAY, PF_POST_TITLE, PF_POST_DESCRIPTION, PF_POST_USER]];
+//    if ([type isEqualToString:POST_TYPE_BOOKS]){
+//        [fields insertObject:PF_POST_BOOKFORCLASS atIndex:3];
+//    } else if ([type isEqualToString:POST_TYPE_TICKETS]){
+//        [fields insertObject:PF_POST_DATEFOREVENT atIndex:3];
+//    } else if ([type isEqualToString:POST_TYPE_CLOTHING]){
+//        
+//    } else if ([type isEqualToString:POST_TYPE_FURNITURE]){
+//        
+//    } else if ([type isEqualToString:POST_TYPE_TASK]){
+//            // NEED TO ADD FIELDS
+//    }
+//    return fields;
+//}
 
 -(PFQuery *)addQueryParameters:(NSDictionary *)parameters toQuery:(PFQuery *)query{
     
