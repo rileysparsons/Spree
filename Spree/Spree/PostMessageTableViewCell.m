@@ -31,7 +31,7 @@
                 }
             }];
         } else {
-            [self.messageButton setTitle:[NSString stringWithFormat:@"Message %@", object[@"username"]] forState:UIControlStateNormal];
+            [self.messageButton setTitle: @"Message Seller" forState:UIControlStateNormal];
         }
     }];
 }

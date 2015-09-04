@@ -10,7 +10,7 @@
 
 @interface PostTypeTableViewController : PostTableViewController
 
-@property NSString *postType;
+@property PFObject *postType;
 
 @end
 

@@ -360,21 +360,7 @@
                 }
             }];
         } else {
-            cell.typeIcon.hidden = NO;
             cell.postImageView.hidden = YES;
-            if ([post.type isEqualToString:@"Tickets"]){
-                cell.typeIcon.image = [UIImage imageNamed:@"TicketTypeIconSmall"];
-            } else if ([post.type isEqualToString:@"Books"]){
-                cell.typeIcon.image = [UIImage imageNamed:@"BookTypeIconSmall"];
-            } else if ([post.type isEqualToString:@"Electronics"]){
-                cell.typeIcon.image = [UIImage imageNamed:@"ElectronicsTypeIconSmall"];
-            } else if ([post.type isEqualToString:@"Furniture"]){
-                cell.typeIcon.image =[UIImage imageNamed:@"furnitureCellIconWhite"];
-            } else if ([post.type isEqualToString:@"Clothing"]){
-                cell.typeIcon.image =[UIImage imageNamed:@"clothingCellIconWhite"];
-            } else if ([post.type isEqualToString:@"Tasks"]){
-                cell.typeIcon.image =[UIImage imageNamed:@"sprintCellIconWhite"];
-            }
         }
         
         cell.descriptionLabel.text = [NSString stringWithFormat:@"\u201C%@\u201D", post.userDescription];
@@ -387,7 +373,7 @@
             int roundedInteger = (int)roundedValue;
             NSNumber *numberSince = [NSNumber numberWithInt:roundedInteger];
             NSString *timeSincePost = [numberSince stringValue];
-            NSString *timeWithUnits = [NSString stringWithFormat:(@"Posted %@ days ago"), timeSincePost];
+            NSString *timeWithUnits = [NSString stringWithFormat:(@"%@ days ago"), timeSincePost];
             cell.postTimeLabel.text = timeWithUnits;
         } else {
             double timeSinceInHours = timeSinceInDays*24;
@@ -397,16 +383,16 @@
                 int roundedInteger = (int)timeSinceInHoursRounded;
                 NSNumber *numberSince = [NSNumber numberWithInt:roundedInteger];
                 NSString *timeSincePost = [numberSince stringValue];
-                NSString *timeWithUnits = [NSString stringWithFormat:(@"Posted %@ hours ago"), timeSincePost];
+                NSString *timeWithUnits = [NSString stringWithFormat:(@"%@ hours ago"), timeSincePost];
                 cell.postTimeLabel.text = timeWithUnits;
             } else if (timeSinceInMinutes > 1){
                 int roundedInteger = (int)timeSinceInMinutes;
                 NSNumber *numberSince = [NSNumber numberWithInt:roundedInteger];
                 NSString *timeSincePost = [numberSince stringValue];
-                NSString *timeWithUnits = [NSString stringWithFormat:(@"Posted %@m minutes ago"), timeSincePost];
+                NSString *timeWithUnits = [NSString stringWithFormat:(@"%@ minutes ago"), timeSincePost];
                 cell.postTimeLabel.text = timeWithUnits;
             } else {
-                NSString *message = @"Posted just now";
+                NSString *message = @"Just now";
                 cell.postTimeLabel.text = message;
             }
         }
@@ -495,22 +481,22 @@
 }
 
 // Detail View Setup
-
--(NSArray *)fieldsForPostType:(NSString *)type{
-    NSMutableArray *fields = [NSMutableArray arrayWithArray:@[PF_POST_PHOTOARRAY, PF_POST_TITLE, PF_POST_DESCRIPTION, PF_POST_USER]];
-    if ([type isEqualToString:POST_TYPE_BOOKS]){
-        [fields insertObject:PF_POST_BOOKFORCLASS atIndex:3];
-    } else if ([type isEqualToString:POST_TYPE_TICKETS]){
-        [fields insertObject:PF_POST_DATEFOREVENT atIndex:3];
-    } else if ([type isEqualToString:POST_TYPE_CLOTHING]){
-        
-    } else if ([type isEqualToString:POST_TYPE_FURNITURE]){
-        
-    } else if ([type isEqualToString:POST_TYPE_TASK]){
-            // NEED TO ADD FIELDS
-    }
-    return fields;
-}
+//
+//-(NSArray *)fieldsForPostType:(NSString *)type{
+//    NSMutableArray *fields = [NSMutableArray arrayWithArray:@[PF_POST_PHOTOARRAY, PF_POST_TITLE, PF_POST_DESCRIPTION, PF_POST_USER]];
+//    if ([type isEqualToString:POST_TYPE_BOOKS]){
+//        [fields insertObject:PF_POST_BOOKFORCLASS atIndex:3];
+//    } else if ([type isEqualToString:POST_TYPE_TICKETS]){
+//        [fields insertObject:PF_POST_DATEFOREVENT atIndex:3];
+//    } else if ([type isEqualToString:POST_TYPE_CLOTHING]){
+//        
+//    } else if ([type isEqualToString:POST_TYPE_FURNITURE]){
+//        
+//    } else if ([type isEqualToString:POST_TYPE_TASK]){
+//            // NEED TO ADD FIELDS
+//    }
+//    return fields;
+//}
 
 -(PFQuery *)addQueryParameters:(NSDictionary *)parameters toQuery:(PFQuery *)query{
     
