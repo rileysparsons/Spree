@@ -360,21 +360,7 @@
                 }
             }];
         } else {
-            cell.typeIcon.hidden = NO;
             cell.postImageView.hidden = YES;
-            if ([post.type isEqualToString:@"Tickets"]){
-                cell.typeIcon.image = [UIImage imageNamed:@"TicketTypeIconSmall"];
-            } else if ([post.type isEqualToString:@"Books"]){
-                cell.typeIcon.image = [UIImage imageNamed:@"BookTypeIconSmall"];
-            } else if ([post.type isEqualToString:@"Electronics"]){
-                cell.typeIcon.image = [UIImage imageNamed:@"ElectronicsTypeIconSmall"];
-            } else if ([post.type isEqualToString:@"Furniture"]){
-                cell.typeIcon.image =[UIImage imageNamed:@"furnitureCellIconWhite"];
-            } else if ([post.type isEqualToString:@"Clothing"]){
-                cell.typeIcon.image =[UIImage imageNamed:@"clothingCellIconWhite"];
-            } else if ([post.type isEqualToString:@"Tasks"]){
-                cell.typeIcon.image =[UIImage imageNamed:@"sprintCellIconWhite"];
-            }
         }
         
         cell.descriptionLabel.text = [NSString stringWithFormat:@"\u201C%@\u201D", post.userDescription];
