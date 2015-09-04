@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import "BrowseViewController.h"
 #import "LoginViewController.h"
-#import "PostDetailViewController.h"
+#import "ModalPostDetailViewController.h"
 #import "FinalOnboardingViewController.h"
 #import "RTWalkthroughViewController.h"
 #import "RTWalkthroughPageViewController.h"
@@ -36,26 +36,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     // Register Parse Subclass
-    
-    //Branch.io stuff
-    Branch *branch = [Branch getInstance];
-    [branch initSessionWithLaunchOptions:launchOptions andRegisterDeepLinkHandler:^(NSDictionary *params, NSError *error) {
-        
-        // params are the deep linked params associated with the link that the user clicked before showing up.
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-        if ([params objectForKey:@"object id"]){
-            PostDetailTableViewController *postDetailTableViewController = [storyboard instantiateViewControllerWithIdentifier:@"PostDetail"];
-            [postDetailTableViewController initializeWithObjectId:params[@"object id"]];
-            [self.window.rootViewController presentViewController:postDetailTableViewController animated:YES completion:nil];
-            //I assume this is where you should put the initialization
-            
-        }
-        
-        
-        
-    }];
-    
-    
+
     
     [SpreePost registerSubclass];
     [ParseCrashReporting enable];
@@ -87,9 +68,7 @@
     
     if (![PFUser currentUser]) {
         [self showOnboardingFlow];
-    }
-    
-    if ([PFUser currentUser]) {
+    } else {
         UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert |
                                                         UIUserNotificationTypeBadge |
                                                         UIUserNotificationTypeSound);
@@ -97,6 +76,34 @@
                                                                                  categories:nil];
         [application registerUserNotificationSettings:settings];
         [application registerForRemoteNotifications];
+        
+        
+        
+        //Branch.io stuff
+        Branch *branch = [Branch getInstance];
+        [branch initSessionWithLaunchOptions:launchOptions andRegisterDeepLinkHandler:^(NSDictionary *params, NSError *error) {
+            
+            // params are the deep linked params associated with the link that the user clicked before showing up.
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+            if ([params objectForKey:@"object id"]){
+                
+                UITabBarController *tabBarController =  (UITabBarController *)self.window.rootViewController;
+                
+                ModalPostDetailViewController *postDetailTableViewController = [storyboard instantiateViewControllerWithIdentifier:@"ModalPostDetail"];
+                [postDetailTableViewController initializeWithObjectId:params[@"object id"]];
+                UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:postDetailTableViewController];
+
+                [tabBarController presentViewController:navController animated:YES completion:nil];
+                
+                
+                //            [self.window.rootViewController.navigationController presentViewController:postDetailTableViewController animated:YES completion:nil];
+                //I assume this is where you should put the initialization
+                
+            }
+            
+            
+            
+        }];
     }
     
 

@@ -46,12 +46,19 @@
         self.existingFields = self.post[@"completedFields"];
         self.hasCompletedFields = YES;
         [self organizeTableForFields]; // This removes fields from completed fields that will not be shown as cells in the table view
+        [self.tableView reloadData];
     } else {
         [self.post.typePointer fetchIfNeededInBackgroundWithBlock:^(PFObject *type, NSError *error){
             self.existingFields = self.post.typePointer[@"fields"];
             [self organizeTableForFields];
             [self.tableView reloadData];
         }];
+    }
+    
+    if (self.post.typePointer){
+        [self setupTitle];
+    } else {
+        [self.post.typePointer fetchIfNeededInBackgroundWithTarget:self selector:@selector(setupTitle)]; // Sets up the custom title view based on the type of the post
     }
 }
 
@@ -61,9 +68,6 @@
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
-    NSLog(@"Post %@", self.post);
-    
-    NSLog(@"POST %@", self.post);
     
     // Table View Set up
     self.tableView.rowHeight = UITableViewAutomaticDimension;
@@ -73,12 +77,10 @@
     
     // View Set Up
     self.view.backgroundColor = [UIColor spreeOffWhite];
-
-    [self.post.typePointer fetchIfNeededInBackgroundWithTarget:self selector:@selector(setupTitle)]; // Sets up the custom title view based on the type of the post
     
     [self getUserForPost];
     [self updatePostStatus];
-
+    [self addCustomBackButton];
     // Navigation bar UI
 
     [self updatePostStatus];
@@ -484,13 +486,12 @@
     PFQuery *query = [PFQuery queryWithClassName:@"Post"];
     NSLog(@"%@",string);
     [query includeKey:@"user"];
+    [query includeKey:@"typePointer"];
     [query getObjectInBackgroundWithId:string block:^(PFObject *object, NSError *error){
         if (error){
             
         } else {
-            self.post = (SpreePost *)object;
-            [self getUserForPost];
-            [self.tableView reloadData];
+            [self initWithPost:(SpreePost *)object];
         }
     }];
 }
