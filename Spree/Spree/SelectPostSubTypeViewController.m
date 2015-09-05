@@ -36,14 +36,15 @@
     [self.post.typePointer fetchIfNeededInBackground];
     NSLog(@"This viewcontroller: %@", self.post);
     
-    UIButton *cancel = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 25, 25)];
+    UIButton *cancel = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 40)];
     cancel.backgroundColor = [UIColor clearColor];
-    [cancel setBackgroundImage:[UIImage imageNamed:@"cancelOffBlack"] forState:UIControlStateNormal];
-    [cancel setBackgroundImage:[UIImage imageNamed:@"cancelHighlight"] forState:UIControlStateHighlighted];
+    cancel.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [cancel setImage:[UIImage imageNamed:@"backNormal_Dark"] forState:UIControlStateNormal];
+    [cancel setImage:[UIImage imageNamed:@"backHighlight_Dark"] forState:UIControlStateHighlighted];
     [cancel addTarget:self action:@selector(cancelWorkflow) forControlEvents:UIControlEventTouchUpInside];
     [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:cancel]];
     
-    self.header.titleLabel.text =  [NSString stringWithFormat:@"Great! What type of %@ is it?", [self.type lowercaseString]];
+    self.header.titleLabel.text =  [NSString stringWithFormat:@"Great! What type of %@ is it?", [self.workflow.type[@"type"] lowercaseString]];
     // Do any additional setup after loading the view.
 }
 
@@ -55,7 +56,7 @@
 
 
 
-- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{ 
+- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(nullable PFObject *)object{
     static NSString *CellIdentifier = @"Cell";
     PostTypeSelectionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
@@ -69,7 +70,8 @@
     }
     cell.accessoryType = UITableViewCellAccessoryNone;
     cell.accessoryView = [MSCellAccessory accessoryWithType:FLAT_DISCLOSURE_INDICATOR color:[UIColor spreeOffBlack]];
-    cell.typeLabel.text = [self.objects objectAtIndex:indexPath.row][@"subtype"];
+    cell.iconBackground.backgroundColor = [[UIColor spreeOffBlack] colorWithAlphaComponent:0.20f];
+    cell.typeLabel.text = object[@"subtype"];
     return cell;
 }
 

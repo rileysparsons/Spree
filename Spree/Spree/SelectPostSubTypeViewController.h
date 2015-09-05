@@ -14,7 +14,6 @@
 
 @property SpreePost *post;
 @property NSArray *subTypes;
-@property NSString *type;
 @property PostingWorkflow *workflow;
 
 

@@ -85,7 +85,7 @@
     }
     cell.accessoryType = UITableViewCellAccessoryNone;
     cell.accessoryView = [MSCellAccessory accessoryWithType:FLAT_DISCLOSURE_INDICATOR color:[UIColor spreeOffBlack]];
-    [cell initWithObject:object];
+    [cell initWithPostType:object];
     return cell;
 }
 

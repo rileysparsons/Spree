@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="Lato-Regular.ttf">
@@ -29,17 +30,36 @@
                         <color key="shadowColor" red="0.16666857898235321" green="0.18534906208515167" blue="0.19849607348442078" alpha="1" colorSpace="calibratedRGB"/>
                         <size key="shadowOffset" width="0.0" height="0.0"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ghl-5k-AFt">
-                        <rect key="frame" x="8" y="11" width="48" height="48"/>
-                    </imageView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RzQ-k1-HFZ">
+                        <rect key="frame" x="8" y="13" width="44" height="44"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ghl-5k-AFt">
+                                <rect key="frame" x="7" y="7" width="30" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="44s-6v-HIN"/>
+                                    <constraint firstAttribute="height" constant="30" id="SBc-1A-PDg"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="Ghl-5k-AFt" secondAttribute="centerX" id="8Jc-OD-18Z"/>
+                            <constraint firstAttribute="centerY" secondItem="Ghl-5k-AFt" secondAttribute="centerY" id="e34-jo-Tu6"/>
+                            <constraint firstAttribute="width" constant="44" id="e3Q-57-DV8"/>
+                            <constraint firstAttribute="height" constant="44" id="ndT-rO-ts6"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="centerY" secondItem="RzQ-k1-HFZ" secondAttribute="centerY" id="4Jk-Eg-fJv"/>
                     <constraint firstAttribute="centerY" secondItem="wVj-Ha-Jja" secondAttribute="centerY" constant="1" id="BTE-Fu-V8f"/>
                     <constraint firstAttribute="centerX" secondItem="wVj-Ha-Jja" secondAttribute="centerX" id="hWO-F7-QHa"/>
+                    <constraint firstItem="RzQ-k1-HFZ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="pGk-36-vlg"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" red="0.96558624505996704" green="0.97044742107391357" blue="0.97035741806030273" alpha="1" colorSpace="calibratedRGB"/>
             <connections>
+                <outlet property="iconBackground" destination="RzQ-k1-HFZ" id="JCW-5y-CbX"/>
                 <outlet property="typeImage" destination="Ghl-5k-AFt" id="7vm-y1-3Ue"/>
                 <outlet property="typeLabel" destination="wVj-Ha-Jja" id="o5T-rj-OIA"/>
             </connections>

@@ -12,7 +12,8 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *typeImage;
 @property (weak, nonatomic) IBOutlet UILabel *typeLabel;
+@property (weak, nonatomic) IBOutlet UIView *iconBackground;
 
--(void)initWithObject:(PFObject *)type;
+-(void)initWithPostType:(PFObject *)type;
 
 @end

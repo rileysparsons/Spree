@@ -151,7 +151,10 @@
                 NSString *timeWithUnits = [NSString stringWithFormat:(@"%@m"), timeSincePost];
                 cell.postTimeLabel.text = timeWithUnits;
             }
+            
+           
         }
+         cell.descriptionLabel.text = post.userDescription;
         return cell;
     }
     return nil;

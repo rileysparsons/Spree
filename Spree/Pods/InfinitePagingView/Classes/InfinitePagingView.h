@@ -67,7 +67,7 @@ typedef enum {
 /*!
  @var InfinitePagingViewDelegate
  */
-@property (nonatomic, assign) id<InfinitePagingViewDelegate> delegate;
+@property (nonatomic, weak) id<InfinitePagingViewDelegate> delegate;
 
 /*!
  Add a view object to inner scrollView view.
