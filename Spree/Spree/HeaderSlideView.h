@@ -18,4 +18,6 @@
 -(void)setTitleWithString:(NSString *)title;
 -(void)setBackgroundImageWithImage:(UIImage *)image;
 
+-(void)setupForMetadata:(NSDictionary *)metadata;
+
 @end

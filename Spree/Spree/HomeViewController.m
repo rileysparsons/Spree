@@ -61,16 +61,7 @@
                 if (exists){
                     NSDictionary *bannerData = [bannerMetadata objectAtIndex:[self.slides indexOfObject:slideView]];
                     
-                    if (bannerData[@"title"]){
-                        slideView.slideTitle.text = bannerData[@"title"];
-                    }
-                    
-                    if (bannerData[@"subtitle"]){
-                        slideView.slideSubtitle.text = bannerData[@"subtitle"];
-                    }
-                    
-                    slideView.slideTitle.textColor = [UIColor spreeOffWhite];
-                    slideView.backgroundImage.backgroundColor = [UIColor spreeOffBlack];
+                    [slideView setupForMetadata:bannerData];
                     
                     [self.metadata addObject:bannerData];
                 }

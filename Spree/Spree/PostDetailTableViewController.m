@@ -54,12 +54,7 @@
             [self.tableView reloadData];
         }];
     }
-    
-    if (self.post.typePointer){
-        [self setupTitle];
-    } else {
-        [self.post.typePointer fetchIfNeededInBackgroundWithTarget:self selector:@selector(setupTitle)]; // Sets up the custom title view based on the type of the post
-    }
+    [self.post.typePointer fetchIfNeededInBackgroundWithTarget:self selector:@selector(setupTitle)];
 }
 
 - (void)viewDidLoad {

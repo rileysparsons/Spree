@@ -137,7 +137,6 @@
         [self.navigationController pushViewController:self.postDetailTableViewController animated:YES];
         [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
-    
 }
 
 
@@ -147,6 +146,7 @@
     [query whereKey:@"typePointer" equalTo:self.postType];
     [query whereKey:@"expired" equalTo:[NSNumber numberWithBool:NO]];
     [query whereKey:@"sold" equalTo:[NSNumber numberWithBool:NO]];
+    [query whereKeyDoesNotExist:@"removed"];
     [query whereKey:@"network" equalTo:[[PFUser currentUser] objectForKey:@"network"]];
     [query orderByDescending:@"updatedAt"];
     return query;

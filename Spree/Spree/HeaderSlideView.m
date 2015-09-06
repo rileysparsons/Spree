@@ -10,6 +10,17 @@
 
 @implementation HeaderSlideView
 
+// Metadata keys
+
+#define kSlideTitle @"title"
+#define kSlideSubtitle @"subtitle"
+#define kSlideTitleColor @"titleColor"
+#define kSlideSubtitleColor @"subtitleColor"
+#define kSlideBackgroundColor @"backgroundColor"
+#define kQueryParameters @"parameters"
+#define kLinkType @"linkType"
+#define kOrderNumber @"number"
+
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -72,5 +83,48 @@
 -(void)setBackgroundImageWithImage:(UIImage *)image{
     self.backgroundImage.image = image;
 }
+
+-(void)setupForMetadata:(NSDictionary *)metadata{
+    if (metadata[kSlideTitle]){
+        self.slideTitle.text = metadata[kSlideTitle];
+    }
+    
+    if (metadata[kSlideSubtitle]){
+        self.slideSubtitle.text = metadata[kSlideSubtitle];
+    }
+    
+    self.slideTitle.textColor = [UIColor spreeOffWhite];
+    
+    // Color Setup
+    if (metadata[kSlideBackgroundColor]){
+        NSString *hexValue = metadata[kSlideBackgroundColor];
+        self.backgroundImage.backgroundColor = [self colorFromHexString:hexValue];
+    } else {
+        self.backgroundImage.backgroundColor = [UIColor spreeOffBlack];
+    }
+    
+    if (metadata[kSlideTitleColor]){
+        NSString* hexValue = metadata[kSlideTitleColor];
+        self.slideTitle.textColor = [self colorFromHexString:hexValue];
+    } else {
+        self.slideTitle.textColor = [UIColor spreeOffWhite];
+    }
+    
+    if (metadata[kSlideSubtitleColor]){
+        NSString* hexValue = metadata[kSlideSubtitleColor];
+        self.slideSubtitle.textColor = [self colorFromHexString:hexValue];
+    } else {
+        self.slideSubtitle.textColor = [[UIColor spreeOffWhite] colorWithAlphaComponent:0.70f];
+    }
+}
+
+- (UIColor *)colorFromHexString:(NSString *)hexString {
+    unsigned rgbValue = 0;
+    NSScanner *scanner = [NSScanner scannerWithString:hexString];
+    [scanner setScanLocation:1]; // bypass '#' character
+    [scanner scanHexInt:&rgbValue];
+    return [UIColor colorWithRed:((rgbValue & 0xFF0000) >> 16)/255.0 green:((rgbValue & 0xFF00) >> 8)/255.0 blue:(rgbValue & 0xFF)/255.0 alpha:1.0];
+}
+
 
 @end
