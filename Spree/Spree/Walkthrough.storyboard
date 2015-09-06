@@ -25,6 +25,7 @@
             <string>Lato-Regular</string>
             <string>Lato-Regular</string>
             <string>Lato-Regular</string>
+            <string>Lato-Regular</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -37,11 +38,11 @@
                         <viewControllerLayoutGuide type="bottom" id="Qmb-H6-Z3E"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="AvX-wc-16a">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sell to your fellow students." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Mfg-1a-bzB">
-                                <rect key="frame" x="16" y="271" width="568" height="57"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sell stuff to your fellow students." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Mfg-1a-bzB">
+                                <rect key="frame" x="16" y="321" width="382" height="94"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="57" id="vOz-8W-9pl"/>
                                 </constraints>
@@ -58,6 +59,7 @@
                             <constraint firstAttribute="centerY" secondItem="Mfg-1a-bzB" secondAttribute="centerY" id="mSB-c9-s7J"/>
                         </constraints>
                     </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="point" keyPath="speedVariance">
                             <point key="value" x="1.2" y="0.0"/>
@@ -80,11 +82,11 @@
                         <viewControllerLayoutGuide type="bottom" id="Q0s-D3-K13"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="ilO-KC-33e">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Made for students, by students." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="dzu-U8-XnU">
-                                <rect key="frame" x="16" y="271" width="568" height="57"/>
+                                <rect key="frame" x="16" y="320.5" width="382" height="94"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="57" id="gTL-OI-LWj"/>
                                 </constraints>
@@ -101,6 +103,7 @@
                             <constraint firstAttribute="centerX" secondItem="dzu-U8-XnU" secondAttribute="centerX" id="zQ0-fW-xZ2"/>
                         </constraints>
                     </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x3l-I0-u1e" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -115,13 +118,13 @@
                         <viewControllerLayoutGuide type="bottom" id="Deg-VZ-J6w"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="9My-yD-6bv">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Post a new item in 30 seconds." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="jIe-Dr-O3S">
-                                <rect key="frame" x="16" y="271" width="568" height="57"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Make money at school." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="jIe-Dr-O3S">
+                                <rect key="frame" x="16" y="321" width="382" height="94"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="57" id="Ja4-ip-9Z7"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="57" id="Ja4-ip-9Z7"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="39"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -136,6 +139,7 @@
                             <constraint firstItem="jIe-Dr-O3S" firstAttribute="trailing" secondItem="9My-yD-6bv" secondAttribute="trailingMargin" id="PTz-Pj-MLu"/>
                         </constraints>
                     </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bEM-Yv-NRT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -150,11 +154,11 @@
                         <viewControllerLayoutGuide type="bottom" id="bbg-ej-M6o"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="pGR-jM-79V">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to Spree." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="meW-ZO-iSd">
-                                <rect key="frame" x="16" y="271" width="568" height="57"/>
+                                <rect key="frame" x="16" y="339" width="382" height="57"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="57" id="1mY-2m-Rbv"/>
                                 </constraints>
@@ -171,6 +175,7 @@
                             <constraint firstAttribute="centerY" secondItem="meW-ZO-iSd" secondAttribute="centerY" id="upQ-Zc-THW"/>
                         </constraints>
                     </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="point" keyPath="speedVariance">
                             <point key="value" x="0.0" y="0.5"/>
@@ -323,7 +328,7 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="18"/>
                                 <state key="normal" title="Log In">
-                                    <color key="titleColor" red="0.16666857900000001" green="0.18534906209999999" blue="0.19849607350000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleColor" red="0.034740071740000003" green="0.29351189729999999" blue="0.58873707060000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <variation key="default">
@@ -335,11 +340,30 @@
                                     <action selector="loginButtonTapped:" destination="48a-ti-HjF" eventType="touchUpInside" id="K8T-MI-bRl"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="See what your campus has to offer..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="3HP-RH-YoV">
+                                <rect key="frame" x="16" y="253" width="568" height="94"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="94" id="APV-TN-T5h"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="57" id="FJl-HT-v1e"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="39"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="APV-TN-T5h"/>
+                                    </mask>
+                                </variation>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.96558624510000002" green="0.97044742110000004" blue="0.97035741809999998" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="zf2-xz-70s" firstAttribute="top" secondItem="Pgk-iX-Je6" secondAttribute="bottom" constant="115" id="2jF-9G-5RE"/>
+                            <constraint firstAttribute="centerX" secondItem="3HP-RH-YoV" secondAttribute="centerX" id="BZ4-1K-f0a"/>
+                            <constraint firstItem="3HP-RH-YoV" firstAttribute="trailing" secondItem="iJx-u7-KEK" secondAttribute="trailingMargin" id="Ool-s8-He9"/>
                             <constraint firstAttribute="centerX" secondItem="Pgk-iX-Je6" secondAttribute="centerX" id="bKg-m3-sPJ"/>
+                            <constraint firstItem="3HP-RH-YoV" firstAttribute="leading" secondItem="iJx-u7-KEK" secondAttribute="leadingMargin" id="fVt-vy-FYO"/>
+                            <constraint firstAttribute="centerY" secondItem="3HP-RH-YoV" secondAttribute="centerY" id="zEH-25-nq4"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="wDl-vX-FfY"/>
