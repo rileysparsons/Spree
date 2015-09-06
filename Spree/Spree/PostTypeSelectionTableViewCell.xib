@@ -52,6 +52,7 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="centerY" secondItem="RzQ-k1-HFZ" secondAttribute="centerY" id="4Jk-Eg-fJv"/>
+                    <constraint firstItem="wVj-Ha-Jja" firstAttribute="leading" secondItem="RzQ-k1-HFZ" secondAttribute="trailing" constant="12" id="4qk-yz-Gz8"/>
                     <constraint firstAttribute="centerY" secondItem="wVj-Ha-Jja" secondAttribute="centerY" constant="1" id="BTE-Fu-V8f"/>
                     <constraint firstAttribute="centerX" secondItem="wVj-Ha-Jja" secondAttribute="centerX" id="hWO-F7-QHa"/>
                     <constraint firstItem="RzQ-k1-HFZ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="pGk-36-vlg"/>
