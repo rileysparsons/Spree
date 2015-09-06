@@ -16,4 +16,5 @@
 @property HomeHeaderView *customView;
 @property (strong, nonatomic) IBOutlet UITapGestureRecognizer *headerGestureRecognizer;
 
+
 @end

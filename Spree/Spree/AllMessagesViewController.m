@@ -78,7 +78,7 @@
         messageLabel.textColor = [UIColor spreeDarkBlue];
         messageLabel.numberOfLines = 0;
         messageLabel.textAlignment = NSTextAlignmentCenter;
-        messageLabel.font = [UIFont fontWithName:@"EuphemiaUCAS" size:20];
+        messageLabel.font = [UIFont fontWithName:@"Lato-Regular" size:20];
         [messageLabel sizeToFit];
         self.tableView.backgroundView = messageLabel;
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
