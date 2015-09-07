@@ -11,6 +11,7 @@
 #import "SelectPostSubTypeViewController.h"
 #import "SpreePost.h"
 #import "PostingWorkflow.h"
+#import <MBProgressHUD/MBProgressHUD.h>
 #import <MSCellAccessory.h>
 
 @interface SelectPostTypeViewController ()
@@ -50,7 +51,6 @@
     [cancel addTarget:self action:@selector(dismissViewControllerAnimated:completion:) forControlEvents:UIControlEventTouchUpInside];
     [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:cancel]];
     
-    self.header = [[SelectPostTypeHeaderView alloc] initWithFrame:CGRectZero];
     NSArray *nibFiles = [[NSBundle mainBundle] loadNibNamed:@"SelectPostTypeHeaderView" owner:self options:nil];
     for(id currentObject in nibFiles){
         if ([currentObject isKindOfClass:[UIView class]]){
@@ -90,10 +90,12 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
     SpreePost *post = [[SpreePost alloc] init];
     post.typePointer = [self objectAtIndexPath:indexPath];
     post.user = [PFUser currentUser];
-    
     PFQuery *subtype = [PFQuery queryWithClassName:@"PostSubtype"];
     [subtype getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error){
         PostingWorkflow *postingWorkflow = [[PostingWorkflow alloc] initWithPost:post];
@@ -102,8 +104,11 @@
             SelectPostSubTypeViewController *selectPostSubTypeViewController = [storyboard instantiateViewControllerWithIdentifier:@"SelectPostSubTypeViewController"];
             selectPostSubTypeViewController.workflow = postingWorkflow;
             selectPostSubTypeViewController.post = post;
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
             [self.navigationController pushViewController:selectPostSubTypeViewController animated:YES];
         } else {
+            
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
             [self.navigationController pushViewController:[postingWorkflow nextViewController] animated:YES];
         }
     }];
@@ -125,6 +130,10 @@
     return titleLabel;
 }
 
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 1;
+}
 
 /*
 #pragma mark - Navigation

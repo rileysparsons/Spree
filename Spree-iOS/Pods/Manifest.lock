@@ -32,6 +32,7 @@ PODS:
     - JSQSystemSoundPlayer (~> 2.0.1)
   - JSQSystemSoundPlayer (2.0.1)
   - JVFloatLabeledTextField (1.1.0)
+  - MBProgressHUD (0.9.1)
   - MSCellAccessory (1.1.2)
   - Parse (1.8.2):
     - Bolts/Tasks (>= 1.2.1)
@@ -61,6 +62,7 @@ DEPENDENCIES:
   - JSQMessagesViewController (from `https://github.com/jessesquires/JSQMessagesViewController.git`,
     branch `develop`)
   - JVFloatLabeledTextField
+  - MBProgressHUD
   - MSCellAccessory
   - Parse
   - ParseCrashReporting
@@ -91,6 +93,7 @@ SPEC CHECKSUMS:
   JSQMessagesViewController: 73cab48aa92fc2d512f3b6724f3425cc47a19eb5
   JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
   JVFloatLabeledTextField: ea4a3d8387ddd43724c472bb2b8ab39b79af05d4
+  MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   MSCellAccessory: 8265f3cd2386c1f372da00232472605ab11426e4
   Parse: 188601c6cd91fae55906badd283b513104a3a8c9
   ParseCrashReporting: 437b722377462faaeba60ffde23af95fcc486c28

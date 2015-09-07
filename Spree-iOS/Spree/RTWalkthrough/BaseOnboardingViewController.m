@@ -84,12 +84,6 @@
     if (email && email.length != 0) {
         return YES;
     }
-    
-    [[[UIAlertView alloc] initWithTitle:@"Invalid Email"
-                                message:@"Make sure you've given us a valid email."
-                               delegate:nil
-                      cancelButtonTitle:@"OK"
-                      otherButtonTitles:nil] show];
     return NO; // Interrupt login process
 }
 
@@ -148,11 +142,6 @@
         return YES;
     }
     
-    [[[UIAlertView alloc] initWithTitle:@"No Password?"
-                                message:@"Something went wrong. Check if you gave us a password."
-                               delegate:nil
-                      cancelButtonTitle:@"OK"
-                      otherButtonTitles:nil] show];
     return NO; // Interrupt login process
 }
 
@@ -168,11 +157,7 @@
 
 - (void)logInViewController:(LoginPasswordViewController *)logInController
     didFailToLogInWithError:(NSError *)error{
-    [[[UIAlertView alloc] initWithTitle:@"Login Failed"
-                                message:@"Something went wrong. Please try again."
-                               delegate:nil
-                      cancelButtonTitle:@"OK"
-                      otherButtonTitles:nil] show];
+    
 }
 
 -(void)logInViewControllerWentBackwards:(LoginPasswordViewController *)logInController{

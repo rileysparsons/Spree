@@ -44,7 +44,7 @@
     [cancel addTarget:self action:@selector(cancelWorkflow) forControlEvents:UIControlEventTouchUpInside];
     [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:cancel]];
     
-    self.header.titleLabel.text =  [NSString stringWithFormat:@"Great! What type of %@ is it?", [self.workflow.type[@"type"] lowercaseString]];
+    self.header.titleLabel.text =  [NSString stringWithFormat:@"Great! What type of item is it?"];
     // Do any additional setup after loading the view.
 }
 

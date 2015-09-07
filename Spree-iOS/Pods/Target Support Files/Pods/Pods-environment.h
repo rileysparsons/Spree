@@ -108,6 +108,12 @@
 #define COCOAPODS_VERSION_MINOR_JVFloatLabeledTextField 1
 #define COCOAPODS_VERSION_PATCH_JVFloatLabeledTextField 0
 
+// MBProgressHUD
+#define COCOAPODS_POD_AVAILABLE_MBProgressHUD
+#define COCOAPODS_VERSION_MAJOR_MBProgressHUD 0
+#define COCOAPODS_VERSION_MINOR_MBProgressHUD 9
+#define COCOAPODS_VERSION_PATCH_MBProgressHUD 1
+
 // MSCellAccessory
 #define COCOAPODS_POD_AVAILABLE_MSCellAccessory
 #define COCOAPODS_VERSION_MAJOR_MSCellAccessory 1

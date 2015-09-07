@@ -9,6 +9,7 @@
 #import "LoginCampusTableViewController.h"
 #import "LoginCampusHeaderView.h"
 #import "SelectCampusTableViewCell.h"
+#import <MBProgressHUD/MBProgressHUD.h>
 
 @interface LoginCampusTableViewController ()
 @property LoginCampusHeaderView *header;
@@ -29,6 +30,8 @@
         
         // Whether the built-in pagination is enabled
         self.paginationEnabled = NO;
+        
+        self.loadingViewEnabled = NO;
     }
     return self;
 }
@@ -37,6 +40,14 @@
     PFQuery *query = [PFQuery queryWithClassName:self.parseClassName];
     [query orderByDescending:@"userCount"];
     return query;
+}
+
+-(void)objectsWillLoad{
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+}
+
+-(void)objectsDidLoad:(nullable NSError *)error{
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
 }
 
 - (void)viewDidLoad {
