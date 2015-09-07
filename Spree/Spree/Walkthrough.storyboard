@@ -414,17 +414,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2v2-6h-lJm" customClass="TPKeyboardAvoidingScrollView">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2v2-6h-lJm" customClass="TPKeyboardAvoidingScrollView">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6wZ-7x-9dM" userLabel="Content">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T1q-SG-RBC">
-                                                <rect key="frame" x="16" y="233" width="568" height="133"/>
+                                                <rect key="frame" x="16" y="233" width="568" height="133.5"/>
                                                 <subviews>
-                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="bbronco" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8uI-Tu-SQL">
-                                                        <rect key="frame" x="0.0" y="91" width="280" height="42"/>
+                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="student" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8uI-Tu-SQL">
+                                                        <rect key="frame" x="0.0" y="91.5" width="282.5" height="42"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="400" id="878-gQ-btA"/>
                                                             <constraint firstAttribute="height" constant="42" id="bek-Uv-li7"/>
@@ -438,20 +438,20 @@
                                                         </variation>
                                                     </textField>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What's your school email?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VDh-k0-zYf">
-                                                        <rect key="frame" x="159" y="0.0" width="249" height="27"/>
+                                                        <rect key="frame" x="159" y="0.0" width="249" height="26.5"/>
                                                         <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="22"/>
                                                         <color key="textColor" red="0.16666857900000001" green="0.18534906209999999" blue="0.19849607350000001" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3ic-Kg-vdE">
-                                                        <rect key="frame" x="0.0" y="129" width="568" height="2"/>
+                                                        <rect key="frame" x="0.0" y="129.5" width="568" height="2"/>
                                                         <color key="backgroundColor" red="0.16666857900000001" green="0.18534906209999999" blue="0.19849607350000001" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="2" id="J3i-CY-XJI"/>
                                                         </constraints>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@xxx.edu" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ura-DZ-hRE">
-                                                        <rect key="frame" x="288" y="91" width="280" height="42"/>
+                                                        <rect key="frame" x="285.5" y="91.5" width="282.5" height="42"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="160" id="Jk7-01-J4n"/>
                                                             <constraint firstAttribute="height" constant="21" id="T6O-C6-9Eg"/>
@@ -471,7 +471,7 @@
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.96558624510000002" green="0.97044742110000004" blue="0.97035741809999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
-                                                    <constraint firstItem="ura-DZ-hRE" firstAttribute="leading" secondItem="8uI-Tu-SQL" secondAttribute="trailing" constant="8" id="1Gs-Eg-BMa"/>
+                                                    <constraint firstItem="ura-DZ-hRE" firstAttribute="leading" secondItem="8uI-Tu-SQL" secondAttribute="trailing" constant="3" id="1Gs-Eg-BMa"/>
                                                     <constraint firstAttribute="trailing" secondItem="ura-DZ-hRE" secondAttribute="trailing" id="4LM-ca-CBI"/>
                                                     <constraint firstItem="8uI-Tu-SQL" firstAttribute="leading" secondItem="T1q-SG-RBC" secondAttribute="leading" id="5PP-aU-phX"/>
                                                     <constraint firstAttribute="bottom" secondItem="3ic-Kg-vdE" secondAttribute="bottom" constant="2" id="8Zy-dS-QH0"/>
@@ -685,7 +685,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VQx-hi-3o2" customClass="TPKeyboardAvoidingScrollView">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VQx-hi-3o2" customClass="TPKeyboardAvoidingScrollView">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3uf-Gz-glw">

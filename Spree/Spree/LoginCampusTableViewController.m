@@ -42,6 +42,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    UILabel *titleView =[[UILabel alloc] initWithFrame:CGRectMake(0,0, 150, 40)];
+    titleView.text = @"Log In";
+    titleView.textAlignment = NSTextAlignmentCenter;
+    titleView.textColor=[UIColor spreeOffBlack];
+    titleView.font = [UIFont fontWithName:@"Lato-Regular" size: 18.0];
+    titleView.backgroundColor =[UIColor clearColor];
+    titleView.adjustsFontSizeToFitWidth=YES;
+    self.navigationItem.titleView = titleView;
+    
     self.navigationItem.hidesBackButton = YES;
     self.header = [[LoginCampusHeaderView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 200)];
     self.tableView.tableHeaderView = self.header;
