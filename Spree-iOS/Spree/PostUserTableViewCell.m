@@ -25,8 +25,7 @@
     circle.strokeColor = [UIColor blackColor].CGColor;
     circle.lineWidth = 0;
     
-    self.userImageView.profileID = @""
-    ;
+    self.userImageView.profileID = nil;
     
     self.userImageView.layer.mask=circle;
 }
