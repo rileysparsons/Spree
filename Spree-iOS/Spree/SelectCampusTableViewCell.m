@@ -7,11 +7,14 @@
 //
 
 #import "SelectCampusTableViewCell.h"
+#import <MSCellAccessory/MSCellAccessory.h>
 
 @implementation SelectCampusTableViewCell
 
 - (void)awakeFromNib {
     // Initialization code
+    self.accessoryView = [MSCellAccessory accessoryWithType:FLAT_DISCLOSURE_INDICATOR color:[UIColor spreeDarkBlue] highlightedColor:[UIColor spreeDarkYellow]];
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

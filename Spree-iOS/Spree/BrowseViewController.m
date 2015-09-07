@@ -302,6 +302,7 @@
     
     [cell initWithPostType:object];
     cell.titleLabel.text = object[@"type"];
+    [self.refreshControl endRefreshing];
     // Configure the cell with the textContent of the Post as the cell's text label
     /*
     PFQuery *postQuery = [PFQuery queryWithClassName:@"Post"];
