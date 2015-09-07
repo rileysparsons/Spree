@@ -8,13 +8,11 @@
 
 #import "AppDelegate.h"
 #import "BrowseViewController.h"
-#import "LoginViewController.h"
 #import "ModalPostDetailViewController.h"
 #import "FinalOnboardingViewController.h"
 #import "RTWalkthroughViewController.h"
 #import "RTWalkthroughPageViewController.h"
 #import "BaseOnboardingViewController.h"
-#import "LoginViewController.h"
 #import "SpreePost.h"
 #import "ChatView.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
