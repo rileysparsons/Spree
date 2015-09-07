@@ -52,8 +52,8 @@
         if (post.price == 0 || [post.price  isEqual: @(0)]){
             cell.priceLabel.text = @"Free";
         } else {
-            float priceFloat = [post.price floatValue];
-            NSString *price = [NSString stringWithFormat:@"$%.2f", priceFloat];
+            int priceFloat = [post.price intValue];
+            NSString *price = [NSString stringWithFormat:@"$%d", priceFloat];
             cell.priceLabel.text = price;
         }
         
@@ -66,23 +66,9 @@
                     
                 }
             }];
-        } else {
-            cell.typeIcon.hidden = NO;
-            cell.postImageView.hidden = YES;
-            if ([post.type isEqualToString:@"Tickets"]){
-                cell.typeIcon.image = [UIImage imageNamed:@"TicketTypeIconSmall"];
-            } else if ([post.type isEqualToString:@"Books"]){
-                cell.typeIcon.image = [UIImage imageNamed:@"BookTypeIconSmall"];
-            } else if ([post.type isEqualToString:@"Electronics"]){
-                cell.typeIcon.image = [UIImage imageNamed:@"ElectronicsTypeIconSmall"];
-            } else if ([post.type isEqualToString:@"Furniture"]){
-                cell.typeIcon.image =[UIImage imageNamed:@"furnitureCellIconWhite"];
-            } else if ([post.type isEqualToString:@"Clothing"]){
-                cell.typeIcon.image =[UIImage imageNamed:@"clothingCellIconWhite"];
-            } else if ([post.type isEqualToString:@"Tasks"]){
-                cell.typeIcon.image =[UIImage imageNamed:@"sprintCellIconWhite"];
-            }
         }
+        
+        cell.descriptionLabel.text = post.userDescription;
         
         NSDate *dateCreatedGMT = [post updatedAt];
         NSTimeInterval timeSince = dateCreatedGMT.timeIntervalSinceNow;
