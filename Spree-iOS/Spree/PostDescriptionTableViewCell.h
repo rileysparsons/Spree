@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *editDescriptionButton;
 @property (weak, nonatomic) IBOutlet UITextView *descriptionTextView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *textViewHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *editButtonWidth;
 
 
 

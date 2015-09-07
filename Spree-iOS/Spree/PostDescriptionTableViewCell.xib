@@ -63,6 +63,7 @@
             <color key="backgroundColor" red="0.96558624510000002" green="0.97044742110000004" blue="0.97035741809999998" alpha="1" colorSpace="calibratedRGB"/>
             <connections>
                 <outlet property="descriptionTextView" destination="8MO-RS-T1t" id="NRc-aU-CfJ"/>
+                <outlet property="editButtonWidth" destination="2vX-rx-ldp" id="m6y-v4-jzp"/>
                 <outlet property="editDescriptionButton" destination="d6D-c2-ue7" id="8eB-4c-Gv5"/>
                 <outlet property="textViewHeight" destination="Cln-Af-kFt" id="TsX-4i-yDl"/>
             </connections>

@@ -40,20 +40,24 @@
 -(void)initWithPost:(SpreePost *)post{
     self.post = post;
     self.existingFieldsForTable = [[NSMutableArray alloc] init]; // Existing Fields Will Hold Dictionaries Representing Cell Data Once Filtered.
-    
-    if (self.post[@"completedFields"]){ // This check ensures that posts made before August 2015 will still be able to be opened
-        self.existingFields = self.post[@"completedFields"];
-        self.hasCompletedFields = YES;
-        [self organizeTableForFields]; // This removes fields from completed fields that will not be shown as cells in the table view
-        [self.tableView reloadData];
-    } else {
+
+    if (post){
         [self.post.typePointer fetchIfNeededInBackgroundWithBlock:^(PFObject *type, NSError *error){
-            self.existingFields = self.post.typePointer[@"fields"];
-            [self organizeTableForFields];
-            [self.tableView reloadData];
+            
+            if (!error){
+                if (self.post[@"completedFields"]){ // This check ensures that posts made before August 2015 will still be able to be opened
+                    self.existingFields = self.post[@"completedFields"];
+                    self.hasCompletedFields = YES;
+                    [self organizeTableForFields]; // This removes fields from completed fields that will not be shown as cells in the table view
+                } else {
+                    self.existingFields = self.post.typePointer[@"fields"];
+                    [self organizeTableForFields];
+                }
+                [self.tableView reloadData];
+                [self setupTitle];
+            }
         }];
     }
-    [self.post.typePointer fetchIfNeededInBackgroundWithTarget:self selector:@selector(setupTitle)];
 }
 
 - (void)viewDidLoad {
