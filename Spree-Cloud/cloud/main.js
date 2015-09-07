@@ -1,3 +1,5 @@
+// TEST
+
 Parse.Cloud.job("updateOldPosts", function(request, status) {
 
 Parse.Cloud.useMasterKey()
