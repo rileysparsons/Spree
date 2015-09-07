@@ -10,19 +10,19 @@
 #define COCOAPODS_POD_AVAILABLE_Bolts
 #define COCOAPODS_VERSION_MAJOR_Bolts 1
 #define COCOAPODS_VERSION_MINOR_Bolts 2
-#define COCOAPODS_VERSION_PATCH_Bolts 0
+#define COCOAPODS_VERSION_PATCH_Bolts 1
 
 // Bolts/AppLinks
 #define COCOAPODS_POD_AVAILABLE_Bolts_AppLinks
 #define COCOAPODS_VERSION_MAJOR_Bolts_AppLinks 1
 #define COCOAPODS_VERSION_MINOR_Bolts_AppLinks 2
-#define COCOAPODS_VERSION_PATCH_Bolts_AppLinks 0
+#define COCOAPODS_VERSION_PATCH_Bolts_AppLinks 1
 
 // Bolts/Tasks
 #define COCOAPODS_POD_AVAILABLE_Bolts_Tasks
 #define COCOAPODS_VERSION_MAJOR_Bolts_Tasks 1
 #define COCOAPODS_VERSION_MINOR_Bolts_Tasks 2
-#define COCOAPODS_VERSION_PATCH_Bolts_Tasks 0
+#define COCOAPODS_VERSION_PATCH_Bolts_Tasks 1
 
 // Branch
 #define COCOAPODS_POD_AVAILABLE_Branch
@@ -93,7 +93,7 @@
 // JSQMessagesViewController
 #define COCOAPODS_POD_AVAILABLE_JSQMessagesViewController
 #define COCOAPODS_VERSION_MAJOR_JSQMessagesViewController 7
-#define COCOAPODS_VERSION_MINOR_JSQMessagesViewController 1
+#define COCOAPODS_VERSION_MINOR_JSQMessagesViewController 2
 #define COCOAPODS_VERSION_PATCH_JSQMessagesViewController 0
 
 // JSQSystemSoundPlayer
@@ -118,19 +118,19 @@
 #define COCOAPODS_POD_AVAILABLE_Parse
 #define COCOAPODS_VERSION_MAJOR_Parse 1
 #define COCOAPODS_VERSION_MINOR_Parse 8
-#define COCOAPODS_VERSION_PATCH_Parse 1
+#define COCOAPODS_VERSION_PATCH_Parse 2
 
 // ParseCrashReporting
 #define COCOAPODS_POD_AVAILABLE_ParseCrashReporting
 #define COCOAPODS_VERSION_MAJOR_ParseCrashReporting 1
 #define COCOAPODS_VERSION_MINOR_ParseCrashReporting 8
-#define COCOAPODS_VERSION_PATCH_ParseCrashReporting 1
+#define COCOAPODS_VERSION_PATCH_ParseCrashReporting 2
 
 // ParseFacebookUtilsV4
 #define COCOAPODS_POD_AVAILABLE_ParseFacebookUtilsV4
 #define COCOAPODS_VERSION_MAJOR_ParseFacebookUtilsV4 1
 #define COCOAPODS_VERSION_MINOR_ParseFacebookUtilsV4 8
-#define COCOAPODS_VERSION_PATCH_ParseFacebookUtilsV4 1
+#define COCOAPODS_VERSION_PATCH_ParseFacebookUtilsV4 2
 
 // ParseUI
 #define COCOAPODS_POD_AVAILABLE_ParseUI
@@ -143,6 +143,12 @@
 #define COCOAPODS_VERSION_MAJOR_PureLayout 2
 #define COCOAPODS_VERSION_MINOR_PureLayout 0
 #define COCOAPODS_VERSION_PATCH_PureLayout 6
+
+// RCSLabeledIconButton
+#define COCOAPODS_POD_AVAILABLE_RCSLabeledIconButton
+#define COCOAPODS_VERSION_MAJOR_RCSLabeledIconButton 1
+#define COCOAPODS_VERSION_MINOR_RCSLabeledIconButton 0
+#define COCOAPODS_VERSION_PATCH_RCSLabeledIconButton 0
 
 // SAMTextView
 #define COCOAPODS_POD_AVAILABLE_SAMTextView

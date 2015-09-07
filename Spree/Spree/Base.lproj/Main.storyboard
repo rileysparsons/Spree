@@ -8,9 +8,10 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <mutableArray key="Lato-Light.ttf">
+            <string>Lato-Light</string>
+        </mutableArray>
         <mutableArray key="Lato-Regular.ttf">
-            <string>Lato-Regular</string>
-            <string>Lato-Regular</string>
             <string>Lato-Regular</string>
             <string>Lato-Regular</string>
             <string>Lato-Regular</string>
@@ -427,24 +428,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QPZ-aR-TUO">
-                                <rect key="frame" x="123" y="208" width="169" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="WXh-xu-bfc"/>
-                                    <constraint firstAttribute="width" constant="169" id="WiL-P5-sl1"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="15"/>
-                                <color key="textColor" red="0.16666857900000001" green="0.18534906209999999" blue="0.19849607350000001" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yyF-xU-mhh">
-                                <rect key="frame" x="123" y="180" width="169" height="20.5"/>
-                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="17"/>
-                                <color key="textColor" red="0.16666857900000001" green="0.18534906209999999" blue="0.19849607350000001" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="35" sectionFooterHeight="35" translatesAutoresizingMaskIntoConstraints="NO" id="AFq-JN-QoM">
-                                <rect key="frame" x="0.0" y="264" width="414" height="471.5"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="AFq-JN-QoM" userLabel="Preferences Table View">
+                                <rect key="frame" x="0.0" y="276.5" width="414" height="459"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="456" id="hlG-RC-l9i"/>
@@ -493,46 +478,78 @@
                                     <constraint firstAttribute="width" constant="100" id="xgJ-Vt-0hV"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Santa Clara University (Verified Student) " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RfR-sC-p8k">
-                                <rect key="frame" x="64" y="237" width="286" height="19.5"/>
-                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="16"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RfR-sC-p8k" userLabel="Campus Label">
+                                <rect key="frame" x="16" y="208" width="382" height="19.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="19.5" id="IoA-UX-Yvc"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Lato-Light" family="Lato" pointSize="16"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s4E-4W-x4v" customClass="RCSLabeledIconButton">
+                                <rect key="frame" x="16" y="180" width="382" height="20"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="pin-Yv-xge"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QPZ-aR-TUO">
+                                <rect key="frame" x="16" y="247" width="382" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="32k-Xu-Iat"/>
+                                    <constraint firstAttribute="height" constant="21" id="OTy-fF-hK4"/>
+                                    <constraint firstAttribute="height" constant="21" id="WXh-xu-bfc"/>
+                                    <constraint firstAttribute="width" constant="169" id="WiL-P5-sl1"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="15"/>
+                                <color key="textColor" red="0.16666857900000001" green="0.18534906209999999" blue="0.19849607350000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="OTy-fF-hK4"/>
+                                        <exclude reference="WXh-xu-bfc"/>
+                                        <exclude reference="WiL-P5-sl1"/>
+                                    </mask>
+                                </variation>
                             </label>
                         </subviews>
                         <color key="backgroundColor" red="0.96558624510000002" green="0.97044742110000004" blue="0.97035741809999998" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="yyF-xU-mhh" firstAttribute="top" secondItem="QPZ-aR-TUO" secondAttribute="bottom" constant="16" id="3ks-73-2xP"/>
+                            <constraint firstItem="QPZ-aR-TUO" firstAttribute="top" secondItem="s4E-4W-x4v" secondAttribute="bottom" constant="8" id="1dJ-z4-ky4"/>
+                            <constraint firstItem="s4E-4W-x4v" firstAttribute="trailing" secondItem="QS5-Rx-YEW" secondAttribute="trailingMargin" id="88b-q2-xpD"/>
+                            <constraint firstAttribute="centerX" secondItem="s4E-4W-x4v" secondAttribute="centerX" id="FZv-YQ-7KS"/>
                             <constraint firstAttribute="bottom" secondItem="AFq-JN-QoM" secondAttribute="bottom" id="FjH-Fi-7cD"/>
                             <constraint firstItem="RfR-sC-p8k" firstAttribute="top" secondItem="QPZ-aR-TUO" secondAttribute="bottom" constant="8" id="HQu-fz-6zG"/>
+                            <constraint firstItem="RfR-sC-p8k" firstAttribute="top" secondItem="s4E-4W-x4v" secondAttribute="bottom" constant="8" id="Hwf-Qy-gsv"/>
+                            <constraint firstAttribute="centerX" secondItem="QPZ-aR-TUO" secondAttribute="centerX" id="JOF-10-Dor"/>
                             <constraint firstAttribute="centerX" secondItem="IzB-T8-Uaf" secondAttribute="centerX" id="Jrg-ff-tAJ"/>
-                            <constraint firstItem="QPZ-aR-TUO" firstAttribute="top" secondItem="yyF-xU-mhh" secondAttribute="bottom" constant="8" id="Oxs-21-inO"/>
-                            <constraint firstItem="QPZ-aR-TUO" firstAttribute="top" secondItem="yyF-xU-mhh" secondAttribute="bottom" constant="8" id="PVY-Q1-FAW"/>
-                            <constraint firstItem="yyF-xU-mhh" firstAttribute="top" secondItem="QS5-Rx-YEW" secondAttribute="top" constant="144" id="SiA-lY-ycX"/>
-                            <constraint firstItem="AFq-JN-QoM" firstAttribute="top" secondItem="yyF-xU-mhh" secondAttribute="bottom" constant="80" id="TQU-fg-otu"/>
-                            <constraint firstItem="yyF-xU-mhh" firstAttribute="top" secondItem="IzB-T8-Uaf" secondAttribute="bottom" constant="8" id="ZD2-Zm-L4L"/>
+                            <constraint firstItem="RfR-sC-p8k" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leadingMargin" id="Ps6-zL-Dtj"/>
+                            <constraint firstItem="QPZ-aR-TUO" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leadingMargin" id="Sz2-a4-f6C"/>
+                            <constraint firstItem="AFq-JN-QoM" firstAttribute="top" secondItem="QPZ-aR-TUO" secondAttribute="bottom" constant="8" id="TIw-jT-oND"/>
+                            <constraint firstItem="s4E-4W-x4v" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leadingMargin" id="UEx-mH-foe"/>
                             <constraint firstAttribute="trailing" secondItem="AFq-JN-QoM" secondAttribute="trailing" id="ZSc-W5-Dz7"/>
-                            <constraint firstItem="AFq-JN-QoM" firstAttribute="top" secondItem="yyF-xU-mhh" secondAttribute="bottom" constant="20" id="Zq8-oC-P6s"/>
-                            <constraint firstItem="AFq-JN-QoM" firstAttribute="top" secondItem="yyF-xU-mhh" secondAttribute="bottom" constant="17" id="aO4-UG-TcY"/>
+                            <constraint firstItem="QPZ-aR-TUO" firstAttribute="trailing" secondItem="QS5-Rx-YEW" secondAttribute="trailingMargin" id="c7s-ae-J0q"/>
                             <constraint firstItem="AFq-JN-QoM" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leading" id="e8V-Cx-xaL"/>
-                            <constraint firstItem="QPZ-aR-TUO" firstAttribute="leading" secondItem="yyF-xU-mhh" secondAttribute="leading" id="mMp-Gf-Irq"/>
+                            <constraint firstItem="QPZ-aR-TUO" firstAttribute="top" secondItem="RfR-sC-p8k" secondAttribute="bottom" constant="20" id="gYd-vw-mrf"/>
+                            <constraint firstItem="RfR-sC-p8k" firstAttribute="trailing" secondItem="QS5-Rx-YEW" secondAttribute="trailingMargin" id="ghq-pQ-kHQ"/>
+                            <constraint firstItem="s4E-4W-x4v" firstAttribute="top" secondItem="IzB-T8-Uaf" secondAttribute="bottom" constant="8" id="gsb-ak-4sn"/>
+                            <constraint firstItem="RfR-sC-p8k" firstAttribute="top" secondItem="QPZ-aR-TUO" secondAttribute="bottom" constant="8" id="irQ-63-MQt"/>
+                            <constraint firstItem="AFq-JN-QoM" firstAttribute="top" secondItem="QPZ-aR-TUO" secondAttribute="bottom" constant="8" id="kiz-M5-HjZ"/>
                             <constraint firstAttribute="centerX" secondItem="RfR-sC-p8k" secondAttribute="centerX" id="ulx-Ab-XqX"/>
-                            <constraint firstItem="AFq-JN-QoM" firstAttribute="centerX" secondItem="yyF-xU-mhh" secondAttribute="centerX" id="w5b-S8-S2k"/>
                             <constraint firstItem="AFq-JN-QoM" firstAttribute="top" secondItem="RfR-sC-p8k" secondAttribute="bottom" constant="8" id="w9R-1l-sfg"/>
                             <constraint firstItem="IzB-T8-Uaf" firstAttribute="top" secondItem="L7p-HK-0SC" secondAttribute="bottom" constant="8" id="wiH-sw-TbF"/>
                             <constraint firstItem="AFq-JN-QoM" firstAttribute="top" secondItem="QPZ-aR-TUO" secondAttribute="bottom" constant="8" id="xuZ-E9-K7N"/>
-                            <constraint firstItem="QPZ-aR-TUO" firstAttribute="trailing" secondItem="yyF-xU-mhh" secondAttribute="trailing" id="yMS-cP-dKm"/>
                             <constraint firstItem="QPZ-aR-TUO" firstAttribute="top" secondItem="L7p-HK-0SC" secondAttribute="bottom" constant="29" id="zGR-iA-KGb"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="3ks-73-2xP"/>
-                                <exclude reference="SiA-lY-ycX"/>
-                                <exclude reference="Oxs-21-inO"/>
+                                <exclude reference="HQu-fz-6zG"/>
+                                <exclude reference="irQ-63-MQt"/>
+                                <exclude reference="1dJ-z4-ky4"/>
                                 <exclude reference="zGR-iA-KGb"/>
-                                <exclude reference="TQU-fg-otu"/>
-                                <exclude reference="Zq8-oC-P6s"/>
-                                <exclude reference="aO4-UG-TcY"/>
+                                <exclude reference="kiz-M5-HjZ"/>
+                                <exclude reference="w9R-1l-sfg"/>
                                 <exclude reference="xuZ-E9-K7N"/>
                             </mask>
                         </variation>
@@ -546,7 +563,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="nameLabel" destination="yyF-xU-mhh" id="MJu-mT-CKG"/>
+                        <outlet property="nameLabel" destination="s4E-4W-x4v" id="v5t-Hy-nch"/>
                         <outlet property="networkLabel" destination="RfR-sC-p8k" id="2If-y9-1GA"/>
                         <outlet property="postCountLabel" destination="QPZ-aR-TUO" id="Pfy-YB-oIa"/>
                         <outlet property="profileImageView" destination="IzB-T8-Uaf" id="h58-Lg-VT7"/>

@@ -1,10 +1,10 @@
 PODS:
-  - Bolts (1.2.0):
-    - Bolts/AppLinks (= 1.2.0)
-    - Bolts/Tasks (= 1.2.0)
-  - Bolts/AppLinks (1.2.0):
+  - Bolts (1.2.1):
+    - Bolts/AppLinks (= 1.2.1)
+    - Bolts/Tasks (= 1.2.1)
+  - Bolts/AppLinks (1.2.1):
     - Bolts/Tasks
-  - Bolts/Tasks (1.2.0)
+  - Bolts/Tasks (1.2.1)
   - Branch (0.10.9)
   - CocoaLumberjack (2.0.1):
     - CocoaLumberjack/Default (= 2.0.1)
@@ -28,25 +28,26 @@ PODS:
   - FBSDKLoginKit (4.5.1):
     - FBSDKCoreKit
   - InfinitePagingView (0.0.1)
-  - JSQMessagesViewController (7.1.0):
+  - JSQMessagesViewController (7.2.0):
     - JSQSystemSoundPlayer (~> 2.0.1)
   - JSQSystemSoundPlayer (2.0.1)
   - JVFloatLabeledTextField (1.1.0)
   - MSCellAccessory (1.1.2)
-  - Parse (1.8.1):
-    - Bolts/Tasks (>= 1.2.0)
-  - ParseCrashReporting (1.8.1):
-    - Bolts/Tasks (>= 1.2.0)
-    - Parse (~> 1.8.0)
-  - ParseFacebookUtilsV4 (1.8.1):
-    - Bolts/Tasks (>= 1.2.0)
+  - Parse (1.8.2):
+    - Bolts/Tasks (>= 1.2.1)
+  - ParseCrashReporting (1.8.2):
+    - Bolts/Tasks (>= 1.2.1)
+    - Parse (~> 1.8.2)
+  - ParseFacebookUtilsV4 (1.8.2):
+    - Bolts/Tasks (>= 1.2.1)
     - FBSDKCoreKit (~> 4.0)
     - FBSDKLoginKit (~> 4.0)
-    - Parse (~> 1.8.0)
+    - Parse (~> 1.8.2)
   - ParseUI (1.1.5):
     - Bolts/Tasks (~> 1.2)
     - Parse (~> 1.8)
   - PureLayout (2.0.6)
+  - RCSLabeledIconButton (1.0)
   - SAMTextView (0.2.2)
   - STCollapseTableView (0.1.1)
   - TPKeyboardAvoiding (1.2.9)
@@ -68,6 +69,7 @@ DEPENDENCIES:
   - ParseCrashReporting
   - ParseFacebookUtilsV4
   - ParseUI
+  - RCSLabeledIconButton
   - SAMTextView
   - STCollapseTableView
   - TPKeyboardAvoiding
@@ -81,26 +83,27 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   JSQMessagesViewController:
-    :commit: f8cbc84e0fe5af07c2ca433b4b42f2bfa115d0fe
+    :commit: e63f45308aa01b2cdf5004d80de3a21f52ef3db2
     :git: https://github.com/jessesquires/JSQMessagesViewController.git
 
 SPEC CHECKSUMS:
-  Bolts: d176cb1e0012175589e389a9db49b85e27787576
+  Bolts: 7686a5cb204d1ac54cee26f12d9b7622db3f80d1
   Branch: 024a0c5848303eb82b8aa139822e07e0724f7fdc
   CocoaLumberjack: 019d1361244274a6138c788c6cb80baabc13fb8f
   CTAssetsPickerController: 4673b4b22347325723a4dace00e4bd856c64529b
   FBSDKCoreKit: f335eaf6865e1e1597dee1debfb533045500da47
   FBSDKLoginKit: 225cc9a388a92916ee3f3bb14422017b6e44b65b
   InfinitePagingView: 2d9876c6171274b59d7128c0fcacb4ab492313f2
-  JSQMessagesViewController: ca11f86fa68ca70835f05e169df9244147c1dc40
+  JSQMessagesViewController: 73cab48aa92fc2d512f3b6724f3425cc47a19eb5
   JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
   JVFloatLabeledTextField: ea4a3d8387ddd43724c472bb2b8ab39b79af05d4
   MSCellAccessory: 8265f3cd2386c1f372da00232472605ab11426e4
-  Parse: 2155953b1565494095d5fa5c83b3c77f2c677c09
-  ParseCrashReporting: 56bfe3cff4818b2c602f04af0f58366a149ee14f
-  ParseFacebookUtilsV4: 2c54f1c9756f4827417984f42b64bc38571d626b
+  Parse: 188601c6cd91fae55906badd283b513104a3a8c9
+  ParseCrashReporting: 437b722377462faaeba60ffde23af95fcc486c28
+  ParseFacebookUtilsV4: 6e7415146935e1238ebabbee7e5d32d148027b2d
   ParseUI: 2c53621ed028ee793f5ab92a551b099689265525
   PureLayout: f25f0bb904d5ccfe6e31da3cb869185259f02e0d
+  RCSLabeledIconButton: db3351c731645016217e591f4a8a835c6524d277
   SAMTextView: 979c43bb1fa5859ddfbfeb35e9c296a2b0ec55fd
   STCollapseTableView: edd40eacf9411ce862da921f83e0b7b1680fac4d
   TPKeyboardAvoiding: ff1ee4e5a5a0c119b965552af8f183868ea20207
