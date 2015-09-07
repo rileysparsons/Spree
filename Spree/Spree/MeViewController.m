@@ -16,8 +16,8 @@
 #import <ParseFacebookUtilsV4/PFFacebookUtils.h>
 #import <CoreGraphics/CoreGraphics.h>
 #import "MSCellAccessory.h"
-
 #import "RatingViewController.h"
+
 
 #define kAuthorizeFacebookTitle @"Authorize Facebook"
 #define kLogOutTitle @"Log Out"
@@ -35,16 +35,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
-    
-    UILabel *titleLabel=[[UILabel alloc] initWithFrame:CGRectMake(0,0, 150, 40)];
-    titleLabel.textAlignment = NSTextAlignmentCenter;
-    titleLabel.text= @"ME";
-    titleLabel.textColor=[UIColor spreeOffBlack];
-    titleLabel.font = [UIFont fontWithName:@"Lato-Bold" size: 17.0];
-    titleLabel.backgroundColor =[UIColor clearColor];
-    titleLabel.adjustsFontSizeToFitWidth=YES;
-    self.navigationItem.titleView=titleLabel;
+    [self setTitleLabel];
     
     [self updateTableView];
     
@@ -52,12 +43,10 @@
     self.settingsTableView.dataSource = self;
     
     self.settingsTableView.backgroundColor = [UIColor clearColor];
-    
-    self.nameLabel.text = [PFUser currentUser][@"name"];
-
+   
     [self networkLabelText];
-    [self loadFacebookInformation];
     
+    [self setUserInfo];
 
     [self circularImage];
     // Add notification center for updating the posts cell for requests
@@ -73,11 +62,8 @@
 
 -(void)networkLabelText{
     [[PFUser currentUser][@"campus"] fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error){
-        if ([PFUser currentUser][@"emailVerified"]){
-            self.networkLabel.text = [NSString stringWithFormat:@"%@ (Verified Student)", [PFUser currentUser][@"campus"][@"campusName"]];
-        } else {
-            self.networkLabel.text = [NSString stringWithFormat:@"%@", [PFUser currentUser][@"campus"][@"campusName"]];
-        }
+        self.networkLabel.text = [NSString stringWithFormat:@"%@", [PFUser currentUser][@"campus"][@"campusName"]];
+        
     }];
 }
 
@@ -126,13 +112,59 @@
     }
 }
 
--(void)loadFacebookInformation{
+-(void)setUserInfo{
+    self.nameLabel.enabled = NO;
+    self.nameLabel.labeledIconButtonLayoutMode = RCSLabeledIconButtonLayoutModeReversed;
+    [self.nameLabel setTitleColor:[UIColor spreeOffBlack] forState:UIControlStateNormal];
+    self.nameLabel.titleLabel.font = [UIFont fontWithName:@"Lato-Regular" size:17];
+    self.nameLabel.imageView.contentMode = UIViewContentModeScaleAspectFit;
     
-    self.profileImageView.profileID = [PFUser currentUser][@"fbId"];
-
-    [[[FBSDKGraphRequest alloc] initWithGraphPath:@"/me?fields=name" parameters:nil] startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
-        self.nameLabel.text = result[@"name"];
+    
+    [[PFUser currentUser][@"campus"] fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error){
+        if ([[PFUser currentUser][@"emailVerified"] isEqualToNumber:[NSNumber numberWithBool:1]]){
+            if ([PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]){
+                self.profileImageView.profileID = [PFUser currentUser][@"fbId"];
+                [[[FBSDKGraphRequest alloc] initWithGraphPath:@"/me?fields=name" parameters:nil] startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+                    [self.nameLabel setTitle:result[@"name"] forState:UIControlStateNormal];
+                }];
+            } else {
+                [self.nameLabel setTitle:[PFUser currentUser][@"username"] forState:UIControlStateNormal];
+            }
+            
+            [self.nameLabel setImage:[UIImage imageNamed:@"verifiedStudent"] forState:UIControlStateNormal];
+        } else {
+            if ([PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]){
+                self.profileImageView.profileID = [PFUser currentUser][@"fbId"];
+                [[[FBSDKGraphRequest alloc] initWithGraphPath:@"/me?fields=name" parameters:nil] startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+                    [self.nameLabel setTitle:result[@"name"] forState:UIControlStateNormal];
+                }];
+            } else {
+                [self.nameLabel setTitle:[PFUser currentUser][@"username"] forState:UIControlStateNormal];
+            }
+        }
     }];
+    
+    if ([[PFUser currentUser][@"emailVerified"] isEqualToNumber:[NSNumber numberWithBool:1]]){
+        if ([PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]){
+            self.profileImageView.profileID = [PFUser currentUser][@"fbId"];
+            [[[FBSDKGraphRequest alloc] initWithGraphPath:@"/me?fields=name" parameters:nil] startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+                [self.nameLabel setTitle:result[@"name"] forState:UIControlStateNormal];
+            }];
+        } else {
+            [self.nameLabel setTitle:[PFUser currentUser][@"username"] forState:UIControlStateNormal];
+        }
+        
+        [self.nameLabel setImage:[UIImage imageNamed:@"verifiedStudent"] forState:UIControlStateNormal];
+    } else {
+        if ([PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]){
+            self.profileImageView.profileID = [PFUser currentUser][@"fbId"];
+            [[[FBSDKGraphRequest alloc] initWithGraphPath:@"/me?fields=name" parameters:nil] startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+                [self.nameLabel setTitle:result[@"name"] forState:UIControlStateNormal];
+            }];
+        } else {
+            [self.nameLabel setTitle:[PFUser currentUser][@"username"] forState:UIControlStateNormal];
+        }
+    }
 }
 
 #pragma mark - Table view data source
@@ -301,7 +333,16 @@
     self.profileImageView.layer.mask=circle;
 }
 
-
+- (void)setTitleLabel {
+    UILabel *titleLabel=[[UILabel alloc] initWithFrame:CGRectMake(0,0, 150, 40)];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    titleLabel.text= @"ME";
+    titleLabel.textColor=[UIColor spreeOffBlack];
+    titleLabel.font = [UIFont fontWithName:@"Lato-Bold" size: 17.0];
+    titleLabel.backgroundColor =[UIColor clearColor];
+    titleLabel.adjustsFontSizeToFitWidth=YES;
+    self.navigationItem.titleView=titleLabel;
+}
 
 
 @end

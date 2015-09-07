@@ -870,7 +870,6 @@ static BOOL PFObjectValueIsKindOfMutableContainerClass(id object) {
     PFParameterAssert(![className hasPrefix:@"_"], @"Invalid class name. Class names cannot start with an underscore.");
 }
 
-
 ///--------------------------------------
 #pragma mark - Serialization helpers
 ///--------------------------------------
@@ -1561,11 +1560,9 @@ static BOOL PFObjectValueIsKindOfMutableContainerClass(id object) {
 
 - (BFTask *)fetchAsync:(BFTask *)toAwait {
     PFCurrentUserController *controller = [[self class] currentUserController];
-    @weakify(self);
     return [[controller getCurrentUserSessionTokenAsync] continueWithBlock:^id(BFTask *task) {
         NSString *sessionToken = task.result;
         return [toAwait continueAsyncWithBlock:^id(BFTask *task) {
-            @strongify(self);
             return [[[self class] objectController] fetchObjectAsync:self withSessionToken:sessionToken];
         }];
     }];
@@ -1575,11 +1572,9 @@ static BOOL PFObjectValueIsKindOfMutableContainerClass(id object) {
     [self checkDeleteParams];
 
     PFCurrentUserController *controller = [[self class] currentUserController];
-    @weakify(self);
     return [[controller getCurrentUserSessionTokenAsync] continueWithBlock:^id(BFTask *task) {
         NSString *sessionToken = task.result;
         return [toAwait continueAsyncWithBlock:^id(BFTask *task) {
-            @strongify(self);
             return [[[self class] objectController] deleteObjectAsync:self withSessionToken:sessionToken];
         }];
     }];
@@ -2127,9 +2122,10 @@ static BOOL PFObjectValueIsKindOfMutableContainerClass(id object) {
 }
 
 - (BFTask *)fetchInBackground {
-    //TODO: (nlutsenko) Replace with an error?
-    @synchronized (lock) {
-        PFParameterAssert(self._state.objectId, @"Can't refresh an object that hasn't been saved to the server.");
+    if (!self._state.objectId) {
+        NSError *error = [PFErrorUtilities errorWithCode:kPFErrorMissingObjectId
+                                                 message:@"Can't refresh an object that hasn't been saved to the server."];
+        return [BFTask taskWithError:error];
     }
     return [self.taskQueue enqueue:^BFTask *(BFTask *toAwait) {
         return [self fetchAsync:toAwait];
@@ -2313,6 +2309,38 @@ static BOOL PFObjectValueIsKindOfMutableContainerClass(id object) {
         if ([self objectForKey:key]) {
             PFDeleteOperation *operation = [[PFDeleteOperation alloc] init];
             [self performOperation:operation forKey:key];
+        }
+    }
+}
+
+- (void)revert {
+    @synchronized (self.lock) {
+        if ([self isDirty]) {
+            NSMutableSet *persistentKeys = [NSMutableSet setWithArray:[self._state.serverData allKeys]];
+
+            PFOperationSet *unsavedChanges = [self unsavedChanges];
+            for (PFOperationSet *operationSet in operationSetQueue) {
+                if (operationSet != unsavedChanges) {
+                    [persistentKeys addObjectsFromArray:[operationSet.keyEnumerator allObjects]];
+                }
+            }
+
+            [unsavedChanges removeAllObjects];
+            [_availableKeys intersectSet:persistentKeys];
+
+            [self rebuildEstimatedData];
+            [self checkpointAllMutableContainers];
+        }
+    }
+}
+
+- (void)revertObjectForKey:(NSString *)key {
+    @synchronized (self.lock) {
+        if ([self isDirtyForKey:key]) {
+            [[self unsavedChanges] removeObjectForKey:key];
+            [self rebuildEstimatedData];
+            [_availableKeys removeObject:key];
+            [self checkpointAllMutableContainers];
         }
     }
 }
