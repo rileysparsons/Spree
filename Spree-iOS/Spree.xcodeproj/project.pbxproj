@@ -92,6 +92,7 @@
 		144D55751B4E11920003B752 /* Lato-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 144D556B1B4E11920003B752 /* Lato-LightItalic.ttf */; };
 		144D55761B4E11920003B752 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 144D556C1B4E11920003B752 /* Lato-Regular.ttf */; };
 		145B0AB31B9E1450002FD94E /* SpreePost.m in Sources */ = {isa = PBXBuildFile; fileRef = 145B0AB21B9E1450002FD94E /* SpreePost.m */; };
+		145B0AB81B9E1BFB002FD94E /* EDStarRating.m in Sources */ = {isa = PBXBuildFile; fileRef = 145B0AB71B9E1BFB002FD94E /* EDStarRating.m */; };
 		14820B6B1A40CA92008A1430 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14820B6A1A40CA92008A1430 /* MapKit.framework */; };
 		1491BBA41B336F38004F43CA /* ResultsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1491BBA31B336F38004F43CA /* ResultsTableViewController.m */; };
 		149787A21A49F0E40024437D /* UIColor+SpreeColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 149787A11A49F0E40024437D /* UIColor+SpreeColor.m */; };
@@ -149,7 +150,6 @@
 		F78600BD1AEB422100402B1F /* push.m in Sources */ = {isa = PBXBuildFile; fileRef = F78600B81AEB422100402B1F /* push.m */; };
 		F78600BE1AEB422100402B1F /* recent.m in Sources */ = {isa = PBXBuildFile; fileRef = F78600BA1AEB422100402B1F /* recent.m */; };
 		F78600BF1AEB422100402B1F /* common.m in Sources */ = {isa = PBXBuildFile; fileRef = F78600BC1AEB422100402B1F /* common.m */; };
-		F7A2A43B1AF47BAB00734749 /* EDStarRating.m in Sources */ = {isa = PBXBuildFile; fileRef = F7A2A43A1AF47BAB00734749 /* EDStarRating.m */; };
 		F7AFBB421AF4CC0A00D3148B /* FindBuyerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7AFBB411AF4CC0A00D3148B /* FindBuyerViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -309,6 +309,8 @@
 		144D556C1B4E11920003B752 /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Regular.ttf"; sourceTree = "<group>"; };
 		145B0AB11B9E1450002FD94E /* SpreePost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpreePost.h; sourceTree = "<group>"; };
 		145B0AB21B9E1450002FD94E /* SpreePost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpreePost.m; sourceTree = "<group>"; };
+		145B0AB61B9E1BFB002FD94E /* EDStarRating.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EDStarRating.h; path = EDStarRating/EDStarRating.h; sourceTree = "<group>"; };
+		145B0AB71B9E1BFB002FD94E /* EDStarRating.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EDStarRating.m; path = EDStarRating/EDStarRating.m; sourceTree = "<group>"; };
 		14820B6A1A40CA92008A1430 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		1491BBA21B336F38004F43CA /* ResultsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultsTableViewController.h; sourceTree = "<group>"; };
 		1491BBA31B336F38004F43CA /* ResultsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultsTableViewController.m; sourceTree = "<group>"; };
@@ -405,8 +407,6 @@
 		F78600BA1AEB422100402B1F /* recent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = recent.m; sourceTree = "<group>"; };
 		F78600BB1AEB422100402B1F /* common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
 		F78600BC1AEB422100402B1F /* common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = common.m; sourceTree = "<group>"; };
-		F7A2A4391AF47BAB00734749 /* EDStarRating.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDStarRating.h; sourceTree = "<group>"; };
-		F7A2A43A1AF47BAB00734749 /* EDStarRating.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDStarRating.m; sourceTree = "<group>"; };
 		F7AFBB401AF4CC0A00D3148B /* FindBuyerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindBuyerViewController.h; sourceTree = "<group>"; };
 		F7AFBB411AF4CC0A00D3148B /* FindBuyerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindBuyerViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -874,19 +874,11 @@
 			name = Utilities;
 			sourceTree = "<group>";
 		};
-		F7A2A4381AF47BAB00734749 /* EDStarRating */ = {
-			isa = PBXGroup;
-			children = (
-				F7A2A4391AF47BAB00734749 /* EDStarRating.h */,
-				F7A2A43A1AF47BAB00734749 /* EDStarRating.m */,
-			);
-			name = EDStarRating;
-			path = ../EDStarRating;
-			sourceTree = "<group>";
-		};
 		F7AFBB431AF4CC2B00D3148B /* Rating */ = {
 			isa = PBXGroup;
 			children = (
+				145B0AB61B9E1BFB002FD94E /* EDStarRating.h */,
+				145B0AB71B9E1BFB002FD94E /* EDStarRating.m */,
 				F7AFBB401AF4CC0A00D3148B /* FindBuyerViewController.h */,
 				F7AFBB411AF4CC0A00D3148B /* FindBuyerViewController.m */,
 				F76258E91AF2044E003B67D4 /* RatingViewController.h */,
@@ -899,7 +891,6 @@
 			isa = PBXGroup;
 			children = (
 				4E0E81FE1B40DC0200E18975 /* RTWalkthrough */,
-				F7A2A4381AF47BAB00734749 /* EDStarRating */,
 			);
 			name = "Open Source";
 			sourceTree = "<group>";
@@ -1119,7 +1110,6 @@
 				141AECBA1B8A886E00F0012B /* PreviewPostViewController.m in Sources */,
 				149787A21A49F0E40024437D /* UIColor+SpreeColor.m in Sources */,
 				140CF8D91A3BBFB200134C4D /* main.m in Sources */,
-				F7A2A43B1AF47BAB00734749 /* EDStarRating.m in Sources */,
 				141524561B4070E5007EE405 /* PostTypeSelectionTableViewCell.m in Sources */,
 				142CB05D1B5236F500969066 /* AddPhotoHeaderView.m in Sources */,
 				F7715E971AEBFEA7005DDEFF /* MessagingTableViewCell.m in Sources */,
@@ -1158,6 +1148,7 @@
 				14423CD51B8E8F68002CB026 /* PostShareView.m in Sources */,
 				CFFEE9291B0487BF002CD29A /* MeetUpViewController.m in Sources */,
 				14423CDF1B8FCD64002CB026 /* EditPostingNumberEntryViewController.m in Sources */,
+				145B0AB81B9E1BFB002FD94E /* EDStarRating.m in Sources */,
 				14CAB3C91B5C34D10081979C /* BasicInfoTableViewCell.m in Sources */,
 				143D91F41B6E7A5200E2F493 /* BaseOnboardingViewController.m in Sources */,
 				14E66B971A452653008184C1 /* PostTableViewCell.m in Sources */,
