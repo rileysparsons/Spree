@@ -1,0 +1,23 @@
+{
+  "images" : [
+    {
+      "idiom" : "universal",
+      "scale" : "1x",
+      "filename" : "sellQuicklyGraphic.pdf"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x",
+      "filename" : "sellQuicklyGraphic@2x.png"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x",
+      "filename" : "sellQuicklyGraphic@3x.png"
+    }
+  ],
+  "info" : {
+    "version" : 1,
+    "author" : "xcode"
+  }
+}
