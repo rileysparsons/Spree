@@ -1,0 +1,14 @@
+{
+    "applications": {
+        "Spree": {
+            "applicationId": "F2jyNwFtpy0O9ufRLxBnMQWRtGQju6kV0JEbUZlf", 
+            "masterKey": "elwswcFCdeDrK7oP0GYFhHj6yTm82lcZuHkBWfvk"
+        }, 
+        "_default": {
+            "link": "Spree"
+        }
+    }, 
+    "global": {
+        "parseVersion": "1.4.2"
+    }
+}

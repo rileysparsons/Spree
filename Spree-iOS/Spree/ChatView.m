@@ -9,7 +9,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "PostDetailViewController.h"
 #import "UIColor+SpreeColor.h"
 #import "MeetUpViewController.h"
 

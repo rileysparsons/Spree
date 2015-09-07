@@ -11,7 +11,6 @@
 #import "RTWalkthroughViewController.h"
 #import "PostTableViewCell.h"
 #import "SpreePost.h"
-#import "PostDetailViewController.h"
 #import "RatingViewController.h"
 #import "AppDelegate.h"
 #import "AppConstant.h"

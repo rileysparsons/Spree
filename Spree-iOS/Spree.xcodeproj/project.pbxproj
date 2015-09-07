@@ -122,7 +122,6 @@
 		14CE47241B6AF41E004FA4D1 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14CE47231B6AF41E004FA4D1 /* HomeViewController.m */; };
 		14E66B971A452653008184C1 /* PostTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E66B951A452653008184C1 /* PostTableViewCell.m */; };
 		14E66B981A452653008184C1 /* PostTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14E66B961A452653008184C1 /* PostTableViewCell.xib */; };
-		14E66B9B1A45ECFF008184C1 /* PostDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E66B9A1A45ECFF008184C1 /* PostDetailViewController.m */; };
 		14EFDAE71A89EC4F007510CC /* TextViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14EFDAE61A89EC4F007510CC /* TextViewViewController.m */; };
 		14F739BF1B783D4800E60619 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F739BE1B783D4800E60619 /* SettingsViewController.m */; };
 		14FD56E01B2CF6170086A2AE /* PostTitleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14FD56DE1B2CF6170086A2AE /* PostTitleTableViewCell.m */; };
@@ -360,13 +359,10 @@
 		14E66B941A452653008184C1 /* PostTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostTableViewCell.h; sourceTree = "<group>"; };
 		14E66B951A452653008184C1 /* PostTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostTableViewCell.m; sourceTree = "<group>"; };
 		14E66B961A452653008184C1 /* PostTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostTableViewCell.xib; sourceTree = "<group>"; };
-		14E66B991A45ECFF008184C1 /* PostDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostDetailViewController.h; sourceTree = "<group>"; };
-		14E66B9A1A45ECFF008184C1 /* PostDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostDetailViewController.m; sourceTree = "<group>"; };
 		14EFDAE51A89EC4F007510CC /* TextViewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextViewViewController.h; sourceTree = "<group>"; };
 		14EFDAE61A89EC4F007510CC /* TextViewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextViewViewController.m; sourceTree = "<group>"; };
 		14F739BD1B783D4800E60619 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		14F739BE1B783D4800E60619 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
-		14FA9D161A436B9200E405EC /* 37x-Checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "37x-Checkmark.png"; sourceTree = "<group>"; };
 		14FD56DD1B2CF6170086A2AE /* PostTitleTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostTitleTableViewCell.h; sourceTree = "<group>"; };
 		14FD56DE1B2CF6170086A2AE /* PostTitleTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostTitleTableViewCell.m; sourceTree = "<group>"; };
 		14FD56DF1B2CF6170086A2AE /* PostTitleTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostTitleTableViewCell.xib; sourceTree = "<group>"; };
@@ -488,7 +484,6 @@
 				140CF8E31A3BBFB200134C4D /* Main.storyboard */,
 				143D91F01B6E717D00E2F493 /* Walkthrough.storyboard */,
 				140CF8E81A3BBFB200134C4D /* LaunchScreen.xib */,
-				14FA9D161A436B9200E405EC /* 37x-Checkmark.png */,
 				F7715E9C1AEC24E4005DDEFF /* Categories */,
 				14C821431B2CF9DB00A1B513 /* Parse Subclasses */,
 				140CF8D61A3BBFB200134C4D /* Supporting Files */,
@@ -726,8 +721,6 @@
 				14423CE41B8FE3EF002CB026 /* EditPostViewController.m */,
 				14C38DA01B27F3BA0039862E /* PostDetailTableViewController.h */,
 				14C38DA11B27F3BA0039862E /* PostDetailTableViewController.m */,
-				14E66B991A45ECFF008184C1 /* PostDetailViewController.h */,
-				14E66B9A1A45ECFF008184C1 /* PostDetailViewController.m */,
 			);
 			name = "Post Detail";
 			sourceTree = "<group>";
@@ -1166,7 +1159,6 @@
 				CFFEE9291B0487BF002CD29A /* MeetUpViewController.m in Sources */,
 				14423CDF1B8FCD64002CB026 /* EditPostingNumberEntryViewController.m in Sources */,
 				14CAB3C91B5C34D10081979C /* BasicInfoTableViewCell.m in Sources */,
-				14E66B9B1A45ECFF008184C1 /* PostDetailViewController.m in Sources */,
 				143D91F41B6E7A5200E2F493 /* BaseOnboardingViewController.m in Sources */,
 				14E66B971A452653008184C1 /* PostTableViewCell.m in Sources */,
 				14CE471F1B6AF02A004FA4D1 /* HomeHeaderView.m in Sources */,
