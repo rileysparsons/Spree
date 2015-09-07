@@ -9,6 +9,7 @@
 #import "LoginPasswordViewController.h"
 #import "AppDelegate.h"
 #import "PostTableViewController.h"
+#import <MBProgressHUD/MBProgressHUD.h>
 
 @interface LoginPasswordViewController ()
 
@@ -55,19 +56,28 @@
 }
 
 - (void)nextButtonTouched{
+    
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
     if (!self.userIsNew){
         if ([self.delegate logInViewController:self shouldBeginLogInWithPassword:self.textField.text]){
             NSLog(@"%@", self.user.username);
             [PFUser logInWithUsernameInBackground:self.user.username password:self.textField.text block:^(PFUser *user, NSError *error)
              {
                  if (!error){
-                     NSLog(@"login");
+                     hud.labelText = @"Success!";
                      [self.delegate logInViewController:self didLogInUser:user];
                  } else  {
+                     hud.labelText = @"Something went wrong";
+                     hud.detailsLabelText = @"That didn't look like the right password. Try again.";
                      [self.delegate logInViewController:self didFailToLogInWithError:error];
                  }
+                 [hud hide:YES afterDelay:0.5];
              }];
         } else {
+            hud.labelText = @"Something went wrong";
+            hud.detailsLabelText = @"Are you sure you entered a password?";
+            [hud hide:YES afterDelay:0.5f];
             [self shakeAnimation:self.textField];
         }
     } else {
@@ -79,8 +89,11 @@
                 } else  {
                     [self.delegate signupViewController:self didFailToSignUpWithError:error];
                 }
+                [hud hide:YES afterDelay:0.5f];
             }];
         } else {
+            hud.labelText = @"Try again";
+            [hud hide:YES afterDelay:0.5f];
             [self shakeAnimation:self.textField];
         }
     }
