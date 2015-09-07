@@ -23,16 +23,31 @@
     self.textField.secureTextEntry = YES;
     self.textField.returnKeyType = UIReturnKeyGo;
     
+    
 //    [self.textField addRightButtonOnKeyboardWithText:@"Next" target:self action:@selector(nextBarButtonItemTouched :) shouldShowPlaceholder:YES];
     // Do any additional setup after loading the view.
 }
 
 -(void)viewWillAppear:(BOOL)animated{
+    
+    UILabel *titleView =[[UILabel alloc] initWithFrame:CGRectMake(0,0, 150, 40)];
+    titleView.textAlignment = NSTextAlignmentCenter;
+    titleView.textColor=[UIColor spreeOffBlack];
+    titleView.font = [UIFont fontWithName:@"Lato-Regular" size: 18.0];
+    titleView.backgroundColor =[UIColor clearColor];
+    titleView.adjustsFontSizeToFitWidth=YES;
+    
     if(self.userIsNew){
         self.promptLabel.text = @"Great, now enter a password.";
+        titleView.text = @"Sign up";
+        
     } else {
         self.promptLabel.text = @"Great, now enter your password.";
+        titleView.text = @"Log in";
     }
+    
+    
+    self.navigationItem.titleView = titleView;
 }
 
 -(void)backButtonTouched{
