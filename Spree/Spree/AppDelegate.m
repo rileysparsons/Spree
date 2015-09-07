@@ -8,7 +8,6 @@
 
 #import "AppDelegate.h"
 #import "BrowseViewController.h"
-#import "ModalPostDetailViewController.h"
 #import "FinalOnboardingViewController.h"
 #import "RTWalkthroughViewController.h"
 #import "RTWalkthroughPageViewController.h"
@@ -21,7 +20,6 @@
 #import "Branch.h"
 #import "PostDetailTableViewController.h"
 #import "SpreeConfigManager.h"
-
 #import <Accelerate/Accelerate.h>
 
 @interface AppDelegate () <RTWalkthroughViewControllerDelegate>
@@ -87,11 +85,15 @@
                 
                 UITabBarController *tabBarController =  (UITabBarController *)self.window.rootViewController;
                 
-                ModalPostDetailViewController *postDetailTableViewController = [storyboard instantiateViewControllerWithIdentifier:@"ModalPostDetail"];
+                UINavigationController *homeNavigationController = [[tabBarController viewControllers] objectAtIndex:SpreeCampusTabBarItemIndex];
+                
+                [tabBarController setSelectedViewController:homeNavigationController];
+                
+                PostDetailTableViewController *postDetailTableViewController = [storyboard instantiateViewControllerWithIdentifier:@"PostDetail"];
+                
                 [postDetailTableViewController initializeWithObjectId:params[@"object id"]];
-                UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:postDetailTableViewController];
 
-                [tabBarController presentViewController:navController animated:YES completion:nil];
+                [homeNavigationController pushViewController:postDetailTableViewController animated:YES ];
                 
                 
                 //            [self.window.rootViewController.navigationController presentViewController:postDetailTableViewController animated:YES completion:nil];

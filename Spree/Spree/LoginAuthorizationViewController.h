@@ -8,12 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import "LoginWorkflow.h"
 
 @protocol LoginAuthorizationViewControllerDelegate;
 
 
-@interface LoginAuthorizationViewController : UIViewController <UITextFieldDelegate>
-
+@interface LoginAuthorizationViewController : UIViewController <UITextFieldDelegate, LoginWorkflowDelegate>
 
 
 @property (weak, nonatomic) IBOutlet FBSDKProfilePictureView *profileImageView;

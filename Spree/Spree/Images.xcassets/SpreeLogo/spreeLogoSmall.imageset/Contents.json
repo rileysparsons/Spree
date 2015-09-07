@@ -14,12 +14,6 @@
       "idiom" : "universal",
       "scale" : "3x",
       "filename" : "spreeLogoSmall@3x.png"
-    },
-    {
-      "idiom" : "universal",
-      "filename" : "spreeLogoSmall.png",
-      "unassigned" : true,
-      "scale" : "1x"
     }
   ],
   "info" : {

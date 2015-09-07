@@ -9,6 +9,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+typedef enum {
+    SpreeCampusTabBarItemIndex = 0,
+    SpreeBrowseTabBarItemIndex = 1,
+    SpreeNotificationTabBarItemIndex = 2,
+    SpreeMeTabBarItemIndex = 3
+} SpreeTabBarControllerViewControllerIndex;
+
 #define HEXCOLOR(c) [UIColor colorWithRed:((c>>24)&0xFF)/255.0 green:((c>>16)&0xFF)/255.0 blue:((c>>8)&0xFF)/255.0 alpha:((c)&0xFF)/255.0]
 
 #define		DEFAULT_TAB							3

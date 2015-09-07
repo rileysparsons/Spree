@@ -45,7 +45,6 @@
 		141AECC01B8CDD6100F0012B /* EditPostingLocationEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 141AECBF1B8CDD6100F0012B /* EditPostingLocationEntryViewController.m */; };
 		141AECC41B8D14E200F0012B /* PostMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 141AECC21B8D14E200F0012B /* PostMessageTableViewCell.m */; };
 		141AECC51B8D14E200F0012B /* PostMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 141AECC31B8D14E200F0012B /* PostMessageTableViewCell.xib */; };
-		141E2E281B9A5B2A00AD74A5 /* ModalPostDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 141E2E271B9A5B2A00AD74A5 /* ModalPostDetailViewController.m */; };
 		142CB04F1B51A0C900969066 /* SelectPostSubTypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 142CB04E1B51A0C900969066 /* SelectPostSubTypeViewController.m */; };
 		142CB0521B51B76800969066 /* SelectPostTypeHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 142CB0511B51B76800969066 /* SelectPostTypeHeaderView.m */; };
 		142CB0581B52351400969066 /* PostPhotoSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 142CB0571B52351400969066 /* PostPhotoSelectViewController.m */; };
@@ -238,8 +237,6 @@
 		141AECC11B8D14E200F0012B /* PostMessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostMessageTableViewCell.h; sourceTree = "<group>"; };
 		141AECC21B8D14E200F0012B /* PostMessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostMessageTableViewCell.m; sourceTree = "<group>"; };
 		141AECC31B8D14E200F0012B /* PostMessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostMessageTableViewCell.xib; sourceTree = "<group>"; };
-		141E2E261B9A5B2A00AD74A5 /* ModalPostDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModalPostDetailViewController.h; sourceTree = "<group>"; };
-		141E2E271B9A5B2A00AD74A5 /* ModalPostDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModalPostDetailViewController.m; sourceTree = "<group>"; };
 		142CB04D1B51A0C900969066 /* SelectPostSubTypeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectPostSubTypeViewController.h; sourceTree = "<group>"; };
 		142CB04E1B51A0C900969066 /* SelectPostSubTypeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectPostSubTypeViewController.m; sourceTree = "<group>"; };
 		142CB0501B51B76800969066 /* SelectPostTypeHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectPostTypeHeaderView.h; sourceTree = "<group>"; };
@@ -569,8 +566,6 @@
 		140CF91A1A3F755B00134C4D /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				141E2E261B9A5B2A00AD74A5 /* ModalPostDetailViewController.h */,
-				141E2E271B9A5B2A00AD74A5 /* ModalPostDetailViewController.m */,
 				14B934831B76C6B600DDA5EB /* LoginAuthorizationViewController.h */,
 				143D91E91B6DFE7500E2F493 /* LoginAuthorizationViewController.m */,
 				143D91DC1B6DF9AC00E2F493 /* LoginEmailViewController.h */,
@@ -1129,7 +1124,6 @@
 				143D91E71B6DFDAC00E2F493 /* LoginCampusTableViewController.m in Sources */,
 				141AECBA1B8A886E00F0012B /* PreviewPostViewController.m in Sources */,
 				149787A21A49F0E40024437D /* UIColor+SpreeColor.m in Sources */,
-				141E2E281B9A5B2A00AD74A5 /* ModalPostDetailViewController.m in Sources */,
 				140CF8D91A3BBFB200134C4D /* main.m in Sources */,
 				F7A2A43B1AF47BAB00734749 /* EDStarRating.m in Sources */,
 				141524561B4070E5007EE405 /* PostTypeSelectionTableViewCell.m in Sources */,
