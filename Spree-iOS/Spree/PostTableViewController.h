@@ -1,5 +1,5 @@
 //
-//  AllPostsTableViewController.h
+//  PostDetailTableViewController.h
 //  
 //
 //  Created by Riley Steele Parsons on 3/20/15.

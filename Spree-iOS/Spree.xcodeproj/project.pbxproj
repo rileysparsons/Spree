@@ -91,7 +91,7 @@
 		144D55741B4E11920003B752 /* Lato-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 144D556A1B4E11920003B752 /* Lato-Light.ttf */; };
 		144D55751B4E11920003B752 /* Lato-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 144D556B1B4E11920003B752 /* Lato-LightItalic.ttf */; };
 		144D55761B4E11920003B752 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 144D556C1B4E11920003B752 /* Lato-Regular.ttf */; };
-		1473C2EB1A8AE0DA00249CFD /* SpreePost.m in Sources */ = {isa = PBXBuildFile; fileRef = 1473C2EA1A8AE0DA00249CFD /* SpreePost.m */; };
+		145B0AB31B9E1450002FD94E /* SpreePost.m in Sources */ = {isa = PBXBuildFile; fileRef = 145B0AB21B9E1450002FD94E /* SpreePost.m */; };
 		14820B6B1A40CA92008A1430 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14820B6A1A40CA92008A1430 /* MapKit.framework */; };
 		1491BBA41B336F38004F43CA /* ResultsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1491BBA31B336F38004F43CA /* ResultsTableViewController.m */; };
 		149787A21A49F0E40024437D /* UIColor+SpreeColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 149787A11A49F0E40024437D /* UIColor+SpreeColor.m */; };
@@ -308,8 +308,8 @@
 		144D556A1B4E11920003B752 /* Lato-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Light.ttf"; sourceTree = "<group>"; };
 		144D556B1B4E11920003B752 /* Lato-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-LightItalic.ttf"; sourceTree = "<group>"; };
 		144D556C1B4E11920003B752 /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Regular.ttf"; sourceTree = "<group>"; };
-		1473C2E91A8AE0DA00249CFD /* SpreePost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpreePost.h; sourceTree = SOURCE_ROOT; };
-		1473C2EA1A8AE0DA00249CFD /* SpreePost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpreePost.m; sourceTree = SOURCE_ROOT; };
+		145B0AB11B9E1450002FD94E /* SpreePost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpreePost.h; sourceTree = "<group>"; };
+		145B0AB21B9E1450002FD94E /* SpreePost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpreePost.m; sourceTree = "<group>"; };
 		14820B6A1A40CA92008A1430 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		1491BBA21B336F38004F43CA /* ResultsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultsTableViewController.h; sourceTree = "<group>"; };
 		1491BBA31B336F38004F43CA /* ResultsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultsTableViewController.m; sourceTree = "<group>"; };
@@ -735,8 +735,8 @@
 		14C821431B2CF9DB00A1B513 /* Parse Subclasses */ = {
 			isa = PBXGroup;
 			children = (
-				1473C2E91A8AE0DA00249CFD /* SpreePost.h */,
-				1473C2EA1A8AE0DA00249CFD /* SpreePost.m */,
+				145B0AB11B9E1450002FD94E /* SpreePost.h */,
+				145B0AB21B9E1450002FD94E /* SpreePost.m */,
 			);
 			name = "Parse Subclasses";
 			sourceTree = "<group>";
@@ -1102,6 +1102,7 @@
 				143D91EA1B6DFE7500E2F493 /* LoginAuthorizationViewController.m in Sources */,
 				4ECA453F1B48E0EB006C33FC /* ContactUsViewController.m in Sources */,
 				143D91DB1B6DF7D900E2F493 /* FinalOnboardingViewController.m in Sources */,
+				145B0AB31B9E1450002FD94E /* SpreePost.m in Sources */,
 				14CAB3D71B5C685D0081979C /* EditPostPhotoSelectViewController.m in Sources */,
 				1415245D1B4084D2007EE405 /* PostingStringEntryViewController.m in Sources */,
 				1404739D1ABD308D00C0F8EF /* PostTypeTableViewController.m in Sources */,
@@ -1170,7 +1171,6 @@
 				14E66B971A452653008184C1 /* PostTableViewCell.m in Sources */,
 				14CE471F1B6AF02A004FA4D1 /* HomeHeaderView.m in Sources */,
 				142CB0521B51B76800969066 /* SelectPostTypeHeaderView.m in Sources */,
-				1473C2EB1A8AE0DA00249CFD /* SpreePost.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
