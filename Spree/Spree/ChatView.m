@@ -11,7 +11,6 @@
 
 #import "PostDetailViewController.h"
 #import "UIColor+SpreeColor.h"
-#import "WSCoachMarksView.h"
 #import "MeetUpViewController.h"
 
 #import "common.h"

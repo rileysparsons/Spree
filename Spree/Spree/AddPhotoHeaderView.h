@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface AddPhotoHeaderView : UIView
+
+@property AddPhotoHeaderView *customView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 
 @end

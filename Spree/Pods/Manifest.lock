@@ -49,10 +49,7 @@ PODS:
   - PureLayout (2.0.6)
   - RCSLabeledIconButton (1.0)
   - SAMTextView (0.2.2)
-  - STCollapseTableView (0.1.1)
   - TPKeyboardAvoiding (1.2.9)
-  - WSCoachMarksView (0.2)
-  - YHRoundBorderedButton (0.1.0)
 
 DEPENDENCIES:
   - Branch
@@ -71,10 +68,7 @@ DEPENDENCIES:
   - ParseUI
   - RCSLabeledIconButton
   - SAMTextView
-  - STCollapseTableView
   - TPKeyboardAvoiding
-  - WSCoachMarksView (~> 0.2)
-  - YHRoundBorderedButton
 
 EXTERNAL SOURCES:
   JSQMessagesViewController:
@@ -105,9 +99,6 @@ SPEC CHECKSUMS:
   PureLayout: f25f0bb904d5ccfe6e31da3cb869185259f02e0d
   RCSLabeledIconButton: db3351c731645016217e591f4a8a835c6524d277
   SAMTextView: 979c43bb1fa5859ddfbfeb35e9c296a2b0ec55fd
-  STCollapseTableView: edd40eacf9411ce862da921f83e0b7b1680fac4d
   TPKeyboardAvoiding: ff1ee4e5a5a0c119b965552af8f183868ea20207
-  WSCoachMarksView: d1653c058c8289a300ddf28af9dd49eb659c9c42
-  YHRoundBorderedButton: 2180f04094db264cace8db88eae977d78a3b4633
 
 COCOAPODS: 0.37.2

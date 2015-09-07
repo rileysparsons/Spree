@@ -8,7 +8,6 @@
 
 #import "EditPostPhotoSelectViewController.h"
 #import "PreviewPostViewController.h"
-#import <YHRoundBorderedButton/YHRoundBorderedButton.h>
 
 @interface EditPostPhotoSelectViewController ()
 
@@ -31,13 +30,13 @@
 -(void)navigationBarButtons{
     [super navigationBarButtons];
     
-    UIButton *doneButton = [[YHRoundBorderedButton alloc] init];
+    UIButton *doneButton = [[UIButton alloc] init];
     [doneButton setTitle:@"Done" forState:UIControlStateNormal];
     [doneButton addTarget:self action:@selector(doneWithEdit:) forControlEvents:UIControlEventTouchUpInside];
     [doneButton sizeToFit];
-    [doneButton.titleLabel setFont:[UIFont fontWithName:@"Lato-Regular" size:16]];
+    [doneButton.titleLabel setFont:[UIFont fontWithName:@"Lato-Bold" size:16]];
     [doneButton setTintColor:[UIColor spreeDarkBlue]];
-    [doneButton setTitleColor:[UIColor spreeOffWhite] forState:UIControlStateHighlighted];
+    [doneButton setTitleColor:[UIColor spreeDarkBlue] forState:UIControlStateNormal];
     
     UIBarButtonItem *countBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:super.countBarButton];
     

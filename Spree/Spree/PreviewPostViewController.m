@@ -19,7 +19,6 @@
 #import "PostMapTableViewCell.h"
 #import "EditPostPhotoSelectViewController.h"
 #import "PostPhotoSelectViewController.h"
-#import <YHRoundBorderedButton/YHRoundBorderedButton.h>
 #import "AddPhotoHeaderView.h"
 
 @interface PreviewPostViewController ()
@@ -76,18 +75,8 @@
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     if (section == 0){
-        UIView * topHeader = [self.tableView headerViewForSection:0];
-        AddPhotoHeaderView *custom =[[AddPhotoHeaderView alloc] init];
-        if (topHeader == nil){
-            NSArray *nibFiles = [[NSBundle mainBundle] loadNibNamed:@"AddPhotoHeaderView" owner:self options:nil];
-            for(id currentObject in nibFiles){
-                if ([currentObject isKindOfClass:[AddPhotoHeaderView class]]){
-                    custom = currentObject;
-                    custom.titleLabel.text = @"Everything look OK?";
-                    break;
-                }
-            }
-        }
+        AddPhotoHeaderView *custom =[[AddPhotoHeaderView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 150)];
+        custom.titleLabel.text = @"Everything look OK?";
         return custom;
     }
     return 0;
@@ -144,6 +133,7 @@
                 if (error){
                     NSLog(@"Failed to post with reason: %@", error);
                 } else {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloadTable" object:nil];
                     [self dismissViewControllerAnimated:YES completion:nil];
                 }
             }];

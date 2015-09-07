@@ -156,27 +156,9 @@
 #define COCOAPODS_VERSION_MINOR_SAMTextView 2
 #define COCOAPODS_VERSION_PATCH_SAMTextView 2
 
-// STCollapseTableView
-#define COCOAPODS_POD_AVAILABLE_STCollapseTableView
-#define COCOAPODS_VERSION_MAJOR_STCollapseTableView 0
-#define COCOAPODS_VERSION_MINOR_STCollapseTableView 1
-#define COCOAPODS_VERSION_PATCH_STCollapseTableView 1
-
 // TPKeyboardAvoiding
 #define COCOAPODS_POD_AVAILABLE_TPKeyboardAvoiding
 #define COCOAPODS_VERSION_MAJOR_TPKeyboardAvoiding 1
 #define COCOAPODS_VERSION_MINOR_TPKeyboardAvoiding 2
 #define COCOAPODS_VERSION_PATCH_TPKeyboardAvoiding 9
-
-// WSCoachMarksView
-#define COCOAPODS_POD_AVAILABLE_WSCoachMarksView
-#define COCOAPODS_VERSION_MAJOR_WSCoachMarksView 0
-#define COCOAPODS_VERSION_MINOR_WSCoachMarksView 2
-#define COCOAPODS_VERSION_PATCH_WSCoachMarksView 0
-
-// YHRoundBorderedButton
-#define COCOAPODS_POD_AVAILABLE_YHRoundBorderedButton
-#define COCOAPODS_VERSION_MAJOR_YHRoundBorderedButton 0
-#define COCOAPODS_VERSION_MINOR_YHRoundBorderedButton 1
-#define COCOAPODS_VERSION_PATCH_YHRoundBorderedButton 0
 

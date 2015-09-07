@@ -7,7 +7,6 @@
 //
 
 #import "PostingStringEntryViewController.h"
-#import "YHRoundBorderedButton.h"
 
 
 @interface PostingStringEntryViewController (){

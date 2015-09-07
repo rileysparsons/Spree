@@ -8,7 +8,6 @@
 
 #import "PostDetailViewController.h"
 #import "UIColor+SpreeColor.h"
-#import "WSCoachMarksView.h"
 #import "ChatView.h"
 
 #import "common.h"
@@ -18,7 +17,7 @@
 
 
 @interface PostDetailViewController () {
-    WSCoachMarksView *coachMarksView;
+
 }
 
 @property (nonatomic, strong) NSArray *pageImages;
@@ -161,8 +160,6 @@
 
     }
 
-    [self addCoachMarks];
-
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(popViewControllerAnimated)
                                                  name:@"UserRated"
@@ -182,36 +179,6 @@
 
     [self.postScrollView setContentOffset:CGPointMake(0, -5) animated:YES];
     
-    // Show coach marks
-    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"MessageCoachMarksShown"];
-    NSLog(@"%@ %@", self.detailPost.user.objectId, [PFUser currentUser].objectId);
-    if (coachMarksShown == NO && ![self.detailPost.user.objectId isEqualToString:[PFUser currentUser].objectId]) {
-        // Don't show again
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"MessageCoachMarksShown"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-
-        // Or show coach marks after a second delay
-         [coachMarksView performSelector:@selector(start) withObject:nil afterDelay:2.0f];
-    }
-}
-
-
--(void)viewWillDisappear:(BOOL)animated{
-    [NSObject cancelPreviousPerformRequestsWithTarget:coachMarksView selector:@selector(start) object:nil];
-}
-
--(void)addCoachMarks{
-    NSArray *coachMarks = @[
-                            @{
-                                @"rect": [NSValue valueWithCGRect:(CGRect){{self.view.frame.size.width - (self.purchaseButton.frame.size.width + 11), 68},{self.purchaseButton.frame.size.width+6, 39}}],
-                                @"caption": @"Interested? Contact the seller here."
-                                }
-                            ];
-    coachMarksView = [[WSCoachMarksView alloc] initWithFrame:self.tabBarController.view.bounds coachMarks:coachMarks];
-    [self.tabBarController.view addSubview:coachMarksView];
-    coachMarksView.maskColor = [UIColor colorWithWhite:1 alpha:.95];
-    coachMarksView.lblCaption.textColor = [UIColor spreeBabyBlue];
-    coachMarksView.lblCaption.font = [UIFont fontWithName:@"EuphemiaUCAS-Bold" size:24];
 }
 
 -(void)setupAdminBar{

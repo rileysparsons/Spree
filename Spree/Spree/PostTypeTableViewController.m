@@ -9,10 +9,8 @@
 #import "PostTypeTableViewController.h"
 #import "ResultsTableViewController.h"
 #import "UIColor+SpreeColor.h"
-#import "WSCoachMarksView.h"
 
 @interface PostTypeTableViewController () <UISearchControllerDelegate, UITableViewDataSource, UITableViewDelegate, UISearchResultsUpdating, UISearchBarDelegate>{
-    WSCoachMarksView *coachMarksView;
 }
 
 // Search
@@ -84,20 +82,8 @@
     // hierarchy until it finds the root view controller or one that defines a presentation context.
     //
     self.definesPresentationContext = YES;  // know where you want UISearchController to be displayed
-
-
-    [self addCoachMarks];
 }
 -(void)viewWillAppear:(BOOL)animated{
-    // Show coach marks
-    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"WSCoachMarksShownForCompose"];
-    if (coachMarksShown == NO) {
-        // Don't show again
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"WSCoachMarksShownForCompose"];
-        [[NSUserDefaults standardUserDefaults] synchronize];\
-        // Or show coach marks after a second delay
-        [coachMarksView performSelector:@selector(start) withObject:nil afterDelay:1.0f];
-    }
     
     // restore the searchController's active state
     if (self.searchControllerWasActive) {
@@ -109,20 +95,6 @@
             _searchControllerSearchFieldWasFirstResponder = NO;
         }
     }
-}
-
--(void)addCoachMarks{
-    NSArray *coachMarks = @[
-                            @{
-                                @"rect": [NSValue valueWithCGRect:(CGRect){{self.view.frame.size.width -45, 25},{35, 35}}],
-                                @"caption": @"Post something on Spree!"
-                                }
-                            ];
-    coachMarksView = [[WSCoachMarksView alloc] initWithFrame:self.tabBarController.view.bounds coachMarks:coachMarks];
-    [self.tabBarController.view addSubview:coachMarksView];
-    coachMarksView.maskColor = [UIColor colorWithWhite:1 alpha:.95];
-    coachMarksView.lblCaption.textColor = [UIColor spreeBabyBlue];
-    coachMarksView.lblCaption.font = [UIFont fontWithName:@"EuphemiaUCAS-Bold" size:24];
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

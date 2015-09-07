@@ -7,7 +7,6 @@
 //
 
 #import "ChooseTypeTableViewController.h"
-#import "WSCoachMarksView.h"
 #import "MSCellAccessory.h"
 #import "ChosenTypeTableViewCell.h"
 

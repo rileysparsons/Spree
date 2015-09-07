@@ -11,7 +11,6 @@
 #import "PhotoSelectFooterView.h"
 #import "AddPhotoHeaderView.h"
 #import "UIColor+SpreeColor.h"
-#import <YHRoundBorderedButton/YHRoundBorderedButton.h>
 #import <CTAssetsPickerController/CTAssetsPickerController.h>
 
 @interface PostPhotoSelectViewController () <CTAssetsPickerControllerDelegate, UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
@@ -46,13 +45,14 @@ int currentPhotoCount = 0;
     
     UIBarButtonItem *countBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.countBarButton];
     
-    UIButton *nextButton = [[YHRoundBorderedButton alloc] init];
+    UIButton *nextButton = [[UIButton alloc] init];
     [nextButton setTitle:@"Next" forState:UIControlStateNormal];
     [nextButton addTarget:self action:@selector(nextBarButtonItemTouched:) forControlEvents:UIControlEventTouchUpInside];
     [nextButton sizeToFit];
-    [nextButton.titleLabel setFont:[UIFont fontWithName:@"Lato-Regular" size:16]];
+    [nextButton.titleLabel setFont:[UIFont fontWithName:@"Lato-Bold" size:16]];
     [nextButton setTintColor:[UIColor spreeDarkBlue]];
-    [nextButton setTitleColor:[UIColor spreeOffWhite] forState:UIControlStateHighlighted];
+    [nextButton setTitleColor:[UIColor spreeDarkBlue] forState:UIControlStateNormal];
+    [nextButton setTitleColor:[UIColor spreeDarkYellow] forState:UIControlStateHighlighted];
     
     [self.navigationItem setRightBarButtonItems:@[[[UIBarButtonItem alloc] initWithCustomView:nextButton], countBarButtonItem] animated:YES];
 }
@@ -85,16 +85,8 @@ int currentPhotoCount = 0;
     self.automaticallyAdjustsScrollViewInsets=NO;
     
     [self navigationBarButtons];
-    
-    self.header = [[AddPhotoHeaderView alloc] initWithFrame:CGRectZero];
-    NSArray *nibFiles = [[NSBundle mainBundle] loadNibNamed:@"AddPhotoHeaderView" owner:self options:nil];
-    for(id currentObject in nibFiles){
-        if ([currentObject isKindOfClass:[UIView class]]){
-            self.header = currentObject;
-            break;
-        }
-    }
-    [self.header setFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 200)];
+
+    self.header = [[AddPhotoHeaderView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 200)];
     [self.header layoutSubviews];
     self.tableView.tableHeaderView = self.header;
 }
@@ -229,7 +221,6 @@ int currentPhotoCount = 0;
     }
     return 0;
 }
-
 
 
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
