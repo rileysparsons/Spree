@@ -25,6 +25,9 @@
     circle.strokeColor = [UIColor blackColor].CGColor;
     circle.lineWidth = 0;
     
+    self.userImageView.profileID = @""
+    ;
+    
     self.userImageView.layer.mask=circle;
 }
 
@@ -42,12 +45,9 @@
         [self setRatingForUser:(PFUser *)object];
         if (object[@"fbId"])
             self.userImageView.profileID = object[@"fbId"];
-        else
-            self.userImageView.profileID = @""
-            ;
+
         [self.userImageView setNeedsImageUpdate];
     }];
-    NSLog(@"Profile %@", self.userImageView.profileID);
 }
 
 

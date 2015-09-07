@@ -39,9 +39,10 @@
 
 -(void)initWithPost:(SpreePost *)post{
     self.post = post;
+    self.poster = post.user;
     self.existingFieldsForTable = [[NSMutableArray alloc] init]; // Existing Fields Will Hold Dictionaries Representing Cell Data Once Filtered.
 
-    if (post){
+    if (self.post && self.poster){
         [self.post.typePointer fetchIfNeededInBackgroundWithBlock:^(PFObject *type, NSError *error){
             
             if (!error){
@@ -369,24 +370,33 @@
 
 
 -(void)getUserForPost{
-    if(self.post){
-        if (([[(PFUser *)self.post.user objectId] isEqualToString: [[PFUser currentUser] objectId]])){
-            //        UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithTitle:@"Delete" style:UIBarButtonItemStyleBordered target:self actio:@selector(deleteButtonSelected)];
-            self.poster = [PFUser currentUser];
-            self.currentUserPost = YES;
-            [self updatePostStatus];
-        } else {
-            PFQuery *query = [PFUser query];
-            [query whereKey:@"objectId" equalTo:self.post.user.objectId];
-            [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-                NSLog(@"THIS: %@", object);
-                self.poster = (PFUser *)object;
-    //            NSString *date = [NSDateFormatter localizedStringFromDate:[self.post createdAt] dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterNoStyle];
-    //            _postDateUserLabel.text = [NSString stringWithFormat:@"Posted by %@ on %@", (_poster[@"name"]) ? _poster[@"name"] : _poster[@"username"], date];
-    //            [self _loadData];
-            }];
+
+    [self.poster fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error){
+        if (!error){
+            if ([object.objectId isEqualToString:[[PFUser currentUser] objectId]]){
+                self.currentUserPost = YES;
+                [self updatePostStatus];
+            } else {
+                
+            }
         }
-    }
+    }];
+    
+//    if (([[(PFUser *)self.post.user objectId] isEqualToString: [[PFUser currentUser] objectId]])){
+//        //        UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithTitle:@"Delete" style:UIBarButtonItemStyleBordered target:self actio:@selector(deleteButtonSelected)];
+//        self.poster = [PFUser currentUser];
+//        self.currentUserPost = YES;
+//    } else {
+//        PFQuery *query = [PFUser query];
+//        [query whereKey:@"objectId" equalTo:self.post.user.objectId];
+//        [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+//            NSLog(@"THIS: %@", object);
+//            self.poster = (PFUser *)object;
+////            NSString *date = [NSDateFormatter localizedStringFromDate:[self.post createdAt] dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterNoStyle];
+////            _postDateUserLabel.text = [NSString stringWithFormat:@"Posted by %@ on %@", (_poster[@"name"]) ? _poster[@"name"] : _poster[@"username"], date];
+////            [self _loadData];
+//        }];
+//    }
 }
 
 -(void)userControlButtonTouched{
@@ -601,6 +611,7 @@
 
 -(void)reloadPost{
     PFQuery *query = [PFQuery queryWithClassName:@"Post"];
+    [query includeKey:@"user"];
     [query getObjectInBackgroundWithId:self.post.objectId block:^(PFObject *object, NSError *error){
         self.post = (SpreePost *)object;
         [self.tableView reloadData];
