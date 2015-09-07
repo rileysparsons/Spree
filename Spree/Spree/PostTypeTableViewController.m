@@ -136,8 +136,11 @@
     NSMutableArray *parts = [NSMutableArray arrayWithArray:[searchTerm componentsSeparatedByCharactersInSet:[NSCharacterSet  whitespaceCharacterSet]]];
     [parts removeObjectIdenticalTo:@""];
     
-    [self.searchQuery whereKey:@"keywords" containsAllObjectsInArray:parts];
+    NSLog(@"Parts %@", parts);
     
+    NSArray *lowercaseTerms = [parts valueForKey:@"lowercaseString"];
+    
+    [self.searchQuery whereKey:@"keywords" containsAllObjectsInArray:lowercaseTerms];
     
     [self.searchQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error){
         if (!error){
