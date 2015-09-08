@@ -12,7 +12,6 @@
 @interface HomeHeaderView : UIView <UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet InfinitePagingView *photoGallery;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *photoGalleryWidth;
 @property HomeHeaderView *customView;
 @property (strong, nonatomic) IBOutlet UITapGestureRecognizer *headerGestureRecognizer;
 

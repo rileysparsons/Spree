@@ -11,6 +11,8 @@
 #import "HeaderSlideView.h"
 #import "SpreeConfigManager.h"
 
+static const CGFloat kHeaderSlideShowHeight = 125.0f;
+
 @interface HomeViewController () <InfinitePagingViewDelegate, UIGestureRecognizerDelegate>
 
 @property HomeHeaderView *header;
@@ -32,15 +34,15 @@
 
 -(void)setupHeaderSlides{
     
-    self.header = [[HomeHeaderView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 200)];
-    self.header.photoGallery.pageSize = CGSizeMake(self.tableView.frame.size.width, 200);
+    self.header = [[HomeHeaderView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, kHeaderSlideShowHeight)];
+    self.header.photoGallery.pageSize = CGSizeMake(self.tableView.frame.size.width, kHeaderSlideShowHeight);
     self.header.headerGestureRecognizer.delegate = self;
     
-    HeaderSlideView *slide1 = [[HeaderSlideView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 200)];
+    HeaderSlideView *slide1 = [[HeaderSlideView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, kHeaderSlideShowHeight)];
     [self.header.photoGallery addPageView: slide1];
-    HeaderSlideView *slide2 = [[HeaderSlideView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 200)];
+    HeaderSlideView *slide2 = [[HeaderSlideView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, kHeaderSlideShowHeight)];
     [self.header.photoGallery addPageView: slide2];
-    HeaderSlideView *slide3 = [[HeaderSlideView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 200)];
+    HeaderSlideView *slide3 = [[HeaderSlideView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, kHeaderSlideShowHeight)];
     [self.header.photoGallery addPageView: slide3];
     
     self.slides = [[NSMutableArray alloc] initWithArray:@[slide1, slide2, slide3]];
@@ -81,7 +83,7 @@
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:YES];
-    [self.header setFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 200)];
+    [self.header setFrame:CGRectMake(0, 0, self.tableView.frame.size.width, kHeaderSlideShowHeight)];
     [self sizeHeaderToFit];
 }
 

@@ -18,7 +18,6 @@
         // 1. Load the .xib file .xib file must match classname
         NSString *className = NSStringFromClass([self class]);
         _customView = [[[NSBundle mainBundle] loadNibNamed:className owner:self options:nil] firstObject];
-        self.photoGalleryWidth.constant = frame.size.width;
         [self setNeedsUpdateConstraints];
         // 2. Set the bounds if not set by programmer (i.e. init called)
         if(CGRectIsEmpty(frame)) {
