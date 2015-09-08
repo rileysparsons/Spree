@@ -10,10 +10,6 @@
 
 @implementation ChatPostHeader
 
--(void)awakeFromNib{
-    [super awakeFromNib];
-    [self circularMaskForView:self.postImageView];
-}
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -64,9 +60,12 @@
 }
 
 -(void)setupForPost:(SpreePost*)post {
+    
+    [self circularMaskForView:self.postImageView];
     if (post){
         if (((NSArray *)post[PF_POST_PHOTOARRAY]).count > 0){
             self.postImageView.file = post[PF_POST_PHOTOARRAY][0];
+            [self.postImageView loadInBackground];
         }
     
         NSLog(@"POST %@", post);

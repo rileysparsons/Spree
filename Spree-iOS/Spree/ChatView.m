@@ -90,7 +90,7 @@
     self.navigationItem.rightBarButtonItem = self.meetUp;
     
 	JSQMessagesBubbleImageFactory *bubbleFactory = [[JSQMessagesBubbleImageFactory alloc] init];
-	bubbleImageOutgoing = [bubbleFactory outgoingMessagesBubbleImageWithColor:[UIColor spreeBabyBlue]];
+	bubbleImageOutgoing = [bubbleFactory outgoingMessagesBubbleImageWithColor:[UIColor spreeDarkBlue]];
 	bubbleImageIncoming = [bubbleFactory incomingMessagesBubbleImageWithColor:COLOR_INCOMING];
 
     self.collectionView.collectionViewLayout.incomingAvatarViewSize = CGSizeZero;
@@ -98,6 +98,11 @@
 
     self.topContentAdditionalInset = 75.0f;
     [self addCustomPostHeader];
+    
+    // Appearance
+    
+    self.view.backgroundColor = [UIColor spreeOffWhite];
+    self.collectionView.backgroundColor = [UIColor spreeOffWhite];
     
     // Disable the attachments
     self.inputToolbar.contentView.leftBarButtonItem = nil;
