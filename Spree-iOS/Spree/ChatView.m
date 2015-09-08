@@ -11,6 +11,7 @@
 
 #import "UIColor+SpreeColor.h"
 #import "MeetUpViewController.h"
+#import "ChatPostHeader.h"
 
 #import "common.h"
 #import "push.h"
@@ -35,6 +36,8 @@
 
 	JSQMessagesBubbleImage *bubbleImageOutgoing;
 	JSQMessagesBubbleImage *bubbleImageIncoming;
+    
+    ChatPostHeader *postHeader;
 }
 
 @property (retain, nonatomic) UIBarButtonItem *meetUp;
@@ -93,6 +96,9 @@
     self.collectionView.collectionViewLayout.incomingAvatarViewSize = CGSizeZero;
     self.collectionView.collectionViewLayout.outgoingAvatarViewSize = CGSizeZero;
 
+    self.topContentAdditionalInset = 75.0f;
+    [self addCustomPostHeader];
+    
     // Disable the attachments
     self.inputToolbar.contentView.leftBarButtonItem = nil;
 
@@ -114,6 +120,7 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
 	[super viewWillDisappear:animated];
+    [postHeader removeFromSuperview];
 	ClearRecentCounter(groupId);
 	[timer invalidate];
 }
@@ -442,6 +449,41 @@
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:meetUpView];
     [self presentViewController:navigationController animated:YES completion:NULL];
     [PFAnalytics trackEvent:@"openMeetUp"];
+    
+}
+
+-(void)addCustomPostHeader{
+
+    postHeader = [[ChatPostHeader alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, 75)];
+    
+    NSLog(@"POST WIDTH %f", postHeader.frame.size.width);
+    [postHeader setupForPost:(SpreePost *)post];
+    
+    [postHeader setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [self.view addSubview:postHeader];
+    NSLayoutConstraint *makeWidthTheSameAsSuper =[NSLayoutConstraint
+                                                       constraintWithItem:postHeader
+                                                       attribute:NSLayoutAttributeWidth
+                                                       relatedBy:0
+                                                       toItem:self.view
+                                                       attribute:NSLayoutAttributeWidth
+                                                       multiplier:1.0
+                                                       constant:0];
+    NSLayoutConstraint *topConstraint =[NSLayoutConstraint
+                                                  constraintWithItem:postHeader
+                                                  attribute:NSLayoutAttributeTop
+                                                  relatedBy:0
+                                                  toItem:self.view
+                                                  attribute:NSLayoutAttributeTop
+                                                  multiplier:1.0
+                                                  constant:64];
+    
+    
+    [self.view addConstraint:makeWidthTheSameAsSuper];
+    [self.view addConstraint:topConstraint];
+    [self.view bringSubviewToFront:postHeader];
+    
+    [self.view layoutIfNeeded];
     
 }
 
