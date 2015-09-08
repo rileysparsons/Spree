@@ -128,6 +128,7 @@
 
 		PFQuery *query = [PFQuery queryWithClassName:PF_MESSAGE_CLASS_NAME];
 		[query whereKey:PF_MESSAGE_GROUPID equalTo:groupId];
+        [query whereKey:PF_MESSAGE_POST equalTo:post];
 		if (message_last != nil) [query whereKey:PF_MESSAGE_CREATEDAT greaterThan:message_last.date];
 		[query includeKey:PF_MESSAGE_USER];
 		[query orderByDescending:PF_MESSAGE_CREATEDAT];
@@ -236,7 +237,7 @@
 
 -(void) updateRecentAndPushForMessage:(NSString*)message{
     SendPushNotification(groupId, message, [post objectId], title);
-    UpdateRecentCounter(groupId, 1, message);
+    UpdateRecentCounter(groupId, 1, message, post);
 }
 
 #pragma mark - JSQMessagesViewController method overrides

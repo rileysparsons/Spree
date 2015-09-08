@@ -31,6 +31,7 @@ void CreateRecentItem(PFUser *user, NSString *groupId, NSString *description, PF
 	PFQuery *query = [PFQuery queryWithClassName:PF_RECENT_CLASS_NAME];
 	[query whereKey:PF_RECENT_USER equalTo:user];
 	[query whereKey:PF_RECENT_GROUPID equalTo:groupId];
+    [query whereKey:PF_RECENT_POST equalTo:post];
 	[query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
 	{
 		if (error == nil)
@@ -58,12 +59,13 @@ void CreateRecentItem(PFUser *user, NSString *groupId, NSString *description, PF
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-void UpdateRecentCounter(NSString *groupId, NSInteger amount, NSString *lastMessage)
+void UpdateRecentCounter(NSString *groupId, NSInteger amount, NSString *lastMessage, PFObject *post)
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
     NSLog(@"Update recent counter");
 	PFQuery *query = [PFQuery queryWithClassName:PF_RECENT_CLASS_NAME];
 	[query whereKey:PF_RECENT_GROUPID equalTo:groupId];
+    [query whereKey:PF_MESSAGE_POST equalTo:post];
 	[query setLimit:1000];
 	[query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
 	{

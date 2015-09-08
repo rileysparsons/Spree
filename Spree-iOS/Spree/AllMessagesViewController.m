@@ -123,10 +123,31 @@
 
     NSTimeInterval seconds = [[NSDate date] timeIntervalSinceDate:object[PF_RECENT_UPDATEDACTION]];
     int counter = [object[PF_RECENT_COUNTER] intValue];
-
+    
+    PFObject *recentPost = object[PF_RECENT_POST];
+    
     // Configure Cell
-    [cell.userLabel setText:[object[PF_RECENT_TOUSER] objectForKey:PF_USER_USERNAME]];
+    [cell.postLabel setText:[recentPost objectForKey:PF_POST_TITLE]];
     [cell.lastMessageLabel setText:object[PF_RECENT_LASTMESSAGE]];
+
+    
+    if (((NSArray *)(recentPost[PF_POST_PHOTOARRAY])).count > 0){
+    
+        PFFile *image = (PFFile *)[(NSArray *)((PFObject *)object[PF_RECENT_POST][PF_POST_PHOTOARRAY]) objectAtIndex:0];
+        
+        if (image){
+            cell.postImageView.file = image;
+            [cell.postImageView loadInBackground];
+        }
+    }
+    
+    cell.senderLabel.text = object[PF_RECENT_TOUSER][@"username"];
+    
+    if(object[PF_RECENT_TOUSER][@"fbId"]){
+        cell.userImageView.profileID = object[PF_RECENT_TOUSER][@"fbId"];
+        [cell.userImageView setNeedsImageUpdate];
+    }
+    
     [cell.timeLabel setText:TimeElapsed(seconds)];
 //    [cell.messageCountLabel setText:[NSString stringWithFormat:@"%d new", counter]];
     if (counter > 0){
