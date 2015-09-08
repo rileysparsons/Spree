@@ -93,6 +93,8 @@
 		144D55761B4E11920003B752 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 144D556C1B4E11920003B752 /* Lato-Regular.ttf */; };
 		145B0AB31B9E1450002FD94E /* SpreePost.m in Sources */ = {isa = PBXBuildFile; fileRef = 145B0AB21B9E1450002FD94E /* SpreePost.m */; };
 		145B0AB81B9E1BFB002FD94E /* EDStarRating.m in Sources */ = {isa = PBXBuildFile; fileRef = 145B0AB71B9E1BFB002FD94E /* EDStarRating.m */; };
+		145B0ABB1B9F6999002FD94E /* ChatPostHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 145B0ABA1B9F6999002FD94E /* ChatPostHeader.m */; };
+		145B0ABD1B9F6A0B002FD94E /* ChatPostHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 145B0ABC1B9F6A0B002FD94E /* ChatPostHeader.xib */; };
 		14820B6B1A40CA92008A1430 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14820B6A1A40CA92008A1430 /* MapKit.framework */; };
 		1491BBA41B336F38004F43CA /* ResultsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1491BBA31B336F38004F43CA /* ResultsTableViewController.m */; };
 		149787A21A49F0E40024437D /* UIColor+SpreeColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 149787A11A49F0E40024437D /* UIColor+SpreeColor.m */; };
@@ -311,6 +313,9 @@
 		145B0AB21B9E1450002FD94E /* SpreePost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpreePost.m; sourceTree = "<group>"; };
 		145B0AB61B9E1BFB002FD94E /* EDStarRating.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EDStarRating.h; path = EDStarRating/EDStarRating.h; sourceTree = "<group>"; };
 		145B0AB71B9E1BFB002FD94E /* EDStarRating.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EDStarRating.m; path = EDStarRating/EDStarRating.m; sourceTree = "<group>"; };
+		145B0AB91B9F6999002FD94E /* ChatPostHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatPostHeader.h; sourceTree = "<group>"; };
+		145B0ABA1B9F6999002FD94E /* ChatPostHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatPostHeader.m; sourceTree = "<group>"; };
+		145B0ABC1B9F6A0B002FD94E /* ChatPostHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatPostHeader.xib; sourceTree = "<group>"; };
 		14820B6A1A40CA92008A1430 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		1491BBA21B336F38004F43CA /* ResultsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultsTableViewController.h; sourceTree = "<group>"; };
 		1491BBA31B336F38004F43CA /* ResultsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultsTableViewController.m; sourceTree = "<group>"; };
@@ -614,6 +619,9 @@
 		143D91D51B6D70A400E2F493 /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
+				145B0AB91B9F6999002FD94E /* ChatPostHeader.h */,
+				145B0ABA1B9F6999002FD94E /* ChatPostHeader.m */,
+				145B0ABC1B9F6A0B002FD94E /* ChatPostHeader.xib */,
 				14423CC91B8D9A08002CB026 /* SinglePhotoPostShareView.h */,
 				14423CCC1B8D9AC9002CB026 /* SinglePhotoPostShareView.xib */,
 				14423CD61B8E9AC5002CB026 /* TriplePhotoPostShareView.h */,
@@ -1010,6 +1018,7 @@
 				141524571B4070E5007EE405 /* PostTypeSelectionTableViewCell.xib in Resources */,
 				14CE47211B6AF040004FA4D1 /* HomeHeaderView.xib in Resources */,
 				14CAB3CA1B5C34D10081979C /* BasicInfoTableViewCell.xib in Resources */,
+				145B0ABD1B9F6A0B002FD94E /* ChatPostHeader.xib in Resources */,
 				14423CDC1B8F95E7002CB026 /* Images.xcassets in Resources */,
 				144D55621B4D66F40003B752 /* SelectPostTypeHeaderView.xib in Resources */,
 				1415245F1B4086AA007EE405 /* NewPost.storyboard in Resources */,
@@ -1081,6 +1090,7 @@
 				143D91E11B6DFAE700E2F493 /* LoginWorkflow.m in Sources */,
 				140CF8E21A3BBFB200134C4D /* MeViewController.m in Sources */,
 				140CF9021A3E086800134C4D /* PostTypeTableViewCell.m in Sources */,
+				145B0ABB1B9F6999002FD94E /* ChatPostHeader.m in Sources */,
 				14CAB3D21B5C54C40081979C /* PostDescriptionTableViewCell.m in Sources */,
 				143D91ED1B6E04D200E2F493 /* LoginCampusHeaderView.m in Sources */,
 				143D91EA1B6DFE7500E2F493 /* LoginAuthorizationViewController.m in Sources */,

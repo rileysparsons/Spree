@@ -7,13 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <ParseUI/ParseUI.h>
+#import <FBSDKCoreKit/FBSDKProfilePictureView.h>
 
 @interface MessagingTableViewCell : UITableViewCell
 
-@property (weak, nonatomic) IBOutlet UILabel *userLabel;
+@property (weak, nonatomic) IBOutlet UILabel *postLabel;
 @property (weak, nonatomic) IBOutlet UILabel *lastMessageLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UIView *messageFlag;
-
+@property (weak, nonatomic) IBOutlet PFImageView *postImageView;
+@property (weak, nonatomic) IBOutlet FBSDKProfilePictureView *userImageView;
+@property (weak, nonatomic) IBOutlet UILabel *senderLabel;
 
 @end
