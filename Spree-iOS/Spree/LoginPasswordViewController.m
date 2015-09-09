@@ -56,7 +56,7 @@
 }
 
 - (void)nextButtonTouched{
-    
+    self.nextButton.enabled = NO;
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
     if (!self.userIsNew){
@@ -73,12 +73,14 @@
                      [self.delegate logInViewController:self didFailToLogInWithError:error];
                  }
                  [hud hide:YES afterDelay:0.5];
+                 self.nextButton.enabled = YES;
              }];
         } else {
             hud.labelText = @"Something went wrong";
             hud.detailsLabelText = @"Are you sure you entered a password?";
             [hud hide:YES afterDelay:0.5f];
             [self shakeAnimation:self.textField];
+            self.nextButton.enabled = YES;
         }
     } else {
         if ([self.delegate signupViewController:self shouldBeginSignInWithPassword:self.textField.text]){
@@ -90,11 +92,13 @@
                     [self.delegate signupViewController:self didFailToSignUpWithError:error];
                 }
                 [hud hide:YES afterDelay:0.5f];
+                self.nextButton.enabled = YES;
             }];
         } else {
             hud.labelText = @"Try again";
             [hud hide:YES afterDelay:0.5f];
             [self shakeAnimation:self.textField];
+            self.nextButton.enabled = YES;
         }
     }
 }

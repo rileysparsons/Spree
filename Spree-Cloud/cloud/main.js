@@ -91,15 +91,20 @@ Parse.Cloud.beforeSave("Post", function(request, response) {
 //save handlers
 Parse.Cloud.beforeSave(Parse.User, function(request, response) {
     var user = request.object;
-    var email = request.object.get("email");
-    var dot = ".";
 
-    if ((email.indexOf(dot)>-1)) {
-        var network = email.substring(email.lastIndexOf("@")+1,email.lastIndexOf(dot));
-        user.set("network", network);
-        // console.log("Updated: "+user+network);
-    }
-    response.success();
+    if (user.get("password")){
+	    var email = request.object.get("email");
+	    var dot = ".";
+
+	    if ((email.indexOf(dot)>-1)) {
+	        var network = email.substring(email.lastIndexOf("@")+1,email.lastIndexOf(dot));
+	        user.set("network", network);
+	        // console.log("Updated: "+user+network);
+	    }
+	} else {
+		user.set("network", "DEMO");
+	}
+	response.success();
 });
 
 
