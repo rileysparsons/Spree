@@ -12,4 +12,6 @@
 
 @property LoginCampusHeaderView *customView;
 
+@property (weak, nonatomic) IBOutlet UIButton *notStudentButton;
+
 @end

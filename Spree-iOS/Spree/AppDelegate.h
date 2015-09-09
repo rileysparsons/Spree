@@ -16,6 +16,7 @@
 @property UINavigationController *navigationController;
 @property NSInteger expiredPostCount;
 
+-(void)logOut;
 
 @end
 

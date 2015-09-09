@@ -17,6 +17,7 @@
 #import "PostDetailTableViewController.h"
 #import "SelectPostTypeViewController.h"
 #import "ResultsTableViewController.h"
+#import "SpreeUtility.h"
 
 
 @interface PostTableViewController () {
@@ -447,14 +448,18 @@
         self.headerLabel.font = [UIFont fontWithName:@"Lato-Regular" size:16];
         self.headerLabel.textColor = [UIColor spreeOffBlack];
         
+        if (![SpreeUtility userInDemoMode]){
         PFQuery *userQuery = [PFUser query];
-        [userQuery includeKey:@"campus"];
-        [userQuery getObjectInBackgroundWithId:[[PFUser currentUser] objectId] block:^(PFObject *user, NSError *error){
-            NSLog(@"%@", user);
-            self.headerLabel.text = [NSString stringWithFormat:@"Recent Posts at %@", user[@"campus"][@"campusName"]];
-            [self.headerLabel setNeedsDisplay];
-            
-        }];
+            [userQuery includeKey:@"campus"];
+            [userQuery getObjectInBackgroundWithId:[[PFUser currentUser] objectId] block:^(PFObject *user, NSError *error){
+                NSLog(@"%@", user);
+                self.headerLabel.text = [NSString stringWithFormat:@"Recent Posts at %@", user[@"campus"][@"campusName"]];
+                [self.headerLabel setNeedsDisplay];
+                
+            }];
+        } else {
+            self.headerLabel.text = @"Examples of Posts on Spree";
+        }
         [whiteView addSubview:self.headerLabel];
         return headerView;
     }

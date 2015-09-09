@@ -221,4 +221,51 @@
      }];
 }
 
+- (void)logOut {
+    // clear cache
+//    [[PAPCache sharedCache] clear];
+    
+    // clear NSUserDefaults
+//    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kPAPUserDefaultsCacheFacebookFriendsKey];
+//    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kPAPUserDefaultsActivityFeedViewControllerLastRefreshKey];
+//    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    // Unsubscribe from push notifications by removing the user association from the current installation.
+//    [[PFInstallation currentInstallation] removeObjectForKey:kPAPInstallationUserKey];
+//    [[PFInstallation currentInstallation] saveInBackground];
+    
+    // Clear all caches
+    [PFQuery clearAllCachedResults];
+    
+    // Log out
+    
+    [PFUser logOutInBackgroundWithBlock:^(NSError *error){
+        [FBSDKAccessToken setCurrentAccessToken:nil];
+        //            [FBSDKProfile setCurrentProfile:nil];
+        UIStoryboard *stb = [UIStoryboard storyboardWithName:@"Walkthrough" bundle:nil];
+        UINavigationController *base = [stb instantiateViewControllerWithIdentifier:@"base"];
+        [UIView transitionWithView:self.window
+                          duration:0.5
+                           options:UIViewAnimationOptionTransitionFlipFromLeft
+                        animations:^{ self.window.rootViewController = base; }
+                        completion:nil];
+        
+        UITabBarController *tabBarController =  (UITabBarController *)self.window.rootViewController;
+        
+        UINavigationController *homeNavigationController = [[tabBarController viewControllers] objectAtIndex:SpreeCampusTabBarItemIndex];
+        
+        homeNavigationController = nil;
+        
+    }];
+    
+    
+    // clear out cached data, view controllers, etc
+    
+//    [self presentLoginViewController];
+//    
+//    self.homeViewController = nil;
+//    self.activityViewController = nil;
+}
+
+
 @end

@@ -13,6 +13,7 @@
 #import "LoginCampusTableViewController.h"
 #import "LoginAuthorizationViewController.h"
 #import "PostTableViewController.h"
+#import "SpreeUtility.h"
 #import <ParseFacebookUtilsV4/PFFacebookUtils.h>
 #import "AppDelegate.h"
 
@@ -148,6 +149,9 @@
 
 -(void)logInViewController:(LoginPasswordViewController *)logInController didLogInUser:(PFUser *)user{
     if (![PFFacebookUtils isLinkedWithUser:user]){
+        self.authorizationViewController.user = user;
+        [self.navigationController pushViewController:self.authorizationViewController animated:YES];
+    } else if (![SpreeUtility userHasValidFacebookData:[PFUser currentUser]]){
         self.authorizationViewController.user = user;
         [self.navigationController pushViewController:self.authorizationViewController animated:YES];
     } else {
