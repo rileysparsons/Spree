@@ -19,6 +19,10 @@
 
 #import "ChatView.h"
 
+typedef enum : NSUInteger {
+    kVerifyEmailAlert,
+} AlertType;
+
 @interface ChatView()
 {
 	NSTimer *timer;
@@ -255,13 +259,14 @@
 #pragma mark - JSQMessagesViewController method overrides
 - (void)didPressSendButton:(UIButton *)button withMessageText:(NSString *)text senderId:(NSString *)senderId senderDisplayName:(NSString *)senderDisplayName date:(NSDate *)date
 {
-//    if (userVerifiedToSendMessages == YES){
+    if (userVerifiedToSendMessages){
         [self sendMessage:text Video:nil Picture:nil];
-    [PFAnalytics trackEvent:@"sentMessage"];
-//    } else {
-//        UIAlertView *userNotVerified = [[UIAlertView alloc] initWithTitle:@"Please verify email" message:@"You must verify your email to send messages on Spree" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
-//        [userNotVerified show];
-//    }
+        [PFAnalytics trackEvent:@"sentMessage"];
+    } else {
+        UIAlertView *userNotVerified = [[UIAlertView alloc] initWithTitle:@"Unverified Student" message:@"You must verify your email to send and post items on Spree" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: @"Resend email", nil];
+        userNotVerified.tag = kVerifyEmailAlert;
+        [userNotVerified show];
+    }
 }
 
 #pragma mark - JSQMessages CollectionView DataSource
@@ -491,5 +496,28 @@
     [self.view layoutIfNeeded];
     
 }
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (alertView.tag == kVerifyEmailAlert){
+        int resendButtonIndex = 1;
+        if (resendButtonIndex == buttonIndex){
+            //updating the email will force Parse to resend the verification email
+            NSString *email = [[PFUser currentUser] objectForKey:@"email"];
+            NSLog(@"email: %@",email);
+            [[PFUser currentUser] setObject:email forKey:@"email"];
+            [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error ){
+                
+                if( succeeded ) {
+                    
+                    [[PFUser currentUser] setObject:email forKey:@"email"];
+                    [[PFUser currentUser] saveInBackground];
+                    
+                }
+                
+            }];
+        }
+    }
+}
+
 
 @end
