@@ -10,25 +10,31 @@
 #define COCOAPODS_POD_AVAILABLE_Bolts
 #define COCOAPODS_VERSION_MAJOR_Bolts 1
 #define COCOAPODS_VERSION_MINOR_Bolts 2
-#define COCOAPODS_VERSION_PATCH_Bolts 1
+#define COCOAPODS_VERSION_PATCH_Bolts 2
 
 // Bolts/AppLinks
 #define COCOAPODS_POD_AVAILABLE_Bolts_AppLinks
 #define COCOAPODS_VERSION_MAJOR_Bolts_AppLinks 1
 #define COCOAPODS_VERSION_MINOR_Bolts_AppLinks 2
-#define COCOAPODS_VERSION_PATCH_Bolts_AppLinks 1
+#define COCOAPODS_VERSION_PATCH_Bolts_AppLinks 2
 
 // Bolts/Tasks
 #define COCOAPODS_POD_AVAILABLE_Bolts_Tasks
 #define COCOAPODS_VERSION_MAJOR_Bolts_Tasks 1
 #define COCOAPODS_VERSION_MINOR_Bolts_Tasks 2
-#define COCOAPODS_VERSION_PATCH_Bolts_Tasks 1
+#define COCOAPODS_VERSION_PATCH_Bolts_Tasks 2
 
 // Branch
 #define COCOAPODS_POD_AVAILABLE_Branch
 #define COCOAPODS_VERSION_MAJOR_Branch 0
 #define COCOAPODS_VERSION_MINOR_Branch 10
 #define COCOAPODS_VERSION_PATCH_Branch 9
+
+// BranchInvite
+#define COCOAPODS_POD_AVAILABLE_BranchInvite
+#define COCOAPODS_VERSION_MAJOR_BranchInvite 0
+#define COCOAPODS_VERSION_MINOR_BranchInvite 3
+#define COCOAPODS_VERSION_PATCH_BranchInvite 4
 
 // CTAssetsPickerController
 #define COCOAPODS_POD_AVAILABLE_CTAssetsPickerController
@@ -83,6 +89,12 @@
 #define COCOAPODS_VERSION_MAJOR_FBSDKLoginKit 4
 #define COCOAPODS_VERSION_MINOR_FBSDKLoginKit 5
 #define COCOAPODS_VERSION_PATCH_FBSDKLoginKit 1
+
+// HMSegmentedControl
+#define COCOAPODS_POD_AVAILABLE_HMSegmentedControl
+#define COCOAPODS_VERSION_MAJOR_HMSegmentedControl 1
+#define COCOAPODS_VERSION_MINOR_HMSegmentedControl 4
+#define COCOAPODS_VERSION_PATCH_HMSegmentedControl 0
 
 // InfinitePagingView
 #define COCOAPODS_POD_AVAILABLE_InfinitePagingView

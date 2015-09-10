@@ -67,6 +67,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "JSQMessagesViewController/JSQMessagesViewController/Views/JSQMessagesTypingIndicatorFooterView.xib"
   install_resource "Parse/Parse/Resources/en.lproj"
   install_resource "ParseUI/ParseUI/Resources/Localization/en.lproj"
+  install_resource "${BUILT_PRODUCTS_DIR}/BranchInvite.bundle"
   install_resource "${BUILT_PRODUCTS_DIR}/CTAssetsPickerController.bundle"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
@@ -79,6 +80,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "JSQMessagesViewController/JSQMessagesViewController/Views/JSQMessagesTypingIndicatorFooterView.xib"
   install_resource "Parse/Parse/Resources/en.lproj"
   install_resource "ParseUI/ParseUI/Resources/Localization/en.lproj"
+  install_resource "${BUILT_PRODUCTS_DIR}/BranchInvite.bundle"
   install_resource "${BUILT_PRODUCTS_DIR}/CTAssetsPickerController.bundle"
 fi
 

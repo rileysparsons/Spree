@@ -1,11 +1,14 @@
 PODS:
-  - Bolts (1.2.1):
-    - Bolts/AppLinks (= 1.2.1)
-    - Bolts/Tasks (= 1.2.1)
-  - Bolts/AppLinks (1.2.1):
+  - Bolts (1.2.2):
+    - Bolts/AppLinks (= 1.2.2)
+    - Bolts/Tasks (= 1.2.2)
+  - Bolts/AppLinks (1.2.2):
     - Bolts/Tasks
-  - Bolts/Tasks (1.2.1)
+  - Bolts/Tasks (1.2.2)
   - Branch (0.10.9)
+  - BranchInvite (0.3.4):
+    - Branch
+    - HMSegmentedControl (= 1.4)
   - CocoaLumberjack (2.0.1):
     - CocoaLumberjack/Default (= 2.0.1)
     - CocoaLumberjack/Extensions (= 2.0.1)
@@ -27,6 +30,7 @@ PODS:
     - FBSDKCoreKit/arc
   - FBSDKLoginKit (4.5.1):
     - FBSDKCoreKit
+  - HMSegmentedControl (1.4.0)
   - InfinitePagingView (0.0.1)
   - JSQMessagesViewController (7.2.0):
     - JSQSystemSoundPlayer (~> 2.0.1)
@@ -54,6 +58,7 @@ PODS:
 
 DEPENDENCIES:
   - Branch
+  - BranchInvite
   - CocoaLumberjack
   - CTAssetsPickerController
   - FBSDKCoreKit
@@ -83,12 +88,14 @@ CHECKOUT OPTIONS:
     :git: https://github.com/jessesquires/JSQMessagesViewController.git
 
 SPEC CHECKSUMS:
-  Bolts: 7686a5cb204d1ac54cee26f12d9b7622db3f80d1
+  Bolts: 20a2bd788273360cb1e31530dc19b8544eef2544
   Branch: 024a0c5848303eb82b8aa139822e07e0724f7fdc
+  BranchInvite: 8a40d87b3d12f8c07add4ac2c032c206c85f3fec
   CocoaLumberjack: 019d1361244274a6138c788c6cb80baabc13fb8f
   CTAssetsPickerController: 4673b4b22347325723a4dace00e4bd856c64529b
   FBSDKCoreKit: f335eaf6865e1e1597dee1debfb533045500da47
   FBSDKLoginKit: 225cc9a388a92916ee3f3bb14422017b6e44b65b
+  HMSegmentedControl: c2fffcd5f391c1bcd3db510b1bea645fce4e08e5
   InfinitePagingView: 2d9876c6171274b59d7128c0fcacb4ab492313f2
   JSQMessagesViewController: 73cab48aa92fc2d512f3b6724f3425cc47a19eb5
   JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
