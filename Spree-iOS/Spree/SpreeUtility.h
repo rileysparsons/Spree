@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface SpreeUtility : NSObject
+@interface SpreeUtility : NSObject <UIAlertViewDelegate>
 
 + (BOOL)userHasValidFacebookData:(PFUser *)user;
 + (UIImage *)defaultProfilePicture;
@@ -16,5 +16,7 @@
 + (NSString *)firstNameForDisplayName:(NSString *)displayName;
 
 + (BOOL)userInDemoMode;
+
++ (BOOL)checkForEmailVerification;
 
 @end

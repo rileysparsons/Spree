@@ -32,7 +32,7 @@
                         <outletCollection property="gestureRecognizers" destination="u6g-hc-hIb" appends="YES" id="Yal-ko-QzL"/>
                     </connections>
                 </imageView>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="npV-Sb-lfL">
+                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="npV-Sb-lfL">
                     <rect key="frame" x="8" y="16" width="584" height="67.5"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Spree" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="u7u-q5-pEn">

@@ -352,15 +352,15 @@
         
         if (post.photoArray.count != 0){
             PFFile *imageFile = (PFFile *)[post.photoArray objectAtIndex:0];
-            [imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-                if (!error) {
-                    UIImage *image = [UIImage imageWithData:data];
-                    cell.postImageView.image = image;
-                    
+            cell.postImageView.file = imageFile;
+            [cell.postImageView loadInBackground];
+        } else {
+            [post.typePointer fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error){
+                if ([post.typePointer[@"type"] isEqualToString: @"Tasks & Services"]){
+                    cell.placeholderIconView.image = [UIImage imageNamed:@"tasksAndServicesThumbnail"];
+                    cell.imageBackgroundView.hidden = NO;
                 }
             }];
-        } else {
-            cell.postImageView.hidden = YES;
         }
         
         cell.descriptionLabel.text = [NSString stringWithFormat:@"\u201C%@\u201D", post.userDescription];
@@ -516,6 +516,4 @@
     }
     return query;
 }
-
-
 @end

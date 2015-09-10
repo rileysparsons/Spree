@@ -12,6 +12,7 @@
 #import "UIColor+SpreeColor.h"
 #import "MeetUpViewController.h"
 #import "ChatPostHeader.h"
+#import "SpreeUtility.h"
 
 #import "common.h"
 #import "push.h"
@@ -259,11 +260,11 @@ typedef enum : NSUInteger {
 #pragma mark - JSQMessagesViewController method overrides
 - (void)didPressSendButton:(UIButton *)button withMessageText:(NSString *)text senderId:(NSString *)senderId senderDisplayName:(NSString *)senderDisplayName date:(NSDate *)date
 {
-    if (userVerifiedToSendMessages){
+    if ([SpreeUtility checkForEmailVerification]){
         [self sendMessage:text Video:nil Picture:nil];
         [PFAnalytics trackEvent:@"sentMessage"];
     } else {
-        UIAlertView *userNotVerified = [[UIAlertView alloc] initWithTitle:@"Unverified Student" message:@"You must verify your email to send and post items on Spree" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: @"Resend email", nil];
+        UIAlertView *userNotVerified = [[UIAlertView alloc] initWithTitle:@"Unverified Student" message:VERIFY_EMAIL_PROMPT delegate:self cancelButtonTitle:@"OK" otherButtonTitles: @"Resend email", nil];
         userNotVerified.tag = kVerifyEmailAlert;
         [userNotVerified show];
     }
