@@ -89,4 +89,14 @@ typedef enum {
 #define     POST_VIEW_DESCRIPTION               @"Add description..."
 #define     POST_VIEW_TITLE                     @"Add title..."
 
+#define     BANNER_TITLE                        @"title"
+#define     BANNER_SUBTITLE                     @"subtitle"
+#define     BANNER_LINKTYPE                     @"linkType"
+#define     BANNER_BACKGROUND_COLOR             @"backgroundColor"
+#define     BANNER_PARAMETERS                   @"parameters"
+#define     BANNER_NUMBER                       @"number"
+
+
+
+
 
