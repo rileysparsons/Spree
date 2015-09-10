@@ -135,6 +135,7 @@
 		4E0E820B1B40DE1800E18975 /* leftarrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E0E820A1B40DE1800E18975 /* leftarrow@2x.png */; };
 		4E9275151B91400E0082B8A0 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9275141B91400E0082B8A0 /* MessageUI.framework */; };
 		4ECA453F1B48E0EB006C33FC /* ContactUsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ECA453E1B48E0EB006C33FC /* ContactUsViewController.m */; };
+		4EFD06E81BA1528700947AD6 /* ReferralViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EFD06E71BA1528700947AD6 /* ReferralViewController.m */; };
 		CFFEE9291B0487BF002CD29A /* MeetUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFFEE9281B0487BF002CD29A /* MeetUpViewController.m */; };
 		E2E410A83C907E40B1DB304C /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 38359AA3D2B23F9752A230C8 /* libPods.a */; };
 		F70FACF51AEB501700057E6E /* converter.m in Sources */ = {isa = PBXBuildFile; fileRef = F70FACF41AEB501700057E6E /* converter.m */; };
@@ -383,6 +384,8 @@
 		4E9275141B91400E0082B8A0 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		4ECA453D1B48E0EB006C33FC /* ContactUsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactUsViewController.h; sourceTree = "<group>"; };
 		4ECA453E1B48E0EB006C33FC /* ContactUsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactUsViewController.m; sourceTree = "<group>"; };
+		4EFD06E61BA1528700947AD6 /* ReferralViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReferralViewController.h; sourceTree = "<group>"; };
+		4EFD06E71BA1528700947AD6 /* ReferralViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReferralViewController.m; sourceTree = "<group>"; };
 		A7F573D62D839D22544FF614 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		CFFEE9271B0487BF002CD29A /* MeetUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeetUpViewController.h; sourceTree = "<group>"; };
 		CFFEE9281B0487BF002CD29A /* MeetUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeetUpViewController.m; sourceTree = "<group>"; };
@@ -577,9 +580,9 @@
 				14CE47221B6AF41E004FA4D1 /* HomeViewController.h */,
 				14CE47231B6AF41E004FA4D1 /* HomeViewController.m */,
 				140CF8E01A3BBFB200134C4D /* MeViewController.h */,
+				140CF8E11A3BBFB200134C4D /* MeViewController.m */,
 				14F739BD1B783D4800E60619 /* SettingsViewController.h */,
 				14F739BE1B783D4800E60619 /* SettingsViewController.m */,
-				140CF8E11A3BBFB200134C4D /* MeViewController.m */,
 				4ECA453D1B48E0EB006C33FC /* ContactUsViewController.h */,
 				4ECA453E1B48E0EB006C33FC /* ContactUsViewController.m */,
 				14C8214B1B2FE36C00A1B513 /* ProfileViewController.h */,
@@ -600,6 +603,8 @@
 				F70FACF21AEB4FF200057E6E /* Messaging */,
 				143D91E51B6DFDAC00E2F493 /* LoginCampusTableViewController.h */,
 				143D91E61B6DFDAC00E2F493 /* LoginCampusTableViewController.m */,
+				4EFD06E61BA1528700947AD6 /* ReferralViewController.h */,
+				4EFD06E71BA1528700947AD6 /* ReferralViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -1106,6 +1111,7 @@
 				143D91D21B6BBB1F00E2F493 /* HeaderSlideView.m in Sources */,
 				142CB0611B5303B600969066 /* PhotoSelectTableViewCell.m in Sources */,
 				14423CCB1B8D9A08002CB026 /* SinglePhotoPostShareView.m in Sources */,
+				4EFD06E81BA1528700947AD6 /* ReferralViewController.m in Sources */,
 				14423CD21B8E786B002CB026 /* DoublePhotoPostShareView.m in Sources */,
 				14C38DB81B29311D0039862E /* PostUserTableViewCell.m in Sources */,
 				14CAB3C31B59539A0081979C /* PhotoSelectFooterView.m in Sources */,

@@ -8,6 +8,7 @@
 
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <RCSLabeledIconButton/RCSLabeledIconButton.h>
+#import "Branch/Branch.h"
 
 @interface MeViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
 
