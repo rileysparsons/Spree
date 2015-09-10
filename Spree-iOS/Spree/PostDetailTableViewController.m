@@ -474,6 +474,11 @@
 
 -(void)organizeTableForFields{
     for (id field in self.existingFields){
+        
+        if (!field[@"priority"]){
+            [field setObject:@(99) forKey:@"priority"];
+        }
+        
         if ([field[@"dataType"] isEqualToString:@"geoPoint"]){
             [self.existingFieldsForTable addObject:field];
         } else if ([field[@"dataType"] isEqualToString:@"string"] && ![field[@"field"] isEqualToString:@"title"]){

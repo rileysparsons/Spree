@@ -8,6 +8,7 @@
 
 #import <MSCellAccessory/MSCellAccessory.h>
 #import "PostUserTableViewCell.h"
+#import "SpreeUtility.h"
 
 @implementation PostUserTableViewCell
 
@@ -39,14 +40,18 @@
 - (void)setUserLabelForPost:(SpreePost *)post{
     PFUser *user = post.user;
     NSLog(@"Cell user %@", user);
-    [user fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-        self.userLabel.text = [(PFUser *)object username];
-        [self setRatingForUser:(PFUser *)object];
-        if (object[@"fbId"])
-            self.userImageView.profileID = object[@"fbId"];
-
-        [self.userImageView setNeedsImageUpdate];
-    }];
+    if (user[@"displayName"]){
+        self.userLabel.text = [SpreeUtility firstNameForDisplayName: user[@"displayName"]];
+    } else {
+        self.userLabel.text = user[@"username"];
+    }
+    
+    [self setRatingForUser:user];
+    
+    if (user[@"fbId"])
+        self.userImageView.profileID = user[@"fbId"];
+    
+    [self.userImageView setNeedsImageUpdate];
 }
 
 

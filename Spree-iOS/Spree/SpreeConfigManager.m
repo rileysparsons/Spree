@@ -82,11 +82,11 @@
 -(NSArray *)campusBannerSlidesForNetworkCode:(NSString *)networkCode{
     NSString *bannerId = [NSString stringWithFormat:@"%@_banner", networkCode];
     NSMutableArray *bannerMetadata = [self.config[bannerId] mutableCopy];
-    if (!bannerMetadata){
-        bannerMetadata = [@[@{
-            @"title":@"Welcome to Spree"
-        }] mutableCopy];
-    }
+//    if (!bannerMetadata){
+//        bannerMetadata = [@[@{
+//            @"title":@"Welcome to Spree"
+//        }] mutableCopy];
+//    }
     return [bannerMetadata copy];
 }
 

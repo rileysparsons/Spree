@@ -7,6 +7,7 @@
 //
 
 #import "ProfileViewController.h"
+#import "SpreeUtility.h"
 
 @interface ProfileViewController ()
 
@@ -22,8 +23,16 @@
 
 -(void)setupForUser{
     if (self.detailUser){
-        NSLog(@"%@", self.detailUser);
-        self.usernameLabel.text = self.detailUser.username;
+        if (self.detailUser[@"displayName"]){
+            self.usernameLabel.text = [SpreeUtility firstNameForDisplayName: self.detailUser[@"displayName"]];
+        } else {
+            self.usernameLabel.text = self.detailUser[@"username"];
+        }
+        
+        if (self.detailUser[@"fbId"])
+            self.profileImage.profileID = self.detailUser[@"fbId"];
+        
+        [self.profileImage setNeedsImageUpdate];
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         [formatter setDateFormat:@"MMM YYYY"];
         self.sinceLabel.text = [NSString stringWithFormat:@"On Spree since %@",[formatter stringFromDate:self.detailUser.createdAt]];

@@ -41,10 +41,14 @@ static const CGFloat kHeaderSlideShowHeight = 125.0f;
     self.header.headerGestureRecognizer.delegate = self;
     
     HeaderSlideView *slide1 = [[HeaderSlideView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, kHeaderSlideShowHeight)];
+    [slide1 setupForMetadata:@{@"title": @"WELCOME TO SPREE", @"subtitle": @"A Sustainable, Student-to-Student Marketplace", @"backgroundColor":@"#094b96", @"titleColor":@"#f6f7f7", @"subtitleColor":@"#f6f7f7"}];
+    
     [self.header.photoGallery addPageView: slide1];
     HeaderSlideView *slide2 = [[HeaderSlideView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, kHeaderSlideShowHeight)];
+    [slide2 setupForMetadata:@{@"title": @"BOOKS TO RIDES", @"subtitle": @"Students can sell both goods and services on Spree", @"backgroundColor":@"#2b2f33", @"titleColor":@"#f6f7f7", @"subtitleColor":@"#f6f7f7"}];
     [self.header.photoGallery addPageView: slide2];
     HeaderSlideView *slide3 = [[HeaderSlideView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, kHeaderSlideShowHeight)];
+    [slide3 setupForMetadata:@{@"title": @"SUSTAINABLILITY AND SAVINGS", @"subtitle": @"Spree fosters a sustainable community on any campus nationwide", @"backgroundColor":@"#B2B707", @"titleColor":@"#2b2f33", @"subtitleColor":@"#2b2f33"}];
     [self.header.photoGallery addPageView: slide3];
     
     self.slides = [[NSMutableArray alloc] initWithArray:@[slide1, slide2, slide3]];
@@ -152,8 +156,7 @@ static const CGFloat kHeaderSlideShowHeight = 125.0f;
     if (pageIndex > 2){
         pageIndex = 0;
     }
-    
-    NSLog(@"INDEX CHANGED TO: %ld, TITLE:%@", (long)pageIndex, self.metadata[pageIndex][@"title"]);
+
     self.pagingViewIndex = pageIndex;
     
 }
