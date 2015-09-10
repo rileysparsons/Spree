@@ -131,6 +131,7 @@
     NSString *fullDomain = [NSString stringWithFormat:@"@%@.edu", campus[@"networkCode"]];
     self.emailViewController.domain = fullDomain;
     self.emailViewController.user = loginCampusTableViewController.user;
+    [self.emailViewController.user setObject:campus[@"networkCode"] forKey:@"network"];
     NSLog(@"%@", loginCampusTableViewController.user);
     [self.navigationController pushViewController:self.emailViewController animated:YES];
 }
