@@ -114,17 +114,19 @@ static const CGFloat kHeaderSlideShowHeight = 125.0f;
 
 -(void)userTouchedSlide{
     NSLog(@"%ld, %@", (long)self.pagingViewIndex, self.metadata);
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     BOOL exists = self.pagingViewIndex < [self.metadata count] ? YES : NO;
     if (exists){
         NSDictionary *slideMetadata = [self.metadata objectAtIndex:self.pagingViewIndex];
-        if ([[slideMetadata objectForKey:BANNER_LINKTYPE] isEqualToString:@"query"]){
+        if ([[slideMetadata objectForKey:BANNER_LINKTYPE]
+            isEqualToString:@"query"]){
+            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             if (slideMetadata[@"parameters"]){
                 PostTableViewController *postTableViewController = [[PostTableViewController alloc] initWithStyle:UITableViewStylePlain];
                 postTableViewController.postQueryParameters = slideMetadata[@"parameters"];
                 [self.navigationController pushViewController:postTableViewController animated:YES];
             }
         } else if ([[slideMetadata objectForKey:BANNER_LINKTYPE] isEqualToString:@"post"]){
+            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
             self.postDetailTableViewController = [storyboard instantiateViewControllerWithIdentifier:@"PostDetail"];
             NSLog(@"%@", self.storyboard);
@@ -133,11 +135,12 @@ static const CGFloat kHeaderSlideShowHeight = 125.0f;
                 [self.navigationController pushViewController:self.postDetailTableViewController animated:YES];
             }];
         } else if ([[slideMetadata objectForKey:BANNER_LINKTYPE] isEqualToString:@"competition"]){
+            // WILL ADD COMPETITION or REFERRAL VIEW
 //                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
 //                self.postDetailTableViewController = [storyboard instantiateViewControllerWithIdentifier:@"PostDetail"];
 //                NSLog(@"%@", self.storyboard);
-            [self.postDetailTableViewController initWithPost:slideMetadata[@"post"]];
-            [self.navigationController pushViewController:self.postDetailTableViewController animated:YES];
+//            [self.postDetailTableViewController initWithPost:slideMetadata[@"post"]];
+//            [self.navigationController pushViewController:self.postDetailTableViewController animated:YES];
         }
     }
     [MBProgressHUD hideHUDForView:self.view animated:YES];
