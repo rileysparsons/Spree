@@ -231,81 +231,6 @@
             </objects>
             <point key="canvasLocation" x="1835" y="-1655"/>
         </scene>
-        <!--Alternate Login View Controller-->
-        <scene sceneID="cOs-MY-RWi">
-            <objects>
-                <viewController storyboardIdentifier="AlternateLogin" id="1eo-Ja-cHv" customClass="AlternateLoginViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="xpo-VE-bnb"/>
-                        <viewControllerLayoutGuide type="bottom" id="BgA-HF-nLI"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="6cb-F1-saZ">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="If you are interested in how Spree looks and works for students, please provide your email and gain access to a demo version." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Ja-nj-oit">
-                                <rect key="frame" x="24" y="148" width="552" height="41"/>
-                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Email" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5nN-IJ-ynL">
-                                <rect key="frame" x="24" y="255.5" width="552" height="20"/>
-                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="16"/>
-                                <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
-                            </textField>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hTr-JG-gVx">
-                                <rect key="frame" x="24" y="278.5" width="552" height="2"/>
-                                <color key="backgroundColor" red="0.16666857900000001" green="0.18534906209999999" blue="0.19849607350000001" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="2" id="pED-7b-TR0"/>
-                                </constraints>
-                            </view>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7ID-Fj-wrt">
-                                <rect key="frame" x="244" y="310.5" width="112" height="30"/>
-                                <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="15"/>
-                                <state key="normal" title="Show me a demo">
-                                    <color key="titleColor" red="0.034740071740000003" green="0.29351189729999999" blue="0.58873707060000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="showMeButtonTouched:" destination="1eo-Ja-cHv" eventType="touchUpInside" id="N8Y-Oi-3IR"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Spree is a secure marketplace only for students. We are currently available only on select campuses." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yfm-ky-d8W">
-                                <rect key="frame" x="24" y="60" width="552" height="48"/>
-                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="20"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstItem="5nN-IJ-ynL" firstAttribute="top" secondItem="5Ja-nj-oit" secondAttribute="bottom" constant="67" id="0cN-XG-WSt"/>
-                            <constraint firstItem="yfm-ky-d8W" firstAttribute="leading" secondItem="6cb-F1-saZ" secondAttribute="leadingMargin" constant="8" id="9lp-Du-xRd"/>
-                            <constraint firstItem="5nN-IJ-ynL" firstAttribute="trailing" secondItem="5Ja-nj-oit" secondAttribute="trailing" id="F7z-xR-of8"/>
-                            <constraint firstItem="hTr-JG-gVx" firstAttribute="top" secondItem="5nN-IJ-ynL" secondAttribute="bottom" constant="3" id="HMh-g1-FIc"/>
-                            <constraint firstItem="yfm-ky-d8W" firstAttribute="top" secondItem="xpo-VE-bnb" secondAttribute="bottom" constant="40" id="RKt-ps-v8l"/>
-                            <constraint firstAttribute="centerX" secondItem="5nN-IJ-ynL" secondAttribute="centerX" id="azj-lp-ZbI"/>
-                            <constraint firstItem="5Ja-nj-oit" firstAttribute="top" secondItem="yfm-ky-d8W" secondAttribute="bottom" constant="40" id="bBj-gi-X8x"/>
-                            <constraint firstItem="5nN-IJ-ynL" firstAttribute="trailing" secondItem="hTr-JG-gVx" secondAttribute="trailing" id="h5f-QI-dyv"/>
-                            <constraint firstItem="7ID-Fj-wrt" firstAttribute="top" secondItem="hTr-JG-gVx" secondAttribute="bottom" constant="30" id="ijx-NN-0oP"/>
-                            <constraint firstItem="5nN-IJ-ynL" firstAttribute="leading" secondItem="hTr-JG-gVx" secondAttribute="leading" id="odJ-nu-7Qs"/>
-                            <constraint firstAttribute="centerX" secondItem="7ID-Fj-wrt" secondAttribute="centerX" id="rMV-UD-CLj"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="5Ja-nj-oit" secondAttribute="trailing" constant="8" id="s3i-0R-Syn"/>
-                            <constraint firstItem="5nN-IJ-ynL" firstAttribute="leading" secondItem="5Ja-nj-oit" secondAttribute="leading" id="s9b-BD-Gkh"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="yfm-ky-d8W" secondAttribute="trailing" constant="8" id="tJb-mf-9Sv"/>
-                            <constraint firstItem="5Ja-nj-oit" firstAttribute="leading" secondItem="6cb-F1-saZ" secondAttribute="leadingMargin" constant="8" id="vv8-UW-4a3"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="emailTextView" destination="5nN-IJ-ynL" id="MeF-q3-2cz"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="H1E-gf-fRX" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="102" y="-853"/>
-        </scene>
         <!--Walkthrough View Controller-->
         <scene sceneID="nzN-Eu-DP8">
             <objects>
@@ -318,7 +243,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ubk-wz-RQI">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ubk-wz-RQI">
                                 <rect key="frame" x="554" y="30" width="30" height="29"/>
                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                                 <state key="normal" title="SKIP">
@@ -426,14 +351,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pgk-iX-Je6">
-                                <rect key="frame" x="106" y="492" width="162" height="60"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pgk-iX-Je6">
+                                <rect key="frame" x="126" y="504" width="122" height="48"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="96B-h5-DIv"/>
                                     <constraint firstAttribute="width" constant="62" id="LOd-fX-sXj"/>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="xUa-W4-kgT"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="40"/>
+                                <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="30"/>
                                 <state key="normal" title="Show me">
                                     <color key="titleColor" red="0.034740071740000003" green="0.29351189729999999" blue="0.58873707060000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -449,7 +374,7 @@
                                     <action selector="loginButtonTapped:" destination="48a-ti-HjF" eventType="touchUpInside" id="K8T-MI-bRl"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Don't miss out on what your campus has to offer" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mvx-fh-eEO">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't miss out on what your campus has to offer" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mvx-fh-eEO">
                                 <rect key="frame" x="16" y="298" width="343" height="72"/>
                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="30"/>
                                 <color key="textColor" red="0.16666857900000001" green="0.18534906209999999" blue="0.19849607350000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -516,7 +441,7 @@
                                                             </mask>
                                                         </variation>
                                                     </textField>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="What's your school email?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VDh-k0-zYf">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What's your school email?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VDh-k0-zYf">
                                                         <rect key="frame" x="159" y="0.0" width="249" height="26.5"/>
                                                         <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="22"/>
                                                         <color key="textColor" red="0.16666857900000001" green="0.18534906209999999" blue="0.19849607350000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -675,7 +600,7 @@
                                     <action selector="authorizeButtonTapped:" destination="Lfw-Kg-9Ff" eventType="touchUpInside" id="gYq-h8-8K6"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Facebook keeps Spree social, but we'll never post something without permission. We promise." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iPo-b8-pSM">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Facebook keeps Spree social, but we'll never post something without permission. We promise." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iPo-b8-pSM">
                                 <rect key="frame" x="50" y="425" width="501" height="64"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="64" id="gqe-TI-W0d"/>
@@ -684,7 +609,7 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lKN-gM-1uB">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lKN-gM-1uB">
                                 <rect key="frame" x="264" y="539" width="71" height="30"/>
                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="15"/>
                                 <state key="normal" title="No thanks.">
@@ -794,7 +719,7 @@
                                                             <constraint firstAttribute="height" constant="2" id="zgu-k5-APP"/>
                                                         </constraints>
                                                     </view>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Great, now enter a password." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Au-9v-cY9">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Great, now enter a password." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Au-9v-cY9">
                                                         <rect key="frame" x="144" y="0.0" width="280" height="27"/>
                                                         <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="22"/>
                                                         <color key="textColor" red="0.16666857900000001" green="0.18534906209999999" blue="0.19849607350000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -923,6 +848,150 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7az-Jt-328" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3239.5" y="-843.5"/>
+        </scene>
+        <!--Demo-->
+        <scene sceneID="SSl-fy-gIP">
+            <objects>
+                <viewController storyboardIdentifier="AlternateLogin" id="Omz-mT-3xV" userLabel="Demo" customClass="AlternateLoginViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="JfW-qL-Klk"/>
+                        <viewControllerLayoutGuide type="bottom" id="wG8-w8-HOr"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="2YK-RX-LjE">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w1z-Gq-VFT" customClass="TPKeyboardAvoidingScrollView">
+                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S1p-ZI-KGu" userLabel="Content">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
+                                        <subviews>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Email" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4Lf-4X-i0q">
+                                                <rect key="frame" x="16" y="195" width="568" height="42"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="400" id="hN4-FI-a3K"/>
+                                                    <constraint firstAttribute="height" constant="42" id="wOX-fp-8x3"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="21"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
+                                                <variation key="default">
+                                                    <mask key="constraints">
+                                                        <exclude reference="hN4-FI-a3K"/>
+                                                    </mask>
+                                                </variation>
+                                            </textField>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nPZ-cj-VQ0">
+                                                <rect key="frame" x="16" y="233" width="568" height="2"/>
+                                                <color key="backgroundColor" red="0.16666857900000001" green="0.18534906209999999" blue="0.19849607350000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="2" id="Ew6-zD-Byy"/>
+                                                </constraints>
+                                            </view>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gcW-zo-XYO">
+                                                <rect key="frame" x="276" y="245" width="48" height="30"/>
+                                                <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="15"/>
+                                                <state key="normal" title="Submit">
+                                                    <color key="titleColor" red="0.034740071740000003" green="0.29351189729999999" blue="0.58873707060000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="showMeButtonTouched:" destination="Omz-mT-3xV" eventType="touchUpInside" id="xWF-bS-kom"/>
+                                                </connections>
+                                            </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Spree is a secure marketplace only for students. We are currently available only on select campuses." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Lyt-Aw-lVx">
+                                                <rect key="frame" x="24" y="64" width="552" height="53"/>
+                                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="22"/>
+                                                <color key="textColor" red="0.16666857900000001" green="0.18534906209999999" blue="0.19849607350000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="If you are interested in how Spree looks and works for students, please provide your email and gain access to a demo version." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="qjN-S6-2U7">
+                                                <rect key="frame" x="24" y="127" width="552" height="48"/>
+                                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="20"/>
+                                                <color key="textColor" red="0.16666857900000001" green="0.18534906209999999" blue="0.19849607350000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="nPZ-cj-VQ0" firstAttribute="leading" secondItem="S1p-ZI-KGu" secondAttribute="leading" constant="16" id="0yc-Aq-YXP"/>
+                                            <constraint firstAttribute="trailing" secondItem="4Lf-4X-i0q" secondAttribute="trailing" constant="16" id="3qX-tZ-55k"/>
+                                            <constraint firstItem="Lyt-Aw-lVx" firstAttribute="leading" secondItem="S1p-ZI-KGu" secondAttribute="leading" constant="24" id="4Od-pU-dM7"/>
+                                            <constraint firstItem="Lyt-Aw-lVx" firstAttribute="top" secondItem="S1p-ZI-KGu" secondAttribute="top" constant="64" id="Bys-Jj-tdU"/>
+                                            <constraint firstAttribute="centerX" secondItem="gcW-zo-XYO" secondAttribute="centerX" id="JaW-jQ-3aB"/>
+                                            <constraint firstAttribute="centerX" secondItem="qjN-S6-2U7" secondAttribute="centerX" id="Mgc-Gv-8v7"/>
+                                            <constraint firstAttribute="trailing" secondItem="nPZ-cj-VQ0" secondAttribute="trailing" constant="16" id="NEW-Xt-8A2"/>
+                                            <constraint firstItem="qjN-S6-2U7" firstAttribute="leading" secondItem="S1p-ZI-KGu" secondAttribute="leading" constant="24" id="NUe-7A-Wpy"/>
+                                            <constraint firstItem="4Lf-4X-i0q" firstAttribute="leading" secondItem="S1p-ZI-KGu" secondAttribute="leading" constant="16" id="Nm6-UL-3ud"/>
+                                            <constraint firstItem="gcW-zo-XYO" firstAttribute="top" secondItem="4Lf-4X-i0q" secondAttribute="bottom" constant="8" id="XiR-3m-YHZ"/>
+                                            <constraint firstAttribute="centerX" secondItem="4Lf-4X-i0q" secondAttribute="centerX" id="aGj-g7-ROG"/>
+                                            <constraint firstItem="qjN-S6-2U7" firstAttribute="top" secondItem="Lyt-Aw-lVx" secondAttribute="bottom" constant="10" id="ahw-ru-vbP"/>
+                                            <constraint firstAttribute="trailing" secondItem="Lyt-Aw-lVx" secondAttribute="trailing" constant="24" id="ckz-Oh-9ok"/>
+                                            <constraint firstItem="4Lf-4X-i0q" firstAttribute="top" secondItem="qjN-S6-2U7" secondAttribute="bottom" constant="20" id="e2a-u7-aLk"/>
+                                            <constraint firstItem="gcW-zo-XYO" firstAttribute="top" secondItem="nPZ-cj-VQ0" secondAttribute="bottom" constant="10" id="icl-Ef-DE8"/>
+                                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="gcW-zo-XYO" secondAttribute="bottom" constant="8" id="lEV-vt-Qrm"/>
+                                            <constraint firstAttribute="centerX" secondItem="nPZ-cj-VQ0" secondAttribute="centerX" id="nBh-JN-TR9"/>
+                                            <constraint firstAttribute="trailing" secondItem="qjN-S6-2U7" secondAttribute="trailing" constant="24" id="ul8-ek-gGg"/>
+                                            <constraint firstAttribute="centerX" secondItem="Lyt-Aw-lVx" secondAttribute="centerX" id="xEy-La-wau"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="centerY" secondItem="S1p-ZI-KGu" secondAttribute="centerY" id="0o3-fq-OSi"/>
+                                    <constraint firstAttribute="bottom" secondItem="S1p-ZI-KGu" secondAttribute="bottom" id="DVl-Vq-oKe"/>
+                                    <constraint firstAttribute="centerY" secondItem="S1p-ZI-KGu" secondAttribute="centerY" id="K7x-LV-u5C"/>
+                                    <constraint firstItem="S1p-ZI-KGu" firstAttribute="top" secondItem="w1z-Gq-VFT" secondAttribute="top" id="Mj5-tW-AY3"/>
+                                    <constraint firstItem="S1p-ZI-KGu" firstAttribute="leading" secondItem="w1z-Gq-VFT" secondAttribute="leading" id="Uz5-O1-WU0"/>
+                                    <constraint firstItem="S1p-ZI-KGu" firstAttribute="top" secondItem="w1z-Gq-VFT" secondAttribute="top" id="e1d-ET-wp9"/>
+                                    <constraint firstAttribute="trailing" secondItem="S1p-ZI-KGu" secondAttribute="trailing" id="f9b-eo-Cco"/>
+                                    <constraint firstAttribute="bottom" secondItem="S1p-ZI-KGu" secondAttribute="bottom" id="j6e-zL-fVa"/>
+                                    <constraint firstAttribute="centerX" secondItem="S1p-ZI-KGu" secondAttribute="centerX" id="kX2-qz-NHI"/>
+                                    <constraint firstItem="S1p-ZI-KGu" firstAttribute="top" secondItem="w1z-Gq-VFT" secondAttribute="top" id="nDH-nU-vlQ"/>
+                                    <constraint firstItem="S1p-ZI-KGu" firstAttribute="leading" secondItem="w1z-Gq-VFT" secondAttribute="leading" id="oLo-o9-KpS"/>
+                                    <constraint firstAttribute="trailing" secondItem="S1p-ZI-KGu" secondAttribute="trailing" id="pe2-4n-EQt"/>
+                                    <constraint firstAttribute="centerX" secondItem="S1p-ZI-KGu" secondAttribute="centerX" id="spf-hh-vX0"/>
+                                    <constraint firstItem="S1p-ZI-KGu" firstAttribute="top" secondItem="w1z-Gq-VFT" secondAttribute="top" id="wOH-Wu-DG1"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="DVl-Vq-oKe"/>
+                                        <exclude reference="K7x-LV-u5C"/>
+                                        <exclude reference="Mj5-tW-AY3"/>
+                                        <exclude reference="e1d-ET-wp9"/>
+                                        <exclude reference="f9b-eo-Cco"/>
+                                        <exclude reference="oLo-o9-KpS"/>
+                                        <exclude reference="spf-hh-vX0"/>
+                                        <exclude reference="wOH-Wu-DG1"/>
+                                    </mask>
+                                </variation>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.96558624510000002" green="0.97044742110000004" blue="0.97035741809999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="w1z-Gq-VFT" firstAttribute="top" secondItem="2YK-RX-LjE" secondAttribute="topMargin" id="Ru5-i2-KnR"/>
+                            <constraint firstItem="w1z-Gq-VFT" firstAttribute="top" secondItem="JfW-qL-Klk" secondAttribute="bottom" id="gNb-tY-bVx"/>
+                            <constraint firstItem="w1z-Gq-VFT" firstAttribute="leading" secondItem="2YK-RX-LjE" secondAttribute="leading" id="iUA-CO-DLp"/>
+                            <constraint firstAttribute="trailing" secondItem="w1z-Gq-VFT" secondAttribute="trailing" id="kCg-cO-VbQ"/>
+                            <constraint firstItem="wG8-w8-HOr" firstAttribute="top" secondItem="w1z-Gq-VFT" secondAttribute="bottom" id="l2L-R1-7BC"/>
+                            <constraint firstItem="w1z-Gq-VFT" firstAttribute="top" secondItem="JfW-qL-Klk" secondAttribute="bottom" id="x7Q-aD-viP"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="Ru5-i2-KnR"/>
+                                <exclude reference="gNb-tY-bVx"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <navigationItem key="navigationItem" title="Spree at SCU" id="FaR-8e-0Df"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="600" height="600"/>
+                    <connections>
+                        <outlet property="emailTextView" destination="4Lf-4X-i0q" id="Rbn-Q5-n17"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sr4-7V-iWD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2562" y="-1655"/>
         </scene>
     </scenes>
     <resources>

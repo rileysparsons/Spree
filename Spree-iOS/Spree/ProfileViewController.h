@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
 
 @interface ProfileViewController : UIViewController
 @property PFUser *detailUser;
-@property (weak, nonatomic) IBOutlet UIImageView *profileImage;
+@property (weak, nonatomic) IBOutlet FBSDKProfilePictureView *profileImage;
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *sinceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *reviewLabel;

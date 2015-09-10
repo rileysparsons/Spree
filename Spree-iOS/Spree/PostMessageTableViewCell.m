@@ -7,8 +7,8 @@
 //
 
 #import "PostMessageTableViewCell.h"
-#import <ParseFacebookUtilsV4/PFFacebookUtils.h>
-#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import "SpreeUtility.h"
+
 
 @implementation PostMessageTableViewCell
 
@@ -17,23 +17,11 @@
 }
 
 -(void)setMessageButtonForPost:(SpreePost*)post{
-    [post.user fetchInBackgroundWithBlock:^(PFObject *object, NSError *error){
-        if (object[@"fbId"]){
-            NSString *graphPath = [NSString stringWithFormat:@"%@?fields=first_name", object[@"fbId"]];
-            FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:graphPath parameters:nil];
-            //                         Send request to Facebook
-            [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
-                if (!error) {
-                    [self.messageButton setTitle:[NSString stringWithFormat:@"Message %@", result[@"first_name"]
-                                                  ] forState:UIControlStateNormal];
-                } else {
-                    NSLog(@"3, %@",error);
-                }
-            }];
-        } else {
-            [self.messageButton setTitle: @"Message Seller" forState:UIControlStateNormal];
-        }
-    }];
+    if (post[@"user"][@"displayName"]){
+        [self.messageButton setTitle: [NSString stringWithFormat:@"Message %@", [SpreeUtility firstNameForDisplayName:post[@"user"][@"displayName"]]] forState:UIControlStateNormal];
+    } else {
+        [self.messageButton setTitle: @"Message Owner" forState:UIControlStateNormal];
+    }
 }
 
 @end
