@@ -42,9 +42,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    // Add a "textFieldDidChange" notification method to the text field control.
+    [self.priceTextField addTarget:self
+                  action:@selector(textFieldDidChange:)
+        forControlEvents:UIControlEventEditingChanged];
     [self formatPriceEntryView];
     self.priceTextField.delegate = self;
     self.promptLabel.text = self.prompt;
+    [[self.navigationItem.rightBarButtonItems objectAtIndex:0] setEnabled:[self validatePrice:self.priceTextField.text]];
 }
 
 -(void)formatPriceEntryView{
@@ -59,23 +64,13 @@
 }
 
 -(BOOL)validatePrice:(NSString *)price{
-    if (maxCharacter){
-        if (price && price.length != 0){
-            return YES;
-        } else {
-            return NO;
-        }
+    
+    NSLog(@"%lu", (unsigned long)price.length);
+    if (price && price.length > 0 && price.length <= [maxCharacter intValue]){
+        return YES;
     } else {
-        if (price && price.length > 0){
-            return YES;
-        }
+        return NO;
     }
-    return NO;
-}
-
--(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
-    [[self.navigationItem.rightBarButtonItems objectAtIndex:0] setEnabled:[self validatePrice:string]];
-    return YES;
 }
 
 - (void)nextBarButtonItemTouched:(id)sender {
@@ -103,6 +98,11 @@
 -(void)cancelWorkflow{
     [super cancelWorkflow];
     [self.priceTextField resignFirstResponder];
+}
+
+-(void)textFieldDidChange: (id)sender{
+    [[self.navigationItem.rightBarButtonItems objectAtIndex:0] setEnabled:[self validatePrice:self.priceTextField.text]];
+
 }
 
 @end

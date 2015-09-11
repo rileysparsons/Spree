@@ -14,7 +14,7 @@
 #import <CTAssetsPickerController/CTAssetsPickerController.h>
 
 @interface PostPhotoSelectViewController () <CTAssetsPickerControllerDelegate, UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
-
+@property UIButton *nextButton;
 
 @end
 
@@ -32,29 +32,19 @@ int currentPhotoCount = 0;
     [cancel addTarget:self action:@selector(cancelWorkflow) forControlEvents:UIControlEventTouchUpInside];
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:cancel];
+
+    self.nextButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 40)];
+    self.nextButton.backgroundColor = [UIColor clearColor];
+    [self.nextButton setImage:[UIImage imageNamed:@"forwardNormal_Dark"] forState:UIControlStateNormal];
+    [self.nextButton setImage:[UIImage imageNamed:@"forwardHighlight_Dark"] forState:UIControlStateHighlighted];
+    self.nextButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [self.nextButton addTarget:self action:@selector(nextBarButtonItemTouched:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *nextBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.nextButton];
     
-    self.countBarButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.countBarButton.frame = CGRectZero;
-    self.countBarButton.titleLabel.font = [UIFont fontWithName:@"Lato-Bold" size:16];
     
-    self.countBarButton.userInteractionEnabled = NO;
-    [self.countBarButton setTitle:[NSString stringWithFormat:@"%d", maxImageCount-currentPhotoCount] forState:UIControlStateNormal];
-    [self.countBarButton setTitleColor:[UIColor spreeDarkBlue] forState:UIControlStateNormal];
-    [self.countBarButton sizeToFit];
-    self.countBarButton.backgroundColor = [UIColor clearColor];
+    [self.navigationItem setRightBarButtonItems:@[nextBarButtonItem] animated:YES];
     
-    UIBarButtonItem *countBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.countBarButton];
-    
-    UIButton *nextButton = [[UIButton alloc] init];
-    [nextButton setTitle:@"Next" forState:UIControlStateNormal];
-    [nextButton addTarget:self action:@selector(nextBarButtonItemTouched:) forControlEvents:UIControlEventTouchUpInside];
-    [nextButton sizeToFit];
-    [nextButton.titleLabel setFont:[UIFont fontWithName:@"Lato-Bold" size:16]];
-    [nextButton setTintColor:[UIColor spreeDarkBlue]];
-    [nextButton setTitleColor:[UIColor spreeDarkBlue] forState:UIControlStateNormal];
-    [nextButton setTitleColor:[UIColor spreeDarkYellow] forState:UIControlStateHighlighted];
-    
-    [self.navigationItem setRightBarButtonItems:@[[[UIBarButtonItem alloc] initWithCustomView:nextButton], countBarButtonItem] animated:YES];
+    [[self.navigationItem.rightBarButtonItems objectAtIndex:0] setEnabled: [self fieldIsFilled]];
 }
 
 - (void)viewDidLoad {
@@ -114,7 +104,7 @@ int currentPhotoCount = 0;
 }
 
 -(BOOL)fieldIsFilled{
-    if (currentPhotoCount > 0 && currentPhotoCount <= maxImageCount){
+    if (currentPhotoCount > 0){
         return YES;
     } else {
         return NO;
