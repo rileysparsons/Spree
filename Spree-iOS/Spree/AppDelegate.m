@@ -63,6 +63,7 @@
     [[SpreeConfigManager sharedManager] fetchConfigIfNeeded];
     
     //Branch stuff
+    [Branch setDebug];
     [[Branch getInstance] setIdentity:[PFUser currentUser][@"username"]];
     Branch *branch = [Branch getInstance];
     [branch initSessionWithLaunchOptions:launchOptions andRegisterDeepLinkHandler:^(NSDictionary *params, NSError *error) {

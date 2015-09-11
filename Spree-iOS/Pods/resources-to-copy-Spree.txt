@@ -1,0 +1,1 @@
+/Users/Hamilton/Documents/Xcode Workspace/Spree/Spree-iOS/Pods/JSQMessagesViewController/JSQMessagesViewController/Assets/JSQMessagesAssets.bundle
