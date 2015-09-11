@@ -62,6 +62,35 @@
     
     [[SpreeConfigManager sharedManager] fetchConfigIfNeeded];
     
+    //Branch stuff
+    [[Branch getInstance] setIdentity:[PFUser currentUser][@"username"]];
+    Branch *branch = [Branch getInstance];
+    [branch initSessionWithLaunchOptions:launchOptions andRegisterDeepLinkHandler:^(NSDictionary *params, NSError *error) {
+        [[Branch getInstance] setIdentity:[PFUser currentUser][@"username"]];
+        // params are the deep linked params associated with the link that the user clicked before showing up.
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+        if ([params objectForKey:@"object id"] != nil && [PFUser currentUser]){
+//            NSLog(@"%@", params[@"+referrer"]);
+            NSLog(@"called");
+            UITabBarController *tabBarController =  (UITabBarController *)self.window.rootViewController;
+            
+            UINavigationController *homeNavigationController = [[tabBarController viewControllers] objectAtIndex:SpreeCampusTabBarItemIndex];
+            
+            [tabBarController setSelectedViewController:homeNavigationController];
+            
+            PostDetailTableViewController *postDetailTableViewController = [storyboard instantiateViewControllerWithIdentifier:@"PostDetail"];
+            
+            [postDetailTableViewController initializeWithObjectId:params[@"object id"]];
+            
+            [homeNavigationController pushViewController:postDetailTableViewController animated:YES ];
+            
+            
+            //            [self.window.rootViewController.navigationController presentViewController:postDetailTableViewController animated:YES completion:nil];
+            //I assume this is where you should put the initialization
+            
+        }
+    }];
+    
     if (![PFUser currentUser]) {
         [self showOnboardingFlow];
     } else {
@@ -73,35 +102,6 @@
         [application registerUserNotificationSettings:settings];
         [application registerForRemoteNotifications];
         
-        
-        
-        //Branch stuff
-        [[Branch getInstance] setIdentity:[PFUser currentUser][@"username"]];
-        Branch *branch = [Branch getInstance];
-        [branch initSessionWithLaunchOptions:launchOptions andRegisterDeepLinkHandler:^(NSDictionary *params, NSError *error) {
-            [[Branch getInstance] setIdentity:[PFUser currentUser][@"username"]];
-            // params are the deep linked params associated with the link that the user clicked before showing up.
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-            if ([params objectForKey:@"object id"] != nil){
-                NSLog(params[@"+referrer"]);
-                UITabBarController *tabBarController =  (UITabBarController *)self.window.rootViewController;
-                
-                UINavigationController *homeNavigationController = [[tabBarController viewControllers] objectAtIndex:SpreeCampusTabBarItemIndex];
-                
-                [tabBarController setSelectedViewController:homeNavigationController];
-                
-                PostDetailTableViewController *postDetailTableViewController = [storyboard instantiateViewControllerWithIdentifier:@"PostDetail"];
-                
-                [postDetailTableViewController initializeWithObjectId:params[@"object id"]];
-
-                [homeNavigationController pushViewController:postDetailTableViewController animated:YES ];
-                
-                
-                //            [self.window.rootViewController.navigationController presentViewController:postDetailTableViewController animated:YES completion:nil];
-                //I assume this is where you should put the initialization
-                
-            }
-        }];
     }
     
 
