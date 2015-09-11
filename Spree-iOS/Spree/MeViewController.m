@@ -18,7 +18,7 @@
 #import "MSCellAccessory.h"
 #import "RatingViewController.h"
 #import "Branch/Branch.h"
-
+#import "BranchReferralController.h"
 
 #define kReferralTabTitle @"Referrals"
 #define kAuthorizeFacebookTitle @"Authorize Facebook"
@@ -222,6 +222,7 @@
         } else if ([titleOfRow isEqualToString: kReferralTabTitle]){
             [self performSegueWithIdentifier:@"ShowReferralView" sender:self];
             //BranchReferralController *referralController = [BranchReferralController branchReferralControllerWithView:myCustomView delegate:self];
+            //BranchReferralController *referralController = [BranchReferralController branchReferralControllerWithDelegate:self];
             //[self presentViewController:referralController animated:YES completion:NULL];
         }
         else if ([titleOfRow isEqualToString:kAuthorizeFacebookTitle]){

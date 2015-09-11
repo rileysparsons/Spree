@@ -75,13 +75,15 @@
         
         
         
-        //Branch.io stuff
+        //Branch stuff
+        [Branch setDebug];
         Branch *branch = [Branch getInstance];
+        [[Branch getInstance] setIdentity:[PFUser currentUser][@"username"]];
         [branch initSessionWithLaunchOptions:launchOptions andRegisterDeepLinkHandler:^(NSDictionary *params, NSError *error) {
             
             // params are the deep linked params associated with the link that the user clicked before showing up.
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-            if ([params objectForKey:@"object id"]){
+            if ([params objectForKey:@"object id"] != nil){
                 
                 UITabBarController *tabBarController =  (UITabBarController *)self.window.rootViewController;
                 
@@ -100,9 +102,6 @@
                 //I assume this is where you should put the initialization
                 
             }
-            
-            
-            
         }];
     }
     

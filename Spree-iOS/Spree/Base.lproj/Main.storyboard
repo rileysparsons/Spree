@@ -561,17 +561,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aaE-yh-K3a">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aaE-yh-K3a">
                                 <rect key="frame" x="0.0" y="64" width="414" height="353"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="353" id="ulh-zV-1oI"/>
+                                </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Description..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zys-gk-4jr">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zys-gk-4jr">
                                 <rect key="frame" x="16" y="416" width="382" height="195"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gXu-p6-aXQ">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gXu-p6-aXQ">
                                 <rect key="frame" x="16" y="619" width="382" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="uGY-h2-kIA"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="37"/>
                                 <state key="normal" title="Share Spree">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -582,6 +588,18 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="aaE-yh-K3a" firstAttribute="top" secondItem="Pjf-P3-lfk" secondAttribute="bottom" id="40K-hO-QOZ"/>
+                            <constraint firstAttribute="trailing" secondItem="aaE-yh-K3a" secondAttribute="trailing" id="Dai-Ox-eQn"/>
+                            <constraint firstItem="gXu-p6-aXQ" firstAttribute="top" secondItem="zys-gk-4jr" secondAttribute="bottom" constant="8" symbolic="YES" id="EaR-Xt-nxI"/>
+                            <constraint firstItem="gXu-p6-aXQ" firstAttribute="leading" secondItem="qje-PH-y0w" secondAttribute="leadingMargin" id="FYU-Gh-28r"/>
+                            <constraint firstItem="zys-gk-4jr" firstAttribute="leading" secondItem="gXu-p6-aXQ" secondAttribute="leading" id="GUb-aT-peH"/>
+                            <constraint firstItem="aaE-yh-K3a" firstAttribute="centerX" secondItem="zys-gk-4jr" secondAttribute="centerX" id="ITA-SB-YCB"/>
+                            <constraint firstItem="aaE-yh-K3a" firstAttribute="leading" secondItem="qje-PH-y0w" secondAttribute="leading" id="W7U-RO-NC9"/>
+                            <constraint firstItem="ims-gl-Z4R" firstAttribute="top" secondItem="gXu-p6-aXQ" secondAttribute="bottom" constant="8" symbolic="YES" id="gUo-r2-JfD"/>
+                            <constraint firstItem="gXu-p6-aXQ" firstAttribute="trailing" secondItem="zys-gk-4jr" secondAttribute="trailing" id="s8s-pt-IKb"/>
+                            <constraint firstItem="zys-gk-4jr" firstAttribute="top" secondItem="Pjf-P3-lfk" secondAttribute="bottom" constant="352" id="uTk-oi-sYU"/>
+                        </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                 </viewController>

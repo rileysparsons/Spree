@@ -593,6 +593,8 @@
 				CFFEE9271B0487BF002CD29A /* MeetUpViewController.h */,
 				1491BBA21B336F38004F43CA /* ResultsTableViewController.h */,
 				1491BBA31B336F38004F43CA /* ResultsTableViewController.m */,
+				4EFD06E61BA1528700947AD6 /* ReferralViewController.h */,
+				4EFD06E71BA1528700947AD6 /* ReferralViewController.m */,
 				1415244D1B406B55007EE405 /* PostTypeViewController.h */,
 				1415244E1B406B55007EE405 /* PostTypeViewController.m */,
 				14EFDAE51A89EC4F007510CC /* TextViewViewController.h */,
@@ -603,8 +605,6 @@
 				F70FACF21AEB4FF200057E6E /* Messaging */,
 				143D91E51B6DFDAC00E2F493 /* LoginCampusTableViewController.h */,
 				143D91E61B6DFDAC00E2F493 /* LoginCampusTableViewController.m */,
-				4EFD06E61BA1528700947AD6 /* ReferralViewController.h */,
-				4EFD06E71BA1528700947AD6 /* ReferralViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
