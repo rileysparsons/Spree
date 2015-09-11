@@ -93,6 +93,7 @@ typedef enum : NSUInteger {
 
 -(void)viewWillAppear:(BOOL)animated{
     //Sets the bar button item in the top left equal to the value of credits the user has
+    
     [[Branch getInstance] loadRewardsWithCallback:^(BOOL changed, NSError *err) {
         if (!err) {
             NSString *credit = [NSString stringWithFormat:@"Credit: %lu", [[Branch getInstance] getCredits]];
@@ -227,8 +228,10 @@ typedef enum : NSUInteger {
         if ([titleOfRow isEqualToString:kLogOutTitle]){
 //            [PFFacebookUtils unlinkUser:[PFUser currentUser]];
             UIAlertView *confirmLogOut = [[UIAlertView alloc] initWithTitle:@"Confirm Log Out" message:@"Are you sure you want to log out of Spree?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
+            [[Branch getInstance] logout];
             confirmLogOut.tag = 0;
             [confirmLogOut show];
+            
         } else if ([titleOfRow isEqualToString: kYourPostsTitle]){
             [self performSegueWithIdentifier:@"ShowUserPosts" sender:self];
         } else if ([titleOfRow isEqualToString: kReferralTabTitle]){

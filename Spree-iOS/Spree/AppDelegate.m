@@ -76,15 +76,14 @@
         
         
         //Branch stuff
-        [Branch setDebug];
-        Branch *branch = [Branch getInstance];
         [[Branch getInstance] setIdentity:[PFUser currentUser][@"username"]];
+        Branch *branch = [Branch getInstance];
         [branch initSessionWithLaunchOptions:launchOptions andRegisterDeepLinkHandler:^(NSDictionary *params, NSError *error) {
-            
+            [[Branch getInstance] setIdentity:[PFUser currentUser][@"username"]];
             // params are the deep linked params associated with the link that the user clicked before showing up.
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
             if ([params objectForKey:@"object id"] != nil){
-                
+                NSLog(params[@"+referrer"]);
                 UITabBarController *tabBarController =  (UITabBarController *)self.window.rootViewController;
                 
                 UINavigationController *homeNavigationController = [[tabBarController viewControllers] objectAtIndex:SpreeCampusTabBarItemIndex];
