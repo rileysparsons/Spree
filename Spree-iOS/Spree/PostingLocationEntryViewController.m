@@ -180,8 +180,8 @@
 #pragma mark - MapView
 
 -(void)mapView:(MKMapView *)mapView regionWillChangeAnimated:(BOOL)animated{
-    if (self.searchController.active)
-        [self.searchController setActive:NO];
+//    if (self.searchController.active)
+//        [self.searchController setActive:NO];
 }
 
 -(void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views{
