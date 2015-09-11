@@ -19,12 +19,16 @@
 #import "RatingViewController.h"
 #import "SpreeUtility.h"
 
+typedef enum : NSUInteger {
+    kLogOutAlert,
+    kVerifyEmailAlert
+} AlertType;
 
 #define kAuthorizeFacebookTitle @"Authorize Facebook"
 #define kLogOutTitle @"Log Out"
 #define kYourPostsTitle @"Your Posts"
 
-@interface MeViewController () {
+@interface MeViewController () <UIAlertViewDelegate> {
     NSInteger expiredPostCount;
     NSInteger activePostCount;
 }
@@ -121,7 +125,8 @@
     self.nameLabel.imageView.contentMode = UIViewContentModeScaleAspectFit;
     
     if (![SpreeUtility userInDemoMode]){
-        if ([[PFUser currentUser][@"emailVerified"] isEqualToNumber:[NSNumber numberWithBool:1]]){
+        
+        if ([SpreeUtility checkForEmailVerification]){
             if ([PFUser currentUser][@"displayName"]){
                 self.profileImageView.profileID = [PFUser currentUser][@"fbId"];
                  [self.nameLabel setTitle:[PFUser currentUser][@"displayName"] forState:UIControlStateNormal];
@@ -131,6 +136,11 @@
             
             [self.nameLabel setImage:[UIImage imageNamed:@"verifiedStudent"] forState:UIControlStateNormal];
         } else {
+            
+            UIAlertView *userNotVerified = [[UIAlertView alloc] initWithTitle:@"Unverified Student" message:VERIFY_EMAIL_PROMPT delegate:self cancelButtonTitle:@"OK" otherButtonTitles: @"Resend email", nil];
+            userNotVerified.tag = kVerifyEmailAlert;
+            [userNotVerified show];
+            
             if ([PFUser currentUser][@"displayName"]){
                 self.profileImageView.profileID = [PFUser currentUser][@"fbId"];
                  [self.nameLabel setTitle:[PFUser currentUser][@"displayName"] forState:UIControlStateNormal];
@@ -248,9 +258,27 @@
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if (alertView.tag == 0){
+    if (alertView.tag == kLogOutAlert){
         if (buttonIndex == 1) {
                 [(AppDelegate *)[[UIApplication sharedApplication] delegate] logOut];
+        }
+    } else if (alertView.tag == kVerifyEmailAlert){
+        int resendButtonIndex = 1;
+        if (resendButtonIndex == buttonIndex){
+            //updating the email will force Parse to resend the verification email
+            NSString *email = [[PFUser currentUser] objectForKey:@"email"];
+            NSLog(@"email: %@",email);
+            [[PFUser currentUser] setObject:email forKey:@"email"];
+            [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error ){
+                
+                if( succeeded ) {
+                    
+                    [[PFUser currentUser] setObject:email forKey:@"email"];
+                    [[PFUser currentUser] saveInBackground];
+                    
+                }
+                
+            }];
         }
     }
 }

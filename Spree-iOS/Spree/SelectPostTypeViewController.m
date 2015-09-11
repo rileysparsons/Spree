@@ -11,10 +11,15 @@
 #import "SelectPostSubTypeViewController.h"
 #import "SpreePost.h"
 #import "PostingWorkflow.h"
+#import "SpreeUtility.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 #import <MSCellAccessory.h>
 
-@interface SelectPostTypeViewController ()
+typedef enum : NSUInteger {
+    kVerifyEmailAlert,
+} AlertViewTag;
+
+@interface SelectPostTypeViewController () <UIAlertViewDelegate>
 
 @end
 
@@ -90,28 +95,34 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    
-    SpreePost *post = [[SpreePost alloc] init];
-    post.typePointer = [self objectAtIndexPath:indexPath];
-    post.user = [PFUser currentUser];
-    PFQuery *subtype = [PFQuery queryWithClassName:@"PostSubtype"];
-    [subtype getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error){
-        PostingWorkflow *postingWorkflow = [[PostingWorkflow alloc] initWithPost:post];
-        if (object){
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewPost" bundle:nil];
-            SelectPostSubTypeViewController *selectPostSubTypeViewController = [storyboard instantiateViewControllerWithIdentifier:@"SelectPostSubTypeViewController"];
-            selectPostSubTypeViewController.workflow = postingWorkflow;
-            selectPostSubTypeViewController.post = post;
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
-            [self.navigationController pushViewController:selectPostSubTypeViewController animated:YES];
-        } else {
-            
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
-            [self.navigationController pushViewController:[postingWorkflow nextViewController] animated:YES];
-        }
-    }];
+    if ([SpreeUtility checkForEmailVerification]){
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        
+        SpreePost *post = [[SpreePost alloc] init];
+        post.typePointer = [self objectAtIndexPath:indexPath];
+        post.user = [PFUser currentUser];
+        PFQuery *subtype = [PFQuery queryWithClassName:@"PostSubtype"];
+        [subtype getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error){
+            PostingWorkflow *postingWorkflow = [[PostingWorkflow alloc] initWithPost:post];
+            if (object){
+                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewPost" bundle:nil];
+                SelectPostSubTypeViewController *selectPostSubTypeViewController = [storyboard instantiateViewControllerWithIdentifier:@"SelectPostSubTypeViewController"];
+                selectPostSubTypeViewController.workflow = postingWorkflow;
+                selectPostSubTypeViewController.post = post;
+                [MBProgressHUD hideHUDForView:self.view animated:YES];
+                [self.navigationController pushViewController:selectPostSubTypeViewController animated:YES];
+            } else {
+                
+                [MBProgressHUD hideHUDForView:self.view animated:YES];
+                [self.navigationController pushViewController:[postingWorkflow nextViewController] animated:YES];
+            }
+        }];
+    } else {
+        UIAlertView *userNotVerified = [[UIAlertView alloc] initWithTitle:@"Unverified Student" message:VERIFY_EMAIL_PROMPT delegate:self cancelButtonTitle:@"OK" otherButtonTitles: @"Resend email", nil];
+        userNotVerified.tag = kVerifyEmailAlert;
+        [userNotVerified show];
+    }
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 -(void)dismissViewControllerAnimated:(BOOL)flag completion:(void (^)(void))completion{
@@ -144,5 +155,27 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (alertView.tag == kVerifyEmailAlert){
+        int resendButtonIndex = 1;
+        if (resendButtonIndex == buttonIndex){
+            //updating the email will force Parse to resend the verification email
+            NSString *email = [[PFUser currentUser] objectForKey:@"email"];
+            NSLog(@"email: %@",email);
+            [[PFUser currentUser] setObject:email forKey:@"email"];
+            [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error ){
+                
+                if( succeeded ) {
+                    
+                    [[PFUser currentUser] setObject:email forKey:@"email"];
+                    [[PFUser currentUser] saveInBackground];
+                    
+                }
+                
+            }];
+        }
+    }
+}
 
 @end
