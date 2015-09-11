@@ -355,10 +355,10 @@
             cell.postImageView.file = imageFile;
             [cell.postImageView loadInBackground];
         } else {
+            cell.imageBackgroundView.backgroundColor = [UIColor spreeOffBlack];
             [post.typePointer fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error){
                 if ([post.typePointer[@"type"] isEqualToString: @"Tasks & Services"]){
                     cell.placeholderIconView.image = [UIImage imageNamed:@"tasksAndServicesThumbnail"];
-                    cell.imageBackgroundView.hidden = NO;
                 }
             }];
         }

@@ -207,7 +207,9 @@
                 if ([currentObject isKindOfClass:[UITableViewCell class]]){
                     cell = (PostUserTableViewCell*)currentObject;
                     [cell setTag:2];
-                    [cell setUserLabelForPost:self.post];
+                    [self.post.user fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error){
+                        [cell setUserLabelForPost:self.post];
+                    }];
                     break;
                 }
             }

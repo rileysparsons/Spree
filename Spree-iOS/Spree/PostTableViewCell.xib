@@ -35,10 +35,10 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8pD-IV-coS">
-                        <rect key="frame" x="240" y="8" width="72" height="21"/>
+                        <rect key="frame" x="244" y="8" width="68" height="21"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="57" id="dVA-Ew-pEh"/>
-                            <constraint firstAttribute="width" constant="72" id="di9-ii-r5D"/>
+                            <constraint firstAttribute="width" constant="68" id="di9-ii-r5D"/>
                             <constraint firstAttribute="height" constant="21" id="t4U-iM-cM2"/>
                         </constraints>
                         <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="15"/>
@@ -51,7 +51,7 @@
                         </variation>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PpY-lj-uX4">
-                        <rect key="frame" x="88" y="8" width="144" height="21"/>
+                        <rect key="frame" x="88" y="8" width="148" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="U5i-KU-gRo"/>
                             <constraint firstAttribute="width" constant="173" id="mdg-a0-cV6"/>
