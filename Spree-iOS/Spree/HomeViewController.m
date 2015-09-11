@@ -10,6 +10,7 @@
 #import "HomeHeaderView.h"
 #import "HeaderSlideView.h"
 #import "SpreeConfigManager.h"
+#import <MBProgressHUD/MBProgressHUD.h>
 
 static const CGFloat kHeaderSlideShowHeight = 125.0f;
 
@@ -20,6 +21,7 @@ static const CGFloat kHeaderSlideShowHeight = 125.0f;
 @property NSMutableArray *metadata;
 @property NSTimeInterval lastTouchTime;
 @property NSInteger pagingViewIndex;
+
 
 
 @end
@@ -39,10 +41,14 @@ static const CGFloat kHeaderSlideShowHeight = 125.0f;
     self.header.headerGestureRecognizer.delegate = self;
     
     HeaderSlideView *slide1 = [[HeaderSlideView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, kHeaderSlideShowHeight)];
+    [slide1 setupForMetadata:@{@"title": @"WELCOME TO SPREE", @"subtitle": @"A Sustainable, Student-to-Student Marketplace", @"backgroundColor":@"#094b96", @"titleColor":@"#f6f7f7", @"subtitleColor":@"#f6f7f7"}];
+    
     [self.header.photoGallery addPageView: slide1];
     HeaderSlideView *slide2 = [[HeaderSlideView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, kHeaderSlideShowHeight)];
+    [slide2 setupForMetadata:@{@"title": @"BOOKS TO RIDES", @"subtitle": @"Students can sell both goods and services on Spree", @"backgroundColor":@"#2b2f33", @"titleColor":@"#f6f7f7", @"subtitleColor":@"#f6f7f7"}];
     [self.header.photoGallery addPageView: slide2];
     HeaderSlideView *slide3 = [[HeaderSlideView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, kHeaderSlideShowHeight)];
+    [slide3 setupForMetadata:@{@"title": @"SUSTAINABLILITY AND SAVINGS", @"subtitle": @"Spree fosters a sustainable community on any campus nationwide", @"backgroundColor":@"#B2B707", @"titleColor":@"#2b2f33", @"subtitleColor":@"#2b2f33"}];
     [self.header.photoGallery addPageView: slide3];
     
     self.slides = [[NSMutableArray alloc] initWithArray:@[slide1, slide2, slide3]];
@@ -61,11 +67,13 @@ static const CGFloat kHeaderSlideShowHeight = 125.0f;
                 
                  BOOL exists = [self.slides indexOfObject:slideView] < [bannerMetadata count] ? YES : NO;
                 if (exists){
-                    NSDictionary *bannerData = [bannerMetadata objectAtIndex:[self.slides indexOfObject:slideView]];
                     
+                    NSDictionary *bannerData = [bannerMetadata objectAtIndex:[self.slides indexOfObject:slideView]];
+                    NSLog(@"%lu, %@", (unsigned long)[self.slides indexOfObject:slideView], bannerData[@"title"]);
                     [slideView setupForMetadata:bannerData];
                     
-                    [self.metadata addObject:bannerData];
+                    
+                    [self.metadata insertObject:bannerData atIndex:[self.slides indexOfObject:slideView]];
                 }
             }
             
@@ -109,23 +117,48 @@ static const CGFloat kHeaderSlideShowHeight = 125.0f;
 
 
 -(void)userTouchedSlide{
-
+    NSLog(@"%ld, %@", (long)self.pagingViewIndex, self.metadata);
     BOOL exists = self.pagingViewIndex < [self.metadata count] ? YES : NO;
     if (exists){
         NSDictionary *slideMetadata = [self.metadata objectAtIndex:self.pagingViewIndex];
-        
-        if (slideMetadata[@"parameters"]){
-            PostTableViewController *postTableViewController = [[PostTableViewController alloc] initWithStyle:UITableViewStylePlain];
-            postTableViewController.postQueryParameters = slideMetadata[@"parameters"];
-            [self.navigationController pushViewController:postTableViewController animated:YES];
+        if ([[slideMetadata objectForKey:BANNER_LINKTYPE]
+            isEqualToString:@"query"]){
+            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            if (slideMetadata[@"parameters"]){
+                PostTableViewController *postTableViewController = [[PostTableViewController alloc] initWithStyle:UITableViewStylePlain];
+                postTableViewController.postQueryParameters = slideMetadata[@"parameters"];
+                [self.navigationController pushViewController:postTableViewController animated:YES];
+            }
+        } else if ([[slideMetadata objectForKey:BANNER_LINKTYPE] isEqualToString:@"post"]){
+            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+            self.postDetailTableViewController = [storyboard instantiateViewControllerWithIdentifier:@"PostDetail"];
+            NSLog(@"%@", self.storyboard);
+            [slideMetadata[@"post"] fetchIfNeededInBackgroundWithBlock:^(PFObject* object, NSError *error){
+                [self.postDetailTableViewController initWithPost:(SpreePost *)object];
+                [self.navigationController pushViewController:self.postDetailTableViewController animated:YES];
+            }];
+        } else if ([[slideMetadata objectForKey:BANNER_LINKTYPE] isEqualToString:@"competition"]){
+            // WILL ADD COMPETITION or REFERRAL VIEW
+//                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+//                self.postDetailTableViewController = [storyboard instantiateViewControllerWithIdentifier:@"PostDetail"];
+//                NSLog(@"%@", self.storyboard);
+//            [self.postDetailTableViewController initWithPost:slideMetadata[@"post"]];
+//            [self.navigationController pushViewController:self.postDetailTableViewController animated:YES];
         }
     }
-    
-    NSLog(@"YES");
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
 }
 
 -(void)pagingView:(InfinitePagingView *)pagingView didEndDecelerating:(UIScrollView *)scrollView atPageIndex:(NSInteger)pageIndex{
+    
+    pageIndex++;
+    if (pageIndex > 2){
+        pageIndex = 0;
+    }
+
     self.pagingViewIndex = pageIndex;
+    
 }
 
 -(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer{

@@ -17,6 +17,7 @@
 #import "PostDetailTableViewController.h"
 #import "SelectPostTypeViewController.h"
 #import "ResultsTableViewController.h"
+#import "SpreeUtility.h"
 
 
 @interface PostTableViewController () {
@@ -351,15 +352,15 @@
         
         if (post.photoArray.count != 0){
             PFFile *imageFile = (PFFile *)[post.photoArray objectAtIndex:0];
-            [imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-                if (!error) {
-                    UIImage *image = [UIImage imageWithData:data];
-                    cell.postImageView.image = image;
-                    
+            cell.postImageView.file = imageFile;
+            [cell.postImageView loadInBackground];
+        } else {
+            cell.imageBackgroundView.backgroundColor = [UIColor spreeOffBlack];
+            [post.typePointer fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error){
+                if ([post.typePointer[@"type"] isEqualToString: @"Tasks & Services"]){
+                    cell.placeholderIconView.image = [UIImage imageNamed:@"tasksAndServicesThumbnail"];
                 }
             }];
-        } else {
-            cell.postImageView.hidden = YES;
         }
         
         cell.descriptionLabel.text = [NSString stringWithFormat:@"\u201C%@\u201D", post.userDescription];
@@ -447,14 +448,18 @@
         self.headerLabel.font = [UIFont fontWithName:@"Lato-Regular" size:16];
         self.headerLabel.textColor = [UIColor spreeOffBlack];
         
+        if (![SpreeUtility userInDemoMode]){
         PFQuery *userQuery = [PFUser query];
-        [userQuery includeKey:@"campus"];
-        [userQuery getObjectInBackgroundWithId:[[PFUser currentUser] objectId] block:^(PFObject *user, NSError *error){
-            NSLog(@"%@", user);
-            self.headerLabel.text = [NSString stringWithFormat:@"Recent Posts at %@", user[@"campus"][@"campusName"]];
-            [self.headerLabel setNeedsDisplay];
-            
-        }];
+            [userQuery includeKey:@"campus"];
+            [userQuery getObjectInBackgroundWithId:[[PFUser currentUser] objectId] block:^(PFObject *user, NSError *error){
+                NSLog(@"%@", user);
+                self.headerLabel.text = [NSString stringWithFormat:@"Recent Posts at %@", user[@"campus"][@"campusName"]];
+                [self.headerLabel setNeedsDisplay];
+                
+            }];
+        } else {
+            self.headerLabel.text = @"Examples of Posts on Spree";
+        }
         [whiteView addSubview:self.headerLabel];
         return headerView;
     }
@@ -511,6 +516,4 @@
     }
     return query;
 }
-
-
 @end

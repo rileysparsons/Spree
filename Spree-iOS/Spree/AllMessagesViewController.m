@@ -92,6 +92,9 @@
 - (PFQuery *)queryForTable {
     PFQuery *query = [PFQuery queryWithClassName:PF_RECENT_CLASS_NAME];
     [query whereKey:PF_RECENT_USER equalTo:[PFUser currentUser]];
+    
+    PFQuery *postQuery = [PFQuery queryWithClassName:@"Post"];
+    [query whereKey:PF_RECENT_POST matchesQuery:postQuery];
     [query includeKey:PF_RECENT_LASTUSER];
     [query includeKey:PF_RECENT_POST];
     [query includeKey:PF_RECENT_TOUSER];

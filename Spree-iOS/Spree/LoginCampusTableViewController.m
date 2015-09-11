@@ -9,6 +9,7 @@
 #import "LoginCampusTableViewController.h"
 #import "LoginCampusHeaderView.h"
 #import "SelectCampusTableViewCell.h"
+#import "AlternateLoginViewController.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 
 @interface LoginCampusTableViewController ()
@@ -64,6 +65,7 @@
     
     self.navigationItem.hidesBackButton = YES;
     self.header = [[LoginCampusHeaderView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 200)];
+    [self.header.notStudentButton addTarget:self action:@selector(notAStudentTouched) forControlEvents:UIControlEventTouchUpInside];
     self.tableView.tableHeaderView = self.header;
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -106,6 +108,10 @@
     return cell;
 }
 
-
+-(void)notAStudentTouched{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Walkthrough" bundle:[NSBundle mainBundle]];
+   AlternateLoginViewController *alternate =  [storyboard instantiateViewControllerWithIdentifier:@"AlternateLogin"];
+    [self.navigationController pushViewController:alternate animated:YES];
+}
 
 @end

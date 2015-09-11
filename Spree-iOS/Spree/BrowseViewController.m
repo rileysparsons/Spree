@@ -100,7 +100,7 @@
 -(PFQuery *)queryForTable{
     PFQuery *query = [PFQuery queryWithClassName:self.parseClassName];
     NSLog(@"%@", self.parseClassName);
-//    [query orderByDescending:@"count"];
+    [query orderByDescending:@"count"];
 //    [query includeKey:@"subType"];
 
     return query;
@@ -303,6 +303,23 @@
     [cell initWithPostType:object];
     cell.titleLabel.text = object[@"type"];
     [self.refreshControl endRefreshing];
+    PFQuery *postQuery = [PFQuery queryWithClassName:@"Post"];
+    [postQuery whereKey:@"typePointer" equalTo:object];
+    [postQuery whereKey:@"expired" equalTo:[NSNumber numberWithBool:NO]];
+    [postQuery whereKey:@"sold" equalTo:[NSNumber numberWithBool:NO]];
+    [postQuery whereKeyDoesNotExist:@"removed" ];
+    [postQuery whereKey:@"network" equalTo:[[PFUser currentUser] objectForKey:@"network"]];
+    
+    [postQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
+        cell.numberLabel.text = [NSString stringWithFormat:@"0 Posts"];
+        if (number) {
+            [self.refreshControl endRefreshing];
+            cell.numberLabel.text = [NSString stringWithFormat:@"%@ Posts", [@(number)stringValue]];
+            _pastPostNumber = number;
+        }
+    }];
+    
+    
     // Configure the cell with the textContent of the Post as the cell's text label
     /*
     PFQuery *postQuery = [PFQuery queryWithClassName:@"Post"];

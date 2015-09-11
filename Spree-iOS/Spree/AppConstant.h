@@ -35,6 +35,9 @@ typedef enum {
 #define		PF_USER_EMAILCOPY					@"emailCopy"			//	String
 #define		PF_USER_FULLNAME					@"username"				//	String
 #define		PF_USER_FULLNAME_LOWER				@"fullname_lower"		//	String
+#define     PF_USER_FACEBOOK_ID                 @"fbId"                 //  String
+#define     PF_USER_PROFILE_PICTURE_SMALL       @"profilePictureSmall"
+#define     PF_USER_PROFILE_PICTURE_MEDIUM      @"profilePictureMedium"
 
 #define		PF_MESSAGE_CLASS_NAME				@"Message"				//	Class name
 #define		PF_MESSAGE_USER						@"user"					//	Pointer to User Class
@@ -85,3 +88,15 @@ typedef enum {
 
 #define     POST_VIEW_DESCRIPTION               @"Add description..."
 #define     POST_VIEW_TITLE                     @"Add title..."
+
+#define     BANNER_TITLE                        @"title"
+#define     BANNER_SUBTITLE                     @"subtitle"
+#define     BANNER_LINKTYPE                     @"linkType"
+#define     BANNER_BACKGROUND_COLOR             @"backgroundColor"
+#define     BANNER_PARAMETERS                   @"parameters"
+#define     BANNER_NUMBER                       @"number"
+
+#define     VERIFY_EMAIL_PROMPT                 @"You must verify your email to send messages and post items on Spree"
+
+
+

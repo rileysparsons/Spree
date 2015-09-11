@@ -85,21 +85,41 @@ Parse.Cloud.beforeSave("Post", function(request, response) {
 	console.log(words);
     post.set("keywords", words);
 
+
+    var PostType = request.object.get("typePointer");
+	var query = new Parse.Query("PostType");
+	console.log("id" + PostType.get("objectId"));
+	PostType.fetch();
+	PostType.increment("count");
+	PostType.save(null, {
+	  success: function(point) {
+	    // Saved successfully
+	  },
+	  error: function(point, error) {
+	    // The save failed.
+	    // error is a Parse.Error with an error code and description.
+	  }
+	});
     response.success();
 });
 
 //save handlers
 Parse.Cloud.beforeSave(Parse.User, function(request, response) {
     var user = request.object;
-    var email = request.object.get("email");
-    var dot = ".";
+    Parse.Cloud.useMasterKey()
+ //    if (user.get("password")){
+	//     var email = request.object.get("email");
+	//     var dot = ".";
 
-    if ((email.indexOf(dot)>-1)) {
-        var network = email.substring(email.lastIndexOf("@")+1,email.lastIndexOf(dot));
-        user.set("network", network);
-        // console.log("Updated: "+user+network);
-    }
-    response.success();
+	//     if ((email.indexOf(dot)>-1)) {
+	//         var network = email.substring(email.lastIndexOf("@")+1,email.lastIndexOf(dot));
+	//         user.set("network", network);
+	//         // console.log("Updated: "+user+network);
+	//     }
+	// } else {
+	// 	user.set("network", "DEMO");
+	// }
+	response.success();
 });
 
 
@@ -262,72 +282,6 @@ Parse.Cloud.job("keepExistingPosts", function(request, status){
 
 	});
 
-});
-
-Parse.Cloud.job("countPostsForType", function(request, status){
-Parse.Cloud.useMasterKey()
-	var postQuery = new Parse.Query("Post").limit(1000);
-	postQuery.include("typePointer");
-	postQuery.notEqualTo("removed", true);
-
-	var typeList = [];
-	var typeQuery = new Parse.Query("PostType").limit(1000);
-	typeQuery.find({
-		success:function(results) {
-			typeList = results;
-		}
-	});
-
-	postQuery.find({
-		success:function(results) {
-			console.log(results.length)
-			var network;
-			for (var i = 0, len = results.length; i < len; i++) {
-                    var result = results[i];
-		            var typePointer = result.get("typePointer");
-		            var postCount = 0;
-		            if (typePointer){
-			            for (var n = 0, count = typeList.length; n < count; n++){
-			            	if (typeList[n] == typePointer){
-			            		console.log("called");
-			            		postCount++;
-			            		typeList[n].set("count", postCount);
-			            		break;
-			            	}
-			           }
-		       		}
-		     }
- 
-            Parse.Object.saveAll(results,{
-			    success: function(list) {
-			      // All the objects were saved.
-
-				for (var n = 0, count = typeList.length; n < count; n++){
-					typeList[n].save(null, {
-					  success: function(point) {
-					    // Saved successfully
-					  },
-					  error: function(point, error) {
-					    // The save failed.
-					    // error is a Parse.Error with an error code and description.
-					  }
-					});
-				}   
-
-			      status.success("ok ");  //saveAll is now finished and we can properly exit with confidence :-)
-			    },
-			    error: function(error) {
-			      // An error occurred while saving one of the objects.
-			      status.error("failure on saving list ");
-			    },
-		  	});
-
-		},  error: function(error) {
-	            status.error("Uh oh, something went wrong.");
-	            console.log("Failed!");         
-            }
-    });
-      
 });
 
 

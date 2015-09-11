@@ -4,22 +4,47 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <customFonts key="customFonts">
+        <mutableArray key="Lato-Light.ttf">
+            <string>Lato-Light</string>
+        </mutableArray>
         <mutableArray key="Lato-Regular.ttf">
             <string>Lato-Regular</string>
         </mutableArray>
     </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginCampusHeaderView"/>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginCampusHeaderView">
+            <connections>
+                <outlet property="notStudentButton" destination="pil-Zb-Hab" id="aJd-nZ-alJ"/>
+            </connections>
+        </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB">
-            <rect key="frame" x="0.0" y="-1" width="600" height="170"/>
+            <rect key="frame" x="0.0" y="0.0" width="600" height="218"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bKo-bv-bCh">
-                    <rect key="frame" x="0.0" y="0.0" width="600" height="170"/>
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="218"/>
                     <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="campusHeaderGraphic" translatesAutoresizingMaskIntoConstraints="NO" id="Ckq-ih-Arl">
+                            <rect key="frame" x="253" y="27" width="95" height="85"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="95" id="b1U-Ib-Qbd"/>
+                                <constraint firstAttribute="height" constant="85" id="f1Q-oO-P1I"/>
+                            </constraints>
+                        </imageView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pil-Zb-Hab">
+                            <rect key="frame" x="130" y="176" width="340" height="34"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="340" id="n03-ll-HoB"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="Lato-Light" family="Lato" pointSize="14"/>
+                            <state key="normal" title="I am not a student or do not see my school listed.">
+                                <color key="titleColor" red="0.16666857898235321" green="0.18534906208515167" blue="0.19849607348442078" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                        </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select your school below" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s97-em-6Cu">
-                            <rect key="frame" x="182" y="120" width="237" height="32"/>
+                            <rect key="frame" x="182" y="136" width="237" height="32"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="237" id="1nk-JL-qyJ"/>
                                 <constraint firstAttribute="height" constant="32" id="Pcz-VH-LoN"/>
@@ -28,23 +53,21 @@
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="campusHeaderGraphic" translatesAutoresizingMaskIntoConstraints="NO" id="Ckq-ih-Arl">
-                            <rect key="frame" x="253" y="27" width="95" height="85"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="95" id="b1U-Ib-Qbd"/>
-                                <constraint firstAttribute="height" constant="85" id="f1Q-oO-P1I"/>
-                            </constraints>
-                        </imageView>
                     </subviews>
                     <color key="backgroundColor" red="0.96558624510000002" green="0.97044742110000004" blue="0.97035741809999998" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstAttribute="centerY" secondItem="s97-em-6Cu" secondAttribute="centerY" constant="-51" id="866-Mg-l9n"/>
-                        <constraint firstItem="s97-em-6Cu" firstAttribute="top" secondItem="Ckq-ih-Arl" secondAttribute="bottom" constant="8" id="HGR-no-b6X"/>
+                        <constraint firstAttribute="centerX" secondItem="pil-Zb-Hab" secondAttribute="centerX" id="0gv-Nu-GXo"/>
+                        <constraint firstAttribute="centerY" secondItem="s97-em-6Cu" secondAttribute="centerY" constant="-43" id="866-Mg-l9n"/>
+                        <constraint firstItem="s97-em-6Cu" firstAttribute="top" secondItem="Ckq-ih-Arl" secondAttribute="bottom" constant="24" id="HGR-no-b6X"/>
+                        <constraint firstItem="pil-Zb-Hab" firstAttribute="top" secondItem="s97-em-6Cu" secondAttribute="bottom" constant="28" id="IoI-zR-S5w"/>
                         <constraint firstItem="s97-em-6Cu" firstAttribute="top" secondItem="Ckq-ih-Arl" secondAttribute="bottom" constant="8" id="Sc7-Kx-nya"/>
                         <constraint firstItem="s97-em-6Cu" firstAttribute="trailing" secondItem="Ckq-ih-Arl" secondAttribute="trailing" id="Xwq-ME-AJ4"/>
                         <constraint firstItem="s97-em-6Cu" firstAttribute="leading" secondItem="Ckq-ih-Arl" secondAttribute="leading" id="Z6M-f7-mSE"/>
-                        <constraint firstAttribute="centerY" secondItem="s97-em-6Cu" secondAttribute="centerY" constant="-51" id="cYW-hv-oNK"/>
+                        <constraint firstAttribute="bottom" secondItem="pil-Zb-Hab" secondAttribute="bottom" constant="8" id="cTk-sQ-DwL"/>
+                        <constraint firstAttribute="centerY" secondItem="s97-em-6Cu" secondAttribute="centerY" constant="-43" id="cYW-hv-oNK"/>
                         <constraint firstItem="Ckq-ih-Arl" firstAttribute="top" secondItem="bKo-bv-bCh" secondAttribute="top" constant="8" id="cra-Ec-s3f"/>
+                        <constraint firstItem="pil-Zb-Hab" firstAttribute="top" secondItem="s97-em-6Cu" secondAttribute="bottom" constant="8" id="jXM-2C-1Iv"/>
+                        <constraint firstAttribute="bottom" secondItem="s97-em-6Cu" secondAttribute="bottom" constant="18" id="n05-hn-nvv"/>
                         <constraint firstAttribute="centerX" secondItem="s97-em-6Cu" secondAttribute="centerX" id="nx6-Px-dJX"/>
                         <constraint firstAttribute="centerX" secondItem="Ckq-ih-Arl" secondAttribute="centerX" id="vtR-9W-xMz"/>
                         <constraint firstAttribute="centerX" secondItem="s97-em-6Cu" secondAttribute="centerX" id="wDN-Ub-aOi"/>
@@ -54,6 +77,8 @@
                             <exclude reference="Sc7-Kx-nya"/>
                             <exclude reference="Xwq-ME-AJ4"/>
                             <exclude reference="Z6M-f7-mSE"/>
+                            <exclude reference="n05-hn-nvv"/>
+                            <exclude reference="IoI-zR-S5w"/>
                             <exclude reference="cra-Ec-s3f"/>
                         </mask>
                     </variation>
@@ -68,7 +93,7 @@
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="310" y="605"/>
+            <point key="canvasLocation" x="310" y="629"/>
         </view>
     </objects>
     <resources>

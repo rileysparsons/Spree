@@ -32,10 +32,10 @@
                         <outletCollection property="gestureRecognizers" destination="u6g-hc-hIb" appends="YES" id="Yal-ko-QzL"/>
                     </connections>
                 </imageView>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="npV-Sb-lfL">
-                    <rect key="frame" x="8" y="16.5" width="584" height="67.5"/>
+                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="npV-Sb-lfL">
+                    <rect key="frame" x="8" y="16" width="584" height="67.5"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Spree" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u7u-q5-pEn">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Spree" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="u7u-q5-pEn">
                             <rect key="frame" x="8" y="8" width="568" height="24"/>
                             <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="20"/>
                             <color key="textColor" red="0.16666857900000001" green="0.18534906209999999" blue="0.19849607350000001" alpha="1" colorSpace="calibratedRGB"/>

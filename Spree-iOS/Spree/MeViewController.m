@@ -21,11 +21,20 @@
 #import "BranchReferralController.h"
 
 #define kReferralTabTitle @"Referrals"
+
+#import "SpreeUtility.h"
+
+typedef enum : NSUInteger {
+    kLogOutAlert,
+    kVerifyEmailAlert
+} AlertType;
+
+
 #define kAuthorizeFacebookTitle @"Authorize Facebook"
 #define kLogOutTitle @"Log Out"
 #define kYourPostsTitle @"Your Posts"
 
-@interface MeViewController () {
+@interface MeViewController () <UIAlertViewDelegate> {
     NSInteger expiredPostCount;
     NSInteger activePostCount;
 }
@@ -129,52 +138,55 @@
     self.nameLabel.titleLabel.font = [UIFont fontWithName:@"Lato-Regular" size:17];
     self.nameLabel.imageView.contentMode = UIViewContentModeScaleAspectFit;
     
-    
-    [[PFUser currentUser][@"campus"] fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error){
-        if ([[PFUser currentUser][@"emailVerified"] isEqualToNumber:[NSNumber numberWithBool:1]]){
-            if ([PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]){
+    if (![SpreeUtility userInDemoMode]){
+        
+        if ([SpreeUtility checkForEmailVerification]){
+            if ([PFUser currentUser][@"displayName"]){
                 self.profileImageView.profileID = [PFUser currentUser][@"fbId"];
-                [[[FBSDKGraphRequest alloc] initWithGraphPath:@"/me?fields=name" parameters:nil] startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
-                    [self.nameLabel setTitle:result[@"name"] forState:UIControlStateNormal];
-                }];
+                 [self.nameLabel setTitle:[PFUser currentUser][@"displayName"] forState:UIControlStateNormal];
             } else {
                 [self.nameLabel setTitle:[PFUser currentUser][@"username"] forState:UIControlStateNormal];
             }
             
             [self.nameLabel setImage:[UIImage imageNamed:@"verifiedStudent"] forState:UIControlStateNormal];
         } else {
-            if ([PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]){
+            
+            UIAlertView *userNotVerified = [[UIAlertView alloc] initWithTitle:@"Unverified Student" message:VERIFY_EMAIL_PROMPT delegate:self cancelButtonTitle:@"OK" otherButtonTitles: @"Resend email", nil];
+            userNotVerified.tag = kVerifyEmailAlert;
+            [userNotVerified show];
+            
+            if ([PFUser currentUser][@"displayName"]){
                 self.profileImageView.profileID = [PFUser currentUser][@"fbId"];
-                [[[FBSDKGraphRequest alloc] initWithGraphPath:@"/me?fields=name" parameters:nil] startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
-                    [self.nameLabel setTitle:result[@"name"] forState:UIControlStateNormal];
-                }];
+                 [self.nameLabel setTitle:[PFUser currentUser][@"displayName"] forState:UIControlStateNormal];
             } else {
                 [self.nameLabel setTitle:[PFUser currentUser][@"username"] forState:UIControlStateNormal];
             }
         }
-    }];
-    
-    if ([[PFUser currentUser][@"emailVerified"] isEqualToNumber:[NSNumber numberWithBool:1]]){
-        if ([PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]){
-            self.profileImageView.profileID = [PFUser currentUser][@"fbId"];
-            [[[FBSDKGraphRequest alloc] initWithGraphPath:@"/me?fields=name" parameters:nil] startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
-                [self.nameLabel setTitle:result[@"name"] forState:UIControlStateNormal];
-            }];
-        } else {
-            [self.nameLabel setTitle:[PFUser currentUser][@"username"] forState:UIControlStateNormal];
-        }
-        
-        [self.nameLabel setImage:[UIImage imageNamed:@"verifiedStudent"] forState:UIControlStateNormal];
     } else {
-        if ([PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]){
-            self.profileImageView.profileID = [PFUser currentUser][@"fbId"];
-            [[[FBSDKGraphRequest alloc] initWithGraphPath:@"/me?fields=name" parameters:nil] startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
-                [self.nameLabel setTitle:result[@"name"] forState:UIControlStateNormal];
-            }];
-        } else {
-            [self.nameLabel setTitle:[PFUser currentUser][@"username"] forState:UIControlStateNormal];
-        }
+        [self.nameLabel setTitle:@"Demo Mode" forState:UIControlStateNormal];
     }
+    
+//    if ([[PFUser currentUser][@"emailVerified"] isEqualToNumber:[NSNumber numberWithBool:1]]){
+//        if ([PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]){
+//            self.profileImageView.profileID = [PFUser currentUser][@"fbId"];
+//            [[[FBSDKGraphRequest alloc] initWithGraphPath:@"/me?fields=name" parameters:nil] startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+//                [self.nameLabel setTitle:result[@"name"] forState:UIControlStateNormal];
+//            }];
+//        } else {
+//            [self.nameLabel setTitle:[PFUser currentUser][@"username"] forState:UIControlStateNormal];
+//        }
+//        
+//        [self.nameLabel setImage:[UIImage imageNamed:@"verifiedStudent"] forState:UIControlStateNormal];
+//    } else {
+//        if ([PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]){
+//            self.profileImageView.profileID = [PFUser currentUser][@"fbId"];
+//            [[[FBSDKGraphRequest alloc] initWithGraphPath:@"/me?fields=name" parameters:nil] startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+//                [self.nameLabel setTitle:result[@"name"] forState:UIControlStateNormal];
+//            }];
+//        } else {
+//            [self.nameLabel setTitle:[PFUser currentUser][@"username"] forState:UIControlStateNormal];
+//        }
+//    }
 }
 
 #pragma mark - Table view data source
@@ -269,23 +281,27 @@
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if (alertView.tag == 0){
+    if (alertView.tag == kLogOutAlert){
         if (buttonIndex == 1) {
-            [PFUser logOutInBackgroundWithBlock:^(NSError *error){
-                [FBSDKAccessToken setCurrentAccessToken:nil];
-                //            [FBSDKProfile setCurrentProfile:nil];
-                AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-                UIStoryboard *stb = [UIStoryboard storyboardWithName:@"Walkthrough" bundle:nil];
-                UINavigationController *base = [stb instantiateViewControllerWithIdentifier:@"base"];
-                [UIView transitionWithView:appDelegate.window
-                                  duration:0.5
-                                   options:UIViewAnimationOptionTransitionFlipFromLeft
-                                animations:^{ appDelegate.window.rootViewController = base; }
-                                completion:nil];
+                [(AppDelegate *)[[UIApplication sharedApplication] delegate] logOut];
+        }
+    } else if (alertView.tag == kVerifyEmailAlert){
+        int resendButtonIndex = 1;
+        if (resendButtonIndex == buttonIndex){
+            //updating the email will force Parse to resend the verification email
+            NSString *email = [[PFUser currentUser] objectForKey:@"email"];
+            NSLog(@"email: %@",email);
+            [[PFUser currentUser] setObject:email forKey:@"email"];
+            [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error ){
+                
+                if( succeeded ) {
+                    
+                    [[PFUser currentUser] setObject:email forKey:@"email"];
+                    [[PFUser currentUser] saveInBackground];
+                    
+                }
+                
             }];
-            
-            //            [FBSDKAccessToken setCurrentAccessToken:nil];
-//            [FBSDKProfile setCurrentProfile:nil];
         }
     }
 }

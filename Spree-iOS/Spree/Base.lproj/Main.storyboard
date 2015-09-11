@@ -679,14 +679,6 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jCX-PV-3Xx">
-                                <rect key="frame" x="143" y="103" width="128" height="128"/>
-                                <color key="backgroundColor" red="0.16666857900000001" green="0.18534906209999999" blue="0.19849607350000001" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="128" id="nk3-Ua-S69"/>
-                                    <constraint firstAttribute="height" constant="128" id="rzN-fp-Fh4"/>
-                                </constraints>
-                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="USER SINCE" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Ex-Wd-eyW">
                                 <rect key="frame" x="86" y="280" width="243" height="34"/>
                                 <constraints>
@@ -707,17 +699,25 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oSJ-UX-FTd" customClass="FBSDKProfilePictureView">
+                                <rect key="frame" x="152" y="121" width="110" height="110"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="110" id="8vP-ex-3af"/>
+                                    <constraint firstAttribute="height" constant="110" id="YLu-LC-m09"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="WTG-xN-rDE" firstAttribute="centerX" secondItem="1Rn-fa-N5X" secondAttribute="centerX" id="C29-h4-ogc"/>
-                            <constraint firstItem="jCX-PV-3Xx" firstAttribute="top" secondItem="Id4-tV-WaT" secondAttribute="bottom" constant="83" id="DB9-Vj-yYt"/>
+                            <constraint firstItem="oSJ-UX-FTd" firstAttribute="top" secondItem="Id4-tV-WaT" secondAttribute="bottom" constant="101" id="FRT-qk-bbL"/>
                             <constraint firstItem="WTG-xN-rDE" firstAttribute="top" secondItem="7Ex-Wd-eyW" secondAttribute="bottom" constant="6" id="QG3-2w-dA4"/>
+                            <constraint firstAttribute="centerX" secondItem="oSJ-UX-FTd" secondAttribute="centerX" id="R6p-oB-FGI"/>
                             <constraint firstItem="WTG-xN-rDE" firstAttribute="centerX" secondItem="7Ex-Wd-eyW" secondAttribute="centerX" id="X1c-jM-iXB"/>
-                            <constraint firstItem="WTG-xN-rDE" firstAttribute="centerX" secondItem="jCX-PV-3Xx" secondAttribute="centerX" id="baw-Nt-eNs"/>
                             <constraint firstAttribute="centerX" secondItem="1Rn-fa-N5X" secondAttribute="centerX" id="dH2-3U-LbX"/>
+                            <constraint firstItem="1Rn-fa-N5X" firstAttribute="top" secondItem="oSJ-UX-FTd" secondAttribute="bottom" constant="8" id="iuW-LI-vrE"/>
                             <constraint firstItem="1Rn-fa-N5X" firstAttribute="top" secondItem="Id4-tV-WaT" secondAttribute="bottom" constant="219" id="omu-Tj-elu"/>
-                            <constraint firstItem="1Rn-fa-N5X" firstAttribute="top" secondItem="jCX-PV-3Xx" secondAttribute="bottom" constant="8" id="yfb-Sa-Rge"/>
                             <constraint firstItem="7Ex-Wd-eyW" firstAttribute="top" secondItem="1Rn-fa-N5X" secondAttribute="bottom" constant="18" id="zKp-DN-pb0"/>
                         </constraints>
                         <variation key="default">
@@ -728,7 +728,7 @@
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <connections>
-                        <outlet property="profileImage" destination="jCX-PV-3Xx" id="yh1-Gj-h1u"/>
+                        <outlet property="profileImage" destination="oSJ-UX-FTd" id="DZo-K3-XnQ"/>
                         <outlet property="reviewLabel" destination="WTG-xN-rDE" id="h2U-r6-LEb"/>
                         <outlet property="sinceLabel" destination="7Ex-Wd-eyW" id="r5t-Bx-3Nv"/>
                         <outlet property="usernameLabel" destination="1Rn-fa-N5X" id="Hog-5G-XmU"/>
