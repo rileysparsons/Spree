@@ -7,6 +7,7 @@
 //
 
 #import "PostTypeViewController.h"
+#import <MBProgressHUD/MBProgressHUD.h>
 
 @interface PostTypeViewController ()
 @property (retain, nonatomic) NSIndexPath *currentIndexPath;
@@ -27,12 +28,15 @@
         
         // Whether the built-in pagination is enabled
         self.paginationEnabled = NO;
+        
+        self.loadingViewEnabled = NO;
     }
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [MBProgressHUD showHUDAddedTo:self.tableView animated:YES];
 }
 
 - (PFQuery *)queryForTable {
@@ -63,6 +67,13 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
+}
+
+-(void)objectsDidLoad:(nullable NSError *)error{
+    if (error){
+        [[MBProgressHUD HUDForView:self.tableView] setDetailsLabelText:@"Unable to load posts"];
+    }
+    [MBProgressHUD hideHUDForView:self.tableView animated:YES];
 }
 
 #pragma mark - Table view delegate
