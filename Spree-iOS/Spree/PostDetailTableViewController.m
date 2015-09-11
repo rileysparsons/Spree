@@ -234,7 +234,11 @@
         UINib *nib = [UINib nibWithNibName:className bundle:nil];
         [self.tableView registerNib:nib forCellReuseIdentifier:className];
         PostUserTableViewCell *userCell = [self.tableView dequeueReusableCellWithIdentifier:className];
-        [userCell setUserLabelForPost:self.post];
+        [self.post.user fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error){
+            if (!error)
+                [userCell setUserLabelForPost:self.post];
+        }];
+
         return userCell;
     } else if ([field isEqualToString:@"message"]){
         NSString *className = NSStringFromClass([PostMessageTableViewCell class]);
