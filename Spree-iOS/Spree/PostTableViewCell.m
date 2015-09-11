@@ -12,13 +12,21 @@
 
 - (void)awakeFromNib {
     // Initialization code
-    
-    self.postImageView.clipsToBounds = YES;
-    self.postImageView.autoresizingMask = UIViewAutoresizingNone;
-    
+
+    [self circularMaskForView:self.postImageView];
+    [self circularMaskForView:self.imageBackgroundView];
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:animated];
+
+    // Configure the view for the selected state
+}
+
+-(void)circularMaskForView:(UIView *)view{
     CAShapeLayer *circle = [CAShapeLayer layer];
     // Make a circular shape
-    UIBezierPath *circularPath=[UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, self.postImageView.frame.size.width, self.postImageView.frame.size.height) cornerRadius:MAX(self.postImageView.frame.size.width, self.postImageView.frame.size.height)];
+    UIBezierPath *circularPath=[UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, view.frame.size.width, view.frame.size.height) cornerRadius:MAX(view.frame.size.width, view.frame.size.height)];
     
     circle.path = circularPath.CGPath;
     
@@ -26,13 +34,7 @@
     circle.fillColor = [UIColor spreeOffWhite].CGColor;
     circle.strokeColor = [UIColor spreeOffWhite].CGColor;
     circle.lineWidth = 0;
-    self.postImageView.layer.mask=circle;
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+    view.layer.mask=circle;
 }
 
 @end

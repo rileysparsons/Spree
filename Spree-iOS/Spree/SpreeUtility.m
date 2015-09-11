@@ -11,6 +11,10 @@
 #import <Parse/PFAnonymousUtils.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 
+typedef enum : NSUInteger {
+    kVerifyEmailAlert,
+} AlertType;
+
 @implementation SpreeUtility
 
 + (BOOL)userHasValidFacebookData:(PFUser *)user {
@@ -39,6 +43,19 @@
 
 + (BOOL)userInDemoMode{
     return [PFAnonymousUtils isLinkedWithUser:[PFUser currentUser]];
+}
+
++ (BOOL)checkForEmailVerification{
+    
+    BOOL userVerifiedEmail = 0;
+    
+    if ([[[PFUser currentUser] objectForKey:@"emailVerified"] boolValue]){
+        userVerifiedEmail = YES;
+        return userVerifiedEmail;
+    } else {
+        userVerifiedEmail = NO;
+        return userVerifiedEmail;
+    }
 }
 
 @end

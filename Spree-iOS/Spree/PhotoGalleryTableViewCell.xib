@@ -62,7 +62,7 @@
                             <constraint firstItem="SSF-dF-2gw" firstAttribute="leading" secondItem="Fre-YE-PjC" secondAttribute="leading" constant="8" id="aH0-O1-7KX"/>
                         </constraints>
                     </view>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="asX-2R-1i6">
+                    <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="asX-2R-1i6">
                         <rect key="frame" x="338" y="138" width="60" height="60"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="$100" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VJi-KN-PQB">
