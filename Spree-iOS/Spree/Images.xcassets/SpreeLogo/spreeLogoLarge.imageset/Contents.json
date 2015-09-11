@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "spreeLogoSmall.pdf"
+      "filename" : "spreeLogoLarge.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "spreeLogoSmall@2x.png"
+      "filename" : "spreeLogoLarge@2x.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "spreeLogoSmall@3x.png"
+      "filename" : "spreeLogoLarge@3x.png"
     }
   ],
   "info" : {
