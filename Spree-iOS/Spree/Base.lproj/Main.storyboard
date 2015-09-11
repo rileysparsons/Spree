@@ -854,7 +854,7 @@
                         <viewControllerLayoutGuide type="top" id="5QA-zj-5Kf"/>
                         <viewControllerLayoutGuide type="bottom" id="Pbm-su-Bdo"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="hah-rd-FJn" customClass="MeetUpViewCo">
+                    <view key="view" contentMode="scaleToFill" id="hah-rd-FJn">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>

@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "PostingWorkflow.h"
 
-@interface PostingDataEntryViewController : UIViewController
+@interface PostingDataEntryViewController : UIViewController <UIAlertViewDelegate>
 
 @property SpreePost *post;
 @property PostingWorkflow *postingWorkflow;

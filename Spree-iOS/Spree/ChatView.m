@@ -56,7 +56,7 @@ typedef enum : NSUInteger {
 -(UIBarButtonItem *)meetUp {
     if (!_meetUp) {
         _meetUp = [[UIBarButtonItem alloc] initWithTitle:@"Meet Up" style:UIBarButtonItemStylePlain target:self action:@selector(showMeetUp)];
-        [_meetUp setTintColor:[UIColor whiteColor]];
+        [_meetUp setTintColor:[UIColor spreeDarkBlue]];
     }
     return _meetUp;
 }
@@ -100,9 +100,6 @@ typedef enum : NSUInteger {
 
     self.collectionView.collectionViewLayout.incomingAvatarViewSize = CGSizeZero;
     self.collectionView.collectionViewLayout.outgoingAvatarViewSize = CGSizeZero;
-
-    self.topContentAdditionalInset = 75.0f;
-    [self addCustomPostHeader];
     
     // Appearance
     
@@ -123,6 +120,8 @@ typedef enum : NSUInteger {
 - (void)viewDidAppear:(BOOL)animated
 {
 	[super viewDidAppear:animated];
+    self.topContentAdditionalInset = 75.0f;
+    [self addCustomPostHeader];
 	self.collectionView.collectionViewLayout.springinessEnabled = YES;
 	timer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(loadMessages) userInfo:nil repeats:YES];
 }

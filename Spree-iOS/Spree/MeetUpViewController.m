@@ -29,8 +29,8 @@
 
 -(UIBarButtonItem *)postButton {
     if (!_postButton) {
-        _postButton = [[UIBarButtonItem alloc] initWithTitle:@"Post" style:UIBarButtonItemStylePlain target:self action:@selector(postMessage)];
-        [_postButton setTintColor:[UIColor whiteColor]];
+        _postButton = [[UIBarButtonItem alloc] initWithTitle:@"Post" style:UIBarButtonItemStyleDone target:self action:@selector(postMessage)];
+        [_postButton setTintColor:[UIColor spreeDarkBlue]];
     }
     return _postButton;
 }
@@ -38,7 +38,7 @@
 -(UIBarButtonItem *)cancelButton {
     if (!_cancelButton) {
         _cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(dismissView)];
-        [_cancelButton setTintColor:[UIColor whiteColor]];
+        [_cancelButton setTintColor:[UIColor spreeRed]];
     }
     return _cancelButton;
 }

@@ -103,7 +103,6 @@
 #pragma mark - Data Validation
 
 -(BOOL)fieldIsFilled{
-    NSLog(@"%@", maxCharacter);
     if (maxCharacter){
         if ([remainingCharacters integerValue] >= 0 && [remainingCharacters integerValue]< [maxCharacter integerValue]){
             return YES;

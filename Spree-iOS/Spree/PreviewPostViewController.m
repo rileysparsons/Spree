@@ -20,6 +20,7 @@
 #import "EditPostPhotoSelectViewController.h"
 #import "PostPhotoSelectViewController.h"
 #import "AddPhotoHeaderView.h"
+#import <MBProgressHUD/MBProgressHUD.h>
 
 @interface PreviewPostViewController ()
 
@@ -115,6 +116,7 @@
 
 -(void)postButtonPressed{
     NSLog(@"POSTED: %@", self.post);
+    [[MBProgressHUD showHUDAddedTo:self.view animated:YES] setLabelText:@"Creating Post"];
     [self.post setExpired:NO];
     [self.post setSold:NO];
     self.post[@"expirationDate"] = [[NSDate date] dateByAddingTimeInterval:864000];
@@ -134,6 +136,7 @@
                     NSLog(@"Failed to post with reason: %@", error);
                 } else {
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloadTable" object:nil];
+                    [MBProgressHUD hideHUDForView:self.view animated:YES];
                     [self dismissViewControllerAnimated:YES completion:nil];
                 }
             }];
@@ -205,6 +208,12 @@
 
 -(void)organizeTableForFields{
     for (id field in self.existingFields){
+        
+        
+        if (!field[@"priority"]){
+            [field setObject:@(99) forKey:@"priority"];
+        }
+        
         if ([field[@"dataType"] isEqualToString:@"geoPoint"]){
             NSDictionary *mapCellDictionary;
             for (id dictionary in self.existingFieldsForTable){

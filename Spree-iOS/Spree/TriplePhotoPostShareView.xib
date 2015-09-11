@@ -36,7 +36,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KlB-Ba-dZy">
                     <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="spreeLogoWithName" translatesAutoresizingMaskIntoConstraints="NO" id="7jh-8u-CVg">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="spreeLogoLarge" translatesAutoresizingMaskIntoConstraints="NO" id="7jh-8u-CVg">
                             <rect key="frame" x="8" y="8" width="104" height="104"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="7jh-8u-CVg" secondAttribute="height" multiplier="1:1" id="VGN-an-ai7"/>
@@ -222,6 +222,6 @@
         </view>
     </objects>
     <resources>
-        <image name="spreeLogoWithName" width="350" height="377"/>
+        <image name="spreeLogoLarge" width="307" height="302"/>
     </resources>
 </document>

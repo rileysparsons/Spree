@@ -31,7 +31,7 @@
             <rect key="frame" x="0.0" y="0.0" width="504" height="504"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="spreeLogoWithName" translatesAutoresizingMaskIntoConstraints="NO" id="i33-lL-IBz">
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="spreeLogoLarge" translatesAutoresizingMaskIntoConstraints="NO" id="i33-lL-IBz">
                     <rect key="frame" x="8" y="8" width="104" height="104"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="104" id="N5o-4K-JJC"/>
@@ -77,7 +77,7 @@
                     <color key="textColor" red="0.16666857900000001" green="0.18534906209999999" blue="0.19849607350000001" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9MW-78-mjS">
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9MW-78-mjS">
                     <rect key="frame" x="8" y="161" width="240" height="338"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="338" id="aYS-VC-16J"/>
@@ -121,7 +121,7 @@
                         </mask>
                     </variation>
                 </view>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wps-Cg-shm">
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wps-Cg-shm">
                     <rect key="frame" x="256" y="161" width="240" height="338"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="338" id="BLk-HC-XzT"/>
@@ -175,6 +175,6 @@
         </view>
     </objects>
     <resources>
-        <image name="spreeLogoWithName" width="350" height="377"/>
+        <image name="spreeLogoLarge" width="307" height="302"/>
     </resources>
 </document>
