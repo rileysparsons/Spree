@@ -68,7 +68,7 @@
     Branch *branch = [Branch getTestInstance];
     [branch setDebug];
     if ([PFUser currentUser]){
-        [branch setIdentity:[PFUser currentUser].objectId];
+        [branch setIdentity:@"RILEYTEST"];
     }
     [branch initSessionWithLaunchOptions:launchOptions isReferrable:YES andRegisterDeepLinkHandler:^(NSDictionary *params, NSError *error) {
         // route the user based on what's in params
@@ -130,7 +130,7 @@
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    [[Branch getInstance] handleDeepLink:url];
+    [[Branch getTestInstance] handleDeepLink:url];
     // do other deep link routing for the Facebook SDK, Pinterest SDK, etc
     return [[FBSDKApplicationDelegate sharedInstance] application:application openURL:url sourceApplication:sourceApplication annotation:annotation];
 }

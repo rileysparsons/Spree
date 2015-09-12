@@ -60,9 +60,9 @@ typedef enum : NSUInteger {
 }
 
 + (void) saveCurrentCreditBalance{
-    [[Branch getInstance] loadRewardsWithCallback:^(BOOL changed, NSError *err) {
+    [[Branch getTestInstance] loadRewardsWithCallback:^(BOOL changed, NSError *err) {
         if (!err) {
-            [[PFUser currentUser] setObject:[NSNumber numberWithInteger:[[Branch getInstance] getCredits]] forKey:@"credits"];
+            [[PFUser currentUser] setObject:[NSNumber numberWithInteger:[[Branch getTestInstance] getCredits]] forKey:@"credits"];
             [[PFUser currentUser] saveInBackground];
         }
     }];

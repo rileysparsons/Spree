@@ -36,7 +36,7 @@
     params[@"$og_image_url"] = @"http://yoursite.com/pics/987666.png";
     params[@"$desktop_url"] = @"mysite.com/article1234";
     
-    [[Branch getInstance] getShortURLWithParams:params andChannel:@"sms" andFeature:BRANCH_FEATURE_TAG_SHARE andCallback:^(NSString *url, NSError *error) {
+    [[Branch getTestInstance] getShortURLWithParams:params andChannel:@"sms" andFeature:BRANCH_FEATURE_TAG_SHARE andCallback:^(NSString *url, NSError *error) {
         if (!error) {
             
             //NSString *texttoshare = @"Check out Spree: %@";

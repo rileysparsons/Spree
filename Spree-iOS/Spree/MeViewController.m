@@ -94,9 +94,9 @@ typedef enum : NSUInteger {
 -(void)viewWillAppear:(BOOL)animated{
     //Sets the bar button item in the top left equal to the value of credits the user has
     
-    [[Branch getInstance] loadRewardsWithCallback:^(BOOL changed, NSError *err) {
+    [[Branch getTestInstance] loadRewardsWithCallback:^(BOOL changed, NSError *err) {
         if (!err) {
-            NSString *credit = [NSString stringWithFormat:@"Credit: %lu", [[Branch getInstance] getCredits]];
+            NSString *credit = [NSString stringWithFormat:@"Credit: %lu", [[Branch getTestInstance] getCredits]];
             self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:credit style:UIBarButtonItemStylePlain target:self action: @selector(creditButtonTouched:)];
         }
     }];
@@ -228,7 +228,7 @@ typedef enum : NSUInteger {
         if ([titleOfRow isEqualToString:kLogOutTitle]){
 //            [PFFacebookUtils unlinkUser:[PFUser currentUser]];
             UIAlertView *confirmLogOut = [[UIAlertView alloc] initWithTitle:@"Confirm Log Out" message:@"Are you sure you want to log out of Spree?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
-            [[Branch getInstance] logout];
+            [[Branch getTestInstance] logout];
             confirmLogOut.tag = 0;
             [confirmLogOut show];
             
@@ -341,9 +341,9 @@ typedef enum : NSUInteger {
     referralCell.textLabel.font = [UIFont fontWithName:@"Lato-Regular" size:18];
     referralCell.textLabel.textColor = [UIColor spreeOffBlack];
     referralCell.backgroundColor = [UIColor spreeOffWhite];
-    [[Branch getInstance] loadRewardsWithCallback:^(BOOL changed, NSError *err) {
+    [[Branch getTestInstance] loadRewardsWithCallback:^(BOOL changed, NSError *err) {
         if (!err) {
-            referralCell.detailTextLabel.text = [NSString stringWithFormat:@"credit: %lu", [[Branch getInstance] getCredits]];
+            referralCell.detailTextLabel.text = [NSString stringWithFormat:@"credit: %lu", [[Branch getTestInstance] getCredits]];
         }
     }];
     referralCell.accessoryView = [MSCellAccessory accessoryWithType:FLAT_DISCLOSURE_INDICATOR color:[UIColor spreeDarkBlue] highlightedColor:[UIColor spreeLightYellow]];

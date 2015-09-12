@@ -591,7 +591,7 @@
     //dictionary passed into the link that contains the object ID of the post that is being shared
     NSMutableDictionary *objectId = [NSMutableDictionary dictionary];
     [objectId setObject:self.post.objectId forKey:@"object id"];
-    [[Branch getInstance] getContentUrlWithParams:objectId andChannel:@"sms" andCallback:^(NSString *url, NSError *error) {
+    [[Branch getTestInstance] getContentUrlWithParams:objectId andChannel:@"sms" andCallback:^(NSString *url, NSError *error) {
         NSLog(@"OBJECT ID: %@", self.post.objectId);
         NSLog(@"URL: %@", url);
         
