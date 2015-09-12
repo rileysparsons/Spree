@@ -149,6 +149,11 @@
 
 
 -(void)logInViewController:(LoginPasswordViewController *)logInController didLogInUser:(PFUser *)user{
+    
+#warning REMOVE BEFORE SUBMISSION
+    Branch *branch = [Branch getInstance];
+    [branch setIdentity:[PFUser currentUser].objectId];
+
     if (![PFFacebookUtils isLinkedWithUser:user]){
         self.authorizationViewController.user = user;
         [self.navigationController pushViewController:self.authorizationViewController animated:YES];
@@ -171,6 +176,10 @@
 
 
 -(void)signupViewController:(LoginPasswordViewController *)signupController didSignUpUser:(PFUser *)user{
+    #warning REMOVE BEFORE SUBMISSION
+    Branch *branch = [Branch getInstance];
+    [branch setIdentity:[PFUser currentUser].objectId];
+    
     [self incrementUserCountForCampus:user[@"campus"]];
     self.authorizationViewController.user = user;
     [self.navigationController pushViewController:self.authorizationViewController animated:YES];

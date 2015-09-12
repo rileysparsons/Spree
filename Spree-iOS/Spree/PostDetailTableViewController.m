@@ -592,6 +592,27 @@
             UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[shareString, image]
                                                                                                  applicationActivities:nil];
             activityViewController.excludedActivityTypes = excludedTypes;
+            
+            activityViewController.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
+                if (completed) {
+                    if (activityType == UIActivityTypePostToFacebook || activityType == UIActivityTypeMessage){
+                        [[MBProgressHUD showHUDAddedTo:self.view animated:YES] setMode:MBProgressHUDModeText];
+                        [[MBProgressHUD HUDForView:self.view] setLabelText:@"You've received 3 credits"];
+                        [[MBProgressHUD HUDForView:self.view] setDetailsLabelText:@"These credits go toward the Fall 2015 Spree Competition. The winner gets an iPad!"];
+                        
+                        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 3.0f * NSEC_PER_SEC);
+                        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                            // Do something...
+                            [MBProgressHUD hideHUDForView:self.view animated:YES];
+                        });
+                    }
+                    if (activityType == UIActivityTypePostToFacebook)
+                        [[Branch getInstance] userCompletedAction:@"PostSharedViaFacebook"];
+                    else if (activityType == UIActivityTypeMessage)
+                        [[Branch getInstance] userCompletedAction:@"PostSharedViaSMS"];
+                }
+            };
+            
             [MBProgressHUD hideHUDForView:self.view animated:YES];
             [self.navigationController presentViewController:activityViewController
                                                     animated:YES

@@ -62,6 +62,36 @@
     
     [[SpreeConfigManager sharedManager] fetchConfigIfNeeded];
     
+    //Branch stuff
+//    [Branch setDebug]; // For TESTING, NOT DEPLOYMENT
+//    #warning REMOVE BEFORE DEPLOYING TO APP STORE
+    Branch *branch = [Branch getInstance];
+    if ([PFUser currentUser]){
+        [branch setIdentity:[PFUser currentUser].objectId];
+    }
+    [branch initSessionWithLaunchOptions:launchOptions andRegisterDeepLinkHandler:^(NSDictionary *params, NSError *error) {
+        // route the user based on what's in params
+        // params are the deep linked params associated with the link that the user clicked before showing up.
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+        NSLog(@"deep link data: %@", [params description]);
+        if ([params objectForKey:@"object id"] != nil && [PFUser currentUser]){
+
+            NSLog(@"called");
+            UITabBarController *tabBarController =  (UITabBarController *)self.window.rootViewController;
+            
+            UINavigationController *homeNavigationController = [[tabBarController viewControllers] objectAtIndex:SpreeCampusTabBarItemIndex];
+            
+            [tabBarController setSelectedViewController:homeNavigationController];
+            
+            PostDetailTableViewController *postDetailTableViewController = [storyboard instantiateViewControllerWithIdentifier:@"PostDetail"];
+            
+            [postDetailTableViewController initializeWithObjectId:params[@"object id"]];
+            
+            [homeNavigationController pushViewController:postDetailTableViewController animated:YES ];
+            
+        }
+    }];
+    
     if (![PFUser currentUser]) {
         [self showOnboardingFlow];
     } else {
@@ -73,37 +103,6 @@
         [application registerUserNotificationSettings:settings];
         [application registerForRemoteNotifications];
         
-        
-        
-        //Branch.io stuff
-        Branch *branch = [Branch getInstance];
-        [branch initSessionWithLaunchOptions:launchOptions andRegisterDeepLinkHandler:^(NSDictionary *params, NSError *error) {
-            
-            // params are the deep linked params associated with the link that the user clicked before showing up.
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-            if ([params objectForKey:@"object id"]){
-                
-                UITabBarController *tabBarController =  (UITabBarController *)self.window.rootViewController;
-                
-                UINavigationController *homeNavigationController = [[tabBarController viewControllers] objectAtIndex:SpreeCampusTabBarItemIndex];
-                
-                [tabBarController setSelectedViewController:homeNavigationController];
-                
-                PostDetailTableViewController *postDetailTableViewController = [storyboard instantiateViewControllerWithIdentifier:@"PostDetail"];
-                
-                [postDetailTableViewController initializeWithObjectId:params[@"object id"]];
-
-                [homeNavigationController pushViewController:postDetailTableViewController animated:YES ];
-                
-                
-                //            [self.window.rootViewController.navigationController presentViewController:postDetailTableViewController animated:YES completion:nil];
-                //I assume this is where you should put the initialization
-                
-            }
-            
-            
-            
-        }];
     }
     
 
@@ -130,10 +129,8 @@
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    
-    //Branch.io stuff
     [[Branch getInstance] handleDeepLink:url];
-    
+    // do other deep link routing for the Facebook SDK, Pinterest SDK, etc
     return [[FBSDKApplicationDelegate sharedInstance] application:application openURL:url sourceApplication:sourceApplication annotation:annotation];
 }
 

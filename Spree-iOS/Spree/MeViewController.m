@@ -17,12 +17,17 @@
 #import <CoreGraphics/CoreGraphics.h>
 #import "MSCellAccessory.h"
 #import "RatingViewController.h"
+#import "Branch/Branch.h"
+
+#define kReferralTabTitle @"Referrals"
+
 #import "SpreeUtility.h"
 
 typedef enum : NSUInteger {
     kLogOutAlert,
     kVerifyEmailAlert
 } AlertType;
+
 
 #define kAuthorizeFacebookTitle @"Authorize Facebook"
 #define kLogOutTitle @"Log Out"
@@ -62,6 +67,7 @@ typedef enum : NSUInteger {
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     [self updateTableView];
+    [SpreeUtility saveCurrentCreditBalance];
     [self.settingsTableView reloadData];
 }
 
@@ -74,9 +80,9 @@ typedef enum : NSUInteger {
 
 -(void)updateTableView{
     if ([PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]){
-        _firstSectionArray = [[NSArray alloc] initWithObjects: kYourPostsTitle, kLogOutTitle, nil];
+        _firstSectionArray = [[NSArray alloc] initWithObjects: kYourPostsTitle, kReferralTabTitle, kLogOutTitle, nil];
     } else {
-        _firstSectionArray = [[NSArray alloc] initWithObjects: kAuthorizeFacebookTitle, kYourPostsTitle, kLogOutTitle, nil];
+        _firstSectionArray = [[NSArray alloc] initWithObjects: kAuthorizeFacebookTitle, kYourPostsTitle, kReferralTabTitle, kLogOutTitle, nil];
     }
 //    [self.settingsTableView reloadData];
 }
@@ -86,7 +92,15 @@ typedef enum : NSUInteger {
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-   
+
+    //Sets the bar button item in the top left equal to the value of credits the user has
+    
+    [[Branch getInstance] loadRewardsWithCallback:^(BOOL changed, NSError *err) {
+        if (!err) {
+            NSString *credit = [NSString stringWithFormat:@"Credit: %lu", [[Branch getInstance] getCredits]];
+            self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:credit style:UIBarButtonItemStylePlain target:self action: @selector(creditButtonTouched:)];
+        }
+    }];
     PFQuery *activePostNumberQuery = [PFQuery queryWithClassName:@"Post"];
     [activePostNumberQuery whereKey:@"user" equalTo:[PFUser currentUser]];
     [activePostNumberQuery whereKeyDoesNotExist:@"removed"];
@@ -204,7 +218,10 @@ typedef enum : NSUInteger {
          return [self authorizeFacebookTableViewCell];
      } else  if ( [[self.firstSectionArray objectAtIndex:indexPath.row] isEqualToString:kYourPostsTitle]){
          return [self yourPostsTableViewCell];
+     } else  if ( [[self.firstSectionArray objectAtIndex:indexPath.row] isEqualToString:kReferralTabTitle]){
+         return [self referralTableViewCell];
      }
+     
      return 0;
  }
 
@@ -217,9 +234,16 @@ typedef enum : NSUInteger {
             UIAlertView *confirmLogOut = [[UIAlertView alloc] initWithTitle:@"Confirm Log Out" message:@"Are you sure you want to log out of Spree?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
             confirmLogOut.tag = 0;
             [confirmLogOut show];
+            
         } else if ([titleOfRow isEqualToString: kYourPostsTitle]){
             [self performSegueWithIdentifier:@"ShowUserPosts" sender:self];
-        } else if ([titleOfRow isEqualToString:kAuthorizeFacebookTitle]){
+        } else if ([titleOfRow isEqualToString: kReferralTabTitle]){
+            [self performSegueWithIdentifier:@"ShowReferralView" sender:self];
+            //BranchReferralController *referralController = [BranchReferralController branchReferralControllerWithView:myCustomView delegate:self];
+            //BranchReferralController *referralController = [BranchReferralController branchReferralControllerWithDelegate:self];
+            //[self presentViewController:referralController animated:YES completion:NULL];
+        }
+        else if ([titleOfRow isEqualToString:kAuthorizeFacebookTitle]){
             NSLog(@"CALLED");
             [PFFacebookUtils linkUserInBackground:[PFUser currentUser] withReadPermissions:nil block:^(BOOL succeeded, NSError *error){
                 if (succeeded){
@@ -265,6 +289,8 @@ typedef enum : NSUInteger {
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (alertView.tag == kLogOutAlert){
         if (buttonIndex == 1) {
+#warning REMOVE BEFORE SUBMISSION
+                [[Branch getInstance] logout];
                 [(AppDelegate *)[[UIApplication sharedApplication] delegate] logOut];
         }
     } else if (alertView.tag == kVerifyEmailAlert){
@@ -288,6 +314,13 @@ typedef enum : NSUInteger {
     }
 }
 
+
+- (IBAction)creditButtonTouched:(id)sender {
+    
+    [self performSegueWithIdentifier:@"ShowReferralView" sender:self];
+}
+
+
 - (IBAction)settingsButtonTouched:(id)sender {
     SettingsViewController *settingsViewController = [[SettingsViewController alloc] init];
     [self.navigationController pushViewController:settingsViewController animated:YES];
@@ -301,6 +334,23 @@ typedef enum : NSUInteger {
     logOutCell.textLabel.textColor = [UIColor spreeRed];
     logOutCell.backgroundColor = [UIColor spreeOffWhite];
     return logOutCell;
+}
+
+-(UITableViewCell *)referralTableViewCell{
+    UITableViewCell *referralCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:kReferralTabTitle];
+    referralCell.detailTextLabel.font = [UIFont fontWithName:@"Lato-Regular" size:15];
+    referralCell.detailTextLabel.textColor =[UIColor spreeDarkBlue];
+    referralCell.textLabel.text = kReferralTabTitle;
+    referralCell.textLabel.font = [UIFont fontWithName:@"Lato-Regular" size:18];
+    referralCell.textLabel.textColor = [UIColor spreeOffBlack];
+    referralCell.backgroundColor = [UIColor spreeOffWhite];
+    [[Branch getInstance] loadRewardsWithCallback:^(BOOL changed, NSError *err) {
+        if (!err) {
+            referralCell.detailTextLabel.text = [NSString stringWithFormat:@"credit: %lu", [[Branch getInstance] getCredits]];
+        }
+    }];
+    referralCell.accessoryView = [MSCellAccessory accessoryWithType:FLAT_DISCLOSURE_INDICATOR color:[UIColor spreeDarkBlue] highlightedColor:[UIColor spreeLightYellow]];
+    return referralCell;
 }
 
 -(UITableViewCell *)yourPostsTableViewCell{
