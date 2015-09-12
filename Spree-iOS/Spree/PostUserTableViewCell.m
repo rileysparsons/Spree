@@ -40,6 +40,7 @@
 - (void)setUserLabelForPost:(SpreePost *)post{
     PFUser *user = post.user;
     NSLog(@"Cell user %@", user);
+    
     if (user[@"displayName"]){
         self.userLabel.text = [SpreeUtility firstNameForDisplayName: user[@"displayName"]];
     } else {

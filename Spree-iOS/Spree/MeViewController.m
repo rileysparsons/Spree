@@ -96,6 +96,7 @@ typedef enum : NSUInteger {
     //Sets the bar button item in the top left equal to the value of credits the user has
     
     [[Branch getInstance] loadRewardsWithCallback:^(BOOL changed, NSError *err) {
+        NSLog(@"%@", [NSNumber numberWithBool:changed].stringValue);
         if (!err) {
             [self setupTitle];
         }
