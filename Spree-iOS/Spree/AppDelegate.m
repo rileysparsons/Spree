@@ -68,9 +68,9 @@
     Branch *branch = [Branch getTestInstance];
     [branch setDebug];
     if ([PFUser currentUser]){
-        [branch setIdentity:@"RILEYTEST"];
+        [branch setIdentity:@"RILEYTEST11"];
     }
-    [branch initSessionWithLaunchOptions:launchOptions isReferrable:NO andRegisterDeepLinkHandler:^(NSDictionary *params, NSError *error) {
+    [branch initSessionWithLaunchOptions:launchOptions andRegisterDeepLinkHandler:^(NSDictionary *params, NSError *error) {
         // route the user based on what's in params
         // params are the deep linked params associated with the link that the user clicked before showing up.
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];

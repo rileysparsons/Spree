@@ -152,7 +152,7 @@
     
 #warning REMOVE BEFORE SUBMISSION
     Branch *branch = [Branch getTestInstance];
-    [branch setIdentity:@"RILEYTEST"];
+    [branch setIdentity:@"RILEYTEST11"];
 
     if (![PFFacebookUtils isLinkedWithUser:user]){
         self.authorizationViewController.user = user;
@@ -178,7 +178,7 @@
 -(void)signupViewController:(LoginPasswordViewController *)signupController didSignUpUser:(PFUser *)user{
     #warning REMOVE BEFORE SUBMISSION
     Branch *branch = [Branch getTestInstance];
-    [branch setIdentity:@"RILEYTEST"];
+    [branch setIdentity:@"RILEYTEST11"];
     
     [self incrementUserCountForCampus:user[@"campus"]];
     self.authorizationViewController.user = user;
