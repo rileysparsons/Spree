@@ -63,12 +63,11 @@
     [[SpreeConfigManager sharedManager] fetchConfigIfNeeded];
     
     //Branch stuff
-//    [Branch setDebug];
-    #warning REMOVE BEFORE DEPLOYING TO APP STORE
-    Branch *branch = [Branch getTestInstance];
-    [branch setDebug];
+//    [Branch setDebug]; // For TESTING, NOT DEPLOYMENT
+//    #warning REMOVE BEFORE DEPLOYING TO APP STORE
+    Branch *branch = [Branch getInstance];
     if ([PFUser currentUser]){
-        [branch setIdentity:@"RILEYTEST11"];
+        [branch setIdentity:[PFUser currentUser].objectId];
     }
     [branch initSessionWithLaunchOptions:launchOptions andRegisterDeepLinkHandler:^(NSDictionary *params, NSError *error) {
         // route the user based on what's in params
@@ -130,7 +129,7 @@
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    [[Branch getTestInstance] handleDeepLink:url];
+    [[Branch getInstance] handleDeepLink:url];
     // do other deep link routing for the Facebook SDK, Pinterest SDK, etc
     return [[FBSDKApplicationDelegate sharedInstance] application:application openURL:url sourceApplication:sourceApplication annotation:annotation];
 }

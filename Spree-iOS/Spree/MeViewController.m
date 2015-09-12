@@ -94,9 +94,9 @@ typedef enum : NSUInteger {
 -(void)viewWillAppear:(BOOL)animated{
     //Sets the bar button item in the top left equal to the value of credits the user has
     
-    [[Branch getTestInstance] loadRewardsWithCallback:^(BOOL changed, NSError *err) {
+    [[Branch getInstance] loadRewardsWithCallback:^(BOOL changed, NSError *err) {
         if (!err) {
-            NSString *credit = [NSString stringWithFormat:@"Credit: %lu", [[Branch getTestInstance] getCredits]];
+            NSString *credit = [NSString stringWithFormat:@"Credit: %lu", [[Branch getInstance] getCredits]];
             self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:credit style:UIBarButtonItemStylePlain target:self action: @selector(creditButtonTouched:)];
         }
     }];
@@ -228,7 +228,6 @@ typedef enum : NSUInteger {
         if ([titleOfRow isEqualToString:kLogOutTitle]){
 //            [PFFacebookUtils unlinkUser:[PFUser currentUser]];
             UIAlertView *confirmLogOut = [[UIAlertView alloc] initWithTitle:@"Confirm Log Out" message:@"Are you sure you want to log out of Spree?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
-            [[Branch getTestInstance] logout];
             confirmLogOut.tag = 0;
             [confirmLogOut show];
             
@@ -287,7 +286,7 @@ typedef enum : NSUInteger {
     if (alertView.tag == kLogOutAlert){
         if (buttonIndex == 1) {
 #warning REMOVE BEFORE SUBMISSION
-                [[Branch getTestInstance] logout];
+                [[Branch getInstance] logout];
                 [(AppDelegate *)[[UIApplication sharedApplication] delegate] logOut];
         }
     } else if (alertView.tag == kVerifyEmailAlert){
@@ -341,9 +340,9 @@ typedef enum : NSUInteger {
     referralCell.textLabel.font = [UIFont fontWithName:@"Lato-Regular" size:18];
     referralCell.textLabel.textColor = [UIColor spreeOffBlack];
     referralCell.backgroundColor = [UIColor spreeOffWhite];
-    [[Branch getTestInstance] loadRewardsWithCallback:^(BOOL changed, NSError *err) {
+    [[Branch getInstance] loadRewardsWithCallback:^(BOOL changed, NSError *err) {
         if (!err) {
-            referralCell.detailTextLabel.text = [NSString stringWithFormat:@"credit: %lu", [[Branch getTestInstance] getCredits]];
+            referralCell.detailTextLabel.text = [NSString stringWithFormat:@"credit: %lu", [[Branch getInstance] getCredits]];
         }
     }];
     referralCell.accessoryView = [MSCellAccessory accessoryWithType:FLAT_DISCLOSURE_INDICATOR color:[UIColor spreeDarkBlue] highlightedColor:[UIColor spreeLightYellow]];
