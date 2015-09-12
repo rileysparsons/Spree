@@ -31,7 +31,6 @@ static const CGFloat kHeaderSlideShowHeight = 125.0f;
 @implementation HomeViewController
 
 - (void)viewDidLoad {
-    [[Branch getInstance] setIdentity:[PFUser currentUser][@"username"]];
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self setupHeaderSlides];
