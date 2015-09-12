@@ -10,7 +10,7 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="spreeLogoWithName" translatesAutoresizingMaskIntoConstraints="NO" id="1aE-99-fd1">
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="spreeLogoLarge" translatesAutoresizingMaskIntoConstraints="NO" id="1aE-99-fd1">
                     <rect key="frame" x="44" y="0.0" width="392" height="480"/>
                 </imageView>
             </subviews>
@@ -35,6 +35,6 @@
         </view>
     </objects>
     <resources>
-        <image name="spreeLogoWithName" width="350" height="377"/>
+        <image name="spreeLogoLarge" width="307" height="302"/>
     </resources>
 </document>

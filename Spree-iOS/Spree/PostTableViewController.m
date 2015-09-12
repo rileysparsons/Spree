@@ -18,7 +18,7 @@
 #import "SelectPostTypeViewController.h"
 #import "ResultsTableViewController.h"
 #import "SpreeUtility.h"
-
+#import <MBProgressHUD/MBProgressHUD.h>
 
 @interface PostTableViewController () {
 
@@ -98,6 +98,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [MBProgressHUD showHUDAddedTo:self.tableView animated:YES];
     
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     appDelegate.window.rootViewController = self.tabBarController;
@@ -282,15 +284,15 @@
 
 - (void)objectsDidLoad:(NSError *)error {
     [super objectsDidLoad:error];
-    NSLog(@"Size of all objects: %lu", sizeof([self.objects objectAtIndex:0]));
+    [MBProgressHUD hideHUDForView:self.tableView animated:YES];
     UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
     if (self.objects.count == 0){
         // Display a message when the table is empty
-        messageLabel.text = @"No posts have been made in your area.\n\nYou can be the first!";
+        messageLabel.text = @"No posts found at your school.\n\nPost the first!";
         messageLabel.textColor = [UIColor spreeDarkBlue];
         messageLabel.numberOfLines = 0;
         messageLabel.textAlignment = NSTextAlignmentCenter;
-        messageLabel.font = [UIFont fontWithName:@"EuphemiaUCAS" size:20];
+        messageLabel.font = [UIFont fontWithName:@"Lato-Regular" size:20];
         [messageLabel sizeToFit];
         self.tableView.backgroundView = messageLabel;
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -298,7 +300,6 @@
         self.tableView.backgroundView.hidden = YES;
         NSLog(@"Objects did load");
     }
-    NSLog(@"%lu", self.objects.count);
     // This method is called every time objects are loaded from Parse via the PFQuery
 }
 

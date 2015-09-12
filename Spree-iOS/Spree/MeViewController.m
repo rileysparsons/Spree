@@ -92,6 +92,7 @@ typedef enum : NSUInteger {
 }
 
 -(void)viewWillAppear:(BOOL)animated{
+
     //Sets the bar button item in the top left equal to the value of credits the user has
     
     [[Branch getInstance] loadRewardsWithCallback:^(BOOL changed, NSError *err) {
@@ -100,36 +101,39 @@ typedef enum : NSUInteger {
             self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:credit style:UIBarButtonItemStylePlain target:self action: @selector(creditButtonTouched:)];
         }
     }];
-    
-    PFQuery *expiredPostNumberQuery = [PFQuery queryWithClassName:@"Post"];
-    [expiredPostNumberQuery whereKey:@"user" equalTo:[PFUser currentUser]];
-    [expiredPostNumberQuery  findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+    PFQuery *activePostNumberQuery = [PFQuery queryWithClassName:@"Post"];
+    [activePostNumberQuery whereKey:@"user" equalTo:[PFUser currentUser]];
+    [activePostNumberQuery whereKeyDoesNotExist:@"removed"];
+    [activePostNumberQuery whereKey:@"expired" equalTo:[NSNumber numberWithBool:0]];
+    [activePostNumberQuery whereKey:@"sold" equalTo:[NSNumber numberWithBool:0]];
+    [activePostNumberQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error){
         if (!error){
-            NSMutableArray *expiredPosts = [[NSMutableArray alloc] init];
-            NSMutableArray *activePosts = [[NSMutableArray alloc] init];
-            
-            for (SpreePost *post in objects){
-                if (post.expired == YES){
-                    [expiredPosts addObject:post];
-                } else {
-                    [activePosts  addObject:post];
-                }
-            }
-            expiredPostCount = expiredPosts.count;
-            activePostCount = activePosts.count;
+            activePostCount = number;
             if (activePostCount != 0){
                 self.postCountLabel.text = [NSString stringWithFormat:@"%ld active posts", (long)activePostCount];
             } else {
                 self.postCountLabel.text = @"No active posts";
             }
+
+        }
+    }];
+    
+    PFQuery *expiredPostNumberQuery = [PFQuery queryWithClassName:@"Post"];
+    [expiredPostNumberQuery whereKey:@"user" equalTo:[PFUser currentUser]];
+    [expiredPostNumberQuery whereKeyDoesNotExist:@"removed"];
+    [expiredPostNumberQuery whereKey:@"expired" equalTo:[NSNumber numberWithBool:1]];
+    [expiredPostNumberQuery whereKey:@"sold" equalTo:[NSNumber numberWithBool:0]];
+    [expiredPostNumberQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
+        if (!error){
+            expiredPostCount = number;
+            if (expiredPostCount != 0){
+                self.navigationController.tabBarItem.badgeValue = [NSString stringWithFormat:@"%li", (long)expiredPostCount];
+            } else {
+                self.navigationController.tabBarItem.badgeValue = nil;
+            }
             [self.settingsTableView reloadData];
         }
     }];
-    if (expiredPostCount != 0){
-        self.navigationController.tabBarItem.badgeValue = [NSString stringWithFormat:@"%li", (long)expiredPostCount];
-    } else {
-        self.navigationController.tabBarItem.badgeValue = nil;
-    }
 }
 
 -(void)setUserInfo{

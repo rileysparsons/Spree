@@ -75,6 +75,24 @@
     self.tableView.estimatedRowHeight = 100.0f;
     self.tableView.backgroundColor = [UIColor spreeOffWhite];
     
+    
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 35)];
+    footerView.backgroundColor = [UIColor clearColor];
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"MM/dd/yyyy"];
+    NSString *dateString = [dateFormatter stringFromDate:self.post.createdAt];
+    NSString *fullDateString = [NSString stringWithFormat:@"Posted on %@", dateString];
+    label.font = [UIFont fontWithName:@"Lato-Regular" size:16];
+    label.textColor = [[UIColor spreeOffBlack] colorWithAlphaComponent:0.5f];
+    label.text = fullDateString;
+    [label setFrame:CGRectMake(8, 8, footerView.frame.size.width, 30)];
+    
+    self.tableView.tableFooterView = footerView;
+    
+    [footerView addSubview:label];
+    
     // View Set Up
     self.view.backgroundColor = [UIColor spreeOffWhite];
     
@@ -121,30 +139,6 @@
             return [self cellForOldField:[self.existingFieldsForTable objectAtIndex:indexPath.row][@"field"]]; // This method takes a string value for the field and returns cells.
         return 0;
     }
-}
-
--(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 30;
-}
-
--(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
-    
-    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 30)];
-    footerView.backgroundColor = [UIColor clearColor];
-    
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"MM/dd/yyyy"];
-    NSString *dateString = [dateFormatter stringFromDate:self.post.createdAt];
-    NSString *fullDateString = [NSString stringWithFormat:@"Posted on %@", dateString];
-    label.font = [UIFont fontWithName:@"Lato-Regular" size:16];
-    label.textColor = [UIColor spreeOffBlack];
-    label.text = fullDateString;
-    [label setFrame:CGRectMake(8, 8, footerView.frame.size.width, 30)];
-    
-    [footerView addSubview:label];
-    
-    return footerView;
 }
 
 # pragma mark - Cell Producing Methods
@@ -237,7 +231,11 @@
         UINib *nib = [UINib nibWithNibName:className bundle:nil];
         [self.tableView registerNib:nib forCellReuseIdentifier:className];
         PostUserTableViewCell *userCell = [self.tableView dequeueReusableCellWithIdentifier:className];
-        [userCell setUserLabelForPost:self.post];
+        [self.post.user fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error){
+            if (!error)
+                [userCell setUserLabelForPost:self.post];
+        }];
+
         return userCell;
     } else if ([field isEqualToString:@"message"]){
         NSString *className = NSStringFromClass([PostMessageTableViewCell class]);
@@ -280,7 +278,7 @@
             [descriptionCell setDescriptionTextViewForPost:self.post];
             return descriptionCell;
         } else{
-            [basicInfoCell.fieldTitleLabel setText:field[@"name"]];
+            [basicInfoCell.fieldTitleLabel setText:[field[@"name"] capitalizedString]];
             [basicInfoCell.dataLabel setText:self.post[field[@"field"]]];
             return basicInfoCell;
         }
@@ -289,7 +287,6 @@
         UINib *nib = [UINib nibWithNibName:className bundle:nil];
         [self.tableView registerNib:nib forCellReuseIdentifier:className];
         PhotoGalleryTableViewCell *photoCell = [self.tableView dequeueReusableCellWithIdentifier:className];
-        [photoCell setDateLabelForPost:self.post];
         [photoCell setupPriceLabelForPost:self.post];
         
         [self loadPostImagesForCell:photoCell];
@@ -298,7 +295,7 @@
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateFormat:@"MM/dd/yyyy hh:mma"];
         NSString *dateString = [dateFormatter stringFromDate:self.post[field[@"field"]]];
-        [basicInfoCell.fieldTitleLabel setText:field[@"name"]];
+        [basicInfoCell.fieldTitleLabel setText:[field[@"name"] capitalizedString]];
         [basicInfoCell.dataLabel setText:dateString];
         return basicInfoCell;
     } else if ([field[@"field"] isEqualToString:@"profile"]){
@@ -384,22 +381,6 @@
             }
         }
     }];
-    
-//    if (([[(PFUser *)self.post.user objectId] isEqualToString: [[PFUser currentUser] objectId]])){
-//        //        UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithTitle:@"Delete" style:UIBarButtonItemStyleBordered target:self actio:@selector(deleteButtonSelected)];
-//        self.poster = [PFUser currentUser];
-//        self.currentUserPost = YES;
-//    } else {
-//        PFQuery *query = [PFUser query];
-//        [query whereKey:@"objectId" equalTo:self.post.user.objectId];
-//        [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-//            NSLog(@"THIS: %@", object);
-//            self.poster = (PFUser *)object;
-////            NSString *date = [NSDateFormatter localizedStringFromDate:[self.post createdAt] dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterNoStyle];
-////            _postDateUserLabel.text = [NSString stringWithFormat:@"Posted by %@ on %@", (_poster[@"name"]) ? _poster[@"name"] : _poster[@"username"], date];
-////            [self _loadData];
-//        }];
-//    }
 }
 
 -(void)userControlButtonTouched{
@@ -460,6 +441,7 @@
 }
 
 -(void)initializeWithObjectId:(NSString *)string{
+//    [MBProgressHUD showHUDAddedTo:self.tableView animated:YES];
     PFQuery *query = [PFQuery queryWithClassName:@"Post"];
     NSLog(@"%@",string);
     [query includeKey:@"user"];
@@ -468,6 +450,7 @@
         if (error){
             
         } else {
+//            [MBProgressHUD hideHUDForView:self.tableView animated:YES];
             [self initWithPost:(SpreePost *)object];
         }
     }];
@@ -487,6 +470,8 @@
         } else if ([field[@"dataType"] isEqualToString:@"string"] && ![field[@"field"] isEqualToString:@"title"]){
             [self.existingFieldsForTable addObject:field];
         } else if ([field[@"dataType"] isEqualToString:@"image"]){
+            [self.existingFieldsForTable addObject:field];
+        } else if ([field[@"dataType"] isEqualToString:@"date"]){
             [self.existingFieldsForTable addObject:field];
         }
     }
@@ -583,6 +568,8 @@
 
 -(void)viewInitializedForPost:(PostShareView *)view{
     UIImage *image = [view captureView];
+    [[MBProgressHUD showHUDAddedTo:self.view animated:YES] setDetailsLabelText:@"Loading Shareable View"];
+    
     [self presentActivityViewWithImage:image];
 }
 
@@ -626,12 +613,15 @@
                 }
             };
             
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
             [self.navigationController presentViewController:activityViewController
                                                     animated:YES
                                                   completion:^{
                                                       
                                                   }];
             
+        } else {
+            NSLog(@"%@", error);
         }
     }];
     

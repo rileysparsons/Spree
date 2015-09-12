@@ -111,8 +111,6 @@
 		14AB0EC71B87F63300BD06EB /* PostingDataEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14AB0EC61B87F63300BD06EB /* PostingDataEntryViewController.m */; };
 		14C38DA21B27F3BA0039862E /* PostDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C38DA11B27F3BA0039862E /* PostDetailTableViewController.m */; };
 		14C38DB31B28F6870039862E /* PhotoGalleryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C38DB11B28F6870039862E /* PhotoGalleryTableViewCell.m */; };
-		14C38DB81B29311D0039862E /* PostUserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C38DB61B29311D0039862E /* PostUserTableViewCell.m */; };
-		14C38DB91B29311D0039862E /* PostUserTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14C38DB71B29311D0039862E /* PostUserTableViewCell.xib */; };
 		14C8214A1B2D1B9100A1B513 /* PhotoGalleryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14C821491B2D1B9100A1B513 /* PhotoGalleryTableViewCell.xib */; };
 		14C8214D1B2FE36C00A1B513 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C8214C1B2FE36C00A1B513 /* ProfileViewController.m */; };
 		14CAB3BF1B5948150081979C /* PhotoDisplayTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14CAB3BD1B5948150081979C /* PhotoDisplayTableViewCell.m */; };
@@ -128,6 +126,10 @@
 		14CE471F1B6AF02A004FA4D1 /* HomeHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14CE471E1B6AF02A004FA4D1 /* HomeHeaderView.m */; };
 		14CE47211B6AF040004FA4D1 /* HomeHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14CE47201B6AF040004FA4D1 /* HomeHeaderView.xib */; };
 		14CE47241B6AF41E004FA4D1 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14CE47231B6AF41E004FA4D1 /* HomeViewController.m */; };
+		14D3B67D1BA291C300D665BB /* UserPostTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14D3B67C1BA291C200D665BB /* UserPostTableViewCell.m */; };
+		14D3B67F1BA291DA00D665BB /* UserPostTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14D3B67E1BA291DA00D665BB /* UserPostTableViewCell.xib */; };
+		14D3B6811BA2973500D665BB /* PostUserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14D3B6801BA2973500D665BB /* PostUserTableViewCell.m */; };
+		14D3B6831BA3D24B00D665BB /* PostUserTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14D3B6821BA3D24B00D665BB /* PostUserTableViewCell.xib */; };
 		14E66B971A452653008184C1 /* PostTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E66B951A452653008184C1 /* PostTableViewCell.m */; };
 		14E66B981A452653008184C1 /* PostTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14E66B961A452653008184C1 /* PostTableViewCell.xib */; };
 		14EFDAE71A89EC4F007510CC /* TextViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14EFDAE61A89EC4F007510CC /* TextViewViewController.m */; };
@@ -353,8 +355,6 @@
 		14C38DB01B28F6870039862E /* PhotoGalleryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoGalleryTableViewCell.h; sourceTree = "<group>"; };
 		14C38DB11B28F6870039862E /* PhotoGalleryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoGalleryTableViewCell.m; sourceTree = "<group>"; };
 		14C38DB51B29311D0039862E /* PostUserTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostUserTableViewCell.h; sourceTree = "<group>"; };
-		14C38DB61B29311D0039862E /* PostUserTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostUserTableViewCell.m; sourceTree = "<group>"; };
-		14C38DB71B29311D0039862E /* PostUserTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostUserTableViewCell.xib; sourceTree = "<group>"; };
 		14C821491B2D1B9100A1B513 /* PhotoGalleryTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotoGalleryTableViewCell.xib; sourceTree = "<group>"; };
 		14C8214B1B2FE36C00A1B513 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		14C8214C1B2FE36C00A1B513 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
@@ -379,6 +379,11 @@
 		14CE47201B6AF040004FA4D1 /* HomeHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeHeaderView.xib; sourceTree = "<group>"; };
 		14CE47221B6AF41E004FA4D1 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		14CE47231B6AF41E004FA4D1 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
+		14D3B67B1BA291C200D665BB /* UserPostTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserPostTableViewCell.h; sourceTree = "<group>"; };
+		14D3B67C1BA291C200D665BB /* UserPostTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserPostTableViewCell.m; sourceTree = "<group>"; };
+		14D3B67E1BA291DA00D665BB /* UserPostTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserPostTableViewCell.xib; sourceTree = "<group>"; };
+		14D3B6801BA2973500D665BB /* PostUserTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostUserTableViewCell.m; sourceTree = "<group>"; };
+		14D3B6821BA3D24B00D665BB /* PostUserTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostUserTableViewCell.xib; sourceTree = "<group>"; };
 		14E66B941A452653008184C1 /* PostTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostTableViewCell.h; sourceTree = "<group>"; };
 		14E66B951A452653008184C1 /* PostTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostTableViewCell.m; sourceTree = "<group>"; };
 		14E66B961A452653008184C1 /* PostTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostTableViewCell.xib; sourceTree = "<group>"; };
@@ -560,6 +565,7 @@
 				142CB0601B5303B600969066 /* PhotoSelectTableViewCell.xib */,
 				14CAB3BC1B5948150081979C /* PhotoDisplayTableViewCell.h */,
 				14CAB3BD1B5948150081979C /* PhotoDisplayTableViewCell.m */,
+				14D3B6821BA3D24B00D665BB /* PostUserTableViewCell.xib */,
 				14CAB3BE1B5948150081979C /* PhotoDisplayTableViewCell.xib */,
 				14C821441B2CF9F900A1B513 /* Post Detail Cells */,
 				140CF8FF1A3E086800134C4D /* PostTypeTableViewCell.h */,
@@ -571,6 +577,9 @@
 				141524551B4070E5007EE405 /* PostTypeSelectionTableViewCell.xib */,
 				140473981ABD267E00C0F8EF /* UserPostsTableViewController.h */,
 				140473991ABD267E00C0F8EF /* UserPostsTableViewController.m */,
+				14D3B67B1BA291C200D665BB /* UserPostTableViewCell.h */,
+				14D3B67C1BA291C200D665BB /* UserPostTableViewCell.m */,
+				14D3B67E1BA291DA00D665BB /* UserPostTableViewCell.xib */,
 				140CF9001A3E086800134C4D /* PostTypeTableViewCell.m */,
 				140CF9011A3E086800134C4D /* PostTypeTableViewCell.xib */,
 				140CF9121A3F708F00134C4D /* ChosenTypeTableViewCell.h */,
@@ -782,8 +791,7 @@
 				14C38DB01B28F6870039862E /* PhotoGalleryTableViewCell.h */,
 				14C38DB11B28F6870039862E /* PhotoGalleryTableViewCell.m */,
 				14C38DB51B29311D0039862E /* PostUserTableViewCell.h */,
-				14C38DB61B29311D0039862E /* PostUserTableViewCell.m */,
-				14C38DB71B29311D0039862E /* PostUserTableViewCell.xib */,
+				14D3B6801BA2973500D665BB /* PostUserTableViewCell.m */,
 				14FD56DD1B2CF6170086A2AE /* PostTitleTableViewCell.h */,
 				14FD56DE1B2CF6170086A2AE /* PostTitleTableViewCell.m */,
 				14FD56DF1B2CF6170086A2AE /* PostTitleTableViewCell.xib */,
@@ -1027,9 +1035,9 @@
 				143D91FC1B71881400E2F493 /* SelectCampusTableViewCell.xib in Resources */,
 				140CF9091A3E157700134C4D /* Podfile in Resources */,
 				141AECC51B8D14E200F0012B /* PostMessageTableViewCell.xib in Resources */,
+				14D3B6831BA3D24B00D665BB /* PostUserTableViewCell.xib in Resources */,
 				14CAB3C01B5948150081979C /* PhotoDisplayTableViewCell.xib in Resources */,
 				144D556E1B4E11920003B752 /* Lato-BlackItalic.ttf in Resources */,
-				14C38DB91B29311D0039862E /* PostUserTableViewCell.xib in Resources */,
 				14CAB3C51B5953D40081979C /* PhotoSelectFooterView.xib in Resources */,
 				144D55761B4E11920003B752 /* Lato-Regular.ttf in Resources */,
 				14AB0EC11B82C2A100BD06EB /* PostingInputAccessoryView.xib in Resources */,
@@ -1059,6 +1067,7 @@
 				14FD56E11B2CF6170086A2AE /* PostTitleTableViewCell.xib in Resources */,
 				142CB0621B5303B600969066 /* PhotoSelectTableViewCell.xib in Resources */,
 				142CB05A1B5236D400969066 /* AddPhotoHeaderView.xib in Resources */,
+				14D3B67F1BA291DA00D665BB /* UserPostTableViewCell.xib in Resources */,
 				14A416811B05700600EA4DA2 /* SpreeSprintTableViewCell.xib in Resources */,
 				144D55741B4E11920003B752 /* Lato-Light.ttf in Resources */,
 				143D91D41B6BBB3F00E2F493 /* HeaderSlideView.xib in Resources */,
@@ -1122,6 +1131,7 @@
 				140CF9021A3E086800134C4D /* PostTypeTableViewCell.m in Sources */,
 				145B0ABB1B9F6999002FD94E /* ChatPostHeader.m in Sources */,
 				14CAB3D21B5C54C40081979C /* PostDescriptionTableViewCell.m in Sources */,
+				14D3B6811BA2973500D665BB /* PostUserTableViewCell.m in Sources */,
 				143D91ED1B6E04D200E2F493 /* LoginCampusHeaderView.m in Sources */,
 				143D91EA1B6DFE7500E2F493 /* LoginAuthorizationViewController.m in Sources */,
 				4ECA453F1B48E0EB006C33FC /* ContactUsViewController.m in Sources */,
@@ -1130,6 +1140,7 @@
 				14CAB3D71B5C685D0081979C /* EditPostPhotoSelectViewController.m in Sources */,
 				145B0AC91B9F8100002FD94E /* UIImage+RoundedCornerAdditions.m in Sources */,
 				1415245D1B4084D2007EE405 /* PostingStringEntryViewController.m in Sources */,
+				14D3B67D1BA291C300D665BB /* UserPostTableViewCell.m in Sources */,
 				145B0AC01B9F8027002FD94E /* SpreeUtility.m in Sources */,
 				1404739D1ABD308D00C0F8EF /* PostTypeTableViewController.m in Sources */,
 				14AB0EC71B87F63300BD06EB /* PostingDataEntryViewController.m in Sources */,
@@ -1140,7 +1151,6 @@
 				14423CCB1B8D9A08002CB026 /* SinglePhotoPostShareView.m in Sources */,
 				4EFD06E81BA1528700947AD6 /* ReferralViewController.m in Sources */,
 				14423CD21B8E786B002CB026 /* DoublePhotoPostShareView.m in Sources */,
-				14C38DB81B29311D0039862E /* PostUserTableViewCell.m in Sources */,
 				14CAB3C31B59539A0081979C /* PhotoSelectFooterView.m in Sources */,
 				140CF8DC1A3BBFB200134C4D /* AppDelegate.m in Sources */,
 				14423CD81B8E9AC5002CB026 /* TriplePhotoPostShareView.m in Sources */,

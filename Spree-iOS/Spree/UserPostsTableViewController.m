@@ -7,7 +7,7 @@
 //
 
 #import "UserPostsTableViewController.h"
-#import "PostTableViewCell.h"
+#import "UserPostTableViewCell.h"
 #import "SpreePost.h"
 #import "UIColor+SpreeColor.h"
 
@@ -56,6 +56,7 @@
 {
     PFQuery *query = [PFQuery queryWithClassName:self.parseClassName];
     [query whereKey:@"user" equalTo:[PFUser currentUser]];
+    [query includeKey:@"user"];
     [query orderByDescending:@"updatedAt"];
     
     return query;
@@ -66,12 +67,12 @@
 
     static NSString *CellIdentifier = @"Cell";
 
-    PostTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    UserPostTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        NSArray *nibFiles = [[NSBundle mainBundle] loadNibNamed:@"PostTableViewCell" owner:self options:nil];
+        NSArray *nibFiles = [[NSBundle mainBundle] loadNibNamed:@"UserPostTableViewCell" owner:self options:nil];
         for(id currentObject in nibFiles){
             if ([currentObject isKindOfClass:[UITableViewCell class]]){
-                cell = (PostTableViewCell*)currentObject;
+                cell = (UserPostTableViewCell*)currentObject;
                 break;
             }
         }
@@ -87,15 +88,25 @@
             cell.priceLabel.text = price;
         }
         
-        if (post.expired == YES && post.sold == NO){
-            cell.statusLabel.text = @"Expired";
+        
+        if  (post.removed == YES){
+            cell.shadeView.hidden = NO;
+            cell.statusLabel.text = @"Deleted";
+            cell.statusLabel.font = [UIFont fontWithName:@"Lato-Bold" size:12];
             cell.statusLabel.textColor = [UIColor spreeRed];
-        } else if (post.sold == YES){
-            cell.statusLabel.text = @"Sold";
-            cell.statusLabel.textColor = [UIColor spreeDarkYellow];
         } else {
-            cell.statusLabel.textColor = [UIColor spreeDarkBlue];
-            cell.statusLabel.text = @"Active";
+            if (post.expired == YES && post.sold == NO){
+                cell.statusLabel.text = @"Expired";
+                cell.statusLabel.font = [UIFont fontWithName:@"Lato-Bold" size:12];
+                cell.statusLabel.textColor = [UIColor spreeRed];
+            } else if (post.sold == YES){
+                cell.shadeView.hidden = NO;
+                cell.statusLabel.text = @"Sold";
+                cell.statusLabel.textColor = [UIColor spreeDarkYellow];
+            } else {
+                cell.statusLabel.textColor = [UIColor spreeDarkBlue];
+                cell.statusLabel.text = @"Active";
+            }
         }
 
         

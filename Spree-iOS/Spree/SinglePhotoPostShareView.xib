@@ -30,11 +30,11 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="spreeLogoSmall" translatesAutoresizingMaskIntoConstraints="NO" id="Rle-CI-iP4">
-                    <rect key="frame" x="22" y="22" width="69" height="70"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="spreeLogoLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Rle-CI-iP4">
+                    <rect key="frame" x="22" y="22" width="100" height="100"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="69" id="UfF-j6-TfA"/>
-                        <constraint firstAttribute="height" constant="70" id="Uk1-I0-nKy"/>
+                        <constraint firstAttribute="width" constant="100" id="UfF-j6-TfA"/>
+                        <constraint firstAttribute="height" constant="100" id="Uk1-I0-nKy"/>
                         <constraint firstAttribute="width" secondItem="Rle-CI-iP4" secondAttribute="height" multiplier="1:1" id="oHP-2T-RA9"/>
                     </constraints>
                     <variation key="default">
@@ -44,7 +44,7 @@
                     </variation>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Rp-og-Ma3">
-                    <rect key="frame" x="129" y="49" width="348" height="32"/>
+                    <rect key="frame" x="160" y="49" width="317" height="32"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="32" id="hrR-qy-15y"/>
                         <constraint firstAttribute="height" constant="32" id="kBP-dW-Dp0"/>
@@ -59,7 +59,7 @@
                     </variation>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uNq-u4-qDw">
-                    <rect key="frame" x="129" y="89" width="348" height="29"/>
+                    <rect key="frame" x="160" y="89" width="317" height="29"/>
                     <constraints>
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="29" id="jU6-Ao-tTe"/>
                         <constraint firstAttribute="height" constant="21" id="lL1-Sn-yZ2"/>
@@ -74,7 +74,7 @@
                     </variation>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bmW-MT-ucU">
-                    <rect key="frame" x="20" y="178" width="560" height="21"/>
+                    <rect key="frame" x="20" y="208" width="560" height="21"/>
                     <constraints>
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="ZNo-2F-XoJ"/>
                     </constraints>
@@ -121,10 +121,7 @@
                     </variation>
                 </view>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Evs-mJ-78n">
-                    <rect key="frame" x="20" y="243" width="560" height="338"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="338" id="oMp-QP-kXX"/>
-                    </constraints>
+                    <rect key="frame" x="20" y="273" width="560" height="297"/>
                 </imageView>
             </subviews>
             <color key="backgroundColor" red="0.96558624510000002" green="0.97044742110000004" blue="0.97035741809999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -149,6 +146,7 @@
                 <constraint firstItem="9Rp-og-Ma3" firstAttribute="top" secondItem="2zg-HN-gib" secondAttribute="top" constant="49" id="cxp-Ku-jnF"/>
                 <constraint firstItem="uNq-u4-qDw" firstAttribute="top" secondItem="9Rp-og-Ma3" secondAttribute="bottom" constant="8" id="eso-70-lG8"/>
                 <constraint firstAttribute="trailing" secondItem="bmW-MT-ucU" secondAttribute="trailing" constant="20" id="huk-Xr-i1K"/>
+                <constraint firstAttribute="bottom" secondItem="Evs-mJ-78n" secondAttribute="bottom" constant="30" id="mZS-ae-3td"/>
                 <constraint firstAttribute="trailing" secondItem="Evs-mJ-78n" secondAttribute="trailing" constant="20" id="ngj-uT-PFe"/>
                 <constraint firstAttribute="trailing" secondItem="uNq-u4-qDw" secondAttribute="trailing" constant="8" id="obd-nh-fad"/>
                 <constraint firstItem="9Rp-og-Ma3" firstAttribute="leading" secondItem="Rle-CI-iP4" secondAttribute="trailing" constant="8" id="rx6-f7-MVT"/>
@@ -160,7 +158,6 @@
             <nil key="simulatedStatusBarMetrics"/>
             <variation key="default">
                 <mask key="constraints">
-                    <exclude reference="Y2t-Sk-y4r"/>
                     <exclude reference="OhW-Lz-35I"/>
                     <exclude reference="TJu-s9-42H"/>
                     <exclude reference="UZx-cz-yjw"/>
@@ -170,12 +167,13 @@
                     <exclude reference="eso-70-lG8"/>
                     <exclude reference="obd-nh-fad"/>
                     <exclude reference="uUT-nV-nOS"/>
+                    <exclude reference="Y2t-Sk-y4r"/>
                     <exclude reference="LoH-kq-Hje"/>
                 </mask>
             </variation>
         </view>
     </objects>
     <resources>
-        <image name="spreeLogoSmall" width="18" height="18"/>
+        <image name="spreeLogoLarge" width="307" height="302"/>
     </resources>
 </document>

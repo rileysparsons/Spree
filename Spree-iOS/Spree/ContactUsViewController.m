@@ -7,6 +7,7 @@
 //
 
 #import "ContactUsViewController.h"
+#import <MBProgressHUD/MBProgressHUD.h>
 
 @interface ContactUsViewController ()
 @end
@@ -32,11 +33,16 @@ BOOL edited;
     _descriptionTextView.clipsToBounds = YES;
     _descriptionTextView.delegate = self;
     
+    UIBarButtonItem *sendButton = [[UIBarButtonItem alloc] initWithTitle:@"Send" style:UIBarButtonItemStyleDone target:self action:@selector(send:)];
+    sendButton.tintColor = [UIColor spreeDarkBlue];
+    [self.navigationItem setRightBarButtonItem:sendButton];
     //List of categories the user can choose from when contacting us
-    pickerArray = @[@"Problem 1", @"Problem 2", @"Problem 3", @"Problem 4"];
+    pickerArray = @[@"Recommendation", @"I want to work with Spree", @"Complaint about a post or user", @"Other"];
     
     //List of descriptions that match with the categories the user can choose
-    textArray = @[@"Problem 1 description", @"Problem 2 description", @"Problem 3 description", @"Problem 4 description"];
+    textArray = @[@"We take student recommendations very seriously. Please describe your idea for Spree.", @"Great! We're always looking for talented students, let's set up a meeting.", @"The safety and security of our service and our users is paramount. Please describe the issue.", @"What's up?"];
+    
+    self.emailTextField.text = [PFUser currentUser].email;
     
     //Changes the input view for the category text field from a keyboard to a picker
     UIPickerView *pickerView = [[UIPickerView alloc] init];
@@ -100,16 +106,27 @@ BOOL edited;
 - (void)textViewDidChange:(UITextView *)textView {
     //adds send button on the top
     if ([_descriptionTextView.text isEqualToString:@""]) {
-        [self.navigationItem setRightBarButtonItem:nil animated:NO];
+        [self.navigationItem.rightBarButtonItem setEnabled:NO];
     }
     else {
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Send" style:UIBarButtonItemStyleDone target:self action:@selector(send:)];
+        [self.navigationItem.rightBarButtonItem setEnabled:YES];
     }
 }
 
 //function that is called when the send button is pressed
 -(void)send:(id)sender {
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     //I assume this is where the parse interaction will go
+    PFObject *userFeedback = [PFObject objectWithClassName:@"UserFeedback"];
+    userFeedback[@"subject"] = [NSNumber numberWithInteger:[pickerArray indexOfObject:self.categoryTextField.text]];
+    userFeedback[@"message"] = self.descriptionTextView.text;
+    userFeedback[@"user"] = [PFUser currentUser];
+    userFeedback[@"providedEmail"] = self.emailTextField.text;
+    
+    [userFeedback saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error){
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self.navigationController popViewControllerAnimated:YES];
+    }];
 }
 
 
