@@ -36,6 +36,8 @@
 	<string>746189822137028</string>
 	<key>FacebookDisplayName</key>
 	<string>Spree</string>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSLocationWhenInUseUsageDescription</key>
@@ -91,6 +93,11 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>branch_key</key>
-	<string>key_test_jnaMkWJ66fc4pHYTG3j3rnjnuzbp389N</string>
+	<dict>
+		<key>live</key>
+		<string>key_live_jaaPnWOY3hk0cMXMV3cT8kkdBCco0X9y</string>
+		<key>test</key>
+		<string>key_test_lmoJe5RX0pg4pM3KQ6f7qndbECblZYWQ</string>
+	</dict>
 </dict>
 </plist>

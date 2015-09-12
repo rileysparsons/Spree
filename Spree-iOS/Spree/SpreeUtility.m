@@ -10,6 +10,7 @@
 #import "UIImage+ResizeAdditions.h"
 #import <Parse/PFAnonymousUtils.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <Branch/Branch.h>
 
 typedef enum : NSUInteger {
     kVerifyEmailAlert,
@@ -57,6 +58,16 @@ typedef enum : NSUInteger {
         return userVerifiedEmail;
     }
 }
+
++ (void) saveCurrentCreditBalance{
+    [[Branch getInstance] loadRewardsWithCallback:^(BOOL changed, NSError *err) {
+        if (!err && changed) {
+            [[PFUser currentUser] setObject:[NSNumber numberWithInteger:[[Branch getInstance] getCredits]] forKey:@"credits"];
+            [[PFUser currentUser] saveInBackground];
+        }
+    }];
+}
+
 
 @end
 

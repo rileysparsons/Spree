@@ -11,6 +11,7 @@
 #import "HeaderSlideView.h"
 #import "SpreeConfigManager.h"
 #import <MBProgressHUD/MBProgressHUD.h>
+#import "SpreeUtility.h"
 #import "Branch.h"
 
 static const CGFloat kHeaderSlideShowHeight = 125.0f;
@@ -95,6 +96,7 @@ static const CGFloat kHeaderSlideShowHeight = 125.0f;
     [super viewDidAppear:YES];
     [self.header setFrame:CGRectMake(0, 0, self.tableView.frame.size.width, kHeaderSlideShowHeight)];
     [self sizeHeaderToFit];
+    [SpreeUtility saveCurrentCreditBalance];
 }
 
 - (void) sizeHeaderToFit {

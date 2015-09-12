@@ -63,15 +63,20 @@
     [[SpreeConfigManager sharedManager] fetchConfigIfNeeded];
     
     //Branch stuff
-    [Branch setDebug];
-    [[Branch getInstance] setIdentity:[PFUser currentUser][@"username"]];
-    Branch *branch = [Branch getInstance];
-    [branch initSessionWithLaunchOptions:launchOptions andRegisterDeepLinkHandler:^(NSDictionary *params, NSError *error) {
-        [[Branch getInstance] setIdentity:[PFUser currentUser][@"username"]];
+//    [Branch setDebug];
+    #warning REMOVE BEFORE DEPLOYING TO APP STORE
+    Branch *branch = [Branch getTestInstance];
+    [branch setDebug];
+    if ([PFUser currentUser]){
+        [branch setIdentity:[PFUser currentUser].objectId];
+    }
+    [branch initSessionWithLaunchOptions:launchOptions isReferrable:YES andRegisterDeepLinkHandler:^(NSDictionary *params, NSError *error) {
+        // route the user based on what's in params
         // params are the deep linked params associated with the link that the user clicked before showing up.
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+        NSLog(@"deep link data: %@", [params description]);
         if ([params objectForKey:@"object id"] != nil && [PFUser currentUser]){
-//            NSLog(@"%@", params[@"+referrer"]);
+
             NSLog(@"called");
             UITabBarController *tabBarController =  (UITabBarController *)self.window.rootViewController;
             
@@ -84,10 +89,6 @@
             [postDetailTableViewController initializeWithObjectId:params[@"object id"]];
             
             [homeNavigationController pushViewController:postDetailTableViewController animated:YES ];
-            
-            
-            //            [self.window.rootViewController.navigationController presentViewController:postDetailTableViewController animated:YES completion:nil];
-            //I assume this is where you should put the initialization
             
         }
     }];
@@ -129,10 +130,8 @@
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    
-    //Branch.io stuff
     [[Branch getInstance] handleDeepLink:url];
-    
+    // do other deep link routing for the Facebook SDK, Pinterest SDK, etc
     return [[FBSDKApplicationDelegate sharedInstance] application:application openURL:url sourceApplication:sourceApplication annotation:annotation];
 }
 

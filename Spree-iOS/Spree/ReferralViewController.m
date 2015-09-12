@@ -18,6 +18,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"Spree Referral Program";
     // Do any additional setup after loading the view.
 }
 
@@ -39,7 +40,7 @@
         if (!error) {
             
             //NSString *texttoshare = @"Check out Spree: %@";
-            NSString *texttoshare = [NSString stringWithFormat:@"Check out Spree: %@", url];
+            NSString *texttoshare = [NSString stringWithFormat:@"Check out Spree. It's a iPhone app that helps students sell goods and services to one another. %@", url];
             //UIImage *imagetoshare = spreeLogoSmall; //this is your image to share
             NSArray *activityItems = @[texttoshare];
             UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];

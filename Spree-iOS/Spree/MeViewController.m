@@ -18,7 +18,6 @@
 #import "MSCellAccessory.h"
 #import "RatingViewController.h"
 #import "Branch/Branch.h"
-#import "BranchReferralController.h"
 
 #define kReferralTabTitle @"Referrals"
 
@@ -68,6 +67,7 @@ typedef enum : NSUInteger {
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     [self updateTableView];
+    [SpreeUtility saveCurrentCreditBalance];
     [self.settingsTableView reloadData];
 }
 
@@ -286,6 +286,8 @@ typedef enum : NSUInteger {
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (alertView.tag == kLogOutAlert){
         if (buttonIndex == 1) {
+#warning REMOVE BEFORE SUBMISSION
+                [[Branch getTestInstance] logout];
                 [(AppDelegate *)[[UIApplication sharedApplication] delegate] logOut];
         }
     } else if (alertView.tag == kVerifyEmailAlert){

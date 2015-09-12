@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
@@ -11,6 +11,9 @@
             <string>Lato-Light</string>
         </mutableArray>
         <mutableArray key="Lato-Regular.ttf">
+            <string>Lato-Regular</string>
+            <string>Lato-Regular</string>
+            <string>Lato-Regular</string>
             <string>Lato-Regular</string>
             <string>Lato-Regular</string>
             <string>Lato-Regular</string>
@@ -69,17 +72,17 @@
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TM3-8I-cHP">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TM3-8I-cHP">
                                             <rect key="frame" x="0.0" y="0.0" width="8" height="75"/>
                                             <color key="backgroundColor" red="0.8221812248" green="0.84588021040000005" blue="0.11075499649999999" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="8" id="FIn-eq-iiZ"/>
                                             </constraints>
                                         </view>
-                                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DWU-wK-ndG">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DWU-wK-ndG">
                                             <rect key="frame" x="16" y="8" width="68" height="59"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aeN-Yf-ooB" customClass="PFImageView">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aeN-Yf-ooB" customClass="PFImageView">
                                                     <rect key="frame" x="0.0" y="0.0" width="54" height="59"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="54" id="AKP-L4-RP8"/>
@@ -93,7 +96,7 @@
                                                         </mask>
                                                     </variation>
                                                 </imageView>
-                                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qfB-WE-Qyh" customClass="FBSDKProfilePictureView">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qfB-WE-Qyh" customClass="FBSDKProfilePictureView">
                                                     <rect key="frame" x="22" y="13" width="46" height="46"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
@@ -561,25 +564,24 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aaE-yh-K3a">
-                                <rect key="frame" x="0.0" y="64" width="414" height="353"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="353" id="ulh-zV-1oI"/>
-                                </constraints>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zys-gk-4jr">
-                                <rect key="frame" x="16" y="416" width="382" height="195"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zys-gk-4jr">
+                                <rect key="frame" x="16" y="127" width="382" height="204.5"/>
+                                <string key="text">Spree is holding a competition at Santa Clara University in order to boost its awareness and user base on campus. Only email-verified users in the Santa Clara University Spree network are eligible to win. The grand prize is a brand new iPad. The winner will be decided based on the user with the highest number of referral credits! Gaining referral credits is easy, just send your friends links inviting them to join the app, or share interesting posts with one another.</string>
+                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="17"/>
+                                <color key="textColor" red="0.16666857900000001" green="0.18534906209999999" blue="0.19849607350000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fall 2015 Competition" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="rIf-pz-HJg">
+                                <rect key="frame" x="16" y="72" width="382" height="40"/>
+                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="33"/>
+                                <color key="textColor" red="0.16666857900000001" green="0.18534906209999999" blue="0.19849607350000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gXu-p6-aXQ">
-                                <rect key="frame" x="16" y="619" width="382" height="60"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="uGY-h2-kIA"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="37"/>
-                                <state key="normal" title="Share Spree">
+                                <rect key="frame" x="24" y="641" width="374" height="38"/>
+                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="21"/>
+                                <state key="normal" title="Start earning credits now!">
+                                    <color key="titleColor" red="0.034740071740000003" green="0.29351189729999999" blue="0.58873707060000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -587,19 +589,31 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.96558624510000002" green="0.97044742110000004" blue="0.97035741809999998" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="aaE-yh-K3a" firstAttribute="top" secondItem="Pjf-P3-lfk" secondAttribute="bottom" id="40K-hO-QOZ"/>
-                            <constraint firstAttribute="trailing" secondItem="aaE-yh-K3a" secondAttribute="trailing" id="Dai-Ox-eQn"/>
+                            <constraint firstItem="rIf-pz-HJg" firstAttribute="top" secondItem="Pjf-P3-lfk" secondAttribute="bottom" constant="8" id="0Tc-qT-8J0"/>
+                            <constraint firstItem="rIf-pz-HJg" firstAttribute="trailing" secondItem="qje-PH-y0w" secondAttribute="trailingMargin" id="0lb-mD-rFN"/>
                             <constraint firstItem="gXu-p6-aXQ" firstAttribute="top" secondItem="zys-gk-4jr" secondAttribute="bottom" constant="8" symbolic="YES" id="EaR-Xt-nxI"/>
                             <constraint firstItem="gXu-p6-aXQ" firstAttribute="leading" secondItem="qje-PH-y0w" secondAttribute="leadingMargin" id="FYU-Gh-28r"/>
                             <constraint firstItem="zys-gk-4jr" firstAttribute="leading" secondItem="gXu-p6-aXQ" secondAttribute="leading" id="GUb-aT-peH"/>
-                            <constraint firstItem="aaE-yh-K3a" firstAttribute="centerX" secondItem="zys-gk-4jr" secondAttribute="centerX" id="ITA-SB-YCB"/>
-                            <constraint firstItem="aaE-yh-K3a" firstAttribute="leading" secondItem="qje-PH-y0w" secondAttribute="leading" id="W7U-RO-NC9"/>
+                            <constraint firstItem="zys-gk-4jr" firstAttribute="top" secondItem="rIf-pz-HJg" secondAttribute="bottom" constant="15" id="WhP-en-kwb"/>
+                            <constraint firstItem="zys-gk-4jr" firstAttribute="leading" secondItem="qje-PH-y0w" secondAttribute="leadingMargin" id="b1d-gp-qFG"/>
+                            <constraint firstItem="gXu-p6-aXQ" firstAttribute="leading" secondItem="qje-PH-y0w" secondAttribute="leadingMargin" constant="8" id="dfT-RI-H6h"/>
+                            <constraint firstItem="rIf-pz-HJg" firstAttribute="leading" secondItem="qje-PH-y0w" secondAttribute="leadingMargin" id="gLn-5n-l36"/>
                             <constraint firstItem="ims-gl-Z4R" firstAttribute="top" secondItem="gXu-p6-aXQ" secondAttribute="bottom" constant="8" symbolic="YES" id="gUo-r2-JfD"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="zys-gk-4jr" secondAttribute="trailing" id="qAg-EK-7f3"/>
                             <constraint firstItem="gXu-p6-aXQ" firstAttribute="trailing" secondItem="zys-gk-4jr" secondAttribute="trailing" id="s8s-pt-IKb"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="gXu-p6-aXQ" secondAttribute="trailing" id="tT1-GK-cuc"/>
                             <constraint firstItem="zys-gk-4jr" firstAttribute="top" secondItem="Pjf-P3-lfk" secondAttribute="bottom" constant="352" id="uTk-oi-sYU"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="GUb-aT-peH"/>
+                                <exclude reference="uTk-oi-sYU"/>
+                                <exclude reference="EaR-Xt-nxI"/>
+                                <exclude reference="FYU-Gh-28r"/>
+                            </mask>
+                        </variation>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                 </viewController>
