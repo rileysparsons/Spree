@@ -13,6 +13,7 @@
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "SpreeUtility.h"
 #import "Branch.h"
+#import "ReferralViewController.h"
 
 static const CGFloat kHeaderSlideShowHeight = 125.0f;
 
@@ -142,12 +143,10 @@ static const CGFloat kHeaderSlideShowHeight = 125.0f;
                 [self.navigationController pushViewController:self.postDetailTableViewController animated:YES];
             }];
         } else if ([[slideMetadata objectForKey:BANNER_LINKTYPE] isEqualToString:@"competition"]){
-            // WILL ADD COMPETITION or REFERRAL VIEW
-//                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-//                self.postDetailTableViewController = [storyboard instantiateViewControllerWithIdentifier:@"PostDetail"];
-//                NSLog(@"%@", self.storyboard);
-//            [self.postDetailTableViewController initWithPost:slideMetadata[@"post"]];
-//            [self.navigationController pushViewController:self.postDetailTableViewController animated:YES];
+//             WILL ADD COMPETITION or REFERRAL VIEW
+                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+               ReferralViewController *referralViewController = [storyboard instantiateViewControllerWithIdentifier:@"Referral"];
+            [self.navigationController pushViewController:referralViewController animated:YES];
         }
     }
     [MBProgressHUD hideHUDForView:self.view animated:YES];

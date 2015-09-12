@@ -571,7 +571,7 @@
         <!--Referrals-->
         <scene sceneID="peR-cQ-fqM">
             <objects>
-                <viewController title="Referrals" id="qdX-qa-zTr" customClass="ReferralViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Referral" title="Referrals" id="qdX-qa-zTr" customClass="ReferralViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Pjf-P3-lfk"/>
                         <viewControllerLayoutGuide type="bottom" id="ims-gl-Z4R"/>
