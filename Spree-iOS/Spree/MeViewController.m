@@ -19,7 +19,7 @@
 #import "RatingViewController.h"
 #import "Branch/Branch.h"
 
-#define kReferralTabTitle @"Referrals"
+#define kReferralTabTitle @"Share Spree, Earn Credits"
 
 #import "SpreeUtility.h"
 
@@ -97,8 +97,7 @@ typedef enum : NSUInteger {
     
     [[Branch getInstance] loadRewardsWithCallback:^(BOOL changed, NSError *err) {
         if (!err) {
-            NSString *credit = [NSString stringWithFormat:@"Credit: %lu", [[Branch getInstance] getCredits]];
-            self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:credit style:UIBarButtonItemStylePlain target:self action: @selector(creditButtonTouched:)];
+            [self setupTitle];
         }
     }];
     PFQuery *activePostNumberQuery = [PFQuery queryWithClassName:@"Post"];
@@ -239,9 +238,6 @@ typedef enum : NSUInteger {
             [self performSegueWithIdentifier:@"ShowUserPosts" sender:self];
         } else if ([titleOfRow isEqualToString: kReferralTabTitle]){
             [self performSegueWithIdentifier:@"ShowReferralView" sender:self];
-            //BranchReferralController *referralController = [BranchReferralController branchReferralControllerWithView:myCustomView delegate:self];
-            //BranchReferralController *referralController = [BranchReferralController branchReferralControllerWithDelegate:self];
-            //[self presentViewController:referralController animated:YES completion:NULL];
         }
         else if ([titleOfRow isEqualToString:kAuthorizeFacebookTitle]){
             NSLog(@"CALLED");
@@ -344,11 +340,7 @@ typedef enum : NSUInteger {
     referralCell.textLabel.font = [UIFont fontWithName:@"Lato-Regular" size:18];
     referralCell.textLabel.textColor = [UIColor spreeOffBlack];
     referralCell.backgroundColor = [UIColor spreeOffWhite];
-    [[Branch getInstance] loadRewardsWithCallback:^(BOOL changed, NSError *err) {
-        if (!err) {
-            referralCell.detailTextLabel.text = [NSString stringWithFormat:@"credit: %lu", [[Branch getInstance] getCredits]];
-        }
-    }];
+    referralCell.detailTextLabel.text = @"User with most credits wins an iPad";
     referralCell.accessoryView = [MSCellAccessory accessoryWithType:FLAT_DISCLOSURE_INDICATOR color:[UIColor spreeDarkBlue] highlightedColor:[UIColor spreeLightYellow]];
     return referralCell;
 }
@@ -409,6 +401,44 @@ typedef enum : NSUInteger {
     titleLabel.backgroundColor =[UIColor clearColor];
     titleLabel.adjustsFontSizeToFitWidth=YES;
     self.navigationItem.titleView=titleLabel;
+}
+
+-(void)setupTitle{
+    
+    CGRect headerTitleSubtitleFrame = CGRectMake(0, 0, 70, 44);
+    UIView* _headerTitleSubtitleView = [[UILabel alloc] initWithFrame:headerTitleSubtitleFrame];
+    _headerTitleSubtitleView.backgroundColor = [UIColor clearColor];
+    _headerTitleSubtitleView.autoresizesSubviews = YES;
+    
+    CGRect titleFrame = CGRectMake(0, 6, 70, 24);
+    UILabel *titleView = [[UILabel alloc] initWithFrame:titleFrame];
+    titleView.backgroundColor = [UIColor clearColor];
+    titleView.font = [UIFont fontWithName:@"Lato-Bold" size:17];
+    titleView.textAlignment = NSTextAlignmentCenter;
+    titleView.textColor = [UIColor spreeDarkBlue];
+    titleView.text = [[NSNumber numberWithInteger:[[Branch getInstance] getCredits]] stringValue];
+    titleView.adjustsFontSizeToFitWidth = YES;
+
+    [_headerTitleSubtitleView addSubview:titleView];
+    
+    CGRect subtitleFrame = CGRectMake(0, 24, 70, 44-24);
+    UILabel *subtitleView = [[UILabel alloc] initWithFrame:subtitleFrame];
+    subtitleView.backgroundColor = [UIColor clearColor];
+    subtitleView.font = [UIFont fontWithName:@"Lato-Regular" size:12];
+    subtitleView.textAlignment = NSTextAlignmentCenter;
+    subtitleView.textColor = [UIColor spreeDarkBlue];
+    subtitleView.text = @"referral credits";
+    subtitleView.text = [subtitleView.text uppercaseString];
+    subtitleView.adjustsFontSizeToFitWidth = YES;
+    [_headerTitleSubtitleView addSubview:subtitleView];
+    
+    _headerTitleSubtitleView.autoresizingMask = (UIViewAutoresizingFlexibleLeftMargin |
+                                                 UIViewAutoresizingFlexibleRightMargin |
+                                                 UIViewAutoresizingFlexibleTopMargin |
+                                                 UIViewAutoresizingFlexibleBottomMargin);
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_headerTitleSubtitleView];
+    
 }
 
 

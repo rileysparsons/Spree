@@ -593,6 +593,7 @@
                                                                                                  applicationActivities:nil];
             activityViewController.excludedActivityTypes = excludedTypes;
             
+            
             activityViewController.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
                 if (completed) {
                     if (activityType == UIActivityTypePostToFacebook || activityType == UIActivityTypeMessage){
