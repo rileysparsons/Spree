@@ -29,14 +29,7 @@
 - (IBAction)shareButtonPressed:(id)sender {
     NSLog(@"shareButton pressed");
     
-    
-    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    params[@"article_id"] = @"1234";
-    params[@"$og_title"] = @"MyApp is disrupting apps";
-    params[@"$og_image_url"] = @"http://yoursite.com/pics/987666.png";
-    params[@"$desktop_url"] = @"mysite.com/article1234";
-    
-    [[Branch getInstance] getShortURLWithParams:params andChannel:@"sms" andFeature:BRANCH_FEATURE_TAG_SHARE andCallback:^(NSString *url, NSError *error) {
+    [[Branch getInstance] getShortURLWithParams:nil andChannel:@"sms" andFeature:BRANCH_FEATURE_TAG_SHARE andCallback:^(NSString *url, NSError *error) {
         if (!error) {
             
             //NSString *texttoshare = @"Check out Spree: %@";

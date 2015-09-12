@@ -285,7 +285,6 @@ typedef enum : NSUInteger {
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (alertView.tag == kLogOutAlert){
         if (buttonIndex == 1) {
-#warning REMOVE BEFORE SUBMISSION
                 [[Branch getInstance] logout];
                 [(AppDelegate *)[[UIApplication sharedApplication] delegate] logOut];
         }
