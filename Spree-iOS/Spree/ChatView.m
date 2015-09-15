@@ -552,6 +552,7 @@ typedef enum : NSUInteger {
 -(void)postSold{
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
     PostPaymentViewController *pay = [storyboard instantiateViewControllerWithIdentifier:@"PostPaymentViewController"];
+    pay.delegate = self;
     [pay initializeWithPost:(SpreePost *)post];
     [self presentViewController:pay animated:YES completion:nil];
 }
