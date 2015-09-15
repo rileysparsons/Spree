@@ -13,6 +13,11 @@
 #import "MeetUpViewController.h"
 #import "ChatPostHeader.h"
 #import "SpreeUtility.h"
+#import "MessagingInputAccessoryView.h"
+#import "RatingViewController.h"
+#import "PostPaymentViewController.h"
+#import "AuthorizeVenmoViewController.h"
+#import <Venmo-iOS-SDK/Venmo.h>
 
 #import "common.h"
 #import "push.h"
@@ -24,7 +29,7 @@ typedef enum : NSUInteger {
     kVerifyEmailAlert,
 } AlertType;
 
-@interface ChatView()
+@interface ChatView() <AuthorizeVenmoViewControllerDelegate, PostPaymentViewControllerDelegate>
 {
 	NSTimer *timer;
 	BOOL isLoading;
@@ -41,6 +46,8 @@ typedef enum : NSUInteger {
 
 	JSQMessagesBubbleImage *bubbleImageOutgoing;
 	JSQMessagesBubbleImage *bubbleImageIncoming;
+    
+    MessagingInputAccessoryView *inputAccessoryView;
     
     ChatPostHeader *postHeader;
 }
@@ -92,6 +99,8 @@ typedef enum : NSUInteger {
         userVerifiedToSendMessages = NO;
     }
     
+    self.keyboardController.textView.autocorrectionType = UITextAutocorrectionTypeNo;
+    
     self.navigationItem.rightBarButtonItem = self.meetUp;
     
 	JSQMessagesBubbleImageFactory *bubbleFactory = [[JSQMessagesBubbleImageFactory alloc] init];
@@ -113,8 +122,25 @@ typedef enum : NSUInteger {
 	initialized = NO;
 
 	[self loadMessages];
+    
+    if (![[Venmo sharedInstance] isSessionValid] && ![[NSUserDefaults standardUserDefaults] boolForKey:@"PromptedVenmoAuth"]){
+        [self presentVenmoAuth];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"PromptedVenmoAuth"];
+    }
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadMessages) name:@"MeetUp" object:nil];
+}
+
+- (void)setInputAccessoryView
+{
+
+            inputAccessoryView = [[MessagingInputAccessoryView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 40) withPostType:(SpreePost *)post];
+            self.keyboardController.textView.inputAccessoryView = inputAccessoryView;
+            [inputAccessoryView.claimButton addTarget:self action:@selector(claimPost) forControlEvents:UIControlEventTouchUpInside];
+            [inputAccessoryView.reviewButton addTarget:self action:@selector(reviewUser) forControlEvents:UIControlEventTouchUpInside];
+            [inputAccessoryView.buyButton addTarget:self action:@selector(postSold) forControlEvents:UIControlEventTouchUpInside];
+            [inputAccessoryView.authorizeVenmo addTarget:self action:@selector(presentVenmoAuth) forControlEvents:UIControlEventTouchUpInside];
+
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -123,6 +149,8 @@ typedef enum : NSUInteger {
     self.topContentAdditionalInset = 75.0f;
     [self addCustomPostHeader];
 	self.collectionView.collectionViewLayout.springinessEnabled = YES;
+    [self setInputAccessoryView];
+    [self.keyboardController.textView becomeFirstResponder];
 	timer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(loadMessages) userInfo:nil repeats:YES];
 }
 
@@ -519,5 +547,56 @@ typedef enum : NSUInteger {
     }
 }
 
+#pragma mark - Post Actions
+
+-(void)postSold{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+    PostPaymentViewController *pay = [storyboard instantiateViewControllerWithIdentifier:@"PostPaymentViewController"];
+    [pay initializeWithPost:(SpreePost *)post];
+    [self presentViewController:pay animated:YES completion:nil];
+}
+
+-(void)reviewUser{
+    NSLog(@"Review the user");
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+    RatingViewController *rating = [storyboard instantiateViewControllerWithIdentifier:@"rating"];
+    rating.post = post;
+    UINavigationController *ratingNav = [[UINavigationController alloc] initWithRootViewController:rating];
+    [self presentViewController:ratingNav animated:YES completion:nil];
+}
+
+-(void)claimPost{
+    NSLog(@"I'll take care of this");
+}
+
+#pragma mark - Venmo
+
+-(void)presentVenmoAuth{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+    AuthorizeVenmoViewController *authVenmo = [storyboard instantiateViewControllerWithIdentifier:@"AuthVenmo"];
+    authVenmo.delegate = self;
+    [self presentViewController:authVenmo animated:YES completion:nil];
+}
+
+-(void)userDidNotAuthorizeVenmo{
+    
+}
+
+-(void)userDidAuthorizeVenmo{
+    [self setInputAccessoryView];
+    [self.keyboardController.textView setNeedsDisplay];
+}
+
+-(void)userCompletedPurchase{
+    NSString *purchaserName = [PFUser currentUser][@"displayName"] ? [SpreeUtility firstNameForDisplayName:[PFUser currentUser][@"displayName"]] : [PFUser currentUser][@"username"];
+    NSString *sellerName = post[@"user"][@"displayName"] ? [SpreeUtility firstNameForDisplayName:post[@"user"][@"displayName"]] : post[@"user"][@"username"];
+    
+    NSString *paymentConfirmation = [NSString stringWithFormat:@"%@ bought %@ from %@", purchaserName, post[@"title"], sellerName];
+    [self sendMessage:paymentConfirmation Video:nil Picture:nil];
+}
+
+-(void)userFailedToCompletePurchase{
+    
+}
 
 @end

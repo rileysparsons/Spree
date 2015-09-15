@@ -29,6 +29,16 @@
 				<string>fb746189822137028</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>venmo2928</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>venmo2928</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>

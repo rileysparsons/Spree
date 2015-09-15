@@ -8,7 +8,18 @@
 
 #import "EDStarRating.h"
 
+@protocol RatingViewControllerDelegate;
+
 @interface RatingViewController : UIViewController <EDStarRatingProtocol>
 @property (strong, nonatomic) PFObject *user;
+@property PFObject *post;
 @property (weak, nonatomic) NSString *ratingType;
+@property id<RatingViewControllerDelegate> delegate;
+
+@end
+
+@protocol RatingViewControllerDelegate <NSObject>
+
+-(void)ratingViewControllerDelegateDidClose;
+
 @end

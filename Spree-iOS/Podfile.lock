@@ -6,6 +6,7 @@ PODS:
     - Bolts/Tasks
   - Bolts/Tasks (1.2.2)
   - Branch (0.10.9)
+  - CMDQueryStringSerialization (0.2.0)
   - CocoaLumberjack (2.0.1):
     - CocoaLumberjack/Default (= 2.0.1)
     - CocoaLumberjack/Extensions (= 2.0.1)
@@ -50,7 +51,14 @@ PODS:
   - PureLayout (2.0.6)
   - RCSLabeledIconButton (1.0)
   - SAMTextView (0.2.2)
+  - SSKeychain (1.2.3)
   - TPKeyboardAvoiding (1.2.9)
+  - VENCore (3.0.1):
+    - CMDQueryStringSerialization (~> 0.2.0)
+  - Venmo-iOS-SDK (1.3.0):
+    - CMDQueryStringSerialization (~> 0.2.0)
+    - SSKeychain (~> 1.2.2)
+    - VENCore (~> 3.0.0)
 
 DEPENDENCIES:
   - Branch (= 0.10.9)
@@ -71,6 +79,7 @@ DEPENDENCIES:
   - RCSLabeledIconButton
   - SAMTextView
   - TPKeyboardAvoiding
+  - Venmo-iOS-SDK
 
 EXTERNAL SOURCES:
   JSQMessagesViewController:
@@ -79,12 +88,13 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   JSQMessagesViewController:
-    :commit: e63f45308aa01b2cdf5004d80de3a21f52ef3db2
+    :commit: f65b452b934d5cca52a65c25a02ec9bf76418bff
     :git: https://github.com/jessesquires/JSQMessagesViewController.git
 
 SPEC CHECKSUMS:
   Bolts: 20a2bd788273360cb1e31530dc19b8544eef2544
   Branch: 024a0c5848303eb82b8aa139822e07e0724f7fdc
+  CMDQueryStringSerialization: 15f9004212bbc72533bb533f63df79d90a00a7d8
   CocoaLumberjack: 019d1361244274a6138c788c6cb80baabc13fb8f
   CTAssetsPickerController: 4673b4b22347325723a4dace00e4bd856c64529b
   FBSDKCoreKit: 9954492d90c5fd65ae831395697a1660360d61f1
@@ -102,6 +112,9 @@ SPEC CHECKSUMS:
   PureLayout: f25f0bb904d5ccfe6e31da3cb869185259f02e0d
   RCSLabeledIconButton: db3351c731645016217e591f4a8a835c6524d277
   SAMTextView: 979c43bb1fa5859ddfbfeb35e9c296a2b0ec55fd
+  SSKeychain: 3f42991739c6c60a9cf1bbd4dff6c0d3694bcf3d
   TPKeyboardAvoiding: ff1ee4e5a5a0c119b965552af8f183868ea20207
+  VENCore: 7adedc7c0e65e3ba922cc21c35f3d0e133d43df7
+  Venmo-iOS-SDK: 456097c6df57544362719ea8db01541953aec44d
 
 COCOAPODS: 0.37.2
