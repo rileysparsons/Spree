@@ -32,6 +32,7 @@ typedef enum : NSUInteger {
 @interface ChatView() <AuthorizeVenmoViewControllerDelegate, PostPaymentViewControllerDelegate>
 {
 	NSTimer *timer;
+    NSTimer *venmoAuthTimer;
 	BOOL isLoading;
 	BOOL initialized;
     
@@ -127,6 +128,8 @@ typedef enum : NSUInteger {
         [self presentVenmoAuth];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"PromptedVenmoAuth"];
     }
+    
+    [self setInputAccessoryView];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadMessages) name:@"MeetUp" object:nil];
 }
@@ -149,9 +152,9 @@ typedef enum : NSUInteger {
     self.topContentAdditionalInset = 75.0f;
     [self addCustomPostHeader];
 	self.collectionView.collectionViewLayout.springinessEnabled = YES;
-    [self setInputAccessoryView];
     [self.keyboardController.textView becomeFirstResponder];
 	timer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(loadMessages) userInfo:nil repeats:YES];
+    venmoAuthTimer  = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(checkForVenmoAuthorization) userInfo:nil repeats:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -599,5 +602,17 @@ typedef enum : NSUInteger {
 -(void)userFailedToCompletePurchase{
     
 }
+
+-(void)checkForVenmoAuthorization{
+    [post[@"user"] fetchInBackgroundWithBlock:^(PFObject *object, NSError *error){
+        if (!error){
+            if (post[@"user"][@"venmoId"]){
+                [self setInputAccessoryView];
+                [venmoAuthTimer invalidate];
+            }
+        }
+    }];
+}
+
 
 @end

@@ -21,21 +21,20 @@
     self = [self initWithFrame:frame];
     NSLog(@"Sold %@", post[@"sold"]);
     self.post = post;
-    [self.post.typePointer fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error){
-        if ([post[@"typePointer"][@"type"] isEqualToString: @"Tasks & Services"]){
-            if (post[@"claimed"]){
-                [self setupForUnclaimedPost];
-            } else {
-                [self setupForClaimedPost];
-            }
+    
+    if (post[@"taskClaimed"]){
+        if (post[@"taskClaimed"] == [NSNumber numberWithBool:NO]){
+            [self setupForUnclaimedPost];
         } else {
-            if (!post.sold){
-                [self setupForUnsoldPost];
-            } else {
-                [self setupForSoldPost];
-            }
+            [self setupForClaimedPost];
         }
-    }];
+    } else {
+        if (!post.sold){
+            [self setupForUnsoldPost];
+        } else {
+            [self setupForSoldPost];
+        }
+    }
     return self;
 }
 
@@ -162,15 +161,23 @@
                 _buyButton.titleLabel.font = [UIFont fontWithName:@"Lato-Bold" size:18];
                 _buyButton.backgroundColor = [UIColor spreeDarkBlue];
                 _buyButton.titleLabel.textColor = [UIColor spreeOffWhite];
+                [_buyButton setEnabled:NO];
                 [_buyButton setTitle: @"Buy Post" forState:UIControlStateNormal];
                 [_buyButton setTitle: @"Seller Has Not Authorized Venmo" forState:UIControlStateDisabled];
                 [self addSubview:_buyButton];
                 [self stretchToSuperView:_buyButton];
-                 if (self.post.user[@"venmoId"]){
-                     [_buyButton setEnabled:YES];
-                 } else {
-                     [_buyButton setEnabled:NO];
-                 }
+                
+                [self.post.user fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error){
+                    if (!error){
+                        if (!self.post.user[@"venmoId"]){
+                            [_buyButton setEnabled:NO];
+                        } else {
+                            [_buyButton setEnabled:YES];
+                        }
+                    }
+                }];
+                
+
             }
         } else {
             [self setFrame:CGRectMake(0, 0, .1, .1)];
