@@ -503,12 +503,12 @@
 
 -(void)setupTitle{
 
-    CGRect headerTitleSubtitleFrame = CGRectMake(0, 0, 200, 44);
+    CGRect headerTitleSubtitleFrame = CGRectMake(0, 0, 175, 44);
     UIView* _headerTitleSubtitleView = [[UILabel alloc] initWithFrame:headerTitleSubtitleFrame];
     _headerTitleSubtitleView.backgroundColor = [UIColor clearColor];
     _headerTitleSubtitleView.autoresizesSubviews = YES;
     
-    CGRect titleFrame = CGRectMake(0, 2, 200, 24);
+    CGRect titleFrame = CGRectMake(0, 2, 175, 24);
     UILabel *titleView = [[UILabel alloc] initWithFrame:titleFrame];
     titleView.backgroundColor = [UIColor clearColor];
     titleView.font = [UIFont fontWithName:@"Lato-Regular" size:17];
@@ -517,9 +517,10 @@
     NSLog(@"TITLE %@", self.post);
     titleView.text = self.post.title;
     titleView.adjustsFontSizeToFitWidth = YES;
+    titleView.minimumScaleFactor = 0.75f;
     [_headerTitleSubtitleView addSubview:titleView];
     
-    CGRect subtitleFrame = CGRectMake(0, 24, 200, 44-24);
+    CGRect subtitleFrame = CGRectMake(0, 24, 175, 44-24);
     UILabel *subtitleView = [[UILabel alloc] initWithFrame:subtitleFrame];
     subtitleView.backgroundColor = [UIColor clearColor];
     subtitleView.font = [UIFont fontWithName:@"Lato-Regular" size:12];

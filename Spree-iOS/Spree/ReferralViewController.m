@@ -33,7 +33,7 @@
         if (!error) {
             
             //NSString *texttoshare = @"Check out Spree: %@";
-            NSString *texttoshare = [NSString stringWithFormat:@"Check out Spree. It's a iPhone app that helps students sell goods and services to one another. Sign up today with this link for a chance to win an iPad: %@", url];
+            NSString *texttoshare = [NSString stringWithFormat:@"Check out Spree. It's a iPhone app that helps students sell goods and services to one another. Sign up today with this link for a chance to win an Apple Watch: %@", url];
             //UIImage *imagetoshare = spreeLogoSmall; //this is your image to share
             NSArray *activityItems = @[texttoshare];
             UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];
