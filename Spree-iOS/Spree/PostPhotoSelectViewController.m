@@ -11,6 +11,7 @@
 #import "PhotoSelectFooterView.h"
 #import "AddPhotoHeaderView.h"
 #import "UIColor+SpreeColor.h"
+#import "UIImage+ResizeAdditions.h"
 #import <CTAssetsPickerController/CTAssetsPickerController.h>
 
 @interface PostPhotoSelectViewController () <CTAssetsPickerControllerDelegate, UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
@@ -92,9 +93,7 @@ int currentPhotoCount = 0;
         PHImageManager *manager = [PHImageManager defaultManager];
         [manager requestImageForAsset:asset targetSize:PHImageManagerMaximumSize contentMode:PHImageContentModeAspectFill options:options resultHandler:^(UIImage *result, NSDictionary *info) {
             [self.photoArray replaceObjectAtIndex:currentPhotoCount withObject:result];
-            NSData* data = UIImageJPEGRepresentation(result, 0.5f);
-            PFFile *imageFile = [PFFile fileWithName:@"Image.jpg" data:data];
-            [self.fileArray replaceObjectAtIndex:currentPhotoCount withObject:imageFile];
+            [self.fileArray replaceObjectAtIndex:currentPhotoCount withObject:[self compressAndSaveImage:result]];
             currentPhotoCount++;
             [self updatePhotoCount];
             [self.tableView reloadData];
@@ -341,14 +340,23 @@ int currentPhotoCount = 0;
     }
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (PFFile *)compressAndSaveImage:(UIImage *)anImage {
+    UIImage *resizedImage = [anImage resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:CGSizeMake(560.0f, 560.0f) interpolationQuality:kCGInterpolationHigh];
+//    UIImage *thumbnailImage = [anImage thumbnailImage:86.0f transparentBorder:0.0f cornerRadius:10.0f interpolationQuality:kCGInterpolationDefault];
+    
+    // JPEG to decrease file size and enable faster uploads & downloads
+    NSData *imageData = UIImageJPEGRepresentation(resizedImage, 0.8f);
+    
+    PFFile *file = [PFFile fileWithData:imageData];
+    
+    
+    
+//    NSData *thumbnailImageData = UIImagePNGRepresentation(thumbnailImage);
+    
+    
+    
+    return file;
 }
-*/
+
 
 @end
