@@ -28,6 +28,7 @@
             <string>Lato-Regular</string>
             <string>Lato-Regular</string>
             <string>Lato-Regular</string>
+            <string>Lato-Regular</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -46,7 +47,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Post" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cGb-2e-peD">
-                                            <rect key="frame" x="92" y="8" width="180" height="20"/>
+                                            <rect key="frame" x="92" y="8" width="180" height="19.5"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="31" id="Fy2-m6-7ee"/>
                                                 <constraint firstAttribute="width" constant="180" id="eok-6x-FwR"/>
@@ -68,12 +69,6 @@
                                             </constraints>
                                             <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                                             <color key="textColor" red="0.16666857900000001" green="0.18534906209999999" blue="0.19849607350000001" alpha="0.69999999999999996" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fdG-bb-5Fk">
-                                            <rect key="frame" x="366" y="8" width="38" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TM3-8I-cHP">
@@ -141,14 +136,24 @@
                                                 </mask>
                                             </variation>
                                         </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" translatesAutoresizingMaskIntoConstraints="NO" id="fdG-bb-5Fk">
+                                            <rect key="frame" x="356" y="10" width="50" height="17"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="50" id="dBw-iG-432"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
+                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="TM3-8I-cHP" firstAttribute="top" secondItem="Gr1-dg-pBE" secondAttribute="top" id="2RC-ws-QZI"/>
                                         <constraint firstItem="7AR-8J-Hbf" firstAttribute="top" secondItem="cGb-2e-peD" secondAttribute="bottom" constant="2.5" id="48q-1m-PsB"/>
                                         <constraint firstItem="7AR-8J-Hbf" firstAttribute="bottom" secondItem="Gr1-dg-pBE" secondAttribute="bottomMargin" constant="-3" id="4J8-iU-sjU"/>
                                         <constraint firstItem="cGb-2e-peD" firstAttribute="firstBaseline" secondItem="fdG-bb-5Fk" secondAttribute="firstBaseline" id="4rY-ic-xzG"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="fdG-bb-5Fk" secondAttribute="trailing" constant="2" id="5Rg-jl-Hue"/>
-                                        <constraint firstItem="fdG-bb-5Fk" firstAttribute="top" secondItem="Gr1-dg-pBE" secondAttribute="topMargin" id="AZw-uh-lrh"/>
+                                        <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="7AR-8J-Hbf" secondAttribute="trailing" id="5gp-8B-ouH"/>
+                                        <constraint firstItem="fdG-bb-5Fk" firstAttribute="top" secondItem="Gr1-dg-pBE" secondAttribute="topMargin" constant="2" id="AZw-uh-lrh"/>
+                                        <constraint firstItem="fdG-bb-5Fk" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="cGb-2e-peD" secondAttribute="trailing" constant="8" id="AyS-34-dHD"/>
                                         <constraint firstItem="DWU-wK-ndG" firstAttribute="top" secondItem="Gr1-dg-pBE" secondAttribute="topMargin" id="DA8-8q-48K"/>
                                         <constraint firstItem="7AR-8J-Hbf" firstAttribute="top" secondItem="cGb-2e-peD" secondAttribute="bottom" constant="3" id="FP9-xd-u5d"/>
                                         <constraint firstItem="7AR-8J-Hbf" firstAttribute="top" secondItem="cGb-2e-peD" secondAttribute="bottom" id="HxR-67-hie"/>
@@ -170,6 +175,7 @@
                                         <constraint firstItem="cGb-2e-peD" firstAttribute="top" secondItem="Gr1-dg-pBE" secondAttribute="topMargin" constant="8" id="j1n-7S-F3b"/>
                                         <constraint firstItem="TM3-8I-cHP" firstAttribute="leading" secondItem="Gr1-dg-pBE" secondAttribute="leading" id="sJk-6o-CEa"/>
                                         <constraint firstItem="DWU-wK-ndG" firstAttribute="top" secondItem="Gr1-dg-pBE" secondAttribute="topMargin" id="td4-Ny-qDx"/>
+                                        <constraint firstItem="fdG-bb-5Fk" firstAttribute="trailing" secondItem="Gr1-dg-pBE" secondAttribute="trailingMargin" id="u2p-g7-eob"/>
                                         <constraint firstItem="cGb-2e-peD" firstAttribute="leading" secondItem="DWU-wK-ndG" secondAttribute="trailing" constant="8" id="vAv-Yo-ayK"/>
                                         <constraint firstItem="cGb-2e-peD" firstAttribute="leading" secondItem="Gr1-dg-pBE" secondAttribute="leading" constant="21" id="zLA-Om-Tge"/>
                                         <constraint firstItem="DWU-wK-ndG" firstAttribute="bottom" secondItem="Gr1-dg-pBE" secondAttribute="bottomMargin" id="zbv-6g-gDQ"/>
