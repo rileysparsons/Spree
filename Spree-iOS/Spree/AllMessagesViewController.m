@@ -13,6 +13,8 @@
 #import "recent.h"
 #import "common.h"
 #import "converter.h"
+#import "SpreeUtility.h"
+#import <MBProgressHUD/MBProgressHUD.h>
 
 @interface AllMessagesViewController ()
 
@@ -169,13 +171,29 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
     PFObject *recent = [self.objects objectAtIndex:indexPath.row];
+    
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [[recent objectForKey:PF_MESSAGE_POST][@"typePointer"] fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error){
+        if (error){
+            
+        } else {
+            [[recent objectForKey:PF_MESSAGE_POST][@"user"] fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error){
+                if (error){
+                    
+                } else {
+                    NSString *title = [recent[PF_RECENT_TOUSER] objectForKey:@"displayName"] ? [SpreeUtility firstNameForDisplayName:[recent[PF_RECENT_TOUSER] objectForKey:@"displayName"]] : [recent[PF_RECENT_TOUSER] objectForKey:@"username"];
+                    ChatView *chatView = [[ChatView alloc] initWith:recent[PF_RECENT_GROUPID] post:[recent objectForKey:PF_MESSAGE_POST] title:title];
+                    chatView.seller = (PFUser *)object;
+                    self.hidesBottomBarWhenPushed = YES;
+                    [MBProgressHUD hideHUDForView:self.view animated:YES];
+                    [self.navigationController pushViewController:chatView animated:YES];
+                    // Unhide the tabbar when we go back
+                    self.hidesBottomBarWhenPushed = NO;
+                }
+            }];
+        }
+    }];
 
-    ChatView *chatView = [[ChatView alloc] initWith:recent[PF_RECENT_GROUPID] post:[recent objectForKey:PF_MESSAGE_POST] title:[recent[PF_RECENT_TOUSER] objectForKey:PF_USER_USERNAME]];
-
-    self.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:chatView animated:YES];
-    // Unhide the tabbar when we go back
-    self.hidesBottomBarWhenPushed = NO;
 }
 
 @end

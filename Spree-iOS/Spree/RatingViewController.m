@@ -8,10 +8,12 @@
 
 #import "RatingViewController.h"
 #import "SpreeUtility.h"
+#import "ChatPostHeader.h"
 
 @interface RatingViewController ()
 @property (weak, nonatomic) IBOutlet EDStarRating *starRating;
 @property (weak, nonatomic) IBOutlet UILabel *rateUserLabel;
+@property (weak, nonatomic) IBOutlet ChatPostHeader *postHeader;
 @end
 
 @implementation RatingViewController
@@ -24,12 +26,10 @@
     self.title = @"Rate";
     
     if (self.user[@"displayName"]){
-        _rateUserLabel.text = [NSString stringWithFormat:@"Leave feedback for: %@", [SpreeUtility firstNameForDisplayName:self.user[@"displayName"]]];
+        _rateUserLabel.text = [NSString stringWithFormat:@"Please rate your recent transaction with %@", [SpreeUtility firstNameForDisplayName:self.user[@"displayName"]]];
     } else {
-       _rateUserLabel.text = [NSString stringWithFormat:@"Leave feedback for: %@", self.user[@"username"]];
+       _rateUserLabel.text = [NSString stringWithFormat:@"Please rate your recent transaction with %@", self.user[@"username"]];
     }
-    
-    _rateUserLabel.text = [NSString stringWithFormat:@"Leave feedback for: %@", [self.user objectForKey:@"username"]];
 
     self.starRating.backgroundColor  = [UIColor spreeOffWhite];
     // Setup control using iOS7 tint Color
@@ -41,6 +41,9 @@
     _starRating.rating = 3;
     _starRating.displayMode = EDStarRatingDisplayFull;
     _starRating.tintColor = [UIColor spreeDarkBlue];
+    
+    
+    [_postHeader setupForPost:(SpreePost *)self.post];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

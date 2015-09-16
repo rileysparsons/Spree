@@ -17,4 +17,6 @@
 - (void)sendMessage:(NSString *)text Video:(NSURL *)video Picture:(UIImage *)picture;
 - (void)setInputAccessoryView;
 
+@property PFUser *seller;
+
 @end

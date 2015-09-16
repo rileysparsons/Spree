@@ -883,33 +883,47 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gbv-k7-cU6" customClass="EDStarRating">
-                                <rect key="frame" x="16" y="309" width="382" height="338"/>
+                                <rect key="frame" x="16" y="309" width="382" height="150"/>
                                 <color key="backgroundColor" red="0.96558624510000002" green="0.97044742110000004" blue="0.97035741809999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="Oj5-sU-Afc"/>
+                                </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rate user" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w3C-g2-mH4">
-                                <rect key="frame" x="90" y="221" width="234" height="67"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rate user" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w3C-g2-mH4">
+                                <rect key="frame" x="16" y="221" width="382" height="67"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="67" id="J2a-4B-8lB"/>
-                                    <constraint firstAttribute="width" constant="234" id="Nn3-az-50a"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="17"/>
+                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="19"/>
                                 <color key="textColor" red="0.16666857900000001" green="0.18534906209999999" blue="0.19849607350000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zxM-KB-qHF" customClass="ChatPostHeader">
+                                <rect key="frame" x="16" y="72" width="382" height="75"/>
+                                <color key="backgroundColor" red="0.96558624510000002" green="0.97044742110000004" blue="0.97035741809999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="75" id="bfT-kq-Cjb"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.96558624510000002" green="0.97044742110000004" blue="0.97035741809999998" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="w3C-g2-mH4" firstAttribute="trailing" secondItem="TgY-Ci-WVf" secondAttribute="trailingMargin" id="01q-DT-21q"/>
                             <constraint firstItem="gbv-k7-cU6" firstAttribute="top" secondItem="w3C-g2-mH4" secondAttribute="bottom" constant="21" id="6dm-is-zin"/>
                             <constraint firstItem="gbv-k7-cU6" firstAttribute="trailing" secondItem="TgY-Ci-WVf" secondAttribute="trailingMargin" id="7eq-5f-p0k"/>
                             <constraint firstItem="w3C-g2-mH4" firstAttribute="top" secondItem="Nsk-3g-91H" secondAttribute="bottom" constant="157" id="DnV-wa-VC1"/>
+                            <constraint firstItem="w3C-g2-mH4" firstAttribute="leading" secondItem="TgY-Ci-WVf" secondAttribute="leadingMargin" id="LM8-XM-opM"/>
                             <constraint firstItem="gbv-k7-cU6" firstAttribute="leading" secondItem="TgY-Ci-WVf" secondAttribute="leadingMargin" id="Mfo-2Q-AT5"/>
-                            <constraint firstItem="IVr-Qz-TPC" firstAttribute="top" secondItem="gbv-k7-cU6" secondAttribute="bottom" constant="89" id="Opd-NC-Xhq"/>
+                            <constraint firstItem="zxM-KB-qHF" firstAttribute="top" secondItem="Nsk-3g-91H" secondAttribute="bottom" constant="8" id="SyZ-ux-hfH"/>
+                            <constraint firstItem="zxM-KB-qHF" firstAttribute="trailing" secondItem="TgY-Ci-WVf" secondAttribute="trailingMargin" id="b6b-w0-tgT"/>
+                            <constraint firstItem="zxM-KB-qHF" firstAttribute="leading" secondItem="TgY-Ci-WVf" secondAttribute="leadingMargin" id="cpW-wH-hdD"/>
                             <constraint firstItem="gbv-k7-cU6" firstAttribute="centerX" secondItem="w3C-g2-mH4" secondAttribute="centerX" id="xpf-u7-h0I"/>
                         </constraints>
                     </view>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <connections>
+                        <outlet property="postHeader" destination="zxM-KB-qHF" id="efk-Np-Ih2"/>
                         <outlet property="rateUserLabel" destination="w3C-g2-mH4" id="51f-Bw-SQK"/>
                         <outlet property="starRating" destination="gbv-k7-cU6" id="JDy-S6-JpV"/>
                     </connections>

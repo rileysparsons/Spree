@@ -105,8 +105,6 @@
 		14A26B201B9FD28B001BA122 /* AlternateLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A26B1F1B9FD28B001BA122 /* AlternateLoginViewController.m */; };
 		14A416801B05700600EA4DA2 /* SpreeSprintTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A4167E1B05700600EA4DA2 /* SpreeSprintTableViewCell.m */; };
 		14A416811B05700600EA4DA2 /* SpreeSprintTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14A4167F1B05700600EA4DA2 /* SpreeSprintTableViewCell.xib */; };
-		14A4C9961BA61B8800C6C2E3 /* MessagingInputAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A4C9951BA61B8800C6C2E3 /* MessagingInputAccessoryView.m */; };
-		14A4C9981BA61B9D00C6C2E3 /* MessagingInputAccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14A4C9971BA61B9D00C6C2E3 /* MessagingInputAccessoryView.xib */; };
 		14A4C99B1BA74B8600C6C2E3 /* PostPaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A4C99A1BA74B8600C6C2E3 /* PostPaymentViewController.m */; };
 		14A4C9A11BA7931000C6C2E3 /* AuthorizeVenmoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A4C9A01BA7931000C6C2E3 /* AuthorizeVenmoViewController.m */; };
 		14AB0EBF1B82C25D00BD06EB /* PostingInputAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14AB0EBE1B82C25D00BD06EB /* PostingInputAccessoryView.m */; };
@@ -346,9 +344,6 @@
 		14A4167D1B05700600EA4DA2 /* SpreeSprintTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpreeSprintTableViewCell.h; sourceTree = "<group>"; };
 		14A4167E1B05700600EA4DA2 /* SpreeSprintTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpreeSprintTableViewCell.m; sourceTree = "<group>"; };
 		14A4167F1B05700600EA4DA2 /* SpreeSprintTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SpreeSprintTableViewCell.xib; sourceTree = "<group>"; };
-		14A4C9941BA61B8800C6C2E3 /* MessagingInputAccessoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagingInputAccessoryView.h; sourceTree = "<group>"; };
-		14A4C9951BA61B8800C6C2E3 /* MessagingInputAccessoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagingInputAccessoryView.m; sourceTree = "<group>"; };
-		14A4C9971BA61B9D00C6C2E3 /* MessagingInputAccessoryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessagingInputAccessoryView.xib; sourceTree = "<group>"; };
 		14A4C9991BA74B8600C6C2E3 /* PostPaymentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostPaymentViewController.h; sourceTree = "<group>"; };
 		14A4C99A1BA74B8600C6C2E3 /* PostPaymentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostPaymentViewController.m; sourceTree = "<group>"; };
 		14A4C99F1BA7931000C6C2E3 /* AuthorizeVenmoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthorizeVenmoViewController.h; sourceTree = "<group>"; };
@@ -685,9 +680,6 @@
 				14CAB3C11B59539A0081979C /* PhotoSelectFooterView.h */,
 				14CAB3C21B59539A0081979C /* PhotoSelectFooterView.m */,
 				14AB0EC01B82C2A100BD06EB /* PostingInputAccessoryView.xib */,
-				14A4C9941BA61B8800C6C2E3 /* MessagingInputAccessoryView.h */,
-				14A4C9951BA61B8800C6C2E3 /* MessagingInputAccessoryView.m */,
-				14A4C9971BA61B9D00C6C2E3 /* MessagingInputAccessoryView.xib */,
 				14AB0EBD1B82C25D00BD06EB /* PostingInputAccessoryView.h */,
 				14AB0EBE1B82C25D00BD06EB /* PostingInputAccessoryView.m */,
 				14CAB3C41B5953D40081979C /* PhotoSelectFooterView.xib */,
@@ -1069,7 +1061,6 @@
 				140CF9161A3F708F00134C4D /* ChosenTypeTableViewCell.xib in Resources */,
 				14E66B981A452653008184C1 /* PostTableViewCell.xib in Resources */,
 				140CF8EA1A3BBFB200134C4D /* LaunchScreen.xib in Resources */,
-				14A4C9981BA61B9D00C6C2E3 /* MessagingInputAccessoryView.xib in Resources */,
 				14C8214A1B2D1B9100A1B513 /* PhotoGalleryTableViewCell.xib in Resources */,
 				144D55711B4E11920003B752 /* Lato-Hairline.ttf in Resources */,
 				141524571B4070E5007EE405 /* PostTypeSelectionTableViewCell.xib in Resources */,
@@ -1168,7 +1159,6 @@
 				14AB0EBF1B82C25D00BD06EB /* PostingInputAccessoryView.m in Sources */,
 				143D91D21B6BBB1F00E2F493 /* HeaderSlideView.m in Sources */,
 				142CB0611B5303B600969066 /* PhotoSelectTableViewCell.m in Sources */,
-				14A4C9961BA61B8800C6C2E3 /* MessagingInputAccessoryView.m in Sources */,
 				14423CCB1B8D9A08002CB026 /* SinglePhotoPostShareView.m in Sources */,
 				4EFD06E81BA1528700947AD6 /* ReferralViewController.m in Sources */,
 				14423CD21B8E786B002CB026 /* DoublePhotoPostShareView.m in Sources */,

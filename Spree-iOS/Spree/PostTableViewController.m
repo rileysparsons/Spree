@@ -135,6 +135,7 @@
             RatingViewController *ratingView = [self.storyboard instantiateViewControllerWithIdentifier:@"rating"];
             ratingView.ratingType = @"buyer";
             ratingView.user = [object objectForKey:@"rateUser"];
+            ratingView.post = [object objectForKey:@"rateUser"];
 
             UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:ratingView];
             [self presentViewController:navigationController animated:YES completion:NULL];

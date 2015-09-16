@@ -13,7 +13,6 @@
 #import "MeetUpViewController.h"
 #import "ChatPostHeader.h"
 #import "SpreeUtility.h"
-#import "MessagingInputAccessoryView.h"
 #import "RatingViewController.h"
 #import "PostPaymentViewController.h"
 #import "AuthorizeVenmoViewController.h"
@@ -48,12 +47,16 @@ typedef enum : NSUInteger {
 	JSQMessagesBubbleImage *bubbleImageOutgoing;
 	JSQMessagesBubbleImage *bubbleImageIncoming;
     
-    MessagingInputAccessoryView *inputAccessoryView;
-    
     ChatPostHeader *postHeader;
 }
 
 @property (retain, nonatomic) UIBarButtonItem *meetUp;
+
+@property (retain, nonatomic) UIButton *claimButton;
+@property (retain, nonatomic) UIButton *buyButton;
+@property (retain, nonatomic) UIButton *reviewButton;
+@property (retain, nonatomic) UIButton *authorizeVenmoButton;
+@property (retain, nonatomic) UIButton *venmoNotAuthorizedButton;
 
 @end
 
@@ -69,6 +72,66 @@ typedef enum : NSUInteger {
     return _meetUp;
 }
 
+-(UIButton *)claimButton {
+    if (!_claimButton) {
+        _claimButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 40)];
+        _claimButton.backgroundColor = [UIColor spreeDarkBlue];
+        _claimButton.titleLabel.text = @"Claim Task";
+        [_claimButton setTitle:@"Claim Task" forState:UIControlStateNormal];
+        _claimButton.titleLabel.font = [UIFont fontWithName:@"Lato-Bold" size:18];
+        _claimButton.titleLabel.textColor = [UIColor spreeOffWhite];
+        [_claimButton addTarget:self action:@selector(claimPost) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _claimButton;
+}
+
+-(UIButton *)buyButton {
+    if (!_buyButton) {
+        _buyButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 40)];
+        _buyButton.backgroundColor = [UIColor spreeDarkBlue];
+        [_buyButton setTitle:@"Buy Post" forState:UIControlStateNormal];
+        _buyButton.titleLabel.font = [UIFont fontWithName:@"Lato-Bold" size:18];
+        _buyButton.titleLabel.textColor = [UIColor spreeOffWhite];
+        [_buyButton addTarget:self action:@selector(buyPost) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _buyButton;
+}
+
+-(UIButton *)reviewButton {
+    if (!_reviewButton) {
+        _reviewButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 40)];
+        _reviewButton.backgroundColor = [UIColor spreeDarkBlue];
+        [_reviewButton setTitle:@"Review" forState:UIControlStateNormal];
+        _reviewButton.titleLabel.font = [UIFont fontWithName:@"Lato-Bold" size:18];
+        _reviewButton.titleLabel.textColor = [UIColor spreeOffWhite];
+        [_reviewButton addTarget:self action:@selector(reviewUser) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _reviewButton;
+}
+
+-(UIButton *)authorizeVenmoButton {
+    if (!_authorizeVenmoButton) {
+        _authorizeVenmoButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 40)];
+        _authorizeVenmoButton.backgroundColor = [UIColor spreeDarkBlue];
+        [_authorizeVenmoButton setTitle:@"Authorize Venmo" forState:UIControlStateNormal];
+        _authorizeVenmoButton.titleLabel.font = [UIFont fontWithName:@"Lato-Bold" size:18];
+        _authorizeVenmoButton.titleLabel.textColor = [UIColor spreeOffWhite];
+        [_authorizeVenmoButton addTarget:self action:@selector(authorizeVenmo) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _authorizeVenmoButton;
+}
+
+-(UIButton *)venmoNotAuthorizedButton {
+    if (!_venmoNotAuthorizedButton) {
+        _venmoNotAuthorizedButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 40)];
+        _venmoNotAuthorizedButton.backgroundColor = [UIColor spreeDarkBlue];
+        [_venmoNotAuthorizedButton setTitle:@"Seller Has Not Authorized Venmo" forState:UIControlStateNormal];
+        _venmoNotAuthorizedButton.titleLabel.font = [UIFont fontWithName:@"Lato-Bold" size:18];
+        _venmoNotAuthorizedButton.titleLabel.textColor = [UIColor spreeOffWhite];
+        _venmoNotAuthorizedButton.userInteractionEnabled = NO;
+    }
+    return _venmoNotAuthorizedButton;
+}
 
 - (id)initWith:(NSString *)groupId_ post:(PFObject *)post_ title:(NSString *)title_
 {
@@ -85,6 +148,15 @@ typedef enum : NSUInteger {
 	[super viewDidLoad];
 
     self.title = title;
+    
+    UILabel *titleLabel =[[UILabel alloc] initWithFrame:CGRectMake(0,0, 150, 40)];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    titleLabel.textColor=[UIColor spreeOffBlack];
+    titleLabel.font = [UIFont fontWithName:@"Lato-Regular" size: 18.0];
+    titleLabel.backgroundColor =[UIColor clearColor];
+    titleLabel.adjustsFontSizeToFitWidth=YES;
+    titleLabel.text = self.title;
+    self.navigationItem.titleView=titleLabel;
 
 	users = [[NSMutableArray alloc] init];
 	messages = [[NSMutableArray alloc] init];
@@ -99,6 +171,14 @@ typedef enum : NSUInteger {
     } else {
         userVerifiedToSendMessages = NO;
     }
+    
+    UIButton *back = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 40)];
+    back.backgroundColor = [UIColor clearColor];
+    back.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [back setImage:[UIImage imageNamed:@"backNormal_Dark"] forState:UIControlStateNormal];
+    [back setImage:[UIImage imageNamed:@"backHighlight_Dark"] forState:UIControlStateHighlighted];
+    [back addTarget:self action:@selector(backButtonTouched) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:back];
     
     self.keyboardController.textView.autocorrectionType = UITextAutocorrectionTypeNo;
     
@@ -129,21 +209,39 @@ typedef enum : NSUInteger {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"PromptedVenmoAuth"];
     }
     
-    [self setInputAccessoryView];
-
+    [self refreshInputAccessoryView];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadMessages) name:@"MeetUp" object:nil];
 }
 
-- (void)setInputAccessoryView
-{
+-(void)refreshInputAccessoryView{
 
-            inputAccessoryView = [[MessagingInputAccessoryView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 40) withPostType:(SpreePost *)post];
-            self.keyboardController.textView.inputAccessoryView = inputAccessoryView;
-            [inputAccessoryView.claimButton addTarget:self action:@selector(claimPost) forControlEvents:UIControlEventTouchUpInside];
-            [inputAccessoryView.reviewButton addTarget:self action:@selector(reviewUser) forControlEvents:UIControlEventTouchUpInside];
-            [inputAccessoryView.buyButton addTarget:self action:@selector(postSold) forControlEvents:UIControlEventTouchUpInside];
-            [inputAccessoryView.authorizeVenmo addTarget:self action:@selector(presentVenmoAuth) forControlEvents:UIControlEventTouchUpInside];
 
+    if (![[[post objectForKey:@"user"] objectId]
+          isEqualToString:[PFUser currentUser].objectId]){
+        if ([post[@"typePointer"][@"type"] isEqualToString:@"Tasks & Services"]){
+            if (post[@"taskClaimed"] == [NSNumber numberWithBool:YES]){
+                self.keyboardController.textView.inputAccessoryView = nil;
+            } else {
+                self.keyboardController.textView.inputAccessoryView = [self claimButton];
+            }
+        } else {
+            if (post[@"sold"] == [NSNumber numberWithBool:NO]){
+                self.keyboardController.textView.inputAccessoryView = [self buyButton];
+            } else {
+                self.keyboardController.textView.inputAccessoryView = nil;
+                // In the future implement the review button
+            }
+        }
+        
+        [self.keyboardController.textView.inputAccessoryView setNeedsDisplay];
+    } else {
+        if (![[post objectForKey:@"user"] objectForKey:@"venmoId"]){
+            self.keyboardController.textView.inputAccessoryView = [self authorizeVenmoButton];
+        } else {
+            self.keyboardController.textView.inputAccessoryView = nil;
+        }
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -163,6 +261,7 @@ typedef enum : NSUInteger {
     [postHeader removeFromSuperview];
 	ClearRecentCounter(groupId);
 	[timer invalidate];
+    [venmoAuthTimer invalidate];
 }
 
 #pragma mark - Backend methods
@@ -268,6 +367,7 @@ typedef enum : NSUInteger {
     //Set users for message by current user and post assosiated name
     PFUser *user1= [PFUser currentUser];
     PFUser *user2= [post objectForKey:@"user"];
+
     PFQuery *lookUp = [PFUser query];
     
     [lookUp whereKey:@"objectId" equalTo:[[post objectForKey:@"user"] objectId]];
@@ -552,7 +652,7 @@ typedef enum : NSUInteger {
 
 #pragma mark - Post Actions
 
--(void)postSold{
+-(void)buyPost{
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
     PostPaymentViewController *pay = [storyboard instantiateViewControllerWithIdentifier:@"PostPaymentViewController"];
     pay.delegate = self;
@@ -565,12 +665,17 @@ typedef enum : NSUInteger {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
     RatingViewController *rating = [storyboard instantiateViewControllerWithIdentifier:@"rating"];
     rating.post = post;
+    rating.user = post[@"user"];
     UINavigationController *ratingNav = [[UINavigationController alloc] initWithRootViewController:rating];
     [self presentViewController:ratingNav animated:YES completion:nil];
 }
 
 -(void)claimPost{
     NSLog(@"I'll take care of this");
+    
+    [(SpreePost *)post setTaskClaimed:YES];
+    [(SpreePost *)post setTaskClaimedBy:[PFUser currentUser]];
+    [post saveInBackground];
 }
 
 #pragma mark - Venmo
@@ -587,8 +692,7 @@ typedef enum : NSUInteger {
 }
 
 -(void)userDidAuthorizeVenmo{
-    [self setInputAccessoryView];
-    [self.keyboardController.textView setNeedsDisplay];
+    [self refreshInputAccessoryView];
 }
 
 -(void)userCompletedPurchase{
@@ -597,6 +701,7 @@ typedef enum : NSUInteger {
     
     NSString *paymentConfirmation = [NSString stringWithFormat:@"%@ bought %@ from %@", purchaserName, post[@"title"], sellerName];
     [self sendMessage:paymentConfirmation Video:nil Picture:nil];
+    [self refreshInputAccessoryView];
 }
 
 -(void)userFailedToCompletePurchase{
@@ -607,12 +712,15 @@ typedef enum : NSUInteger {
     [post[@"user"] fetchInBackgroundWithBlock:^(PFObject *object, NSError *error){
         if (!error){
             if (post[@"user"][@"venmoId"]){
-                [self setInputAccessoryView];
+                [self refreshInputAccessoryView];
                 [venmoAuthTimer invalidate];
             }
         }
     }];
 }
 
+-(void)backButtonTouched{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 @end

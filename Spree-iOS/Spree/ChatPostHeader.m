@@ -7,6 +7,7 @@
 //
 
 #import "ChatPostHeader.h"
+#import "SpreeUtility.h"
 
 @implementation ChatPostHeader
 
@@ -75,7 +76,8 @@
             
             [post[PF_POST_USER] fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error){
                 if  (!error){
-                    self.posterLabel.text = object[PF_USER_USERNAME];
+                    NSString *title = [post[PF_POST_USER] objectForKey:@"displayName"] ? [SpreeUtility firstNameForDisplayName:[post[PF_POST_USER] objectForKey:@"displayName"]] : [post[PF_POST_USER] objectForKey:@"username"];
+                    self.posterLabel.text =title;
                 }
             }];
         }];
