@@ -21,7 +21,4 @@
 
 + (void) saveCurrentCreditBalance;
 
-+ (void)authorizeVenmo;
-
-
 @end

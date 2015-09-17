@@ -7,7 +7,6 @@
 //
 
 #import "PostPaymentViewController.h"
-#import <Venmo-iOS-SDK/Venmo.h>
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "SpreeUtility.h"
 #import "RatingViewController.h"
@@ -57,39 +56,39 @@
 
 - (IBAction)sendButtonTouched:(id)sender {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    void(^handler)(VENTransaction *, BOOL, NSError *) = ^(VENTransaction *transaction, BOOL success, NSError *error) {
-        if (error) {
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:error.localizedDescription
-                                                                message:error.localizedRecoverySuggestion
-                                                               delegate:self
-                                                      cancelButtonTitle:nil
-                                                      otherButtonTitles:@"OK", nil];
-            [alertView show];
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
-        }
-        else {
-            [[MBProgressHUD HUDForView:self.view] setLabelText:@"Transaction Succeeded"];
-            [[MBProgressHUD HUDForView:self.view] hide:YES afterDelay:0.3f];
-            self.post.sold = YES;
-            self.post[@"buyer"] = [PFUser currentUser];
-            [self.post saveInBackground];
-            UIStoryboard *main = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-            RatingViewController *rating = [main instantiateViewControllerWithIdentifier:@"rating"];
-            rating.delegate = self;
-            rating.post = self.post;
-            rating.user = self.post.user;
-            rating.ratingType = @"seller";
-            [self presentViewController:rating animated:YES completion:nil];
-        }
-    };
+//    void(^handler)(VENTransaction *, BOOL, NSError *) = ^(VENTransaction *transaction, BOOL success, NSError *error) {
+//        if (error) {
+//            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:error.localizedDescription
+//                                                                message:error.localizedRecoverySuggestion
+//                                                               delegate:self
+//                                                      cancelButtonTitle:nil
+//                                                      otherButtonTitles:@"OK", nil];
+//            [alertView show];
+//            [MBProgressHUD hideHUDForView:self.view animated:YES];
+//        }
+//        else {
+//            [[MBProgressHUD HUDForView:self.view] setLabelText:@"Transaction Succeeded"];
+//            [[MBProgressHUD HUDForView:self.view] hide:YES afterDelay:0.3f];
+//            self.post.sold = YES;
+//            self.post[@"buyer"] = [PFUser currentUser];
+//            [self.post saveInBackground];
+//            UIStoryboard *main = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+//            RatingViewController *rating = [main instantiateViewControllerWithIdentifier:@"rating"];
+//            rating.delegate = self;
+//            rating.post = self.post;
+//            rating.user = self.post.user;
+//            rating.ratingType = @"seller";
+//            [self presentViewController:rating animated:YES completion:nil];
+//        }
+//    };
     
     NSLog(@"Title %@", self.post.title);
     
     // Payment
-    [[Venmo sharedInstance] sendPaymentTo:self.post.user[@"venmoId"]
-                                   amount:[[self getNumberFromString:self.amountField.text] floatValue]
-                                     note:self.post.title
-                        completionHandler:handler];
+//    [[Venmo sharedInstance] sendPaymentTo:self.post.user[@"venmoId"]
+//                                   amount:[[self getNumberFromString:self.amountField.text] floatValue]
+//                                     note:self.post.title
+//                        completionHandler:handler];
     
 }
 

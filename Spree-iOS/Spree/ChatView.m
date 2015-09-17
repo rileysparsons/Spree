@@ -16,8 +16,6 @@
 #import "RatingViewController.h"
 #import "PostPaymentViewController.h"
 #import "AuthorizeVenmoViewController.h"
-#import <Venmo-iOS-SDK/Venmo.h>
-
 #import "common.h"
 #import "push.h"
 #import "recent.h"
@@ -55,6 +53,7 @@ typedef enum : NSUInteger {
 @property (retain, nonatomic) UIButton *claimButton;
 @property (retain, nonatomic) UIButton *buyButton;
 @property (retain, nonatomic) UIButton *reviewButton;
+@property (retain, nonatomic) UIButton *payForTaskButton;
 @property (retain, nonatomic) UIButton *authorizeVenmoButton;
 @property (retain, nonatomic) UIButton *venmoNotAuthorizedButton;
 
@@ -119,6 +118,18 @@ typedef enum : NSUInteger {
         [_authorizeVenmoButton addTarget:self action:@selector(authorizeVenmo) forControlEvents:UIControlEventTouchUpInside];
     }
     return _authorizeVenmoButton;
+}
+
+-(UIButton *)payForTaskButton {
+    if (!_payForTaskButton) {
+        _payForTaskButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 40)];
+        _payForTaskButton.backgroundColor = [UIColor spreeDarkBlue];
+        [_payForTaskButton setTitle:@"Pay For Task" forState:UIControlStateNormal];
+        _payForTaskButton.titleLabel.font = [UIFont fontWithName:@"Lato-Bold" size:18];
+        _payForTaskButton.titleLabel.textColor = [UIColor spreeOffWhite];
+        [_payForTaskButton addTarget:self action:@selector(payForTask) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _payForTaskButton;
 }
 
 -(UIButton *)venmoNotAuthorizedButton {
@@ -204,11 +215,6 @@ typedef enum : NSUInteger {
 
 	[self loadMessages];
     
-    if (![[Venmo sharedInstance] isSessionValid] && ![[NSUserDefaults standardUserDefaults] boolForKey:@"PromptedVenmoAuth"]){
-        [self presentVenmoAuth];
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"PromptedVenmoAuth"];
-    }
-    
     [self refreshInputAccessoryView];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadMessages) name:@"MeetUp" object:nil];
@@ -239,7 +245,13 @@ typedef enum : NSUInteger {
         if (![[post objectForKey:@"user"] objectForKey:@"venmoId"]){
             self.keyboardController.textView.inputAccessoryView = [self authorizeVenmoButton];
         } else {
-            self.keyboardController.textView.inputAccessoryView = nil;
+            if ([post[@"typePointer"][@"type"] isEqualToString:@"Tasks & Services"]){
+                if (post[@"taskClaimed"] == [NSNumber numberWithBool:YES]){
+                    self.keyboardController.textView.inputAccessoryView = [self payForTaskButton];
+                }
+            } else {
+                self.keyboardController.textView.inputAccessoryView = nil;
+            }
         }
     }
 }
@@ -658,6 +670,7 @@ typedef enum : NSUInteger {
     pay.delegate = self;
     [pay initializeWithPost:(SpreePost *)post];
     [self presentViewController:pay animated:YES completion:nil];
+    [self refreshInputAccessoryView];
 }
 
 -(void)reviewUser{
@@ -668,14 +681,17 @@ typedef enum : NSUInteger {
     rating.user = post[@"user"];
     UINavigationController *ratingNav = [[UINavigationController alloc] initWithRootViewController:rating];
     [self presentViewController:ratingNav animated:YES completion:nil];
+    [self refreshInputAccessoryView];
 }
 
 -(void)claimPost{
     NSLog(@"I'll take care of this");
-    
+    NSString *claimerName = [PFUser currentUser][@"displayName"] ? [SpreeUtility firstNameForDisplayName:[PFUser currentUser][@"displayName"]] : [PFUser currentUser][@"username"];
+    [self sendMessage:[NSString stringWithFormat:@"%@ claimed this task!", claimerName] Video:nil Picture:nil];
     [(SpreePost *)post setTaskClaimed:YES];
     [(SpreePost *)post setTaskClaimedBy:[PFUser currentUser]];
     [post saveInBackground];
+    [self refreshInputAccessoryView];
 }
 
 #pragma mark - Venmo
@@ -698,8 +714,12 @@ typedef enum : NSUInteger {
 -(void)userCompletedPurchase{
     NSString *purchaserName = [PFUser currentUser][@"displayName"] ? [SpreeUtility firstNameForDisplayName:[PFUser currentUser][@"displayName"]] : [PFUser currentUser][@"username"];
     NSString *sellerName = post[@"user"][@"displayName"] ? [SpreeUtility firstNameForDisplayName:post[@"user"][@"displayName"]] : post[@"user"][@"username"];
-    
-    NSString *paymentConfirmation = [NSString stringWithFormat:@"%@ bought %@ from %@", purchaserName, post[@"title"], sellerName];
+    NSString *paymentConfirmation;
+    if  (![post[@"typePointer"][@"type"] isEqualToString:@"Tasks & Services"]){
+        paymentConfirmation = [NSString stringWithFormat:@"%@ bought %@ from %@", purchaserName, post[@"title"], sellerName];
+    } else {
+        paymentConfirmation = [NSString stringWithFormat:@"%@ completed this task for %@", sellerName, purchaserName];
+    }
     [self sendMessage:paymentConfirmation Video:nil Picture:nil];
     [self refreshInputAccessoryView];
 }
@@ -721,6 +741,15 @@ typedef enum : NSUInteger {
 
 -(void)backButtonTouched{
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+-(void)payForTask{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+    PostPaymentViewController *pay = [storyboard instantiateViewControllerWithIdentifier:@"PostPaymentViewController"];
+    pay.delegate = self;
+    [pay initializeWithPost:(SpreePost *)post];
+    [self presentViewController:pay animated:YES completion:nil];
+    [self refreshInputAccessoryView];
 }
 
 @end

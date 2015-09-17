@@ -11,7 +11,6 @@
 #import <Parse/PFAnonymousUtils.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <Branch/Branch.h>
-#import <Venmo-iOS-SDK/Venmo.h>
 #import "SpreePost.h"
 
 typedef enum : NSUInteger {
@@ -69,26 +68,6 @@ typedef enum : NSUInteger {
             [[PFUser currentUser] saveInBackground];
         }
     }];
-}
-
-+ (void)authorizeVenmo{
-    [[Venmo sharedInstance] requestPermissions:@[VENPermissionMakePayments,
-                                                 VENPermissionAccessProfile]
-                         withCompletionHandler:^(BOOL success, NSError *error) {
-                             if (success) {
-                                 [[PFUser currentUser] setObject:[[Venmo sharedInstance]session].user.externalId forKey:@"venmoId"];
-                                 [[PFUser currentUser] saveInBackground];
-                             }
-                             else {
-                                 UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Authorization failed"
-                                                                                     message:error.localizedDescription
-                                                                                    delegate:self
-                                                                           cancelButtonTitle:nil
-                                                                           otherButtonTitles:@"OK", nil];
-                                 [alertView show];
-                                 
-                             }
-                         }];
 }
 
 

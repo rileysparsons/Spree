@@ -20,7 +20,6 @@
 #import "Branch.h"
 #import "PostDetailTableViewController.h"
 #import "SpreeConfigManager.h"
-#import <Venmo-iOS-SDK/Venmo.h>
 #import <Accelerate/Accelerate.h>
 
 @interface AppDelegate () <RTWalkthroughViewControllerDelegate>
@@ -44,9 +43,6 @@
     [DDLog addLogger:[DDASLLogger sharedInstance]];
     [DDLog addLogger:[DDTTYLogger sharedInstance]];
 
-    [Venmo startWithAppId:@"2928" secret:@"YVZtkzqsFLHxke8hneCWXHZvxUs7rTtS" name:@"Spree"];
-    [[Venmo sharedInstance] setDefaultTransactionMethod:VENTransactionMethodAPI];
-    
     [PFFacebookUtils initializeFacebookWithApplicationLaunchOptions:launchOptions];
     
     [[UINavigationBar appearance] setTintColor:[UIColor spreeOffBlack]];
@@ -128,11 +124,6 @@
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     [[Branch getInstance] handleDeepLink:url];
-    
-    
-    if ([[Venmo sharedInstance] handleOpenURL:url]) {
-        return YES;
-    }
     
     // do other deep link routing for the Facebook SDK, Pinterest SDK, etc
     return [[FBSDKApplicationDelegate sharedInstance] application:application openURL:url sourceApplication:sourceApplication annotation:annotation];

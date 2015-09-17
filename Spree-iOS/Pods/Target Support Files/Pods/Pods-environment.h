@@ -30,12 +30,6 @@
 #define COCOAPODS_VERSION_MINOR_Branch 10
 #define COCOAPODS_VERSION_PATCH_Branch 9
 
-// CMDQueryStringSerialization
-#define COCOAPODS_POD_AVAILABLE_CMDQueryStringSerialization
-#define COCOAPODS_VERSION_MAJOR_CMDQueryStringSerialization 0
-#define COCOAPODS_VERSION_MINOR_CMDQueryStringSerialization 2
-#define COCOAPODS_VERSION_PATCH_CMDQueryStringSerialization 0
-
 // CTAssetsPickerController
 #define COCOAPODS_POD_AVAILABLE_CTAssetsPickerController
 #define COCOAPODS_VERSION_MAJOR_CTAssetsPickerController 3
@@ -130,19 +124,19 @@
 #define COCOAPODS_POD_AVAILABLE_Parse
 #define COCOAPODS_VERSION_MAJOR_Parse 1
 #define COCOAPODS_VERSION_MINOR_Parse 8
-#define COCOAPODS_VERSION_PATCH_Parse 3
+#define COCOAPODS_VERSION_PATCH_Parse 4
 
 // ParseCrashReporting
 #define COCOAPODS_POD_AVAILABLE_ParseCrashReporting
 #define COCOAPODS_VERSION_MAJOR_ParseCrashReporting 1
 #define COCOAPODS_VERSION_MINOR_ParseCrashReporting 8
-#define COCOAPODS_VERSION_PATCH_ParseCrashReporting 3
+#define COCOAPODS_VERSION_PATCH_ParseCrashReporting 4
 
 // ParseFacebookUtilsV4
 #define COCOAPODS_POD_AVAILABLE_ParseFacebookUtilsV4
 #define COCOAPODS_VERSION_MAJOR_ParseFacebookUtilsV4 1
 #define COCOAPODS_VERSION_MINOR_ParseFacebookUtilsV4 8
-#define COCOAPODS_VERSION_PATCH_ParseFacebookUtilsV4 3
+#define COCOAPODS_VERSION_PATCH_ParseFacebookUtilsV4 4
 
 // ParseUI
 #define COCOAPODS_POD_AVAILABLE_ParseUI
@@ -168,27 +162,9 @@
 #define COCOAPODS_VERSION_MINOR_SAMTextView 2
 #define COCOAPODS_VERSION_PATCH_SAMTextView 2
 
-// SSKeychain
-#define COCOAPODS_POD_AVAILABLE_SSKeychain
-#define COCOAPODS_VERSION_MAJOR_SSKeychain 1
-#define COCOAPODS_VERSION_MINOR_SSKeychain 2
-#define COCOAPODS_VERSION_PATCH_SSKeychain 3
-
 // TPKeyboardAvoiding
 #define COCOAPODS_POD_AVAILABLE_TPKeyboardAvoiding
 #define COCOAPODS_VERSION_MAJOR_TPKeyboardAvoiding 1
 #define COCOAPODS_VERSION_MINOR_TPKeyboardAvoiding 2
 #define COCOAPODS_VERSION_PATCH_TPKeyboardAvoiding 9
-
-// VENCore
-#define COCOAPODS_POD_AVAILABLE_VENCore
-#define COCOAPODS_VERSION_MAJOR_VENCore 3
-#define COCOAPODS_VERSION_MINOR_VENCore 0
-#define COCOAPODS_VERSION_PATCH_VENCore 1
-
-// Venmo-iOS-SDK
-#define COCOAPODS_POD_AVAILABLE_Venmo_iOS_SDK
-#define COCOAPODS_VERSION_MAJOR_Venmo_iOS_SDK 1
-#define COCOAPODS_VERSION_MINOR_Venmo_iOS_SDK 3
-#define COCOAPODS_VERSION_PATCH_Venmo_iOS_SDK 0
 

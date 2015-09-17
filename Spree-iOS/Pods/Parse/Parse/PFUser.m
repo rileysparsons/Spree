@@ -269,7 +269,7 @@ static BOOL revocableSessionEnabled_;
                 [self.linkedServiceNames removeObject:key];
 
                 [[[[self class] authenticationController] restoreAuthenticationAsyncWithAuthData:nil
-                                                                         forProviderWithAuthType:key] waitForResult:nil withMainThreadWarning:NO];
+                                                                                     forAuthType:key] waitForResult:nil withMainThreadWarning:NO];
             }
         }
     }
@@ -366,9 +366,9 @@ static BOOL revocableSessionEnabled_;
 
         NSDictionary *data = self.authData[authType];
         BFTask *restoreTask = [[[self class] authenticationController] restoreAuthenticationAsyncWithAuthData:data
-                                                                                      forProviderWithAuthType:authType];
+                                                                                                  forAuthType:authType];
         [restoreTask waitForResult:nil withMainThreadWarning:NO];
-        if (restoreTask.faulted) { // TODO: (nlutsenko) Maybe chain this method?
+        if (restoreTask.faulted || ![restoreTask.result boolValue]) { // TODO: (nlutsenko) Maybe chain this method?
             [self unlinkWithAuthTypeInBackground:authType];
         }
     }
@@ -432,7 +432,7 @@ static BOOL revocableSessionEnabled_;
 }
 
 - (BFTask *)_logOutAsyncWithAuthType:(NSString *)authType {
-    return [[[self class] authenticationController] deauthenticateAsyncWithProviderForAuthType:authType];
+    return [[[self class] authenticationController] deauthenticateAsyncWithAuthType:authType];
 }
 
 + (instancetype)logInLazyUserWithAuthType:(NSString *)authType authData:(NSDictionary *)authData {
@@ -454,7 +454,7 @@ static BOOL revocableSessionEnabled_;
             // For anonymous users, there may be an objectId.  Setting the userName
             // will have removed the anonymous link and set the value in the authData
             // object to [NSNull null], so we can just treat it like a save operation.
-            if (self.authData[[PFAnonymousAuthenticationProvider authType]] == [NSNull null]) {
+            if (self.authData[PFAnonymousUserAuthenticationType] == [NSNull null]) {
                 return [self saveAsync:toAwait];
             }
 
@@ -483,7 +483,7 @@ static BOOL revocableSessionEnabled_;
                 @synchronized ([currentUser lock]) {
                     NSString *oldUsername = [currentUser.username copy];
                     NSString *oldPassword = [currentUser.password copy];
-                    NSArray *oldAnonymousData = currentUser.authData[[PFAnonymousAuthenticationProvider authType]];
+                    NSArray *oldAnonymousData = currentUser.authData[PFAnonymousUserAuthenticationType];
 
                     [currentUser checkForChangesToMutableContainers];
 
@@ -553,7 +553,7 @@ static BOOL revocableSessionEnabled_;
 - (void)stripAnonymity {
     @synchronized ([self lock]) {
         if ([PFAnonymousUtils isLinkedWithUser:self]) {
-            NSString *authType = [PFAnonymousAuthenticationProvider authType];
+            NSString *authType = PFAnonymousUserAuthenticationType;
 
             [self.linkedServiceNames removeObject:authType];
 
@@ -570,7 +570,7 @@ static BOOL revocableSessionEnabled_;
 - (void)restoreAnonymity:(id)anonymousData {
     @synchronized ([self lock]) {
         if (anonymousData && anonymousData != [NSNull null]) {
-            NSString *authType = [PFAnonymousAuthenticationProvider authType];
+            NSString *authType = PFAnonymousUserAuthenticationType;
             [self.linkedServiceNames addObject:authType];
             self.authData[authType] = anonymousData;
         }
@@ -812,11 +812,11 @@ static BOOL revocableSessionEnabled_;
 }
 
 ///--------------------------------------
-#pragma mark - Authentication Providers
+#pragma mark - Third-party Authentication
 ///--------------------------------------
 
-+ (void)registerAuthenticationProvider:(id<PFAuthenticationProvider>)authenticationProvider {
-    [[self authenticationController] registerAuthenticationProvider:authenticationProvider];
++ (void)registerAuthenticationDelegate:(id<PFUserAuthenticationDelegate>)delegate forAuthType:(NSString *)authType {
+    [[self authenticationController] registerAuthenticationDelegate:delegate forAuthType:authType];
 }
 
 #pragma mark Log In
@@ -825,9 +825,9 @@ static BOOL revocableSessionEnabled_;
     PFParameterAssert(authType, @"Can't log in without `authType`.");
     PFParameterAssert(authData, @"Can't log in without `authData`.");
     PFUserAuthenticationController *controller = [self authenticationController];
-    PFConsistencyAssert([controller authenticationProviderForAuthType:authType],
-                        @"No registered authentication provider found for `%@` authentication type. "
-                        @"Register a provider first via PFUser.registerAuthenticationProvider()", authType);
+    PFConsistencyAssert([controller authenticationDelegateForAuthType:authType],
+                        @"No registered authentication delegate found for `%@` authentication type. "
+                        @"Register a delegate first via PFUser.registerAuthenticationDelegate(delegate, forAuthType:)", authType);
     return [[self authenticationController] logInUserAsyncWithAuthType:authType authData:authData];
 }
 
@@ -837,9 +837,9 @@ static BOOL revocableSessionEnabled_;
     PFParameterAssert(authType, @"Can't link without `authType`.");
     PFParameterAssert(authData, @"Can't link without `authData`.");
     PFUserAuthenticationController *controller = [[self class] authenticationController];
-    PFConsistencyAssert([controller authenticationProviderForAuthType:authType],
-                        @"No registered authentication provider found for `%@` authentication type. "
-                        @"Register a provider first via PFUser.registerAuthenticationProvider().", authType);
+    PFConsistencyAssert([controller authenticationDelegateForAuthType:authType],
+                        @"No registered authentication delegate found for `%@` authentication type. "
+                        @"Register a delegate first via PFUser.registerAuthenticationDelegate(delegate, forAuthType:)", authType);
 
     @weakify(self);
     return [self.taskQueue enqueue:^BFTask *(BFTask *toAwait) {
@@ -852,7 +852,7 @@ static BOOL revocableSessionEnabled_;
                 self.authData[authType] = newAuthData;
                 [self.linkedServiceNames addObject:authType];
 
-                oldAnonymousData = self.authData[[PFAnonymousAuthenticationProvider authType]];
+                oldAnonymousData = self.authData[PFAnonymousUserAuthenticationType];
                 [self stripAnonymity];
 
                 dirty = YES;
@@ -877,18 +877,16 @@ static BOOL revocableSessionEnabled_;
 #pragma mark Unlink
 
 - (BFTask *)unlinkWithAuthTypeInBackground:(NSString *)authType {
-    // TODO: (nlutsenko) Make it fully async.
-    BFTask *save = nil;
-    @synchronized ([self lock]) {
-        if (!self.authData[authType]) {
-            save = [BFTask taskWithResult:@YES];
-        } else {
-            self.authData[authType] = [NSNull null];
-            dirty = YES;
-            save = [self saveInBackground];
+    return [BFTask taskFromExecutor:[BFExecutor defaultPriorityBackgroundExecutor] withBlock:^id{
+        @synchronized (self.lock) {
+            if (self.authData[authType]) {
+                self.authData[authType] = [NSNull null];
+                dirty = YES;
+                return [self saveInBackground];
+            }
         }
-    }
-    return save;
+        return @YES;
+    }];
 }
 
 #pragma mark Linked
@@ -902,8 +900,8 @@ static BOOL revocableSessionEnabled_;
 
 #pragma mark Private
 
-+ (void)_unregisterAuthenticationProvider:(id<PFAuthenticationProvider>)provider {
-    [[[self class] authenticationController] unregisterAuthenticationProvider:provider];
++ (void)_unregisterAuthenticationDelegateForAuthType:(NSString *)authType {
+    [[[self class] authenticationController] unregisterAuthenticationDelegateForAuthType:authType];
 }
 
 ///--------------------------------------
@@ -1179,7 +1177,7 @@ static BOOL revocableSessionEnabled_;
             // For anonymous users, there may be an objectId.  Setting the userName
             // will have removed the anonymous link and set the value in the authData
             // object to [NSNull null], so we can just treat it like a save operation.
-            if (authData[[PFAnonymousAuthenticationProvider authType]] == [NSNull null]) {
+            if (authData[PFAnonymousUserAuthenticationType] == [NSNull null]) {
                 [self saveInBackgroundWithBlock:block];
                 return;
             }
@@ -1209,7 +1207,7 @@ static BOOL revocableSessionEnabled_;
 - (BFTask *)_validateSaveEventuallyAsync {
     if ([self isDirtyForKey:PFUserPasswordRESTKey]) {
         NSError *error = [PFErrorUtilities errorWithCode:kPFErrorOperationForbidden
-                                                message:@"Unable to saveEventually a PFUser with dirty password."];
+                                                 message:@"Unable to saveEventually a PFUser with dirty password."];
         return [BFTask taskWithError:error];
     }
     return [BFTask taskWithResult:nil];

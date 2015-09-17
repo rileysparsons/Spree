@@ -9,7 +9,6 @@
 #import "AuthorizeVenmoViewController.h"
 #import "ChatView.h"
 #import "SpreeUtility.h"
-#import <Venmo-iOS-SDK/Venmo.h>
 
 @interface AuthorizeVenmoViewController ()
 
@@ -28,36 +27,7 @@
 }
 
 - (IBAction)linkVenmoButtonTouched:(id)sender {
-    [[Venmo sharedInstance] requestPermissions:@[VENPermissionMakePayments,
-                                                 VENPermissionAccessProfile]
-                         withCompletionHandler:^(BOOL success, NSError *error) {
-                             if (success) {
-                                 [[PFUser currentUser] setObject:[[Venmo sharedInstance]session].user.externalId forKey:@"venmoId"];
-                                 [[PFUser currentUser] saveInBackground];
-                                 [self.delegate userDidAuthorizeVenmo];
-                                 [self dismissViewControllerAnimated:YES completion:nil];
-                             }
-                             else {
-                                 NSLog(@"CODE %@", error);
-                                 if (error.code == 5){
-                                     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Venmo is not Currently Available"
-                                                                                         message:@"Unfortunately Spree's Venmo integration is not available right now. We will alert you as soon as this changes!"
-                                                                                        delegate:self
-                                                                               cancelButtonTitle:nil
-                                                                               otherButtonTitles:@"OK", nil];
-                                     [alertView show];
-                                 }
-                                 UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Authorization failed"
-                                                                                     message:error.localizedDescription
-                                                                                    delegate:self
-                                                                           cancelButtonTitle:nil
-                                                                           otherButtonTitles:@"OK", nil];
-                                 [alertView show];
-                                 
-                                 [self.delegate userDidNotAuthorizeVenmo];
-                                 [self dismissViewControllerAnimated:YES completion:nil];
-                             }
-                         }];
+    
 }
 
 - (IBAction)notNowButtonTouched:(id)sender {

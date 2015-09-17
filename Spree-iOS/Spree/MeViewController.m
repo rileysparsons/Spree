@@ -18,7 +18,6 @@
 #import "MSCellAccessory.h"
 #import "RatingViewController.h"
 #import "Branch/Branch.h"
-#import <Venmo-iOS-SDK/Venmo.h>
 
 #define kReferralTabTitle @"Share Spree, Earn Credits"
 
@@ -287,7 +286,6 @@ typedef enum : NSUInteger {
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (alertView.tag == kLogOutAlert){
         if (buttonIndex == 1) {
-                [[Venmo sharedInstance] logout];
                 [[Branch getInstance] logout];
                 [(AppDelegate *)[[UIApplication sharedApplication] delegate] logOut];
         }
