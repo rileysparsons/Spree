@@ -59,6 +59,11 @@
     [[UITabBar appearance] setBackgroundColor:[UIColor whiteColor]];
     [[UITabBar appearance] setTranslucent:NO];
     [[UISegmentedControl appearance] setTintColor:[UIColor spreeDarkBlue]];
+
+    
+    
+    
+    
     
     [[SpreeConfigManager sharedManager] fetchConfigIfNeeded];
     
