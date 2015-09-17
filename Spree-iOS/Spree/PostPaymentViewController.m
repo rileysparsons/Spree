@@ -85,10 +85,6 @@
     NSLog(@"Title %@", self.post.title);
     
     // Payment
-//    [[Venmo sharedInstance] sendPaymentTo:self.post.user[@"venmoId"]
-//                                   amount:[[self getNumberFromString:self.amountField.text] floatValue]
-//                                     note:self.post.title
-//                        completionHandler:handler];
     
 }
 
