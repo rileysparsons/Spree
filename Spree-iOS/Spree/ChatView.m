@@ -81,6 +81,23 @@ typedef enum : NSUInteger {
 	users = [[NSMutableArray alloc] init];
 	messages = [[NSMutableArray alloc] init];
 
+    UILabel *titleLabel =[[UILabel alloc] initWithFrame:CGRectMake(0,0, 150, 40)];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    titleLabel.textColor=[UIColor spreeOffBlack];
+    titleLabel.font = [UIFont fontWithName:@"Lato-Regular" size: 18.0];
+    titleLabel.backgroundColor =[UIColor clearColor];
+    titleLabel.adjustsFontSizeToFitWidth=YES;
+    titleLabel.text = self.title;
+    self.navigationItem.titleView = titleLabel;
+    
+    UIButton *back = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 40)];
+    back.backgroundColor = [UIColor clearColor];
+    back.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [back setImage:[UIImage imageNamed:@"backNormal_Dark"] forState:UIControlStateNormal];
+    [back setImage:[UIImage imageNamed:@"backHighlight_Dark"] forState:UIControlStateHighlighted];
+    [back addTarget:self action:@selector(backButtonTouched) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:back];
+    
 	PFUser *user = [PFUser currentUser];
     [user fetchInBackground];
 	self.senderId = user.objectId;
@@ -519,5 +536,8 @@ typedef enum : NSUInteger {
     }
 }
 
+-(void)backButtonTouched{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 @end
