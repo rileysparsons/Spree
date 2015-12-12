@@ -183,7 +183,7 @@
                 } else {
                     NSString *title = [recent[PF_RECENT_TOUSER] objectForKey:@"displayName"] ? [SpreeUtility firstNameForDisplayName:[recent[PF_RECENT_TOUSER] objectForKey:@"displayName"]] : [recent[PF_RECENT_TOUSER] objectForKey:@"username"];
                     ChatView *chatView = [[ChatView alloc] initWith:recent[PF_RECENT_GROUPID] post:[recent objectForKey:PF_MESSAGE_POST] title:title];
-                    chatView.seller = (PFUser *)object;
+                    chatView.toUser = (PFUser *)recent[PF_RECENT_TOUSER];
                     self.hidesBottomBarWhenPushed = YES;
                     [MBProgressHUD hideHUDForView:self.view animated:YES];
                     [self.navigationController pushViewController:chatView animated:YES];

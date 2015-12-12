@@ -1091,7 +1091,7 @@
                                                 <action selector="cancelButtonTouched:" destination="iK2-Ud-8Ag" id="wu3-eD-gbx"/>
                                             </connections>
                                         </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" title="Send" style="done" id="ZLk-b3-hUc">
+                                        <barButtonItem key="rightBarButtonItem" title="Confirm" style="done" id="ZLk-b3-hUc">
                                             <color key="tintColor" red="0.034740071740000003" green="0.29351189729999999" blue="0.58873707060000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <connections>
                                                 <action selector="sendButtonTouched:" destination="iK2-Ud-8Ag" id="h9e-bc-Zk5"/>
@@ -1113,7 +1113,7 @@
                                         <color key="textColor" red="0.16666857900000001" green="0.18534906209999999" blue="0.19849607350000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You will pay" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sME-YP-1JC">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You paid" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sME-YP-1JC">
                                         <rect key="frame" x="8" y="17" width="394" height="26.5"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="26.5" id="OEc-Sb-Efi"/>

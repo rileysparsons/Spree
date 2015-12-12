@@ -27,8 +27,10 @@
 
 @protocol PostPaymentViewControllerDelegate <NSObject>
 
--(void)userCompletedPurchase;
+-(void)userOffered:(PFObject *)offer;
 
 -(void)userFailedToCompletePurchase;
+
+-(void)userPaidForService:(SpreePost *)service;
 
 @end

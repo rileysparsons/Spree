@@ -11,6 +11,10 @@
 #import "SpreeUtility.h"
 #import "RatingViewController.h"
 
+typedef enum : NSUInteger {
+    kAlertViewConfirmPurchase,
+} AlertViewType;
+
 @interface PostPaymentViewController () <UIAlertViewDelegate, RatingViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *amountField;
@@ -28,7 +32,11 @@
     [super viewDidLoad];
     [self formatPriceEntryView];
     self.amountField.text = [NSString stringWithFormat:@"%@", [self.post.price stringValue]];
-    self.recipientLabel.text = [SpreeUtility firstNameForDisplayName:self.post.user[@"displayName"]];
+    
+    NSString *name = [self.post.user objectForKey:@"displayName"] ? [SpreeUtility firstNameForDisplayName:[self.post.user objectForKey:@"displayName"]] : [self.post.user objectForKey:@"username"];
+
+    
+    self.recipientLabel.text = name;
     self.descriptionField.text = self.post.title;
     // Do any additional setup after loading the view.
     
@@ -51,11 +59,41 @@
 }
 
 -(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
-    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+    if (alertView.tag == kAlertViewConfirmPurchase){
+        if (buttonIndex == 0) {
+            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            if  (![self.post[@"typePointer"][@"type"] isEqualToString:@"Tasks & Services"]){
+                PFObject *object = [PFObject objectWithClassName:@"PaymentQueue"];
+                [object setObject:[self getNumberFromString:self.amountField.text] forKey:@"offer"];
+                [object setObject:[PFUser currentUser] forKey:@"buyer"];
+                [object setObject:self.post.user forKey:@"seller"];
+                [object setObject:self.post forKey:@"post"];
+                [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error){
+                    if (succeeded){
+                        [[MBProgressHUD HUDForView:self.view] setLabelText:@"Offer Sent"];
+                        [[MBProgressHUD HUDForView:self.view] hide:YES afterDelay:0.3f];
+                        [self.delegate userOffered:object];
+                        [self dismissViewControllerAnimated:YES completion:nil];
+                    }
+                }];
+            } else {
+                [self.post setObject:[NSNumber numberWithBool:1] forKey:@"sold"];
+                [self dismissViewControllerAnimated:YES completion:nil];
+                [self.delegate userPaidForService:self.post];
+            }
+        } else {
+            [alertView dismissWithClickedButtonIndex:buttonIndex animated:YES];
+        }
+    }
 }
 
 - (IBAction)sendButtonTouched:(id)sender {
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Confirm Offer" message:[NSString stringWithFormat:@"You are indicating committing to purchase this item at a price of $%@", self.amountField.text] delegate:self cancelButtonTitle:@"Confirm" otherButtonTitles:@"Cancel", nil];
+    alert.tag = kAlertViewConfirmPurchase;
+    [alert show];
+    
+    
 //    void(^handler)(VENTransaction *, BOOL, NSError *) = ^(VENTransaction *transaction, BOOL success, NSError *error) {
 //        if (error) {
 //            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:error.localizedDescription
@@ -82,6 +120,7 @@
 //        }
 //    };
     
+
     NSLog(@"Title %@", self.post.title);
     
     // Payment
@@ -127,7 +166,7 @@
 #pragma mark - RatingViewControllerDelegate
 
 -(void)ratingViewControllerDelegateDidClose{
-    [self.delegate userCompletedPurchase];
+
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

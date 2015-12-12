@@ -23,11 +23,13 @@
 
 typedef enum : NSUInteger {
     kVerifyEmailAlert,
+    kVerifySaleAlert
 } AlertType;
 
 @interface ChatView() <PostPaymentViewControllerDelegate>
 {
 	NSTimer *timer;
+    NSTimer *refreshOfferTimer;
     
 	BOOL isLoading;
 	BOOL initialized;
@@ -38,6 +40,8 @@ typedef enum : NSUInteger {
     NSString *title;
     PFObject *post;
 
+    PFObject *currentOffer;
+    
 	NSMutableArray *users;
 	NSMutableArray *messages;
 
@@ -53,6 +57,7 @@ typedef enum : NSUInteger {
 @property (retain, nonatomic) UIButton *buyButton;
 @property (retain, nonatomic) UIButton *reviewButton;
 @property (retain, nonatomic) UIButton *payForTaskButton;
+@property (retain, nonatomic) UIButton *acceptOfferButton;
 
 @end
 
@@ -66,6 +71,18 @@ typedef enum : NSUInteger {
         [_meetUp setTintColor:[UIColor spreeDarkBlue]];
     }
     return _meetUp;
+}
+
+-(UIButton *)acceptOfferButton {
+    if (!_acceptOfferButton) {
+        _acceptOfferButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 40)];
+        _acceptOfferButton.backgroundColor = [UIColor spreeDarkBlue];
+        [_acceptOfferButton setTitle:@"Respond to Offer" forState:UIControlStateNormal];
+        _acceptOfferButton.titleLabel.font = [UIFont fontWithName:@"Lato-Bold" size:18];
+        _acceptOfferButton.titleLabel.textColor = [UIColor spreeOffWhite];
+        [_acceptOfferButton addTarget:self action:@selector(acceptOffer) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _acceptOfferButton;
 }
 
 -(UIButton *)claimButton {
@@ -126,6 +143,12 @@ typedef enum : NSUInteger {
     return self;
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self refreshInputAccessoryView];
+    
+}
+
 - (void)viewDidLoad
 {
     //add button here - quote you 
@@ -155,6 +178,8 @@ typedef enum : NSUInteger {
     } else {
         userVerifiedToSendMessages = NO;
     }
+    
+    [self refreshInputAccessoryView];
     
     UIButton *back = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 40)];
     back.backgroundColor = [UIColor clearColor];
@@ -188,40 +213,78 @@ typedef enum : NSUInteger {
 
 	[self loadMessages];
     
-    [self refreshInputAccessoryView];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadMessages) name:@"MeetUp" object:nil];
 }
 
 -(void)refreshInputAccessoryView{
 
-
+    // This is not the user's own post (i.e. they are the buyer, not the seller)
     if (![[[post objectForKey:@"user"] objectId]
           isEqualToString:[PFUser currentUser].objectId]){
         if ([post[@"typePointer"][@"type"] isEqualToString:@"Tasks & Services"]){
-            if (post[@"taskClaimed"] == [NSNumber numberWithBool:YES]){
-                self.keyboardController.textView.inputAccessoryView = nil;
+            if (post[@"sold"] == [NSNumber numberWithBool:NO]){
+                if (post[@"taskClaimed"] == [NSNumber numberWithBool:YES]){
+                    self.keyboardController.textView.inputAccessoryView = nil;
+                } else {
+                    self.keyboardController.textView.inputAccessoryView = [self claimButton];
+                }
             } else {
-                self.keyboardController.textView.inputAccessoryView = [self claimButton];
+                self.keyboardController.textView.inputAccessoryView = nil;
             }
+            [self.keyboardController.textView reloadInputViews];
         } else {
             if (post[@"sold"] == [NSNumber numberWithBool:NO]){
-                self.keyboardController.textView.inputAccessoryView = [self buyButton];
+                
+                PFQuery *query = [PFQuery queryWithClassName:@"PaymentQueue"];
+                [query whereKey:@"post" equalTo:post];
+                [query whereKey:@"buyer" equalTo:[PFUser currentUser]];
+                [query whereKey:@"seller" equalTo:self.toUser];
+                
+                [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error){
+                    if (object){
+                        self.keyboardController.textView.inputAccessoryView = nil;
+                    } else {
+                         self.keyboardController.textView.inputAccessoryView = [self buyButton];
+                    }
+                    [self.keyboardController.textView reloadInputViews];
+                }];
+                
             } else {
                 self.keyboardController.textView.inputAccessoryView = nil;
+                [self.keyboardController.textView reloadInputViews];
                 // In the future implement the review button
             }
         }
-        
         [self.keyboardController.textView.inputAccessoryView setNeedsDisplay];
     } else {
-        if ([post[@"typePointer"][@"type"] isEqualToString:@"Tasks & Services"]){
-            if (post[@"taskClaimed"] == [NSNumber numberWithBool:YES]){
-                self.keyboardController.textView.inputAccessoryView = [self payForTaskButton];
+        
+        // This post is the user's own post (i.e. they are the seller)
+        PFQuery *query = [PFQuery queryWithClassName:@"PaymentQueue"];
+        [query whereKey:@"post" equalTo:post];
+        [query whereKey:@"buyer" equalTo:self.toUser];
+        [query whereKey:@"seller" equalTo:[PFUser currentUser]];
+        
+        [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error){
+            if (object){
+                NSLog(@"Offer exists");
+                currentOffer = object;
+                self.keyboardController.textView.inputAccessoryView = [self acceptOfferButton];
+            } else {
+                if ([post[@"typePointer"][@"type"] isEqualToString:@"Tasks & Services"]){
+                    if (post[@"taskClaimed"] == [NSNumber numberWithBool:YES]){
+                        if (post[@"sold"] == [NSNumber numberWithBool:NO])
+                            self.keyboardController.textView.inputAccessoryView = [self payForTaskButton];
+                        else
+                            self.keyboardController.textView.inputAccessoryView = nil;
+                    } else {
+                        self.keyboardController.textView.inputAccessoryView = nil;
+                    }
+                } else {
+                    self.keyboardController.textView.inputAccessoryView = nil;
+                } 
             }
-        } else {
-            self.keyboardController.textView.inputAccessoryView = nil;
-        }
+            [self.keyboardController.textView reloadInputViews];
+        }];
     }
 }
 
@@ -233,6 +296,7 @@ typedef enum : NSUInteger {
 	self.collectionView.collectionViewLayout.springinessEnabled = YES;
     [self.keyboardController.textView becomeFirstResponder];
 	timer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(loadMessages) userInfo:nil repeats:YES];
+    refreshOfferTimer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(refreshInputAccessoryView) userInfo:nil repeats:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -241,6 +305,7 @@ typedef enum : NSUInteger {
     [postHeader removeFromSuperview];
 	ClearRecentCounter(groupId);
 	[timer invalidate];
+    [refreshOfferTimer invalidate];
 }
 
 #pragma mark - Backend methods
@@ -310,29 +375,30 @@ typedef enum : NSUInteger {
      */
     //Email REGEX: name@host.ext
     //List of keywords to be filtered
-    NSArray *keywords = @[@"yahoo", @"gmail", @"com", @"atyahoo", @"at yahoo", @"at yahoo.com", @"at gmail com", @"atgmail", @"at gmail", @"at gmail.com", @"at gmail com",];
-    NSString *blockMessage = @"***";
-    
-
+//    NSArray *keywords = @[@"yahoo", @"gmail", @"com", @"atyahoo", @"at yahoo", @"at yahoo.com", @"at gmail com", @"atgmail", @"at gmail", @"at gmail.com", @"at gmail com",];
+//    NSString *blockMessage = @"***";
+//    
+//
     PFObject *object = [PFObject objectWithClassName:PF_MESSAGE_CLASS_NAME];
     object[PF_MESSAGE_POST] = post;
     object[PF_MESSAGE_USER] = [PFUser currentUser];
     object[PF_MESSAGE_GROUPID] = groupId;
+//
+//    
+//    NSRegularExpression *phoneRegex = [NSRegularExpression regularExpressionWithPattern:@"1?\\s*\\W?\\s*([0-9][0-8][0-9])\\s*\\W?\\s*([0-9][0-9]{2})\\s*\\W?\\s*([0-9]{4})(\\se?x?t?(\\d*))?" options:0 error:nil];
+//    
+//    NSString *modifiedString = [phoneRegex stringByReplacingMatchesInString:text options:0 range:NSMakeRange(0, [text length]) withTemplate:blockMessage];
     
+    // Taken out so messages go through
+//    NSRegularExpression *emailRegex = [NSRegularExpression regularExpressionWithPattern:@"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?" options:0 error:nil];
     
-    NSRegularExpression *phoneRegex = [NSRegularExpression regularExpressionWithPattern:@"1?\\s*\\W?\\s*([0-9][0-8][0-9])\\s*\\W?\\s*([0-9][0-9]{2})\\s*\\W?\\s*([0-9]{4})(\\se?x?t?(\\d*))?" options:0 error:nil];
+//    NSString *outString = [emailRegex stringByReplacingMatchesInString:modifiedString options:0 range:NSMakeRange(0, [modifiedString length]) withTemplate:blockMessage];
     
-    NSString *modifiedString = [phoneRegex stringByReplacingMatchesInString:text options:0 range:NSMakeRange(0, [text length]) withTemplate:blockMessage];
+//    for(NSString *key in keywords){
+//        modifiedString = [modifiedString stringByReplacingOccurrencesOfString:key withString:blockMessage];
+//    }
     
-    NSRegularExpression *emailRegex = [NSRegularExpression regularExpressionWithPattern:@"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?" options:0 error:nil];
-    
-    NSString *outString = [emailRegex stringByReplacingMatchesInString:modifiedString options:0 range:NSMakeRange(0, [modifiedString length]) withTemplate:blockMessage];
-    
-    for(NSString *key in keywords){
-        outString = [outString stringByReplacingOccurrencesOfString:key withString:blockMessage];
-    }
-    
-    object[PF_MESSAGE_TEXT] = outString;
+    object[PF_MESSAGE_TEXT] = text;
     
     [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
      {
@@ -352,12 +418,12 @@ typedef enum : NSUInteger {
     [lookUp whereKey:@"objectId" equalTo:[[post objectForKey:@"user"] objectId]];
     [lookUp getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
         if (object) {
-            CreateRecentItem(user1, groupId, object[@"username"], user2, post, outString);
+            CreateRecentItem(user1, groupId, object[@"username"], user2, post, text);
         }
     }];
 
-    [self performSelector:@selector(updateRecentAndPushForMessage:) withObject:outString afterDelay:0.5f];
-    CreateRecentItem(user2, groupId, user1[PF_USER_FULLNAME], user1, post, outString);
+    [self performSelector:@selector(updateRecentAndPushForMessage:) withObject:text afterDelay:0.5f];
+    CreateRecentItem(user2, groupId, user1[PF_USER_FULLNAME], user1, post, text);
     [self finishSendingMessage];
 }
 
@@ -626,6 +692,24 @@ typedef enum : NSUInteger {
                 
             }];
         }
+    } else if (alertView.tag == kVerifySaleAlert){
+        if (buttonIndex == 0){
+            [alertView dismissWithClickedButtonIndex:buttonIndex animated:YES];
+            [self sendMessage:@"Offer has been declined." Video:nil Picture:nil];
+        } else {
+            if (currentOffer){
+                [self sendMessage:@"Offer has been accepted." Video:nil Picture:nil];
+                [post setObject:[NSNumber numberWithBool:YES] forKey:@"sold"];
+                [post saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error){
+                    if (!error){
+                        [self reviewUser];
+                        [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloadTable" object:nil];
+                    }
+                }];
+            }
+        }
+        [self refreshInputAccessoryView];
+        [currentOffer deleteInBackgroundWithTarget:self selector:@selector(refreshInputAccessoryView)];
     }
 }
 
@@ -645,9 +729,12 @@ typedef enum : NSUInteger {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
     RatingViewController *rating = [storyboard instantiateViewControllerWithIdentifier:@"rating"];
     rating.post = post;
-    rating.user = post[@"user"];
-    UINavigationController *ratingNav = [[UINavigationController alloc] initWithRootViewController:rating];
-    [self presentViewController:ratingNav animated:YES completion:nil];
+    rating.user = self.toUser;
+
+    rating.ratingType = @"seller";
+
+    [self presentViewController:rating animated:YES completion:nil];
+    
     [self refreshInputAccessoryView];
 }
 
@@ -658,24 +745,40 @@ typedef enum : NSUInteger {
     [(SpreePost *)post setTaskClaimed:YES];
     [(SpreePost *)post setTaskClaimedBy:[PFUser currentUser]];
     [post saveInBackground];
+    NSLog(@"claimed ? %@", post[@"taskClaimed"]);
     [self refreshInputAccessoryView];
 }
 
--(void)userCompletedPurchase{
+-(void)userOffered:(PFObject *)offer{
+    currentOffer = offer;
     NSString *purchaserName = [PFUser currentUser][@"displayName"] ? [SpreeUtility firstNameForDisplayName:[PFUser currentUser][@"displayName"]] : [PFUser currentUser][@"username"];
-    NSString *sellerName = post[@"user"][@"displayName"] ? [SpreeUtility firstNameForDisplayName:post[@"user"][@"displayName"]] : post[@"user"][@"username"];
+
     NSString *paymentConfirmation;
-    if  (![post[@"typePointer"][@"type"] isEqualToString:@"Tasks & Services"]){
-        paymentConfirmation = [NSString stringWithFormat:@"%@ bought %@ from %@", purchaserName, post[@"title"], sellerName];
-    } else {
-        paymentConfirmation = [NSString stringWithFormat:@"%@ completed this task for %@", sellerName, purchaserName];
-    }
+
+    paymentConfirmation = [NSString stringWithFormat:@"%@ offered $%@", purchaserName, (NSString *)[offer[@"offer"] stringValue]];
+    
     [self sendMessage:paymentConfirmation Video:nil Picture:nil];
     [self refreshInputAccessoryView];
 }
 
 -(void)userFailedToCompletePurchase{
     
+}
+
+-(void)userPaidForService:(SpreePost*)service{
+    post = service;
+    
+    NSString *purchaserName = [PFUser currentUser][@"displayName"] ? [SpreeUtility firstNameForDisplayName:[PFUser currentUser][@"displayName"]] : [PFUser currentUser][@"username"];
+    
+    NSString *paymentConfirmation;
+    
+    paymentConfirmation = [NSString stringWithFormat:@"%@ paid for the completed service.", purchaserName];
+    
+    [self sendMessage:paymentConfirmation Video:nil Picture:nil];
+    
+    [self reviewUser];
+    
+    [self refreshInputAccessoryView];
 }
 
 -(void)backButtonTouched{
@@ -689,6 +792,12 @@ typedef enum : NSUInteger {
     [pay initializeWithPost:(SpreePost *)post];
     [self presentViewController:pay animated:YES completion:nil];
     [self refreshInputAccessoryView];
+}
+
+-(void)acceptOffer{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Accept Offer?" message:@"Selecting yes will remove your item from sale and completes the transaction. It is your responsibility to deliver the item to the buyer." delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+    alertView.tag = kVerifySaleAlert;
+    [alertView show];
 }
 
 @end
