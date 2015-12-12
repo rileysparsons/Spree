@@ -133,8 +133,9 @@
     [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
         if (object) {
             RatingViewController *ratingView = [self.storyboard instantiateViewControllerWithIdentifier:@"rating"];
-            ratingView.ratingType = @"seller";
+            ratingView.ratingType = @"buyer";
             ratingView.user = [object objectForKey:@"rateUser"];
+            ratingView.post = [object objectForKey:@"post"];
 
             UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:ratingView];
             [self presentViewController:navigationController animated:YES completion:NULL];

@@ -7,6 +7,7 @@
 //
 
 #import "ChatPostHeader.h"
+#import "SpreeUtility.h"
 
 @implementation ChatPostHeader
 
@@ -63,20 +64,24 @@
     
     [self circularMaskForView:self.postImageView];
     if (post){
-        if (((NSArray *)post[PF_POST_PHOTOARRAY]).count > 0){
-            self.postImageView.file = post[PF_POST_PHOTOARRAY][0];
-            [self.postImageView loadInBackground];
-        }
-    
-        NSLog(@"POST %@", post);
-        self.postTitleLabel.text = post[PF_POST_TITLE];
-        self.priceLabel.text = [NSString stringWithFormat:@"$%@",[post[PF_POST_PRICE] stringValue]];
-        
-        [post[PF_POST_USER] fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error){
-            if  (!error){
-                self.posterLabel.text = object[PF_USER_USERNAME];
+        [post fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error){
+            if (((NSArray *)post[PF_POST_PHOTOARRAY]).count > 0){
+                self.postImageView.file = post[PF_POST_PHOTOARRAY][0];
+                [self.postImageView loadInBackground];
             }
+            
+            NSLog(@"POST %@", post);
+            self.postTitleLabel.text = post[PF_POST_TITLE];
+            self.priceLabel.text = [NSString stringWithFormat:@"$%@",[post[PF_POST_PRICE] stringValue]];
+            
+            [post[PF_POST_USER] fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error){
+                if  (!error){
+                    NSString *title = [post[PF_POST_USER] objectForKey:@"displayName"] ? [SpreeUtility firstNameForDisplayName:[post[PF_POST_USER] objectForKey:@"displayName"]] : [post[PF_POST_USER] objectForKey:@"username"];
+                    self.posterLabel.text =title;
+                }
+            }];
         }];
+        
     }
 }
 

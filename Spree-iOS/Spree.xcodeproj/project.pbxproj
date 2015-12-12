@@ -105,6 +105,7 @@
 		14A26B201B9FD28B001BA122 /* AlternateLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A26B1F1B9FD28B001BA122 /* AlternateLoginViewController.m */; };
 		14A416801B05700600EA4DA2 /* SpreeSprintTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A4167E1B05700600EA4DA2 /* SpreeSprintTableViewCell.m */; };
 		14A416811B05700600EA4DA2 /* SpreeSprintTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14A4167F1B05700600EA4DA2 /* SpreeSprintTableViewCell.xib */; };
+		14A4C99B1BA74B8600C6C2E3 /* PostPaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A4C99A1BA74B8600C6C2E3 /* PostPaymentViewController.m */; };
 		14AB0EBF1B82C25D00BD06EB /* PostingInputAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14AB0EBE1B82C25D00BD06EB /* PostingInputAccessoryView.m */; };
 		14AB0EC11B82C2A100BD06EB /* PostingInputAccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14AB0EC01B82C2A100BD06EB /* PostingInputAccessoryView.xib */; };
 		14AB0EC41B84CA8900BD06EB /* PostingNumberEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14AB0EC31B84CA8900BD06EB /* PostingNumberEntryViewController.m */; };
@@ -342,6 +343,8 @@
 		14A4167D1B05700600EA4DA2 /* SpreeSprintTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpreeSprintTableViewCell.h; sourceTree = "<group>"; };
 		14A4167E1B05700600EA4DA2 /* SpreeSprintTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpreeSprintTableViewCell.m; sourceTree = "<group>"; };
 		14A4167F1B05700600EA4DA2 /* SpreeSprintTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SpreeSprintTableViewCell.xib; sourceTree = "<group>"; };
+		14A4C9991BA74B8600C6C2E3 /* PostPaymentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostPaymentViewController.h; sourceTree = "<group>"; };
+		14A4C99A1BA74B8600C6C2E3 /* PostPaymentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostPaymentViewController.m; sourceTree = "<group>"; };
 		14AB0EBD1B82C25D00BD06EB /* PostingInputAccessoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostingInputAccessoryView.h; sourceTree = "<group>"; };
 		14AB0EBE1B82C25D00BD06EB /* PostingInputAccessoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostingInputAccessoryView.m; sourceTree = "<group>"; };
 		14AB0EC01B82C2A100BD06EB /* PostingInputAccessoryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostingInputAccessoryView.xib; sourceTree = "<group>"; };
@@ -595,6 +598,8 @@
 		140CF91A1A3F755B00134C4D /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				14A4C9991BA74B8600C6C2E3 /* PostPaymentViewController.h */,
+				14A4C99A1BA74B8600C6C2E3 /* PostPaymentViewController.m */,
 				14A26B1E1B9FD28B001BA122 /* AlternateLoginViewController.h */,
 				14A26B1F1B9FD28B001BA122 /* AlternateLoginViewController.m */,
 				14B934831B76C6B600DDA5EB /* LoginAuthorizationViewController.h */,
@@ -1134,6 +1139,7 @@
 				14D3B6811BA2973500D665BB /* PostUserTableViewCell.m in Sources */,
 				143D91ED1B6E04D200E2F493 /* LoginCampusHeaderView.m in Sources */,
 				143D91EA1B6DFE7500E2F493 /* LoginAuthorizationViewController.m in Sources */,
+				14A4C99B1BA74B8600C6C2E3 /* PostPaymentViewController.m in Sources */,
 				4ECA453F1B48E0EB006C33FC /* ContactUsViewController.m in Sources */,
 				143D91DB1B6DF7D900E2F493 /* FinalOnboardingViewController.m in Sources */,
 				145B0AB31B9E1450002FD94E /* SpreePost.m in Sources */,

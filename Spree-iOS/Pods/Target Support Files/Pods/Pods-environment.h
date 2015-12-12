@@ -124,19 +124,19 @@
 #define COCOAPODS_POD_AVAILABLE_Parse
 #define COCOAPODS_VERSION_MAJOR_Parse 1
 #define COCOAPODS_VERSION_MINOR_Parse 8
-#define COCOAPODS_VERSION_PATCH_Parse 3
+#define COCOAPODS_VERSION_PATCH_Parse 4
 
 // ParseCrashReporting
 #define COCOAPODS_POD_AVAILABLE_ParseCrashReporting
 #define COCOAPODS_VERSION_MAJOR_ParseCrashReporting 1
 #define COCOAPODS_VERSION_MINOR_ParseCrashReporting 8
-#define COCOAPODS_VERSION_PATCH_ParseCrashReporting 3
+#define COCOAPODS_VERSION_PATCH_ParseCrashReporting 4
 
 // ParseFacebookUtilsV4
 #define COCOAPODS_POD_AVAILABLE_ParseFacebookUtilsV4
 #define COCOAPODS_VERSION_MAJOR_ParseFacebookUtilsV4 1
 #define COCOAPODS_VERSION_MINOR_ParseFacebookUtilsV4 8
-#define COCOAPODS_VERSION_PATCH_ParseFacebookUtilsV4 3
+#define COCOAPODS_VERSION_PATCH_ParseFacebookUtilsV4 4
 
 // ParseUI
 #define COCOAPODS_POD_AVAILABLE_ParseUI

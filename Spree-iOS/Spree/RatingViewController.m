@@ -7,10 +7,13 @@
 //
 
 #import "RatingViewController.h"
+#import "SpreeUtility.h"
+#import "ChatPostHeader.h"
 
 @interface RatingViewController ()
 @property (weak, nonatomic) IBOutlet EDStarRating *starRating;
 @property (weak, nonatomic) IBOutlet UILabel *rateUserLabel;
+@property (weak, nonatomic) IBOutlet ChatPostHeader *postHeader;
 @end
 
 @implementation RatingViewController
@@ -21,9 +24,14 @@
     [super viewDidLoad];
 
     self.title = @"Rate";
-    _rateUserLabel.text = [NSString stringWithFormat:@"Leave feedback for: %@", [self.user objectForKey:@"username"]];
+    
+    if (self.user[@"displayName"]){
+        _rateUserLabel.text = [NSString stringWithFormat:@"Please rate your recent transaction with %@", [SpreeUtility firstNameForDisplayName:self.user[@"displayName"]]];
+    } else {
+       _rateUserLabel.text = [NSString stringWithFormat:@"Please rate your recent transaction with %@", self.user[@"username"]];
+    }
 
-    self.starRating.backgroundColor  = [UIColor whiteColor];
+    self.starRating.backgroundColor  = [UIColor spreeOffWhite];
     // Setup control using iOS7 tint Color
     _starRating.starImage = [[UIImage imageNamed:@"star-template"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     _starRating.starHighlightedImage = [[UIImage imageNamed:@"star-highlighted-template"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
@@ -33,16 +41,21 @@
     _starRating.rating = 3;
     _starRating.displayMode = EDStarRatingDisplayFull;
     _starRating.tintColor = [UIColor spreeDarkBlue];
+    
+    
+    [_postHeader setupForPost:(SpreePost *)self.post];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    NSLog(@"%@ %@",self.user, self.ratingType);
     [_starRating setNeedsDisplay];
 }
 
 -(void)starsSelectionChanged:(EDStarRating *)control rating:(float)rating
 {
     // Have the seller rate the buyer
+    
     PFQuery *query = [PFQuery queryWithClassName:@"Rating"];
     [query whereKey:@"user" equalTo:self.user];
     [query whereKey:@"type" equalTo:self.ratingType];
@@ -66,17 +79,19 @@
         }
     }];
 
-    if ([self.ratingType isEqualToString:@"buyer"]) {
+    if ([self.ratingType isEqualToString:@"seller"]) {
         // Have the buyer rate the seller
         PFObject *rateUserQueue = [PFObject objectWithClassName:@"RatingQueue"];
         rateUserQueue[@"user"] = self.user;
+        rateUserQueue[@"post"] = self.post;
         rateUserQueue[@"rateUser"] = [PFUser currentUser];
-        rateUserQueue[@"type"] = @"seller";
+        rateUserQueue[@"type"] = @"buyer";
         [rateUserQueue saveInBackground];
     }
 
     [[NSNotificationCenter defaultCenter] postNotificationName:@"UserRated" object:self];
     [self dismissViewControllerAnimated:YES completion:NULL];
+    [self.delegate ratingViewControllerDelegateDidClose];
 }
 
 @end

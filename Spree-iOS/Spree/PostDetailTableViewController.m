@@ -369,6 +369,7 @@
 {
     ChatView *chatView = [[ChatView alloc] initWith:groupId post:post_ title:self.poster[@"username"]];
     NSLog(@"%@", self.poster[@"username"]);
+    chatView.toUser = self.poster;
     self.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:chatView animated:YES];
     // Unhide the tabbar when we go back

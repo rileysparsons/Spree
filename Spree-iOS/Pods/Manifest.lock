@@ -34,16 +34,16 @@ PODS:
   - JVFloatLabeledTextField (1.1.0)
   - MBProgressHUD (0.9.1)
   - MSCellAccessory (1.1.2)
-  - Parse (1.8.3):
+  - Parse (1.8.4):
     - Bolts/Tasks (>= 1.2.2)
-  - ParseCrashReporting (1.8.3):
+  - ParseCrashReporting (1.8.4):
     - Bolts/Tasks (>= 1.2.2)
-    - Parse (~> 1.8.3)
-  - ParseFacebookUtilsV4 (1.8.3):
+    - Parse (~> 1.8.4)
+  - ParseFacebookUtilsV4 (1.8.4):
     - Bolts/Tasks (>= 1.2.2)
     - FBSDKCoreKit (~> 4.0)
     - FBSDKLoginKit (~> 4.0)
-    - Parse (~> 1.8.3)
+    - Parse (~> 1.8.4)
   - ParseUI (1.1.6):
     - Bolts/Tasks (~> 1.2)
     - Parse (~> 1.8)
@@ -79,7 +79,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   JSQMessagesViewController:
-    :commit: e63f45308aa01b2cdf5004d80de3a21f52ef3db2
+    :commit: 8ba29137e82e209688906df635576a5b26aa0789
     :git: https://github.com/jessesquires/JSQMessagesViewController.git
 
 SPEC CHECKSUMS:
@@ -95,9 +95,9 @@ SPEC CHECKSUMS:
   JVFloatLabeledTextField: ea4a3d8387ddd43724c472bb2b8ab39b79af05d4
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   MSCellAccessory: 8265f3cd2386c1f372da00232472605ab11426e4
-  Parse: 4b251ac63b76d12b334a32579cc3b174446f0c39
-  ParseCrashReporting: a75141b43e244e32ddb2a6a89c7b3d82d6590fda
-  ParseFacebookUtilsV4: 603b78d4122642f3cdff5eee5b7b90e8d81b1e0c
+  Parse: c09d6efe4b2eea752765bc6f365a55516d909079
+  ParseCrashReporting: 9461c69a10e648e22cefc5537eecb358b41499f1
+  ParseFacebookUtilsV4: 888a71305d28e883d4e60cc367544f7bae13223a
   ParseUI: 8a22e448c03f825203d8c379c80523517f68baa3
   PureLayout: f25f0bb904d5ccfe6e31da3cb869185259f02e0d
   RCSLabeledIconButton: db3351c731645016217e591f4a8a835c6524d277

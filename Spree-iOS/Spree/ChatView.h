@@ -15,5 +15,8 @@
 
 - (id)initWith:(NSString *)groupId_ post:(PFObject *)post_ title:(NSString *)title_;
 - (void)sendMessage:(NSString *)text Video:(NSURL *)video Picture:(UIImage *)picture;
+- (void)setInputAccessoryView;
+
+@property PFUser *toUser;
 
 @end

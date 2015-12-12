@@ -11,6 +11,7 @@
 #import <Parse/PFAnonymousUtils.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <Branch/Branch.h>
+#import "SpreePost.h"
 
 typedef enum : NSUInteger {
     kVerifyEmailAlert,

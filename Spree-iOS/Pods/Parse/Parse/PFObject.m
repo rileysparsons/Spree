@@ -657,19 +657,12 @@ static BOOL PFObjectValueIsKindOfMutableContainerClass(id object) {
         if (self._state.deleted || dirty || [self _hasChanges]) {
             return YES;
         }
+
         if (considerChildren) {
-            // We only need to consider the currently estimated children here,
-            // because they're the only ones that might need to be saved in a
-            // subsequent call to save, which is the meaning of "dirtiness".
-            __block BOOL retValue = NO;
-            [_estimatedData enumerateKeysAndObjectsUsingBlock:^(NSString *key, id obj, BOOL *stop) {
-                if ([obj isKindOfClass:[PFObject class]] && [obj isDirty]) {
-                    retValue = YES;
-                    *stop = YES;
-                }
-            }];
-            return retValue;
+            NSMutableSet *seen = [NSMutableSet set];
+            return [self _areChildrenDirty:seen];
         }
+
         return NO;
     }
 }
@@ -677,6 +670,32 @@ static BOOL PFObjectValueIsKindOfMutableContainerClass(id object) {
 - (void)_setDirty:(BOOL)aDirty {
     @synchronized (lock) {
         dirty = aDirty;
+    }
+}
+
+- (BOOL)_areChildrenDirty:(NSMutableSet *)seenObjects {
+    if ([seenObjects containsObject:self]) {
+        return NO;
+    }
+    [seenObjects addObject:self];
+
+    @synchronized(lock) {
+        [self checkpointAllMutableContainers];
+        if (self._state.deleted || dirty || [self _hasChanges]) {
+            return YES;
+        }
+
+        // We only need to consider the currently estimated children here,
+        // because they're the only ones that might need to be saved in a
+        // subsequent call to save, which is the meaning of "dirtiness".
+        __block BOOL retValue = NO;
+        [_estimatedData enumerateKeysAndObjectsUsingBlock:^(NSString *key, id obj, BOOL *stop) {
+            if ([obj isKindOfClass:[PFObject class]] && [obj _areChildrenDirty:seenObjects]) {
+                retValue = YES;
+                *stop = YES;
+            }
+        }];
+        return retValue;
     }
 }
 
@@ -1365,9 +1384,21 @@ static BOOL PFObjectValueIsKindOfMutableContainerClass(id object) {
             if ([key isEqualToString:PFObjectObjectIdRESTKey]) {
                 state.objectId = obj;
             } else if ([key isEqualToString:PFObjectCreatedAtRESTKey]) {
-                [state setCreatedAtFromString:obj];
+                // These dates can be passed in as NSDate or as NSString,
+                // depending on whether they were wrapped inside JSONObject with __type: Date or not.
+                if ([obj isKindOfClass:[NSDate class]]) {
+                    state.createdAt = obj;
+                } else {
+                    [state setCreatedAtFromString:obj];
+                }
             } else if ([key isEqualToString:PFObjectUpdatedAtRESTKey]) {
-                [state setUpdatedAtFromString:obj];
+                // These dates can be passed in as NSDate or as NSString,
+                // depending on whether they were wrapped inside JSONObject with __type: Date or not.
+                if ([obj isKindOfClass:[NSDate class]]) {
+                    state.updatedAt = obj;
+                } else {
+                    [state setUpdatedAtFromString:obj];
+                }
             } else if ([key isEqualToString:PFObjectACLRESTKey]) {
                 PFACL *acl = [PFACL ACLWithDictionary:obj];
                 [state setServerDataObject:acl forKey:key];
@@ -2420,10 +2451,10 @@ static BOOL PFObjectValueIsKindOfMutableContainerClass(id object) {
     return [[[self deleteAllInBackground:objects] waitForResult:error] boolValue];
 }
 
-+ (BFTask *)deleteAllInBackground:(NSArray *)objects {
++ (BFTask PF_GENERIC(NSNumber *) *)deleteAllInBackground:(NSArray *)objects {
     NSArray *deleteObjects = [objects copy]; // Snapshot the objects.
     if (deleteObjects.count == 0) {
-        return [BFTask taskWithResult:objects];
+        return [BFTask PF_GENERIC(NSNumber *) taskWithResult:@YES];
     }
     return [[[[self currentUserController] getCurrentUserSessionTokenAsync] continueWithBlock:^id(BFTask *task) {
         NSString *sessionToken = task.result;

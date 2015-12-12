@@ -36,19 +36,14 @@
     
     [SpreePost registerSubclass];
     [ParseCrashReporting enable];
-    [Parse setApplicationId:@"F2jyNwFtpy0O9ufRLxBnMQWRtGQju6kV0JEbUZlf"
-                  clientKey:@"T7noUkx7fvw5KwLxWi0Y6brf3c3LaqWb6ODoB6IZ"];
+#warning These are test keys, switch before merging.
+    [Parse setApplicationId:@"QJpsxjWbeXTqp79rPMUA48xSOUxfZe1Y72uXaT7E"
+                  clientKey:@"3TlfMPxRPAmJv6apfea4tAZQqt2w6G3vXWPswEpG"];
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
 
     [DDLog addLogger:[DDASLLogger sharedInstance]];
     [DDLog addLogger:[DDTTYLogger sharedInstance]];
 
-//    _locationManager = [[CLLocationManager alloc] init];
-//    [_locationManager setDelegate:self];
-//    [_locationManager requestWhenInUseAuthorization];
-//    [_locationManager startUpdatingLocation];
-//    self.locationManager = _locationManager;
-    
     [PFFacebookUtils initializeFacebookWithApplicationLaunchOptions:launchOptions];
     
     [[UINavigationBar appearance] setTintColor:[UIColor spreeOffBlack]];
@@ -135,6 +130,7 @@
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     [[Branch getInstance] handleDeepLink:url];
+    
     // do other deep link routing for the Facebook SDK, Pinterest SDK, etc
     return [[FBSDKApplicationDelegate sharedInstance] application:application openURL:url sourceApplication:sourceApplication annotation:annotation];
 }
