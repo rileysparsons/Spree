@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "LoginFieldViewController.h"
-#import <JVFloatLabeledTextField.h>
+#import <JVFloatLabeledTextField/JVFloatLabeledTextField.h>
 
 @protocol LoginEmailViewControllerDelegate;
 

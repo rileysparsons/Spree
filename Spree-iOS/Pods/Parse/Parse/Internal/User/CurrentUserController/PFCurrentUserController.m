@@ -15,7 +15,6 @@
 #import "PFAnonymousUtils_Private.h"
 #import "PFAssert.h"
 #import "PFAsyncTaskQueue.h"
-#import "PFFileManager.h"
 #import "PFKeychainStore.h"
 #import "PFMutableUserState.h"
 #import "PFObjectFilePersistenceController.h"
@@ -47,7 +46,7 @@
 }
 
 - (instancetype)initWithStorageType:(PFCurrentObjectStorageType)storageType
-                   commonDataSource:(id<PFKeychainStoreProvider, PFFileManagerProvider>)commonDataSource
+                   commonDataSource:(id<PFKeychainStoreProvider>)commonDataSource
                      coreDataSource:(id<PFObjectFilePersistenceControllerProvider>)coreDataSource {
     self = [super init];
     if (!self) return nil;
@@ -63,7 +62,7 @@
 }
 
 + (instancetype)controllerWithStorageType:(PFCurrentObjectStorageType)dataStorageType
-                         commonDataSource:(id<PFKeychainStoreProvider, PFFileManagerProvider>)commonDataSource
+                         commonDataSource:(id<PFKeychainStoreProvider>)commonDataSource
                            coreDataSource:(id<PFObjectFilePersistenceControllerProvider>)coreDataSource {
     return [[self alloc] initWithStorageType:dataStorageType
                             commonDataSource:commonDataSource
@@ -82,9 +81,10 @@
     return [self getCurrentUserAsyncWithOptions:options];
 }
 
-- (BFTask *)saveCurrentObjectAsync:(PFUser *)object {
+- (BFTask *)saveCurrentObjectAsync:(PFObject *)object {
+    PFUser *user = (PFUser *)object;
     return [_dataTaskQueue enqueue:^id(BFTask *task) {
-        return [self _saveCurrentUserAsync:object];
+        return [self _saveCurrentUserAsync:user];
     }];
 }
 
@@ -125,7 +125,6 @@
                 user.isLazy = YES;
                 [user _setDirty:YES];
             }
-            [user setIsCurrentUser:YES];
             return user;
         }] continueWithBlock:^id(BFTask *task) {
             dispatch_barrier_sync(_dataQueue, ^{
@@ -185,8 +184,7 @@
                 userLogoutTask = [BFTask taskWithResult:nil];
             }
 
-            NSString *filePath = [self.commonDataSource.fileManager parseDataItemPathForPathComponent:PFUserCurrentUserFileName];
-            BFTask *fileTask = [PFFileManager removeItemAtPathAsync:filePath];
+            BFTask *fileTask = [self.coreDataSource.objectFilePersistenceController removePersistentObjectAsyncForKey:PFUserCurrentUserFileName];
             BFTask *unpinTask = nil;
 
             if (self.storageType == PFCurrentObjectStorageTypeOfflineStore) {
@@ -249,6 +247,7 @@
     }
     return [task continueWithSuccessBlock:^id(BFTask *task) {
         PFUser *user = task.result;
+        [user setIsCurrentUser:YES];
         return [[self _loadSensitiveUserDataAsync:user
                          fromKeychainItemWithName:PFUserCurrentUserKeychainItemName] continueWithSuccessResult:user];
     }];

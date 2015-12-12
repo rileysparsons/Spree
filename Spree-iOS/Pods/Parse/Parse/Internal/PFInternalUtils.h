@@ -8,10 +8,8 @@
  */
 
 #import <Foundation/Foundation.h>
-#import <SystemConfiguration/SCNetworkReachability.h>
 
 #import <Parse/PFConstants.h>
-#import "PFPushPrivate.h"
 
 #import "PFEncoder.h"
 
@@ -66,13 +64,5 @@
 + (NSArray *)arrayBySplittingArray:(NSArray *)array withMaximumComponentsPerSegment:(NSUInteger)components;
 
 + (id)_stringWithFormat:(NSString *)format arguments:(NSArray *)arguments;
-@end
-
-@interface PFJSONCacheItem : NSObject
-
-@property (nonatomic, copy, readonly) NSString *hashValue;
-
-- (instancetype)initWithObject:(id)object;
-+ (PFJSONCacheItem *)cacheFromObject:(id)object;
 
 @end

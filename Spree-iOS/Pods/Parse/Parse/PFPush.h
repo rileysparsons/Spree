@@ -12,10 +12,14 @@
 #import <Bolts/BFTask.h>
 
 #import <Parse/PFConstants.h>
+#import <Parse/PFInstallation.h>
 
-@class PFQuery;
+PF_TV_UNAVAILABLE_WARNING
+PF_WATCH_UNAVAILABLE_WARNING
 
-PF_ASSUME_NONNULL_BEGIN
+@class PFQuery PF_GENERIC(PFGenericObject : PFObject *);
+
+NS_ASSUME_NONNULL_BEGIN
 
 /*!
  The `PFPush` class defines a push notification that can be sent from a client device.
@@ -23,7 +27,7 @@ PF_ASSUME_NONNULL_BEGIN
  The preferred way of modifying or retrieving channel subscriptions is to use
  the <PFInstallation> class, instead of the class methods in `PFPush`.
  */
-@interface PFPush : NSObject <NSCopying>
+PF_TV_UNAVAILABLE PF_WATCH_UNAVAILABLE @interface PFPush : NSObject <NSCopying>
 
 ///--------------------------------------
 /// @name Creating a Push Notification
@@ -41,7 +45,7 @@ PF_ASSUME_NONNULL_BEGIN
  @param channel The channel to set for this push.
  The channel name must start with a letter and contain only letters, numbers, dashes, and underscores.
  */
-- (void)setChannel:(PF_NULLABLE NSString *)channel;
+- (void)setChannel:(nullable NSString *)channel;
 
 /*!
  @abstract Sets the array of channels on which this push notification will be sent.
@@ -49,7 +53,7 @@ PF_ASSUME_NONNULL_BEGIN
  @param channels The array of channels to set for this push.
  Each channel name must start with a letter and contain only letters, numbers, dashes, and underscores.
  */
-- (void)setChannels:(PF_NULLABLE NSArray *)channels;
+- (void)setChannels:(nullable NSArray PF_GENERIC(NSString *)*)channels;
 
 /*!
  @abstract Sets an installation query to which this push notification will be sent.
@@ -58,7 +62,7 @@ PF_ASSUME_NONNULL_BEGIN
 
  @param query The installation query to set for this push.
  */
-- (void)setQuery:(PF_NULLABLE PFQuery *)query;
+- (void)setQuery:(nullable PFQuery PF_GENERIC(PFInstallation *)*)query;
 
 /*!
  @abstract Sets an alert message for this push notification.
@@ -67,7 +71,7 @@ PF_ASSUME_NONNULL_BEGIN
 
  @param message The message to send in this push.
  */
-- (void)setMessage:(PF_NULLABLE NSString *)message;
+- (void)setMessage:(nullable NSString *)message;
 
 /*!
  @abstract Sets an arbitrary data payload for this push notification.
@@ -78,7 +82,7 @@ PF_ASSUME_NONNULL_BEGIN
 
  @param data The data to send in this push.
  */
-- (void)setData:(PF_NULLABLE NSDictionary *)data;
+- (void)setData:(nullable NSDictionary *)data;
 
 /*!
  @abstract Sets whether this push will go to Android devices.
@@ -110,7 +114,7 @@ PF_ASSUME_NONNULL_BEGIN
 
  @param date The time at which the notification should expire.
  */
-- (void)expireAtDate:(PF_NULLABLE NSDate *)date;
+- (void)expireAtDate:(nullable NSDate *)date;
 
 /*!
  @abstract Sets the time interval after which this notification should expire.
@@ -171,7 +175,7 @@ PF_ASSUME_NONNULL_BEGIN
  */
 + (void)sendPushMessageToChannelInBackground:(NSString *)channel
                                  withMessage:(NSString *)message
-                                       block:(PF_NULLABLE PFBooleanResultBlock)block;
+                                       block:(nullable PFBooleanResultBlock)block;
 
 /*
  @abstract *Asynchronously* send a push message to a channel.
@@ -187,8 +191,8 @@ PF_ASSUME_NONNULL_BEGIN
  */
 + (void)sendPushMessageToChannelInBackground:(NSString *)channel
                                  withMessage:(NSString *)message
-                                      target:(PF_NULLABLE_S id)target
-                                    selector:(PF_NULLABLE_S SEL)selector;
+                                      target:(__nullable id)target
+                                    selector:(__nullable SEL)selector;
 
 /*!
  @abstract Send a push message to a query.
@@ -199,7 +203,7 @@ PF_ASSUME_NONNULL_BEGIN
 
  @returns Returns whether the send succeeded.
  */
-+ (BOOL)sendPushMessageToQuery:(PFQuery *)query
++ (BOOL)sendPushMessageToQuery:(PFQuery PF_GENERIC(PFInstallation *)*)query
                    withMessage:(NSString *)message
                          error:(NSError **)error;
 
@@ -211,7 +215,7 @@ PF_ASSUME_NONNULL_BEGIN
 
  @returns The task, that encapsulates the work being done.
  */
-+ (BFTask PF_GENERIC(NSNumber *)*)sendPushMessageToQueryInBackground:(PFQuery *)query
++ (BFTask PF_GENERIC(NSNumber *)*)sendPushMessageToQueryInBackground:(PFQuery PF_GENERIC(PFInstallation *)*)query
                                                          withMessage:(NSString *)message;
 
 /*!
@@ -223,9 +227,9 @@ PF_ASSUME_NONNULL_BEGIN
  @param block The block to execute.
  It should have the following argument signature: `^(BOOL succeeded, NSError *error)`
  */
-+ (void)sendPushMessageToQueryInBackground:(PFQuery *)query
++ (void)sendPushMessageToQueryInBackground:(PFQuery PF_GENERIC(PFInstallation *)*)query
                                withMessage:(NSString *)message
-                                     block:(PF_NULLABLE PFBooleanResultBlock)block;
+                                     block:(nullable PFBooleanResultBlock)block;
 
 /*!
  @abstract *Synchronously* send this push message.
@@ -248,7 +252,7 @@ PF_ASSUME_NONNULL_BEGIN
  @param block The block to execute.
  It should have the following argument signature: `^(BOOL succeeded, NSError *error)`.
  */
-- (void)sendPushInBackgroundWithBlock:(PF_NULLABLE PFBooleanResultBlock)block;
+- (void)sendPushInBackgroundWithBlock:(nullable PFBooleanResultBlock)block;
 
 /*
  @abstract *Asynchronously* send this push message and calls the given callback.
@@ -259,7 +263,7 @@ PF_ASSUME_NONNULL_BEGIN
  `error` will be `nil` on success and set if there was an error.
  `[result boolValue]` will tell you whether the call succeeded or not.
  */
-- (void)sendPushInBackgroundWithTarget:(PF_NULLABLE_S id)target selector:(PF_NULLABLE_S SEL)selector;
+- (void)sendPushInBackgroundWithTarget:(__nullable id)target selector:(__nullable SEL)selector;
 
 /*!
  @abstract *Synchronously* send a push message with arbitrary data to a channel.
@@ -304,7 +308,7 @@ PF_ASSUME_NONNULL_BEGIN
  */
 + (void)sendPushDataToChannelInBackground:(NSString *)channel
                                  withData:(NSDictionary *)data
-                                    block:(PF_NULLABLE PFBooleanResultBlock)block;
+                                    block:(nullable PFBooleanResultBlock)block;
 
 /*
  @abstract *Asynchronously* send a push message with arbitrary data to a channel.
@@ -322,8 +326,8 @@ PF_ASSUME_NONNULL_BEGIN
  */
 + (void)sendPushDataToChannelInBackground:(NSString *)channel
                                  withData:(NSDictionary *)data
-                                   target:(PF_NULLABLE_S id)target
-                                 selector:(PF_NULLABLE_S SEL)selector;
+                                   target:(__nullable id)target
+                                 selector:(__nullable SEL)selector;
 
 /*!
  @abstract *Synchronously* send a push message with arbitrary data to a query.
@@ -337,7 +341,7 @@ PF_ASSUME_NONNULL_BEGIN
 
  @returns Returns whether the send succeeded.
  */
-+ (BOOL)sendPushDataToQuery:(PFQuery *)query
++ (BOOL)sendPushDataToQuery:(PFQuery PF_GENERIC(PFInstallation *)*)query
                    withData:(NSDictionary *)data
                       error:(NSError **)error;
 
@@ -352,7 +356,7 @@ PF_ASSUME_NONNULL_BEGIN
 
  @returns The task, that encapsulates the work being done.
  */
-+ (BFTask PF_GENERIC(NSNumber *)*)sendPushDataToQueryInBackground:(PFQuery *)query
++ (BFTask PF_GENERIC(NSNumber *)*)sendPushDataToQueryInBackground:(PFQuery PF_GENERIC(PFInstallation *)*)query
                                                          withData:(NSDictionary *)data;
 
 /*!
@@ -366,9 +370,9 @@ PF_ASSUME_NONNULL_BEGIN
  @param block The block to execute.
  It should have the following argument signature: `^(BOOL succeeded, NSError *error)`.
  */
-+ (void)sendPushDataToQueryInBackground:(PFQuery *)query
++ (void)sendPushDataToQueryInBackground:(PFQuery PF_GENERIC(PFInstallation *)*)query
                                withData:(NSDictionary *)data
-                                  block:(PF_NULLABLE PFBooleanResultBlock)block;
+                                  block:(nullable PFBooleanResultBlock)block;
 
 ///--------------------------------------
 /// @name Handling Notifications
@@ -386,7 +390,7 @@ PF_ASSUME_NONNULL_BEGIN
 
  @param userInfo The userInfo dictionary you get in `appplication:didReceiveRemoteNotification:`.
  */
-+ (void)handlePush:(PF_NULLABLE NSDictionary *)userInfo NS_AVAILABLE_IOS(3_0) PF_EXTENSION_UNAVAILABLE("");
++ (void)handlePush:(nullable NSDictionary *)userInfo NS_AVAILABLE_IOS(3_0) PF_EXTENSION_UNAVAILABLE("");
 
 ///--------------------------------------
 /// @name Managing Channel Subscriptions
@@ -409,7 +413,7 @@ PF_ASSUME_NONNULL_BEGIN
 
  @returns Returns an `NSSet` containing all the channel names this device is subscribed to.
  */
-+ (PF_NULLABLE NSSet *)getSubscribedChannels:(NSError **)error;
++ (nullable NSSet PF_GENERIC(NSString *)*)getSubscribedChannels:(NSError **)error;
 
 /*!
  @abstract *Asynchronously* get all the channels that this device is subscribed to.
@@ -433,8 +437,7 @@ PF_ASSUME_NONNULL_BEGIN
  It should have the following signature: `(void)callbackWithResult:(NSSet *)result error:(NSError *)error`.
  `error` will be `nil` on success and set if there was an error.
  */
-+ (void)getSubscribedChannelsInBackgroundWithTarget:(id)target
-                                           selector:(SEL)selector;
++ (void)getSubscribedChannelsInBackgroundWithTarget:(id)target selector:(SEL)selector;
 
 /*!
  @abstract *Synchrnously* subscribes the device to a channel of push notifications.
@@ -466,7 +469,7 @@ PF_ASSUME_NONNULL_BEGIN
  It should have the following argument signature: `^(BOOL succeeded, NSError *error)`
  */
 + (void)subscribeToChannelInBackground:(NSString *)channel
-                                 block:(PF_NULLABLE PFBooleanResultBlock)block;
+                                 block:(nullable PFBooleanResultBlock)block;
 
 /*
  @abstract *Asynchronously* subscribes the device to a channel of push notifications and calls the given callback.
@@ -480,8 +483,8 @@ PF_ASSUME_NONNULL_BEGIN
  `[result boolValue]` will tell you whether the call succeeded or not.
  */
 + (void)subscribeToChannelInBackground:(NSString *)channel
-                                target:(PF_NULLABLE_S id)target
-                              selector:(PF_NULLABLE_S SEL)selector;
+                                target:(nullable id)target
+                              selector:(nullable SEL)selector;
 
 /*!
  @abstract *Synchronously* unsubscribes the device to a channel of push notifications.
@@ -510,7 +513,7 @@ PF_ASSUME_NONNULL_BEGIN
  It should have the following argument signature: `^(BOOL succeeded, NSError *error)`.
  */
 + (void)unsubscribeFromChannelInBackground:(NSString *)channel
-                                     block:(PF_NULLABLE PFBooleanResultBlock)block;
+                                     block:(nullable PFBooleanResultBlock)block;
 
 /*
  @abstract *Asynchronously* unsubscribes the device from a channel of push notifications and calls the given callback.
@@ -523,9 +526,9 @@ PF_ASSUME_NONNULL_BEGIN
  `[result boolValue]` will tell you whether the call succeeded or not.
  */
 + (void)unsubscribeFromChannelInBackground:(NSString *)channel
-                                    target:(PF_NULLABLE_S id)target
-                                  selector:(PF_NULLABLE_S SEL)selector;
+                                    target:(nullable id)target
+                                  selector:(nullable SEL)selector;
 
 @end
 
-PF_ASSUME_NONNULL_END
+NS_ASSUME_NONNULL_END
