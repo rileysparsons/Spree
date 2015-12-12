@@ -167,7 +167,15 @@ typedef enum : NSUInteger {
 
 	users = [[NSMutableArray alloc] init];
 	messages = [[NSMutableArray alloc] init];
-
+    
+    UIButton *back = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 40)];
+    back.backgroundColor = [UIColor clearColor];
+    back.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [back setImage:[UIImage imageNamed:@"backNormal_Dark"] forState:UIControlStateNormal];
+    [back setImage:[UIImage imageNamed:@"backHighlight_Dark"] forState:UIControlStateHighlighted];
+    [back addTarget:self action:@selector(backButtonTouched) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:back];
+    
 	PFUser *user = [PFUser currentUser];
     [user fetchInBackground];
 	self.senderId = user.objectId;
@@ -180,14 +188,6 @@ typedef enum : NSUInteger {
     }
     
     [self refreshInputAccessoryView];
-    
-    UIButton *back = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 40)];
-    back.backgroundColor = [UIColor clearColor];
-    back.imageView.contentMode = UIViewContentModeScaleAspectFit;
-    [back setImage:[UIImage imageNamed:@"backNormal_Dark"] forState:UIControlStateNormal];
-    [back setImage:[UIImage imageNamed:@"backHighlight_Dark"] forState:UIControlStateHighlighted];
-    [back addTarget:self action:@selector(backButtonTouched) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:back];
     
     self.keyboardController.textView.autocorrectionType = UITextAutocorrectionTypeNo;
     
@@ -799,5 +799,6 @@ typedef enum : NSUInteger {
     alertView.tag = kVerifySaleAlert;
     [alertView show];
 }
+
 
 @end

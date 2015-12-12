@@ -340,7 +340,7 @@ typedef enum : NSUInteger {
     referralCell.textLabel.font = [UIFont fontWithName:@"Lato-Regular" size:18];
     referralCell.textLabel.textColor = [UIColor spreeOffBlack];
     referralCell.backgroundColor = [UIColor spreeOffWhite];
-    referralCell.detailTextLabel.text = @"User with most credits wins an iPad";
+    referralCell.detailTextLabel.text = @"User with most credits wins an Apple Watch";
     referralCell.accessoryView = [MSCellAccessory accessoryWithType:FLAT_DISCLOSURE_INDICATOR color:[UIColor spreeDarkBlue] highlightedColor:[UIColor spreeLightYellow]];
     return referralCell;
 }
