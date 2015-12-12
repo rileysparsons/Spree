@@ -29,7 +29,7 @@ a:hover {
 html,
 body {
   height: 100%;
-  background-color: #F8F9F9;
+  background-color: #2B2F33;
 }
 body {
   font-family: Lato;
@@ -51,11 +51,6 @@ body {
 .cover-container {
   margin-right: auto;
   margin-left: auto;
-}
-
-/* Padding for spacing */
-.inner {
-  padding: 30px;
 }
 
 
@@ -106,22 +101,14 @@ body {
 
 
 /*
- * Cover
- */
+* Upper Section
+*/ 
 
-.cover {
-  padding: 0 20px;
+.upper {
+  background-color: #F8F8F8;
+  height: 300px;
+  width: 100%;
 }
-.cover .btn-lg {
-  padding: 10px 20px;
-  font-weight: bold;
-}
-
-/*.cover img {
-  width: 200px;
-  height: 200px;
-  margin-bottom: 50px;
-}*/
 
 /*
  * Footer
@@ -159,10 +146,6 @@ body {
 }
 
 @media (min-width: 992px) {
-  .masthead,
-  .mastfoot,
-  .cover-container {
-    width: 700px;
-  }
+
 }
 
