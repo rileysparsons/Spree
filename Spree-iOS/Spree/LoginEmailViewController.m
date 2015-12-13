@@ -15,6 +15,8 @@
 
 @property id<SpreeViewModelServices> viewModelServices;
 
+@property MBProgressHUD *progressHUD;
+
 @end
 
 @implementation LoginEmailViewController
@@ -40,6 +42,10 @@
     self.textField.delegate = self;
     self.textField.returnKeyType = UIReturnKeyGo;
     self.titleView.text = @"Log in";
+    
+    self.progressHUD = [[MBProgressHUD alloc] initWithView:self.view];
+    [self.view addSubview:self.progressHUD];
+    
     [self bindToViewModel];
     
 }
@@ -51,16 +57,26 @@
 
 -(void)bindToViewModel{
     RAC(self.viewModel, email) = self.textField.rac_textSignal;
-    
     self.nextButton.rac_command = self.viewModel.checkForExistingUser;
-    [[self.viewModel.checkForExistingUser.executionSignals concat]
-     subscribeNext:^(id value) {
-         NSLog(@"Value: %@", value);
-        [self.delegate logInViewController:self didCheckEmail:self.textField.text userExists:YES];
+    
+    @weakify(self)
+    [[[self.nextButton.rac_command.executing not] deliverOnMainThread] subscribeNext:^(id x) {
+        @strongify(self)
+        if ([x boolValue]){
+            [self.progressHUD hide:YES];
+        } else {
+            [self.progressHUD show:YES];
+        }
     }];
     
+    [[self.viewModel.checkForExistingUser.executionSignals concat]
+     subscribeNext:^(id value) {
+         @strongify(self)
+        [self.delegate logInViewController:self didCheckEmail:self.textField.text userExists:YES];
+    }];
     [self.viewModel.checkForExistingUser.errors
      subscribeNext:^(NSError *error) {
+         @strongify(self)
         if (error.code == 101){
             [self.delegate logInViewController:self didCheckEmail:self.textField.text userExists:NO];
         } else {
