@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "LoginFieldViewController.h"
 #import <JVFloatLabeledTextField/JVFloatLabeledTextField.h>
+#import "EnterEmailViewModel.h"
 
 @protocol LoginEmailViewControllerDelegate;
 
@@ -19,6 +20,7 @@
 @property NSString *domain;
 @property PFUser *user;
 @property id<LoginEmailViewControllerDelegate> delegate;
+@property EnterEmailViewModel *viewModel;
 
 @end
 
