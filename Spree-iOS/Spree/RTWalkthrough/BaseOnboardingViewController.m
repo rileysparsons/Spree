@@ -9,7 +9,7 @@
 #import "BaseOnboardingViewController.h"
 #import "RTWalkthroughPageViewController.h"
 #import "RTWalkthroughViewController.h"
-#import "FinalOnboardingViewController.h"
+#import "LoginViewController.h"
 #import "PostTableViewController.h"
 #import "SpreeUtility.h"
 #import <ParseFacebookUtilsV4/PFFacebookUtils.h>
@@ -41,7 +41,7 @@
     RTWalkthroughPageViewController *pageZero = [stb instantiateViewControllerWithIdentifier:@"walk0"];
     RTWalkthroughPageViewController *pageOne = [stb instantiateViewControllerWithIdentifier:@"walk1"];
     RTWalkthroughPageViewController *pageTwo = [stb instantiateViewControllerWithIdentifier:@"walk2"];
-    FinalOnboardingViewController *final = [stb instantiateViewControllerWithIdentifier:NSStringFromClass(([FinalOnboardingViewController class]))];
+    LoginViewController *final = [stb instantiateViewControllerWithIdentifier:NSStringFromClass(([LoginViewController class]))];
     walkthrough.delegate = self;
     [walkthrough addViewController:pageOne];
     [walkthrough addViewController:pageTwo];

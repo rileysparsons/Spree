@@ -54,7 +54,7 @@
 		142CB0621B5303B600969066 /* PhotoSelectTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 142CB0601B5303B600969066 /* PhotoSelectTableViewCell.xib */; };
 		143D91D21B6BBB1F00E2F493 /* HeaderSlideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 143D91D11B6BBB1F00E2F493 /* HeaderSlideView.m */; };
 		143D91D41B6BBB3F00E2F493 /* HeaderSlideView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 143D91D31B6BBB3F00E2F493 /* HeaderSlideView.xib */; };
-		143D91DB1B6DF7D900E2F493 /* FinalOnboardingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 143D91DA1B6DF7D900E2F493 /* FinalOnboardingViewController.m */; };
+		143D91DB1B6DF7D900E2F493 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 143D91DA1B6DF7D900E2F493 /* LoginViewController.m */; };
 		143D91F11B6E717D00E2F493 /* Walkthrough.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 143D91F01B6E717D00E2F493 /* Walkthrough.storyboard */; };
 		143D91F41B6E7A5200E2F493 /* BaseOnboardingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 143D91F31B6E7A5200E2F493 /* BaseOnboardingViewController.m */; };
 		143D91FB1B71881400E2F493 /* SelectCampusTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 143D91F91B71881400E2F493 /* SelectCampusTableViewCell.m */; };
@@ -257,8 +257,8 @@
 		143D91D01B6BBB1F00E2F493 /* HeaderSlideView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeaderSlideView.h; sourceTree = "<group>"; };
 		143D91D11B6BBB1F00E2F493 /* HeaderSlideView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeaderSlideView.m; sourceTree = "<group>"; };
 		143D91D31B6BBB3F00E2F493 /* HeaderSlideView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeaderSlideView.xib; sourceTree = "<group>"; };
-		143D91D91B6DF7D900E2F493 /* FinalOnboardingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FinalOnboardingViewController.h; sourceTree = "<group>"; };
-		143D91DA1B6DF7D900E2F493 /* FinalOnboardingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FinalOnboardingViewController.m; sourceTree = "<group>"; };
+		143D91D91B6DF7D900E2F493 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		143D91DA1B6DF7D900E2F493 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		143D91F01B6E717D00E2F493 /* Walkthrough.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Walkthrough.storyboard; sourceTree = "<group>"; };
 		143D91F21B6E7A5200E2F493 /* BaseOnboardingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseOnboardingViewController.h; sourceTree = "<group>"; };
 		143D91F31B6E7A5200E2F493 /* BaseOnboardingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseOnboardingViewController.m; sourceTree = "<group>"; };
@@ -797,8 +797,8 @@
 				4E0E82001B40DC0200E18975 /* RTWalkthroughPageViewController.m */,
 				4E0E82011B40DC0200E18975 /* RTWalkthroughViewController.h */,
 				4E0E82021B40DC0200E18975 /* RTWalkthroughViewController.m */,
-				143D91D91B6DF7D900E2F493 /* FinalOnboardingViewController.h */,
-				143D91DA1B6DF7D900E2F493 /* FinalOnboardingViewController.m */,
+				143D91D91B6DF7D900E2F493 /* LoginViewController.h */,
+				143D91DA1B6DF7D900E2F493 /* LoginViewController.m */,
 				143D91F21B6E7A5200E2F493 /* BaseOnboardingViewController.h */,
 				143D91F31B6E7A5200E2F493 /* BaseOnboardingViewController.m */,
 			);
@@ -1129,7 +1129,7 @@
 				14D3B6811BA2973500D665BB /* PostUserTableViewCell.m in Sources */,
 				14A4C99B1BA74B8600C6C2E3 /* PostPaymentViewController.m in Sources */,
 				4ECA453F1B48E0EB006C33FC /* ContactUsViewController.m in Sources */,
-				143D91DB1B6DF7D900E2F493 /* FinalOnboardingViewController.m in Sources */,
+				143D91DB1B6DF7D900E2F493 /* LoginViewController.m in Sources */,
 				145B0AB31B9E1450002FD94E /* SpreePost.m in Sources */,
 				14CAB3D71B5C685D0081979C /* EditPostPhotoSelectViewController.m in Sources */,
 				145B0AC91B9F8100002FD94E /* UIImage+RoundedCornerAdditions.m in Sources */,

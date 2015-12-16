@@ -8,7 +8,7 @@
 
 #import "RTWalkthroughPageViewController.h"
 
-@interface FinalOnboardingViewController : RTWalkthroughPageViewController
+@interface LoginViewController : RTWalkthroughPageViewController
 
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 - (IBAction)loginButtonTapped:(id)sender;

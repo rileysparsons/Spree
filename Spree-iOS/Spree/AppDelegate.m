@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import "BrowseViewController.h"
-#import "FinalOnboardingViewController.h"
+#import "LoginViewController.h"
 #import "RTWalkthroughViewController.h"
 #import "RTWalkthroughPageViewController.h"
 #import "BaseOnboardingViewController.h"

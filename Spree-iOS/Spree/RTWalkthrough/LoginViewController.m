@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Riley Steele Parsons. All rights reserved.
 //
 
-#import "FinalOnboardingViewController.h"
+#import "LoginViewController.h"
 
 @interface FinalOnboardingViewController ()
 
