@@ -488,6 +488,8 @@
 		140CF8D51A3BBFB200134C4D /* Spree */ = {
 			isa = PBXGroup;
 			children = (
+				140CF8DA1A3BBFB200134C4D /* AppDelegate.h */,
+				140CF8DB1A3BBFB200134C4D /* AppDelegate.m */,
 				145820AA1C1CE7830092F9D4 /* LoginViewModel.h */,
 				145820AB1C1CE7830092F9D4 /* LoginViewModel.m */,
 				145820B01C1CE82B0092F9D4 /* SpreeParseConnectionImpl.h */,
@@ -500,8 +502,6 @@
 				145B0ABF1B9F8027002FD94E /* SpreeUtility.m */,
 				14423CE61B9006BC002CB026 /* SpreeConfigManager.h */,
 				14423CE71B9006BC002CB026 /* SpreeConfigManager.m */,
-				140CF8DA1A3BBFB200134C4D /* AppDelegate.h */,
-				140CF8DB1A3BBFB200134C4D /* AppDelegate.m */,
 				140CF91A1A3F755B00134C4D /* ViewControllers */,
 				144D55771B4E11A40003B752 /* Resources */,
 				143D91D51B6D70A400E2F493 /* Custom Views */,

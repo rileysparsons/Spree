@@ -38,5 +38,7 @@
 
 - (IBAction)loginButtonTapped:(id)sender {
     [self.delegate walkthroughPageRequestsClosing:self];
+    
+    
 }
 @end
