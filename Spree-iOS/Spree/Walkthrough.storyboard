@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="bfv-Ws-xAn">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="bfv-Ws-xAn">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -243,7 +244,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ubk-wz-RQI">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ubk-wz-RQI">
                                 <rect key="frame" x="554" y="30" width="30" height="29"/>
                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                                 <state key="normal" title="SKIP">
@@ -254,7 +255,7 @@
                                     <action selector="skip:" destination="iCZ-fu-ugV" eventType="touchUpInside" id="gHd-jR-62N"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7JM-XP-0D0" userLabel="Prev">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7JM-XP-0D0" userLabel="Prev">
                                 <rect key="frame" x="16" y="538" width="53" height="33"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="33" id="1t1-rf-9dk"/>
@@ -273,7 +274,7 @@
                                 <color key="pageIndicatorTintColor" red="0.16666857900000001" green="0.18534906209999999" blue="0.19849607350000001" alpha="0.5" colorSpace="calibratedRGB"/>
                                 <color key="currentPageIndicatorTintColor" red="0.034740071740000003" green="0.29351189729999999" blue="0.58873707060000002" alpha="1" colorSpace="calibratedRGB"/>
                             </pageControl>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bnI-N8-WVV" userLabel="Next">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bnI-N8-WVV" userLabel="Next">
                                 <rect key="frame" x="531" y="538" width="53" height="33"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="53" id="9xS-rG-yty"/>
@@ -287,7 +288,7 @@
                                     <action selector="nextPage:" destination="iCZ-fu-ugV" eventType="touchUpInside" id="tai-xH-R6I"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="spreeLogoSmall" translatesAutoresizingMaskIntoConstraints="NO" id="D0y-jd-kAo">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="spreeLogoSmall" translatesAutoresizingMaskIntoConstraints="NO" id="D0y-jd-kAo">
                                 <rect key="frame" x="16" y="28" width="65" height="80"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="80" id="Lui-7k-39V"/>
@@ -557,8 +558,10 @@
                         <color key="backgroundColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="testCell" id="4fE-zo-8u5">
+                                <rect key="frame" x="0.0" y="22" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4fE-zo-8u5" id="dsx-5W-OFr">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
