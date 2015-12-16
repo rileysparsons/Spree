@@ -83,7 +83,6 @@
 		144D55741B4E11920003B752 /* Lato-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 144D556A1B4E11920003B752 /* Lato-Light.ttf */; };
 		144D55751B4E11920003B752 /* Lato-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 144D556B1B4E11920003B752 /* Lato-LightItalic.ttf */; };
 		144D55761B4E11920003B752 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 144D556C1B4E11920003B752 /* Lato-Regular.ttf */; };
-		145820A91C1CE7690092F9D4 /* EnterEmailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 145820A81C1CE7690092F9D4 /* EnterEmailViewController.m */; };
 		145820AC1C1CE7830092F9D4 /* EnterEmailViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 145820AB1C1CE7830092F9D4 /* EnterEmailViewModel.m */; };
 		145820B21C1CE82B0092F9D4 /* SpreeParseConnectionImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 145820B11C1CE82B0092F9D4 /* SpreeParseConnectionImpl.m */; };
 		145820B81C1CE88F0092F9D4 /* SpreeViewModelServicesImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 145820B71C1CE88F0092F9D4 /* SpreeViewModelServicesImpl.m */; };
@@ -299,8 +298,6 @@
 		144D556A1B4E11920003B752 /* Lato-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Light.ttf"; sourceTree = "<group>"; };
 		144D556B1B4E11920003B752 /* Lato-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-LightItalic.ttf"; sourceTree = "<group>"; };
 		144D556C1B4E11920003B752 /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Regular.ttf"; sourceTree = "<group>"; };
-		145820A71C1CE7690092F9D4 /* EnterEmailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnterEmailViewController.h; sourceTree = "<group>"; };
-		145820A81C1CE7690092F9D4 /* EnterEmailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnterEmailViewController.m; sourceTree = "<group>"; };
 		145820AA1C1CE7830092F9D4 /* EnterEmailViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnterEmailViewModel.h; sourceTree = "<group>"; };
 		145820AB1C1CE7830092F9D4 /* EnterEmailViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnterEmailViewModel.m; sourceTree = "<group>"; };
 		145820AD1C1CE7F10092F9D4 /* SpreeParseConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpreeParseConnection.h; sourceTree = "<group>"; };
@@ -491,8 +488,6 @@
 		140CF8D51A3BBFB200134C4D /* Spree */ = {
 			isa = PBXGroup;
 			children = (
-				145820A71C1CE7690092F9D4 /* EnterEmailViewController.h */,
-				145820A81C1CE7690092F9D4 /* EnterEmailViewController.m */,
 				145820AA1C1CE7830092F9D4 /* EnterEmailViewModel.h */,
 				145820AB1C1CE7830092F9D4 /* EnterEmailViewModel.m */,
 				145820B01C1CE82B0092F9D4 /* SpreeParseConnectionImpl.h */,
@@ -1176,7 +1171,6 @@
 				F78600BD1AEB422100402B1F /* push.m in Sources */,
 				141AECA71B89186400F0012B /* PostingLocationEntryViewController.m in Sources */,
 				14423CE51B8FE3EF002CB026 /* EditPostViewController.m in Sources */,
-				145820A91C1CE7690092F9D4 /* EnterEmailViewController.m in Sources */,
 				142CB0581B52351400969066 /* PostPhotoSelectViewController.m in Sources */,
 				1491BBA41B336F38004F43CA /* ResultsTableViewController.m in Sources */,
 				145820B21C1CE82B0092F9D4 /* SpreeParseConnectionImpl.m in Sources */,
