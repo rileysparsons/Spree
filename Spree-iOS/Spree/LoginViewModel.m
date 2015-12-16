@@ -6,15 +6,15 @@
 //  Copyright © 2015 Riley Steele Parsons. All rights reserved.
 //
 
-#import "EnterEmailViewModel.h"
+#import "LoginViewModel.h"
 
-@interface EnterEmailViewModel ()
+@interface LoginViewModel ()
 
 @property (nonatomic, weak) id<SpreeViewModelServices> services;
 
 @end
 
-@implementation EnterEmailViewModel
+@implementation LoginViewModel
 
 -(instancetype)initWithServices:(id<SpreeViewModelServices>)services{
     self = [super init];

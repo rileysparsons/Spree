@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "SpreeViewModelServices.h"
 
-@interface EnterEmailViewModel : NSObject
+@interface LoginViewModel : NSObject
 
 @property RACCommand *checkForExistingUser;
 @property NSString *email;
