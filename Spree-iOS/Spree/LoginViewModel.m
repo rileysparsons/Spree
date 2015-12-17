@@ -28,11 +28,9 @@
 }
 
 -(void)initialize{
-
     self.loginWithFacebook = [[RACCommand alloc] initWithEnabled:nil signalBlock:^RACSignal *(id input) {
         return [self loginWithFacebookSignal];
     }];
-    
 }
 
 -(RACSignal *)loginWithFacebookSignal {

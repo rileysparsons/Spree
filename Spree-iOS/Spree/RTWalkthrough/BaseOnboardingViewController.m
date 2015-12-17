@@ -118,6 +118,9 @@
     UIStoryboard *stb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     PostTableViewController *postTableViewController = [stb instantiateInitialViewController];
+    SpreeViewModelServicesImpl *viewModelServices = [[SpreeViewModelServicesImpl alloc] init];
+    postTableViewController.viewModel = [[PostTableViewModel alloc] initWithServices:viewModelServices];
+    
     [UIView transitionWithView:appDelegate.window
                       duration:0.5
                        options:UIViewAnimationOptionTransitionFlipFromLeft

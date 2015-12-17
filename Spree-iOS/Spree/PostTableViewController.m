@@ -147,6 +147,11 @@
         }
     }];
 
+    [self bindViewModel];
+}
+
+-(void)bindViewModel{
+    self.refreshControl.rac_command = self.viewModel.refreshPosts;
 }
 
 - (void)viewDidAppear:(BOOL)animated {

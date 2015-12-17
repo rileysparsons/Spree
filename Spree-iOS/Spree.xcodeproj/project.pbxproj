@@ -106,6 +106,8 @@
 		14AB0EC71B87F63300BD06EB /* PostingDataEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14AB0EC61B87F63300BD06EB /* PostingDataEntryViewController.m */; };
 		14C38DA21B27F3BA0039862E /* PostDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C38DA11B27F3BA0039862E /* PostDetailTableViewController.m */; };
 		14C38DB31B28F6870039862E /* PhotoGalleryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C38DB11B28F6870039862E /* PhotoGalleryTableViewCell.m */; };
+		14C763B11C233E71005899F9 /* PostTableViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C763B01C233E71005899F9 /* PostTableViewModel.m */; };
+		14C763B41C23443A005899F9 /* SpreeLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C763B31C23443A005899F9 /* SpreeLocationManager.m */; };
 		14C8214A1B2D1B9100A1B513 /* PhotoGalleryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14C821491B2D1B9100A1B513 /* PhotoGalleryTableViewCell.xib */; };
 		14C8214D1B2FE36C00A1B513 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C8214C1B2FE36C00A1B513 /* ProfileViewController.m */; };
 		14CAB3BF1B5948150081979C /* PhotoDisplayTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14CAB3BD1B5948150081979C /* PhotoDisplayTableViewCell.m */; };
@@ -343,6 +345,10 @@
 		14C38DB01B28F6870039862E /* PhotoGalleryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoGalleryTableViewCell.h; sourceTree = "<group>"; };
 		14C38DB11B28F6870039862E /* PhotoGalleryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoGalleryTableViewCell.m; sourceTree = "<group>"; };
 		14C38DB51B29311D0039862E /* PostUserTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostUserTableViewCell.h; sourceTree = "<group>"; };
+		14C763AF1C233E71005899F9 /* PostTableViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostTableViewModel.h; sourceTree = "<group>"; };
+		14C763B01C233E71005899F9 /* PostTableViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostTableViewModel.m; sourceTree = "<group>"; };
+		14C763B21C23443A005899F9 /* SpreeLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpreeLocationManager.h; sourceTree = "<group>"; };
+		14C763B31C23443A005899F9 /* SpreeLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpreeLocationManager.m; sourceTree = "<group>"; };
 		14C821491B2D1B9100A1B513 /* PhotoGalleryTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotoGalleryTableViewCell.xib; sourceTree = "<group>"; };
 		14C8214B1B2FE36C00A1B513 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		14C8214C1B2FE36C00A1B513 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
@@ -490,16 +496,9 @@
 			children = (
 				140CF8DA1A3BBFB200134C4D /* AppDelegate.h */,
 				140CF8DB1A3BBFB200134C4D /* AppDelegate.m */,
-				145820AA1C1CE7830092F9D4 /* LoginViewModel.h */,
-				145820AB1C1CE7830092F9D4 /* LoginViewModel.m */,
-				143D91D91B6DF7D900E2F493 /* LoginViewController.h */,
-				143D91DA1B6DF7D900E2F493 /* LoginViewController.m */,
-				145820B01C1CE82B0092F9D4 /* SpreeParseConnectionImpl.h */,
-				145820B11C1CE82B0092F9D4 /* SpreeParseConnectionImpl.m */,
-				145820B31C1CE8770092F9D4 /* SpreeViewModelServices.h */,
-				145820B61C1CE88F0092F9D4 /* SpreeViewModelServicesImpl.h */,
-				145820B71C1CE88F0092F9D4 /* SpreeViewModelServicesImpl.m */,
-				145820AD1C1CE7F10092F9D4 /* SpreeParseConnection.h */,
+				14C763AC1C233D48005899F9 /* View Model */,
+				14C763AD1C233D4D005899F9 /* View Controllers */,
+				14C763AE1C233D5F005899F9 /* Model */,
 				145B0ABE1B9F8027002FD94E /* SpreeUtility.h */,
 				145B0ABF1B9F8027002FD94E /* SpreeUtility.m */,
 				14423CE61B9006BC002CB026 /* SpreeConfigManager.h */,
@@ -747,6 +746,41 @@
 				14C38DA11B27F3BA0039862E /* PostDetailTableViewController.m */,
 			);
 			name = "Post Detail";
+			sourceTree = "<group>";
+		};
+		14C763AC1C233D48005899F9 /* View Model */ = {
+			isa = PBXGroup;
+			children = (
+				14C763AF1C233E71005899F9 /* PostTableViewModel.h */,
+				14C763B01C233E71005899F9 /* PostTableViewModel.m */,
+				145820AA1C1CE7830092F9D4 /* LoginViewModel.h */,
+				145820AB1C1CE7830092F9D4 /* LoginViewModel.m */,
+				14C763B21C23443A005899F9 /* SpreeLocationManager.h */,
+				14C763B31C23443A005899F9 /* SpreeLocationManager.m */,
+			);
+			name = "View Model";
+			sourceTree = "<group>";
+		};
+		14C763AD1C233D4D005899F9 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				143D91D91B6DF7D900E2F493 /* LoginViewController.h */,
+				143D91DA1B6DF7D900E2F493 /* LoginViewController.m */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		14C763AE1C233D5F005899F9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				145820B01C1CE82B0092F9D4 /* SpreeParseConnectionImpl.h */,
+				145820B11C1CE82B0092F9D4 /* SpreeParseConnectionImpl.m */,
+				145820B31C1CE8770092F9D4 /* SpreeViewModelServices.h */,
+				145820B61C1CE88F0092F9D4 /* SpreeViewModelServicesImpl.h */,
+				145820B71C1CE88F0092F9D4 /* SpreeViewModelServicesImpl.m */,
+				145820AD1C1CE7F10092F9D4 /* SpreeParseConnection.h */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 		14C821431B2CF9DB00A1B513 /* Parse Subclasses */ = {
@@ -1144,6 +1178,7 @@
 				14423CCB1B8D9A08002CB026 /* SinglePhotoPostShareView.m in Sources */,
 				4EFD06E81BA1528700947AD6 /* ReferralViewController.m in Sources */,
 				14423CD21B8E786B002CB026 /* DoublePhotoPostShareView.m in Sources */,
+				14C763B11C233E71005899F9 /* PostTableViewModel.m in Sources */,
 				14CAB3C31B59539A0081979C /* PhotoSelectFooterView.m in Sources */,
 				140CF8DC1A3BBFB200134C4D /* AppDelegate.m in Sources */,
 				14423CD81B8E9AC5002CB026 /* TriplePhotoPostShareView.m in Sources */,
@@ -1175,6 +1210,7 @@
 				1491BBA41B336F38004F43CA /* ResultsTableViewController.m in Sources */,
 				145820B21C1CE82B0092F9D4 /* SpreeParseConnectionImpl.m in Sources */,
 				14C8214D1B2FE36C00A1B513 /* ProfileViewController.m in Sources */,
+				14C763B41C23443A005899F9 /* SpreeLocationManager.m in Sources */,
 				14FD56E01B2CF6170086A2AE /* PostTitleTableViewCell.m in Sources */,
 				F78600BE1AEB422100402B1F /* recent.m in Sources */,
 				145820AC1C1CE7830092F9D4 /* LoginViewModel.m in Sources */,

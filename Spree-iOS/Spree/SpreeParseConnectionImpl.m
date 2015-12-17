@@ -37,4 +37,27 @@
     }];
 }
 
+-(RACSignal *)refreshPostsForCurrentLocation:(CLLocation *)location{
+    return [RACSignal createSignal:^RACDisposable * (id<RACSubscriber> subscriber) {
+        PFQuery *postQuery = [PFQuery queryWithClassName:@"Post"];
+        
+        double latitude = location.coordinate.latitude;
+        double longitude = location.coordinate.longitude;
+        
+        PFGeoPoint *geopoint = [PFGeoPoint geoPointWithLatitude:latitude longitude:longitude];
+        
+        [postQuery whereKey:@"location" nearGeoPoint:geopoint withinMiles:100];
+        [postQuery findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+            if (!error){
+                NSLog(@"no error here. %lu", (long unsigned)objects.count);
+                [subscriber sendNext:objects];
+                [subscriber sendCompleted];
+            } else {
+                [subscriber sendError:error];
+            }
+        }];
+        return nil;
+    }];
+}
+
 @end

@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 #import "BrowseViewController.h"
+#import "SpreeViewModelServicesImpl.h"
+#import "HomeViewController.h"
 #import "LoginViewController.h"
 #import "RTWalkthroughViewController.h"
 #import "RTWalkthroughPageViewController.h"
@@ -95,6 +97,18 @@
     if (![PFUser currentUser]) {
         [self showOnboardingFlow];
     } else {
+        UITabBarController *tabBarController =  (UITabBarController *)self.window.rootViewController;
+        
+        UINavigationController *homeNavigationController = [[tabBarController viewControllers] objectAtIndex:SpreeCampusTabBarItemIndex];
+        
+        HomeViewController *homeViewController = [homeNavigationController.viewControllers objectAtIndex:0];
+        
+        // Attaching View Model Services to View Model (gives us access to Parse, our model)
+        SpreeViewModelServicesImpl *viewModelServices = [[SpreeViewModelServicesImpl alloc] init];
+        
+        PostTableViewModel *viewModel = [[PostTableViewModel alloc] initWithServices:viewModelServices];
+        homeViewController.viewModel = viewModel;
+        
         UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert |
                                                         UIUserNotificationTypeBadge |
                                                         UIUserNotificationTypeSound);
@@ -104,8 +118,6 @@
         [application registerForRemoteNotifications];
         
     }
-    
-
     
     return YES;
 }

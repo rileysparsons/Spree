@@ -7,12 +7,14 @@
 //
 
 #import "PostDetailTableViewController.h"
+#import "PostTableViewModel.h"
 
 @interface PostTableViewController : PFQueryTableViewController
 
 
 @property (nonatomic, strong) PostDetailTableViewController *postDetailTableViewController;
 @property NSDictionary *postQueryParameters;
+@property PostTableViewModel *viewModel;
 
 - (IBAction)NewPostBarButtonItemPressed:(id)sender;
 -(void)setupRefreshControl;

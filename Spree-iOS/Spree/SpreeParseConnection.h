@@ -14,4 +14,6 @@
 
 -(RACSignal *)loginWithFacebook;
 
+-(RACSignal *)refreshPostsForCurrentLocation:(CLLocation *)location;
+
 @end
