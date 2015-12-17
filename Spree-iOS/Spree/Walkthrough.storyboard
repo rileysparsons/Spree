@@ -358,9 +358,6 @@
                                         <exclude reference="xUa-W4-kgT"/>
                                     </mask>
                                 </variation>
-                                <connections>
-                                    <action selector="loginButtonTapped:" destination="48a-ti-HjF" eventType="touchUpInside" id="PZw-6K-vL9"/>
-                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't miss out on what your campus has to offer" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mvx-fh-eEO">
                                 <rect key="frame" x="16" y="298" width="343" height="72"/>

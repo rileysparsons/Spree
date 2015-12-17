@@ -11,7 +11,9 @@
 
 @implementation SpreeParseConnectionImpl
 
--(RACSignal *)loginWithFacebook:(NSString *)email{
+-(RACSignal *)loginWithFacebook{
+    NSLog(@"This was called");
+    
     return [RACSignal createSignal:^RACDisposable * (id<RACSubscriber> subscriber) {
         // Set permissions required from the facebook user account
         NSArray *permissionsArray = @[ @"user_about_me", @"user_relationships", @"user_birthday", @"user_location"];

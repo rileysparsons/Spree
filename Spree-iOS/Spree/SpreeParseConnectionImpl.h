@@ -11,6 +11,4 @@
 
 @interface SpreeParseConnectionImpl : NSObject <SpreeParseConnection>
 
-
-
 @end

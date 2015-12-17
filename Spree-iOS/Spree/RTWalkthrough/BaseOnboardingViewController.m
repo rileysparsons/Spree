@@ -48,10 +48,13 @@
     LoginViewController *final = [stb instantiateViewControllerWithIdentifier:NSStringFromClass(([LoginViewController class]))];
     // Attaching View Model Services to View Model (gives us access to Parse, our model)
     SpreeViewModelServicesImpl *viewModelServices = [[SpreeViewModelServicesImpl alloc] init];
+
     LoginViewModel *viewModel = [[LoginViewModel alloc] initWithServices: viewModelServices];
     // Linking view model to LoginViewController
     final.viewModel = viewModel;
 
+    
+    
     walkthrough.delegate = self;
     [walkthrough addViewController:pageOne];
     [walkthrough addViewController:pageTwo];
