@@ -13,7 +13,7 @@
 #import "PostingWorkflow.h"
 #import "SpreeUtility.h"
 #import <MBProgressHUD/MBProgressHUD.h>
-#import <MSCellAccessory.h>
+#import <MSCellAccessory/MSCellAccessory.h>
 
 typedef enum : NSUInteger {
     kVerifyEmailAlert,

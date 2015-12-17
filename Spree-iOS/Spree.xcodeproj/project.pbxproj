@@ -54,19 +54,11 @@
 		142CB0621B5303B600969066 /* PhotoSelectTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 142CB0601B5303B600969066 /* PhotoSelectTableViewCell.xib */; };
 		143D91D21B6BBB1F00E2F493 /* HeaderSlideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 143D91D11B6BBB1F00E2F493 /* HeaderSlideView.m */; };
 		143D91D41B6BBB3F00E2F493 /* HeaderSlideView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 143D91D31B6BBB3F00E2F493 /* HeaderSlideView.xib */; };
-		143D91DB1B6DF7D900E2F493 /* FinalOnboardingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 143D91DA1B6DF7D900E2F493 /* FinalOnboardingViewController.m */; };
-		143D91DE1B6DF9AC00E2F493 /* LoginEmailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 143D91DD1B6DF9AC00E2F493 /* LoginEmailViewController.m */; };
-		143D91E11B6DFAE700E2F493 /* LoginWorkflow.m in Sources */ = {isa = PBXBuildFile; fileRef = 143D91E01B6DFAE700E2F493 /* LoginWorkflow.m */; };
-		143D91E71B6DFDAC00E2F493 /* LoginCampusTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 143D91E61B6DFDAC00E2F493 /* LoginCampusTableViewController.m */; };
-		143D91EA1B6DFE7500E2F493 /* LoginAuthorizationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 143D91E91B6DFE7500E2F493 /* LoginAuthorizationViewController.m */; };
-		143D91ED1B6E04D200E2F493 /* LoginCampusHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 143D91EC1B6E04D200E2F493 /* LoginCampusHeaderView.m */; };
-		143D91EF1B6E051A00E2F493 /* LoginCampusHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 143D91EE1B6E051A00E2F493 /* LoginCampusHeaderView.xib */; };
+		143D91DB1B6DF7D900E2F493 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 143D91DA1B6DF7D900E2F493 /* LoginViewController.m */; };
 		143D91F11B6E717D00E2F493 /* Walkthrough.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 143D91F01B6E717D00E2F493 /* Walkthrough.storyboard */; };
 		143D91F41B6E7A5200E2F493 /* BaseOnboardingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 143D91F31B6E7A5200E2F493 /* BaseOnboardingViewController.m */; };
-		143D91F71B6F228C00E2F493 /* LoginPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 143D91F61B6F228C00E2F493 /* LoginPasswordViewController.m */; };
 		143D91FB1B71881400E2F493 /* SelectCampusTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 143D91F91B71881400E2F493 /* SelectCampusTableViewCell.m */; };
 		143D91FC1B71881400E2F493 /* SelectCampusTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 143D91FA1B71881400E2F493 /* SelectCampusTableViewCell.xib */; };
-		143D91FF1B71C75000E2F493 /* LoginFieldViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 143D91FE1B71C75000E2F493 /* LoginFieldViewController.m */; };
 		14423CCB1B8D9A08002CB026 /* SinglePhotoPostShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14423CCA1B8D9A08002CB026 /* SinglePhotoPostShareView.m */; };
 		14423CCD1B8D9AC9002CB026 /* SinglePhotoPostShareView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14423CCC1B8D9AC9002CB026 /* SinglePhotoPostShareView.xib */; };
 		14423CCF1B8E7856002CB026 /* DoublePhotoPostShareView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14423CCE1B8E7856002CB026 /* DoublePhotoPostShareView.xib */; };
@@ -91,6 +83,9 @@
 		144D55741B4E11920003B752 /* Lato-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 144D556A1B4E11920003B752 /* Lato-Light.ttf */; };
 		144D55751B4E11920003B752 /* Lato-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 144D556B1B4E11920003B752 /* Lato-LightItalic.ttf */; };
 		144D55761B4E11920003B752 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 144D556C1B4E11920003B752 /* Lato-Regular.ttf */; };
+		145820AC1C1CE7830092F9D4 /* LoginViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 145820AB1C1CE7830092F9D4 /* LoginViewModel.m */; };
+		145820B21C1CE82B0092F9D4 /* SpreeParseConnectionImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 145820B11C1CE82B0092F9D4 /* SpreeParseConnectionImpl.m */; };
+		145820B81C1CE88F0092F9D4 /* SpreeViewModelServicesImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 145820B71C1CE88F0092F9D4 /* SpreeViewModelServicesImpl.m */; };
 		145B0AB31B9E1450002FD94E /* SpreePost.m in Sources */ = {isa = PBXBuildFile; fileRef = 145B0AB21B9E1450002FD94E /* SpreePost.m */; };
 		145B0AB81B9E1BFB002FD94E /* EDStarRating.m in Sources */ = {isa = PBXBuildFile; fileRef = 145B0AB71B9E1BFB002FD94E /* EDStarRating.m */; };
 		145B0ABB1B9F6999002FD94E /* ChatPostHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 145B0ABA1B9F6999002FD94E /* ChatPostHeader.m */; };
@@ -102,7 +97,6 @@
 		14820B6B1A40CA92008A1430 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14820B6A1A40CA92008A1430 /* MapKit.framework */; };
 		1491BBA41B336F38004F43CA /* ResultsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1491BBA31B336F38004F43CA /* ResultsTableViewController.m */; };
 		149787A21A49F0E40024437D /* UIColor+SpreeColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 149787A11A49F0E40024437D /* UIColor+SpreeColor.m */; };
-		14A26B201B9FD28B001BA122 /* AlternateLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A26B1F1B9FD28B001BA122 /* AlternateLoginViewController.m */; };
 		14A416801B05700600EA4DA2 /* SpreeSprintTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A4167E1B05700600EA4DA2 /* SpreeSprintTableViewCell.m */; };
 		14A416811B05700600EA4DA2 /* SpreeSprintTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14A4167F1B05700600EA4DA2 /* SpreeSprintTableViewCell.xib */; };
 		14A4C99B1BA74B8600C6C2E3 /* PostPaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A4C99A1BA74B8600C6C2E3 /* PostPaymentViewController.m */; };
@@ -137,6 +131,7 @@
 		14F739BF1B783D4800E60619 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F739BE1B783D4800E60619 /* SettingsViewController.m */; };
 		14FD56E01B2CF6170086A2AE /* PostTitleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14FD56DE1B2CF6170086A2AE /* PostTitleTableViewCell.m */; };
 		14FD56E11B2CF6170086A2AE /* PostTitleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14FD56DF1B2CF6170086A2AE /* PostTitleTableViewCell.xib */; };
+		2288C3A43A4B8B6C98EB0524 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B945B740BECA3D7D67B99CD6 /* Pods.framework */; };
 		4E0E82031B40DC0200E18975 /* RTWalkthroughPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E0E82001B40DC0200E18975 /* RTWalkthroughPageViewController.m */; };
 		4E0E82041B40DC0200E18975 /* RTWalkthroughViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E0E82021B40DC0200E18975 /* RTWalkthroughViewController.m */; };
 		4E0E82091B40DD2F00E18975 /* rightarrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E0E82071B40DD2F00E18975 /* rightarrow@2x.png */; };
@@ -145,7 +140,6 @@
 		4ECA453F1B48E0EB006C33FC /* ContactUsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ECA453E1B48E0EB006C33FC /* ContactUsViewController.m */; };
 		4EFD06E81BA1528700947AD6 /* ReferralViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EFD06E71BA1528700947AD6 /* ReferralViewController.m */; };
 		CFFEE9291B0487BF002CD29A /* MeetUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFFEE9281B0487BF002CD29A /* MeetUpViewController.m */; };
-		E2E410A83C907E40B1DB304C /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 38359AA3D2B23F9752A230C8 /* libPods.a */; };
 		F70FACF51AEB501700057E6E /* converter.m in Sources */ = {isa = PBXBuildFile; fileRef = F70FACF41AEB501700057E6E /* converter.m */; };
 		F72B2D031AE64A2D00F9A845 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F72B2D021AE64A2D00F9A845 /* Social.framework */; };
 		F72B2D051AE64A3300F9A845 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F72B2D041AE64A3300F9A845 /* Accounts.framework */; };
@@ -263,28 +257,14 @@
 		143D91D01B6BBB1F00E2F493 /* HeaderSlideView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeaderSlideView.h; sourceTree = "<group>"; };
 		143D91D11B6BBB1F00E2F493 /* HeaderSlideView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeaderSlideView.m; sourceTree = "<group>"; };
 		143D91D31B6BBB3F00E2F493 /* HeaderSlideView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeaderSlideView.xib; sourceTree = "<group>"; };
-		143D91D91B6DF7D900E2F493 /* FinalOnboardingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FinalOnboardingViewController.h; sourceTree = "<group>"; };
-		143D91DA1B6DF7D900E2F493 /* FinalOnboardingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FinalOnboardingViewController.m; sourceTree = "<group>"; };
-		143D91DC1B6DF9AC00E2F493 /* LoginEmailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginEmailViewController.h; sourceTree = "<group>"; };
-		143D91DD1B6DF9AC00E2F493 /* LoginEmailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginEmailViewController.m; sourceTree = "<group>"; };
-		143D91DF1B6DFAE700E2F493 /* LoginWorkflow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginWorkflow.h; sourceTree = "<group>"; };
-		143D91E01B6DFAE700E2F493 /* LoginWorkflow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginWorkflow.m; sourceTree = "<group>"; };
-		143D91E51B6DFDAC00E2F493 /* LoginCampusTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginCampusTableViewController.h; sourceTree = "<group>"; };
-		143D91E61B6DFDAC00E2F493 /* LoginCampusTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginCampusTableViewController.m; sourceTree = "<group>"; };
-		143D91E91B6DFE7500E2F493 /* LoginAuthorizationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginAuthorizationViewController.m; sourceTree = "<group>"; };
-		143D91EB1B6E04D200E2F493 /* LoginCampusHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginCampusHeaderView.h; sourceTree = "<group>"; };
-		143D91EC1B6E04D200E2F493 /* LoginCampusHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginCampusHeaderView.m; sourceTree = "<group>"; };
-		143D91EE1B6E051A00E2F493 /* LoginCampusHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginCampusHeaderView.xib; sourceTree = "<group>"; };
+		143D91D91B6DF7D900E2F493 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginViewController.h; path = RTWalkthrough/LoginViewController.h; sourceTree = "<group>"; };
+		143D91DA1B6DF7D900E2F493 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginViewController.m; path = RTWalkthrough/LoginViewController.m; sourceTree = "<group>"; };
 		143D91F01B6E717D00E2F493 /* Walkthrough.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Walkthrough.storyboard; sourceTree = "<group>"; };
 		143D91F21B6E7A5200E2F493 /* BaseOnboardingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseOnboardingViewController.h; sourceTree = "<group>"; };
 		143D91F31B6E7A5200E2F493 /* BaseOnboardingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseOnboardingViewController.m; sourceTree = "<group>"; };
-		143D91F51B6F228C00E2F493 /* LoginPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginPasswordViewController.h; sourceTree = "<group>"; };
-		143D91F61B6F228C00E2F493 /* LoginPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginPasswordViewController.m; sourceTree = "<group>"; };
 		143D91F81B71881400E2F493 /* SelectCampusTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectCampusTableViewCell.h; sourceTree = "<group>"; };
 		143D91F91B71881400E2F493 /* SelectCampusTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectCampusTableViewCell.m; sourceTree = "<group>"; };
 		143D91FA1B71881400E2F493 /* SelectCampusTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectCampusTableViewCell.xib; sourceTree = "<group>"; };
-		143D91FD1B71C75000E2F493 /* LoginFieldViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginFieldViewController.h; sourceTree = "<group>"; };
-		143D91FE1B71C75000E2F493 /* LoginFieldViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginFieldViewController.m; sourceTree = "<group>"; };
 		14423CC91B8D9A08002CB026 /* SinglePhotoPostShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinglePhotoPostShareView.h; sourceTree = "<group>"; };
 		14423CCA1B8D9A08002CB026 /* SinglePhotoPostShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SinglePhotoPostShareView.m; sourceTree = "<group>"; };
 		14423CCC1B8D9AC9002CB026 /* SinglePhotoPostShareView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SinglePhotoPostShareView.xib; sourceTree = "<group>"; };
@@ -318,6 +298,14 @@
 		144D556A1B4E11920003B752 /* Lato-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Light.ttf"; sourceTree = "<group>"; };
 		144D556B1B4E11920003B752 /* Lato-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-LightItalic.ttf"; sourceTree = "<group>"; };
 		144D556C1B4E11920003B752 /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Regular.ttf"; sourceTree = "<group>"; };
+		145820AA1C1CE7830092F9D4 /* LoginViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewModel.h; sourceTree = "<group>"; };
+		145820AB1C1CE7830092F9D4 /* LoginViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewModel.m; sourceTree = "<group>"; };
+		145820AD1C1CE7F10092F9D4 /* SpreeParseConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpreeParseConnection.h; sourceTree = "<group>"; };
+		145820B01C1CE82B0092F9D4 /* SpreeParseConnectionImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpreeParseConnectionImpl.h; sourceTree = "<group>"; };
+		145820B11C1CE82B0092F9D4 /* SpreeParseConnectionImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpreeParseConnectionImpl.m; sourceTree = "<group>"; };
+		145820B31C1CE8770092F9D4 /* SpreeViewModelServices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpreeViewModelServices.h; sourceTree = "<group>"; };
+		145820B61C1CE88F0092F9D4 /* SpreeViewModelServicesImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpreeViewModelServicesImpl.h; sourceTree = "<group>"; };
+		145820B71C1CE88F0092F9D4 /* SpreeViewModelServicesImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpreeViewModelServicesImpl.m; sourceTree = "<group>"; };
 		145B0AB11B9E1450002FD94E /* SpreePost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpreePost.h; sourceTree = "<group>"; };
 		145B0AB21B9E1450002FD94E /* SpreePost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpreePost.m; sourceTree = "<group>"; };
 		145B0AB61B9E1BFB002FD94E /* EDStarRating.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EDStarRating.h; path = EDStarRating/EDStarRating.h; sourceTree = "<group>"; };
@@ -338,8 +326,6 @@
 		1491BBA31B336F38004F43CA /* ResultsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultsTableViewController.m; sourceTree = "<group>"; };
 		149787A01A49F0E40024437D /* UIColor+SpreeColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+SpreeColor.h"; sourceTree = "<group>"; };
 		149787A11A49F0E40024437D /* UIColor+SpreeColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+SpreeColor.m"; sourceTree = "<group>"; };
-		14A26B1E1B9FD28B001BA122 /* AlternateLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlternateLoginViewController.h; sourceTree = "<group>"; };
-		14A26B1F1B9FD28B001BA122 /* AlternateLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlternateLoginViewController.m; sourceTree = "<group>"; };
 		14A4167D1B05700600EA4DA2 /* SpreeSprintTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpreeSprintTableViewCell.h; sourceTree = "<group>"; };
 		14A4167E1B05700600EA4DA2 /* SpreeSprintTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpreeSprintTableViewCell.m; sourceTree = "<group>"; };
 		14A4167F1B05700600EA4DA2 /* SpreeSprintTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SpreeSprintTableViewCell.xib; sourceTree = "<group>"; };
@@ -352,7 +338,6 @@
 		14AB0EC31B84CA8900BD06EB /* PostingNumberEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostingNumberEntryViewController.m; sourceTree = "<group>"; };
 		14AB0EC51B87F63300BD06EB /* PostingDataEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostingDataEntryViewController.h; sourceTree = "<group>"; };
 		14AB0EC61B87F63300BD06EB /* PostingDataEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostingDataEntryViewController.m; sourceTree = "<group>"; };
-		14B934831B76C6B600DDA5EB /* LoginAuthorizationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginAuthorizationViewController.h; sourceTree = "<group>"; };
 		14C38DA01B27F3BA0039862E /* PostDetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostDetailTableViewController.h; sourceTree = "<group>"; };
 		14C38DA11B27F3BA0039862E /* PostDetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostDetailTableViewController.m; sourceTree = "<group>"; };
 		14C38DB01B28F6870039862E /* PhotoGalleryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoGalleryTableViewCell.h; sourceTree = "<group>"; };
@@ -397,7 +382,6 @@
 		14FD56DD1B2CF6170086A2AE /* PostTitleTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostTitleTableViewCell.h; sourceTree = "<group>"; };
 		14FD56DE1B2CF6170086A2AE /* PostTitleTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostTitleTableViewCell.m; sourceTree = "<group>"; };
 		14FD56DF1B2CF6170086A2AE /* PostTitleTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostTitleTableViewCell.xib; sourceTree = "<group>"; };
-		38359AA3D2B23F9752A230C8 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E0E81FF1B40DC0200E18975 /* RTWalkthroughPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTWalkthroughPageViewController.h; sourceTree = "<group>"; };
 		4E0E82001B40DC0200E18975 /* RTWalkthroughPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTWalkthroughPageViewController.m; sourceTree = "<group>"; };
 		4E0E82011B40DC0200E18975 /* RTWalkthroughViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTWalkthroughViewController.h; sourceTree = "<group>"; };
@@ -410,6 +394,7 @@
 		4EFD06E61BA1528700947AD6 /* ReferralViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReferralViewController.h; sourceTree = "<group>"; };
 		4EFD06E71BA1528700947AD6 /* ReferralViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReferralViewController.m; sourceTree = "<group>"; };
 		A7F573D62D839D22544FF614 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		B945B740BECA3D7D67B99CD6 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFFEE9271B0487BF002CD29A /* MeetUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeetUpViewController.h; sourceTree = "<group>"; };
 		CFFEE9281B0487BF002CD29A /* MeetUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeetUpViewController.m; sourceTree = "<group>"; };
 		DE88A00A12A293397EB0574B /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -465,7 +450,7 @@
 				140CF9271A3FBEEA00134C4D /* QuartzCore.framework in Frameworks */,
 				140CF9251A3FBEDE00134C4D /* MobileCoreServices.framework in Frameworks */,
 				140CF9211A3FBECC00134C4D /* CFNetwork.framework in Frameworks */,
-				E2E410A83C907E40B1DB304C /* libPods.a in Frameworks */,
+				2288C3A43A4B8B6C98EB0524 /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -503,14 +488,22 @@
 		140CF8D51A3BBFB200134C4D /* Spree */ = {
 			isa = PBXGroup;
 			children = (
+				140CF8DA1A3BBFB200134C4D /* AppDelegate.h */,
+				140CF8DB1A3BBFB200134C4D /* AppDelegate.m */,
+				145820AA1C1CE7830092F9D4 /* LoginViewModel.h */,
+				145820AB1C1CE7830092F9D4 /* LoginViewModel.m */,
+				143D91D91B6DF7D900E2F493 /* LoginViewController.h */,
+				143D91DA1B6DF7D900E2F493 /* LoginViewController.m */,
+				145820B01C1CE82B0092F9D4 /* SpreeParseConnectionImpl.h */,
+				145820B11C1CE82B0092F9D4 /* SpreeParseConnectionImpl.m */,
+				145820B31C1CE8770092F9D4 /* SpreeViewModelServices.h */,
+				145820B61C1CE88F0092F9D4 /* SpreeViewModelServicesImpl.h */,
+				145820B71C1CE88F0092F9D4 /* SpreeViewModelServicesImpl.m */,
+				145820AD1C1CE7F10092F9D4 /* SpreeParseConnection.h */,
 				145B0ABE1B9F8027002FD94E /* SpreeUtility.h */,
 				145B0ABF1B9F8027002FD94E /* SpreeUtility.m */,
 				14423CE61B9006BC002CB026 /* SpreeConfigManager.h */,
 				14423CE71B9006BC002CB026 /* SpreeConfigManager.m */,
-				140CF8DA1A3BBFB200134C4D /* AppDelegate.h */,
-				140CF8DB1A3BBFB200134C4D /* AppDelegate.m */,
-				143D91DF1B6DFAE700E2F493 /* LoginWorkflow.h */,
-				143D91E01B6DFAE700E2F493 /* LoginWorkflow.m */,
 				140CF91A1A3F755B00134C4D /* ViewControllers */,
 				144D55771B4E11A40003B752 /* Resources */,
 				143D91D51B6D70A400E2F493 /* Custom Views */,
@@ -600,16 +593,6 @@
 			children = (
 				14A4C9991BA74B8600C6C2E3 /* PostPaymentViewController.h */,
 				14A4C99A1BA74B8600C6C2E3 /* PostPaymentViewController.m */,
-				14A26B1E1B9FD28B001BA122 /* AlternateLoginViewController.h */,
-				14A26B1F1B9FD28B001BA122 /* AlternateLoginViewController.m */,
-				14B934831B76C6B600DDA5EB /* LoginAuthorizationViewController.h */,
-				143D91E91B6DFE7500E2F493 /* LoginAuthorizationViewController.m */,
-				143D91DC1B6DF9AC00E2F493 /* LoginEmailViewController.h */,
-				143D91DD1B6DF9AC00E2F493 /* LoginEmailViewController.m */,
-				143D91FD1B71C75000E2F493 /* LoginFieldViewController.h */,
-				143D91FE1B71C75000E2F493 /* LoginFieldViewController.m */,
-				143D91F51B6F228C00E2F493 /* LoginPasswordViewController.h */,
-				143D91F61B6F228C00E2F493 /* LoginPasswordViewController.m */,
 				14CE47221B6AF41E004FA4D1 /* HomeViewController.h */,
 				14CE47231B6AF41E004FA4D1 /* HomeViewController.m */,
 				140CF8E01A3BBFB200134C4D /* MeViewController.h */,
@@ -636,8 +619,6 @@
 				144D55541B409C060003B752 /* Posting Workflow */,
 				1415FD801A4FB5D3006E99A6 /* Post ViewControllers */,
 				F70FACF21AEB4FF200057E6E /* Messaging */,
-				143D91E51B6DFDAC00E2F493 /* LoginCampusTableViewController.h */,
-				143D91E61B6DFDAC00E2F493 /* LoginCampusTableViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -689,9 +670,6 @@
 				143D91D31B6BBB3F00E2F493 /* HeaderSlideView.xib */,
 				14CE471D1B6AF02A004FA4D1 /* HomeHeaderView.h */,
 				14CE471E1B6AF02A004FA4D1 /* HomeHeaderView.m */,
-				143D91EB1B6E04D200E2F493 /* LoginCampusHeaderView.h */,
-				143D91EE1B6E051A00E2F493 /* LoginCampusHeaderView.xib */,
-				143D91EC1B6E04D200E2F493 /* LoginCampusHeaderView.m */,
 				14CE47201B6AF040004FA4D1 /* HomeHeaderView.xib */,
 			);
 			name = "Custom Views";
@@ -821,8 +799,6 @@
 				4E0E82001B40DC0200E18975 /* RTWalkthroughPageViewController.m */,
 				4E0E82011B40DC0200E18975 /* RTWalkthroughViewController.h */,
 				4E0E82021B40DC0200E18975 /* RTWalkthroughViewController.m */,
-				143D91D91B6DF7D900E2F493 /* FinalOnboardingViewController.h */,
-				143D91DA1B6DF7D900E2F493 /* FinalOnboardingViewController.m */,
 				143D91F21B6E7A5200E2F493 /* BaseOnboardingViewController.h */,
 				143D91F31B6E7A5200E2F493 /* BaseOnboardingViewController.m */,
 			);
@@ -860,7 +836,7 @@
 				140CF9221A3FBED500134C4D /* libz.1.1.3.dylib */,
 				140CF9201A3FBECC00134C4D /* CFNetwork.framework */,
 				140CF91E1A3FBEC400134C4D /* AudioToolbox.framework */,
-				38359AA3D2B23F9752A230C8 /* libPods.a */,
+				B945B740BECA3D7D67B99CD6 /* Pods.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -958,6 +934,7 @@
 				140CF8D01A3BBFB200134C4D /* Frameworks */,
 				140CF8D11A3BBFB200134C4D /* Resources */,
 				3B5FE0450EE21F422A925EDB /* Copy Pods Resources */,
+				8F9BD5289B0EFA35D1B01BB4 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 				149330331A44FB810022DDE9 /* PBXBuildRule */,
@@ -993,7 +970,7 @@
 		140CF8CB1A3BBFB200134C4D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = "Riley Steele Parsons";
 				TargetAttributes = {
 					140CF8D21A3BBFB200134C4D = {
@@ -1067,7 +1044,6 @@
 				1415245F1B4086AA007EE405 /* NewPost.storyboard in Resources */,
 				144D55721B4E11920003B752 /* Lato-HairlineItalic.ttf in Resources */,
 				141AECB81B8A77D400F0012B /* PostMapTableViewCell.xib in Resources */,
-				143D91EF1B6E051A00E2F493 /* LoginCampusHeaderView.xib in Resources */,
 				4E0E82091B40DD2F00E18975 /* rightarrow@2x.png in Resources */,
 				14FD56E11B2CF6170086A2AE /* PostTitleTableViewCell.xib in Resources */,
 				142CB0621B5303B600969066 /* PhotoSelectTableViewCell.xib in Resources */,
@@ -1104,6 +1080,21 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		8F9BD5289B0EFA35D1B01BB4 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		CFD15431FD15B6286166697C /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1131,17 +1122,14 @@
 				F78600BF1AEB422100402B1F /* common.m in Sources */,
 				14CAB3CF1B5C52580081979C /* EditPostFieldViewController.m in Sources */,
 				14423CE21B8FDCF9002CB026 /* EditPostingDateEntryViewController.m in Sources */,
-				143D91E11B6DFAE700E2F493 /* LoginWorkflow.m in Sources */,
 				140CF8E21A3BBFB200134C4D /* MeViewController.m in Sources */,
 				140CF9021A3E086800134C4D /* PostTypeTableViewCell.m in Sources */,
 				145B0ABB1B9F6999002FD94E /* ChatPostHeader.m in Sources */,
 				14CAB3D21B5C54C40081979C /* PostDescriptionTableViewCell.m in Sources */,
 				14D3B6811BA2973500D665BB /* PostUserTableViewCell.m in Sources */,
-				143D91ED1B6E04D200E2F493 /* LoginCampusHeaderView.m in Sources */,
-				143D91EA1B6DFE7500E2F493 /* LoginAuthorizationViewController.m in Sources */,
 				14A4C99B1BA74B8600C6C2E3 /* PostPaymentViewController.m in Sources */,
 				4ECA453F1B48E0EB006C33FC /* ContactUsViewController.m in Sources */,
-				143D91DB1B6DF7D900E2F493 /* FinalOnboardingViewController.m in Sources */,
+				143D91DB1B6DF7D900E2F493 /* LoginViewController.m in Sources */,
 				145B0AB31B9E1450002FD94E /* SpreePost.m in Sources */,
 				14CAB3D71B5C685D0081979C /* EditPostPhotoSelectViewController.m in Sources */,
 				145B0AC91B9F8100002FD94E /* UIImage+RoundedCornerAdditions.m in Sources */,
@@ -1150,7 +1138,6 @@
 				145B0AC01B9F8027002FD94E /* SpreeUtility.m in Sources */,
 				1404739D1ABD308D00C0F8EF /* PostTypeTableViewController.m in Sources */,
 				14AB0EC71B87F63300BD06EB /* PostingDataEntryViewController.m in Sources */,
-				143D91DE1B6DF9AC00E2F493 /* LoginEmailViewController.m in Sources */,
 				14AB0EBF1B82C25D00BD06EB /* PostingInputAccessoryView.m in Sources */,
 				143D91D21B6BBB1F00E2F493 /* HeaderSlideView.m in Sources */,
 				142CB0611B5303B600969066 /* PhotoSelectTableViewCell.m in Sources */,
@@ -1165,7 +1152,6 @@
 				14C38DA21B27F3BA0039862E /* PostDetailTableViewController.m in Sources */,
 				14AB0EC41B84CA8900BD06EB /* PostingNumberEntryViewController.m in Sources */,
 				F78600951AEB3F9100402B1F /* ChatView.m in Sources */,
-				143D91E71B6DFDAC00E2F493 /* LoginCampusTableViewController.m in Sources */,
 				145B0AC71B9F8100002FD94E /* UIImage+AlphaAdditions.m in Sources */,
 				141AECBA1B8A886E00F0012B /* PreviewPostViewController.m in Sources */,
 				149787A21A49F0E40024437D /* UIColor+SpreeColor.m in Sources */,
@@ -1180,17 +1166,18 @@
 				4E0E82041B40DC0200E18975 /* RTWalkthroughViewController.m in Sources */,
 				145B0AC81B9F8100002FD94E /* UIImage+ResizeAdditions.m in Sources */,
 				14A416801B05700600EA4DA2 /* SpreeSprintTableViewCell.m in Sources */,
-				143D91F71B6F228C00E2F493 /* LoginPasswordViewController.m in Sources */,
+				145820B81C1CE88F0092F9D4 /* SpreeViewModelServicesImpl.m in Sources */,
 				141AECC01B8CDD6100F0012B /* EditPostingLocationEntryViewController.m in Sources */,
 				F78600BD1AEB422100402B1F /* push.m in Sources */,
 				141AECA71B89186400F0012B /* PostingLocationEntryViewController.m in Sources */,
 				14423CE51B8FE3EF002CB026 /* EditPostViewController.m in Sources */,
 				142CB0581B52351400969066 /* PostPhotoSelectViewController.m in Sources */,
 				1491BBA41B336F38004F43CA /* ResultsTableViewController.m in Sources */,
+				145820B21C1CE82B0092F9D4 /* SpreeParseConnectionImpl.m in Sources */,
 				14C8214D1B2FE36C00A1B513 /* ProfileViewController.m in Sources */,
 				14FD56E01B2CF6170086A2AE /* PostTitleTableViewCell.m in Sources */,
 				F78600BE1AEB422100402B1F /* recent.m in Sources */,
-				14A26B201B9FD28B001BA122 /* AlternateLoginViewController.m in Sources */,
+				145820AC1C1CE7830092F9D4 /* LoginViewModel.m in Sources */,
 				141AECBD1B8BCF6000F0012B /* PostingDateEntryViewController.m in Sources */,
 				14423CE81B9006BC002CB026 /* SpreeConfigManager.m in Sources */,
 				14EFDAE71A89EC4F007510CC /* TextViewViewController.m in Sources */,
@@ -1205,7 +1192,6 @@
 				141AECB71B8A77D400F0012B /* PostMapTableViewCell.m in Sources */,
 				F7AFBB421AF4CC0A00D3148B /* FindBuyerViewController.m in Sources */,
 				1415244F1B406B55007EE405 /* PostTypeViewController.m in Sources */,
-				143D91FF1B71C75000E2F493 /* LoginFieldViewController.m in Sources */,
 				14CE47241B6AF41E004FA4D1 /* HomeViewController.m in Sources */,
 				14423CD51B8E8F68002CB026 /* PostShareView.m in Sources */,
 				CFFEE9291B0487BF002CD29A /* MeetUpViewController.m in Sources */,
@@ -1277,6 +1263,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1352,6 +1339,7 @@
 				INFOPLIST_FILE = Spree/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.spree.spreemobile;
 				PRODUCT_NAME = Spree;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1373,6 +1361,7 @@
 				INFOPLIST_FILE = Spree/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.spree.spreemobile;
 				PRODUCT_NAME = Spree;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1395,6 +1384,7 @@
 				);
 				INFOPLIST_FILE = Spree/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.spree.spreemobile;
 				PRODUCT_NAME = SpreeTests;
 				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Spree.app/Spree";
@@ -1413,6 +1403,7 @@
 				);
 				INFOPLIST_FILE = Spree/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.spree.spreemobile;
 				PRODUCT_NAME = SpreeTests;
 				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Spree.app/Spree";

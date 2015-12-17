@@ -25,30 +25,30 @@
 #import "PFTaskQueue.h"
 
 @interface PFPinningEventuallyQueue () <PFEventuallyQueueSubclass> {
-    /*!
+    /**
      Queue for reading/writing eventually operations from LDS. Makes all reads/writes atomic
      operations.
      */
     PFTaskQueue *_taskQueue;
 
-    /*!
+    /**
      List of `PFEventuallyPin.uuid` that are currently queued in `_processingQueue`. This contains
      uuid of PFEventuallyPin that's enqueued.
      */
     NSMutableArray *_eventuallyPinUUIDQueue;
 
-    /*!
+    /**
      Map of eventually operation UUID to matching PFEventuallyPin. This contains PFEventuallyPin
      that's enqueued.
      */
     NSMutableDictionary *_uuidToEventuallyPin;
 
-    /*!
+    /**
      Map OperationSetUUID to PFOperationSet
      */
     NSMutableDictionary *_operationSetUUIDToOperationSet;
 
-    /*!
+    /**
      Map OperationSetUUID to PFEventuallyPin
      */
     NSMutableDictionary *_operationSetUUIDToEventuallyPin;
@@ -177,6 +177,7 @@
         }
         case PFEventuallyPinTypeDelete:
             return [eventuallyPin.object _currentDeleteCommandWithSessionToken:eventuallyPin.sessionToken];
+        case PFEventuallyPinTypeCommand:
         default:
             break;
     }
@@ -236,7 +237,6 @@
                 }];
                 break;
             }
-
             case PFEventuallyPinTypeDelete: {
                 task = [task continueWithBlock:^id(BFTask *task) {
                     PFObject *object = eventuallyPin.object;
@@ -245,8 +245,9 @@
                 }];
                 break;
             }
-
-            default:break;
+            case PFEventuallyPinTypeCommand:
+            default:
+                break;
         }
 
         return task;
@@ -260,7 +261,7 @@
     }];
 }
 
-/*!
+/**
  Synchronizes PFObject taskQueue (Many) and PFPinningEventuallyQueue taskQueue (None). Each queue will be held
  until both are ready, matched on operationSetUUID. Once both are ready, the eventually task will run.
  */

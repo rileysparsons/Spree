@@ -2,7 +2,7 @@
  
  MIT License (MIT)
  
- Copyright (c) 2013 Clement CN Tsang
+ Copyright (c) 2015 Clement CN Tsang
  
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -27,7 +27,7 @@
 #import <PureLayout/PureLayout.h>
 #import "CTAssetsPickerDefines.h"
 #import "CTAssetsGridViewCell.h"
-#import "CTAssetCheckmark.h"
+#import "CTAssetsGridSelectedView.h"
 #import "PHAsset+CTAssetsPickerController.h"
 #import "NSDateFormatter+CTAssetsPickerController.h"
 #import "UIImage+CTAssetsPickerController.h"
@@ -38,11 +38,10 @@
 
 @property (nonatomic, strong) PHAsset *asset;
 
-@property (nonatomic, strong) CTAssetCheckmark *checkmark;
 @property (nonatomic, strong) UIImageView *disabledImageView;
 @property (nonatomic, strong) UIView *disabledView;
 @property (nonatomic, strong) UIView *highlightedView;
-@property (nonatomic, strong) UIView *selectedView;
+@property (nonatomic, strong) CTAssetsGridSelectedView *selectedView;
 
 @property (nonatomic, assign) BOOL didSetupConstraints;
 
@@ -62,12 +61,14 @@
         self.isAccessibilityElement = YES;
         self.accessibilityTraits    = UIAccessibilityTraitImage;
         self.enabled                = YES;
+        self.showsSelectionIndex    = NO;
         
         [self setupViews];
     }
     
     return self;
 }
+
 
 #pragma mark - Setup
 
@@ -82,31 +83,48 @@
     disabledImageView.tintColor = CTAssetsPikcerThumbnailTintColor;
     self.disabledImageView = disabledImageView;
     
-    
     UIView *disabledView = [UIView newAutoLayoutView];
-    disabledView.backgroundColor = [UIColor colorWithWhite:1 alpha:0.8];
+    disabledView.backgroundColor = CTAssetsGridViewCellDisabledColor;
     disabledView.hidden = YES;
     [disabledView addSubview:self.disabledImageView];
     self.disabledView = disabledView;
     [self addSubview:self.disabledView];
     
     UIView *highlightedView = [UIView newAutoLayoutView];
-    highlightedView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
+    highlightedView.backgroundColor = CTAssetsGridViewCellHighlightedColor;
     highlightedView.hidden = YES;
     self.highlightedView = highlightedView;
     [self addSubview:self.highlightedView];
     
-    CTAssetCheckmark *checkmark = [CTAssetCheckmark newAutoLayoutView];
-    self.checkmark = checkmark;
-    
-    UIView *selectedView = [UIView newAutoLayoutView];
-    selectedView.backgroundColor = [UIColor colorWithWhite:1 alpha:0.3];
+    CTAssetsGridSelectedView *selectedView = [CTAssetsGridSelectedView newAutoLayoutView];
     selectedView.hidden = YES;
-    [selectedView addSubview:checkmark];
     self.selectedView = selectedView;
     [self addSubview:self.selectedView];
 }
 
+#pragma mark - Apperance
+
+- (UIColor *)disabledColor
+{
+    return self.disabledView.backgroundColor;
+}
+
+- (void)setDisabledColor:(UIColor *)disabledColor
+{
+    UIColor *color = (disabledColor) ? disabledColor : CTAssetsGridViewCellDisabledColor;
+    self.disabledView.backgroundColor = color;
+}
+
+- (UIColor *)highlightedColor
+{
+    return self.highlightedView.backgroundColor;
+}
+
+- (void)setHighlightedColor:(UIColor *)highlightedColor
+{
+    UIColor *color = (highlightedColor) ? highlightedColor : CTAssetsGridViewCellHighlightedColor;
+    self.highlightedView.backgroundColor = color;
+}
 
 
 #pragma mark - Accessors
@@ -129,7 +147,17 @@
     self.selectedView.hidden = !selected;
 }
 
+- (void)setShowsSelectionIndex:(BOOL)showsSelectionIndex
+{
+    _showsSelectionIndex = showsSelectionIndex;
+    self.selectedView.showsSelectionIndex = showsSelectionIndex;
+}
 
+- (void)setSelectionIndex:(NSUInteger)selectionIndex
+{
+    _selectionIndex = selectionIndex;
+    self.selectedView.selectionIndex = selectionIndex;
+}
 
 
 #pragma mark - Update auto layout constraints
@@ -138,7 +166,7 @@
 {
     if (!self.didSetupConstraints)
     {
-        [UIView autoSetPriority:UILayoutPriorityRequired forConstraints:^{
+        [NSLayoutConstraint autoSetPriority:UILayoutPriorityRequired forConstraints:^{
             [self.backgroundView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero];
             [self.disabledView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero];
             [self.highlightedView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero];
@@ -146,10 +174,7 @@
         }];
         
         [self.disabledImageView autoCenterInSuperview];
-        
-        [self.checkmark autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:0];
-        [self.checkmark autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:0];
-        
+
         self.didSetupConstraints = YES;
     }
     
@@ -165,11 +190,15 @@
     [self updateConstraintsIfNeeded];
 }
 
+
 #pragma mark - Accessibility Label
 
 - (NSString *)accessibilityLabel
 {
-    return self.asset.accessibilityLabel;
+    if (self.selectedView.accessibilityLabel)
+        return [NSString stringWithFormat:@"%@, %@", self.selectedView.accessibilityLabel, self.asset.accessibilityLabel];
+    else
+        return self.asset.accessibilityLabel;
 }
 
 @end

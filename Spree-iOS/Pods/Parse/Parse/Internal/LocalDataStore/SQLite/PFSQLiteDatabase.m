@@ -23,13 +23,14 @@
 #import "PFSQLiteDatabaseResult.h"
 #import "PFSQLiteStatement.h"
 #import "Parse_Private.h"
+#import "PFThreadsafety.h"
 
-NSString *const PFSQLiteDatabaseBeginExclusiveOperationCommand = @"BEGIN EXCLUSIVE";
-NSString *const PFSQLiteDatabaseCommitOperationCommand = @"COMMIT";
-NSString *const PFSQLiteDatabaseRollbackOperationCommand = @"ROLLBACK";
+static NSString *const PFSQLiteDatabaseBeginExclusiveOperationCommand = @"BEGIN EXCLUSIVE";
+static NSString *const PFSQLiteDatabaseCommitOperationCommand = @"COMMIT";
+static NSString *const PFSQLiteDatabaseRollbackOperationCommand = @"ROLLBACK";
 
-NSString *const PFSQLiteDatabaseErrorSQLiteDomain = @"SQLite";
-NSString *const PFSQLiteDatabaseErrorPFSQLiteDatabaseDomain = @"PFSQLiteDatabase";
+static NSString *const PFSQLiteDatabaseErrorSQLiteDomain = @"SQLite";
+static NSString *const PFSQLiteDatabaseErrorPFSQLiteDatabaseDomain = @"PFSQLiteDatabase";
 
 int const PFSQLiteDatabaseInvalidArgumenCountErrorCode = 1;
 int const PFSQLiteDatabaseInvalidSQL = 2;
@@ -43,12 +44,12 @@ int const PFSQLiteDatabaseDatabaseAlreadyClosed = 4;
     NSMutableDictionary *_cachedStatements;
 }
 
-/*!
+/**
  Database instance
  */
 @property (nonatomic, assign) sqlite3 *database;
 
-/*!
+/**
  Database path
  */
 @property (nonatomic, copy) NSString *databasePath;
@@ -67,8 +68,17 @@ int const PFSQLiteDatabaseDatabaseAlreadyClosed = 4;
 
     _databaseClosedTaskCompletionSource = [[BFTaskCompletionSource alloc] init];
     _databasePath = [path copy];
-    _databaseQueue = dispatch_queue_create("com.parse.sqlite.db.queue", DISPATCH_QUEUE_SERIAL);
-    _databaseExecutor = [BFExecutor executorWithDispatchQueue:_databaseQueue];
+
+    dispatch_queue_t queue = PFThreadsafetyCreateQueueForObject(self);
+    _databaseQueue = queue;
+    _databaseExecutor = [BFExecutor executorWithBlock:^(dispatch_block_t block) {
+        // Execute asynchrounously on the proper queue.
+        // Seems a bit backwards, but we don't have PFThreadsafetySafeDispatchAsync.
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+            PFThreadsafetySafeDispatchSync(queue, block);
+        });
+    }];
+
     _cachedStatements = [[NSMutableDictionary alloc] init];
 
     return self;
@@ -115,7 +125,7 @@ int const PFSQLiteDatabaseDatabaseAlreadyClosed = 4;
         }
 
         self.database = db;
-        return [BFTask taskWithResult:nil];
+        return nil;
     }];
 }
 
@@ -168,7 +178,7 @@ int const PFSQLiteDatabaseDatabaseAlreadyClosed = 4;
 #pragma mark - Query Methods
 ///--------------------------------------
 
-- (BFTask *)_executeQueryAsync:(NSString *)sql withArgumentsInArray:(NSArray *)args cachingEnabled:(BOOL)enableCaching {
+- (BFTask PF_GENERIC(PFSQLiteDatabaseResult *)*)_executeQueryAsync:(NSString *)sql withArgumentsInArray:(NSArray *)args cachingEnabled:(BOOL)enableCaching {
     int resultCode = 0;
     PFSQLiteStatement *statement = enableCaching ? [self _cachedStatementForQuery:sql] : nil;
     if (!statement) {
@@ -178,7 +188,7 @@ int const PFSQLiteDatabaseDatabaseAlreadyClosed = 4;
             sqlite3_finalize(sqliteStatement);
             return [BFTask taskWithError:[self _errorWithErrorCode:resultCode]];
         }
-        statement = [[PFSQLiteStatement alloc] initWithStatement:sqliteStatement];
+        statement = [[PFSQLiteStatement alloc] initWithStatement:sqliteStatement queue:_databaseQueue];
 
         if (enableCaching) {
             [self _cacheStatement:statement forQuery:sql];
@@ -206,7 +216,7 @@ int const PFSQLiteDatabaseDatabaseAlreadyClosed = 4;
         [self _bindObject:args[idx] toColumn:(idx + 1) inStatement:statement];
     }
 
-    PFSQLiteDatabaseResult *result = [[PFSQLiteDatabaseResult alloc] initWithStatement:statement];
+    PFSQLiteDatabaseResult *result = [[PFSQLiteDatabaseResult alloc] initWithStatement:statement queue:_databaseQueue];
     return [BFTask taskWithResult:result];
 }
 
@@ -216,9 +226,15 @@ int const PFSQLiteDatabaseDatabaseAlreadyClosed = 4;
     }];
 }
 
-- (BFTask *)executeQueryAsync:(NSString *)sql withArgumentsInArray:(NSArray *)args {
+- (BFTask *)executeQueryAsync:(NSString *)query withArgumentsInArray:(nullable NSArray *)args block:(PFSQLiteDatabaseQueryBlock)block {
     return [BFTask taskFromExecutor:_databaseExecutor withBlock:^id {
-        return [self _executeQueryAsync:sql withArgumentsInArray:args cachingEnabled:NO];
+        BFTask PF_GENERIC(PFSQLiteDatabaseResult *)*task = [self _executeQueryAsync:query withArgumentsInArray:args cachingEnabled:NO];
+        return [[task continueImmediatelyWithSuccessBlock:^id(BFTask PF_GENERIC(PFSQLiteDatabaseResult *)*task) {
+            return block(task.result);
+        }] continueImmediatelyWithBlock:^id(BFTask *resultTask) {
+            [task.result close];
+            return resultTask;
+        }];
     }];
 }
 
@@ -233,7 +249,7 @@ int const PFSQLiteDatabaseDatabaseAlreadyClosed = 4;
 
             switch (sqliteResultCode) {
                 case SQLITE_DONE: {
-                    return [BFTask taskWithResult:nil];
+                    return nil;
                 }
                 case SQLITE_ROW: {
                     NSError *error = [self _errorWithErrorCode:PFSQLiteDatabaseInvalidSQL
@@ -250,7 +266,7 @@ int const PFSQLiteDatabaseDatabaseAlreadyClosed = 4;
     }];
 }
 
-/*!
+/**
  bindObject will bind any object supported by PFSQLiteDatabase to query statement.
  Note: sqlite3 query index binding is one-based, while querying result is zero-based.
  */
@@ -302,7 +318,7 @@ int const PFSQLiteDatabaseDatabaseAlreadyClosed = 4;
 #pragma mark - Errors
 ///--------------------------------------
 
-/*!
+/**
  Generates SQLite error. The details of the error code can be seen in: www.sqlite.org/c3ref/errcode.html
  */
 - (NSError *)_errorWithErrorCode:(int)errorCode {
@@ -316,7 +332,7 @@ int const PFSQLiteDatabaseDatabaseAlreadyClosed = 4;
                               domain:PFSQLiteDatabaseErrorSQLiteDomain];
 }
 
-/*!
+/**
  Generates SQLite/PFSQLiteDatabase error.
  */
 - (NSError *)_errorWithErrorCode:(int)errorCode

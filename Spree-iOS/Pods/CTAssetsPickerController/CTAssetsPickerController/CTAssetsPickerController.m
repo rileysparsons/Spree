@@ -2,7 +2,7 @@
  
  MIT License (MIT)
  
- Copyright (c) 2013 Clement CN Tsang
+ Copyright (c) 2015 Clement CN Tsang
  
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -48,7 +48,7 @@ NSString * const CTAssetsPickerDidDeselectAssetNotification = @"CTAssetsPickerDi
 
 
 @interface CTAssetsPickerController ()
-<UISplitViewControllerDelegate, UINavigationControllerDelegate>
+<PHPhotoLibraryChangeObserver, UISplitViewControllerDelegate, UINavigationControllerDelegate>
 
 @property (nonatomic, assign) BOOL shouldCollapseDetailViewController;
 
@@ -76,6 +76,7 @@ NSString * const CTAssetsPickerDidDeselectAssetNotification = @"CTAssetsPickerDi
         _showsEmptyAlbums                   = YES;
         _showsNumberOfAssets                = YES;
         _alwaysEnableDoneButton             = NO;
+        _showsSelectionIndex                = NO;
         _defaultAssetCollection             = PHAssetCollectionSubtypeAny;
         
         [self initAssetCollectionSubtypes];
@@ -93,11 +94,13 @@ NSString * const CTAssetsPickerDidDeselectAssetNotification = @"CTAssetsPickerDi
     [self setupEmptyViewController];
     [self checkAuthorizationStatus];
     [self addKeyValueObserver];
+    [self registerChangeObserver];
 }
 
 - (void)dealloc
 {
     [self removeKeyValueObserver];
+    [self unregisterChangeObserver];
 }
 
 - (UIViewController *)childViewControllerForStatusBarStyle
@@ -132,13 +135,23 @@ NSString * const CTAssetsPickerDidDeselectAssetNotification = @"CTAssetsPickerDi
       [NSNumber numberWithInt:PHAssetCollectionSubtypeSmartAlbumTimelapses],
       [NSNumber numberWithInt:PHAssetCollectionSubtypeSmartAlbumBursts],
       [NSNumber numberWithInt:PHAssetCollectionSubtypeSmartAlbumAllHidden],
-      [NSNumber numberWithInt:PHAssetCollectionSubtypeSmartAlbumGeneric],      
+      [NSNumber numberWithInt:PHAssetCollectionSubtypeSmartAlbumGeneric],
       [NSNumber numberWithInt:PHAssetCollectionSubtypeAlbumRegular],
       [NSNumber numberWithInt:PHAssetCollectionSubtypeAlbumSyncedAlbum],
       [NSNumber numberWithInt:PHAssetCollectionSubtypeAlbumSyncedEvent],
       [NSNumber numberWithInt:PHAssetCollectionSubtypeAlbumSyncedFaces],
       [NSNumber numberWithInt:PHAssetCollectionSubtypeAlbumImported],
       [NSNumber numberWithInt:PHAssetCollectionSubtypeAlbumCloudShared]];
+    
+    // Add iOS 9's new albums
+    if ([[PHAsset new] respondsToSelector:@selector(sourceType)])
+    {
+        NSMutableArray *subtypes = [NSMutableArray arrayWithArray:self.assetCollectionSubtypes];
+        [subtypes insertObject:[NSNumber numberWithInt:PHAssetCollectionSubtypeSmartAlbumSelfPortraits] atIndex:4];
+        [subtypes insertObject:[NSNumber numberWithInt:PHAssetCollectionSubtypeSmartAlbumScreenshots] atIndex:10];
+        
+        self.assetCollectionSubtypes = [NSArray arrayWithArray:subtypes];
+    }
 }
 
 - (void)initThumbnailRequestOptions
@@ -364,7 +377,12 @@ NSString * const CTAssetsPickerDidDeselectAssetNotification = @"CTAssetsPickerDi
 
 - (void)removeKeyValueObserver
 {
-    [self removeObserver:self forKeyPath:@"selectedAssets"];
+    @try {
+        [self removeObserver:self forKeyPath:@"selectedAssets"];
+    }
+    @catch (NSException *exception) {
+        // do nothing
+    }
 }
 
 
@@ -378,6 +396,45 @@ NSString * const CTAssetsPickerDidDeselectAssetNotification = @"CTAssetsPickerDi
         [self postSelectedAssetsDidChangeNotification:[object valueForKey:keyPath]];
     }
 }
+
+
+#pragma mark - Photo library change observer
+
+- (void)registerChangeObserver
+{
+    [[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:self];
+}
+
+- (void)unregisterChangeObserver
+{
+    [[PHPhotoLibrary sharedPhotoLibrary] unregisterChangeObserver:self];
+}
+
+
+
+#pragma mark - Photo library changed
+
+- (void)photoLibraryDidChange:(PHChange *)changeInstance
+{
+    // Call might come on any background queue. Re-dispatch to the main queue to handle it.
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        NSMutableArray *deselectAssets = [NSMutableArray new];
+        
+        for (PHAsset *asset in self.selectedAssets)
+        {
+            PHObjectChangeDetails *changeDetails = [changeInstance changeDetailsForObject:asset];
+    
+            if ([changeDetails objectWasDeleted])
+                [deselectAssets addObject:asset];
+        }
+        
+        // Deselect asset if it was deleted from library
+        for (PHAsset *asset in deselectAssets)
+            [self deselectAsset:asset];
+    });
+}
+
 
 
 #pragma mark - Toggle button

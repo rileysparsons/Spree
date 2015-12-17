@@ -1,5 +1,7 @@
 source 'https://github.com/CocoaPods/Specs.git'
 
+use_frameworks!
+
 pod 'JSQMessagesViewController', :git => 'https://github.com/jessesquires/JSQMessagesViewController.git', :branch => 'develop'
 pod 'Parse'
 pod 'ParseUI'
@@ -16,4 +18,5 @@ pod 'FBSDKLoginKit'
 pod 'SAMTextView'
 pod 'RCSLabeledIconButton'
 pod 'MBProgressHUD'
+pod 'ReactiveCocoa', '= 4.0.0-alpha-3'
 pod 'Branch', '0.10.9'

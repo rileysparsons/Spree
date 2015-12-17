@@ -2,7 +2,7 @@
  
  MIT License (MIT)
  
- Copyright (c) 2013 Clement CN Tsang
+ Copyright (c) 2015 Clement CN Tsang
  
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -25,6 +25,9 @@
  */
 
 #import "PHAsset+CTAssetsPickerController.h"
+#import "UIImage+CTAssetsPickerController.h"
+
+
 
 @implementation PHAsset (CTAssetsPickerController)
 
@@ -46,6 +49,25 @@
 - (BOOL)ctassetsPickerIsTimelapseVideo
 {
     return (self.mediaType == PHAssetMediaTypeVideo && (self.mediaSubtypes & PHAssetMediaSubtypeVideoTimelapse));    
+}
+
+- (UIImage *)badgeImage
+{
+    NSString *imageName;
+    
+    if (self.ctassetsPickerIsHighFrameRateVideo)
+        imageName = @"BadgeSlomoSmall";
+    
+    else if (self.ctassetsPickerIsTimelapseVideo)
+        imageName = @"BadgeTimelapseSmall";
+    
+    else if (self.ctassetsPickerIsVideo)
+        imageName = @"BadgeVideoSmall";
+    
+    if (imageName)
+        return [[UIImage ctassetsPickerImageNamed:imageName] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    else
+        return nil;
 }
 
 - (NSString *)ctassetsPickerAccessibilityLabel

@@ -11,16 +11,15 @@
 
 #import <Parse/PFConstants.h>
 
+#import "PFDataProvider.h"
+
 @class BFTask PF_GENERIC(__covariant BFGenericType);
 @class PFConfig;
 @class PFCurrentConfigController;
-@class PFFileManager;
-@protocol PFCommandRunning;
 
 @interface PFConfigController : NSObject
 
-@property (nonatomic, strong, readonly) PFFileManager *fileManager;
-@property (nonatomic, strong, readonly) id<PFCommandRunning> commandRunner;
+@property (nonatomic, weak, readonly) id<PFPersistenceControllerProvider, PFCommandRunnerProvider> dataSource;
 
 @property (nonatomic, strong, readonly) PFCurrentConfigController *currentConfigController;
 
@@ -29,19 +28,18 @@
 ///--------------------------------------
 
 - (instancetype)init NS_UNAVAILABLE;
-- (instancetype)initWithFileManager:(PFFileManager *)fileManager
-                      commandRunner:(id<PFCommandRunning>)commandRunner NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithDataSource:(id<PFPersistenceControllerProvider, PFCommandRunnerProvider>)dataSource NS_DESIGNATED_INITIALIZER;
 
 ///--------------------------------------
 /// @name Fetch
 ///--------------------------------------
 
-/*!
+/**
  Fetches current config from network async.
 
  @param sessionToken Current user session token.
 
- @returns `BFTask` with result set to `PFConfig`.
+ @return `BFTask` with result set to `PFConfig`.
  */
 - (BFTask *)fetchConfigAsyncWithSessionToken:(NSString *)sessionToken;
 

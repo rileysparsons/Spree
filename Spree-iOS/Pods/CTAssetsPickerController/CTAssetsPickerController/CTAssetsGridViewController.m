@@ -2,7 +2,7 @@
  
  MIT License (MIT)
  
- Copyright (c) 2013 Clement CN Tsang
+ Copyright (c) 2015 Clement CN Tsang
  
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -28,11 +28,13 @@
 #import "CTAssetsPickerController.h"
 #import "CTAssetsPickerController+Internal.h"
 #import "CTAssetsGridViewController.h"
+#import "CTAssetsGridView.h"
 #import "CTAssetsGridViewLayout.h"
 #import "CTAssetsGridViewCell.h"
 #import "CTAssetsGridViewFooter.h"
 #import "CTAssetsPickerNoAssetsView.h"
 #import "CTAssetsPageViewController.h"
+#import "CTAssetsPageViewController+Internal.h"
 #import "CTAssetsViewControllerTransition.h"
 #import "UICollectionView+CTAssetsPickerController.h"
 #import "NSIndexSet+CTAssetsPickerController.h"
@@ -98,7 +100,6 @@ NSString * const CTAssetsGridViewFooterIdentifier = @"CTAssetsGridViewFooterIden
 {
     [super viewDidLoad];
     [self setupViews];
-    [self setupButtons];
     [self registerChangeObserver];
     [self addGestureRecognizer];
     [self addNotificationObserver];
@@ -108,6 +109,7 @@ NSString * const CTAssetsGridViewFooterIdentifier = @"CTAssetsGridViewFooterIden
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self setupButtons];
     [self setupAssets];
     [self updateTitle:self.picker.selectedAssets];
     [self updateButton:self.picker.selectedAssets];
@@ -165,16 +167,25 @@ NSString * const CTAssetsGridViewFooterIdentifier = @"CTAssetsGridViewFooterIden
 
 - (void)setupViews
 {
-    self.collectionView.backgroundColor = [UIColor whiteColor];
+    self.collectionView.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
+    CTAssetsGridView *gridView = [CTAssetsGridView new];
+    [self.view insertSubview:gridView atIndex:0];
+    [self.view setNeedsUpdateConstraints];
 }
 
 - (void)setupButtons
 {
-    self.navigationItem.rightBarButtonItem =
-    [[UIBarButtonItem alloc] initWithTitle:CTAssetsPickerLocalizedString(@"Done", nil)
-                                     style:UIBarButtonItemStyleDone
-                                    target:self.picker
-                                    action:@selector(finishPickingAssets:)];
+    if (self.navigationItem.rightBarButtonItem == nil)
+    {
+        NSString *title = (self.picker.doneButtonTitle) ?
+        self.picker.doneButtonTitle : CTAssetsPickerLocalizedString(@"Done", nil);
+        
+        self.navigationItem.rightBarButtonItem =
+        [[UIBarButtonItem alloc] initWithTitle:title
+                                         style:UIBarButtonItemStyleDone
+                                        target:self.picker
+                                        action:@selector(finishPickingAssets:)];
+    }
 }
 
 - (void)setupAssets
@@ -366,13 +377,15 @@ NSString * const CTAssetsGridViewFooterIdentifier = @"CTAssetsGridViewFooterIden
 }
 
 
-#pragma mark - Did de/select asset
+#pragma mark - Did de/select asset notifications
 
 - (void)assetsPickerDidSelectAsset:(NSNotification *)notification
 {
     PHAsset *asset = (PHAsset *)notification.object;
     NSIndexPath *indexPath = [NSIndexPath indexPathForItem:[self.fetchResult indexOfObject:asset] inSection:0];
     [self.collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+    
+    [self updateSelectionOrderLabels];
 }
 
 - (void)assetsPickerDidDeselectAsset:(NSNotification *)notification
@@ -380,7 +393,23 @@ NSString * const CTAssetsGridViewFooterIdentifier = @"CTAssetsGridViewFooterIden
     PHAsset *asset = (PHAsset *)notification.object;
     NSIndexPath *indexPath = [NSIndexPath indexPathForItem:[self.fetchResult indexOfObject:asset] inSection:0];
     [self.collectionView deselectItemAtIndexPath:indexPath animated:NO];
+    
+    [self updateSelectionOrderLabels];
 }
+
+
+#pragma mark - Update Selection Order Labels
+
+- (void)updateSelectionOrderLabels
+{
+    for (NSIndexPath *indexPath in [self.collectionView indexPathsForSelectedItems])
+    {
+        PHAsset *asset = [self assetAtIndexPath:indexPath];
+        CTAssetsGridViewCell *cell = (CTAssetsGridViewCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
+        cell.selectionIndex = [self.picker.selectedAssets indexOfObject:asset];
+    }
+}
+
 
 #pragma mark - Gesture recognizer
 
@@ -403,6 +432,7 @@ NSString * const CTAssetsGridViewFooterIdentifier = @"CTAssetsGridViewFooterIden
         NSIndexPath *indexPath  = [self.collectionView indexPathForItemAtPoint:point];
         
         CTAssetsPageViewController *vc = [[CTAssetsPageViewController alloc] initWithFetchResult:self.fetchResult];
+        vc.allowsSelection = YES;
         vc.pageIndex = indexPath.item;
         
         [self.navigationController pushViewController:vc animated:YES];
@@ -596,12 +626,15 @@ NSString * const CTAssetsGridViewFooterIdentifier = @"CTAssetsGridViewFooterIden
     else
         cell.enabled = YES;
     
+    cell.showsSelectionIndex = self.picker.showsSelectionIndex;
+    
     // XXX
     // Setting `selected` property blocks further deselection.
     // Have to call selectItemAtIndexPath too. ( ref: http://stackoverflow.com/a/17812116/1648333 )
     if ([self.picker.selectedAssets containsObject:asset])
     {
         cell.selected = YES;
+        cell.selectionIndex = [self.picker.selectedAssets indexOfObject:asset];
         [collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
     }
     

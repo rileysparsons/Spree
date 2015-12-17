@@ -2,7 +2,7 @@
  
  MIT License (MIT)
  
- Copyright (c) 2013 Clement CN Tsang
+ Copyright (c) 2015 Clement CN Tsang
  
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -27,6 +27,7 @@
 #import <UIKit/UIKit.h>
 #import "CTAssetItemViewController.h"
 #import "CTAssetPlayButton.h"
+#import "CTAssetSelectionButton.h"
 
 
 
@@ -38,11 +39,14 @@ extern NSString * const CTAssetScrollViewPlayerWillPauseNotification;
 
 @interface CTAssetScrollView : UIScrollView
 
+@property (nonatomic, assign) BOOL allowsSelection;
+
 @property (nonatomic, strong, readonly) UIImage *image;
 @property (nonatomic, strong, readonly) AVPlayer *player;
 
 @property (nonatomic, strong, readonly) UIImageView *imageView;
 @property (nonatomic, strong, readonly) CTAssetPlayButton *playButton;
+@property (nonatomic, strong, readonly) CTAssetSelectionButton *selectionButton;
 
 
 - (void)startActivityAnimating;

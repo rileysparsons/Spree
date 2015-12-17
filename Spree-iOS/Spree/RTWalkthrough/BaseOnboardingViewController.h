@@ -8,12 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "RTWalkthroughViewController.h"
-#import "LoginEmailViewController.h"
-#import "LoginPasswordViewController.h"
-#import "LoginAuthorizationViewController.h"
-#import "LoginCampusTableViewController.h"
 
-@interface BaseOnboardingViewController : UIViewController <RTWalkthroughViewControllerDelegate, LoginAuthorizationViewControllerDelegate, LoginEmailViewControllerDelegate, LoginPasswordViewControllerDelegate, LoginCampusTableViewControllerDelegate>
+@interface BaseOnboardingViewController : UIViewController <RTWalkthroughViewControllerDelegate>
 
 -(void)startOnboarding;
 

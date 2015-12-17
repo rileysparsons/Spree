@@ -2,7 +2,7 @@
  
  MIT License (MIT)
  
- Copyright (c) 2013 Clement CN Tsang
+ Copyright (c) 2015 Clement CN Tsang
  
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -25,6 +25,9 @@
  */
 
 #import "PHAssetCollection+CTAssetsPickerController.h"
+#import "UIImage+CTAssetsPickerController.h"
+
+
 
 @implementation PHAssetCollection (CTAssetsPickerController)
 
@@ -33,10 +36,67 @@
     return (subtype >= PHAssetCollectionSubtypeSmartAlbumGeneric) ? PHAssetCollectionTypeSmartAlbum : PHAssetCollectionTypeAlbum;
 }
 
-- (NSInteger)ctassetPikcerCountOfAssetsFetchedWithOptions:(PHFetchOptions *)fetchOptions
+- (NSUInteger)ctassetPikcerCountOfAssetsFetchedWithOptions:(PHFetchOptions *)fetchOptions
 {
     PHFetchResult *result = [PHAsset fetchAssetsInAssetCollection:self options:fetchOptions];
     return result.count;
+}
+
+- (UIImage *)badgeImage
+{
+    NSString *imageName;
+    
+    switch (self.assetCollectionSubtype)
+    {
+        case PHAssetCollectionSubtypeSmartAlbumUserLibrary:
+            imageName = @"BadgeAllPhotos";
+            break;
+            
+        case PHAssetCollectionSubtypeSmartAlbumPanoramas:
+            imageName = @"BadgePanorama";
+            break;
+            
+        case PHAssetCollectionSubtypeSmartAlbumVideos:
+            imageName = @"BadgeVideo";
+            break;
+            
+        case PHAssetCollectionSubtypeSmartAlbumFavorites:
+            imageName = @"BadgeFavorites";
+            break;
+            
+        case PHAssetCollectionSubtypeSmartAlbumTimelapses:
+            imageName = @"BadgeTimelapse";
+            break;
+            
+        case PHAssetCollectionSubtypeSmartAlbumRecentlyAdded:
+            imageName = @"BadgeLastImport";
+            break;
+            
+        case PHAssetCollectionSubtypeSmartAlbumBursts:
+            imageName = @"BadgeBurst";
+            break;
+            
+        case PHAssetCollectionSubtypeSmartAlbumSlomoVideos:
+            imageName = @"BadgeSlomo";
+            break;
+            
+        case PHAssetCollectionSubtypeSmartAlbumScreenshots:
+            imageName = @"BadgeScreenshots";
+            break;
+            
+        case PHAssetCollectionSubtypeSmartAlbumSelfPortraits:
+            imageName = @"BadgeSelfPortraits";
+            break;
+            
+        default:
+            imageName = nil;
+            break;
+    }
+    
+    if (imageName)
+        return [[UIImage ctassetsPickerImageNamed:imageName] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    else
+        return nil;
 }
 
 
