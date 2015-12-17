@@ -11,9 +11,7 @@
 
 @interface LoginViewModel : NSObject
 
-@property RACCommand *checkForExistingUser;
-@property NSString *email;
-@property BOOL userExists;
+@property RACCommand* loginWithFacebook;
 
 -(instancetype)initWithServices: (id<SpreeViewModelServices>)services;
 

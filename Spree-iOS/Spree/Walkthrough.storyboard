@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="bfv-Ws-xAn">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -329,7 +330,7 @@
         <!--Login View Controller-->
         <scene sceneID="CJd-CJ-CZ2">
             <objects>
-                <viewController storyboardIdentifier="FinalOnboardingViewController" id="48a-ti-HjF" customClass="LoginViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginViewController" id="48a-ti-HjF" customClass="LoginViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="KaJ-XA-uYX"/>
                         <viewControllerLayoutGuide type="bottom" id="zf2-xz-70s"/>
@@ -358,7 +359,7 @@
                                     </mask>
                                 </variation>
                                 <connections>
-                                    <action selector="loginButtonTapped:" destination="48a-ti-HjF" eventType="touchUpInside" id="K8T-MI-bRl"/>
+                                    <action selector="loginButtonTapped:" destination="48a-ti-HjF" eventType="touchUpInside" id="PZw-6K-vL9"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't miss out on what your campus has to offer" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mvx-fh-eEO">

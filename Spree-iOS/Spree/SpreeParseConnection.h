@@ -12,6 +12,6 @@
 @protocol SpreeParseConnection <NSObject>
 
 
--(RACSignal *)checkIfUserWithEmailExists:(NSString *)email;
+-(RACSignal *)loginWithFacebook;
 
 @end

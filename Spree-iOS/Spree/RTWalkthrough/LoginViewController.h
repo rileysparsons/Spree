@@ -7,10 +7,11 @@
 //
 
 #import "RTWalkthroughPageViewController.h"
+#import "LoginViewModel.h"
 
 @interface LoginViewController : RTWalkthroughPageViewController
 
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
-- (IBAction)loginButtonTapped:(id)sender;
+@property LoginViewModel *viewModel;
 
 @end

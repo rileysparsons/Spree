@@ -27,19 +27,14 @@
 
 -(void)initialize{
     
-    RACSignal *validEmailEntered = [[RACObserve(self, email) map:^id(NSString *text) {
-        NSLog(@"%lu", (unsigned long)text.length);
-        return @(text.length > 3);
-    }] distinctUntilChanged];
-    
-    self.checkForExistingUser = [[RACCommand alloc] initWithEnabled:validEmailEntered signalBlock:^RACSignal *(id input) {
-        return [self checkForExistingUserSignal];
+    self.loginWithFacebook = [[RACCommand alloc] initWithEnabled:nil signalBlock:^RACSignal *(id input) {
+        return [self loginWithFacebookSignal];
     }];
+    
 }
 
--(RACSignal *)checkForExistingUserSignal {
-    NSString *fullEmail = [NSString stringWithFormat:@"%@@scu.edu", self.email];
-    return [[self.services getParseConnection] checkIfUserWithEmailExists:fullEmail];
+-(RACSignal *)loginWithFacebookSignal {
+    return [[self.services getParseConnection] loginWithFacebook];
 }
 
 @end

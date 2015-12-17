@@ -34,7 +34,7 @@ PODS:
   - JVFloatLabeledTextField (1.1.0)
   - MBProgressHUD (0.9.1)
   - MSCellAccessory (1.1.2)
-  - Parse (1.10.0):
+  - Parse (1.11.0):
     - Bolts/Tasks (~> 1.5)
   - ParseCrashReporting (1.9.2):
     - Bolts/Tasks (~> 1.5)
@@ -108,7 +108,7 @@ SPEC CHECKSUMS:
   JVFloatLabeledTextField: ea4a3d8387ddd43724c472bb2b8ab39b79af05d4
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   MSCellAccessory: 8265f3cd2386c1f372da00232472605ab11426e4
-  Parse: 90b2544822200f84b18bfacc4e8b0a3a6c3584a2
+  Parse: 886af46a0a677402f6374bb97ac212e795f70afe
   ParseCrashReporting: 33b760facc649d4fd99eef8f35dcda6a406099e5
   ParseFacebookUtilsV4: eab9b4ade12f0800b4d30f6b808bca55ce17a0e9
   ParseUI: c2bcdfbb00330e464b5b773266ae221697a3bb7b

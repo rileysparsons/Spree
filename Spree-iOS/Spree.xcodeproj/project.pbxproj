@@ -257,8 +257,8 @@
 		143D91D01B6BBB1F00E2F493 /* HeaderSlideView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeaderSlideView.h; sourceTree = "<group>"; };
 		143D91D11B6BBB1F00E2F493 /* HeaderSlideView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeaderSlideView.m; sourceTree = "<group>"; };
 		143D91D31B6BBB3F00E2F493 /* HeaderSlideView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeaderSlideView.xib; sourceTree = "<group>"; };
-		143D91D91B6DF7D900E2F493 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
-		143D91DA1B6DF7D900E2F493 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		143D91D91B6DF7D900E2F493 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginViewController.h; path = RTWalkthrough/LoginViewController.h; sourceTree = "<group>"; };
+		143D91DA1B6DF7D900E2F493 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginViewController.m; path = RTWalkthrough/LoginViewController.m; sourceTree = "<group>"; };
 		143D91F01B6E717D00E2F493 /* Walkthrough.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Walkthrough.storyboard; sourceTree = "<group>"; };
 		143D91F21B6E7A5200E2F493 /* BaseOnboardingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseOnboardingViewController.h; sourceTree = "<group>"; };
 		143D91F31B6E7A5200E2F493 /* BaseOnboardingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseOnboardingViewController.m; sourceTree = "<group>"; };
@@ -492,6 +492,8 @@
 				140CF8DB1A3BBFB200134C4D /* AppDelegate.m */,
 				145820AA1C1CE7830092F9D4 /* LoginViewModel.h */,
 				145820AB1C1CE7830092F9D4 /* LoginViewModel.m */,
+				143D91D91B6DF7D900E2F493 /* LoginViewController.h */,
+				143D91DA1B6DF7D900E2F493 /* LoginViewController.m */,
 				145820B01C1CE82B0092F9D4 /* SpreeParseConnectionImpl.h */,
 				145820B11C1CE82B0092F9D4 /* SpreeParseConnectionImpl.m */,
 				145820B31C1CE8770092F9D4 /* SpreeViewModelServices.h */,
@@ -797,8 +799,6 @@
 				4E0E82001B40DC0200E18975 /* RTWalkthroughPageViewController.m */,
 				4E0E82011B40DC0200E18975 /* RTWalkthroughViewController.h */,
 				4E0E82021B40DC0200E18975 /* RTWalkthroughViewController.m */,
-				143D91D91B6DF7D900E2F493 /* LoginViewController.h */,
-				143D91DA1B6DF7D900E2F493 /* LoginViewController.m */,
 				143D91F21B6E7A5200E2F493 /* BaseOnboardingViewController.h */,
 				143D91F31B6E7A5200E2F493 /* BaseOnboardingViewController.m */,
 			);

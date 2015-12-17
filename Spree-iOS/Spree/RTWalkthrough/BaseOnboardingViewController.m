@@ -10,6 +10,9 @@
 #import "RTWalkthroughPageViewController.h"
 #import "RTWalkthroughViewController.h"
 #import "LoginViewController.h"
+#import "LoginViewModel.h"
+#import "SpreeViewModelServicesImpl.h"
+
 #import "PostTableViewController.h"
 #import "SpreeUtility.h"
 #import <ParseFacebookUtilsV4/PFFacebookUtils.h>
@@ -41,7 +44,14 @@
     RTWalkthroughPageViewController *pageZero = [stb instantiateViewControllerWithIdentifier:@"walk0"];
     RTWalkthroughPageViewController *pageOne = [stb instantiateViewControllerWithIdentifier:@"walk1"];
     RTWalkthroughPageViewController *pageTwo = [stb instantiateViewControllerWithIdentifier:@"walk2"];
+    
     LoginViewController *final = [stb instantiateViewControllerWithIdentifier:NSStringFromClass(([LoginViewController class]))];
+    // Attaching View Model Services to View Model (gives us access to Parse, our model)
+    SpreeViewModelServicesImpl *viewModelServices = [[SpreeViewModelServicesImpl alloc] init];
+    LoginViewModel *viewModel = [[LoginViewModel alloc] initWithServices: viewModelServices];
+    // Linking view model to LoginViewController
+    final.viewModel = viewModel;
+
     walkthrough.delegate = self;
     [walkthrough addViewController:pageOne];
     [walkthrough addViewController:pageTwo];
