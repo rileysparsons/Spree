@@ -17,49 +17,11 @@
 
 @implementation UserPostsTableViewController
 
--  (id)initWithCoder:(NSCoder *)aDecoder {
-    self = [super initWithClassName:@"Post"];
-    self = [super initWithCoder:aDecoder];
-    
-    if (self) {
-        // Custom the table
-        
-        // The className to query on
-        self.parseClassName = @"Post";
-        
-        // The key of the PFObject to display in the label of the default cell style
-        self.textKey = @"title";
-        
-        // Uncomment the following line to specify the key of a PFFile on the PFObject to display in the imageView of the default cell style
-        // self.imageKey = @"image";
-        
-        // Whether the built-in pull-to-refresh is enabled
-        self.pullToRefreshEnabled = YES;
-        
-        // Whether the built-in pagination is enabled
-        self.paginationEnabled = YES;
-        
-        // The number of objects to show per page
-        self.objectsPerPage = 25;
-    }
-    return self;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.titleView = nil;
     [self.navigationItem setTitle:@"Your Posts"];
     // Do any additional setup after loading the view.
-}
-
-- (PFQuery *)queryForTable
-{
-    PFQuery *query = [PFQuery queryWithClassName:self.parseClassName];
-    [query whereKey:@"user" equalTo:[PFUser currentUser]];
-    [query includeKey:@"user"];
-    [query orderByDescending:@"updatedAt"];
-    
-    return query;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object

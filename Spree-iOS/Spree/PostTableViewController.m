@@ -32,6 +32,9 @@
 @property (assign) BOOL isRefreshIconsOverlap;
 @property (assign) BOOL isRefreshAnimating;
 @property (retain, nonatomic) UIBarButtonItem *composeButton;
+@property (nonatomic, strong) NSArray *posts;
+@property (nonatomic, strong) UIVisualEffectView *requestLocationView;
+@property (nonatomic, strong) UIButton *requestLocationServicesButton;
 
 
 @end
@@ -39,70 +42,16 @@
 
 @implementation PostTableViewController
 
-- (id)initWithStyle:(UITableViewStyle)style {
-    self = [super initWithStyle:style];
-    if (self) {
-        // The className to query on
-        self.parseClassName = @"Post";
-        
-        // The key of the PFObject to display in the label of the default cell style
-        self.textKey = @"title";
-        
-        // Uncomment the following line to specify the key of a PFFile on the PFObject to display in the imageView of the default cell style
-        // self.imageKey = @"image";
-        
-        // Whether the built-in pull-to-refresh is enabled
-        self.pullToRefreshEnabled = NO;
-        
-        // Whether the built-in pagination is enabled
-        self.paginationEnabled = YES;
-        
-        // The number of objects to show per page
-        self.objectsPerPage = 25;
-        
-        self.loadingViewEnabled = NO;
-
-    }
-    return self;
-}
-
-
--  (id)initWithCoder:(NSCoder *)aDecoder {
-    self = [super initWithCoder:aDecoder];
-    
-    if (self) {
-        // Custom the table
-        
-        // The className to query on
-        self.parseClassName = @"Post";
-        
-        // The key of the PFObject to display in the label of the default cell style
-        self.textKey = @"title";
-        
-        // Uncomment the following line to specify the key of a PFFile on the PFObject to display in the imageView of the default cell style
-        // self.imageKey = @"image";
-        
-        // Whether the built-in pull-to-refresh is enabled
-        self.pullToRefreshEnabled = NO;
-        
-        // Whether the built-in pagination is enabled
-        self.paginationEnabled = YES;
-        
-        // The number of objects to show per page
-        self.objectsPerPage = 25;
-        
-        self.loadingViewEnabled = NO;
-    }
-    return self;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [MBProgressHUD showHUDAddedTo:self.tableView animated:YES];
+//    [MBProgressHUD showHUDAddedTo:self.tableView animated:YES];
     
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     appDelegate.window.rootViewController = self.tabBarController;
+    
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
     
     [self setupRefreshControl];
     
@@ -146,16 +95,33 @@
             NSLog(@"No ratings required");
         }
     }];
+    self.posts = [[NSArray alloc] init];
 
+    [self setupRequestLocationView];
+    
     [self bindViewModel];
+    
+    NSLog(@"delegate %@", self.tableView.delegate);
 }
 
 -(void)bindViewModel{
     self.refreshControl.rac_command = self.viewModel.refreshPosts;
+    [RACObserve(self.viewModel, posts) subscribeNext:^(id x) {
+        NSLog(@"post %@", x);
+        self.posts = self.viewModel.posts;
+        [self.tableView reloadData];
+    }];
+    
+    RAC(self.requestLocationView, hidden) = RACObserve(self.viewModel, locationServicesAuthorized);
+    
+    self.requestLocationServicesButton.rac_command = self.viewModel.requestLocationServices;
+    
+
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    [self.viewModel.refreshPosts execute:nil];
     
 }
 
@@ -188,13 +154,7 @@
     return _composeButton;
 }
 
-- (void)delayedRefresh{
-    NSLog(@"Delayed refresh called");
-    [self performSelector:@selector(loadObjects) withObject:nil afterDelay:0.75f];
-}
-
-- (void)setupRefreshControl
-{
+- (void)setupRefreshControl {
     // TODO: Programmatically inserting a UIRefreshControl
     self.refreshControl = [[UIRefreshControl alloc] init];
     
@@ -236,7 +196,7 @@
     self.isRefreshAnimating = NO;
     
     // When activated, invoke our refresh function
-    [self.refreshControl addTarget:self action:@selector(loadObjects) forControlEvents:UIControlEventValueChanged];
+    // Replaced with call to view model
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
@@ -288,53 +248,45 @@
 
 #pragma mark - Parse
 
-- (void)objectsDidLoad:(NSError *)error {
-    [super objectsDidLoad:error];
-    [MBProgressHUD hideHUDForView:self.tableView animated:YES];
-    UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
-    if (self.objects.count == 0){
-        // Display a message when the table is empty
-        messageLabel.text = @"No posts found at your school.\n\nPost the first!";
-        messageLabel.textColor = [UIColor spreeDarkBlue];
-        messageLabel.numberOfLines = 0;
-        messageLabel.textAlignment = NSTextAlignmentCenter;
-        messageLabel.font = [UIFont fontWithName:@"Lato-Regular" size:20];
-        [messageLabel sizeToFit];
-        self.tableView.backgroundView = messageLabel;
-        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    } else if (self.objects.count > 0 ){
-        self.tableView.backgroundView.hidden = YES;
-        NSLog(@"Objects did load");
-    }
-    // This method is called every time objects are loaded from Parse via the PFQuery
+//- (void)objectsDidLoad:(NSError *)error {
+//    [super objectsDidLoad:error];
+//    [MBProgressHUD hideHUDForView:self.tableView animated:YES];
+//    UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+//    if (self.objects.count == 0){
+//        // Display a message when the table is empty
+//        messageLabel.text = @"No posts found at your school.\n\nPost the first!";
+//        messageLabel.textColor = [UIColor spreeDarkBlue];
+//        messageLabel.numberOfLines = 0;
+//        messageLabel.textAlignment = NSTextAlignmentCenter;
+//        messageLabel.font = [UIFont fontWithName:@"Lato-Regular" size:20];
+//        [messageLabel sizeToFit];
+//        self.tableView.backgroundView = messageLabel;
+//        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+//    } else if (self.objects.count > 0 ){
+//        self.tableView.backgroundView.hidden = YES;
+//        NSLog(@"Objects did load");
+//    }
+//    // This method is called every time objects are loaded from Parse via the PFQuery
+//}
+
+//- (void)objectsWillLoad {
+//    [super objectsWillLoad];
+//    
+//    // This method is called before a PFQuery is fired to get more objects
+//}
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 1;
 }
 
-- (void)objectsWillLoad {
-    [super objectsWillLoad];
-    
-    // This method is called before a PFQuery is fired to get more objects
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    NSLog(@"posts in count %@", self.posts);
+    return self.posts.count;
 }
 
-
-- (PFQuery *)queryForTable
-{
-    PFQuery *query = [PFQuery queryWithClassName:self.parseClassName];
-    [query whereKey:@"expired" equalTo:[NSNumber numberWithBool:NO]];
-    [query whereKey:@"sold" equalTo:[NSNumber numberWithBool:NO]];
-    [query whereKeyDoesNotExist:@"removed"];
-    [query orderByDescending:@"createdAt"];
-    NSLog(@"%@", [PFUser currentUser]);
-    [query whereKey:@"network" equalTo:[[PFUser currentUser] objectForKey:@"network"]];
-    [query includeKey:@"objectId"];
-    [query includeKey:@"typePointer"];
-    [query includeKey:@"user"];
-    return [self addQueryParameters:self.postQueryParameters toQuery:query];
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    
     PostTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         NSArray *nibFiles = [[NSBundle mainBundle] loadNibNamed:@"PostTableViewCell" owner:self options:nil];
@@ -344,10 +296,9 @@
                 break;
             }
         }
-        
-        
-        SpreePost *post = (SpreePost *)object;
-        
+    
+        SpreePost *post = (SpreePost *)self.posts[indexPath.row];
+        NSLog(@"POST %@", self.posts[indexPath.row]);
         cell.postTitleLabel.text = post.title;
         if (post.price == 0 || [post.price  isEqual: @(0)]){
             cell.priceLabel.text = @"Free";
@@ -415,18 +366,18 @@
 #pragma mark - Navigation
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [super tableView:tableView didSelectRowAtIndexPath:indexPath];
-    if ([indexPath row] > self.objects.count -1 ) {
-        return;
-    } else {
-        SpreePost *selectedPost = self.objects[indexPath.row];
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-        self.postDetailTableViewController = [storyboard instantiateViewControllerWithIdentifier:@"PostDetail"];
-        NSLog(@"%@", self.storyboard);
-        [self.postDetailTableViewController initWithPost:selectedPost];
-        [self.navigationController pushViewController:self.postDetailTableViewController animated:YES];
-        [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-    }
+//    [super tableView:tableView didSelectRowAtIndexPath:indexPath];
+//    if ([indexPath row] > self.objects.count -1 ) {
+//        return;
+//    } else {
+//        SpreePost *selectedPost = self.objects[indexPath.row];
+//        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+//        self.postDetailTableViewController = [storyboard instantiateViewControllerWithIdentifier:@"PostDetail"];
+//        NSLog(@"%@", self.storyboard);
+//        [self.postDetailTableViewController initWithPost:selectedPost];
+//        [self.navigationController pushViewController:self.postDetailTableViewController animated:YES];
+//        [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+//    }
     
 }
 
@@ -523,4 +474,19 @@
     }
     return query;
 }
+
+-(void)setupRequestLocationView{
+    self.requestLocationView = [[UIVisualEffectView alloc] initWithFrame:self.tableView.frame];
+    self.requestLocationView.effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+    self.requestLocationView.hidden = YES;
+    [self.tableView addSubview:self.requestLocationView];
+    
+    self.requestLocationServicesButton = [[UIButton alloc] initWithFrame:CGRectMake(10, self.requestLocationView.frame.size.height/2, self.requestLocationView.frame.size.width-20, 10)];
+    [self.requestLocationServicesButton setTitle:@"Approve Location Services" forState:UIControlStateNormal];
+    [self.requestLocationServicesButton setTitleColor:[UIColor spreeOffWhite] forState:UIControlStateNormal];
+
+    
+    [self.requestLocationView addSubview:self.requestLocationServicesButton];
+}
+
 @end

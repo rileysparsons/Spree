@@ -12,6 +12,9 @@
 @interface PostTableViewModel : NSObject
 
 @property RACCommand* refreshPosts;
+@property RACCommand* requestLocationServices;
+@property NSArray *posts;
+@property BOOL locationServicesAuthorized;
 
 -(instancetype)initWithServices: (id<SpreeViewModelServices>)services;
 

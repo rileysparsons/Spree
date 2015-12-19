@@ -29,20 +29,25 @@
 
 -(void)initialize{
     
-    [[SpreeLocationManager sharedManager] requestWhenInUseAuthorization];
-    
-    RAC(self, currentLocation) = [[[SpreeLocationManager sharedManager] rac_signalForAllLocationUpdates] map:^id(NSArray *array) {
-        NSLog(@"%@", [array objectAtIndex:0]);
-        return [array objectAtIndex:0];
-    }];
-    self.refreshPosts = [[RACCommand alloc] initWithEnabled:nil signalBlock:^RACSignal *(id input) {
-        return [self refreshPostsSignalForCurrentLocation];
-    }];
+    RAC(self, currentLocation) = [[SpreeLocationManager sharedManager] rac_signalForCurrentLocation];
 
-    [[[self.refreshPosts executionSignals] flattenMap:^RACStream *(id value) {
-        return value;
-    }] subscribeNext:^(id x) {
-        
+    RAC(self, locationServicesAuthorized) = [self authorizationStatusSignal];
+    
+    @weakify(self);
+    self.refreshPosts = [[RACCommand alloc] initWithEnabled:nil signalBlock:^RACSignal *(id input) {
+        RACSignal *itemsSignal = [self refreshPostsSignalForCurrentLocation];
+        [itemsSignal subscribeNext:^(NSArray *returnedPosts) {
+            @strongify(self);
+            // Do stuff...
+            self.posts = returnedPosts;
+        }];
+        return itemsSignal;
+    }];
+    
+    self.requestLocationServices = [[RACCommand alloc] initWithEnabled:nil signalBlock:^RACSignal *(id input) {
+        NSLog(@"called it");
+        [[SpreeLocationManager sharedManager] requestWhenInUseAuthorization];
+        return [RACSignal empty];
     }];
 }
 
@@ -50,5 +55,16 @@
 -(RACSignal *)refreshPostsSignalForCurrentLocation{
     return [[self.services getParseConnection] refreshPostsForCurrentLocation:self.currentLocation];
 }
+
+-(RACSignal *)authorizationStatusSignal{
+    return [[[SpreeLocationManager sharedManager] rac_signalForAuthorizationStatusUpdate] map:^id(id value) {
+        if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied || [CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined){
+            return @NO;
+        } else {
+            return @YES;
+        }
+    }];
+}
+
 
 @end

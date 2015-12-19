@@ -26,31 +26,6 @@
 
 @implementation PostTypeTableViewController
 
--  (id)initWithCoder:(NSCoder *)aDecoder {
-    self = [super initWithCoder:aDecoder];
-    
-    if (self) {
-        // The className to query on
-        self.parseClassName = @"Post";
-        
-        // The key of the PFObject to display in the label of the default cell style
-        self.textKey = @"title";
-        
-        // Uncomment the following line to specify the key of a PFFile on the PFObject to display in the imageView of the default cell style
-        // self.imageKey = @"image";
-        
-        // Whether the built-in pull-to-refresh is enabled
-        self.pullToRefreshEnabled = YES;
-        
-        // Whether the built-in pagination is enabled
-        self.paginationEnabled = YES;
-        
-        // The number of objects to show per page
-        self.objectsPerPage = 25;
-    }
-    return self;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = self.postType[@"type"];
@@ -98,30 +73,7 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if ([indexPath row] > self.objects.count -1 ) {
-        return;
-    } else {
-        SpreePost *selectedPost = (tableView == self.tableView) ?
-        self.objects[indexPath.row] : self.resultsTableController.filteredProducts[indexPath.row];
-        
-        self.postDetailTableViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PostDetail"];
-        [self.postDetailTableViewController initWithPost:selectedPost];
-        [self.navigationController pushViewController:self.postDetailTableViewController animated:YES];
-        [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-    }
-}
-
-
-
-- (PFQuery *)queryForTable{
-    PFQuery *query = [PFQuery queryWithClassName:self.parseClassName];
-    [query whereKey:@"typePointer" equalTo:self.postType];
-    [query whereKey:@"expired" equalTo:[NSNumber numberWithBool:NO]];
-    [query whereKey:@"sold" equalTo:[NSNumber numberWithBool:NO]];
-    [query whereKeyDoesNotExist:@"removed"];
-    [query whereKey:@"network" equalTo:[[PFUser currentUser] objectForKey:@"network"]];
-    [query orderByDescending:@"updatedAt"];
-    return query;
+    
 }
 
 - (void)filterResults:(NSString *)searchTerm {
@@ -174,7 +126,6 @@
 // Implement this method if the default presentation is not adequate for your purposes.
 //
 - (void)presentSearchController:(UISearchController *)searchController {
-    self.pullToRefreshEnabled = NO;
     self.refreshControl.enabled = false;
     self.refreshControl = nil;
 }
@@ -197,8 +148,7 @@
     [super setupRefreshControl];
     [self.tableView setContentInset:UIEdgeInsetsMake(64,0,0,0)];
     [self.tableView setScrollIndicatorInsets:UIEdgeInsetsMake(64,0,0,0)];
-    
-    self.pullToRefreshEnabled = YES;
+
     // do something after the search controller is dismissed
 }
 

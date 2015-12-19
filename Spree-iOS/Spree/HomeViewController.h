@@ -8,6 +8,6 @@
 
 #import "PostTableViewController.h"
 
-@interface HomeViewController : PostTableViewController
+@interface HomeViewController : PostTableViewController <UITableViewDelegate, UITableViewDataSource>
 
 @end

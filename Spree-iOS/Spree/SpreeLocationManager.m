@@ -12,6 +12,7 @@
 
 @property (nonatomic,strong) CLLocationManager* locationManager;
 @property (nonatomic,strong) RACSubject* locationSubject;
+@property (nonatomic, strong) RACSubject* authorizationSubject;
 @property (readwrite, nonatomic) int numberOfLocationSubscribers;
 
 @end
@@ -46,6 +47,13 @@
         //[self.locationSubject rac_liftSelector:@selector(sendError:) withSignalsFromArray:@[locationErrors]]
         ;
         self.locationManager.delegate = self;
+        
+        self.authorizationSubject = [RACSubject subject];
+        RACSignal *authorizationUpdate = [[self rac_signalForSelector:@selector(locationManager:didChangeAuthorizationStatus:) fromProtocol:@protocol(CLLocationManagerDelegate)] map:^id(RACTuple* parameters) {
+            return parameters.second;
+        }];
+        [self.authorizationSubject rac_liftSelector:@selector(sendNext:) withSignalsFromArray:@[authorizationUpdate]];
+
     }
     return self;
 }
@@ -98,7 +106,7 @@
 }
 
 - (RACSignal*) rac_signalForMostAccurateLocationUpdates {
-    
+
     return [[self rac_signalForAllLocationUpdates] map:^id(NSArray* value) {
         return [[[value.rac_sequence filter:^BOOL(CLLocation*  value) {
             return (value.horizontalAccuracy>=0);
@@ -111,6 +119,18 @@
     return [[[self rac_signalForMostAccurateLocationUpdates] filter:^BOOL(id value) {
         return value!=nil;
     }] take:1];
+}
+
+- (RACSignal *)rac_signalForAuthorizationStatusUpdate {
+    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        [self.authorizationSubject subscribe:subscriber];
+        return nil;
+    }];
+}
+
+-(void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status{
+    NSLog(@"status: %d", status);
+    ;
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{;}

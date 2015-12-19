@@ -22,5 +22,6 @@
 - (RACSignal *)rac_signalForAllLocationUpdates;
 - (RACSignal*) rac_signalForMostAccurateLocationUpdates;
 - (RACSignal*) rac_signalForCurrentLocation;
+- (RACSignal *)rac_signalForAuthorizationStatusUpdate;
 
 @end

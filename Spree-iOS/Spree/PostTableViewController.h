@@ -9,7 +9,7 @@
 #import "PostDetailTableViewController.h"
 #import "PostTableViewModel.h"
 
-@interface PostTableViewController : PFQueryTableViewController
+@interface PostTableViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate>
 
 
 @property (nonatomic, strong) PostDetailTableViewController *postDetailTableViewController;

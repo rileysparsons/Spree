@@ -33,6 +33,9 @@ static const CGFloat kHeaderSlideShowHeight = 125.0f;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+
     // Do any additional setup after loading the view.
     [self setupHeaderSlides];
 }

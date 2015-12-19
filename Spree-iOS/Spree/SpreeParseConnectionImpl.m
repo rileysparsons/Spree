@@ -46,7 +46,7 @@
         
         PFGeoPoint *geopoint = [PFGeoPoint geoPointWithLatitude:latitude longitude:longitude];
         
-        [postQuery whereKey:@"location" nearGeoPoint:geopoint withinMiles:100];
+        [postQuery whereKey:@"location" nearGeoPoint:geopoint withinMiles:200];
         [postQuery findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
             if (!error){
                 NSLog(@"no error here. %lu", (long unsigned)objects.count);
