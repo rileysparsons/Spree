@@ -49,18 +49,15 @@ PODS:
     - Parse (~> 1.9)
   - PureLayout (3.0.1)
   - RCSLabeledIconButton (1.0)
-  - ReactiveCocoa (4.0.0-alpha-3):
-    - ReactiveCocoa/UI (= 4.0.0-alpha-3)
-    - Result (~> 0.6-beta.4)
-  - ReactiveCocoa/Core (4.0.0-alpha-3):
+  - ReactiveCocoa (2.5):
+    - ReactiveCocoa/UI (= 2.5)
+  - ReactiveCocoa/Core (2.5):
     - ReactiveCocoa/no-arc
-    - Result (~> 0.6-beta.4)
-  - ReactiveCocoa/no-arc (4.0.0-alpha-3):
-    - Result (~> 0.6-beta.4)
-  - ReactiveCocoa/UI (4.0.0-alpha-3):
+  - ReactiveCocoa/no-arc (2.5)
+  - ReactiveCocoa/UI (2.5):
     - ReactiveCocoa/Core
-    - Result (~> 0.6-beta.4)
-  - Result (0.6.0-beta.6)
+  - ReactiveViewModel (0.3):
+    - ReactiveCocoa (~> 2.4)
   - SAMTextView (0.2.2)
   - TPKeyboardAvoiding (1.2.11)
 
@@ -81,7 +78,8 @@ DEPENDENCIES:
   - ParseFacebookUtilsV4
   - ParseUI
   - RCSLabeledIconButton
-  - ReactiveCocoa (= 4.0.0-alpha-3)
+  - ReactiveCocoa
+  - ReactiveViewModel
   - SAMTextView
   - TPKeyboardAvoiding
 
@@ -114,8 +112,8 @@ SPEC CHECKSUMS:
   ParseUI: c2bcdfbb00330e464b5b773266ae221697a3bb7b
   PureLayout: f35f5384c9c4e4479df041dbe33ad7577b71ddfb
   RCSLabeledIconButton: db3351c731645016217e591f4a8a835c6524d277
-  ReactiveCocoa: f03dcfd385b0e4ee5b7a323f5e0b146a498e12d3
-  Result: dc390d0b58f9ec43fcd536f1ebdd130803cc6cbc
+  ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
+  ReactiveViewModel: 58918dcbcec2d3151195ab1ed9163c57a8163999
   SAMTextView: 979c43bb1fa5859ddfbfeb35e9c296a2b0ec55fd
   TPKeyboardAvoiding: e5ce146b313de063957bfa75a13f1e9b0ff18ab7
 

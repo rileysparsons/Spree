@@ -7,14 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <ReactiveViewModel/RVMViewModel.h>
 #import "SpreeViewModelServices.h"
 
-@interface PostTableViewModel : NSObject
+@interface PostTableViewModel : RVMViewModel
 
 @property RACCommand* refreshPosts;
 @property RACCommand* requestLocationServices;
 @property NSArray *posts;
-@property BOOL locationServicesAuthorized;
+@property BOOL locationServicesNotDetermined;
 
 -(instancetype)initWithServices: (id<SpreeViewModelServices>)services;
 

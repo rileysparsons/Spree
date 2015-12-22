@@ -11,6 +11,7 @@
 #import "RTWalkthroughViewController.h"
 #import "LoginViewController.h"
 #import "LoginViewModel.h"
+#import "HomeViewController.h"
 #import "SpreeViewModelServicesImpl.h"
 
 #import "PostTableViewController.h"
@@ -111,31 +112,6 @@
 //- (void)signUpViewControllerDidCancelSignUp:(PFSignUpViewController *)signUpController {
 //    NSLog(@"User dismissed the signUpViewController");
 //}
-
-#pragma mark - Base Methods
-
--(void)closeOnboarding{
-    UIStoryboard *stb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    PostTableViewController *postTableViewController = [stb instantiateInitialViewController];
-    SpreeViewModelServicesImpl *viewModelServices = [[SpreeViewModelServicesImpl alloc] init];
-    postTableViewController.viewModel = [[PostTableViewModel alloc] initWithServices:viewModelServices];
-    
-    [UIView transitionWithView:appDelegate.window
-                      duration:0.5
-                       options:UIViewAnimationOptionTransitionFlipFromLeft
-                    animations:^{ appDelegate.window.rootViewController = postTableViewController; }
-                    completion:nil];
-}
-
--(void)incrementUserCountForCampus:(PFObject *)campus{
-    
-    // Increment the current value of the quantity key by 1
-    [campus incrementKey:@"userCount"];
-    
-    // Save
-    [campus saveInBackground];
-}
 
 
 @end

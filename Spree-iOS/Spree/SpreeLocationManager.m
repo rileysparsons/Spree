@@ -44,7 +44,7 @@
         RACSignal* locationErrors = [self rac_signalForSelector:@selector(locationManager:didFailWithError:) fromProtocol:@protocol(CLLocationManagerDelegate)];
         
         [self.locationSubject rac_liftSelector:@selector(sendNext:) withSignalsFromArray:@[newLocations]];
-        //[self.locationSubject rac_liftSelector:@selector(sendError:) withSignalsFromArray:@[locationErrors]]
+//        [self.locationSubject rac_liftSelector:@selector(sendError:) withSignalsFromArray:@[locationErrors]]
         ;
         self.locationManager.delegate = self;
         
@@ -116,9 +116,11 @@
 }
 
 - (RACSignal*) rac_signalForCurrentLocation {
-    return [[[self rac_signalForMostAccurateLocationUpdates] filter:^BOOL(id value) {
+    return [[[self rac_signalForAllLocationUpdates] filter:^BOOL(id value) {
         return value!=nil;
-    }] take:1];
+    }] map:^id(NSArray* locations) {
+        return [locations objectAtIndex:0];
+    }];
 }
 
 - (RACSignal *)rac_signalForAuthorizationStatusUpdate {
@@ -128,10 +130,7 @@
     }];
 }
 
--(void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status{
-    NSLog(@"status: %d", status);
-    ;
-}
+
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{;}
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{;}

@@ -8,7 +8,8 @@
 
 #import "LoginViewModel.h"
 #import "AppDelegate.h"
-#import "PostTableViewController.h"
+#import "SpreeViewModelServicesImpl.h"
+#import "HomeViewController.h"
 
 @interface LoginViewModel ()
 
@@ -42,11 +43,16 @@
 -(void)closeOnboarding{
     UIStoryboard *stb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    PostTableViewController *postTableViewController = [stb instantiateInitialViewController];
+    UITabBarController *tabBarController = [stb instantiateInitialViewController];
+    UINavigationController *navController = [tabBarController.viewControllers objectAtIndex:0];
+    HomeViewController *homeViewController = [navController.viewControllers objectAtIndex:0];
+    SpreeViewModelServicesImpl *viewModelServices = [[SpreeViewModelServicesImpl alloc] init];
+    homeViewController.viewModel = [[PostTableViewModel alloc] initWithServices:viewModelServices];
+    
     [UIView transitionWithView:appDelegate.window
                       duration:0.5
                        options:UIViewAnimationOptionTransitionFlipFromLeft
-                    animations:^{ appDelegate.window.rootViewController = postTableViewController; }
+                    animations:^{ appDelegate.window.rootViewController = homeViewController; }
                     completion:nil];
 }
 

@@ -33,8 +33,9 @@
 @property (assign) BOOL isRefreshAnimating;
 @property (retain, nonatomic) UIBarButtonItem *composeButton;
 @property (nonatomic, strong) NSArray *posts;
-@property (nonatomic, strong) UIVisualEffectView *requestLocationView;
+@property (nonatomic, strong) UIView *backgroundView;
 @property (nonatomic, strong) UIButton *requestLocationServicesButton;
+@property (nonatomic, strong) UILabel *errorMessageLabel;
 
 
 @end
@@ -68,8 +69,8 @@
     self.view.backgroundColor = [UIColor spreeOffWhite];
     self.tableView.backgroundColor = [UIColor spreeOffWhite];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadObjects) name:@"ReloadTable" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadObjects) name:@"PostMade" object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadObjects) name:@"ReloadTable" object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadObjects) name:@"PostMade" object:nil];
 
     self.navigationItem.rightBarButtonItems = @[self.composeButton];
     
@@ -95,34 +96,48 @@
             NSLog(@"No ratings required");
         }
     }];
+    
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    
     self.posts = [[NSArray alloc] init];
 
-    [self setupRequestLocationView];
+    [self setupErrorView];
     
     [self bindViewModel];
+
     
-    NSLog(@"delegate %@", self.tableView.delegate);
 }
 
 -(void)bindViewModel{
-    self.refreshControl.rac_command = self.viewModel.refreshPosts;
-    [RACObserve(self.viewModel, posts) subscribeNext:^(id x) {
-        NSLog(@"post %@", x);
-        self.posts = self.viewModel.posts;
+    self.refreshControl.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        return [self.viewModel.refreshPosts execute:nil];
+    }];;
+    
+    RAC(self, posts) = RACObserve(self.viewModel, posts);
+    
+    [[RACObserve(self, posts) deliverOnMainThread]
+     subscribeNext:^(id x) {
         [self.tableView reloadData];
+        [self.refreshControl endRefreshing];
     }];
     
-    RAC(self.requestLocationView, hidden) = RACObserve(self.viewModel, locationServicesAuthorized);
-    
-    self.requestLocationServicesButton.rac_command = self.viewModel.requestLocationServices;
-    
+    RAC(self.backgroundView, hidden) = RACObserve(self.viewModel, locationServicesAuthorized);
 
+    RAC(self.requestLocationServicesButton, hidden) = RACObserve(self.viewModel, locationServicesAuthorized);
+    
+    [RACObserve(self.viewModel, locationServicesAuthorized) subscribeNext:^(id x) {
+        NSLog(@"auth %@", x);
+    }];
+
+    self.requestLocationServicesButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        return [self.viewModel.requestLocationServices execute:nil];
+    }];
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self.viewModel.refreshPosts execute:nil];
-    
+    self.viewModel.active = YES;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -144,6 +159,11 @@
              item.badgeValue = (total == 0) ? nil : [NSString stringWithFormat:@"%d", total];
          }
      }];
+}
+
+- (void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    self.viewModel.active = NO;
 }
 
 - (UIBarButtonItem *)composeButton {
@@ -475,18 +495,21 @@
     return query;
 }
 
--(void)setupRequestLocationView{
-    self.requestLocationView = [[UIVisualEffectView alloc] initWithFrame:self.tableView.frame];
-    self.requestLocationView.effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
-    self.requestLocationView.hidden = YES;
-    [self.tableView addSubview:self.requestLocationView];
+-(void)setupErrorView{
+    self.backgroundView = [[UIVisualEffectView alloc] initWithFrame:self.tableView.frame];
+    self.backgroundView.backgroundColor = [UIColor spreeOffBlack];
+    [self.tableView addSubview:self.backgroundView];
     
-    self.requestLocationServicesButton = [[UIButton alloc] initWithFrame:CGRectMake(10, self.requestLocationView.frame.size.height/2, self.requestLocationView.frame.size.width-20, 10)];
+    self.requestLocationServicesButton = [[UIButton alloc] initWithFrame:CGRectMake(10, self.backgroundView.frame.size.height/2, self.backgroundView.frame.size.width-20, 10)];
     [self.requestLocationServicesButton setTitle:@"Approve Location Services" forState:UIControlStateNormal];
     [self.requestLocationServicesButton setTitleColor:[UIColor spreeOffWhite] forState:UIControlStateNormal];
 
+    self.errorMessageLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.requestLocationServicesButton.frame.origin.x, self.requestLocationServicesButton.frame.origin.y-50, self.requestLocationServicesButton.frame.size.width, 60)];
+    self.errorMessageLabel.textColor = [UIColor spreeOffWhite];
     
-    [self.requestLocationView addSubview:self.requestLocationServicesButton];
+    
+    [self.backgroundView addSubview:self.errorMessageLabel];
+    [self.backgroundView addSubview:self.requestLocationServicesButton];
 }
 
 @end

@@ -103,7 +103,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods/PureLayout.framework"
   install_framework "Pods/RCSLabeledIconButton.framework"
   install_framework "Pods/ReactiveCocoa.framework"
-  install_framework "Pods/Result.framework"
+  install_framework "Pods/ReactiveViewModel.framework"
   install_framework "Pods/SAMTextView.framework"
   install_framework "Pods/TPKeyboardAvoiding.framework"
 fi
@@ -127,7 +127,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods/PureLayout.framework"
   install_framework "Pods/RCSLabeledIconButton.framework"
   install_framework "Pods/ReactiveCocoa.framework"
-  install_framework "Pods/Result.framework"
+  install_framework "Pods/ReactiveViewModel.framework"
   install_framework "Pods/SAMTextView.framework"
   install_framework "Pods/TPKeyboardAvoiding.framework"
 fi

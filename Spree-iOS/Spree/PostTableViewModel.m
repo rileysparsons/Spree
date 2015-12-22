@@ -29,27 +29,66 @@
 
 -(void)initialize{
     
+    self.posts = [[NSArray alloc] init];
+    
+    @weakify(self);
     RAC(self, currentLocation) = [[SpreeLocationManager sharedManager] rac_signalForCurrentLocation];
 
     RAC(self, locationServicesAuthorized) = [self authorizationStatusSignal];
     
-    @weakify(self);
-    self.refreshPosts = [[RACCommand alloc] initWithEnabled:nil signalBlock:^RACSignal *(id input) {
-        RACSignal *itemsSignal = [self refreshPostsSignalForCurrentLocation];
-        [itemsSignal subscribeNext:^(NSArray *returnedPosts) {
+    [RACObserve(self, locationServicesAuthorized) filter:^BOOL(id value) {
+        if ([value boolValue] == YES){
             @strongify(self);
-            // Do stuff...
-            self.posts = returnedPosts;
-        }];
-        return itemsSignal;
+            [self.refreshPosts execute:nil];
+        };
+        return nil;
     }];
     
-    self.requestLocationServices = [[RACCommand alloc] initWithEnabled:nil signalBlock:^RACSignal *(id input) {
-        NSLog(@"called it");
-        [[SpreeLocationManager sharedManager] requestWhenInUseAuthorization];
-        return [RACSignal empty];
+    NSLog(@"location %@", [NSNumber numberWithBool:self.locationServicesAuthorized]);
+
+    self.refreshPosts = [[RACCommand alloc] initWithEnabled:nil signalBlock:^RACSignal *(id input) {
+        NSLog(@"HERE");
+        @strongify(self);
+        
+        return [[[self.services getParseConnection] refreshPostsForCurrentLocation:self.currentLocation]
+                timeout:10 onScheduler:RACScheduler.scheduler];
+    
     }];
+    
+    self.requestLocationServices = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        RACSignal *requestAuthSignal = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+            [[SpreeLocationManager sharedManager] requestWhenInUseAuthorization];
+            return nil;
+        }];
+        return requestAuthSignal;
+    }];
+    
+    [[[self.requestLocationServices executionSignals] switchToLatest] subscribeNext:^(id x) {
+        [self.refreshPosts execute:nil];
+    }];
+    
+    RAC(self, posts) =
+    [[[self.refreshPosts executionSignals]
+      switchToLatest]
+     ignore:nil];
+    
+    [[[[[[self didBecomeActiveSignal]
+      flattenMap:^RACStream *(id value) {
+          return [self authorizationStatusSignal];
+      }]
+      filter:^BOOL(id value) {
+          return value;
+      }] flattenMap:^RACStream *(id value) {
+          return [[self.services getParseConnection] refreshPostsForCurrentLocation:self.currentLocation];
+      }]
+     flattenMap:^RACSignal *(id _) {
+         return [self.refreshPosts execute:nil];
+     }] subscribeNext:^(id x) {
+         
+     }];
 }
+
+
 
 
 -(RACSignal *)refreshPostsSignalForCurrentLocation{
