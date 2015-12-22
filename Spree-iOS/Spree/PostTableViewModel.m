@@ -62,71 +62,15 @@
     
     self.service = [MMPReactiveCoreLocation service];
     
-    RAC(self, authStatus) = [RACObserve(self.service, authorizationStatus) ignore:nil];
-    
     RAC(self, currentLocation) = [self locationSignal];
-    NSLog(@"%@", self.service.authorizationStatus);
-    [[self.service authorizationStatus] map:^id(id value) {
-        CLAuthorizationStatus status = [value intValue];
-        if (status == kCLAuthorizationStatusDenied){
-            self.locationServicesAllowed = NO;
-        } else {
-            self.locationServicesAllowed = YES;
-        }
-        return nil;
-    }];
-      
-    self.requestLocationServices = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
-        return [self requestLocationAuthSignal];
-    }];
     
-    [[self requestLocationAuthSignal] then:^RACSignal *{
-        [self locationSignal];
-        return nil;
-    }];
-    
-    RAC(self, locationServicesAllowed) = [[_service authorizationStatus] map:^id(id value) {
-        CLAuthorizationStatus status = [value intValue];
-        NSLog(@"%d", status);
-        if (status == kCLAuthorizationStatusDenied){
-            return @NO;
-        } else {
+    RAC(self, shouldHidePosts) = [[self.service authorizationStatus] map:^id(NSNumber* value) {
+        if ([value integerValue] == 2){
             return @YES;
+        } else {
+            return @NO;
         }
     }];
-    
-    // subscribe to authorization status
-    [[_service authorizationStatus]
-     subscribeNext:^(NSNumber *statusNumber) {
-         
-         CLAuthorizationStatus status = [statusNumber intValue];
-         switch (status) {
-             case kCLAuthorizationStatusNotDetermined:
-                 NSLog(@"[INFO] Status changed: kCLAuthorizationStatusNotDetermined");
-                 break;
-             case kCLAuthorizationStatusRestricted:
-                 NSLog(@"[INFO] Status changed: kCLAuthorizationStatusRestricted");
-                 break;
-             case kCLAuthorizationStatusDenied:
-                 NSLog(@"[INFO] Status changed: kCLAuthorizationStatusDenied");
-                 break;
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
-             case kCLAuthorizationStatusAuthorizedAlways:
-                 NSLog(@"[INFO] Status changed: kCLAuthorizationStatusAuthorizedAlways");
-                 break;
-             case kCLAuthorizationStatusAuthorizedWhenInUse:
-                 NSLog(@"[INFO] Status changed: kCLAuthorizationStatusAuthorizedWhenInUse");
-                 break;
-#else
-             case kCLAuthorizationStatusAuthorized:
-                 NSLog(@"[INFO] Status changed: kCLAuthorizationStatusAuthorized");
-                 break;
-#endif
-             default:
-                 break;
-         }
-     }];
-
 }
 
 -(RACSignal *)refreshPostsSignalForCurrentLocation{
