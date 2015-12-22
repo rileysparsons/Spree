@@ -7,12 +7,14 @@
 //
 
 #import "PostTableViewModel.h"
-#import "SpreeLocationManager.h"
+#import <MMPReactiveCoreLocation/MMPReactiveCoreLocation.h>
 
 @interface PostTableViewModel ()
 
 @property (nonatomic, strong) id<SpreeViewModelServices> services;
 @property CLLocation *currentLocation;
+@property (nonatomic, strong) MMPReactiveCoreLocation *service;
+@property CLAuthorizationStatus authStatus;
 
 @end
 
@@ -31,40 +33,14 @@
     
     self.posts = [[NSArray alloc] init];
     
+    [self initializeLocationService];
+    
     @weakify(self);
-    RAC(self, currentLocation) = [[SpreeLocationManager sharedManager] rac_signalForCurrentLocation];
-
-    RAC(self, locationServicesAuthorized) = [self authorizationStatusSignal];
-    
-    [RACObserve(self, locationServicesAuthorized) filter:^BOOL(id value) {
-        if ([value boolValue] == YES){
-            @strongify(self);
-            [self.refreshPosts execute:nil];
-        };
-        return nil;
-    }];
-    
-    NSLog(@"location %@", [NSNumber numberWithBool:self.locationServicesAuthorized]);
 
     self.refreshPosts = [[RACCommand alloc] initWithEnabled:nil signalBlock:^RACSignal *(id input) {
         NSLog(@"HERE");
         @strongify(self);
-        
-        return [[[self.services getParseConnection] refreshPostsForCurrentLocation:self.currentLocation]
-                timeout:10 onScheduler:RACScheduler.scheduler];
-    
-    }];
-    
-    self.requestLocationServices = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
-        RACSignal *requestAuthSignal = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-            [[SpreeLocationManager sharedManager] requestWhenInUseAuthorization];
-            return nil;
-        }];
-        return requestAuthSignal;
-    }];
-    
-    [[[self.requestLocationServices executionSignals] switchToLatest] subscribeNext:^(id x) {
-        [self.refreshPosts execute:nil];
+        return [self refreshPostsSignalForCurrentLocation];
     }];
     
     RAC(self, posts) =
@@ -72,38 +48,112 @@
       switchToLatest]
      ignore:nil];
     
-    [[[[[[self didBecomeActiveSignal]
-      flattenMap:^RACStream *(id value) {
-          return [self authorizationStatusSignal];
-      }]
-      filter:^BOOL(id value) {
-          return value;
-      }] flattenMap:^RACStream *(id value) {
-          return [[self.services getParseConnection] refreshPostsForCurrentLocation:self.currentLocation];
-      }]
-     flattenMap:^RACSignal *(id _) {
-         return [self.refreshPosts execute:nil];
-     }] subscribeNext:^(id x) {
-         
-     }];
+    [[[self didBecomeActiveSignal]
+    flattenMap:^id(id value) {
+        return [[RACObserve(self, currentLocation) ignore:NULL] take:1];
+    }] subscribeNext:^(id x) {
+        NSLog(@"returned from initial block: %@", x);
+        [self.refreshPosts execute:nil];
+    }];
+
 }
 
-
-
-
--(RACSignal *)refreshPostsSignalForCurrentLocation{
-    return [[self.services getParseConnection] refreshPostsForCurrentLocation:self.currentLocation];
-}
-
--(RACSignal *)authorizationStatusSignal{
-    return [[[SpreeLocationManager sharedManager] rac_signalForAuthorizationStatusUpdate] map:^id(id value) {
-        if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied || [CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined){
+- (void)initializeLocationService{
+    
+    self.service = [MMPReactiveCoreLocation service];
+    
+    RAC(self, authStatus) = [RACObserve(self.service, authorizationStatus) ignore:nil];
+    
+    RAC(self, currentLocation) = [self locationSignal];
+    NSLog(@"%@", self.service.authorizationStatus);
+    [[self.service authorizationStatus] map:^id(id value) {
+        CLAuthorizationStatus status = [value intValue];
+        if (status == kCLAuthorizationStatusDenied){
+            self.locationServicesAllowed = NO;
+        } else {
+            self.locationServicesAllowed = YES;
+        }
+        return nil;
+    }];
+      
+    self.requestLocationServices = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        return [self requestLocationAuthSignal];
+    }];
+    
+    [[self requestLocationAuthSignal] then:^RACSignal *{
+        [self locationSignal];
+        return nil;
+    }];
+    
+    RAC(self, locationServicesAllowed) = [[_service authorizationStatus] map:^id(id value) {
+        CLAuthorizationStatus status = [value intValue];
+        NSLog(@"%d", status);
+        if (status == kCLAuthorizationStatusDenied){
             return @NO;
         } else {
             return @YES;
         }
     }];
+    
+    // subscribe to authorization status
+    [[_service authorizationStatus]
+     subscribeNext:^(NSNumber *statusNumber) {
+         
+         CLAuthorizationStatus status = [statusNumber intValue];
+         switch (status) {
+             case kCLAuthorizationStatusNotDetermined:
+                 NSLog(@"[INFO] Status changed: kCLAuthorizationStatusNotDetermined");
+                 break;
+             case kCLAuthorizationStatusRestricted:
+                 NSLog(@"[INFO] Status changed: kCLAuthorizationStatusRestricted");
+                 break;
+             case kCLAuthorizationStatusDenied:
+                 NSLog(@"[INFO] Status changed: kCLAuthorizationStatusDenied");
+                 break;
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
+             case kCLAuthorizationStatusAuthorizedAlways:
+                 NSLog(@"[INFO] Status changed: kCLAuthorizationStatusAuthorizedAlways");
+                 break;
+             case kCLAuthorizationStatusAuthorizedWhenInUse:
+                 NSLog(@"[INFO] Status changed: kCLAuthorizationStatusAuthorizedWhenInUse");
+                 break;
+#else
+             case kCLAuthorizationStatusAuthorized:
+                 NSLog(@"[INFO] Status changed: kCLAuthorizationStatusAuthorized");
+                 break;
+#endif
+             default:
+                 break;
+         }
+     }];
+
 }
 
+-(RACSignal *)refreshPostsSignalForCurrentLocation{
+    NSLog(@"current loc: %@", self.currentLocation);
+    return [[[self.services getParseConnection] refreshPostsForCurrentLocation:self.currentLocation] timeout:10 onScheduler:RACScheduler.scheduler];
+}
+
+
+- (RACSignal *)requestLocationAuthSignal {
+    @weakify(self);
+    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        @strongify(self);
+        [[[self.service authorizeWhenInUse] authorize] subscribeNext:^(id x) {
+            [subscriber sendNext:x];
+            [subscriber sendCompleted];
+        }];
+        return nil;
+    }];
+}
+
+- (RACSignal *)locationSignal {
+    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        [[_service locations] subscribeNext:^(id x) {
+            [subscriber sendNext:x];
+        }];
+        return nil;
+    }];
+}
 
 @end

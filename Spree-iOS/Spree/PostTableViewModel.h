@@ -14,8 +14,8 @@
 
 @property RACCommand* refreshPosts;
 @property RACCommand* requestLocationServices;
+@property BOOL locationServicesAllowed;
 @property NSArray *posts;
-@property BOOL locationServicesNotDetermined;
 
 -(instancetype)initWithServices: (id<SpreeViewModelServices>)services;
 

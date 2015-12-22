@@ -107,7 +107,6 @@
 		14C38DA21B27F3BA0039862E /* PostDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C38DA11B27F3BA0039862E /* PostDetailTableViewController.m */; };
 		14C38DB31B28F6870039862E /* PhotoGalleryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C38DB11B28F6870039862E /* PhotoGalleryTableViewCell.m */; };
 		14C763B11C233E71005899F9 /* PostTableViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C763B01C233E71005899F9 /* PostTableViewModel.m */; };
-		14C763B41C23443A005899F9 /* SpreeLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C763B31C23443A005899F9 /* SpreeLocationManager.m */; };
 		14C8214A1B2D1B9100A1B513 /* PhotoGalleryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14C821491B2D1B9100A1B513 /* PhotoGalleryTableViewCell.xib */; };
 		14C8214D1B2FE36C00A1B513 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C8214C1B2FE36C00A1B513 /* ProfileViewController.m */; };
 		14CAB3BF1B5948150081979C /* PhotoDisplayTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14CAB3BD1B5948150081979C /* PhotoDisplayTableViewCell.m */; };
@@ -347,8 +346,6 @@
 		14C38DB51B29311D0039862E /* PostUserTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostUserTableViewCell.h; sourceTree = "<group>"; };
 		14C763AF1C233E71005899F9 /* PostTableViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostTableViewModel.h; sourceTree = "<group>"; };
 		14C763B01C233E71005899F9 /* PostTableViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostTableViewModel.m; sourceTree = "<group>"; };
-		14C763B21C23443A005899F9 /* SpreeLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpreeLocationManager.h; sourceTree = "<group>"; };
-		14C763B31C23443A005899F9 /* SpreeLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpreeLocationManager.m; sourceTree = "<group>"; };
 		14C821491B2D1B9100A1B513 /* PhotoGalleryTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotoGalleryTableViewCell.xib; sourceTree = "<group>"; };
 		14C8214B1B2FE36C00A1B513 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		14C8214C1B2FE36C00A1B513 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
@@ -755,8 +752,6 @@
 				14C763B01C233E71005899F9 /* PostTableViewModel.m */,
 				145820AA1C1CE7830092F9D4 /* LoginViewModel.h */,
 				145820AB1C1CE7830092F9D4 /* LoginViewModel.m */,
-				14C763B21C23443A005899F9 /* SpreeLocationManager.h */,
-				14C763B31C23443A005899F9 /* SpreeLocationManager.m */,
 			);
 			name = "View Model";
 			sourceTree = "<group>";
@@ -1210,7 +1205,6 @@
 				1491BBA41B336F38004F43CA /* ResultsTableViewController.m in Sources */,
 				145820B21C1CE82B0092F9D4 /* SpreeParseConnectionImpl.m in Sources */,
 				14C8214D1B2FE36C00A1B513 /* ProfileViewController.m in Sources */,
-				14C763B41C23443A005899F9 /* SpreeLocationManager.m in Sources */,
 				14FD56E01B2CF6170086A2AE /* PostTitleTableViewCell.m in Sources */,
 				F78600BE1AEB422100402B1F /* recent.m in Sources */,
 				145820AC1C1CE7830092F9D4 /* LoginViewModel.m in Sources */,

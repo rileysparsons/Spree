@@ -33,6 +33,8 @@ PODS:
   - JSQSystemSoundPlayer (2.0.1)
   - JVFloatLabeledTextField (1.1.0)
   - MBProgressHUD (0.9.1)
+  - MMPReactiveCoreLocation (0.6.2):
+    - ReactiveCocoa
   - MSCellAccessory (1.1.2)
   - Parse (1.11.0):
     - Bolts/Tasks (~> 1.5)
@@ -72,6 +74,7 @@ DEPENDENCIES:
     branch `develop`)
   - JVFloatLabeledTextField
   - MBProgressHUD
+  - MMPReactiveCoreLocation
   - MSCellAccessory
   - Parse
   - ParseCrashReporting
@@ -105,6 +108,7 @@ SPEC CHECKSUMS:
   JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
   JVFloatLabeledTextField: ea4a3d8387ddd43724c472bb2b8ab39b79af05d4
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
+  MMPReactiveCoreLocation: a4add2f8b0bba2204d88f5badb02c27e1eaba9b0
   MSCellAccessory: 8265f3cd2386c1f372da00232472605ab11426e4
   Parse: 886af46a0a677402f6374bb97ac212e795f70afe
   ParseCrashReporting: 33b760facc649d4fd99eef8f35dcda6a406099e5
