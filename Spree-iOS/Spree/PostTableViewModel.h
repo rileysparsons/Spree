@@ -14,6 +14,8 @@
 
 @property RACCommand* refreshPosts;
 @property RACCommand* requestLocationServices;
+@property RACCommand* postSelectedCommand;
+
 @property BOOL shouldHidePosts;
 @property NSArray *posts;
 

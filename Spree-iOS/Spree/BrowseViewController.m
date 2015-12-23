@@ -11,6 +11,7 @@
 #import "PostTypeTableViewCell.h"
 #import "SpreeSprintTableViewCell.h"
 #import "SelectPostTypeViewController.h"
+#import "SpreeViewModelServicesImpl.h"
 #import "SpreePost.h"
 
 @interface BrowseViewController () {
@@ -422,7 +423,17 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     if ([segue.identifier isEqualToString:@"DisplayPosts"]){
+        
+        // Attaching View Model Services to View Model (gives us access to Parse, our model)
+        SpreeViewModelServicesImpl *viewModelServices = [[SpreeViewModelServicesImpl alloc] init];
+        
+        PostTableViewModel *viewModel = [[PostTableViewModel alloc] initWithServices:viewModelServices];
+
+        
         PostTypeTableViewController *destinationViewController = segue.destinationViewController;
+        
+        destinationViewController.viewModel = viewModel;
+        
         destinationViewController.postType = [self.objects objectAtIndex:self.tableView.indexPathForSelectedRow.row];
     }
     

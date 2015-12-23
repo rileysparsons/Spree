@@ -8,6 +8,7 @@
 
 #import "PostTableViewController.h"
 #import "RTWalkthroughPageViewController.h"
+#import "CETableViewBindingHelper.h"
 #import "RTWalkthroughViewController.h"
 #import "PostTableViewCell.h"
 #import "SpreePost.h"
@@ -51,8 +52,10 @@
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     appDelegate.window.rootViewController = self.tabBarController;
     
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
+   // self.tableView.delegate = self;
+   // self.tableView.dataSource = self;
+    
+    
     
     [self setupRefreshControl];
     
@@ -67,10 +70,7 @@
     self.navigationItem.titleView=titleLabel;
     
     self.view.backgroundColor = [UIColor spreeOffWhite];
-    self.tableView.backgroundColor = [UIColor spreeOffWhite];
-    
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadObjects) name:@"ReloadTable" object:nil];
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadObjects) name:@"PostMade" object:nil];
+    self.postsTableView.backgroundColor = [UIColor spreeOffWhite];
 
     self.navigationItem.rightBarButtonItems = @[self.composeButton];
     
@@ -97,7 +97,7 @@
         }
     }];
     
-    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    self.postsTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
     self.posts = [[NSArray alloc] init];
 
@@ -111,7 +111,7 @@
 -(void)bindViewModel{
     self.refreshControl.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         return [self.viewModel.refreshPosts execute:nil];
-    }];;
+    }];
     
     RAC(self, posts) = RACObserve(self.viewModel, posts);
 
@@ -119,10 +119,19 @@
     
     [[RACObserve(self, posts) deliverOnMainThread]
      subscribeNext:^(id x) {
-        [self.tableView reloadData];
+        [self.postsTableView reloadData];
         [self.refreshControl endRefreshing];
     }];
     
+    UINib *nib = [UINib nibWithNibName:@"PostTableViewCell" bundle:nil];
+    [CETableViewBindingHelper bindingHelperForTableView:self.postsTableView
+                                           sourceSignal:RACObserve(self.viewModel, posts)
+                                       selectionCommand:self.viewModel.postSelectedCommand
+                                           templateCell:nib];
+    
+    [[self.viewModel.postSelectedCommand.executionSignals switchToLatest] subscribeNext:^(SpreePost* post) {
+        [self presentDetailViewControllerForPost:post];
+    }];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -168,6 +177,8 @@
     // TODO: Programmatically inserting a UIRefreshControl
     self.refreshControl = [[UIRefreshControl alloc] init];
     
+    [self.postsTableView addSubview: self.refreshControl];
+    
     // Setup the loading view, which will hold the moving graphics
     self.refreshLoadingView = [[UIView alloc] initWithFrame:self.refreshControl.bounds];
     self.refreshLoadingView.backgroundColor = [UIColor clearColor];
@@ -207,6 +218,7 @@
     
     // When activated, invoke our refresh function
     // Replaced with call to view model
+    
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
@@ -255,141 +267,7 @@
 }
 
 
-
-#pragma mark - Parse
-
-//- (void)objectsDidLoad:(NSError *)error {
-//    [super objectsDidLoad:error];
-//    [MBProgressHUD hideHUDForView:self.tableView animated:YES];
-//    UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
-//    if (self.objects.count == 0){
-//        // Display a message when the table is empty
-//        messageLabel.text = @"No posts found at your school.\n\nPost the first!";
-//        messageLabel.textColor = [UIColor spreeDarkBlue];
-//        messageLabel.numberOfLines = 0;
-//        messageLabel.textAlignment = NSTextAlignmentCenter;
-//        messageLabel.font = [UIFont fontWithName:@"Lato-Regular" size:20];
-//        [messageLabel sizeToFit];
-//        self.tableView.backgroundView = messageLabel;
-//        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-//    } else if (self.objects.count > 0 ){
-//        self.tableView.backgroundView.hidden = YES;
-//        NSLog(@"Objects did load");
-//    }
-//    // This method is called every time objects are loaded from Parse via the PFQuery
-//}
-
-//- (void)objectsWillLoad {
-//    [super objectsWillLoad];
-//    
-//    // This method is called before a PFQuery is fired to get more objects
-//}
-
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1;
-}
-
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    NSLog(@"posts in count %@", self.posts);
-    return self.posts.count;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *CellIdentifier = @"Cell";
-    PostTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        NSArray *nibFiles = [[NSBundle mainBundle] loadNibNamed:@"PostTableViewCell" owner:self options:nil];
-        for(id currentObject in nibFiles){
-            if ([currentObject isKindOfClass:[UITableViewCell class]]){
-                cell = (PostTableViewCell*)currentObject;
-                break;
-            }
-        }
-    
-        SpreePost *post = (SpreePost *)self.posts[indexPath.row];
-        NSLog(@"POST %@", self.posts[indexPath.row]);
-        cell.postTitleLabel.text = post.title;
-        if (post.price == 0 || [post.price  isEqual: @(0)]){
-            cell.priceLabel.text = @"Free";
-        } else {
-            int priceFloat = [post.price intValue];
-            NSString *price = [NSString stringWithFormat:@"$%d", priceFloat];
-            cell.priceLabel.text = price;
-        }
-        
-        if (post.photoArray.count != 0){
-            PFFile *imageFile = (PFFile *)[post.photoArray objectAtIndex:0];
-            cell.postImageView.file = imageFile;
-            [cell.postImageView loadInBackground];
-        } else {
-            cell.imageBackgroundView.backgroundColor = [UIColor spreeOffBlack];
-            [post.typePointer fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error){
-                if ([post.typePointer[@"type"] isEqualToString: @"Tasks & Services"]){
-                    cell.placeholderIconView.image = [UIImage imageNamed:@"tasksAndServicesThumbnail"];
-                }
-            }];
-        }
-        
-        cell.descriptionLabel.text = [NSString stringWithFormat:@"\u201C%@\u201D", post.userDescription];
-        
-        NSDate *dateCreatedGMT = [post createdAt];
-        NSTimeInterval timeSince = dateCreatedGMT.timeIntervalSinceNow;
-        double timeSinceInDays = timeSince/60/60/24*(-1);
-        if (timeSinceInDays > 1){
-            double roundedValue = round(timeSinceInDays);
-            int roundedInteger = (int)roundedValue;
-            NSNumber *numberSince = [NSNumber numberWithInt:roundedInteger];
-            NSString *timeSincePost = [numberSince stringValue];
-            NSString *timeWithUnits = [NSString stringWithFormat:(@"%@ days ago"), timeSincePost];
-            cell.postTimeLabel.text = timeWithUnits;
-        } else {
-            double timeSinceInHours = timeSinceInDays*24;
-            double timeSinceInMinutes = timeSinceInHours*60;
-            if (timeSinceInHours > 1){
-                double timeSinceInHoursRounded = round(timeSinceInHours);
-                int roundedInteger = (int)timeSinceInHoursRounded;
-                NSNumber *numberSince = [NSNumber numberWithInt:roundedInteger];
-                NSString *timeSincePost = [numberSince stringValue];
-                NSString *timeWithUnits = [NSString stringWithFormat:(@"%@ hours ago"), timeSincePost];
-                cell.postTimeLabel.text = timeWithUnits;
-            } else if (timeSinceInMinutes > 1){
-                int roundedInteger = (int)timeSinceInMinutes;
-                NSNumber *numberSince = [NSNumber numberWithInt:roundedInteger];
-                NSString *timeSincePost = [numberSince stringValue];
-                NSString *timeWithUnits = [NSString stringWithFormat:(@"%@ minutes ago"), timeSincePost];
-                cell.postTimeLabel.text = timeWithUnits;
-            } else {
-                NSString *message = @"Just now";
-                cell.postTimeLabel.text = message;
-            }
-        }
-        return cell;
-    }
-    return nil;
-}
-
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 80;
-}
-
 #pragma mark - Navigation
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-//    [super tableView:tableView didSelectRowAtIndexPath:indexPath];
-//    if ([indexPath row] > self.objects.count -1 ) {
-//        return;
-//    } else {
-//        SpreePost *selectedPost = self.objects[indexPath.row];
-//        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-//        self.postDetailTableViewController = [storyboard instantiateViewControllerWithIdentifier:@"PostDetail"];
-//        NSLog(@"%@", self.storyboard);
-//        [self.postDetailTableViewController initWithPost:selectedPost];
-//        [self.navigationController pushViewController:self.postDetailTableViewController animated:YES];
-//        [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-//    }
-    
-}
 
 - (void)NewPostBarButtonItemPressed:(id)sender {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewPost" bundle:nil];
@@ -401,13 +279,13 @@
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     if (section == 0) {
-        UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 35)];
+        UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.postsTableView.frame.size.width, 35)];
         UIColor *typeBackgroundColor = [UIColor spreeOffWhite];
         
         // Background color
         headerView.backgroundColor = typeBackgroundColor;
         
-        UIView *whiteView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 35)];
+        UIView *whiteView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.postsTableView.bounds.size.width, 35)];
         whiteView.backgroundColor = [UIColor spreeOffWhite];
         [headerView addSubview:whiteView];
         
@@ -486,9 +364,9 @@
 }
 
 -(void)setupErrorView{
-    self.backgroundView = [[UIVisualEffectView alloc] initWithFrame:self.tableView.frame];
+    self.backgroundView = [[UIVisualEffectView alloc] initWithFrame:self.postsTableView.frame];
     self.backgroundView.backgroundColor = [UIColor spreeOffBlack];
-    [self.tableView addSubview:self.backgroundView];
+    [self.postsTableView addSubview:self.backgroundView];
     
     self.requestLocationServicesButton = [[UIButton alloc] initWithFrame:CGRectMake(10, self.backgroundView.frame.size.height/2, self.backgroundView.frame.size.width-20, 10)];
     [self.requestLocationServicesButton setTitle:@"Approve Location Services" forState:UIControlStateNormal];
@@ -500,6 +378,14 @@
     
     [self.backgroundView addSubview:self.errorMessageLabel];
     [self.backgroundView addSubview:self.requestLocationServicesButton];
+}
+
+-(void)presentDetailViewControllerForPost:(SpreePost *)post {
+    PostDetailTableViewController *postDetailViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"PostDetail"];
+    
+    [postDetailViewController initWithPost:post];
+    
+    [self.navigationController pushViewController:postDetailViewController animated:YES];
 }
 
 @end

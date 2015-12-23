@@ -33,8 +33,6 @@ static const CGFloat kHeaderSlideShowHeight = 125.0f;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.tableView.dataSource = self;
-    self.tableView.delegate = self;
 
     // Do any additional setup after loading the view.
     [self setupHeaderSlides];
@@ -42,18 +40,18 @@ static const CGFloat kHeaderSlideShowHeight = 125.0f;
 
 -(void)setupHeaderSlides{
     
-    self.header = [[HomeHeaderView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, kHeaderSlideShowHeight)];
-    self.header.photoGallery.pageSize = CGSizeMake(self.tableView.frame.size.width, kHeaderSlideShowHeight);
+    self.header = [[HomeHeaderView alloc] initWithFrame:CGRectMake(0, 0, self.postsTableView.frame.size.width, kHeaderSlideShowHeight)];
+    self.header.photoGallery.pageSize = CGSizeMake(self.postsTableView.frame.size.width, kHeaderSlideShowHeight);
     self.header.headerGestureRecognizer.delegate = self;
     
-    HeaderSlideView *slide1 = [[HeaderSlideView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, kHeaderSlideShowHeight)];
+    HeaderSlideView *slide1 = [[HeaderSlideView alloc] initWithFrame:CGRectMake(0, 0, self.postsTableView.frame.size.width, kHeaderSlideShowHeight)];
     [slide1 setupForMetadata:@{@"title": @"WELCOME TO SPREE", @"subtitle": @"A Sustainable, Student-to-Student Marketplace", @"backgroundColor":@"#094b96", @"titleColor":@"#f6f7f7", @"subtitleColor":@"#f6f7f7"}];
     
     [self.header.photoGallery addPageView: slide1];
-    HeaderSlideView *slide2 = [[HeaderSlideView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, kHeaderSlideShowHeight)];
+    HeaderSlideView *slide2 = [[HeaderSlideView alloc] initWithFrame:CGRectMake(0, 0, self.postsTableView.frame.size.width, kHeaderSlideShowHeight)];
     [slide2 setupForMetadata:@{@"title": @"BOOKS TO RIDES", @"subtitle": @"Students can sell both goods and services on Spree", @"backgroundColor":@"#2b2f33", @"titleColor":@"#f6f7f7", @"subtitleColor":@"#f6f7f7"}];
     [self.header.photoGallery addPageView: slide2];
-    HeaderSlideView *slide3 = [[HeaderSlideView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, kHeaderSlideShowHeight)];
+    HeaderSlideView *slide3 = [[HeaderSlideView alloc] initWithFrame:CGRectMake(0, 0, self.postsTableView.frame.size.width, kHeaderSlideShowHeight)];
     [slide3 setupForMetadata:@{@"title": @"SUSTAINABLILITY AND SAVINGS", @"subtitle": @"Spree fosters a sustainable community on any campus nationwide", @"backgroundColor":@"#B2B707", @"titleColor":@"#2b2f33", @"subtitleColor":@"#2b2f33"}];
     [self.header.photoGallery addPageView: slide3];
     
@@ -87,7 +85,7 @@ static const CGFloat kHeaderSlideShowHeight = 125.0f;
             NSLog(@"%@", self.header.photoGallery.delegate);
             
             [NSTimer scheduledTimerWithTimeInterval:4.0f target:self.header.photoGallery selector:@selector(scrollToNextPage) userInfo:nil repeats:YES];
-            self.tableView.tableHeaderView = self.header;
+            self.postsTableView.tableHeaderView = self.header;
         } else {
             
         }
@@ -97,13 +95,13 @@ static const CGFloat kHeaderSlideShowHeight = 125.0f;
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:YES];
-    [self.header setFrame:CGRectMake(0, 0, self.tableView.frame.size.width, kHeaderSlideShowHeight)];
+    [self.header setFrame:CGRectMake(0, 0, self.postsTableView.frame.size.width, kHeaderSlideShowHeight)];
     [self sizeHeaderToFit];
     [SpreeUtility saveCurrentCreditBalance];
 }
 
 - (void) sizeHeaderToFit {
-    UIView *headerView = self.tableView.tableHeaderView;
+    UIView *headerView = self.postsTableView.tableHeaderView;
     [headerView setNeedsLayout];
     [headerView layoutIfNeeded];
     CGFloat height = [headerView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
@@ -113,7 +111,7 @@ static const CGFloat kHeaderSlideShowHeight = 125.0f;
         headerFrame;
     });
     
-    self.tableView.tableHeaderView = headerView;
+    self.postsTableView.tableHeaderView = headerView;
 }
 
 -(void)viewDidDisappear:(BOOL)animated{
@@ -132,7 +130,7 @@ static const CGFloat kHeaderSlideShowHeight = 125.0f;
             isEqualToString:@"query"]){
             [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             if (slideMetadata[@"parameters"]){
-                PostTableViewController *postTableViewController = [[PostTableViewController alloc] initWithStyle:UITableViewStylePlain];
+                PostTableViewController *postTableViewController = [[PostTableViewController alloc] init];
                 postTableViewController.postQueryParameters = slideMetadata[@"parameters"];
                 [self.navigationController pushViewController:postTableViewController animated:YES];
             }

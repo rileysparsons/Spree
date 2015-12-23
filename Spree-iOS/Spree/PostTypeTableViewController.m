@@ -10,7 +10,7 @@
 #import "ResultsTableViewController.h"
 #import "UIColor+SpreeColor.h"
 
-@interface PostTypeTableViewController () <UISearchControllerDelegate, UITableViewDataSource, UITableViewDelegate, UISearchResultsUpdating, UISearchBarDelegate>{
+@interface PostTypeTableViewController () <UISearchControllerDelegate, UISearchResultsUpdating, UISearchBarDelegate>{
 }
 
 // Search
@@ -30,7 +30,9 @@
     [super viewDidLoad];
     self.title = self.postType[@"type"];
     self.view.backgroundColor = [UIColor spreeOffWhite];
-    self.tableView.backgroundColor = [UIColor spreeOffWhite];
+    self.postsTableView.backgroundColor = [UIColor spreeOffWhite];
+    
+    NSLog(@"datasource: %@", self.postsTableView.dataSource);
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadObjects) name:@"ReloadTable" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadObjects) name:@"PostMade" object:nil];
@@ -41,11 +43,10 @@
     _searchController = [[UISearchController alloc] initWithSearchResultsController:self.resultsTableController];
     self.searchController.searchResultsUpdater = self;
     [self.searchController.searchBar sizeToFit];
-    self.tableView.tableHeaderView = self.searchController.searchBar;
+    self.postsTableView.tableHeaderView = self.searchController.searchBar;
     
     // we want to be the delegate for our filtered table so didSelectRowAtIndexPath is called for both tables
     [self.resultsTableController.tableView setFrame:CGRectZero];
-    self.resultsTableController.tableView.delegate = self;
     self.searchController.delegate = self;
     self.searchController.dimsBackgroundDuringPresentation = NO; // default is YES
     self.searchController.searchBar.delegate = self; // so we can monitor text changes + others
@@ -70,10 +71,6 @@
             _searchControllerSearchFieldWasFirstResponder = NO;
         }
     }
-}
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
 }
 
 - (void)filterResults:(NSString *)searchTerm {
@@ -135,8 +132,8 @@
 }
 
 - (void)didPresentSearchController:(UISearchController *)searchController {
-    [self.tableView setContentInset:UIEdgeInsetsMake(26,0,0,0)];
-    [self.tableView setScrollIndicatorInsets:UIEdgeInsetsMake(64,0,0,0)];
+    [self.postsTableView setContentInset:UIEdgeInsetsMake(26,0,0,0)];
+    [self.postsTableView setScrollIndicatorInsets:UIEdgeInsetsMake(64,0,0,0)];
     // do something after the search controller is presented
 }
 
@@ -146,8 +143,8 @@
 
 - (void)didDismissSearchController:(UISearchController *)searchController {
     [super setupRefreshControl];
-    [self.tableView setContentInset:UIEdgeInsetsMake(64,0,0,0)];
-    [self.tableView setScrollIndicatorInsets:UIEdgeInsetsMake(64,0,0,0)];
+    [self.postsTableView setContentInset:UIEdgeInsetsMake(64,0,0,0)];
+    [self.postsTableView setScrollIndicatorInsets:UIEdgeInsetsMake(64,0,0,0)];
 
     // do something after the search controller is dismissed
 }

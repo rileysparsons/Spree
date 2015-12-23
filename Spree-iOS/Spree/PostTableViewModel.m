@@ -7,6 +7,7 @@
 //
 
 #import "PostTableViewModel.h"
+#import "SpreePost.h"
 #import <MMPReactiveCoreLocation/MMPReactiveCoreLocation.h>
 
 @interface PostTableViewModel ()
@@ -56,6 +57,12 @@
         [self.refreshPosts execute:nil];
     }];
 
+    // create the tweet selected command, that simply logs
+    self.postSelectedCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(SpreePost *selectedPost) {
+        NSLog(@"%@", selectedPost.title);
+        return [RACSignal return:selectedPost];
+    }];
+    
 }
 
 - (void)initializeLocationService{

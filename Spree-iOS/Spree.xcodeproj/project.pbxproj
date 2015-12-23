@@ -95,6 +95,8 @@
 		145B0AC81B9F8100002FD94E /* UIImage+ResizeAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 145B0AC41B9F8100002FD94E /* UIImage+ResizeAdditions.m */; };
 		145B0AC91B9F8100002FD94E /* UIImage+RoundedCornerAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 145B0AC61B9F8100002FD94E /* UIImage+RoundedCornerAdditions.m */; };
 		14820B6B1A40CA92008A1430 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14820B6A1A40CA92008A1430 /* MapKit.framework */; };
+		14839F521C2B2F2A00ED5320 /* CEObservableMutableArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 14839F4E1C2B2F2A00ED5320 /* CEObservableMutableArray.m */; };
+		14839F531C2B2F2A00ED5320 /* CETableViewBindingHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 14839F511C2B2F2A00ED5320 /* CETableViewBindingHelper.m */; };
 		1491BBA41B336F38004F43CA /* ResultsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1491BBA31B336F38004F43CA /* ResultsTableViewController.m */; };
 		149787A21A49F0E40024437D /* UIColor+SpreeColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 149787A11A49F0E40024437D /* UIColor+SpreeColor.m */; };
 		14A416801B05700600EA4DA2 /* SpreeSprintTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A4167E1B05700600EA4DA2 /* SpreeSprintTableViewCell.m */; };
@@ -323,6 +325,11 @@
 		145B0AC51B9F8100002FD94E /* UIImage+RoundedCornerAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+RoundedCornerAdditions.h"; sourceTree = "<group>"; };
 		145B0AC61B9F8100002FD94E /* UIImage+RoundedCornerAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+RoundedCornerAdditions.m"; sourceTree = "<group>"; };
 		14820B6A1A40CA92008A1430 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		14839F4D1C2B2F2A00ED5320 /* CEObservableMutableArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CEObservableMutableArray.h; sourceTree = "<group>"; };
+		14839F4E1C2B2F2A00ED5320 /* CEObservableMutableArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CEObservableMutableArray.m; sourceTree = "<group>"; };
+		14839F4F1C2B2F2A00ED5320 /* CEReactiveView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CEReactiveView.h; sourceTree = "<group>"; };
+		14839F501C2B2F2A00ED5320 /* CETableViewBindingHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CETableViewBindingHelper.h; sourceTree = "<group>"; };
+		14839F511C2B2F2A00ED5320 /* CETableViewBindingHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CETableViewBindingHelper.m; sourceTree = "<group>"; };
 		1491BBA21B336F38004F43CA /* ResultsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultsTableViewController.h; sourceTree = "<group>"; };
 		1491BBA31B336F38004F43CA /* ResultsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultsTableViewController.m; sourceTree = "<group>"; };
 		149787A01A49F0E40024437D /* UIColor+SpreeColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+SpreeColor.h"; sourceTree = "<group>"; };
@@ -712,6 +719,7 @@
 		144D55771B4E11A40003B752 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				14839F541C2B2F3A00ED5320 /* TableView Binding Helpers */,
 				144D55781B4E11AF0003B752 /* Lato */,
 			);
 			name = Resources;
@@ -732,6 +740,18 @@
 				144D556C1B4E11920003B752 /* Lato-Regular.ttf */,
 			);
 			name = Lato;
+			sourceTree = "<group>";
+		};
+		14839F541C2B2F3A00ED5320 /* TableView Binding Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				14839F4D1C2B2F2A00ED5320 /* CEObservableMutableArray.h */,
+				14839F4E1C2B2F2A00ED5320 /* CEObservableMutableArray.m */,
+				14839F4F1C2B2F2A00ED5320 /* CEReactiveView.h */,
+				14839F501C2B2F2A00ED5320 /* CETableViewBindingHelper.h */,
+				14839F511C2B2F2A00ED5320 /* CETableViewBindingHelper.m */,
+			);
+			name = "TableView Binding Helpers";
 			sourceTree = "<group>";
 		};
 		14C38D941B27AE0B0039862E /* Post Detail */ = {
@@ -1189,6 +1209,7 @@
 				141524561B4070E5007EE405 /* PostTypeSelectionTableViewCell.m in Sources */,
 				142CB05D1B5236F500969066 /* AddPhotoHeaderView.m in Sources */,
 				F7715E971AEBFEA7005DDEFF /* MessagingTableViewCell.m in Sources */,
+				14839F531C2B2F2A00ED5320 /* CETableViewBindingHelper.m in Sources */,
 				14C38DB31B28F6870039862E /* PhotoGalleryTableViewCell.m in Sources */,
 				14F739BF1B783D4800E60619 /* SettingsViewController.m in Sources */,
 				144D55571B40A5490003B752 /* PostingWorkflow.m in Sources */,
@@ -1226,6 +1247,7 @@
 				14423CD51B8E8F68002CB026 /* PostShareView.m in Sources */,
 				CFFEE9291B0487BF002CD29A /* MeetUpViewController.m in Sources */,
 				14423CDF1B8FCD64002CB026 /* EditPostingNumberEntryViewController.m in Sources */,
+				14839F521C2B2F2A00ED5320 /* CEObservableMutableArray.m in Sources */,
 				145B0AB81B9E1BFB002FD94E /* EDStarRating.m in Sources */,
 				14CAB3C91B5C34D10081979C /* BasicInfoTableViewCell.m in Sources */,
 				143D91F41B6E7A5200E2F493 /* BaseOnboardingViewController.m in Sources */,
