@@ -114,24 +114,13 @@
     }];;
     
     RAC(self, posts) = RACObserve(self.viewModel, posts);
-   
-    RAC(self.backgroundView, hidden) = RACObserve(self.viewModel, locationServicesAllowed);
-    [RACObserve(self.viewModel, locationServicesAllowed) subscribeNext:^(id x) {
-        NSLog(@"allowed? %@", x);
-    }];
-    
-    [RACObserve(self.viewModel, locationServicesAllowed) subscribeNext:^(id x) {
-        NSLog(@"allowed? %@", x);
-    }];
+
+    RAC(self.backgroundView, hidden) = [RACObserve(self.viewModel, shouldHidePosts) not];
     
     [[RACObserve(self, posts) deliverOnMainThread]
      subscribeNext:^(id x) {
         [self.tableView reloadData];
         [self.refreshControl endRefreshing];
-    }];
-
-    self.requestLocationServicesButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
-        return [self.viewModel.requestLocationServices execute:nil];
     }];
     
 }

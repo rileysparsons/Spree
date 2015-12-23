@@ -14,7 +14,7 @@
 
 @property RACCommand* refreshPosts;
 @property RACCommand* requestLocationServices;
-@property BOOL locationServicesAllowed;
+@property BOOL shouldHidePosts;
 @property NSArray *posts;
 
 -(instancetype)initWithServices: (id<SpreeViewModelServices>)services;
