@@ -60,17 +60,17 @@
 
 - (void)initializeLocationService{
     
-    self.service = [MMPReactiveCoreLocation service];
-    
-    RAC(self, currentLocation) = [self locationSignal];
-    
-    RAC(self, shouldHidePosts) = [[self.service authorizationStatus] map:^id(NSNumber* value) {
-        if ([value integerValue] == 2){
-            return @YES;
-        } else {
-            return @NO;
-        }
-    }];
+        self.service = [MMPReactiveCoreLocation service];
+        
+        RAC(self, currentLocation) = [self locationSignal];
+        
+        RAC(self, shouldHidePosts) = [[self.service authorizationStatus] map:^id(NSNumber* value) {
+            if ([value integerValue] == 2){
+                return @YES;
+            } else {
+                return @NO;
+            }
+        }];
 }
 
 -(RACSignal *)refreshPostsSignalForCurrentLocation{
