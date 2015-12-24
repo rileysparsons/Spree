@@ -21,4 +21,8 @@
 
 -(instancetype)initWithServices: (id<SpreeViewModelServices>)services;
 
+-(instancetype)initWithServices:(id<SpreeViewModelServices>)services postType:(SpreePostType)type;
+
+
+
 @end
