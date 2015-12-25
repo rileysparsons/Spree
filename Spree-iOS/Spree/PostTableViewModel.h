@@ -16,13 +16,12 @@
 @property RACCommand* requestLocationServices;
 @property RACCommand* postSelectedCommand;
 
+@property NSDictionary* queryParameters;
 @property BOOL shouldHidePosts;
+@property NSString *searchString;
 @property NSArray *posts;
 
 -(instancetype)initWithServices: (id<SpreeViewModelServices>)services;
-
--(instancetype)initWithServices:(id<SpreeViewModelServices>)services postType:(SpreePostType)type;
-
-
+-(instancetype)initWithServices: (id<SpreeViewModelServices>)services Params:(NSDictionary *)params;
 
 @end

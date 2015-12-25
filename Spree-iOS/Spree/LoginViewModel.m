@@ -7,9 +7,9 @@
 //
 
 #import "LoginViewModel.h"
-#import "AppDelegate.h"
 #import "SpreeViewModelServicesImpl.h"
 #import "HomeViewController.h"
+#import "AppDelegate.h"
 
 @interface LoginViewModel ()
 
@@ -48,11 +48,12 @@
     HomeViewController *homeViewController = [navController.viewControllers objectAtIndex:0];
     SpreeViewModelServicesImpl *viewModelServices = [[SpreeViewModelServicesImpl alloc] init];
     homeViewController.viewModel = [[PostTableViewModel alloc] initWithServices:viewModelServices];
+
     
     [UIView transitionWithView:appDelegate.window
                       duration:0.5
                        options:UIViewAnimationOptionTransitionFlipFromLeft
-                    animations:^{ appDelegate.window.rootViewController = homeViewController; }
+                    animations:^{ appDelegate.window.rootViewController = tabBarController; }
                     completion:nil];
 }
 

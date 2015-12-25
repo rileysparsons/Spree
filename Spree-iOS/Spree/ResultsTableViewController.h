@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PostTableViewModel.h"
+#import "PostTableViewController.h"
 
-@interface ResultsTableViewController : UITableViewController
-
-@property (nonatomic, strong) NSArray *filteredProducts;
+@interface ResultsTableViewController : PostTableViewController
 
 @end

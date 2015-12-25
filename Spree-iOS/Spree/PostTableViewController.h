@@ -14,6 +14,7 @@
 
 @property (nonatomic, strong) PostDetailTableViewController *postDetailTableViewController;
 @property NSDictionary *postQueryParameters;
+@property BOOL isSearchable;
 @property PostTableViewModel *viewModel;
 
 @property (weak, nonatomic) IBOutlet UITableView *postsTableView;

@@ -49,8 +49,6 @@
     
 //    [MBProgressHUD showHUDAddedTo:self.tableView animated:YES];
     
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    appDelegate.window.rootViewController = self.tabBarController;
     
    // self.tableView.delegate = self;
    // self.tableView.dataSource = self;
@@ -105,15 +103,19 @@
     
     [self bindViewModel];
 
-    
 }
 
 -(void)bindViewModel{
+    NSLog(@"params %@", _postQueryParameters);
     self.refreshControl.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         return [self.viewModel.refreshPosts execute:nil];
     }];
     
     RAC(self, posts) = RACObserve(self.viewModel, posts);
+    
+    [RACObserve(self, posts) subscribeNext:^(id x) {
+        NSLog(@"posts in superclass %@", x);
+    }];
 
     RAC(self.backgroundView, hidden) = [RACObserve(self.viewModel, shouldHidePosts) not];
     
@@ -130,6 +132,7 @@
                                            templateCell:nib];
     
     [[self.viewModel.postSelectedCommand.executionSignals switchToLatest] subscribeNext:^(SpreePost* post) {
+        NSLog(@"superview: %@",post);
         [self presentDetailViewControllerForPost:post];
     }];
 }

@@ -7,10 +7,11 @@
 //
 
 #import "PostTypeTableViewController.h"
+#import "SpreeViewModelServicesImpl.h"
 #import "ResultsTableViewController.h"
+#import "UISearchBar+RAC.h"
 #import "UIColor+SpreeColor.h"
 
-@interface PostTypeTableViewController () <UISearchControllerDelegate, UISearchResultsUpdating, UISearchBarDelegate>{
 }
 
 // Search
@@ -40,6 +41,7 @@
     // Search set up (Excerpt from official Apple Example)
     
     _resultsTableController = [[ResultsTableViewController alloc] init];
+    
     _searchController = [[UISearchController alloc] initWithSearchResultsController:self.resultsTableController];
     self.searchController.searchResultsUpdater = self;
     [self.searchController.searchBar sizeToFit];
@@ -78,66 +80,11 @@
         [self.searchQuery cancel];
     }
     self.searchQuery = [PFQuery queryWithClassName:@"Post"];
-    [self.searchQuery whereKeyExists:@"title"];  //this is based on whatever query you are trying to accomplish
-    [self.searchQuery whereKeyExists:@"price"]; //this is based on whatever query you are trying to accomplish
-    [self.searchQuery whereKey:@"typePointer" equalTo:self.postType];
-    
-    NSMutableArray *parts = [NSMutableArray arrayWithArray:[searchTerm componentsSeparatedByCharactersInSet:[NSCharacterSet  whitespaceCharacterSet]]];
-    [parts removeObjectIdenticalTo:@""];
-    
-    NSLog(@"Parts %@", parts);
-    
-    NSArray *lowercaseTerms = [parts valueForKey:@"lowercaseString"];
-    
-    [self.searchQuery whereKey:@"keywords" containsAllObjectsInArray:lowercaseTerms];
-    
-    [self.searchQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error){
-        if (!error){
-            NSLog(@"%@", objects);
-            NSLog(@"%lu", (unsigned long)objects.count);
-            [self.searchResults removeAllObjects];
-            [self.searchResults addObjectsFromArray:objects];
-            // hand over the filtered results to our search results table
-            ResultsTableViewController *tableController = (ResultsTableViewController *)self.searchController.searchResultsController;
-            tableController.filteredProducts = self.searchResults;
-            [tableController.tableView reloadData];
-            self.searchQuery = nil;
-        }
-    }];
-}
-
-
-#pragma mark - UISearchBarDelegate
-
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
-    [searchBar resignFirstResponder];
-}
-
 #pragma mark - UISearchControllerDelegate
 
-// Called after the search controller's search bar has agreed to begin editing or when
-// 'active' is set to YES.
-// If you choose not to present the controller yourself or do not implement this method,
 // a default presentation is performed on your behalf.
 //
-// Implement this method if the default presentation is not adequate for your purposes.
 //
-- (void)presentSearchController:(UISearchController *)searchController {
-    self.refreshControl.enabled = false;
-    self.refreshControl = nil;
-}
-
-- (void)willPresentSearchController:(UISearchController *)searchController {
-    // do something before the search controller is presented
-}
-
-- (void)didPresentSearchController:(UISearchController *)searchController {
-    [self.postsTableView setContentInset:UIEdgeInsetsMake(26,0,0,0)];
-    [self.postsTableView setScrollIndicatorInsets:UIEdgeInsetsMake(64,0,0,0)];
-    // do something after the search controller is presented
-}
-
-- (void)willDismissSearchController:(UISearchController *)searchController {
     // do something before the search controller is dismissed
 }
 

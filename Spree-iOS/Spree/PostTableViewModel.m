@@ -16,7 +16,6 @@
 @property CLLocation *currentLocation;
 @property (nonatomic, strong) MMPReactiveCoreLocation *service;
 @property CLAuthorizationStatus authStatus;
-@property SpreePostType postType;
 
 @end
 
@@ -31,16 +30,16 @@
     return self;
 }
 
--(instancetype)initWithServices:(id<SpreeViewModelServices>)services postType:(SpreePostType)postType {
-    self = [self initWithServices:services];
+-(instancetype)initWithServices:(id<SpreeViewModelServices>)services Params:(NSDictionary *)params{
+    self = [super init];
     if (self) {
-        NSLog(@"post type: %lu", (unsigned long)postType);
-        _postType = postType;
         _services = services;
-        
+        _queryParameters = params;
+        [self initialize];
     }
     return self;
 }
+
 
 -(void)initialize{
     
@@ -50,15 +49,10 @@
     
     @weakify(self);
 
-    self.refreshPosts = [[RACCommand alloc] initWithEnabled:nil signalBlock:^RACSignal *(id input) {
-        NSLog(@"HERE");
+    self.refreshPosts = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         @strongify(self);
-    
-        if(!_postType) {
-            return [self findAllPostsWithCurrentLocationSignal];
-        } else {
-            return [self findPostsForTypeWithCurrentLocationSignal];
-        }
+        return [self findPostsSignalWithLocation:self.currentLocation params:_queryParameters];
+        
     }];
     
     RAC(self, posts) =
@@ -71,14 +65,26 @@
         return [[RACObserve(self, currentLocation) ignore:NULL] take:1];
     }] subscribeNext:^(id x) {
         NSLog(@"returned from initial block: %@", x);
-        [self.refreshPosts execute:nil];
+        [self.refreshPosts execute:_queryParameters];
     }];
     
 
     // create the tweet selected command, that simply logs
     self.postSelectedCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(SpreePost *selectedPost) {
-        NSLog(@"%@", selectedPost.title);
+        NSLog(@"selected %@", selectedPost.title);
         return [RACSignal return:selectedPost];
+    }];
+    
+    [RACObserve(self, searchString) subscribeNext:^(id x) {
+        NSLog(@"in viewmodel %@", x);
+    }];
+    
+    [[[[[RACObserve(self, searchString) map:^id(NSString* string){
+        return [self sanitizeSearchString:string];
+    }] throttle:0.5] flattenMap:^RACStream *(NSArray *keywords) {
+        return [self findPostsSignalWithLocation:self.currentLocation params:self.queryParameters keywords:keywords];
+    }] deliverOnMainThread] subscribeNext:^(id x) {
+        self.posts = x;
     }];
     
 }
@@ -99,13 +105,13 @@
 
 }
 
--(RACSignal *)findAllPostsWithCurrentLocationSignal{
-    NSLog(@"current loc: %@", self.currentLocation);
-    return [[[self.services getParseConnection] findAllPostsForLocation:self.currentLocation] timeout:10 onScheduler:RACScheduler.scheduler];
+-(RACSignal *)findPostsSignalWithLocation:(CLLocation *)location params:(NSDictionary *)params{
+    return [[[self.services getParseConnection] findPostsSignalWithLocation:location params:params] timeout:10 onScheduler:RACScheduler.scheduler];
 }
 
--(RACSignal *)findPostsForTypeWithCurrentLocationSignal{
-    return [[[self.services getParseConnection] findPostsForLocation:self.currentLocation type:_postType] timeout:10 onScheduler:RACScheduler.scheduler];
+
+-(RACSignal *)findPostsSignalWithLocation:(CLLocation *)location params:(NSDictionary *)params keywords:(NSArray *)keywords{
+    return [[[self.services getParseConnection] findPostsSignalWithLocation:location params:params keywords:keywords] timeout:10 onScheduler:RACScheduler.scheduler];
 }
 
 - (RACSignal *)requestLocationAuthSignal {
@@ -127,6 +133,50 @@
         }];
         return nil;
     }];
+}
+
+#pragma mark - Search Functions
+
+//if (self.searchQuery){
+//    [self.searchQuery cancel];
+//}
+//self.searchQuery = [PFQuery queryWithClassName:@"Post"];
+//[self.searchQuery whereKeyExists:@"title"];  //this is based on whatever query you are trying to accomplish
+//[self.searchQuery whereKeyExists:@"price"]; //this is based on whatever query you are trying to accomplish
+//[self.searchQuery whereKey:@"typePointer" equalTo:self.postType];
+//
+//NSMutableArray *parts = [NSMutableArray arrayWithArray:[searchTerm componentsSeparatedByCharactersInSet:[NSCharacterSet  whitespaceCharacterSet]]];
+//[parts removeObjectIdenticalTo:@""];
+//
+//NSLog(@"Parts %@", parts);
+//
+//NSArray *lowercaseTerms = [parts valueForKey:@"lowercaseString"];
+//
+//[self.searchQuery whereKey:@"keywords" containsAllObjectsInArray:lowercaseTerms];
+//
+//[self.searchQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error){
+//    if (!error){
+//        NSLog(@"%@", objects);
+//        NSLog(@"%lu", (unsigned long)objects.count);
+//        [self.searchResults removeAllObjects];
+//        [self.searchResults addObjectsFromArray:objects];
+//        // hand over the filtered results to our search results table
+//        ResultsTableViewController *tableController = (ResultsTableViewController *)self.searchController.searchResultsController;
+//        tableController.filteredProducts = self.searchResults;
+//        [tableController.postsTableView reloadData];
+//        self.searchQuery = nil;
+//    }
+//}];
+
+-(NSArray *)sanitizeSearchString:(NSString *)string {
+    NSMutableArray *parts = [NSMutableArray arrayWithArray:[string componentsSeparatedByCharactersInSet:[NSCharacterSet  whitespaceCharacterSet]]];
+    [parts removeObjectIdenticalTo:@""];
+    
+    NSLog(@"Parts for search: %@", parts);
+    
+    NSArray *lowercaseTerms = [parts valueForKey:@"lowercaseString"];
+    
+    return lowercaseTerms;
 }
 
 @end

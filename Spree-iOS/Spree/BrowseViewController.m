@@ -427,15 +427,12 @@
         // Attaching View Model Services to View Model (gives us access to Parse, our model)
         SpreeViewModelServicesImpl *viewModelServices = [[SpreeViewModelServicesImpl alloc] init];
         
-        NSLog(@"%lu", [self postTypeForObject:[self.objects objectAtIndex:self.tableView.indexPathForSelectedRow.row]]);
-        
-        PostTableViewModel *viewModel = [[PostTableViewModel alloc] initWithServices:viewModelServices postType:[self postTypeForObject:[self.objects objectAtIndex:self.tableView.indexPathForSelectedRow.row]]];
+        PostTableViewModel *viewModel = [[PostTableViewModel alloc] initWithServices:viewModelServices Params:@{@"type":[self.objects objectAtIndex:self.tableView.indexPathForSelectedRow.row][@"type"]}];
 
-        
         PostTypeTableViewController *destinationViewController = segue.destinationViewController;
         
         destinationViewController.viewModel = viewModel;
-        
+
         destinationViewController.postType = [self.objects objectAtIndex:self.tableView.indexPathForSelectedRow.row];
     }
     
@@ -455,29 +452,5 @@
     [self.navigationController presentViewController:navigationController animated:YES completion:nil];
 }
 
--(SpreePostType)postTypeForObject:(PFObject *)object{
-    if ([object[@"type"] isEqualToString: POST_TYPE_KITCHEN]){
-        return kSpreePostTypeKitchen;
-    } else if ([object[@"type"] isEqualToString: POST_TYPE_OUTDOORS]){
-        return kSpreePostTypeOutdoors;
-    } else if ([object[@"type"] isEqualToString: POST_TYPE_FURNITURE]){
-        return kSpreePostTypeFurniture;
-    }else if ([object[@"type"] isEqualToString: POST_TYPE_ELECTRONICS]){
-        return kSpreePostTypeElectronics;
-    }else if ([object[@"type"] isEqualToString: POST_TYPE_ACCESSORIES]){
-        return kSpreePostTypeAccessories;
-    }else if ([object[@"type"] isEqualToString: POST_TYPE_SPORTS]){
-        return kSpreePostTypeSports;
-    }else if ([object[@"type"] isEqualToString: POST_TYPE_BOOKS]){
-        return kSpreePostTypeBooks;
-    }else if ([object[@"type"] isEqualToString: POST_TYPE_TASKSANDSERVICES]){
-        return kSpreePostTypeTasks;
-    }else if ([object[@"type"] isEqualToString: POST_TYPE_TICKETS]){
-        return kSpreePostTypeTickets;
-    }else if ([object[@"type"] isEqualToString: POST_TYPE_CLOTHING]){
-        return kSpreePostTypeClothing;
-    }
-    return kSpreePostTypeNone;
-}
 
 @end
