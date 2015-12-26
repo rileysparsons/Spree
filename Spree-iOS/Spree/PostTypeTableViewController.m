@@ -95,11 +95,12 @@
     self.searchController.dimsBackgroundDuringPresentation = NO; // default is YES
     self.definesPresentationContext = YES;  // know where you want UISearchController to be displayed
     */
-    RAC(_resultsTableController.viewModel, searchString) = self.searchController.searchBar.rac_textSignal;
     
-    [self.searchController.searchBar.rac_textSignal subscribeNext:^(id x) {
-        NSLog(@"called: %@", x);
-    }];
+    [[[[self.searchController.searchBar.rac_textSignal throttle:0.5] distinctUntilChanged] deliverOnMainThread]
+     subscribeNext:^(NSString *string) {
+         _resultsTableController.viewModel.searchString = string;
+         [_resultsTableController.viewModel.refreshPosts execute:nil];
+     }];
     
     // Search is now just presenting a view controller. As such, normal view controller
     // presentation semantics apply. Namely that presentation will walk up the view controller

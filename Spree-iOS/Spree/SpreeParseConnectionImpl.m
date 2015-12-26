@@ -49,7 +49,7 @@
         [postQuery whereKey:@"location" nearGeoPoint:geopoint withinMiles:200];
         [postQuery findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
             if (!error){
-                NSLog(@"no error here. %lu", (long unsigned)objects.count);
+                NSLog(@"no error here (all). %lu", (long unsigned)objects.count);
                 [subscriber sendNext:objects];
                 [subscriber sendCompleted];
             } else {
@@ -81,7 +81,7 @@
                         
                         [postQuery findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
                             if (!error){
-                                NSLog(@"no error here. %lu", (long unsigned)objects.count);
+                                NSLog(@"no error here (params). %lu", (long unsigned)objects.count);
                                 [subscriber sendNext:objects];
                                 [subscriber sendCompleted];
                             } else {
@@ -101,7 +101,7 @@
 }
 
 -(RACSignal *)findPostsSignalWithLocation:(CLLocation *)location params:(NSDictionary *)params keywords:(NSArray *)keywords{
-    if (params){
+    if (params && keywords.count > 0){
         if ([params objectForKey:@"type"]){
             return [RACSignal createSignal:^RACDisposable * (id<RACSubscriber> subscriber) {
                 NSLog(@" this is the type %@", params[@"type"]);
@@ -123,7 +123,7 @@
                     
                     [postQuery findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
                         if (!error){
-                            NSLog(@"no error here. %lu", (long unsigned)objects.count);
+                            NSLog(@"no error here (keyword). %lu", (long unsigned)objects.count);
                             [subscriber sendNext:objects];
                             [subscriber sendCompleted];
                         } else {
@@ -135,8 +135,10 @@
                 return nil;
             }];
         }
+    } else if (params){
+        return [self findPostsSignalWithLocation:location params:params];
     } else {
-        // If no other parameters were provided send back all posts that match that location
+        // If no other parameters or keywords were provided send back all posts that match that location
         return [self findAllPostsForLocation:location];
     }
     return nil;

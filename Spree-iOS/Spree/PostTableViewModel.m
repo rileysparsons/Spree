@@ -17,6 +17,8 @@
 @property (nonatomic, strong) MMPReactiveCoreLocation *service;
 @property CLAuthorizationStatus authStatus;
 
+@property NSArray *keywordArray; // Will map search string into this array from user input.
+
 @end
 
 @implementation PostTableViewModel
@@ -51,10 +53,11 @@
 
     self.refreshPosts = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         @strongify(self);
-        return [self findPostsSignalWithLocation:self.currentLocation params:_queryParameters];
+        return [self signalForFindPostsSignalWithLocation:self.currentLocation params:_queryParameters keywords:_keywordArray];
         
     }];
     
+
     RAC(self, posts) =
     [[[self.refreshPosts executionSignals]
       switchToLatest]
@@ -75,16 +78,8 @@
         return [RACSignal return:selectedPost];
     }];
     
-    [RACObserve(self, searchString) subscribeNext:^(id x) {
-        NSLog(@"in viewmodel %@", x);
-    }];
-    
-    [[[[[RACObserve(self, searchString) map:^id(NSString* string){
+    RAC(self, keywordArray) = [RACObserve(self, searchString) map:^id(NSString *string) {
         return [self sanitizeSearchString:string];
-    }] throttle:0.5] flattenMap:^RACStream *(NSArray *keywords) {
-        return [self findPostsSignalWithLocation:self.currentLocation params:self.queryParameters keywords:keywords];
-    }] deliverOnMainThread] subscribeNext:^(id x) {
-        self.posts = x;
     }];
     
 }
@@ -105,12 +100,7 @@
 
 }
 
--(RACSignal *)findPostsSignalWithLocation:(CLLocation *)location params:(NSDictionary *)params{
-    return [[[self.services getParseConnection] findPostsSignalWithLocation:location params:params] timeout:10 onScheduler:RACScheduler.scheduler];
-}
-
-
--(RACSignal *)findPostsSignalWithLocation:(CLLocation *)location params:(NSDictionary *)params keywords:(NSArray *)keywords{
+-(RACSignal *)signalForFindPostsSignalWithLocation:(CLLocation *)location params:(NSDictionary *)params keywords:(NSArray *)keywords{
     return [[[self.services getParseConnection] findPostsSignalWithLocation:location params:params keywords:keywords] timeout:10 onScheduler:RACScheduler.scheduler];
 }
 

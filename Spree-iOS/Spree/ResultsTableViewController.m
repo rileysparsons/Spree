@@ -20,10 +20,7 @@
     [super viewDidLoad];
     [self.view setBackgroundColor:[UIColor blackColor]];
 
-    [[self.viewModel.postSelectedCommand.executionSignals switchToLatest] subscribeNext:^(SpreePost* post) {
-        NSLog(@"superview: %@",post);
-        [self presentDetailViewControllerForPost:post];
-    }];
+
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
