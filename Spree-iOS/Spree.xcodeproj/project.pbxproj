@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		140473971ABD002F00C0F8EF /* PostTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 140473961ABD002F00C0F8EF /* PostTableViewController.m */; };
 		1404739A1ABD267E00C0F8EF /* UserPostsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 140473991ABD267E00C0F8EF /* UserPostsTableViewController.m */; };
-		1404739D1ABD308D00C0F8EF /* PostTypeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1404739C1ABD308D00C0F8EF /* PostTypeTableViewController.m */; };
+		1404739D1ABD308D00C0F8EF /* SearchablePostTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1404739C1ABD308D00C0F8EF /* SearchablePostTableViewController.m */; };
 		140CF8D91A3BBFB200134C4D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 140CF8D81A3BBFB200134C4D /* main.m */; };
 		140CF8DC1A3BBFB200134C4D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 140CF8DB1A3BBFB200134C4D /* AppDelegate.m */; };
 		140CF8DF1A3BBFB200134C4D /* BrowseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 140CF8DE1A3BBFB200134C4D /* BrowseViewController.m */; };
@@ -95,6 +95,10 @@
 		145B0AC81B9F8100002FD94E /* UIImage+ResizeAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 145B0AC41B9F8100002FD94E /* UIImage+ResizeAdditions.m */; };
 		145B0AC91B9F8100002FD94E /* UIImage+RoundedCornerAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 145B0AC61B9F8100002FD94E /* UIImage+RoundedCornerAdditions.m */; };
 		14820B6B1A40CA92008A1430 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14820B6A1A40CA92008A1430 /* MapKit.framework */; };
+		14839F521C2B2F2A00ED5320 /* CEObservableMutableArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 14839F4E1C2B2F2A00ED5320 /* CEObservableMutableArray.m */; };
+		14839F531C2B2F2A00ED5320 /* CETableViewBindingHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 14839F511C2B2F2A00ED5320 /* CETableViewBindingHelper.m */; };
+		14839F591C2C9F3E00ED5320 /* UISearchController+RAC.m in Sources */ = {isa = PBXBuildFile; fileRef = 14839F551C2C9F3E00ED5320 /* UISearchController+RAC.m */; };
+		14839F5A1C2C9F3E00ED5320 /* UISearchBar+RAC.m in Sources */ = {isa = PBXBuildFile; fileRef = 14839F571C2C9F3E00ED5320 /* UISearchBar+RAC.m */; };
 		1491BBA41B336F38004F43CA /* ResultsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1491BBA31B336F38004F43CA /* ResultsTableViewController.m */; };
 		149787A21A49F0E40024437D /* UIColor+SpreeColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 149787A11A49F0E40024437D /* UIColor+SpreeColor.m */; };
 		14A416801B05700600EA4DA2 /* SpreeSprintTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A4167E1B05700600EA4DA2 /* SpreeSprintTableViewCell.m */; };
@@ -106,6 +110,7 @@
 		14AB0EC71B87F63300BD06EB /* PostingDataEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14AB0EC61B87F63300BD06EB /* PostingDataEntryViewController.m */; };
 		14C38DA21B27F3BA0039862E /* PostDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C38DA11B27F3BA0039862E /* PostDetailTableViewController.m */; };
 		14C38DB31B28F6870039862E /* PhotoGalleryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C38DB11B28F6870039862E /* PhotoGalleryTableViewCell.m */; };
+		14C763B11C233E71005899F9 /* PostTableViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C763B01C233E71005899F9 /* PostTableViewModel.m */; };
 		14C8214A1B2D1B9100A1B513 /* PhotoGalleryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14C821491B2D1B9100A1B513 /* PhotoGalleryTableViewCell.xib */; };
 		14C8214D1B2FE36C00A1B513 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C8214C1B2FE36C00A1B513 /* ProfileViewController.m */; };
 		14CAB3BF1B5948150081979C /* PhotoDisplayTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14CAB3BD1B5948150081979C /* PhotoDisplayTableViewCell.m */; };
@@ -120,7 +125,7 @@
 		14CAB3D71B5C685D0081979C /* EditPostPhotoSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14CAB3D61B5C685D0081979C /* EditPostPhotoSelectViewController.m */; };
 		14CE471F1B6AF02A004FA4D1 /* HomeHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14CE471E1B6AF02A004FA4D1 /* HomeHeaderView.m */; };
 		14CE47211B6AF040004FA4D1 /* HomeHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14CE47201B6AF040004FA4D1 /* HomeHeaderView.xib */; };
-		14CE47241B6AF41E004FA4D1 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14CE47231B6AF41E004FA4D1 /* HomeViewController.m */; };
+		14CE47241B6AF41E004FA4D1 /* MainPostTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14CE47231B6AF41E004FA4D1 /* MainPostTableViewController.m */; };
 		14D3B67D1BA291C300D665BB /* UserPostTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14D3B67C1BA291C200D665BB /* UserPostTableViewCell.m */; };
 		14D3B67F1BA291DA00D665BB /* UserPostTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14D3B67E1BA291DA00D665BB /* UserPostTableViewCell.xib */; };
 		14D3B6811BA2973500D665BB /* PostUserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14D3B6801BA2973500D665BB /* PostUserTableViewCell.m */; };
@@ -185,8 +190,8 @@
 		140473961ABD002F00C0F8EF /* PostTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostTableViewController.m; sourceTree = "<group>"; };
 		140473981ABD267E00C0F8EF /* UserPostsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserPostsTableViewController.h; sourceTree = "<group>"; };
 		140473991ABD267E00C0F8EF /* UserPostsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserPostsTableViewController.m; sourceTree = "<group>"; };
-		1404739B1ABD308D00C0F8EF /* PostTypeTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostTypeTableViewController.h; sourceTree = "<group>"; };
-		1404739C1ABD308D00C0F8EF /* PostTypeTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostTypeTableViewController.m; sourceTree = "<group>"; };
+		1404739B1ABD308D00C0F8EF /* SearchablePostTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchablePostTableViewController.h; sourceTree = "<group>"; };
+		1404739C1ABD308D00C0F8EF /* SearchablePostTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchablePostTableViewController.m; sourceTree = "<group>"; };
 		140CF8D31A3BBFB200134C4D /* Spree.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spree.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		140CF8D71A3BBFB200134C4D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		140CF8D81A3BBFB200134C4D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -322,6 +327,15 @@
 		145B0AC51B9F8100002FD94E /* UIImage+RoundedCornerAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+RoundedCornerAdditions.h"; sourceTree = "<group>"; };
 		145B0AC61B9F8100002FD94E /* UIImage+RoundedCornerAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+RoundedCornerAdditions.m"; sourceTree = "<group>"; };
 		14820B6A1A40CA92008A1430 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		14839F4D1C2B2F2A00ED5320 /* CEObservableMutableArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CEObservableMutableArray.h; sourceTree = "<group>"; };
+		14839F4E1C2B2F2A00ED5320 /* CEObservableMutableArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CEObservableMutableArray.m; sourceTree = "<group>"; };
+		14839F4F1C2B2F2A00ED5320 /* CEReactiveView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CEReactiveView.h; sourceTree = "<group>"; };
+		14839F501C2B2F2A00ED5320 /* CETableViewBindingHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CETableViewBindingHelper.h; sourceTree = "<group>"; };
+		14839F511C2B2F2A00ED5320 /* CETableViewBindingHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CETableViewBindingHelper.m; sourceTree = "<group>"; };
+		14839F551C2C9F3E00ED5320 /* UISearchController+RAC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UISearchController+RAC.m"; sourceTree = "<group>"; };
+		14839F561C2C9F3E00ED5320 /* UISearchController+RAC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UISearchController+RAC.h"; sourceTree = "<group>"; };
+		14839F571C2C9F3E00ED5320 /* UISearchBar+RAC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UISearchBar+RAC.m"; sourceTree = "<group>"; };
+		14839F581C2C9F3E00ED5320 /* UISearchBar+RAC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UISearchBar+RAC.h"; sourceTree = "<group>"; };
 		1491BBA21B336F38004F43CA /* ResultsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultsTableViewController.h; sourceTree = "<group>"; };
 		1491BBA31B336F38004F43CA /* ResultsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultsTableViewController.m; sourceTree = "<group>"; };
 		149787A01A49F0E40024437D /* UIColor+SpreeColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+SpreeColor.h"; sourceTree = "<group>"; };
@@ -343,6 +357,8 @@
 		14C38DB01B28F6870039862E /* PhotoGalleryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoGalleryTableViewCell.h; sourceTree = "<group>"; };
 		14C38DB11B28F6870039862E /* PhotoGalleryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoGalleryTableViewCell.m; sourceTree = "<group>"; };
 		14C38DB51B29311D0039862E /* PostUserTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostUserTableViewCell.h; sourceTree = "<group>"; };
+		14C763AF1C233E71005899F9 /* PostTableViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostTableViewModel.h; sourceTree = "<group>"; };
+		14C763B01C233E71005899F9 /* PostTableViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostTableViewModel.m; sourceTree = "<group>"; };
 		14C821491B2D1B9100A1B513 /* PhotoGalleryTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotoGalleryTableViewCell.xib; sourceTree = "<group>"; };
 		14C8214B1B2FE36C00A1B513 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		14C8214C1B2FE36C00A1B513 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
@@ -365,8 +381,8 @@
 		14CE471D1B6AF02A004FA4D1 /* HomeHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeHeaderView.h; sourceTree = "<group>"; };
 		14CE471E1B6AF02A004FA4D1 /* HomeHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeHeaderView.m; sourceTree = "<group>"; };
 		14CE47201B6AF040004FA4D1 /* HomeHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeHeaderView.xib; sourceTree = "<group>"; };
-		14CE47221B6AF41E004FA4D1 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
-		14CE47231B6AF41E004FA4D1 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
+		14CE47221B6AF41E004FA4D1 /* MainPostTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainPostTableViewController.h; sourceTree = "<group>"; };
+		14CE47231B6AF41E004FA4D1 /* MainPostTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainPostTableViewController.m; sourceTree = "<group>"; };
 		14D3B67B1BA291C200D665BB /* UserPostTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserPostTableViewCell.h; sourceTree = "<group>"; };
 		14D3B67C1BA291C200D665BB /* UserPostTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserPostTableViewCell.m; sourceTree = "<group>"; };
 		14D3B67E1BA291DA00D665BB /* UserPostTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserPostTableViewCell.xib; sourceTree = "<group>"; };
@@ -490,16 +506,9 @@
 			children = (
 				140CF8DA1A3BBFB200134C4D /* AppDelegate.h */,
 				140CF8DB1A3BBFB200134C4D /* AppDelegate.m */,
-				145820AA1C1CE7830092F9D4 /* LoginViewModel.h */,
-				145820AB1C1CE7830092F9D4 /* LoginViewModel.m */,
-				143D91D91B6DF7D900E2F493 /* LoginViewController.h */,
-				143D91DA1B6DF7D900E2F493 /* LoginViewController.m */,
-				145820B01C1CE82B0092F9D4 /* SpreeParseConnectionImpl.h */,
-				145820B11C1CE82B0092F9D4 /* SpreeParseConnectionImpl.m */,
-				145820B31C1CE8770092F9D4 /* SpreeViewModelServices.h */,
-				145820B61C1CE88F0092F9D4 /* SpreeViewModelServicesImpl.h */,
-				145820B71C1CE88F0092F9D4 /* SpreeViewModelServicesImpl.m */,
-				145820AD1C1CE7F10092F9D4 /* SpreeParseConnection.h */,
+				14C763AC1C233D48005899F9 /* View Model */,
+				14C763AD1C233D4D005899F9 /* View Controllers */,
+				14C763AE1C233D5F005899F9 /* Model */,
 				145B0ABE1B9F8027002FD94E /* SpreeUtility.h */,
 				145B0ABF1B9F8027002FD94E /* SpreeUtility.m */,
 				14423CE61B9006BC002CB026 /* SpreeConfigManager.h */,
@@ -593,8 +602,8 @@
 			children = (
 				14A4C9991BA74B8600C6C2E3 /* PostPaymentViewController.h */,
 				14A4C99A1BA74B8600C6C2E3 /* PostPaymentViewController.m */,
-				14CE47221B6AF41E004FA4D1 /* HomeViewController.h */,
-				14CE47231B6AF41E004FA4D1 /* HomeViewController.m */,
+				14CE47221B6AF41E004FA4D1 /* MainPostTableViewController.h */,
+				14CE47231B6AF41E004FA4D1 /* MainPostTableViewController.m */,
 				140CF8E01A3BBFB200134C4D /* MeViewController.h */,
 				140CF8E11A3BBFB200134C4D /* MeViewController.m */,
 				14F739BD1B783D4800E60619 /* SettingsViewController.h */,
@@ -603,8 +612,6 @@
 				4ECA453E1B48E0EB006C33FC /* ContactUsViewController.m */,
 				14C8214B1B2FE36C00A1B513 /* ProfileViewController.h */,
 				14C8214C1B2FE36C00A1B513 /* ProfileViewController.m */,
-				140473951ABD002F00C0F8EF /* PostTableViewController.h */,
-				140473961ABD002F00C0F8EF /* PostTableViewController.m */,
 				CFFEE9281B0487BF002CD29A /* MeetUpViewController.m */,
 				CFFEE9271B0487BF002CD29A /* MeetUpViewController.h */,
 				1491BBA21B336F38004F43CA /* ResultsTableViewController.h */,
@@ -626,8 +633,6 @@
 		1415FD801A4FB5D3006E99A6 /* Post ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				1404739B1ABD308D00C0F8EF /* PostTypeTableViewController.h */,
-				1404739C1ABD308D00C0F8EF /* PostTypeTableViewController.m */,
 				140CF8DD1A3BBFB200134C4D /* BrowseViewController.h */,
 				140CF8DE1A3BBFB200134C4D /* BrowseViewController.m */,
 				14C38D941B27AE0B0039862E /* Post Detail */,
@@ -716,6 +721,8 @@
 		144D55771B4E11A40003B752 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				14839F5B1C2C9F4900ED5320 /* Reactive Search Controller */,
+				14839F541C2B2F3A00ED5320 /* TableView Binding Helpers */,
 				144D55781B4E11AF0003B752 /* Lato */,
 			);
 			name = Resources;
@@ -738,6 +745,40 @@
 			name = Lato;
 			sourceTree = "<group>";
 		};
+		14839F541C2B2F3A00ED5320 /* TableView Binding Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				14839F4D1C2B2F2A00ED5320 /* CEObservableMutableArray.h */,
+				14839F4E1C2B2F2A00ED5320 /* CEObservableMutableArray.m */,
+				14839F4F1C2B2F2A00ED5320 /* CEReactiveView.h */,
+				14839F501C2B2F2A00ED5320 /* CETableViewBindingHelper.h */,
+				14839F511C2B2F2A00ED5320 /* CETableViewBindingHelper.m */,
+			);
+			name = "TableView Binding Helpers";
+			sourceTree = "<group>";
+		};
+		14839F5B1C2C9F4900ED5320 /* Reactive Search Controller */ = {
+			isa = PBXGroup;
+			children = (
+				14839F561C2C9F3E00ED5320 /* UISearchController+RAC.h */,
+				14839F551C2C9F3E00ED5320 /* UISearchController+RAC.m */,
+				14839F581C2C9F3E00ED5320 /* UISearchBar+RAC.h */,
+				14839F571C2C9F3E00ED5320 /* UISearchBar+RAC.m */,
+			);
+			name = "Reactive Search Controller";
+			sourceTree = "<group>";
+		};
+		14839F5C1C2F1AB600ED5320 /* Spree Post Table Views */ = {
+			isa = PBXGroup;
+			children = (
+				140473951ABD002F00C0F8EF /* PostTableViewController.h */,
+				140473961ABD002F00C0F8EF /* PostTableViewController.m */,
+				1404739B1ABD308D00C0F8EF /* SearchablePostTableViewController.h */,
+				1404739C1ABD308D00C0F8EF /* SearchablePostTableViewController.m */,
+			);
+			name = "Spree Post Table Views";
+			sourceTree = "<group>";
+		};
 		14C38D941B27AE0B0039862E /* Post Detail */ = {
 			isa = PBXGroup;
 			children = (
@@ -747,6 +788,40 @@
 				14C38DA11B27F3BA0039862E /* PostDetailTableViewController.m */,
 			);
 			name = "Post Detail";
+			sourceTree = "<group>";
+		};
+		14C763AC1C233D48005899F9 /* View Model */ = {
+			isa = PBXGroup;
+			children = (
+				14C763AF1C233E71005899F9 /* PostTableViewModel.h */,
+				14C763B01C233E71005899F9 /* PostTableViewModel.m */,
+				145820AA1C1CE7830092F9D4 /* LoginViewModel.h */,
+				145820AB1C1CE7830092F9D4 /* LoginViewModel.m */,
+			);
+			name = "View Model";
+			sourceTree = "<group>";
+		};
+		14C763AD1C233D4D005899F9 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				143D91D91B6DF7D900E2F493 /* LoginViewController.h */,
+				143D91DA1B6DF7D900E2F493 /* LoginViewController.m */,
+				14839F5C1C2F1AB600ED5320 /* Spree Post Table Views */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		14C763AE1C233D5F005899F9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				145820B01C1CE82B0092F9D4 /* SpreeParseConnectionImpl.h */,
+				145820B11C1CE82B0092F9D4 /* SpreeParseConnectionImpl.m */,
+				145820B31C1CE8770092F9D4 /* SpreeViewModelServices.h */,
+				145820B61C1CE88F0092F9D4 /* SpreeViewModelServicesImpl.h */,
+				145820B71C1CE88F0092F9D4 /* SpreeViewModelServicesImpl.m */,
+				145820AD1C1CE7F10092F9D4 /* SpreeParseConnection.h */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 		14C821431B2CF9DB00A1B513 /* Parse Subclasses */ = {
@@ -1136,14 +1211,16 @@
 				1415245D1B4084D2007EE405 /* PostingStringEntryViewController.m in Sources */,
 				14D3B67D1BA291C300D665BB /* UserPostTableViewCell.m in Sources */,
 				145B0AC01B9F8027002FD94E /* SpreeUtility.m in Sources */,
-				1404739D1ABD308D00C0F8EF /* PostTypeTableViewController.m in Sources */,
+				1404739D1ABD308D00C0F8EF /* SearchablePostTableViewController.m in Sources */,
 				14AB0EC71B87F63300BD06EB /* PostingDataEntryViewController.m in Sources */,
 				14AB0EBF1B82C25D00BD06EB /* PostingInputAccessoryView.m in Sources */,
 				143D91D21B6BBB1F00E2F493 /* HeaderSlideView.m in Sources */,
 				142CB0611B5303B600969066 /* PhotoSelectTableViewCell.m in Sources */,
 				14423CCB1B8D9A08002CB026 /* SinglePhotoPostShareView.m in Sources */,
 				4EFD06E81BA1528700947AD6 /* ReferralViewController.m in Sources */,
+				14839F5A1C2C9F3E00ED5320 /* UISearchBar+RAC.m in Sources */,
 				14423CD21B8E786B002CB026 /* DoublePhotoPostShareView.m in Sources */,
+				14C763B11C233E71005899F9 /* PostTableViewModel.m in Sources */,
 				14CAB3C31B59539A0081979C /* PhotoSelectFooterView.m in Sources */,
 				140CF8DC1A3BBFB200134C4D /* AppDelegate.m in Sources */,
 				14423CD81B8E9AC5002CB026 /* TriplePhotoPostShareView.m in Sources */,
@@ -1159,6 +1236,7 @@
 				141524561B4070E5007EE405 /* PostTypeSelectionTableViewCell.m in Sources */,
 				142CB05D1B5236F500969066 /* AddPhotoHeaderView.m in Sources */,
 				F7715E971AEBFEA7005DDEFF /* MessagingTableViewCell.m in Sources */,
+				14839F531C2B2F2A00ED5320 /* CETableViewBindingHelper.m in Sources */,
 				14C38DB31B28F6870039862E /* PhotoGalleryTableViewCell.m in Sources */,
 				14F739BF1B783D4800E60619 /* SettingsViewController.m in Sources */,
 				144D55571B40A5490003B752 /* PostingWorkflow.m in Sources */,
@@ -1188,14 +1266,16 @@
 				1404739A1ABD267E00C0F8EF /* UserPostsTableViewController.m in Sources */,
 				142CB04F1B51A0C900969066 /* SelectPostSubTypeViewController.m in Sources */,
 				141AECC41B8D14E200F0012B /* PostMessageTableViewCell.m in Sources */,
+				14839F591C2C9F3E00ED5320 /* UISearchController+RAC.m in Sources */,
 				4E0E82031B40DC0200E18975 /* RTWalkthroughPageViewController.m in Sources */,
 				141AECB71B8A77D400F0012B /* PostMapTableViewCell.m in Sources */,
 				F7AFBB421AF4CC0A00D3148B /* FindBuyerViewController.m in Sources */,
 				1415244F1B406B55007EE405 /* PostTypeViewController.m in Sources */,
-				14CE47241B6AF41E004FA4D1 /* HomeViewController.m in Sources */,
+				14CE47241B6AF41E004FA4D1 /* MainPostTableViewController.m in Sources */,
 				14423CD51B8E8F68002CB026 /* PostShareView.m in Sources */,
 				CFFEE9291B0487BF002CD29A /* MeetUpViewController.m in Sources */,
 				14423CDF1B8FCD64002CB026 /* EditPostingNumberEntryViewController.m in Sources */,
+				14839F521C2B2F2A00ED5320 /* CEObservableMutableArray.m in Sources */,
 				145B0AB81B9E1BFB002FD94E /* EDStarRating.m in Sources */,
 				14CAB3C91B5C34D10081979C /* BasicInfoTableViewCell.m in Sources */,
 				143D91F41B6E7A5200E2F493 /* BaseOnboardingViewController.m in Sources */,
@@ -1355,7 +1435,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Spree, LLC (ST4Y5DTQ65)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREFIX_HEADER = Spree/PrefixHeader.pch;
 				INFOPLIST_FILE = Spree/Info.plist;

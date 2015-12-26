@@ -11,6 +11,7 @@
 #import "RTWalkthroughViewController.h"
 #import "LoginViewController.h"
 #import "LoginViewModel.h"
+#import "MainPostTableViewController.h"
 #import "SpreeViewModelServicesImpl.h"
 
 #import "PostTableViewController.h"
@@ -69,7 +70,6 @@
 }
 
 -(void)walkthroughControllerDidClose:(RTWalkthroughViewController *)controller{
-    NSLog(@"called");
     [self.navigationController dismissViewControllerAnimated:NO completion:nil];
 //    [self.navigationController pushViewController:self.campusViewController animated:YES];
     // This is where the login process begins.
@@ -111,28 +111,6 @@
 //- (void)signUpViewControllerDidCancelSignUp:(PFSignUpViewController *)signUpController {
 //    NSLog(@"User dismissed the signUpViewController");
 //}
-
-#pragma mark - Base Methods
-
--(void)closeOnboarding{
-    UIStoryboard *stb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    PostTableViewController *postTableViewController = [stb instantiateInitialViewController];
-    [UIView transitionWithView:appDelegate.window
-                      duration:0.5
-                       options:UIViewAnimationOptionTransitionFlipFromLeft
-                    animations:^{ appDelegate.window.rootViewController = postTableViewController; }
-                    completion:nil];
-}
-
--(void)incrementUserCountForCampus:(PFObject *)campus{
-    
-    // Increment the current value of the quantity key by 1
-    [campus incrementKey:@"userCount"];
-    
-    // Save
-    [campus saveInBackground];
-}
 
 
 @end

@@ -73,7 +73,6 @@
         [view.superview addConstraints:constraints];
     }
     [self layoutIfNeeded];
-    NSLog(@"%@", self.customView.superview);
 }
 
 -(void)setTitleWithString:(NSString *)title{

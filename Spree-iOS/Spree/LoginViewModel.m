@@ -7,8 +7,9 @@
 //
 
 #import "LoginViewModel.h"
+#import "SpreeViewModelServicesImpl.h"
+#import "MainPostTableViewController.h"
 #import "AppDelegate.h"
-#import "PostTableViewController.h"
 
 @interface LoginViewModel ()
 
@@ -28,11 +29,9 @@
 }
 
 -(void)initialize{
-
     self.loginWithFacebook = [[RACCommand alloc] initWithEnabled:nil signalBlock:^RACSignal *(id input) {
         return [self loginWithFacebookSignal];
     }];
-    
 }
 
 -(RACSignal *)loginWithFacebookSignal {
@@ -44,11 +43,18 @@
 -(void)closeOnboarding{
     UIStoryboard *stb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    PostTableViewController *postTableViewController = [stb instantiateInitialViewController];
+    UITabBarController *tabBarController = [stb instantiateInitialViewController];
+    UINavigationController *navController = [tabBarController.viewControllers objectAtIndex:0];
+    
+    MainPostTableViewController *mainPostTableViewController = [navController.viewControllers objectAtIndex:0];
+    SpreeViewModelServicesImpl *viewModelServices = [[SpreeViewModelServicesImpl alloc] init];
+    mainPostTableViewController.viewModel = [[PostTableViewModel alloc] initWithServices:viewModelServices];
+
+    
     [UIView transitionWithView:appDelegate.window
                       duration:0.5
                        options:UIViewAnimationOptionTransitionFlipFromLeft
-                    animations:^{ appDelegate.window.rootViewController = postTableViewController; }
+                    animations:^{ appDelegate.window.rootViewController = tabBarController; }
                     completion:nil];
 }
 

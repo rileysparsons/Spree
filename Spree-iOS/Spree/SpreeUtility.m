@@ -60,6 +60,7 @@ typedef enum : NSUInteger {
     }
 }
 
+/*
 + (void) saveCurrentCreditBalance{
     [[Branch getInstance] loadRewardsWithCallback:^(BOOL changed, NSError *err) {
          NSLog(@"%@", [NSNumber numberWithBool:changed].stringValue);
@@ -69,7 +70,7 @@ typedef enum : NSUInteger {
         }
     }];
 }
-
+*/
 
 @end
 

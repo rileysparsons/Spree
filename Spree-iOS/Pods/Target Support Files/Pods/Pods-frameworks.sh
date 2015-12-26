@@ -95,6 +95,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods/JSQSystemSoundPlayer.framework"
   install_framework "Pods/JVFloatLabeledTextField.framework"
   install_framework "Pods/MBProgressHUD.framework"
+  install_framework "Pods/MMPReactiveCoreLocation.framework"
   install_framework "Pods/MSCellAccessory.framework"
   install_framework "Pods/Parse.framework"
   install_framework "Pods/ParseCrashReporting.framework"
@@ -103,7 +104,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods/PureLayout.framework"
   install_framework "Pods/RCSLabeledIconButton.framework"
   install_framework "Pods/ReactiveCocoa.framework"
-  install_framework "Pods/Result.framework"
+  install_framework "Pods/ReactiveViewModel.framework"
   install_framework "Pods/SAMTextView.framework"
   install_framework "Pods/TPKeyboardAvoiding.framework"
 fi
@@ -119,6 +120,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods/JSQSystemSoundPlayer.framework"
   install_framework "Pods/JVFloatLabeledTextField.framework"
   install_framework "Pods/MBProgressHUD.framework"
+  install_framework "Pods/MMPReactiveCoreLocation.framework"
   install_framework "Pods/MSCellAccessory.framework"
   install_framework "Pods/Parse.framework"
   install_framework "Pods/ParseCrashReporting.framework"
@@ -127,7 +129,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods/PureLayout.framework"
   install_framework "Pods/RCSLabeledIconButton.framework"
   install_framework "Pods/ReactiveCocoa.framework"
-  install_framework "Pods/Result.framework"
+  install_framework "Pods/ReactiveViewModel.framework"
   install_framework "Pods/SAMTextView.framework"
   install_framework "Pods/TPKeyboardAvoiding.framework"
 fi

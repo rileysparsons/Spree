@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 #import "BrowseViewController.h"
+#import "SpreeViewModelServicesImpl.h"
+#import "MainPostTableViewController.h"
 #import "LoginViewController.h"
 #import "RTWalkthroughViewController.h"
 #import "RTWalkthroughPageViewController.h"
@@ -76,7 +78,6 @@
         NSLog(@"deep link data: %@", [params description]);
         if ([params objectForKey:@"object id"] != nil && [PFUser currentUser]){
 
-            NSLog(@"called");
             UITabBarController *tabBarController =  (UITabBarController *)self.window.rootViewController;
             
             UINavigationController *homeNavigationController = [[tabBarController viewControllers] objectAtIndex:SpreeCampusTabBarItemIndex];
@@ -95,6 +96,18 @@
     if (![PFUser currentUser]) {
         [self showOnboardingFlow];
     } else {
+        UITabBarController *tabBarController =  (UITabBarController *)self.window.rootViewController;
+        
+        UINavigationController *homeNavigationController = [[tabBarController viewControllers] objectAtIndex:SpreeCampusTabBarItemIndex];
+        
+        MainPostTableViewController *mainPostTableViewController = [homeNavigationController.viewControllers objectAtIndex:0];
+        
+        // Attaching View Model Services to View Model (gives us access to Parse, our model)
+        SpreeViewModelServicesImpl *viewModelServices = [[SpreeViewModelServicesImpl alloc] init];
+        
+        PostTableViewModel *viewModel = [[PostTableViewModel alloc] initWithServices:viewModelServices];
+        mainPostTableViewController.viewModel = viewModel;
+        
         UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert |
                                                         UIUserNotificationTypeBadge |
                                                         UIUserNotificationTypeSound);
@@ -104,8 +117,6 @@
         [application registerForRemoteNotifications];
         
     }
-    
-
     
     return YES;
 }

@@ -67,7 +67,6 @@ typedef enum : NSUInteger {
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     [self updateTableView];
-    [SpreeUtility saveCurrentCreditBalance];
     [self.settingsTableView reloadData];
 }
 
@@ -241,7 +240,6 @@ typedef enum : NSUInteger {
             [self performSegueWithIdentifier:@"ShowReferralView" sender:self];
         }
         else if ([titleOfRow isEqualToString:kAuthorizeFacebookTitle]){
-            NSLog(@"CALLED");
             [PFFacebookUtils linkUserInBackground:[PFUser currentUser] withReadPermissions:nil block:^(BOOL succeeded, NSError *error){
                 if (succeeded){
                     FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:nil];

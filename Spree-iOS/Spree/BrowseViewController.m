@@ -7,10 +7,11 @@
 //
 
 #import "BrowseViewController.h"
-#import "PostTypeTableViewController.h"
+#import "SearchablePostTableViewController.h"
 #import "PostTypeTableViewCell.h"
 #import "SpreeSprintTableViewCell.h"
 #import "SelectPostTypeViewController.h"
+#import "SpreeViewModelServicesImpl.h"
 #import "SpreePost.h"
 
 @interface BrowseViewController () {
@@ -99,7 +100,6 @@
 
 -(PFQuery *)queryForTable{
     PFQuery *query = [PFQuery queryWithClassName:self.parseClassName];
-    NSLog(@"%@", self.parseClassName);
     [query orderByDescending:@"count"];
 //    [query includeKey:@"subType"];
 
@@ -107,11 +107,9 @@
 }
 
 -(void)objectsWillLoad{
-    NSLog(@"Query %@", self.queryForTable);
 }
 
 -(void)objectsDidLoad:(nullable NSError *)error{
-    NSLog(@"%@", error);
 }
 
 - (void)setupRefreshControl
@@ -422,8 +420,16 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     if ([segue.identifier isEqualToString:@"DisplayPosts"]){
-        PostTypeTableViewController *destinationViewController = segue.destinationViewController;
-        destinationViewController.postType = [self.objects objectAtIndex:self.tableView.indexPathForSelectedRow.row];
+        
+        // Attaching View Model Services to View Model (gives us access to Parse, our model)
+        SpreeViewModelServicesImpl *viewModelServices = [[SpreeViewModelServicesImpl alloc] init];
+        
+        PostTableViewModel *viewModel = [[PostTableViewModel alloc] initWithServices:viewModelServices Params:@{@"type":[self.objects objectAtIndex:self.tableView.indexPathForSelectedRow.row][@"type"]}];
+
+        SearchablePostTableViewController *destinationViewController = segue.destinationViewController;
+        
+        destinationViewController.viewModel = viewModel;
+
     }
     
 }
@@ -441,7 +447,6 @@
     
     [self.navigationController presentViewController:navigationController animated:YES completion:nil];
 }
-
 
 
 @end
