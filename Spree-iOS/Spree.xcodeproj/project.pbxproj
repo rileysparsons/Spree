@@ -125,7 +125,7 @@
 		14CAB3D71B5C685D0081979C /* EditPostPhotoSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14CAB3D61B5C685D0081979C /* EditPostPhotoSelectViewController.m */; };
 		14CE471F1B6AF02A004FA4D1 /* HomeHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14CE471E1B6AF02A004FA4D1 /* HomeHeaderView.m */; };
 		14CE47211B6AF040004FA4D1 /* HomeHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14CE47201B6AF040004FA4D1 /* HomeHeaderView.xib */; };
-		14CE47241B6AF41E004FA4D1 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14CE47231B6AF41E004FA4D1 /* HomeViewController.m */; };
+		14CE47241B6AF41E004FA4D1 /* MainPostTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14CE47231B6AF41E004FA4D1 /* MainPostTableViewController.m */; };
 		14D3B67D1BA291C300D665BB /* UserPostTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14D3B67C1BA291C200D665BB /* UserPostTableViewCell.m */; };
 		14D3B67F1BA291DA00D665BB /* UserPostTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14D3B67E1BA291DA00D665BB /* UserPostTableViewCell.xib */; };
 		14D3B6811BA2973500D665BB /* PostUserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14D3B6801BA2973500D665BB /* PostUserTableViewCell.m */; };
@@ -381,8 +381,8 @@
 		14CE471D1B6AF02A004FA4D1 /* HomeHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeHeaderView.h; sourceTree = "<group>"; };
 		14CE471E1B6AF02A004FA4D1 /* HomeHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeHeaderView.m; sourceTree = "<group>"; };
 		14CE47201B6AF040004FA4D1 /* HomeHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeHeaderView.xib; sourceTree = "<group>"; };
-		14CE47221B6AF41E004FA4D1 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
-		14CE47231B6AF41E004FA4D1 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
+		14CE47221B6AF41E004FA4D1 /* MainPostTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainPostTableViewController.h; sourceTree = "<group>"; };
+		14CE47231B6AF41E004FA4D1 /* MainPostTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainPostTableViewController.m; sourceTree = "<group>"; };
 		14D3B67B1BA291C200D665BB /* UserPostTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserPostTableViewCell.h; sourceTree = "<group>"; };
 		14D3B67C1BA291C200D665BB /* UserPostTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserPostTableViewCell.m; sourceTree = "<group>"; };
 		14D3B67E1BA291DA00D665BB /* UserPostTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserPostTableViewCell.xib; sourceTree = "<group>"; };
@@ -602,8 +602,8 @@
 			children = (
 				14A4C9991BA74B8600C6C2E3 /* PostPaymentViewController.h */,
 				14A4C99A1BA74B8600C6C2E3 /* PostPaymentViewController.m */,
-				14CE47221B6AF41E004FA4D1 /* HomeViewController.h */,
-				14CE47231B6AF41E004FA4D1 /* HomeViewController.m */,
+				14CE47221B6AF41E004FA4D1 /* MainPostTableViewController.h */,
+				14CE47231B6AF41E004FA4D1 /* MainPostTableViewController.m */,
 				140CF8E01A3BBFB200134C4D /* MeViewController.h */,
 				140CF8E11A3BBFB200134C4D /* MeViewController.m */,
 				14F739BD1B783D4800E60619 /* SettingsViewController.h */,
@@ -1271,7 +1271,7 @@
 				141AECB71B8A77D400F0012B /* PostMapTableViewCell.m in Sources */,
 				F7AFBB421AF4CC0A00D3148B /* FindBuyerViewController.m in Sources */,
 				1415244F1B406B55007EE405 /* PostTypeViewController.m in Sources */,
-				14CE47241B6AF41E004FA4D1 /* HomeViewController.m in Sources */,
+				14CE47241B6AF41E004FA4D1 /* MainPostTableViewController.m in Sources */,
 				14423CD51B8E8F68002CB026 /* PostShareView.m in Sources */,
 				CFFEE9291B0487BF002CD29A /* MeetUpViewController.m in Sources */,
 				14423CDF1B8FCD64002CB026 /* EditPostingNumberEntryViewController.m in Sources */,

@@ -67,7 +67,6 @@ typedef enum : NSUInteger {
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     [self updateTableView];
-    [SpreeUtility saveCurrentCreditBalance];
     [self.settingsTableView reloadData];
 }
 

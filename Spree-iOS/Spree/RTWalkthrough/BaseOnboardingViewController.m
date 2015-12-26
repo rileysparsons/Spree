@@ -11,7 +11,7 @@
 #import "RTWalkthroughViewController.h"
 #import "LoginViewController.h"
 #import "LoginViewModel.h"
-#import "HomeViewController.h"
+#import "MainPostTableViewController.h"
 #import "SpreeViewModelServicesImpl.h"
 
 #import "PostTableViewController.h"

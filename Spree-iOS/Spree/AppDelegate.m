@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import "BrowseViewController.h"
 #import "SpreeViewModelServicesImpl.h"
-#import "HomeViewController.h"
+#import "MainPostTableViewController.h"
 #import "LoginViewController.h"
 #import "RTWalkthroughViewController.h"
 #import "RTWalkthroughPageViewController.h"
@@ -100,13 +100,13 @@
         
         UINavigationController *homeNavigationController = [[tabBarController viewControllers] objectAtIndex:SpreeCampusTabBarItemIndex];
         
-        HomeViewController *homeViewController = [homeNavigationController.viewControllers objectAtIndex:0];
+        MainPostTableViewController *mainPostTableViewController = [homeNavigationController.viewControllers objectAtIndex:0];
         
         // Attaching View Model Services to View Model (gives us access to Parse, our model)
         SpreeViewModelServicesImpl *viewModelServices = [[SpreeViewModelServicesImpl alloc] init];
         
         PostTableViewModel *viewModel = [[PostTableViewModel alloc] initWithServices:viewModelServices];
-        homeViewController.viewModel = viewModel;
+        mainPostTableViewController.viewModel = viewModel;
         
         UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert |
                                                         UIUserNotificationTypeBadge |

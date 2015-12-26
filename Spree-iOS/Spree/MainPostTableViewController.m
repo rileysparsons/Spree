@@ -6,18 +6,16 @@
 //  Copyright (c) 2015 Riley Steele Parsons. All rights reserved.
 //
 
-#import "HomeViewController.h"
+#import "MainPostTableViewController.h"
+
 #import "HomeHeaderView.h"
 #import "HeaderSlideView.h"
 #import "SpreeConfigManager.h"
 #import <MBProgressHUD/MBProgressHUD.h>
-#import "SpreeUtility.h"
-#import "Branch.h"
-#import "ReferralViewController.h"
 
 static const CGFloat kHeaderSlideShowHeight = 125.0f;
 
-@interface HomeViewController () <InfinitePagingViewDelegate, UIGestureRecognizerDelegate>
+@interface MainPostTableViewController () <InfinitePagingViewDelegate, UIGestureRecognizerDelegate>
 
 @property HomeHeaderView *header;
 @property NSMutableArray *slides; // For reference when touched
@@ -25,16 +23,14 @@ static const CGFloat kHeaderSlideShowHeight = 125.0f;
 @property NSTimeInterval lastTouchTime;
 @property NSInteger pagingViewIndex;
 
-
-
 @end
 
-@implementation HomeViewController
+@implementation MainPostTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    // Do any additional setup after loading the view.
+    // Set up slides for the banner view
     [self setupHeaderSlides];
 }
 
@@ -95,7 +91,6 @@ static const CGFloat kHeaderSlideShowHeight = 125.0f;
     [super viewDidAppear:YES];
     [self.header setFrame:CGRectMake(0, 0, self.postsTableView.frame.size.width, kHeaderSlideShowHeight)];
     [self sizeHeaderToFit];
-    [SpreeUtility saveCurrentCreditBalance];
 }
 
 - (void) sizeHeaderToFit {
@@ -139,11 +134,6 @@ static const CGFloat kHeaderSlideShowHeight = 125.0f;
                 [self.postDetailTableViewController initWithPost:(SpreePost *)object];
                 [self.navigationController pushViewController:self.postDetailTableViewController animated:YES];
             }];
-        } else if ([[slideMetadata objectForKey:BANNER_LINKTYPE] isEqualToString:@"competition"]){
-//             WILL ADD COMPETITION or REFERRAL VIEW
-                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-               ReferralViewController *referralViewController = [storyboard instantiateViewControllerWithIdentifier:@"Referral"];
-            [self.navigationController pushViewController:referralViewController animated:YES];
         }
     }
     [MBProgressHUD hideHUDForView:self.view animated:YES];

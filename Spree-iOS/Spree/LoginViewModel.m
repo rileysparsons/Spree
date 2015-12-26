@@ -8,7 +8,7 @@
 
 #import "LoginViewModel.h"
 #import "SpreeViewModelServicesImpl.h"
-#import "HomeViewController.h"
+#import "MainPostTableViewController.h"
 #import "AppDelegate.h"
 
 @interface LoginViewModel ()
@@ -45,9 +45,10 @@
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     UITabBarController *tabBarController = [stb instantiateInitialViewController];
     UINavigationController *navController = [tabBarController.viewControllers objectAtIndex:0];
-    HomeViewController *homeViewController = [navController.viewControllers objectAtIndex:0];
+    
+    MainPostTableViewController *mainPostTableViewController = [navController.viewControllers objectAtIndex:0];
     SpreeViewModelServicesImpl *viewModelServices = [[SpreeViewModelServicesImpl alloc] init];
-    homeViewController.viewModel = [[PostTableViewModel alloc] initWithServices:viewModelServices];
+    mainPostTableViewController.viewModel = [[PostTableViewModel alloc] initWithServices:viewModelServices];
 
     
     [UIView transitionWithView:appDelegate.window

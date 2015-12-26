@@ -19,6 +19,6 @@
 
 + (BOOL)checkForEmailVerification;
 
-+ (void) saveCurrentCreditBalance;
+//+ (void) saveCurrentCreditBalance;
 
 @end
