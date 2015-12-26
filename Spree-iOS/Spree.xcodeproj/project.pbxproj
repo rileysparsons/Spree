@@ -612,8 +612,6 @@
 				4ECA453E1B48E0EB006C33FC /* ContactUsViewController.m */,
 				14C8214B1B2FE36C00A1B513 /* ProfileViewController.h */,
 				14C8214C1B2FE36C00A1B513 /* ProfileViewController.m */,
-				140473951ABD002F00C0F8EF /* PostTableViewController.h */,
-				140473961ABD002F00C0F8EF /* PostTableViewController.m */,
 				CFFEE9281B0487BF002CD29A /* MeetUpViewController.m */,
 				CFFEE9271B0487BF002CD29A /* MeetUpViewController.h */,
 				1491BBA21B336F38004F43CA /* ResultsTableViewController.h */,
@@ -635,8 +633,6 @@
 		1415FD801A4FB5D3006E99A6 /* Post ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				1404739B1ABD308D00C0F8EF /* SearchablePostTableViewController.h */,
-				1404739C1ABD308D00C0F8EF /* SearchablePostTableViewController.m */,
 				140CF8DD1A3BBFB200134C4D /* BrowseViewController.h */,
 				140CF8DE1A3BBFB200134C4D /* BrowseViewController.m */,
 				14C38D941B27AE0B0039862E /* Post Detail */,
@@ -772,6 +768,17 @@
 			name = "Reactive Search Controller";
 			sourceTree = "<group>";
 		};
+		14839F5C1C2F1AB600ED5320 /* Spree Post Table Views */ = {
+			isa = PBXGroup;
+			children = (
+				140473951ABD002F00C0F8EF /* PostTableViewController.h */,
+				140473961ABD002F00C0F8EF /* PostTableViewController.m */,
+				1404739B1ABD308D00C0F8EF /* SearchablePostTableViewController.h */,
+				1404739C1ABD308D00C0F8EF /* SearchablePostTableViewController.m */,
+			);
+			name = "Spree Post Table Views";
+			sourceTree = "<group>";
+		};
 		14C38D941B27AE0B0039862E /* Post Detail */ = {
 			isa = PBXGroup;
 			children = (
@@ -799,6 +806,7 @@
 			children = (
 				143D91D91B6DF7D900E2F493 /* LoginViewController.h */,
 				143D91DA1B6DF7D900E2F493 /* LoginViewController.m */,
+				14839F5C1C2F1AB600ED5320 /* Spree Post Table Views */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";

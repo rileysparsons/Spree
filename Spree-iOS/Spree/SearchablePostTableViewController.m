@@ -13,17 +13,14 @@
 #import "UISearchController+RAC.h"
 #import "UIColor+SpreeColor.h"
 
-@interface SearchablePostTableViewController () <UISearchResultsUpdating, UISearchControllerDelegate> {
+@interface SearchablePostTableViewController () {
 }
 
-// Search
+// Search Controller
 @property (nonatomic, strong) UISearchController *searchController;
 @property (nonatomic, strong) ResultsTableViewController *resultsTableController;
-@property (nonatomic, strong) NSMutableArray *searchResults;
-@property (nonatomic, strong) PFQuery *searchQuery;
 
-
-// for state restoration
+// for state restoration from search
 @property BOOL searchControllerWasActive;
 @property BOOL searchControllerSearchFieldWasFirstResponder;
 
@@ -33,29 +30,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = self.postType[@"type"];
-    self.view.backgroundColor = [UIColor spreeOffWhite];
-    self.postsTableView.backgroundColor = [UIColor spreeOffWhite];
-    
-    NSLog(@"datasource: %@", self.postsTableView.dataSource);
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadObjects) name:@"ReloadTable" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadObjects) name:@"PostMade" object:nil];
-    
-    
-    self.searchResults = [NSMutableArray array];
-    
-    // Search is now just presenting a view controller. As such, normal view controller
-    // presentation semantics apply. Namely that presentation will walk up the view controller
-    // hierarchy until it finds the root view controller or one that defines a presentation context.
-    //
 
-    
     [self setupResultsViewController];
 }
 
 -(void)setupResultsViewController {
-    
     
     SpreeViewModelServicesImpl *viewModelServices = [[SpreeViewModelServicesImpl alloc] init];
     
@@ -65,13 +44,12 @@
     _resultsTableController.viewModel = postTableViewModel;
     
     _searchController = [[UISearchController alloc] initWithSearchResultsController:self.resultsTableController];
-    self.searchController.searchResultsUpdater = self;
+
     [self.searchController.searchBar sizeToFit];
     self.postsTableView.tableHeaderView = self.searchController.searchBar;
     
     // we want to be the delegate for our filtered table so didSelectRowAtIndexPath is called for both tables
     
-    self.searchController.delegate = self;
     self.searchController.dimsBackgroundDuringPresentation = NO; // default is YES
 
     
@@ -88,14 +66,19 @@
          [_resultsTableController.viewModel.refreshPosts execute:nil];
      }];
     
-    
+    // Signal called from lifting delegate methods for activity
     [self.searchController.rac_isActiveSignal subscribeNext:^(id x) {
 //        self.refreshControl.enabled = false;
 //        self.refreshControl = nil;
+    //    [self.postsTableView setContentInset:UIEdgeInsetsMake(26,0,0,0)];
+    //    [self.postsTableView setScrollIndicatorInsets:UIEdgeInsetsMake(64,0,0,0)];
     }];
  
-    [self.searchController.rac_isActiveSignal subscribeNext:^(id x) {
+      // Signal called from lifting delegate methods for inactivity
+    [self.searchController.rac_isInactiveSignal subscribeNext:^(id x) {
 //        [super setupRefreshControl];
+    //    [self.postsTableView setContentInset:UIEdgeInsetsMake(64,0,0,0)];
+    //    [self.postsTableView setScrollIndicatorInsets:UIEdgeInsetsMake(64,0,0,0)];
     }];
     
 }
@@ -112,48 +95,6 @@
             _searchControllerSearchFieldWasFirstResponder = NO;
         }
     }
-}
-
-#pragma mark - UISearchControllerDelegate
-
-//// Called after the search controller's search bar has agreed to begin editing or when
-//// 'active' is set to YES.
-//// If you choose not to present the controller yourself or do not implement this method,
-//// a default presentation is performed on your behalf.
-////
-//// Implement this method if the default presentation is not adequate for your purposes.
-////
-//- (void)presentSearchController:(UISearchController *)searchController {
-//    self.refreshControl.enabled = false;
-//    self.refreshControl = nil;
-//}
-//
-//- (void)willPresentSearchController:(UISearchController *)searchController {
-//    // do something before the search controller is presented
-//}
-//
-//- (void)didPresentSearchController:(UISearchController *)searchController {
-//    [self.postsTableView setContentInset:UIEdgeInsetsMake(26,0,0,0)];
-//    [self.postsTableView setScrollIndicatorInsets:UIEdgeInsetsMake(64,0,0,0)];
-//    // do something after the search controller is presented
-//}
-//
-//- (void)willDismissSearchController:(UISearchController *)searchController {
-//    // do something before the search controller is dismissed
-//}
-//
-//- (void)didDismissSearchController:(UISearchController *)searchController {
-//    [super setupRefreshControl];
-//    [self.postsTableView setContentInset:UIEdgeInsetsMake(64,0,0,0)];
-//    [self.postsTableView setScrollIndicatorInsets:UIEdgeInsetsMake(64,0,0,0)];
-//
-//    // do something after the search controller is dismissed
-//}
-
-#pragma mark - UISearchResultsUpdating
-
-- (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
-    ;
 }
 
 #pragma mark - UIStateRestoration

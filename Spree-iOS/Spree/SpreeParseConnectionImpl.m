@@ -155,11 +155,10 @@
         [typeQuery whereKey:@"type" equalTo:string];
         [typeQuery getFirstObjectInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
             if (!error){
-                NSLog(@"retrieved object: %@", object);
                 [subscriber sendNext:object];
                 [subscriber sendCompleted];
             } else {
-                NSLog(@"error retrieving object: %@", error);
+                NSLog(@"[ERROR] Failed to retrieve type object: %@", error);
                 [subscriber sendError:error];
             }
         }];

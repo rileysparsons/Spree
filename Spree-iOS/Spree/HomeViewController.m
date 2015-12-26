@@ -73,7 +73,6 @@ static const CGFloat kHeaderSlideShowHeight = 125.0f;
                 if (exists){
                     
                     NSDictionary *bannerData = [bannerMetadata objectAtIndex:[self.slides indexOfObject:slideView]];
-                    NSLog(@"%lu, %@", (unsigned long)[self.slides indexOfObject:slideView], bannerData[@"title"]);
                     [slideView setupForMetadata:bannerData];
                     
                     
@@ -82,7 +81,6 @@ static const CGFloat kHeaderSlideShowHeight = 125.0f;
             }
             
             self.header.photoGallery.delegate = self;
-            NSLog(@"%@", self.header.photoGallery.delegate);
             
             [NSTimer scheduledTimerWithTimeInterval:4.0f target:self.header.photoGallery selector:@selector(scrollToNextPage) userInfo:nil repeats:YES];
             self.postsTableView.tableHeaderView = self.header;
@@ -122,7 +120,6 @@ static const CGFloat kHeaderSlideShowHeight = 125.0f;
 
 
 -(void)userTouchedSlide{
-    NSLog(@"%ld, %@", (long)self.pagingViewIndex, self.metadata);
     BOOL exists = self.pagingViewIndex < [self.metadata count] ? YES : NO;
     if (exists){
         NSDictionary *slideMetadata = [self.metadata objectAtIndex:self.pagingViewIndex];
@@ -138,7 +135,6 @@ static const CGFloat kHeaderSlideShowHeight = 125.0f;
             [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
             self.postDetailTableViewController = [storyboard instantiateViewControllerWithIdentifier:@"PostDetail"];
-            NSLog(@"%@", self.storyboard);
             [slideMetadata[@"post"] fetchIfNeededInBackgroundWithBlock:^(PFObject* object, NSError *error){
                 [self.postDetailTableViewController initWithPost:(SpreePost *)object];
                 [self.navigationController pushViewController:self.postDetailTableViewController animated:YES];
