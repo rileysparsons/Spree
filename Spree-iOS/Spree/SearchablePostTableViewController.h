@@ -8,7 +8,7 @@
 
 #import "PostTableViewController.h"
 
-@interface PostTypeTableViewController : PostTableViewController
+@interface SearchablePostTableViewController : PostTableViewController
 
 @property PFObject *postType;
 

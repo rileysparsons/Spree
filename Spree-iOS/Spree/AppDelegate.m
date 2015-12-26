@@ -78,7 +78,6 @@
         NSLog(@"deep link data: %@", [params description]);
         if ([params objectForKey:@"object id"] != nil && [PFUser currentUser]){
 
-            NSLog(@"called");
             UITabBarController *tabBarController =  (UITabBarController *)self.window.rootViewController;
             
             UINavigationController *homeNavigationController = [[tabBarController viewControllers] objectAtIndex:SpreeCampusTabBarItemIndex];

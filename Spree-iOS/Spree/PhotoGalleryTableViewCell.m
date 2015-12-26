@@ -47,7 +47,6 @@
     CGSize pagesScrollViewSize = self.photoGallery.frame.size;
     self.pageImages = images;
     self.photoGallery.contentSize = CGSizeMake(self.frame.size.width * self.pageImages.count, pagesScrollViewSize.height);
-    NSLog(@"IMAGES FROM CELL %@ and width %f, with screen %f, and count %lu", images, pagesScrollViewSize.width, self.frame.size.width, (unsigned long)images.count);
     [self setupGallery];
     self.photoGallery.contentOffset = CGPointZero;
 //    if (images.count == 1){

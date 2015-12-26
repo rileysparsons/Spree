@@ -7,7 +7,7 @@
 //
 
 #import "BrowseViewController.h"
-#import "PostTypeTableViewController.h"
+#import "SearchablePostTableViewController.h"
 #import "PostTypeTableViewCell.h"
 #import "SpreeSprintTableViewCell.h"
 #import "SelectPostTypeViewController.h"
@@ -100,7 +100,6 @@
 
 -(PFQuery *)queryForTable{
     PFQuery *query = [PFQuery queryWithClassName:self.parseClassName];
-    NSLog(@"%@", self.parseClassName);
     [query orderByDescending:@"count"];
 //    [query includeKey:@"subType"];
 
@@ -108,11 +107,9 @@
 }
 
 -(void)objectsWillLoad{
-    NSLog(@"Query %@", self.queryForTable);
 }
 
 -(void)objectsDidLoad:(nullable NSError *)error{
-    NSLog(@"%@", error);
 }
 
 - (void)setupRefreshControl
@@ -429,11 +426,10 @@
         
         PostTableViewModel *viewModel = [[PostTableViewModel alloc] initWithServices:viewModelServices Params:@{@"type":[self.objects objectAtIndex:self.tableView.indexPathForSelectedRow.row][@"type"]}];
 
-        PostTypeTableViewController *destinationViewController = segue.destinationViewController;
+        SearchablePostTableViewController *destinationViewController = segue.destinationViewController;
         
         destinationViewController.viewModel = viewModel;
 
-        destinationViewController.postType = [self.objects objectAtIndex:self.tableView.indexPathForSelectedRow.row];
     }
     
 }

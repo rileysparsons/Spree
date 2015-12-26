@@ -6,13 +6,14 @@
 //  Copyright (c) 2015 Riley Steele Parsons. All rights reserved.
 //
 
-#import "PostTypeTableViewController.h"
+#import "SearchablePostTableViewController.h"
 #import "SpreeViewModelServicesImpl.h"
 #import "ResultsTableViewController.h"
 #import "UISearchBar+RAC.h"
+#import "UISearchController+RAC.h"
 #import "UIColor+SpreeColor.h"
 
-@interface PostTypeTableViewController () <UISearchResultsUpdating, UISearchControllerDelegate> {
+@interface SearchablePostTableViewController () <UISearchResultsUpdating, UISearchControllerDelegate> {
 }
 
 // Search
@@ -28,7 +29,7 @@
 
 @end
 
-@implementation PostTypeTableViewController
+@implementation SearchablePostTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -69,44 +70,33 @@
     self.postsTableView.tableHeaderView = self.searchController.searchBar;
     
     // we want to be the delegate for our filtered table so didSelectRowAtIndexPath is called for both tables
-//    self.resultsTableController.postsTableView.delegate = self;
+    
     self.searchController.delegate = self;
     self.searchController.dimsBackgroundDuringPresentation = NO; // default is YES
-//    self.searchController.searchBar.delegate = self; // so we can monitor text changes + others
+
+    
+    // Search is now just presenting a view controller. As such, normal view controller
+    // presentation semantics apply. Namely that presentation will walk up the view controller
+    // hierarchy until it finds the root view controller or one that defines a presentation context.
+    //
     
      self.definesPresentationContext = YES;
-    
-    ///
-    // Search set up (Excerpt from official Apple Example)
-    /*
-    SpreeViewModelServicesImpl *viewModelServices = [[SpreeViewModelServicesImpl alloc] init];
-    
-    PostTableViewModel *postTableViewModel = [[PostTableViewModel alloc] initWithServices:viewModelServices Params:self.viewModel.queryParameters];
-    _resultsTableController = [[ResultsTableViewController alloc] initWithViewModel:postTableViewModel];
-    
-    [_resultsTableController.postsTableView setFrame:CGRectZero];
 
-    _searchController = [[UISearchController alloc] initWithSearchResultsController:_resultsTableController];
-    
-    self.searchController.searchResultsUpdater = self;
-    [self.searchController.searchBar sizeToFit];
-    self.postsTableView.tableHeaderView = self.searchController.searchBar;
-    
-    self.searchController.dimsBackgroundDuringPresentation = NO; // default is YES
-    self.definesPresentationContext = YES;  // know where you want UISearchController to be displayed
-    */
-    
     [[[[self.searchController.searchBar.rac_textSignal throttle:0.5] distinctUntilChanged] deliverOnMainThread]
      subscribeNext:^(NSString *string) {
          _resultsTableController.viewModel.searchString = string;
          [_resultsTableController.viewModel.refreshPosts execute:nil];
      }];
     
-    // Search is now just presenting a view controller. As such, normal view controller
-    // presentation semantics apply. Namely that presentation will walk up the view controller
-    // hierarchy until it finds the root view controller or one that defines a presentation context.
-    //
-
+    
+    [self.searchController.rac_isActiveSignal subscribeNext:^(id x) {
+//        self.refreshControl.enabled = false;
+//        self.refreshControl = nil;
+    }];
+ 
+    [self.searchController.rac_isActiveSignal subscribeNext:^(id x) {
+//        [super setupRefreshControl];
+    }];
     
 }
 

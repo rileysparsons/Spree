@@ -11,4 +11,5 @@
 
 @interface UISearchController (RAC)
 - (RACSignal *)rac_isActiveSignal;
+- (RACSignal *)rac_isInactiveSignal;
 @end

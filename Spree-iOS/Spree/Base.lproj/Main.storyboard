@@ -693,10 +693,10 @@
             </objects>
             <point key="canvasLocation" x="1738" y="-474"/>
         </scene>
-        <!--Post Type Table View Controller-->
+        <!--Searchable Post Table View Controller-->
         <scene sceneID="dww-vF-ju5">
             <objects>
-                <viewController id="Iis-IW-tej" customClass="PostTypeTableViewController" sceneMemberID="viewController">
+                <viewController id="Iis-IW-tej" customClass="SearchablePostTableViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Bse-w4-Wzn"/>
                         <viewControllerLayoutGuide type="bottom" id="C8X-GT-Izp"/>

@@ -241,7 +241,6 @@ typedef enum : NSUInteger {
             [self performSegueWithIdentifier:@"ShowReferralView" sender:self];
         }
         else if ([titleOfRow isEqualToString:kAuthorizeFacebookTitle]){
-            NSLog(@"CALLED");
             [PFFacebookUtils linkUserInBackground:[PFUser currentUser] withReadPermissions:nil block:^(BOOL succeeded, NSError *error){
                 if (succeeded){
                     FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:nil];

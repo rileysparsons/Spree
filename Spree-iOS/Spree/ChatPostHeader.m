@@ -57,7 +57,6 @@
         [view.superview addConstraints:constraints];
     }
     [self layoutIfNeeded];
-    NSLog(@"%@", self.customView);
 }
 
 -(void)setupForPost:(SpreePost*)post {
@@ -70,7 +69,6 @@
                 [self.postImageView loadInBackground];
             }
             
-            NSLog(@"POST %@", post);
             self.postTitleLabel.text = post[PF_POST_TITLE];
             self.priceLabel.text = [NSString stringWithFormat:@"$%@",[post[PF_POST_PRICE] stringValue]];
             

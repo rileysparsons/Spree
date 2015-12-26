@@ -70,7 +70,6 @@
 }
 
 -(void)walkthroughControllerDidClose:(RTWalkthroughViewController *)controller{
-    NSLog(@"called");
     [self.navigationController dismissViewControllerAnimated:NO completion:nil];
 //    [self.navigationController pushViewController:self.campusViewController animated:YES];
     // This is where the login process begins.

@@ -7,19 +7,13 @@
 //
 
 #import "PostTableViewController.h"
-#import "RTWalkthroughPageViewController.h"
+
 #import "CETableViewBindingHelper.h"
-#import "RTWalkthroughViewController.h"
 #import "PostTableViewCell.h"
 #import "SpreePost.h"
-#import "RatingViewController.h"
-#import "AppDelegate.h"
 #import "AppConstant.h"
 #import "PostDetailTableViewController.h"
 #import "SelectPostTypeViewController.h"
-#import "ResultsTableViewController.h"
-#import "SpreeUtility.h"
-#import <MBProgressHUD/MBProgressHUD.h>
 
 @interface PostTableViewController () {
 
@@ -44,37 +38,21 @@
 
 @implementation PostTableViewController
 
+// TODO: Refresh control is faulty, reorganize the new post creation button, remove all Parse logic
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    [MBProgressHUD showHUDAddedTo:self.tableView animated:YES];
-    
-    
-   // self.tableView.delegate = self;
-   // self.tableView.dataSource = self;
-    
-    
-    
+    // Refresh control
     [self setupRefreshControl];
     
-    // Bar title
-    UILabel *titleLabel=[[UILabel alloc] initWithFrame:CGRectMake(0,0, 150, 40)];
-    titleLabel.textAlignment = NSTextAlignmentCenter;
-    titleLabel.text= @"CAMPUS";
-    titleLabel.textColor=[UIColor spreeOffBlack];
-    titleLabel.font = [UIFont fontWithName:@"Lato-Bold" size: 17.0];
-    titleLabel.backgroundColor =[UIColor clearColor];
-    titleLabel.adjustsFontSizeToFitWidth=YES;
-    self.navigationItem.titleView=titleLabel;
+    // Basic UI setup
+    [self userInterfaceSetup];
     
-    self.view.backgroundColor = [UIColor spreeOffWhite];
-    self.postsTableView.backgroundColor = [UIColor spreeOffWhite];
-
-    self.navigationItem.rightBarButtonItems = @[self.composeButton];
-    
+    // Initialize detail table view controller. Pushed when cells are selected.
     self.postDetailTableViewController = [[PostDetailTableViewController alloc] init];
     
-    // Check if buyer needs to rate the seller
+    /* Old Parse logic. Checks if buyer needs to rate the seller.
     PFQuery *query = [PFQuery queryWithClassName:@"RatingQueue"];
     [query whereKey:@"user" equalTo:[PFUser currentUser]];
     [query includeKey:@"rateUser"];
@@ -94,28 +72,39 @@
             NSLog(@"No ratings required");
         }
     }];
+    */
     
+     // Removes lines from showing with empty cells
     self.postsTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    
+   
+    // Initializing the posts array
     self.posts = [[NSArray alloc] init];
 
+    // The error view blocks the table view when location services are no longer enabled
     [self setupErrorView];
     
+    // Binds the view model to the viewcontroller/view
     [self bindViewModel];
 
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    self.viewModel.active = YES;
+}
+
+- (void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    self.viewModel.active = NO;
+}
+
 -(void)bindViewModel{
-    NSLog(@"params %@", _postQueryParameters);
+
     self.refreshControl.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         return [self.viewModel.refreshPosts execute:nil];
     }];
     
     RAC(self, posts) = RACObserve(self.viewModel, posts);
-    
-    [RACObserve(self, posts) subscribeNext:^(id x) {
-        NSLog(@"posts in superclass %@", x);
-    }];
 
     RAC(self.backgroundView, hidden) = [RACObserve(self.viewModel, shouldHidePosts) not];
     
@@ -125,47 +114,38 @@
         [self.refreshControl endRefreshing];
     }];
     
+    // Helper that abstracts all the UITableView logic and delegation away from the view controller using RAC
     UINib *nib = [UINib nibWithNibName:@"PostTableViewCell" bundle:nil];
     [CETableViewBindingHelper bindingHelperForTableView:self.postsTableView
                                            sourceSignal:RACObserve(self.viewModel, posts)
                                        selectionCommand:self.viewModel.postSelectedCommand
                                            templateCell:nib];
     
+    
+    // Pushes the detailViewController for post when cell is selected
     [[self.viewModel.postSelectedCommand.executionSignals switchToLatest] subscribeNext:^(SpreePost* post) {
-        NSLog(@"superview: %@",post);
         [self presentDetailViewControllerForPost:post];
     }];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    self.viewModel.active = YES;
-}
+#pragma mark - UI Setup
 
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:YES];
-    PFQuery *query = [PFQuery queryWithClassName:PF_RECENT_CLASS_NAME];
-    [query whereKey:PF_RECENT_USER equalTo:[PFUser currentUser]];
-    [query includeKey:PF_RECENT_LASTUSER];
-    [query orderByDescending:PF_RECENT_UPDATEDACTION];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
-     {
-         if (objects)
-         {
-             int total = 0;
-             for (PFObject *recent in objects)
-             {
-                 total += [recent[PF_RECENT_COUNTER] intValue];
-             }
-             UITabBarItem *item = self.tabBarController.tabBar.items[2];
-             item.badgeValue = (total == 0) ? nil : [NSString stringWithFormat:@"%d", total];
-         }
-     }];
-}
-
-- (void)viewDidDisappear:(BOOL)animated{
-    [super viewDidDisappear:animated];
-    self.viewModel.active = NO;
+- (void)userInterfaceSetup {
+    // Bar title
+    UILabel *titleLabel=[[UILabel alloc] initWithFrame:CGRectMake(0,0, 150, 40)];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    titleLabel.text= @"CAMPUS";
+    titleLabel.textColor=[UIColor spreeOffBlack];
+    titleLabel.font = [UIFont fontWithName:@"Lato-Bold" size: 17.0];
+    titleLabel.backgroundColor =[UIColor clearColor];
+    titleLabel.adjustsFontSizeToFitWidth=YES;
+    self.navigationItem.titleView=titleLabel;
+    
+    self.view.backgroundColor = [UIColor spreeOffWhite];
+    self.postsTableView.backgroundColor = [UIColor spreeOffWhite];
+    
+    // For new post creation
+    self.navigationItem.rightBarButtonItems = @[self.composeButton];
 }
 
 - (UIBarButtonItem *)composeButton {
@@ -176,8 +156,25 @@
     return _composeButton;
 }
 
+-(void)setupErrorView{
+    self.backgroundView = [[UIVisualEffectView alloc] initWithFrame:self.postsTableView.frame];
+    self.backgroundView.backgroundColor = [UIColor spreeOffBlack];
+    [self.postsTableView addSubview:self.backgroundView];
+    
+    self.requestLocationServicesButton = [[UIButton alloc] initWithFrame:CGRectMake(10, self.backgroundView.frame.size.height/2, self.backgroundView.frame.size.width-20, 10)];
+    [self.requestLocationServicesButton setTitle:@"Approve Location Services" forState:UIControlStateNormal];
+    [self.requestLocationServicesButton setTitleColor:[UIColor spreeOffWhite] forState:UIControlStateNormal];
+
+    self.errorMessageLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.requestLocationServicesButton.frame.origin.x, self.requestLocationServicesButton.frame.origin.y-50, self.requestLocationServicesButton.frame.size.width, 60)];
+    self.errorMessageLabel.textColor = [UIColor spreeOffWhite];
+    
+    
+    [self.backgroundView addSubview:self.errorMessageLabel];
+    [self.backgroundView addSubview:self.requestLocationServicesButton];
+}
+
 - (void)setupRefreshControl {
-    // TODO: Programmatically inserting a UIRefreshControl
+
     self.refreshControl = [[UIRefreshControl alloc] init];
     
     [self.postsTableView addSubview: self.refreshControl];
@@ -193,7 +190,6 @@
     
     // Create the graphic image views
     CGRect refreshBounds = self.refreshControl.bounds;
-    //    self.compass_background = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"compass_background.png"]];
     self.compass_spinner = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"spreeRefresh"]];
     self.compass_spinner.frame = CGRectMake((refreshBounds.size.width/2.0)-15, 0, 30, refreshBounds.size.height);
     self.compass_spinner.contentMode = UIViewContentModeScaleAspectFit;
@@ -245,7 +241,6 @@
 
 - (void)animateRefreshView
 {
-
     
     // Flag that we are animating
     self.isRefreshAnimating = YES;
@@ -280,6 +275,16 @@
     [self.navigationController presentViewController:navigationController animated:YES completion:nil];
 }
 
+-(void)presentDetailViewControllerForPost:(SpreePost *)post {
+    PostDetailTableViewController *postDetailViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"PostDetail"];
+    
+    [postDetailViewController initWithPost:post];
+    
+    [self.navigationController pushViewController:postDetailViewController animated:YES];
+}
+
+#pragma mark - Table View UI
+
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     if (section == 0) {
         UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.postsTableView.frame.size.width, 35)];
@@ -297,18 +302,6 @@
         self.headerLabel.font = [UIFont fontWithName:@"Lato-Regular" size:16];
         self.headerLabel.textColor = [UIColor spreeOffBlack];
         
-        if (![SpreeUtility userInDemoMode]){
-        PFQuery *userQuery = [PFUser query];
-            [userQuery includeKey:@"campus"];
-            [userQuery getObjectInBackgroundWithId:[[PFUser currentUser] objectId] block:^(PFObject *user, NSError *error){
-                NSLog(@"%@", user);
-                self.headerLabel.text = [NSString stringWithFormat:@"Recent Posts at %@", user[@"campus"][@"campusName"]];
-                [self.headerLabel setNeedsDisplay];
-                
-            }];
-        } else {
-            self.headerLabel.text = @"Examples of Posts on Spree";
-        }
         [whiteView addSubview:self.headerLabel];
         return headerView;
     }
@@ -323,72 +316,9 @@
     return 0;
 }
 
-- (PFTableViewCell *)tableView:(UITableView *)tableView cellForNextPageAtIndexPath:(NSIndexPath *)indexPath{
-    PFTableViewCell *loadMore  = [[PFTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"LoadMore"];
-    loadMore.textLabel.textColor = [UIColor spreeOffBlack];
-    loadMore.textLabel.font = [UIFont fontWithName:@"Lato-Regular" size:20.0];
-    loadMore.backgroundColor = [UIColor spreeOffWhite];
-    loadMore.textLabel.text = @"See more posts...";
-    return loadMore;
-
-}
 
 
--(PFQuery *)addQueryParameters:(NSDictionary *)parameters toQuery:(PFQuery *)query{
-    
-    NSLog(@"%@", parameters);
-    
-    if (parameters && query){
-        for (id parameter in parameters){
-            for (id key in parameter){
-                NSLog(@"%@, %@", key,parameter[key]);
-                
-                [query whereKey:key equalTo:parameter[key]];
-//                for (id constraint in parameter[key]){
-//                    NSLog(@"Constraint %@", constraint);
-//                    if ([constraint isEqualToString: @"__type"]){
-//                        if ([parameter[key][constraint] isEqualToString:@"Pointer"]){
-//                            PFQuery *pointerQuery = [PFQuery queryWithClassName:parameter[@"className"]];
-//                            [pointerQuery getObjectInBackgroundWithId:parameter[@"objectId"] block:^(PFObject *object, NSError *error){
-//                                if (!error){
-//                                    if (object)
-//                                        [query whereKey:key equalTo:object];
-//                                } else {
-//                                    NSLog(@"%@",error);
-//                                }
-//                            }];
-//                        }
-//                    }
-//                }
-            }
-        }
-    }
-    return query;
-}
 
--(void)setupErrorView{
-    self.backgroundView = [[UIVisualEffectView alloc] initWithFrame:self.postsTableView.frame];
-    self.backgroundView.backgroundColor = [UIColor spreeOffBlack];
-    [self.postsTableView addSubview:self.backgroundView];
-    
-    self.requestLocationServicesButton = [[UIButton alloc] initWithFrame:CGRectMake(10, self.backgroundView.frame.size.height/2, self.backgroundView.frame.size.width-20, 10)];
-    [self.requestLocationServicesButton setTitle:@"Approve Location Services" forState:UIControlStateNormal];
-    [self.requestLocationServicesButton setTitleColor:[UIColor spreeOffWhite] forState:UIControlStateNormal];
 
-    self.errorMessageLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.requestLocationServicesButton.frame.origin.x, self.requestLocationServicesButton.frame.origin.y-50, self.requestLocationServicesButton.frame.size.width, 60)];
-    self.errorMessageLabel.textColor = [UIColor spreeOffWhite];
-    
-    
-    [self.backgroundView addSubview:self.errorMessageLabel];
-    [self.backgroundView addSubview:self.requestLocationServicesButton];
-}
-
--(void)presentDetailViewControllerForPost:(SpreePost *)post {
-    PostDetailTableViewController *postDetailViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"PostDetail"];
-    
-    [postDetailViewController initWithPost:post];
-    
-    [self.navigationController pushViewController:postDetailViewController animated:YES];
-}
 
 @end
