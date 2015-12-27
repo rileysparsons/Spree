@@ -17,6 +17,7 @@
 
 typedef enum : NSUInteger {
     kVerifyEmailAlert,
+    kAuthorizeLocationServicesAlert
 } AlertViewTag;
 
 @interface SelectPostTypeViewController () <UIAlertViewDelegate>
@@ -36,6 +37,15 @@ typedef enum : NSUInteger {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied || [CLLocationManager authorizationStatus] == kCLAuthorizationStatusRestricted){
+        UIAlertView *locationAlert =  [[UIAlertView alloc] initWithTitle:@"Location Unavailable" message:@"To post something to Spree you must authorize the use of your location through your phone's settings" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        
+       locationAlert.tag = kAuthorizeLocationServicesAlert;
+        [locationAlert show];
+        
+    }
+    
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.shadowImage = [UIImage new];
     self.navigationController.view.backgroundColor = [UIColor spreeOffWhite];
@@ -175,6 +185,12 @@ typedef enum : NSUInteger {
                 
             }];
         }
+    }
+}
+
+-(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
+    if (alertView.tag == kAuthorizeLocationServicesAlert){
+        [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
 

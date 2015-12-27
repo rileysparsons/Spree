@@ -13,7 +13,8 @@
 #import "PostingNumberEntryViewController.h"
 #import "PostingLocationEntryViewController.h"
 #import "PostingDateEntryViewController.h"
-
+#import <ReactiveCocoa/ReactiveCocoa.h>
+#import <MMPReactiveCoreLocation/MMPReactiveCoreLocation.h>
 
 
 @interface PostingWorkflow (){
@@ -22,6 +23,7 @@
 
 @property NSMutableArray *allFields;
 @property (nonatomic)  NSArray* viewControllersForFields;
+@property (nonatomic, strong) MMPReactiveCoreLocation *locationService;
 
 @end
 
@@ -35,7 +37,12 @@
     if (self){
         self.post = post;
         self.post[@"completedFields"] = [[NSMutableArray alloc] init];
+        self.locationService = [MMPReactiveCoreLocation service];
         self.allFields = [[NSMutableArray alloc] init];
+        [self.locationService.location subscribeNext:^(id x) {
+            NSLog(@"location %@", x);
+            self.post[@"location"] = [PFGeoPoint geoPointWithLocation:x];
+        }];
         self.uncompletedFields = [[NSMutableArray alloc] init];
         self.photosForDisplay = [[NSMutableArray alloc] init];
         [self setType:post.typePointer];

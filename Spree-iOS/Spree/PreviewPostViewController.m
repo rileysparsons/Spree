@@ -20,6 +20,7 @@
 #import "EditPostPhotoSelectViewController.h"
 #import "PostPhotoSelectViewController.h"
 #import "AddPhotoHeaderView.h"
+#import "ConfirmLocationViewController.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 
 @interface PreviewPostViewController ()
@@ -81,7 +82,13 @@
     
     [footerView addSubview:label];
     
-
+    
+    ConfirmLocationViewController *confirmLocationModal = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"ConfirmLocationViewController"];
+    
+    confirmLocationModal.postingWorkflow = self.postingWorkflow;
+    
+    [self.navigationController presentViewController:confirmLocationModal animated:YES completion:nil];
+    
 }
 
 - (void)didReceiveMemoryWarning {
