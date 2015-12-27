@@ -17,8 +17,6 @@
 
 + (BOOL)userInDemoMode;
 
-+ (BOOL)checkForEmailVerification;
-
 //+ (void) saveCurrentCreditBalance;
 
 @end

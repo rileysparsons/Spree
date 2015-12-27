@@ -96,7 +96,6 @@ typedef enum {
 #define     BANNER_PARAMETERS                   @"parameters"
 #define     BANNER_NUMBER                       @"number"
 
-#define     VERIFY_EMAIL_PROMPT                 @"You must verify your email to send messages and post items on Spree"
 
 
 
