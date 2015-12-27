@@ -24,8 +24,7 @@
 #import "SpreeUtility.h"
 
 typedef enum : NSUInteger {
-    kLogOutAlert,
-    kVerifyEmailAlert
+    kLogOutAlert
 } AlertType;
 
 
@@ -143,29 +142,16 @@ typedef enum : NSUInteger {
     self.nameLabel.imageView.contentMode = UIViewContentModeScaleAspectFit;
     
     if (![SpreeUtility userInDemoMode]){
-        
-        if ([SpreeUtility checkForEmailVerification]){
-            if ([PFUser currentUser][@"displayName"]){
-                self.profileImageView.profileID = [PFUser currentUser][@"fbId"];
-                 [self.nameLabel setTitle:[PFUser currentUser][@"displayName"] forState:UIControlStateNormal];
-            } else {
-                [self.nameLabel setTitle:[PFUser currentUser][@"username"] forState:UIControlStateNormal];
-            }
-            
-            [self.nameLabel setImage:[UIImage imageNamed:@"verifiedStudent"] forState:UIControlStateNormal];
+       
+        if ([PFUser currentUser][@"displayName"]){
+            self.profileImageView.profileID = [PFUser currentUser][@"fbId"];
+             [self.nameLabel setTitle:[PFUser currentUser][@"displayName"] forState:UIControlStateNormal];
         } else {
-            
-            UIAlertView *userNotVerified = [[UIAlertView alloc] initWithTitle:@"Unverified Student" message:VERIFY_EMAIL_PROMPT delegate:self cancelButtonTitle:@"OK" otherButtonTitles: @"Resend email", nil];
-            userNotVerified.tag = kVerifyEmailAlert;
-            [userNotVerified show];
-            
-            if ([PFUser currentUser][@"displayName"]){
-                self.profileImageView.profileID = [PFUser currentUser][@"fbId"];
-                 [self.nameLabel setTitle:[PFUser currentUser][@"displayName"] forState:UIControlStateNormal];
-            } else {
-                [self.nameLabel setTitle:[PFUser currentUser][@"username"] forState:UIControlStateNormal];
-            }
+            [self.nameLabel setTitle:[PFUser currentUser][@"username"] forState:UIControlStateNormal];
         }
+        
+        [self.nameLabel setImage:[UIImage imageNamed:@"verifiedStudent"] forState:UIControlStateNormal];
+        
     } else {
         [self.nameLabel setTitle:@"Demo Mode" forState:UIControlStateNormal];
     }
@@ -286,24 +272,6 @@ typedef enum : NSUInteger {
         if (buttonIndex == 1) {
                 [[Branch getInstance] logout];
                 [(AppDelegate *)[[UIApplication sharedApplication] delegate] logOut];
-        }
-    } else if (alertView.tag == kVerifyEmailAlert){
-        int resendButtonIndex = 1;
-        if (resendButtonIndex == buttonIndex){
-            //updating the email will force Parse to resend the verification email
-            NSString *email = [[PFUser currentUser] objectForKey:@"email"];
-            NSLog(@"email: %@",email);
-            [[PFUser currentUser] setObject:email forKey:@"email"];
-            [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error ){
-                
-                if( succeeded ) {
-                    
-                    [[PFUser currentUser] setObject:email forKey:@"email"];
-                    [[PFUser currentUser] saveInBackground];
-                    
-                }
-                
-            }];
         }
     }
 }

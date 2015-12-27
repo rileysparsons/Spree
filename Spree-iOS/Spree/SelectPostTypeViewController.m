@@ -16,7 +16,6 @@
 #import <MSCellAccessory/MSCellAccessory.h>
 
 typedef enum : NSUInteger {
-    kVerifyEmailAlert,
     kAuthorizeLocationServicesAlert
 } AlertViewTag;
 
@@ -105,7 +104,6 @@ typedef enum : NSUInteger {
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if ([SpreeUtility checkForEmailVerification]){
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         
         SpreePost *post = [[SpreePost alloc] init];
@@ -127,11 +125,6 @@ typedef enum : NSUInteger {
                 [self.navigationController pushViewController:[postingWorkflow nextViewController] animated:YES];
             }
         }];
-    } else {
-        UIAlertView *userNotVerified = [[UIAlertView alloc] initWithTitle:@"Unverified Student" message:VERIFY_EMAIL_PROMPT delegate:self cancelButtonTitle:@"OK" otherButtonTitles: @"Resend email", nil];
-        userNotVerified.tag = kVerifyEmailAlert;
-        [userNotVerified show];
-    }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
@@ -167,24 +160,22 @@ typedef enum : NSUInteger {
 */
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if (alertView.tag == kVerifyEmailAlert){
-        int resendButtonIndex = 1;
-        if (resendButtonIndex == buttonIndex){
-            //updating the email will force Parse to resend the verification email
-            NSString *email = [[PFUser currentUser] objectForKey:@"email"];
-            NSLog(@"email: %@",email);
-            [[PFUser currentUser] setObject:email forKey:@"email"];
-            [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error ){
+    int resendButtonIndex = 1;
+    if (resendButtonIndex == buttonIndex){
+        //updating the email will force Parse to resend the verification email
+        NSString *email = [[PFUser currentUser] objectForKey:@"email"];
+        NSLog(@"email: %@",email);
+        [[PFUser currentUser] setObject:email forKey:@"email"];
+        [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error ){
+            
+            if( succeeded ) {
                 
-                if( succeeded ) {
-                    
-                    [[PFUser currentUser] setObject:email forKey:@"email"];
-                    [[PFUser currentUser] saveInBackground];
-                    
-                }
+                [[PFUser currentUser] setObject:email forKey:@"email"];
+                [[PFUser currentUser] saveInBackground];
                 
-            }];
-        }
+            }
+            
+        }];
     }
 }
 

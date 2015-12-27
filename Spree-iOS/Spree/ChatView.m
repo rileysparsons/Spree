@@ -22,7 +22,6 @@
 #import "ChatView.h"
 
 typedef enum : NSUInteger {
-    kVerifyEmailAlert,
     kVerifySaleAlert
 } AlertType;
 
@@ -435,14 +434,9 @@ typedef enum : NSUInteger {
 #pragma mark - JSQMessagesViewController method overrides
 - (void)didPressSendButton:(UIButton *)button withMessageText:(NSString *)text senderId:(NSString *)senderId senderDisplayName:(NSString *)senderDisplayName date:(NSDate *)date
 {
-    if ([SpreeUtility checkForEmailVerification]){
-        [self sendMessage:text Video:nil Picture:nil];
-        [PFAnalytics trackEvent:@"sentMessage"];
-    } else {
-        UIAlertView *userNotVerified = [[UIAlertView alloc] initWithTitle:@"Unverified Student" message:VERIFY_EMAIL_PROMPT delegate:self cancelButtonTitle:@"OK" otherButtonTitles: @"Resend email", nil];
-        userNotVerified.tag = kVerifyEmailAlert;
-        [userNotVerified show];
-    }
+    [self sendMessage:text Video:nil Picture:nil];
+    [PFAnalytics trackEvent:@"sentMessage"];
+    
 }
 
 #pragma mark - JSQMessages CollectionView DataSource
@@ -674,25 +668,7 @@ typedef enum : NSUInteger {
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if (alertView.tag == kVerifyEmailAlert){
-        int resendButtonIndex = 1;
-        if (resendButtonIndex == buttonIndex){
-            //updating the email will force Parse to resend the verification email
-            NSString *email = [[PFUser currentUser] objectForKey:@"email"];
-            NSLog(@"email: %@",email);
-            [[PFUser currentUser] setObject:email forKey:@"email"];
-            [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error ){
-                
-                if( succeeded ) {
-                    
-                    [[PFUser currentUser] setObject:email forKey:@"email"];
-                    [[PFUser currentUser] saveInBackground];
-                    
-                }
-                
-            }];
-        }
-    } else if (alertView.tag == kVerifySaleAlert){
+    if (alertView.tag == kVerifySaleAlert){
         if (buttonIndex == 0){
             [alertView dismissWithClickedButtonIndex:buttonIndex animated:YES];
             [self sendMessage:@"Offer has been declined." Video:nil Picture:nil];
