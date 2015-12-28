@@ -10,13 +10,17 @@
 #import "PostTypeSelectionTableViewCell.h"
 #import "SelectPostSubTypeViewController.h"
 #import "SpreePost.h"
+#import <ReactiveCocoa/ReactiveCocoa.h>
+#import <MMPReactiveCoreLocation/MMPReactiveCoreLocation.h>
 #import "PostingWorkflow.h"
 #import "SpreeUtility.h"
+#import "SpreeMarketManager.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 #import <MSCellAccessory/MSCellAccessory.h>
 
 typedef enum : NSUInteger {
-    kAuthorizeLocationServicesAlert
+    kAuthorizeLocationServicesAlert,
+    kMarketUnavailableAlert
 } AlertViewTag;
 
 @interface SelectPostTypeViewController () <UIAlertViewDelegate>
@@ -43,6 +47,15 @@ typedef enum : NSUInteger {
        locationAlert.tag = kAuthorizeLocationServicesAlert;
         [locationAlert show];
         
+    } else {
+        [[[MMPReactiveCoreLocation service] location] subscribeNext:^(id x) {
+            if (![[SpreeMarketManager sharedManager] writeRegionFromLocation:x]){
+                UIAlertView *noMarketAvailableAlert =  [[UIAlertView alloc] initWithTitle:@"Posting unavailable in this area" message:@"Posting on spree is only available in select locations" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+                
+                noMarketAvailableAlert.tag = kAuthorizeLocationServicesAlert;
+                [noMarketAvailableAlert show];
+            }
+        }];
     }
     
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
@@ -159,28 +172,8 @@ typedef enum : NSUInteger {
 }
 */
 
--(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    int resendButtonIndex = 1;
-    if (resendButtonIndex == buttonIndex){
-        //updating the email will force Parse to resend the verification email
-        NSString *email = [[PFUser currentUser] objectForKey:@"email"];
-        NSLog(@"email: %@",email);
-        [[PFUser currentUser] setObject:email forKey:@"email"];
-        [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error ){
-            
-            if( succeeded ) {
-                
-                [[PFUser currentUser] setObject:email forKey:@"email"];
-                [[PFUser currentUser] saveInBackground];
-                
-            }
-            
-        }];
-    }
-}
-
 -(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
-    if (alertView.tag == kAuthorizeLocationServicesAlert){
+    if (alertView.tag == kAuthorizeLocationServicesAlert || alertView.tag == kMarketUnavailableAlert){
         [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
