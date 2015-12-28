@@ -29,8 +29,6 @@ typedef NS_ENUM(NSUInteger, SpreePostType) {
 
 -(RACSignal *)loginWithFacebook;
 
--(RACSignal *)findPostsSignalWithLocation:(CLLocation *)location params:(NSDictionary *)params;
-
--(RACSignal *)findPostsSignalWithLocation:(CLLocation *)location params:(NSDictionary *)params keywords:(NSArray *)keywords;
+-(RACSignal *)findPostsSignalWithRegion:(CLCircularRegion *)region params:(NSDictionary *)params keywords:(NSArray *)keywords;
 
 @end
