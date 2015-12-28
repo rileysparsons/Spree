@@ -100,6 +100,7 @@
 		14839F591C2C9F3E00ED5320 /* UISearchController+RAC.m in Sources */ = {isa = PBXBuildFile; fileRef = 14839F551C2C9F3E00ED5320 /* UISearchController+RAC.m */; };
 		14839F5A1C2C9F3E00ED5320 /* UISearchBar+RAC.m in Sources */ = {isa = PBXBuildFile; fileRef = 14839F571C2C9F3E00ED5320 /* UISearchBar+RAC.m */; };
 		14839F5F1C2F797E00ED5320 /* ConfirmLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14839F5E1C2F797E00ED5320 /* ConfirmLocationViewController.m */; };
+		14839F621C30808D00ED5320 /* SpreeMarketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 14839F611C30808D00ED5320 /* SpreeMarketManager.m */; };
 		1491BBA41B336F38004F43CA /* ResultsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1491BBA31B336F38004F43CA /* ResultsTableViewController.m */; };
 		149787A21A49F0E40024437D /* UIColor+SpreeColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 149787A11A49F0E40024437D /* UIColor+SpreeColor.m */; };
 		14A416801B05700600EA4DA2 /* SpreeSprintTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A4167E1B05700600EA4DA2 /* SpreeSprintTableViewCell.m */; };
@@ -339,6 +340,8 @@
 		14839F581C2C9F3E00ED5320 /* UISearchBar+RAC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UISearchBar+RAC.h"; sourceTree = "<group>"; };
 		14839F5D1C2F797E00ED5320 /* ConfirmLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfirmLocationViewController.h; sourceTree = "<group>"; };
 		14839F5E1C2F797E00ED5320 /* ConfirmLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfirmLocationViewController.m; sourceTree = "<group>"; };
+		14839F601C30808D00ED5320 /* SpreeMarketManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpreeMarketManager.h; sourceTree = "<group>"; };
+		14839F611C30808D00ED5320 /* SpreeMarketManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpreeMarketManager.m; sourceTree = "<group>"; };
 		1491BBA21B336F38004F43CA /* ResultsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultsTableViewController.h; sourceTree = "<group>"; };
 		1491BBA31B336F38004F43CA /* ResultsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultsTableViewController.m; sourceTree = "<group>"; };
 		149787A01A49F0E40024437D /* UIColor+SpreeColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+SpreeColor.h"; sourceTree = "<group>"; };
@@ -819,6 +822,8 @@
 		14C763AE1C233D5F005899F9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				14839F601C30808D00ED5320 /* SpreeMarketManager.h */,
+				14839F611C30808D00ED5320 /* SpreeMarketManager.m */,
 				145820B01C1CE82B0092F9D4 /* SpreeParseConnectionImpl.h */,
 				145820B11C1CE82B0092F9D4 /* SpreeParseConnectionImpl.m */,
 				145820B31C1CE8770092F9D4 /* SpreeViewModelServices.h */,
@@ -1270,6 +1275,7 @@
 				14839F5F1C2F797E00ED5320 /* ConfirmLocationViewController.m in Sources */,
 				14CAB3BF1B5948150081979C /* PhotoDisplayTableViewCell.m in Sources */,
 				1404739A1ABD267E00C0F8EF /* UserPostsTableViewController.m in Sources */,
+				14839F621C30808D00ED5320 /* SpreeMarketManager.m in Sources */,
 				142CB04F1B51A0C900969066 /* SelectPostSubTypeViewController.m in Sources */,
 				141AECC41B8D14E200F0012B /* PostMessageTableViewCell.m in Sources */,
 				14839F591C2C9F3E00ED5320 /* UISearchController+RAC.m in Sources */,

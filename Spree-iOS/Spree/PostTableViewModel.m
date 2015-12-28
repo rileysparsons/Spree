@@ -8,7 +8,12 @@
 
 #import "PostTableViewModel.h"
 #import "SpreePost.h"
+#import "SpreeMarketManager.h"
 #import <MMPReactiveCoreLocation/MMPReactiveCoreLocation.h>
+
+#define read_permission_bay_area @"read_permission_bay_area"
+#define order_permission_santa_clara @"order_permission_santa_clara"
+#define post_permission_santa_clara @"post_permission_santa_clara"
 
 @interface PostTableViewModel ()
 
@@ -53,17 +58,18 @@
 
     self.refreshPosts = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         @strongify(self);
-        return [self signalForFindPostsSignalWithLocation:self.currentLocation params:_queryParameters keywords:_keywordArray];
+
+        return [self signalForFindPostsWithRegion:[[SpreeMarketManager sharedManager] readRegionFromLocation:self.currentLocation] params:_queryParameters keywords:_keywordArray];
         
     }];
     
 
     RAC(self, posts) =
-    [[[self.refreshPosts executionSignals]
-      switchToLatest]
-     ignore:nil];
+    [[self.refreshPosts executionSignals]
+      switchToLatest];
     
-    [[[self didBecomeActiveSignal]
+    [[[self
+       didBecomeActiveSignal]
     flattenMap:^id(id value) {
         return [[RACObserve(self, currentLocation) ignore:NULL] take:1];
     }] subscribeNext:^(id x) {
@@ -100,8 +106,9 @@
 
 }
 
--(RACSignal *)signalForFindPostsSignalWithLocation:(CLLocation *)location params:(NSDictionary *)params keywords:(NSArray *)keywords{
-    return [[[self.services getParseConnection] findPostsSignalWithLocation:location params:params keywords:keywords] timeout:10 onScheduler:RACScheduler.scheduler];
+-(RACSignal *)signalForFindPostsWithRegion:(CLCircularRegion *)region params:(NSDictionary *)params keywords:(NSArray *)keywords{
+    NSLog(@"region found in view model: %@", region);
+    return [[[self.services getParseConnection] findPostsSignalWithRegion:region params:params keywords:keywords] timeout:10 onScheduler:RACScheduler.scheduler];
 }
 
 - (RACSignal *)requestLocationAuthSignal {
@@ -168,5 +175,6 @@
     
     return lowercaseTerms;
 }
+
 
 @end
