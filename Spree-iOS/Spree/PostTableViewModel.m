@@ -58,21 +58,23 @@
 
     self.refreshPosts = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         @strongify(self);
-
+        
         return [self signalForFindPostsWithRegion:[[SpreeMarketManager sharedManager] readRegionFromLocation:self.currentLocation] params:_queryParameters keywords:_keywordArray];
         
     }];
     
 
-    RAC(self, posts) =
-    [[self.refreshPosts executionSignals]
-      switchToLatest];
+    RAC(self, posts) = [[self.refreshPosts executionSignals] switchToLatest];
     
-    [[[self
-       didBecomeActiveSignal]
+    [[[self.refreshPosts executionSignals] switchToLatest] subscribeNext:^(id x) {
+        self.isLoadingPosts = NO;
+    }];
+    
+    [[[self didBecomeActiveSignal]
     flattenMap:^id(id value) {
         return [[RACObserve(self, currentLocation) ignore:NULL] take:1];
-    }] subscribeNext:^(id x) {
+    }]
+    subscribeNext:^(id x) {
         NSLog(@"returned from initial block: %@", x);
         [self.refreshPosts execute:_queryParameters];
     }];
@@ -107,7 +109,7 @@
 }
 
 -(RACSignal *)signalForFindPostsWithRegion:(CLCircularRegion *)region params:(NSDictionary *)params keywords:(NSArray *)keywords{
-    NSLog(@"region found in view model: %@", region);
+    self.isLoadingPosts = YES;
     return [[[self.services getParseConnection] findPostsSignalWithRegion:region params:params keywords:keywords] timeout:10 onScheduler:RACScheduler.scheduler];
 }
 

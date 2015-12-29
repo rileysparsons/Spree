@@ -8,6 +8,7 @@
 
 #import "PostTableViewController.h"
 
+#import <MBProgressHUD/MBProgressHUD.h>
 #import "CETableViewBindingHelper.h"
 #import "PostTableViewCell.h"
 #import "SpreePost.h"
@@ -31,6 +32,7 @@
 @property (nonatomic, strong) UIView *backgroundView;
 @property (nonatomic, strong) UIButton *requestLocationServicesButton;
 @property (nonatomic, strong) UILabel *errorMessageLabel;
+@property MBProgressHUD *progressHUD;
 
 
 @end
@@ -100,6 +102,7 @@
 
 -(void)bindViewModel{
 
+    
     self.refreshControl.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         return [self.viewModel.refreshPosts execute:nil];
     }];
@@ -126,6 +129,17 @@
     [[self.viewModel.postSelectedCommand.executionSignals switchToLatest] subscribeNext:^(SpreePost* post) {
         [self presentDetailViewControllerForPost:post];
     }];
+    
+
+    [[RACObserve(self.viewModel, isLoadingPosts) deliverOnMainThread] subscribeNext:^(id x) {
+        self.progressHUD.labelText = @"Loading Posts...";
+        if ([x boolValue]){
+            [self.progressHUD show:YES];
+        } else {
+            [self.progressHUD hide:YES afterDelay:0.5];
+        }
+    }];
+
 }
 
 #pragma mark - UI Setup
@@ -146,6 +160,9 @@
     
     // For new post creation
     self.navigationItem.rightBarButtonItems = @[self.composeButton];
+    
+    self.progressHUD = [[MBProgressHUD alloc] initWithView:self.view];
+    [self.view addSubview:self.progressHUD];
 }
 
 - (UIBarButtonItem *)composeButton {
