@@ -174,7 +174,12 @@
 }
 
 -(void)setupErrorView{
-    self.backgroundView = [[UIVisualEffectView alloc] initWithFrame:self.postsTableView.frame];
+
+    self.backgroundView = [[UIVisualEffectView alloc] init];    
+    
+    [self.backgroundView addConstraints:self.postsTableView.constraints];
+    [self.backgroundView updateConstraints];
+    
     self.backgroundView.backgroundColor = [UIColor spreeOffBlack];
     [self.postsTableView addSubview:self.backgroundView];
     

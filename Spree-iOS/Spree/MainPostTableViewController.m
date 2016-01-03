@@ -30,8 +30,6 @@ static const CGFloat kHeaderSlideShowHeight = 125.0f;
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    // Set up slides for the banner view
-    [self setupHeaderSlides];
 }
 
 -(void)setupHeaderSlides{
@@ -39,6 +37,8 @@ static const CGFloat kHeaderSlideShowHeight = 125.0f;
     self.header = [[HomeHeaderView alloc] initWithFrame:CGRectMake(0, 0, self.postsTableView.frame.size.width, kHeaderSlideShowHeight)];
     self.header.photoGallery.pageSize = CGSizeMake(self.postsTableView.frame.size.width, kHeaderSlideShowHeight);
     self.header.headerGestureRecognizer.delegate = self;
+    
+    NSLog(@"frame size: %f", self.postsTableView.frame.size.width);
     
     HeaderSlideView *slide1 = [[HeaderSlideView alloc] initWithFrame:CGRectMake(0, 0, self.postsTableView.frame.size.width, kHeaderSlideShowHeight)];
     [slide1 setupForMetadata:@{@"title": @"WELCOME TO SPREE", @"subtitle": @"A Sustainable, Student-to-Student Marketplace", @"backgroundColor":@"#094b96", @"titleColor":@"#f6f7f7", @"subtitleColor":@"#f6f7f7"}];
@@ -89,8 +89,11 @@ static const CGFloat kHeaderSlideShowHeight = 125.0f;
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:YES];
+    NSLog(@"frame width: %f", self.postsTableView.frame.size.width);
+    NSLog(@"window width: %f", self.view.frame.size.width);
     [self.header setFrame:CGRectMake(0, 0, self.postsTableView.frame.size.width, kHeaderSlideShowHeight)];
     [self sizeHeaderToFit];
+    [self setupHeaderSlides];
 }
 
 - (void) sizeHeaderToFit {
@@ -98,9 +101,11 @@ static const CGFloat kHeaderSlideShowHeight = 125.0f;
     [headerView setNeedsLayout];
     [headerView layoutIfNeeded];
     CGFloat height = [headerView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
+    CGFloat width = [headerView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].width;
     headerView.frame = ({
         CGRect headerFrame = headerView.frame;
         headerFrame.size.height = height;
+        headerFrame.size.width = width;
         headerFrame;
     });
     
