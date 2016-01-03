@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import <InfinitePagingView/InfinitePagingView.h>
 
+IB_DESIGNABLE
+
 @interface HomeHeaderView : UIView <UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet InfinitePagingView *photoGallery;
