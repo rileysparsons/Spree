@@ -111,6 +111,8 @@
 
     RAC(self.backgroundView, hidden) = [RACObserve(self.viewModel, shouldHidePosts) not];
     
+    
+    
     [[RACObserve(self, posts) deliverOnMainThread]
      subscribeNext:^(id x) {
         [self.postsTableView reloadData];
@@ -175,24 +177,20 @@
 
 -(void)setupErrorView{
 
-    self.backgroundView = [[UIVisualEffectView alloc] init];    
+    self.backgroundView = [[[NSBundle mainBundle] loadNibNamed:@"LocationNotFoundView" owner:self options:nil] objectAtIndex:0];
     
-    [self.backgroundView addConstraints:self.postsTableView.constraints];
+    // Make my frame size match the size of the content view in the xib.
+    CGRect newFrame = self.postsTableView.frame;
+    newFrame.size.height = self.postsTableView.frame.size.height-125;
+    newFrame.origin.y = 125;
+    
+    self.backgroundView.frame = newFrame;
+    
     [self.backgroundView updateConstraints];
     
-    self.backgroundView.backgroundColor = [UIColor spreeOffBlack];
+    NSLog(@"background view frame: %f", self.backgroundView.frame.size.width);
+    
     [self.postsTableView addSubview:self.backgroundView];
-    
-    self.requestLocationServicesButton = [[UIButton alloc] initWithFrame:CGRectMake(10, self.backgroundView.frame.size.height/2, self.backgroundView.frame.size.width-20, 10)];
-    [self.requestLocationServicesButton setTitle:@"Approve Location Services" forState:UIControlStateNormal];
-    [self.requestLocationServicesButton setTitleColor:[UIColor spreeOffWhite] forState:UIControlStateNormal];
-
-    self.errorMessageLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.requestLocationServicesButton.frame.origin.x, self.requestLocationServicesButton.frame.origin.y-50, self.requestLocationServicesButton.frame.size.width, 60)];
-    self.errorMessageLabel.textColor = [UIColor spreeOffWhite];
-    
-    
-    [self.backgroundView addSubview:self.errorMessageLabel];
-    [self.backgroundView addSubview:self.requestLocationServicesButton];
 }
 
 - (void)setupRefreshControl {
@@ -309,11 +307,14 @@
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     if (section == 0) {
+        
         UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.postsTableView.frame.size.width, 35)];
         UIColor *typeBackgroundColor = [UIColor spreeOffWhite];
         
         // Background color
         headerView.backgroundColor = typeBackgroundColor;
+        
+        
         
         UIView *whiteView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.postsTableView.bounds.size.width, 35)];
         whiteView.backgroundColor = [UIColor spreeOffWhite];
