@@ -101,6 +101,7 @@
 		14839F5A1C2C9F3E00ED5320 /* UISearchBar+RAC.m in Sources */ = {isa = PBXBuildFile; fileRef = 14839F571C2C9F3E00ED5320 /* UISearchBar+RAC.m */; };
 		14839F5F1C2F797E00ED5320 /* ConfirmLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14839F5E1C2F797E00ED5320 /* ConfirmLocationViewController.m */; };
 		14839F621C30808D00ED5320 /* SpreeMarketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 14839F611C30808D00ED5320 /* SpreeMarketManager.m */; };
+		14839F641C39E68500ED5320 /* LocationNotFoundView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14839F631C39E68500ED5320 /* LocationNotFoundView.xib */; };
 		1491BBA41B336F38004F43CA /* ResultsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1491BBA31B336F38004F43CA /* ResultsTableViewController.m */; };
 		149787A21A49F0E40024437D /* UIColor+SpreeColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 149787A11A49F0E40024437D /* UIColor+SpreeColor.m */; };
 		14A416801B05700600EA4DA2 /* SpreeSprintTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A4167E1B05700600EA4DA2 /* SpreeSprintTableViewCell.m */; };
@@ -342,6 +343,7 @@
 		14839F5E1C2F797E00ED5320 /* ConfirmLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfirmLocationViewController.m; sourceTree = "<group>"; };
 		14839F601C30808D00ED5320 /* SpreeMarketManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpreeMarketManager.h; sourceTree = "<group>"; };
 		14839F611C30808D00ED5320 /* SpreeMarketManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpreeMarketManager.m; sourceTree = "<group>"; };
+		14839F631C39E68500ED5320 /* LocationNotFoundView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LocationNotFoundView.xib; sourceTree = "<group>"; };
 		1491BBA21B336F38004F43CA /* ResultsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultsTableViewController.h; sourceTree = "<group>"; };
 		1491BBA31B336F38004F43CA /* ResultsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultsTableViewController.m; sourceTree = "<group>"; };
 		149787A01A49F0E40024437D /* UIColor+SpreeColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+SpreeColor.h"; sourceTree = "<group>"; };
@@ -781,6 +783,7 @@
 			children = (
 				140473951ABD002F00C0F8EF /* PostTableViewController.h */,
 				140473961ABD002F00C0F8EF /* PostTableViewController.m */,
+				14839F631C39E68500ED5320 /* LocationNotFoundView.xib */,
 				1404739B1ABD308D00C0F8EF /* SearchablePostTableViewController.h */,
 				1404739C1ABD308D00C0F8EF /* SearchablePostTableViewController.m */,
 			);
@@ -1107,6 +1110,7 @@
 				144D556E1B4E11920003B752 /* Lato-BlackItalic.ttf in Resources */,
 				14CAB3C51B5953D40081979C /* PhotoSelectFooterView.xib in Resources */,
 				144D55761B4E11920003B752 /* Lato-Regular.ttf in Resources */,
+				14839F641C39E68500ED5320 /* LocationNotFoundView.xib in Resources */,
 				14AB0EC11B82C2A100BD06EB /* PostingInputAccessoryView.xib in Resources */,
 				144D55731B4E11920003B752 /* Lato-Italic.ttf in Resources */,
 				14CAB3D41B5C54E20081979C /* PostDescriptionTableViewCell.xib in Resources */,

@@ -95,18 +95,37 @@
 - (void)initializeLocationService{
     
     self.service = [MMPReactiveCoreLocation service];
+
     
     RAC(self, currentLocation) = [self locationSignal];
     
-    RAC(self, shouldHidePosts) = [[self.service authorizationStatus] map:^id(NSNumber* value) {
-        if ([value integerValue] == 2){
-            return @YES;
-        } else {
-            return @NO;
+    [[self.service authorizationStatus] subscribeNext:^(NSNumber* x) {
+        if ([x integerValue] == 2){
+            self.posts = nil;
         }
     }];
-
+//
+//  
+//    [[self.service locations] subscribeError:^(NSError *error) {
+//        NSLog(@"error: %@", error);
+//    }];
+//    
+//    
+//    RACSignal *locationExistsSignal = [RACObserve (self, currentLocation) map:^id(CLLocation *location) {
+//        NSLog(@"loc: %@", location);
+//        if (location != NULL){
+//            return @YES;
+//        } else {
+//            return @NO;
+//        }
+//    }];
+    
+    RAC(self, shouldHidePosts) = [RACSignal combineLatest:@[RACObserve(self, currentLocation), [[self.service authorizationStatus] startWith:@2]] reduce:^id(CLLocation *location, NSNumber *number){
+        return @(location == nil || [number integerValue] == 2);
+    }];
+    
 }
+
 
 -(RACSignal *)signalForFindPostsWithRegion:(CLCircularRegion *)region params:(NSDictionary *)params keywords:(NSArray *)keywords{
     self.isLoadingPosts = YES;
