@@ -78,9 +78,9 @@ typedef enum : NSUInteger {
 
 -(void)updateTableView{
     if ([PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]){
-        _firstSectionArray = [[NSArray alloc] initWithObjects: kYourPostsTitle, kReferralTabTitle, kLogOutTitle, nil];
+        _firstSectionArray = [[NSArray alloc] initWithObjects: kYourPostsTitle, kLogOutTitle, nil];
     } else {
-        _firstSectionArray = [[NSArray alloc] initWithObjects: kAuthorizeFacebookTitle, kYourPostsTitle, kReferralTabTitle, kLogOutTitle, nil];
+        _firstSectionArray = [[NSArray alloc] initWithObjects: kAuthorizeFacebookTitle, kYourPostsTitle, kLogOutTitle, nil];
     }
 //    [self.settingsTableView reloadData];
 }
@@ -203,8 +203,6 @@ typedef enum : NSUInteger {
          return [self authorizeFacebookTableViewCell];
      } else  if ( [[self.firstSectionArray objectAtIndex:indexPath.row] isEqualToString:kYourPostsTitle]){
          return [self yourPostsTableViewCell];
-     } else  if ( [[self.firstSectionArray objectAtIndex:indexPath.row] isEqualToString:kReferralTabTitle]){
-         return [self referralTableViewCell];
      }
      
      return 0;
@@ -296,19 +294,6 @@ typedef enum : NSUInteger {
     logOutCell.textLabel.textColor = [UIColor spreeRed];
     logOutCell.backgroundColor = [UIColor spreeOffWhite];
     return logOutCell;
-}
-
--(UITableViewCell *)referralTableViewCell{
-    UITableViewCell *referralCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:kReferralTabTitle];
-    referralCell.detailTextLabel.font = [UIFont fontWithName:@"Lato-Regular" size:15];
-    referralCell.detailTextLabel.textColor =[UIColor spreeDarkBlue];
-    referralCell.textLabel.text = kReferralTabTitle;
-    referralCell.textLabel.font = [UIFont fontWithName:@"Lato-Regular" size:18];
-    referralCell.textLabel.textColor = [UIColor spreeOffBlack];
-    referralCell.backgroundColor = [UIColor spreeOffWhite];
-    referralCell.detailTextLabel.text = @"User with most credits wins an Apple Watch";
-    referralCell.accessoryView = [MSCellAccessory accessoryWithType:FLAT_DISCLOSURE_INDICATOR color:[UIColor spreeDarkBlue] highlightedColor:[UIColor spreeLightYellow]];
-    return referralCell;
 }
 
 -(UITableViewCell *)yourPostsTableViewCell{
