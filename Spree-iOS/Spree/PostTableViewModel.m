@@ -120,7 +120,7 @@
 //        }
 //    }];
     
-    RAC(self, shouldHidePosts) = [RACSignal combineLatest:@[RACObserve(self, currentLocation), [[self.service authorizationStatus] startWith:@2]] reduce:^id(CLLocation *location, NSNumber *number){
+    RAC(self, shouldHidePosts) = [RACSignal combineLatest:@[RACObserve(self, currentLocation), [self.service authorizationStatus]] reduce:^id(CLLocation *location, NSNumber *number){
         return @(location == nil || [number integerValue] == 2);
     }];
     

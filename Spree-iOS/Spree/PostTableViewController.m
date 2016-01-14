@@ -109,9 +109,8 @@
     
     RAC(self, posts) = RACObserve(self.viewModel, posts);
 
-    RAC(self.backgroundView, hidden) = [RACObserve(self.viewModel, shouldHidePosts) not];
-    
-    
+    RAC(self.backgroundView, hidden) = [[RACObserve(self.viewModel, shouldHidePosts) not] deliverOnMainThread];
+
     
     [[RACObserve(self, posts) deliverOnMainThread]
      subscribeNext:^(id x) {
