@@ -7,7 +7,7 @@
 //
 
 #import "UISearchBar+RAC.h"
-#import <objc/objc-runtime.h>
+#import <objc/runtime.h>
 
 @interface UISearchBar()<UISearchBarDelegate>
 
