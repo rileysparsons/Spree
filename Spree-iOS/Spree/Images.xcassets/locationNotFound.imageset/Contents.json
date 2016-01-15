@@ -2,16 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "LocationNotFound.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "locationNotFound@2x.png",
+      "filename" : "LocationNotFound@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "locationNotFound@3x.png",
+      "filename" : "LocationNotFound@3x.png",
       "scale" : "3x"
     }
   ],

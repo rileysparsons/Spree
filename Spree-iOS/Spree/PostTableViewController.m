@@ -180,7 +180,9 @@
     
     // Make my frame size match the size of the content view in the xib.
     CGRect newFrame = self.postsTableView.frame;
-    newFrame.size.height = self.postsTableView.frame.size.height-125;
+    // 125 is the height of the scrolling view on the top
+    // 48 is the height of the tab bar.
+    newFrame.size.height = self.postsTableView.frame.size.height-125-48;
     newFrame.origin.y = 125;
     
     self.backgroundView.frame = newFrame;
