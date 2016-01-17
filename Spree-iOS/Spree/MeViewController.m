@@ -19,8 +19,6 @@
 #import "RatingViewController.h"
 #import "Branch/Branch.h"
 
-#define kReferralTabTitle @"Share Spree, Earn Credits"
-
 #import "SpreeUtility.h"
 
 typedef enum : NSUInteger {
@@ -91,14 +89,6 @@ typedef enum : NSUInteger {
 
 -(void)viewWillAppear:(BOOL)animated{
 
-    //Sets the bar button item in the top left equal to the value of credits the user has
-    
-    [[Branch getInstance] loadRewardsWithCallback:^(BOOL changed, NSError *err) {
-        NSLog(@"%@", [NSNumber numberWithBool:changed].stringValue);
-        if (!err) {
-            [self setupTitle];
-        }
-    }];
     PFQuery *activePostNumberQuery = [PFQuery queryWithClassName:@"Post"];
     [activePostNumberQuery whereKey:@"user" equalTo:[PFUser currentUser]];
     [activePostNumberQuery whereKeyDoesNotExist:@"removed"];
@@ -220,8 +210,6 @@ typedef enum : NSUInteger {
             
         } else if ([titleOfRow isEqualToString: kYourPostsTitle]){
             [self performSegueWithIdentifier:@"ShowUserPosts" sender:self];
-        } else if ([titleOfRow isEqualToString: kReferralTabTitle]){
-            [self performSegueWithIdentifier:@"ShowReferralView" sender:self];
         }
         else if ([titleOfRow isEqualToString:kAuthorizeFacebookTitle]){
             [PFFacebookUtils linkUserInBackground:[PFUser currentUser] withReadPermissions:nil block:^(BOOL succeeded, NSError *error){
@@ -353,44 +341,5 @@ typedef enum : NSUInteger {
     titleLabel.adjustsFontSizeToFitWidth=YES;
     self.navigationItem.titleView=titleLabel;
 }
-
--(void)setupTitle{
-    
-    CGRect headerTitleSubtitleFrame = CGRectMake(0, 0, 70, 44);
-    UIView* _headerTitleSubtitleView = [[UILabel alloc] initWithFrame:headerTitleSubtitleFrame];
-    _headerTitleSubtitleView.backgroundColor = [UIColor clearColor];
-    _headerTitleSubtitleView.autoresizesSubviews = YES;
-    
-    CGRect titleFrame = CGRectMake(0, 6, 70, 24);
-    UILabel *titleView = [[UILabel alloc] initWithFrame:titleFrame];
-    titleView.backgroundColor = [UIColor clearColor];
-    titleView.font = [UIFont fontWithName:@"Lato-Bold" size:17];
-    titleView.textAlignment = NSTextAlignmentCenter;
-    titleView.textColor = [UIColor spreeDarkBlue];
-    titleView.text = [[NSNumber numberWithInteger:[[Branch getInstance] getCredits]] stringValue];
-    titleView.adjustsFontSizeToFitWidth = YES;
-
-    [_headerTitleSubtitleView addSubview:titleView];
-    
-    CGRect subtitleFrame = CGRectMake(0, 24, 70, 44-24);
-    UILabel *subtitleView = [[UILabel alloc] initWithFrame:subtitleFrame];
-    subtitleView.backgroundColor = [UIColor clearColor];
-    subtitleView.font = [UIFont fontWithName:@"Lato-Regular" size:12];
-    subtitleView.textAlignment = NSTextAlignmentCenter;
-    subtitleView.textColor = [UIColor spreeDarkBlue];
-    subtitleView.text = @"referral credits";
-    subtitleView.text = [subtitleView.text uppercaseString];
-    subtitleView.adjustsFontSizeToFitWidth = YES;
-    [_headerTitleSubtitleView addSubview:subtitleView];
-    
-    _headerTitleSubtitleView.autoresizingMask = (UIViewAutoresizingFlexibleLeftMargin |
-                                                 UIViewAutoresizingFlexibleRightMargin |
-                                                 UIViewAutoresizingFlexibleTopMargin |
-                                                 UIViewAutoresizingFlexibleBottomMargin);
-    
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_headerTitleSubtitleView];
-    
-}
-
 
 @end
