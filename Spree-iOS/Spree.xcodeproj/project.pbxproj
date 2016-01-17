@@ -135,6 +135,7 @@
 		14D3B6831BA3D24B00D665BB /* PostUserTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14D3B6821BA3D24B00D665BB /* PostUserTableViewCell.xib */; };
 		14E66B971A452653008184C1 /* PostTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E66B951A452653008184C1 /* PostTableViewCell.m */; };
 		14E66B981A452653008184C1 /* PostTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14E66B961A452653008184C1 /* PostTableViewCell.xib */; };
+		14EB18F71C4B1EC300EE5A69 /* PostsNotFoundView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14EB18F61C4B1EC300EE5A69 /* PostsNotFoundView.xib */; };
 		14EFDAE71A89EC4F007510CC /* TextViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14EFDAE61A89EC4F007510CC /* TextViewViewController.m */; };
 		14F739BF1B783D4800E60619 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F739BE1B783D4800E60619 /* SettingsViewController.m */; };
 		14FD56E01B2CF6170086A2AE /* PostTitleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14FD56DE1B2CF6170086A2AE /* PostTitleTableViewCell.m */; };
@@ -399,6 +400,7 @@
 		14E66B941A452653008184C1 /* PostTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostTableViewCell.h; sourceTree = "<group>"; };
 		14E66B951A452653008184C1 /* PostTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostTableViewCell.m; sourceTree = "<group>"; };
 		14E66B961A452653008184C1 /* PostTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostTableViewCell.xib; sourceTree = "<group>"; };
+		14EB18F61C4B1EC300EE5A69 /* PostsNotFoundView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostsNotFoundView.xib; sourceTree = "<group>"; };
 		14EFDAE51A89EC4F007510CC /* TextViewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextViewViewController.h; sourceTree = "<group>"; };
 		14EFDAE61A89EC4F007510CC /* TextViewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextViewViewController.m; sourceTree = "<group>"; };
 		14F739BD1B783D4800E60619 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
@@ -784,6 +786,7 @@
 				140473951ABD002F00C0F8EF /* PostTableViewController.h */,
 				140473961ABD002F00C0F8EF /* PostTableViewController.m */,
 				14839F631C39E68500ED5320 /* LocationNotFoundView.xib */,
+				14EB18F61C4B1EC300EE5A69 /* PostsNotFoundView.xib */,
 				1404739B1ABD308D00C0F8EF /* SearchablePostTableViewController.h */,
 				1404739C1ABD308D00C0F8EF /* SearchablePostTableViewController.m */,
 			);
@@ -1119,6 +1122,7 @@
 				144D556D1B4E11920003B752 /* Lato-Black.ttf in Resources */,
 				144D556F1B4E11920003B752 /* Lato-Bold.ttf in Resources */,
 				140CF9031A3E086800134C4D /* PostTypeTableViewCell.xib in Resources */,
+				14EB18F71C4B1EC300EE5A69 /* PostsNotFoundView.xib in Resources */,
 				140CF9161A3F708F00134C4D /* ChosenTypeTableViewCell.xib in Resources */,
 				14E66B981A452653008184C1 /* PostTableViewCell.xib in Resources */,
 				140CF8EA1A3BBFB200134C4D /* LaunchScreen.xib in Resources */,

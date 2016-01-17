@@ -30,6 +30,7 @@
 @property (retain, nonatomic) UIBarButtonItem *composeButton;
 @property (nonatomic, strong) NSArray *posts;
 @property (nonatomic, strong) UIView *backgroundView;
+@property (nonatomic, strong) UIView *emptyStateView;
 @property (nonatomic, strong) UIButton *requestLocationServicesButton;
 @property (nonatomic, strong) UILabel *errorMessageLabel;
 @property MBProgressHUD *progressHUD;
@@ -85,6 +86,8 @@
     // The error view blocks the table view when location services are no longer enabled
     [self setupErrorView];
     
+    [self setupEmptyStateView];
+    
     // Binds the view model to the viewcontroller/view
     [self bindViewModel];
 
@@ -111,6 +114,14 @@
 
     RAC(self.backgroundView, hidden) = [[RACObserve(self.viewModel, shouldHidePosts) not] deliverOnMainThread];
 
+    
+    RAC(self.emptyStateView, hidden) = [[RACObserve(self.viewModel, posts) map:^id(NSArray *posts) {
+        if (posts.count > 0){
+            return @YES;
+        } else {
+            return @NO;
+        }
+    }] deliverOnMainThread];
     
     [[RACObserve(self, posts) deliverOnMainThread]
      subscribeNext:^(id x) {
@@ -192,6 +203,24 @@
     NSLog(@"background view frame: %f", self.backgroundView.frame.size.width);
     
     [self.postsTableView addSubview:self.backgroundView];
+}
+
+-(void)setupEmptyStateView{
+    self.emptyStateView = [[[NSBundle mainBundle] loadNibNamed:@"PostsNotFoundView" owner:self options:nil] objectAtIndex:0];
+    
+    // Make my frame size match the size of the content view in the xib.
+    CGRect newFrame = self.postsTableView.frame;
+    // 125 is the height of the scrolling view on the top
+    // 48 is the height of the tab bar.
+    newFrame.size.height = self.postsTableView.frame.size.height-125-48;
+    newFrame.origin.y = 125;
+    
+    self.emptyStateView.frame = newFrame;
+    
+    [self.emptyStateView updateConstraints];
+    
+    [self.postsTableView insertSubview:self.emptyStateView belowSubview:self.backgroundView];
+
 }
 
 - (void)setupRefreshControl {
