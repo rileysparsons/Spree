@@ -81,13 +81,7 @@
     self.tableView.tableFooterView = footerView;
     
     [footerView addSubview:label];
-    
-    
-    ConfirmLocationViewController *confirmLocationModal = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"ConfirmLocationViewController"];
-    
-    confirmLocationModal.postingWorkflow = self.postingWorkflow;
-    
-    [self.navigationController presentViewController:confirmLocationModal animated:YES completion:nil];
+
     
 }
 
@@ -139,6 +133,13 @@
 }
 
 -(void)postButtonPressed{
+    
+    ConfirmLocationViewController *confirmLocationModal = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"ConfirmLocationViewController"];
+    
+    confirmLocationModal.postingWorkflow = self.postingWorkflow;
+    
+    [self.navigationController presentViewController:confirmLocationModal animated:YES completion:nil];
+    
     NSLog(@"POSTED: %@", self.post);
     [[MBProgressHUD showHUDAddedTo:self.view animated:YES] setLabelText:@"Creating Post"];
     [self.post setExpired:NO];

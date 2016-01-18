@@ -8,6 +8,7 @@
 
 #import "PostTypeViewController.h"
 #import <MBProgressHUD/MBProgressHUD.h>
+#import "AppDelegate.h"
 
 @interface PostTypeViewController ()
 @property (retain, nonatomic) NSIndexPath *currentIndexPath;
@@ -36,7 +37,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [MBProgressHUD showHUDAddedTo:self.tableView animated:YES];
+    UIWindow *windowForHud = [[UIApplication sharedApplication] delegate].window;
+    [MBProgressHUD showHUDAddedTo:windowForHud animated:YES];
 }
 
 - (PFQuery *)queryForTable {
@@ -70,10 +72,8 @@
 }
 
 -(void)objectsDidLoad:(nullable NSError *)error{
-    if (error){
-        [[MBProgressHUD HUDForView:self.tableView] setDetailsLabelText:@"Unable to load posts"];
-    }
-    [MBProgressHUD hideHUDForView:self.tableView animated:YES];
+    UIWindow *windowForHud = [[UIApplication sharedApplication] delegate].window;
+    [MBProgressHUD hideHUDForView:windowForHud animated:YES];
 }
 
 #pragma mark - Table view delegate

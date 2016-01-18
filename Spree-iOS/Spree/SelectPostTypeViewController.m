@@ -15,6 +15,7 @@
 #import "PostingWorkflow.h"
 #import "SpreeUtility.h"
 #import "SpreeMarketManager.h"
+#import "AppDelegate.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 #import <MSCellAccessory/MSCellAccessory.h>
 
@@ -117,7 +118,8 @@ typedef enum : NSUInteger {
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        UIWindow *window = [[UIApplication sharedApplication] delegate].window;
+        [MBProgressHUD showHUDAddedTo:window animated:YES];
         
         SpreePost *post = [[SpreePost alloc] init];
         post.typePointer = [self objectAtIndexPath:indexPath];
@@ -130,13 +132,11 @@ typedef enum : NSUInteger {
                 SelectPostSubTypeViewController *selectPostSubTypeViewController = [storyboard instantiateViewControllerWithIdentifier:@"SelectPostSubTypeViewController"];
                 selectPostSubTypeViewController.workflow = postingWorkflow;
                 selectPostSubTypeViewController.post = post;
-                [MBProgressHUD hideHUDForView:self.view animated:YES];
                 [self.navigationController pushViewController:selectPostSubTypeViewController animated:YES];
             } else {
-                
-                [MBProgressHUD hideHUDForView:self.view animated:YES];
                 [self.navigationController pushViewController:[postingWorkflow nextViewController] animated:YES];
             }
+            [MBProgressHUD hideHUDForView:window animated:YES];
         }];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
