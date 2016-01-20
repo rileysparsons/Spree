@@ -306,7 +306,6 @@
     [postQuery whereKey:@"expired" equalTo:[NSNumber numberWithBool:NO]];
     [postQuery whereKey:@"sold" equalTo:[NSNumber numberWithBool:NO]];
     [postQuery whereKeyDoesNotExist:@"removed" ];
-    [postQuery whereKey:@"network" equalTo:[[PFUser currentUser] objectForKey:@"network"]];
     
     [postQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
         cell.numberLabel.text = [NSString stringWithFormat:@"0 Posts"];
