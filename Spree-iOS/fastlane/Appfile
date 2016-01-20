@@ -1,0 +1,15 @@
+app_identifier "com.spree.spreemobile" # The bundle identifier of your app
+apple_dev_portal_id ENV["APPLEDEVEMAIL"] if ENV["APPLEDEVEMAIL"]  # Apple Developer Account
+itunes_connect_id ENV["ITUNESCONNECTEMAIL"] if ENV["ITUNESCONNECTEMAIL"]    # iTunes Connect Account
+
+# You can uncomment any of the lines below and add your own
+# team selection in case you're in multiple teams
+ team_name "Spree, LLC"
+ team_id "ST4Y5DTQ65"
+
+# To select a team for iTunes Connect use
+itc_team_name "Spree, LLC"
+itc_team_id "ST4Y5DTQ65"
+
+# you can even provide different app identifiers, Apple IDs and team names per lane:
+# https://github.com/fastlane/fastlane/blob/master/docs/Appfile.md

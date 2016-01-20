@@ -1434,6 +1434,7 @@
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 16;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREFIX_HEADER = Spree/PrefixHeader.pch;
@@ -1442,7 +1443,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.spree.spreemobile;
 				PRODUCT_NAME = Spree;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "55af8a34-9316-4dc6-9846-041d5485c66d";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -1457,6 +1458,7 @@
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 16;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREFIX_HEADER = Spree/PrefixHeader.pch;
 				INFOPLIST_FILE = Spree/Info.plist;
@@ -1464,7 +1466,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.spree.spreemobile;
 				PRODUCT_NAME = Spree;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "55af8a34-9316-4dc6-9846-041d5485c66d";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
