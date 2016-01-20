@@ -41,7 +41,7 @@ platform :ios do
   	#snapshot
 	#frameit
     sigh
-    gym(scheme: "Spree") # Build your app - more options available
+    gym # Build your app - more options available
     pilot
 
 
