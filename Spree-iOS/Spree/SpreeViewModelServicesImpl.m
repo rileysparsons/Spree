@@ -12,6 +12,7 @@
 @interface SpreeViewModelServicesImpl ()
 
 @property SpreeParseConnectionImpl *parseConnection;
+@property UINavigationController *navigationController;
 
 @end
 
@@ -24,8 +25,18 @@
     return self;
 }
 
+-(instancetype)initWithNavigationController:(UINavigationController *)navigationController{
+    if (self = [super init]){
+        _parseConnection = [SpreeParseConnectionImpl new];
+        _navigationController = navigationController;
+    }
+    return self;
+}
+
 -(id<SpreeParseConnection>)getParseConnection{
     return self.parseConnection;
 }
+
+
 
 @end

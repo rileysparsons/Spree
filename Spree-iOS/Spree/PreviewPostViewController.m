@@ -41,7 +41,7 @@
 }
 
 
--(void)initWithPost:(SpreePost *)post workflow:(PostingWorkflow *)workflow{
+-(void)initWithPost:(SpreePost *)post workflow:(PostingWorkflowViewModel *)workflow{
     self.post = post;
     self.existingFieldsForTable = [[NSMutableArray alloc] init];
     self.existingFields = self.post[@"completedFields"];

@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Riley Steele Parsons. All rights reserved.
 //
 
-#import "PostingWorkflow.h"
+#import "PostingWorkflowViewModel.h"
 #import "PostingStringEntryViewController.h"
 #import "PreviewPostViewController.h"
 #import "PostPhotoSelectViewController.h"
@@ -17,20 +17,30 @@
 #import <MMPReactiveCoreLocation/MMPReactiveCoreLocation.h>
 
 
-@interface PostingWorkflow (){
+@interface PostingWorkflowViewModel (){
 
 }
 
+@property (nonatomic, strong) id<SpreeViewModelServices> services;
 @property NSMutableArray *allFields;
 @property (nonatomic)  NSArray* viewControllersForFields;
 @property (nonatomic, strong) MMPReactiveCoreLocation *locationService;
 
 @end
 
-@implementation PostingWorkflow
+@implementation PostingWorkflowViewModel
 
 @synthesize type = _type;
 @synthesize subtype = _subtype;
+
+-(instancetype)initWithServices:(id<SpreeViewModelServices>)services{
+    self = [super init];
+    if (self) {
+        _services = services;
+        [self initialize];
+    }
+    return self;
+}
 
 -(id)initWithPost:(SpreePost *)post{
     self = [super init];
@@ -46,19 +56,33 @@
         self.uncompletedFields = [[NSMutableArray alloc] init];
         self.photosForDisplay = [[NSMutableArray alloc] init];
         [self setType:post.typePointer];
-        [self setupRequiredFields];
     }
     return self;
 }
 
--(id)initWithType:(PFObject *)type{
-    self = [super init];
-    if (self){
-        self.type = type;
-        self.photosForDisplay = [[NSMutableArray alloc] init];
-        [self setupRequiredFields];
-    }
-    return self;
+-(void)initialize{
+    self.post = [SpreePost new];
+    
+    self.locationService = [MMPReactiveCoreLocation service];
+    
+    [self.locationService.location subscribeNext:^(id x) {
+        NSLog(@"location %@", x);
+        self.post[@"location"] = [PFGeoPoint geoPointWithLocation:x];
+    }];
+    
+    self.allFields = [[NSMutableArray alloc] init];
+    self.completedFields = [[NSMutableArray alloc] init];
+    self.uncompletedFields = [[NSMutableArray alloc] init];
+    self.photosForDisplay = [[NSMutableArray alloc] init];
+    
+    [RACObserve(self.post, typePointer) map:^id(id value) {
+        for (id field in value[@"fields"]){
+            [self.uncompletedFields addObject:field];
+            self.allFields = self.uncompletedFields;
+        }
+        return nil;
+    }];
+
 }
 
 -(void)setSubtype:(PFObject *)subtype{
@@ -78,27 +102,7 @@
         self.allFields = self.uncompletedFields;
     }
 }
- 
--(void)setupRequiredFields{
-//    NSArray *basicFields = [[NSArray alloc] initWithObjects:PF_POST_TITLE, PF_POST_DESCRIPTION, PF_POST_PRICE, nil];
-//    NSMutableArray *allFields = [[NSMutableArray alloc] initWithArray:basicFields];
-//    if ([self.type[@"type"] isEqualToString:POST_TYPE_BOOKS]) {
-//        [allFields addObjectsFromArray:@[PF_POST_PHOTOARRAY, PF_POST_BOOKFORCLASS]];
-//    } else if ([self.type[@"type"]  isEqualToString:POST_TYPE_ELECTRONICS]) {
-//        [allFields addObjectsFromArray:@[PF_POST_PHOTOARRAY]];
-//    } else if ([self.type[@"type"]  isEqualToString:POST_TYPE_FURNITURE]){
-//        [allFields addObjectsFromArray:@[PF_POST_PHOTOARRAY]];
-//    } else if ([self.type[@"type"]  isEqualToString:POST_TYPE_CLOTHING]){
-//        [allFields addObjectsFromArray:@[PF_POST_PHOTOARRAY]];
-//    } else if ([self.type[@"type"]  isEqualToString:POST_TYPE_TICKETS]){
-//        [allFields addObjectsFromArray:@[PF_POST_DATEFOREVENT]];
-//    } else if ([self.type[@"type"]  isEqualToString:POST_TYPE_TASK]){
-//        [allFields addObjectsFromArray:@[]];
-//    }
-//    self.uncompletedFields = [[NSMutableArray alloc] initWithArray:allFields];
-    
-    
-}
+
 
 -(UIViewController *)nextViewController{
     NSLog(@"Remaining fields: %@", self.uncompletedFields);

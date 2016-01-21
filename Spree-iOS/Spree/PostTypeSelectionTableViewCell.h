@@ -7,13 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CEReactiveView.h"
 
-@interface PostTypeSelectionTableViewCell : UITableViewCell
+@interface PostTypeSelectionTableViewCell : UITableViewCell <CEReactiveView>
 
 @property (weak, nonatomic) IBOutlet UIImageView *typeImage;
 @property (weak, nonatomic) IBOutlet UILabel *typeLabel;
 @property (weak, nonatomic) IBOutlet UIView *iconBackground;
 
--(void)initWithPostType:(PFObject *)type;
+-(void)bindViewModel:(id)viewModel;
 
 @end

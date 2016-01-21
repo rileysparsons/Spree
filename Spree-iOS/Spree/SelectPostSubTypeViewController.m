@@ -7,7 +7,7 @@
 //
 
 #import "SelectPostSubTypeViewController.h"
-#import "PostingWorkflow.h"
+#import "PostingWorkflowViewModel.h"
 #import "PostTypeSelectionTableViewCell.h"
 #import "SelectPostTypeHeaderView.h"
 #import <MSCellAccessory/MSCellAccessory.h>
@@ -17,7 +17,7 @@
 @end
 
 @implementation SelectPostSubTypeViewController
-
+/*
 - (id)initWithCoder:(NSCoder *)aCoder {
     self = [super initWithCoder:aCoder];
     if (self) {
@@ -87,5 +87,5 @@
 -(void)cancelWorkflow{
     [self.navigationController popViewControllerAnimated:YES];
 }
-
+*/
 @end

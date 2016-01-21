@@ -8,13 +8,13 @@
 
 #import "SelectPostTypeViewController.h"
 #import "SpreePost.h"
-#import "PostingWorkflow.h"
+#import "PostingWorkflowViewModel.h"
 
 @interface SelectPostSubTypeViewController : SelectPostTypeViewController
 
 @property SpreePost *post;
 @property NSArray *subTypes;
-@property PostingWorkflow *workflow;
+@property PostingWorkflowViewModel *workflow;
 
 
 @end

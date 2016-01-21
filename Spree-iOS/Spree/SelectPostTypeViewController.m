@@ -1,5 +1,5 @@
 //
-//  SelectPostViewController.m
+//  SelectPostTypeViewController.m
 //  Spree
 //
 //  Created by Riley Steele Parsons on 6/28/15.
@@ -7,12 +7,13 @@
 //
 
 #import "SelectPostTypeViewController.h"
+#import "CETableViewBindingHelper.h"
 #import "PostTypeSelectionTableViewCell.h"
 #import "SelectPostSubTypeViewController.h"
 #import "SpreePost.h"
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import <MMPReactiveCoreLocation/MMPReactiveCoreLocation.h>
-#import "PostingWorkflow.h"
+#import "PostingWorkflowViewModel.h"
 #import "SpreeUtility.h"
 #import "SpreeMarketManager.h"
 #import "AppDelegate.h"
@@ -26,18 +27,11 @@ typedef enum : NSUInteger {
 
 @interface SelectPostTypeViewController () <UIAlertViewDelegate>
 
+@property NSArray *postTypes;
+
 @end
 
 @implementation SelectPostTypeViewController
-
-- (id)initWithCoder:(NSCoder *)aCoder {
-    self = [super initWithCoder:aCoder];
-    if (self) {
-        // Whether the built-in pull-to-refresh is enabled
-        self.pullToRefreshEnabled = NO;
-    }
-    return self;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -90,55 +84,25 @@ typedef enum : NSUInteger {
     [self.header layoutSubviews];
     self.tableView.tableHeaderView = self.header;
     
-    // Do any additional setup after loading the view.
+    [self bindViewModel];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+- (void)bindViewModel {
+    RAC(self, postTypes) = RACObserve(self.viewModel, postTypes);
+    
+    // Helper that abstracts all the UITableView logic and delegation away from the view controller using RAC
+    UINib *nib = [UINib nibWithNibName:@"PostTypeSelectionTableViewCell" bundle:nil];
+    [CETableViewBindingHelper bindingHelperForTableView:self.tableView
+                                           sourceSignal:RACObserve(self.viewModel, postTypes)
+                                       selectionCommand:self.viewModel.typeSelectedCommand
+                                           templateCell:nib];
+    
 
+    // Pushes the detailViewController for post when cell is selected
+    [[self.viewModel.typeSelectedCommand.executionSignals switchToLatest] subscribeNext:^(SpreePost* post) {
+        // do something
+    }];
 
-- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object{
-    static NSString *CellIdentifier = @"Cell";
-    PostTypeSelectionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        NSArray *nibFiles = [[NSBundle mainBundle] loadNibNamed:@"PostTypeSelectionTableViewCell" owner:self options:nil];
-        for(id currentObject in nibFiles){
-            if ([currentObject isKindOfClass:[UITableViewCell class]]){
-                cell = (PostTypeSelectionTableViewCell*)currentObject;
-                break;
-            }
-        }
-    }
-    cell.accessoryType = UITableViewCellAccessoryNone;
-    cell.accessoryView = [MSCellAccessory accessoryWithType:FLAT_DISCLOSURE_INDICATOR color:[UIColor spreeOffBlack]];
-    [cell initWithPostType:object];
-    return cell;
-}
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-        UIWindow *window = [[UIApplication sharedApplication] delegate].window;
-        [MBProgressHUD showHUDAddedTo:window animated:YES];
-        
-        SpreePost *post = [[SpreePost alloc] init];
-        post.typePointer = [self objectAtIndexPath:indexPath];
-        post.user = [PFUser currentUser];
-        PFQuery *subtype = [PFQuery queryWithClassName:@"PostSubtype"];
-        [subtype getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error){
-            PostingWorkflow *postingWorkflow = [[PostingWorkflow alloc] initWithPost:post];
-            if (object){
-                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewPost" bundle:nil];
-                SelectPostSubTypeViewController *selectPostSubTypeViewController = [storyboard instantiateViewControllerWithIdentifier:@"SelectPostSubTypeViewController"];
-                selectPostSubTypeViewController.workflow = postingWorkflow;
-                selectPostSubTypeViewController.post = post;
-                [self.navigationController pushViewController:selectPostSubTypeViewController animated:YES];
-            } else {
-                [self.navigationController pushViewController:[postingWorkflow nextViewController] animated:YES];
-            }
-            [MBProgressHUD hideHUDForView:window animated:YES];
-        }];
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 -(void)dismissViewControllerAnimated:(BOOL)flag completion:(void (^)(void))completion{
@@ -157,9 +121,14 @@ typedef enum : NSUInteger {
     return titleLabel;
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    self.viewModel.active = YES;
+}
 
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 1;
+- (void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    self.viewModel.active = NO;
 }
 
 /*

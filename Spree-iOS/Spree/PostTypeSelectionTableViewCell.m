@@ -23,8 +23,9 @@
     [self circularMaskForView:self.iconBackground];
 }
 
--(void)initWithPostType:(PFObject *)type{
+-(void)bindViewModel:(id)viewModel{
     
+    PFObject* type = (PFObject*)viewModel;
     self.typeLabel.text = type[@"type"];
     
     if ([type[@"type"] isEqualToString:POST_TYPE_ACCESSORIES]){
@@ -50,7 +51,10 @@
     } else if ([type[@"type"] isEqualToString:POST_TYPE_BOOKS]){
         [self.typeImage setImage:[UIImage imageNamed:@"booksThumbnail"]];
     }
+    
 }
+
+
 
 -(void)circularMaskForView:(UIView *)view{
     CAShapeLayer *circle = [CAShapeLayer layer];

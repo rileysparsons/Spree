@@ -22,7 +22,7 @@
     self.post = post;
 }
 
--(void)initWithField:(NSDictionary *)field postingWorkflow:(PostingWorkflow *)postingWorkflow{
+-(void)initWithField:(NSDictionary *)field postingWorkflow:(PostingWorkflowViewModel *)postingWorkflow{
     self.presentedWithinWorkflow = YES;
     self.prompt = field[@"prompt"];
     self.fieldDictionary = field;

@@ -37,6 +37,22 @@
     }];
 }
 
+-(RACSignal *)findPostTypes{
+    return[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        PFQuery *postTypeQuery = [PFQuery queryWithClassName:@"PostType"];
+        [postTypeQuery findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+            if (!error){
+                [subscriber sendNext:objects];
+                [subscriber sendCompleted];
+            } else {
+                [subscriber sendError:error];
+            }
+        }];
+        return nil;
+    }];
+}
+
+
 -(RACSignal *)findAllPostsSignalWithRegion:(CLCircularRegion *)region{
     if (region){
         // The user is in a current Spree market region

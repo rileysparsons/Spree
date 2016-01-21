@@ -169,12 +169,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.96558624510000002" green="0.97044742110000004" blue="0.97035741809999998" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="sectionIndexBackgroundColor" red="0.96558624510000002" green="0.97044742110000004" blue="0.97035741809999998" alpha="1" colorSpace="calibratedRGB"/>
-                        <connections>
-                            <outlet property="dataSource" destination="KJl-Cy-zGC" id="qSi-Gu-0h4"/>
-                            <outlet property="delegate" destination="KJl-Cy-zGC" id="rhX-ig-TKA"/>
-                        </connections>
                     </tableView>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
+                    <connections>
+                        <outlet property="tableView" destination="ood-1I-cHx" id="ev9-TP-VVF"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ht9-wm-6h1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

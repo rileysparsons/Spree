@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <JVFloatLabeledTextField/JVFloatLabeledTextView.h>
 #import <SAMTextView/SAMTextView.h>
-#import "PostingWorkflow.h"
+#import "PostingWorkflowViewModel.h"
 #import "SpreePost.h"
 #import "PostingInputAccessoryView.h"
 #import "PostingDataEntryViewController.h"

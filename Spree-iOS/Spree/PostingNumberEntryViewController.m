@@ -28,7 +28,7 @@
     }
 }
 
--(void)initWithField:(NSDictionary *)field postingWorkflow:(PostingWorkflow *)postingWorkflow{
+-(void)initWithField:(NSDictionary *)field postingWorkflow:(PostingWorkflowViewModel *)postingWorkflow{
     [super initWithField:field postingWorkflow:postingWorkflow];
     if ([field[@"field"] isEqualToString:PF_POST_PRICE]){
         self.symbolLabel.text = @"$";

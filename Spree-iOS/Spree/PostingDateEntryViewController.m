@@ -20,7 +20,7 @@
     
 }
 
--(void)initWithField:(NSDictionary *)field postingWorkflow:(PostingWorkflow *)postingWorkflow{
+-(void)initWithField:(NSDictionary *)field postingWorkflow:(PostingWorkflowViewModel *)postingWorkflow{
     [super initWithField:field postingWorkflow:postingWorkflow];
     
 }

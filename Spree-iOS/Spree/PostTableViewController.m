@@ -10,11 +10,13 @@
 
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "CETableViewBindingHelper.h"
+#import "SpreeViewModelServicesImpl.h"
 #import "PostTableViewCell.h"
+#import "PostingWorkflowViewModel.h"
 #import "SpreePost.h"
 #import "AppConstant.h"
 #import "PostDetailTableViewController.h"
-#import "SelectPostTypeViewController.h"
+#import "BasePostingViewController.h"
 
 @interface PostTableViewController () {
 
@@ -318,11 +320,16 @@
 #pragma mark - Navigation
 
 - (void)NewPostBarButtonItemPressed:(id)sender {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewPost" bundle:nil];
-    SelectPostTypeViewController *selectPostTypeViewController = [storyboard instantiateViewControllerWithIdentifier:@"SelectPostTypeViewController"];
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController: selectPostTypeViewController];
     
-    [self.navigationController presentViewController:navigationController animated:YES completion:nil];
+    SpreeViewModelServicesImpl *viewModelServices = [[SpreeViewModelServicesImpl alloc] init];
+    NSLog(@"%@", viewModelServices);
+    PostingWorkflowViewModel *postingWorkflowViewModel = [[PostingWorkflowViewModel alloc] initWithServices:viewModelServices];
+    NSLog(@"%@", postingWorkflowViewModel);
+    BasePostingViewController *basePostingViewController = [[BasePostingViewController alloc] initWithViewModel:postingWorkflowViewModel];
+     NSLog(@"%@", basePostingViewController);
+    UINavigationController *postingWorkflowNavigationController = [[UINavigationController alloc] initWithRootViewController:basePostingViewController];
+    
+    [self.navigationController presentViewController:postingWorkflowNavigationController animated:YES completion:nil];
 }
 
 -(void)presentDetailViewControllerForPost:(SpreePost *)post {
@@ -350,8 +357,7 @@
         whiteView.backgroundColor = [UIColor spreeOffWhite];
         [headerView addSubview:whiteView];
         
-        self.headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 0, whiteView.frame.size.width, 35
-                                                                         )];
+        self.headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 0, whiteView.frame.size.width, 35)];
         self.headerLabel.font = [UIFont fontWithName:@"Lato-Regular" size:16];
         self.headerLabel.textColor = [UIColor spreeOffBlack];
         

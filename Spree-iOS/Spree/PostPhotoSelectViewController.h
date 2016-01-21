@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PostingWorkflow.h"
+#import "PostingWorkflowViewModel.h"
 #import "AddPhotoHeaderView.h"
 
 @interface PostPhotoSelectViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property PostingWorkflow *postingWorkflow;
+@property PostingWorkflowViewModel *postingWorkflow;
 @property NSMutableArray *photoArray;
 @property NSMutableArray *fileArray;
 @property NSDictionary *fieldDictionary;
