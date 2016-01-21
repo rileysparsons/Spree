@@ -32,11 +32,12 @@
 
 -(void)initialize{
     
-    
+    [self bindToViewModel];
 }
 
 -(void)bindToViewModel{
-    RAC(self.viewModel.post, typePointer) = [[self.selectPostTypeViewController.viewModel.typeSelectedCommand executionSignals] switchToLatest];
+
+
 }
 
 - (void)viewDidLoad {
@@ -47,6 +48,12 @@
     SpreeViewModelServicesImpl *viewModelServices = [[SpreeViewModelServicesImpl alloc] init];
     SelectPostTypeViewModel *selectPostTypeViewModel = [[SelectPostTypeViewModel alloc] initWithServices:viewModelServices];
     self.selectPostTypeViewController.viewModel = selectPostTypeViewModel;
+    
+    RAC(self.viewModel.post, typePointer) = [[self.selectPostTypeViewController.viewModel.typeSelectedCommand executionSignals] switchToLatest];
+    
+    [[[self.selectPostTypeViewController.viewModel.typeSelectedCommand executionSignals] switchToLatest] subscribeNext:^(id x) {
+        NSLog(@"%@", x);
+    }];
     
     [self.navigationController pushViewController:self.selectPostTypeViewController animated:NO];
     
