@@ -12,12 +12,6 @@
 
 @implementation PostTypeSelectionTableViewCell
 
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-    // Configure the view for the selected state
-}
-
 -(void)awakeFromNib{
     self.iconBackground.backgroundColor = [UIColor spreeDarkBlue];
     [self circularMaskForView:self.iconBackground];
@@ -53,8 +47,6 @@
     }
     
 }
-
-
 
 -(void)circularMaskForView:(UIView *)view{
     CAShapeLayer *circle = [CAShapeLayer layer];
