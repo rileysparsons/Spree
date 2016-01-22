@@ -7,34 +7,20 @@
 //
 
 #import "SelectPostSubTypeViewController.h"
-#import "PostingWorkflowViewModel.h"
+#import "CETableViewBindingHelper.h"
 #import "PostTypeSelectionTableViewCell.h"
 #import "SelectPostTypeHeaderView.h"
-#import <MSCellAccessory/MSCellAccessory.h>
 
 @interface SelectPostSubTypeViewController ()
-    
+@property NSArray *postSubTypes;
 @end
 
 @implementation SelectPostSubTypeViewController
-/*
-- (id)initWithCoder:(NSCoder *)aCoder {
-    self = [super initWithCoder:aCoder];
-    if (self) {
-        self.parseClassName = @"PostSubtype";
-        // Whether the built-in pull-to-refresh is enabled
-        self.pullToRefreshEnabled = NO;
-        self.loadingViewEnabled = NO;
-    }
-    return self;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    [self.post.typePointer fetchIfNeededInBackground];
-    NSLog(@"This viewcontroller: %@", self.post);
     
     UIButton *cancel = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 40)];
     cancel.backgroundColor = [UIColor clearColor];
@@ -44,48 +30,53 @@
     [cancel addTarget:self action:@selector(cancelWorkflow) forControlEvents:UIControlEventTouchUpInside];
     [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:cancel]];
     
-    self.header.titleLabel.text =  [NSString stringWithFormat:@"Great! What type of item is it?"];
-    // Do any additional setup after loading the view.
-}
-
--(PFQuery *)queryForTable{
-    PFQuery *query = [PFQuery queryWithClassName:self.parseClassName];
-    [query whereKey:@"parentType" equalTo:self.post.typePointer];
-    return query;
-}
-
-
-
-- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(nullable PFObject *)object{
-    static NSString *CellIdentifier = @"Cell";
-    PostTypeSelectionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        NSArray *nibFiles = [[NSBundle mainBundle] loadNibNamed:@"PostTypeSelectionTableViewCell" owner:self options:nil];
-        for(id currentObject in nibFiles){
-            if ([currentObject isKindOfClass:[UITableViewCell class]]){
-                cell = (PostTypeSelectionTableViewCell*)currentObject;
-                break;
-            }
+    NSArray *nibFiles = [[NSBundle mainBundle] loadNibNamed:@"SelectPostTypeHeaderView" owner:self options:nil];
+    for(id currentObject in nibFiles){
+        if ([currentObject isKindOfClass:[UIView class]]){
+            self.header = currentObject;
+            break;
         }
     }
-    cell.accessoryType = UITableViewCellAccessoryNone;
-    cell.accessoryView = [MSCellAccessory accessoryWithType:FLAT_DISCLOSURE_INDICATOR color:[UIColor spreeOffBlack]];
-    cell.iconBackground.backgroundColor = [[UIColor spreeOffBlack] colorWithAlphaComponent:0.20f];
-    cell.typeLabel.text = object[@"subtype"];
-    return cell;
+    [self.header setFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 200)];
+    [self.header layoutSubviews];
+    self.tableView.tableHeaderView = self.header;
+    
+    self.header.titleLabel.text =  [NSString stringWithFormat:@"Great! What type of item is it?"];
+    // Do any additional setup after loading the view.
+ 
+    [self bindViewModel];
 }
 
+ - (void)bindViewModel {
+     RAC(self, postSubTypes) = RACObserve(self.viewModel, postSubTypes);
+ 
+     // Helper that abstracts all the UITableView logic and delegation away from the view controller using RAC
+     UINib *nib = [UINib nibWithNibName:@"PostSubTypeSelectionTableViewCell" bundle:nil];
+     [CETableViewBindingHelper bindingHelperForTableView:self.tableView
+     sourceSignal:RACObserve(self.viewModel, postSubTypes)
+     selectionCommand:self.viewModel.typeSelectedCommand
+     templateCell:nib];
+     
+     
+     // Pushes the detailViewController for post when cell is selected
+     [[self.viewModel.typeSelectedCommand.executionSignals switchToLatest] subscribeNext:^(SpreePost* post) {
+     // do something
+     }];
+ 
+ }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    self.viewModel.active = YES;
+}
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-//    self.workflow.
-    self.workflow.post[@"subtype"] = [self objectAtIndexPath:indexPath];
-    [self.workflow setSubtype:[self objectAtIndexPath:indexPath]];
-    [self.navigationController pushViewController:[self.workflow nextViewController] animated:YES];
+- (void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    self.viewModel.active = NO;
 }
 
 -(void)cancelWorkflow{
     [self.navigationController popViewControllerAnimated:YES];
 }
-*/
+
 @end

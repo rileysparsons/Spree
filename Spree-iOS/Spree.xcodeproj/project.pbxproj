@@ -138,6 +138,9 @@
 		14EB18F71C4B1EC300EE5A69 /* PostsNotFoundView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14EB18F61C4B1EC300EE5A69 /* PostsNotFoundView.xib */; };
 		14EB18FA1C50B02B00EE5A69 /* BasePostingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14EB18F91C50B02B00EE5A69 /* BasePostingViewController.m */; };
 		14EB18FD1C50B74600EE5A69 /* SelectPostTypeViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 14EB18FC1C50B74600EE5A69 /* SelectPostTypeViewModel.m */; };
+		14EB19001C51B85300EE5A69 /* SelectPostSubTypeViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 14EB18FF1C51B85300EE5A69 /* SelectPostSubTypeViewModel.m */; };
+		14EB19031C51F4B700EE5A69 /* PostSubTypeSelectionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14EB19021C51F4B700EE5A69 /* PostSubTypeSelectionTableViewCell.m */; };
+		14EB19051C51F62900EE5A69 /* PostSubTypeSelectionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14EB19041C51F62900EE5A69 /* PostSubTypeSelectionTableViewCell.xib */; };
 		14EFDAE71A89EC4F007510CC /* TextViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14EFDAE61A89EC4F007510CC /* TextViewViewController.m */; };
 		14F739BF1B783D4800E60619 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F739BE1B783D4800E60619 /* SettingsViewController.m */; };
 		14FD56E01B2CF6170086A2AE /* PostTitleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14FD56DE1B2CF6170086A2AE /* PostTitleTableViewCell.m */; };
@@ -407,6 +410,11 @@
 		14EB18F91C50B02B00EE5A69 /* BasePostingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BasePostingViewController.m; path = ../BasePostingViewController.m; sourceTree = "<group>"; };
 		14EB18FB1C50B74600EE5A69 /* SelectPostTypeViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectPostTypeViewModel.h; sourceTree = "<group>"; };
 		14EB18FC1C50B74600EE5A69 /* SelectPostTypeViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectPostTypeViewModel.m; sourceTree = "<group>"; };
+		14EB18FE1C51B85300EE5A69 /* SelectPostSubTypeViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectPostSubTypeViewModel.h; sourceTree = "<group>"; };
+		14EB18FF1C51B85300EE5A69 /* SelectPostSubTypeViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectPostSubTypeViewModel.m; sourceTree = "<group>"; };
+		14EB19011C51F4B700EE5A69 /* PostSubTypeSelectionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostSubTypeSelectionTableViewCell.h; sourceTree = "<group>"; };
+		14EB19021C51F4B700EE5A69 /* PostSubTypeSelectionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostSubTypeSelectionTableViewCell.m; sourceTree = "<group>"; };
+		14EB19041C51F62900EE5A69 /* PostSubTypeSelectionTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostSubTypeSelectionTableViewCell.xib; sourceTree = "<group>"; };
 		14EFDAE51A89EC4F007510CC /* TextViewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextViewViewController.h; sourceTree = "<group>"; };
 		14EFDAE61A89EC4F007510CC /* TextViewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextViewViewController.m; sourceTree = "<group>"; };
 		14F739BD1B783D4800E60619 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
@@ -520,6 +528,8 @@
 		140CF8D51A3BBFB200134C4D /* Spree */ = {
 			isa = PBXGroup;
 			children = (
+				14EB18FE1C51B85300EE5A69 /* SelectPostSubTypeViewModel.h */,
+				14EB18FF1C51B85300EE5A69 /* SelectPostSubTypeViewModel.m */,
 				14EB18FB1C50B74600EE5A69 /* SelectPostTypeViewModel.h */,
 				14EB18FC1C50B74600EE5A69 /* SelectPostTypeViewModel.m */,
 				14EB18F81C50B02B00EE5A69 /* BasePostingViewController.h */,
@@ -600,6 +610,8 @@
 				141524531B4070E5007EE405 /* PostTypeSelectionTableViewCell.h */,
 				141524541B4070E5007EE405 /* PostTypeSelectionTableViewCell.m */,
 				141524551B4070E5007EE405 /* PostTypeSelectionTableViewCell.xib */,
+				14EB19011C51F4B700EE5A69 /* PostSubTypeSelectionTableViewCell.h */,
+				14EB19021C51F4B700EE5A69 /* PostSubTypeSelectionTableViewCell.m */,
 				140473981ABD267E00C0F8EF /* UserPostsTableViewController.h */,
 				140473991ABD267E00C0F8EF /* UserPostsTableViewController.m */,
 				14D3B67B1BA291C200D665BB /* UserPostTableViewCell.h */,
@@ -721,6 +733,7 @@
 				141524591B4076BE007EE405 /* SelectPostTypeViewController.m */,
 				142CB04D1B51A0C900969066 /* SelectPostSubTypeViewController.h */,
 				142CB04E1B51A0C900969066 /* SelectPostSubTypeViewController.m */,
+				14EB19041C51F62900EE5A69 /* PostSubTypeSelectionTableViewCell.xib */,
 				142CB0531B51D31A00969066 /* PreviewPostViewController.h */,
 				141AECB91B8A886E00F0012B /* PreviewPostViewController.m */,
 				141AECBE1B8CDD6100F0012B /* EditPostingLocationEntryViewController.h */,
@@ -1111,6 +1124,7 @@
 			files = (
 				143D91F11B6E717D00E2F493 /* Walkthrough.storyboard in Resources */,
 				140CF8E51A3BBFB200134C4D /* Main.storyboard in Resources */,
+				14EB19051C51F62900EE5A69 /* PostSubTypeSelectionTableViewCell.xib in Resources */,
 				14423CDA1B8E9AD0002CB026 /* TriplePhotoPostShareView.xib in Resources */,
 				144D55701B4E11920003B752 /* Lato-BoldItalic.ttf in Resources */,
 				4E0E820B1B40DE1800E18975 /* leftarrow@2x.png in Resources */,
@@ -1253,6 +1267,7 @@
 				14CAB3C31B59539A0081979C /* PhotoSelectFooterView.m in Sources */,
 				140CF8DC1A3BBFB200134C4D /* AppDelegate.m in Sources */,
 				14423CD81B8E9AC5002CB026 /* TriplePhotoPostShareView.m in Sources */,
+				14EB19031C51F4B700EE5A69 /* PostSubTypeSelectionTableViewCell.m in Sources */,
 				1415245A1B4076BE007EE405 /* SelectPostTypeViewController.m in Sources */,
 				140CF8DF1A3BBFB200134C4D /* BrowseViewController.m in Sources */,
 				14C38DA21B27F3BA0039862E /* PostDetailTableViewController.m in Sources */,
@@ -1286,6 +1301,7 @@
 				F78600BE1AEB422100402B1F /* recent.m in Sources */,
 				145820AC1C1CE7830092F9D4 /* LoginViewModel.m in Sources */,
 				141AECBD1B8BCF6000F0012B /* PostingDateEntryViewController.m in Sources */,
+				14EB19001C51B85300EE5A69 /* SelectPostSubTypeViewModel.m in Sources */,
 				14423CE81B9006BC002CB026 /* SpreeConfigManager.m in Sources */,
 				14EFDAE71A89EC4F007510CC /* TextViewViewController.m in Sources */,
 				F70FACF51AEB501700057E6E /* converter.m in Sources */,

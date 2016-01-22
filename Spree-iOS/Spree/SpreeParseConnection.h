@@ -33,4 +33,6 @@ typedef NS_ENUM(NSUInteger, SpreePostType) {
 
 -(RACSignal *)findPostTypes;
 
+-(RACSignal *)findPostSubTypesForType:(PFObject *)type;
+
 @end

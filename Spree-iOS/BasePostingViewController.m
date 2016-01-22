@@ -9,6 +9,8 @@
 #import "BasePostingViewController.h"
 #import "SelectPostTypeViewController.h"
 #import "SelectPostTypeViewModel.h"
+#import "SelectPostSubTypeViewController.h"
+#import "SelectPostSubTypeViewModel.h"
 #import "SpreeViewModelServicesImpl.h"
 
 @interface BasePostingViewController ()
@@ -16,6 +18,7 @@
 @property PostingWorkflowViewModel *viewModel;
 
 @property SelectPostTypeViewController *selectPostTypeViewController;
+@property SelectPostSubTypeViewController *selectPostSubTypeViewController;
 
 @end
 
@@ -50,9 +53,13 @@
     self.selectPostTypeViewController.viewModel = selectPostTypeViewModel;
     
     RAC(self.viewModel.post, typePointer) = [[self.selectPostTypeViewController.viewModel.typeSelectedCommand executionSignals] switchToLatest];
+
     
-    [[[self.selectPostTypeViewController.viewModel.typeSelectedCommand executionSignals] switchToLatest] subscribeNext:^(id x) {
-        NSLog(@"%@", x);
+    [[[self.selectPostTypeViewController.viewModel.typeSelectedCommand executionSignals] switchToLatest] subscribeNext:^(PFObject *type) {
+        self.selectPostSubTypeViewController = [storyboard instantiateViewControllerWithIdentifier:@"SelectPostSubTypeViewController"];
+        SelectPostSubTypeViewModel *selectPostSubTypeViewModel = [[SelectPostSubTypeViewModel alloc] initWithServices:viewModelServices type:type];
+        self.selectPostSubTypeViewController.viewModel = selectPostSubTypeViewModel;
+        [self.navigationController pushViewController:self.selectPostSubTypeViewController animated:YES];
     }];
     
     [self.navigationController pushViewController:self.selectPostTypeViewController animated:NO];

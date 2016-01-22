@@ -53,6 +53,23 @@
 }
 
 
+-(RACSignal *)findPostSubTypesForType:(PFObject *)type{
+    return[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        PFQuery *postTypeQuery = [PFQuery queryWithClassName:@"PostSubtype"];
+        [postTypeQuery whereKey:@"parentType" equalTo:type];
+        [postTypeQuery findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+            if (!error){
+                [subscriber sendNext:objects];
+                [subscriber sendCompleted];
+            } else {
+                [subscriber sendError:error];
+            }
+        }];
+        return nil;
+    }];
+}
+
+
 -(RACSignal *)findAllPostsSignalWithRegion:(CLCircularRegion *)region{
     if (region){
         // The user is in a current Spree market region
