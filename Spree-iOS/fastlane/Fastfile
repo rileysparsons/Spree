@@ -40,7 +40,7 @@ platform :ios do
   lane :beta do
   	#snapshot
 	#frameit
-    sigh
+    #sigh
     gym(scheme: "Spree") # Build your app - more options available
     pilot
 
