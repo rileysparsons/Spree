@@ -44,15 +44,15 @@
 }
 
 -(void)nextBarButtonItemTouched:(id)sender{
-
-    if (self.presentedWithinWorkflow){
-        self.postingWorkflow.post[self.fieldTitle] = self.datePicker.date;
-        [self.postingWorkflow.post[@"completedFields"] addObject:self.fieldDictionary];
-        self.postingWorkflow.step++;
-        
-        UIViewController *nextViewController =[self.postingWorkflow nextViewController];
-        [self.navigationController pushViewController:nextViewController animated:YES];
-    }
+//
+//    if (self.presentedWithinWorkflow){
+//        self.postingWorkflow.post[self.fieldTitle] = self.datePicker.date;
+//        [self.postingWorkflow.post[@"completedFields"] addObject:self.fieldDictionary];
+//        self.postingWorkflow.step++;
+//        
+//        UIViewController *nextViewController =[self.postingWorkflow nextViewController];
+//        [self.navigationController pushViewController:nextViewController animated:YES];
+//    }
 }
 
 @end

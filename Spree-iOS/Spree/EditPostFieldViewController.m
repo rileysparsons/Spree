@@ -14,7 +14,7 @@
 @end
 
 @implementation EditPostFieldViewController
-
+/*
 - (void)initWithField:(NSDictionary *)field post:(SpreePost *)post{
     [super initWithField:field post:post];
 }
@@ -61,5 +61,5 @@
     [self.fieldTextView resignFirstResponder];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
-
+*/
 @end

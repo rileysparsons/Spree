@@ -14,7 +14,7 @@
 @end
 
 @implementation EditPostingNumberEntryViewController
-
+/*
 - (void)initWithField:(NSDictionary *)field post:(SpreePost *)post{
     [super initWithField:field post:post];
 }
@@ -62,5 +62,5 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-
+*/
 @end

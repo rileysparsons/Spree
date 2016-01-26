@@ -13,14 +13,13 @@
 #import "SpreePost.h"
 #import "PostingInputAccessoryView.h"
 #import "PostingDataEntryViewController.h"
+#import "PostingStringEntryViewModel.h"
 
-@interface PostingStringEntryViewController : PostingDataEntryViewController <UITextViewDelegate>
+@interface PostingStringEntryViewController : UIViewController <UITextViewDelegate>
 
 @property (weak, nonatomic) IBOutlet SAMTextView *fieldTextView;
-@property NSArray *requiredFields;
-@property PostingInputAccessoryView *accessoryView;
+@property PostingStringEntryViewModel *viewModel;
 
 -(void)setupTextField;
-- (void)nextBarButtonItemTouched:(id)sender;
 
 @end

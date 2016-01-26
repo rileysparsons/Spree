@@ -41,7 +41,7 @@
     RAC(self, postSubTypes) = [[self.loadPostSubTypes executionSignals] switchToLatest];
     
     // create the tweet selected command, that simply logs
-    self.typeSelectedCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(PFObject *selectedType) {
+    self.subTypeSelectedCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(PFObject *selectedType) {
         return [RACSignal return:selectedType];
     }];
     

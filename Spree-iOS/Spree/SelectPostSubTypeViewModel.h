@@ -11,7 +11,7 @@
 
 @interface SelectPostSubTypeViewModel : RVMViewModel
 
-@property RACCommand* typeSelectedCommand;
+@property RACCommand* subTypeSelectedCommand;
 @property PFObject *postSubTypes;
 
 -(instancetype)initWithServices:(id<SpreeViewModelServices>)services type:(PFObject *)type;

@@ -301,10 +301,10 @@
 -(void)nextBarButtonItemTouched:(id)sender{
     self.postingWorkflow.post[self.fieldTitle] = self.selectedGeoPoint;
     if (self.presentedWithinWorkflow){
-        [self.postingWorkflow.post[@"completedFields"] addObject:self.fieldDictionary];
-        self.postingWorkflow.step++;
-        UIViewController *nextViewController =[self.postingWorkflow nextViewController];
-        [self.navigationController pushViewController:nextViewController animated:YES];
+//        [self.postingWorkflow.post[@"completedFields"] addObject:self.fieldDictionary];
+//        self.postingWorkflow.step++;
+//        UIViewController *nextViewController =[self.postingWorkflow nextViewController];
+//        [self.navigationController pushViewController:nextViewController animated:YES];
     }
 }
 

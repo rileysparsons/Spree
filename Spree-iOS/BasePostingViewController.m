@@ -17,6 +17,8 @@
 
 @property PostingWorkflowViewModel *viewModel;
 
+@property NSMutableArray *workflowViewControllers;
+
 @property SelectPostTypeViewController *selectPostTypeViewController;
 @property SelectPostSubTypeViewController *selectPostSubTypeViewController;
 
@@ -34,35 +36,20 @@
 }
 
 -(void)initialize{
-    
     [self bindToViewModel];
 }
 
 -(void)bindToViewModel{
-
-
+    [self.viewModel.presentNextViewControllerSignal subscribeNext:^(id x) {
+        [self.navigationController pushViewController:[self.viewModel.viewControllersForPresentation objectAtIndex:self.viewModel.step] animated:YES];
+    }];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewPost" bundle:[NSBundle mainBundle]];
-    self.selectPostTypeViewController = [storyboard instantiateViewControllerWithIdentifier:@"SelectPostTypeViewController"];
-    SpreeViewModelServicesImpl *viewModelServices = [[SpreeViewModelServicesImpl alloc] init];
-    SelectPostTypeViewModel *selectPostTypeViewModel = [[SelectPostTypeViewModel alloc] initWithServices:viewModelServices];
-    self.selectPostTypeViewController.viewModel = selectPostTypeViewModel;
     
-    RAC(self.viewModel.post, typePointer) = [[self.selectPostTypeViewController.viewModel.typeSelectedCommand executionSignals] switchToLatest];
-
-    
-    [[[self.selectPostTypeViewController.viewModel.typeSelectedCommand executionSignals] switchToLatest] subscribeNext:^(PFObject *type) {
-        self.selectPostSubTypeViewController = [storyboard instantiateViewControllerWithIdentifier:@"SelectPostSubTypeViewController"];
-        SelectPostSubTypeViewModel *selectPostSubTypeViewModel = [[SelectPostSubTypeViewModel alloc] initWithServices:viewModelServices type:type];
-        self.selectPostSubTypeViewController.viewModel = selectPostSubTypeViewModel;
-        [self.navigationController pushViewController:self.selectPostSubTypeViewController animated:YES];
-    }];
-    
-    [self.navigationController pushViewController:self.selectPostTypeViewController animated:NO];
+    [self.navigationController pushViewController:[self.viewModel.viewControllersForPresentation objectAtIndex:0] animated:NO];
     
 }
 
@@ -70,6 +57,7 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 /*
 #pragma mark - Navigation

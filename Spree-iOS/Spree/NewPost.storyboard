@@ -365,7 +365,7 @@
         <!--Posting Number Entry View Controller-->
         <scene sceneID="ys5-NY-81n">
             <objects>
-                <viewController storyboardIdentifier="PostPriceEntryViewController" id="1Yo-Wc-N4r" customClass="PostingNumberEntryViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PostingNumberEntryViewController" id="1Yo-Wc-N4r" customClass="PostingNumberEntryViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="QL3-LT-NkG"/>
                         <viewControllerLayoutGuide type="bottom" id="a4I-p1-9zq"/>

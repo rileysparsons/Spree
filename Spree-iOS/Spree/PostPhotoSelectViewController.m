@@ -243,13 +243,13 @@ int currentPhotoCount = 0;
 }
 
 - (void)nextBarButtonItemTouched:(id)sender{
-    NSLog(@"PHOTO ARRAY %@", self.photoArray);
-    self.postingWorkflow.photosForDisplay = self.photoArray;
-    self.postingWorkflow.post.photoArray = self.fileArray;
-    [self.postingWorkflow.post[@"completedFields"] addObject: self.fieldDictionary];
-    self.postingWorkflow.step++;
-    UIViewController *nextViewController =[self.postingWorkflow nextViewController];
-    [self.navigationController pushViewController:nextViewController animated:YES];
+//    NSLog(@"PHOTO ARRAY %@", self.photoArray);
+//    self.postingWorkflow.photosForDisplay = self.photoArray;
+//    self.postingWorkflow.post.photoArray = self.fileArray;
+//    [self.postingWorkflow.post[@"completedFields"] addObject: self.fieldDictionary];
+//    self.postingWorkflow.step++;
+//    UIViewController *nextViewController =[self.postingWorkflow nextViewController];
+//    [self.navigationController pushViewController:nextViewController animated:YES];
 }
 
 -(void)takePhotoButtonTouched:(id)sender{

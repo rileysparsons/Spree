@@ -17,11 +17,11 @@
 @property NSMutableArray *photosForDisplay;
 @property NSMutableArray *uncompletedFields;
 @property NSMutableArray *completedFields;
-@property (retain, nonatomic) PFObject* type;
-@property (retain, nonatomic) PFObject* subtype;
-@property int step;
 
--(UIViewController *)nextViewController;
+@property (nonatomic, strong) NSMutableArray *viewControllersForPresentation;
+@property RACSignal *presentNextViewControllerSignal;
+
+@property int step;
 
 -(instancetype)initWithServices: (id<SpreeViewModelServices>)services;
 

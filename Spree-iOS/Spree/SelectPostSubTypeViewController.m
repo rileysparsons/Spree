@@ -54,14 +54,8 @@
      UINib *nib = [UINib nibWithNibName:@"PostSubTypeSelectionTableViewCell" bundle:nil];
      [CETableViewBindingHelper bindingHelperForTableView:self.tableView
      sourceSignal:RACObserve(self.viewModel, postSubTypes)
-     selectionCommand:self.viewModel.typeSelectedCommand
+     selectionCommand:self.viewModel.subTypeSelectedCommand
      templateCell:nib];
-     
-     
-     // Pushes the detailViewController for post when cell is selected
-     [[self.viewModel.typeSelectedCommand.executionSignals switchToLatest] subscribeNext:^(SpreePost* post) {
-     // do something
-     }];
  
  }
 
