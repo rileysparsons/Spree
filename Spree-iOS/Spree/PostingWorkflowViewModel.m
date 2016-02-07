@@ -9,11 +9,13 @@
 #import "PostingWorkflowViewModel.h"
 #import "PostingStringEntryViewController.h"
 #import "PreviewPostViewController.h"
-#import "PostPhotoSelectViewController.h"
+#import "PostingPhotoEntryViewController.h"
 #import "PostingNumberEntryViewController.h"
 #import "PostingLocationEntryViewController.h"
 #import "PostingDateEntryViewController.h"
 #import "PostingStringEntryViewModel.h"
+
+#import "PostingPhotoEntryViewModel.h"
 
 #import "PostingNumberEntryViewModel.h"
 #import "PostingNumberEntryViewController.h"
@@ -56,10 +58,11 @@
     
     self.post = [SpreePost new];
     
+    self.post[@"completedFields"] = [[NSArray alloc] init];
+    
     self.locationService = [MMPReactiveCoreLocation service];
     
     [self.locationService.location subscribeNext:^(id x) {
-        NSLog(@"location %@", x);
         self.post[@"location"] = [PFGeoPoint geoPointWithLocation:x];
     }];
     
@@ -83,7 +86,7 @@
 }
 
 
--(UIViewController *)presentPreviewPostController{
+-(PreviewPostViewController *)presentPreviewPostController{
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewPost" bundle:nil];
     PreviewPostViewController *previewPostViewController = [storyboard instantiateViewControllerWithIdentifier:@"PreviewPostViewController"];
     NSMutableArray *previewFields = [[NSMutableArray alloc] init];
@@ -91,10 +94,8 @@
     for (id field in self.allFields){
         [previewFields addObject:field[@"field"]];
     }
-    NSLog(@"PHotos for display %@", self.photosForDisplay);
-//    previewPostViewController.post = self.post;
-//    previewPostViewController.postingWorkflow = self;
-    [previewPostViewController initWithPost:self.post workflow:self];
+    previewPostViewController.post = self.post;
+    previewPostViewController.postingWorkflow = self;
     return previewPostViewController;
 }
 
@@ -139,6 +140,9 @@
         @strongify(self)
         self.step++;
         [self.post setObject:string forKey:(NSString *)field[@"field"]];
+        NSMutableArray *completedFields = [[NSMutableArray alloc] initWithArray:[self.post objectForKey:@"completedFields"]];
+        [completedFields addObject:field];
+        self.post[@"completedFields"] = (NSArray *)completedFields;
         [self shouldPresentNextViewInWorkflow];
     }];
     return postingStringEntryViewController;
@@ -155,11 +159,32 @@
         @strongify(self)
         self.step++;
         [self.post setObject:string forKey:(NSString *)field[@"field"]];
+        NSMutableArray *completedFields = [[NSMutableArray alloc] initWithArray:[self.post objectForKey:@"completedFields"]];
+        [completedFields addObject:field];
+        self.post[@"completedFields"] = (NSArray *)completedFields;
         [self shouldPresentNextViewInWorkflow];
     }];
     return postingNumberEntryViewController;
 }
 
+-(PostingPhotoEntryViewController *)postingPhotoEntryViewControllerForField:(NSDictionary *)field{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewPost" bundle:[NSBundle mainBundle]];
+    PostingPhotoEntryViewController *postingPhotoEntryViewController = [storyboard instantiateViewControllerWithIdentifier:@"PostingPhotoEntryViewController"];
+    SpreeViewModelServicesImpl *viewModelServices = [[SpreeViewModelServicesImpl alloc] init];
+    PostingPhotoEntryViewModel *postingPhotoEntryViewModel = [[PostingPhotoEntryViewModel alloc] initWithServices:viewModelServices];
+    postingPhotoEntryViewController.viewModel = postingPhotoEntryViewModel;
+    @weakify(self)
+    [[[postingPhotoEntryViewModel.nextCommand executionSignals] switchToLatest] subscribeNext:^(NSArray *files) {
+        @strongify(self)
+        self.step++;
+        [self.post setObject:[self convertDataFilesToPFFiles:files] forKey:@"photoArray"];
+        NSMutableArray *completedFields = [[NSMutableArray alloc] initWithArray:[self.post objectForKey:@"completedFields"]];
+        [completedFields addObject:field];
+        self.post[@"completedFields"] = (NSArray *)completedFields;
+        [self shouldPresentNextViewInWorkflow];
+    }];
+    return postingPhotoEntryViewController;
+}
 
 -(void)shouldPresentNextViewInWorkflow{
     [(RACSubject *)self.presentNextViewControllerSignal sendNext:nil];
@@ -181,6 +206,7 @@
             @strongify(self)
             [self.viewControllersForPresentation addObject:[self viewControllerForField:field]];
         }
+        [self.viewControllersForPresentation addObject:[self presentPreviewPostController]];
     }];
 }
 
@@ -195,10 +221,7 @@
     } else if ([field[@"dataType"] isEqualToString: @"number"]){
         return [self postingNumberEntryViewControllerForField:field];
     } else if ([field[@"dataType"] isEqualToString: @"image"]){
-        PostPhotoSelectViewController *postPhotoSelectViewController = [storyboard instantiateViewControllerWithIdentifier:@"PostPhotoSelectViewController"];
-        postPhotoSelectViewController.postingWorkflow = self;
-        postPhotoSelectViewController.fieldDictionary = field;
-        return postPhotoSelectViewController;
+        return [self postingPhotoEntryViewControllerForField:field];
     } else if ([field[@"dataType"] isEqualToString: @"date"]){
         PostingDateEntryViewController *postPhotoSelectViewController = [storyboard instantiateViewControllerWithIdentifier:@"PostingDateEntryViewController"];
         [postPhotoSelectViewController initWithField:field postingWorkflow:self];
@@ -207,5 +230,12 @@
     return 0;
 }
 
+-(NSArray *)convertDataFilesToPFFiles:(NSArray *)files{
+    NSMutableArray *PFFiles = [[NSMutableArray alloc] init];
+    for (NSData *data in files) {
+        [PFFiles addObject:[PFFile fileWithData:data]];
+    }
+    return PFFiles;
+}
 
 @end

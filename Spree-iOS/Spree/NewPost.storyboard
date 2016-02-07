@@ -126,10 +126,10 @@
             </objects>
             <point key="canvasLocation" x="1444" y="-4340"/>
         </scene>
-        <!--Post Photo Select View Controller-->
+        <!--Posting Photo Entry View Controller-->
         <scene sceneID="oTT-14-cOE">
             <objects>
-                <viewController storyboardIdentifier="PostPhotoSelectViewController" id="yg1-ce-z7Q" customClass="PostPhotoSelectViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PostingPhotoEntryViewController" id="yg1-ce-z7Q" customClass="PostingPhotoEntryViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="LdV-MU-MRw"/>
                         <viewControllerLayoutGuide type="bottom" id="VwU-xG-3UD"/>

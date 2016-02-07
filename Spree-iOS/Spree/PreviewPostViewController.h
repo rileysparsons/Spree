@@ -14,8 +14,8 @@
 
 @property PostingWorkflowViewModel *postingWorkflow;
 
--(void)initWithPost:(SpreePost *)post workflow:(PostingWorkflowViewModel *)workflow;
--(void)initWithPost:(SpreePost *)post;
+//-(void)initWithPost:(SpreePost *)post workflow:(PostingWorkflowViewModel *)workflow;
+//-(void)initWithPost:(SpreePost *)post;
 -(NSArray *)sanitizePhotoArray:(NSArray*)photoArray;
 -(void)editButtonTouched:(id)sender;
 

@@ -18,7 +18,7 @@
 #import "EditPostingDateEntryViewController.h"
 #import "PostMapTableViewCell.h"
 #import "EditPostPhotoSelectViewController.h"
-#import "PostPhotoSelectViewController.h"
+#import "PostingPhotoEntryViewController.h"
 #import "AddPhotoHeaderView.h"
 #import "ConfirmLocationViewController.h"
 #import <MBProgressHUD/MBProgressHUD.h>
@@ -32,27 +32,33 @@
 
 @implementation PreviewPostViewController
 
--(void)initWithPost:(SpreePost *)post{
-    self.post = post;
-    self.existingFieldsForTable = [[NSMutableArray alloc] init];
-    self.existingFields = self.post[@"completedFields"];
-    self.hasCompletedFields = YES;
-    [self organizeTableForFields];
-}
-
-
--(void)initWithPost:(SpreePost *)post workflow:(PostingWorkflowViewModel *)workflow{
-    self.post = post;
-    self.existingFieldsForTable = [[NSMutableArray alloc] init];
-    self.existingFields = self.post[@"completedFields"];
-    self.postingWorkflow = workflow;
-    self.hasCompletedFields = YES;
-    [self organizeTableForFields];
-}
+//-(void)initWithPost:(SpreePost *)post{
+//    self.post = post;
+//    self.existingFieldsForTable = [[NSMutableArray alloc] init];
+//    self.existingFields = self.post[@"completedFields"];
+//    self.hasCompletedFields = YES;
+//    [self organizeTableForFields];
+//}
+//
+//
+//-(void)initWithPost:(SpreePost *)post workflow:(PostingWorkflowViewModel *)workflow{
+//    self.post = post;
+//    self.existingFieldsForTable = [[NSMutableArray alloc] init];
+//    self.existingFields = self.post[@"completedFields"];
+//    self.postingWorkflow = workflow;
+//    self.hasCompletedFields = YES;
+//    [self organizeTableForFields];
+//}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupButtons];
+    
+    self.existingFieldsForTable = [[NSMutableArray alloc] init];
+    self.existingFields = self.postingWorkflow.post[@"completedFields"];
+    self.hasCompletedFields = YES;
+    [self organizeTableForFields];
+    
     
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.shadowImage = [UIImage new];
@@ -60,10 +66,6 @@
     self.navigationController.navigationBar.backgroundColor = [UIColor spreeOffWhite];
     
     // Do any additional setup after loading the view.
-    
-    NSLog(@"Post %@", self.post);
-    NSLog(@"Workflow %@", self.postingWorkflow);
-
     
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 35)];
     footerView.backgroundColor = [UIColor clearColor];

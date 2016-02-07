@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 Riley Steele Parsons. All rights reserved.
 //
 
-#import "PostPhotoSelectViewController.h"
+#import "PostingPhotoEntryViewController.h"
 
-@interface EditPostPhotoSelectViewController : PostPhotoSelectViewController
+@interface EditPostPhotoSelectViewController : PostingPhotoEntryViewController
 
 @end

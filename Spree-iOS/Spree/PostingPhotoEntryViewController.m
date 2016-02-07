@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Riley Steele Parsons. All rights reserved.
 //
 
-#import "PostPhotoSelectViewController.h"
+#import "PostingPhotoEntryViewController.h"
 #import "PhotoDisplayTableViewCell.h"
 #import "PhotoSelectFooterView.h"
 #import "AddPhotoHeaderView.h"
@@ -14,15 +14,13 @@
 #import "UIImage+ResizeAdditions.h"
 #import <CTAssetsPickerController/CTAssetsPickerController.h>
 
-@interface PostPhotoSelectViewController () <CTAssetsPickerControllerDelegate, UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface PostingPhotoEntryViewController () <CTAssetsPickerControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate, UIAlertViewDelegate, UITableViewDataSource>
+
 @property UIButton *nextButton;
 
 @end
 
-@implementation PostPhotoSelectViewController
-
-int maxImageCount = 3;
-int currentPhotoCount = 0;
+@implementation PostingPhotoEntryViewController
 
 - (void)navigationBarButtons {
     UIButton *cancel = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 40)];
@@ -41,19 +39,28 @@ int currentPhotoCount = 0;
     self.nextButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
     [self.nextButton addTarget:self action:@selector(nextBarButtonItemTouched:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *nextBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.nextButton];
-    
+    self.nextButton.rac_command = self.viewModel.nextCommand;
     
     [self.navigationItem setRightBarButtonItems:@[nextBarButtonItem] animated:YES];
+}
+
+-(void)bindToViewModel {
     
-    [[self.navigationItem.rightBarButtonItems objectAtIndex:0] setEnabled: [self fieldIsFilled]];
+    [self.viewModel.photoSelected.executionSignals subscribeNext:^(id x) {
+        UIAlertView *deletePhotoAlert = [[UIAlertView alloc] initWithTitle:@"Delete Photo?" message:@"Are you sure you want to delete this photo?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Confirm", nil];
+        [deletePhotoAlert show];
+    }];
+    
+    @weakify(self)
+    [self.viewModel.tableViewNeedsUpdateCommand.executionSignals subscribeNext:^(id x) {
+        @strongify(self)
+        [self.tableView reloadData];
+    }];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    currentPhotoCount = 0;
-    [self getChangesToPost];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getChangesToPost) name:@"ReloadPost" object:nil];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
@@ -67,6 +74,8 @@ int currentPhotoCount = 0;
     self.view.backgroundColor = [UIColor spreeOffWhite];
     self.tableView.backgroundColor = [UIColor spreeOffWhite];
     
+    [self bindToViewModel];
+    self.tableView.delegate = self;
     
     self.navigationController.navigationBar.backgroundColor = [UIColor spreeOffWhite];
     [[UIApplication sharedApplication] setStatusBarStyle: UIStatusBarStyleDefault];
@@ -80,6 +89,7 @@ int currentPhotoCount = 0;
     self.header = [[AddPhotoHeaderView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 200)];
     [self.header layoutSubviews];
     self.tableView.tableHeaderView = self.header;
+
 }
 
 - (void)assetsPickerController:(CTAssetsPickerController *)picker didFinishPickingAssets:(NSArray *)assets
@@ -92,22 +102,10 @@ int currentPhotoCount = 0;
     for (PHAsset *asset  in assets){
         PHImageManager *manager = [PHImageManager defaultManager];
         [manager requestImageForAsset:asset targetSize:PHImageManagerMaximumSize contentMode:PHImageContentModeAspectFill options:options resultHandler:^(UIImage *result, NSDictionary *info) {
-            [self.photoArray replaceObjectAtIndex:currentPhotoCount withObject:result];
-            [self.fileArray replaceObjectAtIndex:currentPhotoCount withObject:[self compressAndSaveImage:result]];
-            currentPhotoCount++;
-            [self updatePhotoCount];
-            [self.tableView reloadData];
+            [self.viewModel.files addObject:[NSData dataWithContentsOfURL:[info objectForKey:@"PHImageFileURLKey"]]];
         }];
     }
     [self performSelector:@selector(scrollToBottom) withObject:nil afterDelay:0.1];
-}
-
--(BOOL)fieldIsFilled{
-    if (currentPhotoCount > 0){
-        return YES;
-    } else {
-        return NO;
-    }
 }
 
 - (void)scrollToBottom
@@ -124,11 +122,11 @@ int currentPhotoCount = 0;
 
 - (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldSelectAsset:(PHAsset *)asset
 {
-    if (picker.selectedAssets.count >= (maxImageCount-currentPhotoCount))
+    if (picker.selectedAssets.count >= self.viewModel.maxPhotos)
     {
         UIAlertView *alertView =
         [[UIAlertView alloc] initWithTitle:@"Too many photos"
-                                   message:[NSString stringWithFormat:@"Select a maximum of %d photos.", maxImageCount]
+                                   message:[NSString stringWithFormat:@"Select a maximum of %d photos.", self.viewModel.maxPhotos]
                                   delegate:nil
                          cancelButtonTitle:nil
                          otherButtonTitles:@"OK", nil];
@@ -136,22 +134,27 @@ int currentPhotoCount = 0;
         [alertView show];
     }
     
-    return (picker.selectedAssets.count < (maxImageCount-currentPhotoCount));
+    return (picker.selectedAssets.count < self.viewModel.maxPhotos);
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return currentPhotoCount;
+    return self.viewModel.files.count;
 }
 
 -(void)updatePhotoCount{
-    if (currentPhotoCount <= maxImageCount){
+    if (self.viewModel.remainingPhotos >= 0){
         self.countBarButton.tintColor = [UIColor spreeDarkBlue];
     } else {
         self.countBarButton.tintColor = [UIColor spreeRed];
     }
-    [self.countBarButton setTitle:[NSString stringWithFormat:@"%d", maxImageCount-currentPhotoCount] forState:UIControlStateNormal];
-    [[self.navigationItem.rightBarButtonItems objectAtIndex:0] setEnabled: [self fieldIsFilled]];
+    [self.countBarButton setTitle:[NSString stringWithFormat:@"%d", self.viewModel.remainingPhotos] forState:UIControlStateNormal];
 }
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 1;
+}
+
+
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *CellIdentifier = @"Cell";
@@ -166,18 +169,12 @@ int currentPhotoCount = 0;
             }
         }
     }
-    
-    
-    [cell.deleteButton addTarget:self action:@selector(deleteButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
     cell.deleteButton.tag = indexPath.row;
-    
-    if ([[self.photoArray objectAtIndex:indexPath.row] isKindOfClass:[NSNull class]]) {
-
-    } else {
-        [cell initWithImage:[self.photoArray objectAtIndex:indexPath.row]];
-        [cell.deleteButton addTarget:self action:@selector(deleteButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    
+    cell.deleteButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(UIButton *button) {
+        [self.viewModel.files removeObjectAtIndex:button.tag];
+        return [RACSignal return:nil];
+    }];
+    [cell bindViewModel:[self.viewModel.files objectAtIndex:indexPath.row]];
     
     CGSize sysSize = [cell.contentView systemLayoutSizeFittingSize:CGSizeMake(self.tableView.bounds.size.width, CGFLOAT_MAX)];
     cell.contentView.bounds = CGRectMake(0,0, sysSize.width, sysSize.height);
@@ -186,22 +183,19 @@ int currentPhotoCount = 0;
     return cell;
 }
 
--(void)deleteButtonTouched:(id)sender{
-    
-    NSInteger indexOfDeletedPhoto = [(UIButton *)sender tag];
-    
-    [self.photoArray removeObjectAtIndex:indexOfDeletedPhoto];
-    [self.photoArray insertObject:[NSNull null] atIndex:self.photoArray.count];
-    
-    [self.fileArray removeObjectAtIndex:indexOfDeletedPhoto];
-    [self.fileArray insertObject:[NSNull null] atIndex:self.fileArray.count];
-    currentPhotoCount--;
-    [self updatePhotoCount];
-    [self.tableView reloadData];
-}
+//-(void)deleteButtonTouched:(id)sender{
+//    
+//    NSInteger indexOfDeletedPhoto = [(UIButton *)sender tag];
+//    
+//    [self.viewModel.files removeObjectAtIndex:indexOfDeletedPhoto];
+//    [self.viewModel.files insertObject:[NSNull null] atIndex:self.viewModel.files.count];
+//    currentPhotoCount--;
+//    [self updatePhotoCount];
+//    [self.tableView reloadData];
+//}
 
--(void)addPhotoButtonTouched:(id)sender{
-}
+//-(void)addPhotoButtonTouched:(id)sender{
+//}
 
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
@@ -214,30 +208,12 @@ int currentPhotoCount = 0;
 
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
     if (section == 0){
-        UIView * footer = [self.tableView headerViewForSection:0];
-        PhotoSelectFooterView *custom =[[PhotoSelectFooterView alloc] init];
-        if (footer == nil){
-            NSArray *nibFiles = [[NSBundle mainBundle] loadNibNamed:@"PhotoSelectFooterView" owner:self options:nil];
-            for(id currentObject in nibFiles){
-                if ([currentObject isKindOfClass:[PhotoSelectFooterView class]]){
-                    custom = currentObject;
-                    custom.buttonWidthLayoutContraint.constant = self.tableView.frame.size.width/2;
-                    [custom.pickPhotoButton addTarget:self action:@selector(pickPhotoButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
-                    [custom.takePhotoButton addTarget:self action:@selector(takePhotoButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
-                    break;
-                }
-            }
-        }
-        return custom;
+        return [self tableViewFooter];
     }
     return 0;
 }
 
 -(void)cancelWorkflow{
-    if (self.postingWorkflow.post.photoArray == nil){
-        currentPhotoCount = 0;
-    }
-
     self.postingWorkflow.step--;
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -264,10 +240,10 @@ int currentPhotoCount = 0;
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
     [picker dismissViewControllerAnimated:YES completion:nil];
-    if (currentPhotoCount >= maxImageCount){
+    if (self.viewModel.remainingPhotos == 0){
         UIAlertView *alertView =
         [[UIAlertView alloc] initWithTitle:@"Too many photos"
-                                   message:[NSString stringWithFormat:@"Select a maximum of %d photos.", maxImageCount]
+                                   message:[NSString stringWithFormat:@"Select a maximum of %d photos.", self.viewModel.maxPhotos]
                                   delegate:nil
                          cancelButtonTitle:nil
                          otherButtonTitles:@"OK", nil];
@@ -278,14 +254,11 @@ int currentPhotoCount = 0;
             UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
             NSData* data = UIImageJPEGRepresentation(image, 0.5f);
             PFFile *imageFile = [PFFile fileWithName:@"Image.jpg" data:data];
-            [self.fileArray replaceObjectAtIndex:currentPhotoCount withObject:imageFile];
-            [self.photoArray replaceObjectAtIndex:currentPhotoCount withObject:image];
+            [self.viewModel.files addObject:imageFile];
         }];
         
         [saveImage setCompletionBlock:^{
-            currentPhotoCount++;
-            [self.tableView reloadData];
-            [self updatePhotoCount];
+        
         }];
         NSOperationQueue *queue = [[NSOperationQueue alloc] init];
         [queue addOperation:saveImage];
@@ -316,29 +289,25 @@ int currentPhotoCount = 0;
     }];
 }
 
--(void)getChangesToPost{
-    self.photoArray = [[NSMutableArray alloc] initWithCapacity:maxImageCount];
-    self.fileArray =[[NSMutableArray alloc] initWithCapacity:maxImageCount];
-    [self.photoArray addObjectsFromArray:@[[NSNull null], [NSNull null], [NSNull null]]];
-    [self.fileArray addObjectsFromArray:@[[NSNull null], [NSNull null], [NSNull null]]];
-    currentPhotoCount = 0;
-    if (self.postingWorkflow.post.photoArray){
-        
-        for (PFFile *file in self.postingWorkflow.post.photoArray) {
-            [self.fileArray replaceObjectAtIndex:[self.postingWorkflow.post.photoArray indexOfObject:file] withObject:file];
-        }
-        
-        for (UIImage *image in self.postingWorkflow.photosForDisplay){
-            if ([image isKindOfClass:[UIImage class]]){
-                [self.photoArray replaceObjectAtIndex:[self.postingWorkflow.photosForDisplay indexOfObject:image] withObject:image];
-                currentPhotoCount++;
-            }
-            
-        }
-        
-        [self.tableView reloadData];
-    }
-}
+//-(void)getChangesToPost{
+//    currentPhotoCount = 0;
+//    if (self.postingWorkflow.post.photoArray){
+//        
+//        for (PFFile *file in self.postingWorkflow.post.photoArray) {
+//            [self.fileArray replaceObjectAtIndex:[self.postingWorkflow.post.photoArray indexOfObject:file] withObject:file];
+//        }
+//        
+//        for (UIImage *image in self.postingWorkflow.photosForDisplay){
+//            if ([image isKindOfClass:[UIImage class]]){
+//                [self.photoArray replaceObjectAtIndex:[self.postingWorkflow.photosForDisplay indexOfObject:image] withObject:image];
+//                currentPhotoCount++;
+//            }
+//            
+//        }
+//        
+//        [self.tableView reloadData];
+//    }
+//}
 
 - (PFFile *)compressAndSaveImage:(UIImage *)anImage {
     UIImage *resizedImage = [anImage resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:CGSizeMake(560.0f, 560.0f) interpolationQuality:kCGInterpolationHigh];
@@ -358,5 +327,29 @@ int currentPhotoCount = 0;
     return file;
 }
 
+-(PhotoSelectFooterView *)tableViewFooter{
+    UIView * footer = [self.tableView headerViewForSection:0];
+    PhotoSelectFooterView *custom =[[PhotoSelectFooterView alloc] init];
+    if (footer == nil){
+        NSArray *nibFiles = [[NSBundle mainBundle] loadNibNamed:@"PhotoSelectFooterView" owner:self options:nil];
+        for(id currentObject in nibFiles){
+            if ([currentObject isKindOfClass:[PhotoSelectFooterView class]]){
+                custom = currentObject;
+                custom.buttonWidthLayoutContraint.constant = self.tableView.frame.size.width/2;
+                [custom.pickPhotoButton addTarget:self action:@selector(pickPhotoButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
+                [custom.takePhotoButton addTarget:self action:@selector(takePhotoButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
+                break;
+            }
+        }
+    }
+    return custom;
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 1){
+        [self.viewModel.deletePhoto execute:self.tableView.indexPathForSelectedRow];
+    }
+    
+}
 
 @end

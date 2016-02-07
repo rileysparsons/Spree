@@ -7,8 +7,13 @@
 //
 
 #import "PhotoDisplayTableViewCell.h"
+#import <ReactiveCocoa/ReactiveCocoa.h>
 
 @implementation PhotoDisplayTableViewCell
+
+-(void)bindViewModel:(id)viewModel{
+    [self placeImage:[UIImage imageWithData:viewModel]];
+}
 
 - (void)awakeFromNib {
     // Initialization code    
@@ -21,7 +26,7 @@
     // Configure the view for the selected state
 }
 
--(void)initWithImage:(UIImage *)image{
+-(void)placeImage:(UIImage *)image{
     if (image){
         float aspect = image.size.width/image.size.height;
         float height = (self.frame.size.width-16)*(1/aspect);
@@ -30,6 +35,7 @@
         self.cellImageView.image = image;
     }
 }
+
 
 
 @end

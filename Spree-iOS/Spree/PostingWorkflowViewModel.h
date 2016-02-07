@@ -25,7 +25,6 @@
 
 -(instancetype)initWithServices: (id<SpreeViewModelServices>)services;
 
--(id)initWithPost:(SpreePost *)post;
 -(UIViewController *)presentPreviewPostController;
 
 
