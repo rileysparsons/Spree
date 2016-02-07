@@ -253,8 +253,7 @@
         NSBlockOperation *saveImage = [NSBlockOperation blockOperationWithBlock:^{
             UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
             NSData* data = UIImageJPEGRepresentation(image, 0.5f);
-            PFFile *imageFile = [PFFile fileWithName:@"Image.jpg" data:data];
-            [self.viewModel.files addObject:imageFile];
+            [self.viewModel.files addObject:data];
         }];
         
         [saveImage setCompletionBlock:^{

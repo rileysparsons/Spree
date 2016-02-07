@@ -208,6 +208,20 @@
     }];
 }
 
+-(RACSignal *)postObjectInBackground:(PFObject *)object{
+    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+            if (succeeded){
+                [subscriber sendNext:@YES];
+                [subscriber sendCompleted];
+            } else {
+                [subscriber sendError:error];
+            }
+        }];
+        return nil;
+    }];
+}
+
 #pragma mark - Parse Database Helper Methods
 
 

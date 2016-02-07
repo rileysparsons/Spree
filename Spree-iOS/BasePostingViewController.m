@@ -41,10 +41,15 @@
 
 -(void)bindToViewModel{
     [self.viewModel.presentNextViewControllerSignal subscribeNext:^(id x) {
-        [self.navigationController pushViewController:[self.viewModel.viewControllersForPresentation objectAtIndex:self.viewModel.step] animated:YES];
+        if (self.viewModel.viewControllersForPresentation.count > self.viewModel.step)
+            [self.navigationController pushViewController:[self.viewModel.viewControllersForPresentation objectAtIndex:self.viewModel.step] animated:YES];
+        else
+            [self.navigationController pushViewController:[self.viewModel presentPreviewPostController] animated:YES];
+    }];
+    [[self.viewModel.endPostingWorkflowCommand.executionSignals switchToLatest] subscribeNext:^(id x) {
+        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
     }];
 }
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.

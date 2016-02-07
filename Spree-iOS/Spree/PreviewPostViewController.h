@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "PostDetailTableViewController.h"
-#import "PostingWorkflowViewModel.h"
+#import "PreviewPostViewModel.h"
 
-@interface PreviewPostViewController : PostDetailTableViewController
+@interface PreviewPostViewController : UITableViewController
 
-@property PostingWorkflowViewModel *postingWorkflow;
+@property PreviewPostViewModel *viewModel;
 
 //-(void)initWithPost:(SpreePost *)post workflow:(PostingWorkflowViewModel *)workflow;
 //-(void)initWithPost:(SpreePost *)post;
@@ -20,3 +20,4 @@
 -(void)editButtonTouched:(id)sender;
 
 @end
+ 

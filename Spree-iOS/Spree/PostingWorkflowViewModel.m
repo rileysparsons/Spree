@@ -79,6 +79,10 @@
         return nil;
     }];
     
+    self.endPostingWorkflowCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        return [RACSignal return:nil];
+    }];
+    
     self.viewControllersForPresentation = [[NSMutableArray alloc] init];
     [self.viewControllersForPresentation addObject:[self selectPostTypeViewController]];
     
@@ -94,8 +98,16 @@
     for (id field in self.allFields){
         [previewFields addObject:field[@"field"]];
     }
-    previewPostViewController.post = self.post;
-    previewPostViewController.postingWorkflow = self;
+    SpreeViewModelServicesImpl *viewModelServices = [[SpreeViewModelServicesImpl alloc] init];
+    PreviewPostViewModel *previewPostViewModel = [[PreviewPostViewModel alloc] initWithServices:viewModelServices post:self.post];
+    previewPostViewController.viewModel = previewPostViewModel;
+    
+    [[[previewPostViewController.viewModel.completePostCommand.executionSignals switchToLatest] flattenMap:^RACStream *(id value) {
+        return [self signalForCompletingPost:self.post];
+    }] subscribeNext:^(id x) {
+        [self.endPostingWorkflowCommand execute:nil];
+    }];
+    
     return previewPostViewController;
 }
 
@@ -107,7 +119,7 @@
     selectPostTypeViewController.viewModel = selectPostTypeViewModel;
     [[[selectPostTypeViewModel.typeSelectedCommand executionSignals] switchToLatest] subscribeNext:^(id x) {
         self.step++;
-        self.post[@"postType"] = x;
+        self.post[@"typePointer"] = x;
         [self.viewControllersForPresentation addObject:[self selectPostSubTypeViewControllerForType:x]];
         [self shouldPresentNextViewInWorkflow];
     }];
@@ -122,8 +134,8 @@
     selectPostSubTypeViewController.viewModel = selectPostSubTypeViewModel;
     [[[selectPostSubTypeViewModel.subTypeSelectedCommand executionSignals] switchToLatest] subscribeNext:^(id x) {
         self.step++;
-        self.post[@"postSubtype"] = x;
-        [self updateViewControllersForPresentationForType:self.post[@"postType"] subType:self.post[@"postSubtype"]];
+        self.post[@"subtype"] = x;
+        [self updateViewControllersForPresentationForType:self.post[@"typePointer"] subType:self.post[@"subtype"]];
         [self shouldPresentNextViewInWorkflow];
     }];
     return selectPostSubTypeViewController;
@@ -206,7 +218,6 @@
             @strongify(self)
             [self.viewControllersForPresentation addObject:[self viewControllerForField:field]];
         }
-        [self.viewControllersForPresentation addObject:[self presentPreviewPostController]];
     }];
 }
 
@@ -236,6 +247,10 @@
         [PFFiles addObject:[PFFile fileWithData:data]];
     }
     return PFFiles;
+}
+
+-(RACSignal *)signalForCompletingPost:(SpreePost *)post{
+    return [[self.services getParseConnection] postObjectInBackground:post];
 }
 
 @end

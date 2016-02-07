@@ -48,7 +48,7 @@
     [self.nextButton addTarget:self action:@selector(doneWithEdit:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.nextButton];
 }
-
+/*
 - (void)doneWithEdit:(id)sender{
     UIButton *button = (UIButton *)sender;
     if (button.tag == 1){
@@ -60,6 +60,7 @@
     
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+ */
 
 
 @end

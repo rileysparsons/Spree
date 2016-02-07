@@ -8,9 +8,25 @@
 
 #import "PhotoGalleryTableViewCell.h"
 #import "converter.h"
+#import <ReactiveCocoa/ReactiveCocoa.h>
+
+@interface PhotoGalleryTableViewCell ()
+
+@property (nonatomic, strong) NSMutableArray *pageImages;
+
+@end
 
 @implementation PhotoGalleryTableViewCell 
 
+-(void)bindViewModel:(id)viewModel{
+    NSArray *files = viewModel;
+    self.pageImages = [[NSMutableArray alloc] init];
+    
+    [[self signalForFetchingFiles:files] subscribeNext:^(NSData* x) {
+        [self.pageImages addObject:[UIImage imageWithData:x]];
+        [self initialize];
+    }];
+}
 
 - (void)setFrame:(CGRect)frame {
     if(frame.size.width != self.bounds.size.width) {
@@ -42,10 +58,9 @@
     // Configure the view for the selected state
 }
 
-- (void)setPhotoGalleryForImages:(NSArray*)images{
+- (void)initialize {
     [self layoutSubviews];
     CGSize pagesScrollViewSize = self.photoGallery.frame.size;
-    self.pageImages = images;
     self.photoGallery.contentSize = CGSizeMake(self.frame.size.width * self.pageImages.count, pagesScrollViewSize.height);
     [self setupGallery];
     self.photoGallery.contentOffset = CGPointZero;
@@ -181,6 +196,21 @@
 -(void)enableEditMode{
     self.editButton.hidden = NO;
     self.editPriceButton.hidden = NO;
+}
+
+-(RACSignal *)signalForFetchingFiles:(NSArray *)files{
+    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        for (PFFile *file in files){
+            [file getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
+                if (data){
+                    [subscriber sendNext:data];
+                } else {
+                    [subscriber sendError:error];
+                }
+            }];
+        }
+        return nil;
+    }];
 }
 
 

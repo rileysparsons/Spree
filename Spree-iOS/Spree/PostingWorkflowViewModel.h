@@ -18,6 +18,8 @@
 @property NSMutableArray *uncompletedFields;
 @property NSMutableArray *completedFields;
 
+@property RACCommand *endPostingWorkflowCommand;
+
 @property (nonatomic, strong) NSMutableArray *viewControllersForPresentation;
 @property RACSignal *presentNextViewControllerSignal;
 

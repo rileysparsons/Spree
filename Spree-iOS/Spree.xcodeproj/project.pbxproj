@@ -10,6 +10,7 @@
 		140473971ABD002F00C0F8EF /* PostTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 140473961ABD002F00C0F8EF /* PostTableViewController.m */; };
 		1404739A1ABD267E00C0F8EF /* UserPostsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 140473991ABD267E00C0F8EF /* UserPostsTableViewController.m */; };
 		1404739D1ABD308D00C0F8EF /* SearchablePostTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1404739C1ABD308D00C0F8EF /* SearchablePostTableViewController.m */; };
+		140A1C771C67C3C6003614CC /* PreviewPostViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 140A1C761C67C3C6003614CC /* PreviewPostViewModel.m */; };
 		140CF8D91A3BBFB200134C4D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 140CF8D81A3BBFB200134C4D /* main.m */; };
 		140CF8DC1A3BBFB200134C4D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 140CF8DB1A3BBFB200134C4D /* AppDelegate.m */; };
 		140CF8DF1A3BBFB200134C4D /* BrowseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 140CF8DE1A3BBFB200134C4D /* BrowseViewController.m */; };
@@ -204,6 +205,8 @@
 		140473991ABD267E00C0F8EF /* UserPostsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserPostsTableViewController.m; sourceTree = "<group>"; };
 		1404739B1ABD308D00C0F8EF /* SearchablePostTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchablePostTableViewController.h; sourceTree = "<group>"; };
 		1404739C1ABD308D00C0F8EF /* SearchablePostTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchablePostTableViewController.m; sourceTree = "<group>"; };
+		140A1C751C67C3C6003614CC /* PreviewPostViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreviewPostViewModel.h; sourceTree = "<group>"; };
+		140A1C761C67C3C6003614CC /* PreviewPostViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreviewPostViewModel.m; sourceTree = "<group>"; };
 		140CF8D31A3BBFB200134C4D /* Spree.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spree.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		140CF8D71A3BBFB200134C4D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		140CF8D81A3BBFB200134C4D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -749,6 +752,8 @@
 				14EB19041C51F62900EE5A69 /* PostSubTypeSelectionTableViewCell.xib */,
 				142CB0531B51D31A00969066 /* PreviewPostViewController.h */,
 				141AECB91B8A886E00F0012B /* PreviewPostViewController.m */,
+				140A1C751C67C3C6003614CC /* PreviewPostViewModel.h */,
+				140A1C761C67C3C6003614CC /* PreviewPostViewModel.m */,
 				141AECBE1B8CDD6100F0012B /* EditPostingLocationEntryViewController.h */,
 				141AECBF1B8CDD6100F0012B /* EditPostingLocationEntryViewController.m */,
 				141AECA51B89186400F0012B /* PostingLocationEntryViewController.h */,
@@ -1290,6 +1295,7 @@
 				14C38DA21B27F3BA0039862E /* PostDetailTableViewController.m in Sources */,
 				14AB0EC41B84CA8900BD06EB /* PostingNumberEntryViewController.m in Sources */,
 				F78600951AEB3F9100402B1F /* ChatView.m in Sources */,
+				140A1C771C67C3C6003614CC /* PreviewPostViewModel.m in Sources */,
 				145B0AC71B9F8100002FD94E /* UIImage+AlphaAdditions.m in Sources */,
 				141AECBA1B8A886E00F0012B /* PreviewPostViewController.m in Sources */,
 				149787A21A49F0E40024437D /* UIColor+SpreeColor.m in Sources */,

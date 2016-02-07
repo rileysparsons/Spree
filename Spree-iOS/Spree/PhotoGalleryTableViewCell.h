@@ -7,15 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CEReactiveView.h"
 #import "SpreePost.h"
 
-@interface PhotoGalleryTableViewCell : UITableViewCell <UIScrollViewDelegate>
+@interface PhotoGalleryTableViewCell : UITableViewCell <UIScrollViewDelegate, CEReactiveView>
 
 -(void)enableEditMode;
 - (void)loadVisiblePages;
 - (void)loadPage:(NSInteger)page;
 - (void)purgePage:(NSInteger)page;
-- (void)setPhotoGalleryForImages:(NSArray *)images;
 -(void)setDateLabelForPost:(SpreePost *)post;
 -(void)setupPriceLabelForPost:(SpreePost *)post;
 
@@ -27,7 +27,6 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *editPricebuttonHeight;
 
 @property (weak, nonatomic) IBOutlet UILabel *counterLabel;
-@property (nonatomic, strong) NSArray *pageImages;
 @property (nonatomic, strong) NSMutableArray *pageViews;
 @property (weak, nonatomic) IBOutlet UIScrollView *photoGallery;
 @property UIPageControl *photoGalleryControl;

@@ -37,4 +37,6 @@ typedef NS_ENUM(NSUInteger, SpreePostType) {
 
 -(RACSignal *)fetchObjectInBackground:(PFObject *)object;
 
+-(RACSignal *)postObjectInBackground:(PFObject *)object;
+
 @end
