@@ -58,6 +58,11 @@
     
     self.post = [SpreePost new];
     
+    [self.post setExpired:NO];
+    [self.post setSold:NO];
+    self.post[@"expirationDate"] = [[NSDate date] dateByAddingTimeInterval:864000];
+    self.post.user = [PFUser currentUser];
+    
     self.post[@"completedFields"] = [[NSArray alloc] init];
     
     self.locationService = [MMPReactiveCoreLocation service];
