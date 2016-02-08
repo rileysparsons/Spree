@@ -13,7 +13,6 @@
 #import "PhotoGalleryTableViewCell.h"
 #import "BasicInfoTableViewCell.h"
 #import "EditPostFieldViewController.h"
-#import "EditPostingLocationEntryViewController.h"
 #import "EditPostingNumberEntryViewController.h"
 #import "EditPostingDateEntryViewController.h"
 #import "PostMapTableViewCell.h"
@@ -117,10 +116,12 @@
 }
 
 -(UITableViewCell *)cellForField:(NSDictionary *)field{
+    NSLog(@"field: %@", field);
     NSString *className = NSStringFromClass([BasicInfoTableViewCell class]);
     UINib *nib = [UINib nibWithNibName:className bundle:nil];
     [self.tableView registerNib:nib forCellReuseIdentifier:className];
-    BasicInfoTableViewCell *basicInfoCell = [[BasicInfoTableViewCell alloc] init];
+    BasicInfoTableViewCell *basicInfoCell = [self.tableView dequeueReusableCellWithIdentifier:className];
+    
     if ([field[@"dataType"] isEqualToString:@"geoPoint"]){
         NSString *className = NSStringFromClass([PostMapTableViewCell class]);
         UINib *nib = [UINib nibWithNibName:className bundle:nil];

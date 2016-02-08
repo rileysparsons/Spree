@@ -14,7 +14,7 @@
 @end
 
 @implementation EditPostingDateEntryViewController
-
+/*
 - (void)initWithField:(NSDictionary *)field post:(SpreePost *)post{
     [super initWithField:field post:post];
 }

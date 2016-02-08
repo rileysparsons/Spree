@@ -11,7 +11,6 @@
 #import "PreviewPostViewController.h"
 #import "PostingPhotoEntryViewController.h"
 #import "PostingNumberEntryViewController.h"
-#import "PostingLocationEntryViewController.h"
 #import "PostingDateEntryViewController.h"
 #import "PostingStringEntryViewModel.h"
 
@@ -179,6 +178,25 @@
     return postingNumberEntryViewController;
 }
 
+-(PostingDateEntryViewController *)postingDateEntryViewControllerForField:(NSDictionary *)field{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewPost" bundle:[NSBundle mainBundle]];
+    PostingDateEntryViewController *postingDateEntryViewController = [storyboard instantiateViewControllerWithIdentifier:@"PostingDateEntryViewController"];
+    SpreeViewModelServicesImpl *viewModelServices = [[SpreeViewModelServicesImpl alloc] init];
+    PostingDateEntryViewModel *postingDateEntryViewModel = [[PostingDateEntryViewModel alloc] initWithServices:viewModelServices field:field];
+    postingDateEntryViewController.viewModel = postingDateEntryViewModel;
+    @weakify(self)
+    [[[postingDateEntryViewModel.nextCommand executionSignals] switchToLatest] subscribeNext:^(NSString *string) {
+        @strongify(self)
+        self.step++;
+        [self.post setObject:string forKey:(NSString *)field[@"field"]];
+        NSMutableArray *completedFields = [[NSMutableArray alloc] initWithArray:[self.post objectForKey:@"completedFields"]];
+        [completedFields addObject:field];
+        self.post[@"completedFields"] = (NSArray *)completedFields;
+        [self shouldPresentNextViewInWorkflow];
+    }];
+    return postingDateEntryViewController;
+}
+
 -(PostingPhotoEntryViewController *)postingPhotoEntryViewControllerForField:(NSDictionary *)field{
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewPost" bundle:[NSBundle mainBundle]];
     PostingPhotoEntryViewController *postingPhotoEntryViewController = [storyboard instantiateViewControllerWithIdentifier:@"PostingPhotoEntryViewController"];
@@ -218,25 +236,19 @@
             @strongify(self)
             [self.viewControllersForPresentation addObject:[self viewControllerForField:field]];
         }
+        NSLog(@"%@", self.viewControllersForPresentation);
     }];
 }
 
 -(UIViewController *)viewControllerForField:(NSDictionary *)field{
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewPost" bundle:nil];
     if ([field[@"dataType"] isEqualToString: @"string"]){
         return [self postingStringEntryViewControllerForField:field];
-    } else if ([field[@"dataType"] isEqualToString: @"geoPoint"]){
-        PostingLocationEntryViewController *postingLocationEntryViewController = [storyboard instantiateViewControllerWithIdentifier:@"PostingLocationEntryViewController"];
-        [postingLocationEntryViewController initWithField:field postingWorkflow:self];
-        return postingLocationEntryViewController;
     } else if ([field[@"dataType"] isEqualToString: @"number"]){
         return [self postingNumberEntryViewControllerForField:field];
     } else if ([field[@"dataType"] isEqualToString: @"image"]){
         return [self postingPhotoEntryViewControllerForField:field];
     } else if ([field[@"dataType"] isEqualToString: @"date"]){
-        PostingDateEntryViewController *postPhotoSelectViewController = [storyboard instantiateViewControllerWithIdentifier:@"PostingDateEntryViewController"];
-        [postPhotoSelectViewController initWithField:field postingWorkflow:self];
-        return postPhotoSelectViewController;
+        return [self postingDateEntryViewControllerForField:field];
     }
     return 0;
 }

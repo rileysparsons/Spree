@@ -11,6 +11,7 @@
 		1404739A1ABD267E00C0F8EF /* UserPostsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 140473991ABD267E00C0F8EF /* UserPostsTableViewController.m */; };
 		1404739D1ABD308D00C0F8EF /* SearchablePostTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1404739C1ABD308D00C0F8EF /* SearchablePostTableViewController.m */; };
 		140A1C771C67C3C6003614CC /* PreviewPostViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 140A1C761C67C3C6003614CC /* PreviewPostViewModel.m */; };
+		140A1C7A1C685645003614CC /* PostingDateEntryViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 140A1C791C685645003614CC /* PostingDateEntryViewModel.m */; };
 		140CF8D91A3BBFB200134C4D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 140CF8D81A3BBFB200134C4D /* main.m */; };
 		140CF8DC1A3BBFB200134C4D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 140CF8DB1A3BBFB200134C4D /* AppDelegate.m */; };
 		140CF8DF1A3BBFB200134C4D /* BrowseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 140CF8DE1A3BBFB200134C4D /* BrowseViewController.m */; };
@@ -38,12 +39,10 @@
 		1415245A1B4076BE007EE405 /* SelectPostTypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 141524591B4076BE007EE405 /* SelectPostTypeViewController.m */; };
 		1415245D1B4084D2007EE405 /* PostingStringEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1415245C1B4084D2007EE405 /* PostingStringEntryViewController.m */; };
 		1415245F1B4086AA007EE405 /* NewPost.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1415245E1B4086AA007EE405 /* NewPost.storyboard */; };
-		141AECA71B89186400F0012B /* PostingLocationEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 141AECA61B89186400F0012B /* PostingLocationEntryViewController.m */; };
 		141AECB71B8A77D400F0012B /* PostMapTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 141AECB51B8A77D400F0012B /* PostMapTableViewCell.m */; };
 		141AECB81B8A77D400F0012B /* PostMapTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 141AECB61B8A77D400F0012B /* PostMapTableViewCell.xib */; };
 		141AECBA1B8A886E00F0012B /* PreviewPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 141AECB91B8A886E00F0012B /* PreviewPostViewController.m */; };
 		141AECBD1B8BCF6000F0012B /* PostingDateEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 141AECBC1B8BCF6000F0012B /* PostingDateEntryViewController.m */; };
-		141AECC01B8CDD6100F0012B /* EditPostingLocationEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 141AECBF1B8CDD6100F0012B /* EditPostingLocationEntryViewController.m */; };
 		141AECC41B8D14E200F0012B /* PostMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 141AECC21B8D14E200F0012B /* PostMessageTableViewCell.m */; };
 		141AECC51B8D14E200F0012B /* PostMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 141AECC31B8D14E200F0012B /* PostMessageTableViewCell.xib */; };
 		142CB04F1B51A0C900969066 /* SelectPostSubTypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 142CB04E1B51A0C900969066 /* SelectPostSubTypeViewController.m */; };
@@ -207,6 +206,8 @@
 		1404739C1ABD308D00C0F8EF /* SearchablePostTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchablePostTableViewController.m; sourceTree = "<group>"; };
 		140A1C751C67C3C6003614CC /* PreviewPostViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreviewPostViewModel.h; sourceTree = "<group>"; };
 		140A1C761C67C3C6003614CC /* PreviewPostViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreviewPostViewModel.m; sourceTree = "<group>"; };
+		140A1C781C685645003614CC /* PostingDateEntryViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostingDateEntryViewModel.h; sourceTree = "<group>"; };
+		140A1C791C685645003614CC /* PostingDateEntryViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostingDateEntryViewModel.m; sourceTree = "<group>"; };
 		140CF8D31A3BBFB200134C4D /* Spree.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spree.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		140CF8D71A3BBFB200134C4D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		140CF8D81A3BBFB200134C4D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -248,16 +249,12 @@
 		1415245B1B4084D2007EE405 /* PostingStringEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostingStringEntryViewController.h; sourceTree = "<group>"; };
 		1415245C1B4084D2007EE405 /* PostingStringEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostingStringEntryViewController.m; sourceTree = "<group>"; };
 		1415245E1B4086AA007EE405 /* NewPost.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = NewPost.storyboard; sourceTree = "<group>"; };
-		141AECA51B89186400F0012B /* PostingLocationEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostingLocationEntryViewController.h; sourceTree = "<group>"; };
-		141AECA61B89186400F0012B /* PostingLocationEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostingLocationEntryViewController.m; sourceTree = "<group>"; };
 		141AECB41B8A77D400F0012B /* PostMapTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostMapTableViewCell.h; sourceTree = "<group>"; };
 		141AECB51B8A77D400F0012B /* PostMapTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostMapTableViewCell.m; sourceTree = "<group>"; };
 		141AECB61B8A77D400F0012B /* PostMapTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostMapTableViewCell.xib; sourceTree = "<group>"; };
 		141AECB91B8A886E00F0012B /* PreviewPostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreviewPostViewController.m; sourceTree = "<group>"; };
 		141AECBB1B8BCF6000F0012B /* PostingDateEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostingDateEntryViewController.h; sourceTree = "<group>"; };
 		141AECBC1B8BCF6000F0012B /* PostingDateEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostingDateEntryViewController.m; sourceTree = "<group>"; };
-		141AECBE1B8CDD6100F0012B /* EditPostingLocationEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditPostingLocationEntryViewController.h; sourceTree = "<group>"; };
-		141AECBF1B8CDD6100F0012B /* EditPostingLocationEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditPostingLocationEntryViewController.m; sourceTree = "<group>"; };
 		141AECC11B8D14E200F0012B /* PostMessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostMessageTableViewCell.h; sourceTree = "<group>"; };
 		141AECC21B8D14E200F0012B /* PostMessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostMessageTableViewCell.m; sourceTree = "<group>"; };
 		141AECC31B8D14E200F0012B /* PostMessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostMessageTableViewCell.xib; sourceTree = "<group>"; };
@@ -737,6 +734,8 @@
 				14423CE11B8FDCF9002CB026 /* EditPostingDateEntryViewController.m */,
 				144D55551B40A5490003B752 /* PostingWorkflowViewModel.h */,
 				144D55561B40A5490003B752 /* PostingWorkflowViewModel.m */,
+				140A1C781C685645003614CC /* PostingDateEntryViewModel.h */,
+				140A1C791C685645003614CC /* PostingDateEntryViewModel.m */,
 				142CB0561B52351400969066 /* PostingPhotoEntryViewController.h */,
 				142CB0571B52351400969066 /* PostingPhotoEntryViewController.m */,
 				14CAB3D51B5C685D0081979C /* EditPostPhotoSelectViewController.h */,
@@ -754,10 +753,6 @@
 				141AECB91B8A886E00F0012B /* PreviewPostViewController.m */,
 				140A1C751C67C3C6003614CC /* PreviewPostViewModel.h */,
 				140A1C761C67C3C6003614CC /* PreviewPostViewModel.m */,
-				141AECBE1B8CDD6100F0012B /* EditPostingLocationEntryViewController.h */,
-				141AECBF1B8CDD6100F0012B /* EditPostingLocationEntryViewController.m */,
-				141AECA51B89186400F0012B /* PostingLocationEntryViewController.h */,
-				141AECA61B89186400F0012B /* PostingLocationEntryViewController.m */,
 				1415245E1B4086AA007EE405 /* NewPost.storyboard */,
 				14423CDD1B8FCD64002CB026 /* EditPostingNumberEntryViewController.h */,
 				14423CDE1B8FCD64002CB026 /* EditPostingNumberEntryViewController.m */,
@@ -1299,6 +1294,7 @@
 				145B0AC71B9F8100002FD94E /* UIImage+AlphaAdditions.m in Sources */,
 				141AECBA1B8A886E00F0012B /* PreviewPostViewController.m in Sources */,
 				149787A21A49F0E40024437D /* UIColor+SpreeColor.m in Sources */,
+				140A1C7A1C685645003614CC /* PostingDateEntryViewModel.m in Sources */,
 				140CF8D91A3BBFB200134C4D /* main.m in Sources */,
 				141524561B4070E5007EE405 /* PostTypeSelectionTableViewCell.m in Sources */,
 				142CB05D1B5236F500969066 /* AddPhotoHeaderView.m in Sources */,
@@ -1312,9 +1308,7 @@
 				145B0AC81B9F8100002FD94E /* UIImage+ResizeAdditions.m in Sources */,
 				14A416801B05700600EA4DA2 /* SpreeSprintTableViewCell.m in Sources */,
 				145820B81C1CE88F0092F9D4 /* SpreeViewModelServicesImpl.m in Sources */,
-				141AECC01B8CDD6100F0012B /* EditPostingLocationEntryViewController.m in Sources */,
 				F78600BD1AEB422100402B1F /* push.m in Sources */,
-				141AECA71B89186400F0012B /* PostingLocationEntryViewController.m in Sources */,
 				14423CE51B8FE3EF002CB026 /* EditPostViewController.m in Sources */,
 				142CB0581B52351400969066 /* PostingPhotoEntryViewController.m in Sources */,
 				1491BBA41B336F38004F43CA /* ResultsTableViewController.m in Sources */,
