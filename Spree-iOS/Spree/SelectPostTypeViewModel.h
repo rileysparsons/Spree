@@ -13,6 +13,7 @@
 
 @property RACCommand* typeSelectedCommand;
 @property PFObject *postTypes;
+@property BOOL isLoading;
 
 -(instancetype)initWithServices:(id<SpreeViewModelServices>)services;
 

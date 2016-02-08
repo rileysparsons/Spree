@@ -28,7 +28,7 @@ typedef enum : NSUInteger {
 @interface SelectPostTypeViewController () <UIAlertViewDelegate>
 
 @property NSArray *postTypes;
-
+@property MBProgressHUD *progressHUD;
 @end
 
 @implementation SelectPostTypeViewController
@@ -84,6 +84,9 @@ typedef enum : NSUInteger {
     [self.header layoutSubviews];
     self.tableView.tableHeaderView = self.header;
     
+    self.progressHUD = [[MBProgressHUD alloc] initWithView:self.view];
+    [self.view addSubview:self.progressHUD];
+    
     [self bindViewModel];
 }
 
@@ -98,9 +101,13 @@ typedef enum : NSUInteger {
                                            templateCell:nib];
     
 
-    // Pushes the detailViewController for post when cell is selected
-    [[self.viewModel.typeSelectedCommand.executionSignals switchToLatest] subscribeNext:^(SpreePost* post) {
-        // do something
+    [[RACObserve(self.viewModel, isLoading) deliverOnMainThread] subscribeNext:^(id x) {
+        self.progressHUD.labelText = @"Loading...";
+        if ([x boolValue]){
+            [self.progressHUD show:YES];
+        } else {
+            [self.progressHUD hide:YES afterDelay:0.5];
+        }
     }];
 
 }

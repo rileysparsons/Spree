@@ -13,6 +13,7 @@
 
 @property RACCommand* subTypeSelectedCommand;
 @property PFObject *postSubTypes;
+@property BOOL isLoading;
 
 -(instancetype)initWithServices:(id<SpreeViewModelServices>)services type:(PFObject *)type;
 

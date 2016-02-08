@@ -17,6 +17,7 @@
 @property SpreePost *post;
 @property NSArray *existingFieldsToShow;
 @property UITableView *tableView;
+@property BOOL isPosting;
 
 @property RACCommand *completePostCommand;
 

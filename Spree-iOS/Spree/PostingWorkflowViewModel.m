@@ -24,6 +24,8 @@
 #import "SelectPostSubTypeViewModel.h"
 #import "SelectPostTypeViewModel.h"
 #import "SpreeViewModelServicesImpl.h"
+#import <MBProgressHUD/MBProgressHUD.h>
+
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import <MMPReactiveCoreLocation/MMPReactiveCoreLocation.h>
 
@@ -36,7 +38,6 @@
 @property NSMutableArray *allFields;
 @property (nonatomic)  NSArray* viewControllersForFields;
 @property (nonatomic, strong) MMPReactiveCoreLocation *locationService;
-
 
 @end
 
@@ -101,9 +102,15 @@
     PreviewPostViewModel *previewPostViewModel = [[PreviewPostViewModel alloc] initWithServices:viewModelServices post:self.post];
     previewPostViewController.viewModel = previewPostViewModel;
     
+    MBProgressHUD *progressHUD = [[MBProgressHUD alloc] initWithWindow:[UIApplication sharedApplication].keyWindow];
+    progressHUD.labelText = @"Saving Post...";
+    [[UIApplication sharedApplication].keyWindow addSubview:progressHUD];
+    
     [[[previewPostViewController.viewModel.completePostCommand.executionSignals switchToLatest] flattenMap:^RACStream *(id value) {
+        [progressHUD show:YES];
         return [self signalForCompletingPost:self.post];
     }] subscribeNext:^(id x) {
+        [progressHUD hide:YES afterDelay:0.5];
         [self.endPostingWorkflowCommand execute:nil];
     }];
     

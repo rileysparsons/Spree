@@ -81,6 +81,7 @@
     self.tableView.tableFooterView = footerView;
     
     [footerView addSubview:label];
+    
     [self bindViewModel];
     
 }

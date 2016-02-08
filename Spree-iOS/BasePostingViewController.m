@@ -7,6 +7,7 @@
 //
 
 #import "BasePostingViewController.h"
+#import <MBProgressHUD/MBProgressHUD.h>
 #import "SelectPostTypeViewController.h"
 #import "SelectPostTypeViewModel.h"
 #import "SelectPostSubTypeViewController.h"
@@ -16,6 +17,7 @@
 @interface BasePostingViewController ()
 
 @property PostingWorkflowViewModel *viewModel;
+@property MBProgressHUD *progressHUD;
 
 @property NSMutableArray *workflowViewControllers;
 
@@ -36,16 +38,20 @@
 }
 
 -(void)initialize{
+
     [self bindToViewModel];
 }
 
 -(void)bindToViewModel{
+    
     [self.viewModel.presentNextViewControllerSignal subscribeNext:^(id x) {
         if (self.viewModel.viewControllersForPresentation.count > self.viewModel.step)
             [self.navigationController pushViewController:[self.viewModel.viewControllersForPresentation objectAtIndex:self.viewModel.step] animated:YES];
         else
             [self.navigationController pushViewController:[self.viewModel presentPreviewPostController] animated:YES];
     }];
+    
+    
     [[self.viewModel.endPostingWorkflowCommand.executionSignals switchToLatest] subscribeNext:^(id x) {
         [self.navigationController dismissViewControllerAnimated:YES completion:nil];
     }];

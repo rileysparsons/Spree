@@ -10,9 +10,11 @@
 #import "CETableViewBindingHelper.h"
 #import "PostTypeSelectionTableViewCell.h"
 #import "SelectPostTypeHeaderView.h"
+#import <MBProgressHUD/MBProgressHUD.h>
 
 @interface SelectPostSubTypeViewController ()
 @property NSArray *postSubTypes;
+@property MBProgressHUD *progressHUD;
 @end
 
 @implementation SelectPostSubTypeViewController
@@ -42,8 +44,12 @@
     self.tableView.tableHeaderView = self.header;
     
     self.header.titleLabel.text =  [NSString stringWithFormat:@"Great! What type of item is it?"];
+    
+    self.progressHUD = [[MBProgressHUD alloc] initWithView:self.view];
+    [self.view addSubview:self.progressHUD];
+    
     // Do any additional setup after loading the view.
- 
+    
     [self bindViewModel];
 }
 
@@ -56,6 +62,15 @@
      sourceSignal:RACObserve(self.viewModel, postSubTypes)
      selectionCommand:self.viewModel.subTypeSelectedCommand
      templateCell:nib];
+     
+     [[RACObserve(self.viewModel, isLoading) deliverOnMainThread] subscribeNext:^(id x) {
+         self.progressHUD.labelText = @"Loading...";
+         if ([x boolValue]){
+             [self.progressHUD show:YES];
+         } else {
+             [self.progressHUD hide:YES afterDelay:0.5];
+         }
+     }];
  
  }
 
