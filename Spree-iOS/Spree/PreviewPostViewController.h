@@ -13,10 +13,8 @@
 @interface PreviewPostViewController : UITableViewController
 
 @property PreviewPostViewModel *viewModel;
+@property RACCommand *presentEditViewController;
 
-//-(void)initWithPost:(SpreePost *)post workflow:(PostingWorkflowViewModel *)workflow;
-//-(void)initWithPost:(SpreePost *)post;
--(NSArray *)sanitizePhotoArray:(NSArray*)photoArray;
 -(void)editButtonTouched:(id)sender;
 
 @end

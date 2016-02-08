@@ -29,7 +29,7 @@
 }
 
 -(void)initialize {
-
+    NSLog(@"entered string: %@", self.enteredString);
     self.maxCharacters = [(NSNumber *)self.field[@"characterLimit"] intValue];
     self.remainingCharacters = self.maxCharacters;
     @weakify(self)

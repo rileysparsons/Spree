@@ -13,7 +13,6 @@
 }
 
 @property UIButton *cancelButton;
-@property UIButton *nextButton;
 @property PostingInputAccessoryView *accessoryView;
 
 @end
@@ -21,6 +20,7 @@
 @implementation PostingStringEntryViewController
 
 -(void)bindToViewModel {
+    self.fieldTextView.text = self.viewModel.enteredString;
     RAC(self.viewModel, enteredString) = self.fieldTextView.rac_textSignal;
 }
 

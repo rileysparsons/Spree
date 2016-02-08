@@ -19,6 +19,8 @@
 @property UITableView *tableView;
 @property BOOL isPosting;
 
+@property RACCommand *editFieldCommand;
+@property RACCommand *fieldWasEditedCommand;
 @property RACCommand *completePostCommand;
 
 @end

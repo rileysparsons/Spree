@@ -20,6 +20,7 @@
 #import "PostingPhotoEntryViewController.h"
 #import "AddPhotoHeaderView.h"
 #import "ConfirmLocationViewController.h"
+#import "SpreeViewModelServicesImpl.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 
 @interface PreviewPostViewController ()
@@ -88,6 +89,13 @@
 
 -(void)bindViewModel {
     self.viewModel.tableView = self.tableView;
+    [[self.viewModel.editFieldCommand.executionSignals switchToLatest] subscribeNext:^(UIViewController* viewController) {
+        UINavigationController *navControl = [[UINavigationController alloc] initWithRootViewController:viewController];
+        [self presentViewController:navControl animated:YES completion:nil];
+    }];
+    [[self.viewModel.fieldWasEditedCommand.executionSignals switchToLatest] subscribeNext:^(id x) {
+        [self.tableView reloadData];
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -139,7 +147,9 @@
             [self.tableView registerNib:nib forCellReuseIdentifier:className];
             PostDescriptionTableViewCell *descriptionCell = [self.tableView dequeueReusableCellWithIdentifier:className];
             [descriptionCell enableEditMode];
-            [descriptionCell.editDescriptionButton addTarget:self action:@selector(editButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
+            descriptionCell.editDescriptionButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+                return [self.viewModel.editFieldCommand execute:field];
+            }];
             [descriptionCell setDescriptionTextViewForPost:self.viewModel.post];
             return descriptionCell;
         } else if ([field[@"field"] isEqualToString:@"title"]){
@@ -149,13 +159,17 @@
             PostTitleTableViewCell *titleCell = [self.tableView dequeueReusableCellWithIdentifier:className];
             [titleCell setTitleforPost:self.viewModel.post];
             [titleCell enableEditMode];
-            [titleCell.editTitleButton addTarget:self action:@selector(editButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
+            titleCell.editTitleButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+                return [self.viewModel.editFieldCommand execute:field];
+            }];
             return titleCell;
         } else {
             [basicInfoCell.fieldTitleLabel setText:[field[@"name"] capitalizedString]];
             [basicInfoCell.dataLabel setText:self.viewModel.post[field[@"field"]]];
             [basicInfoCell enableEditMode];
-            [basicInfoCell.editButton addTarget:self action:@selector(editButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
+            basicInfoCell.editButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+                return [self.viewModel.editFieldCommand execute:field];
+            }];
             return basicInfoCell;
         }
     } else if ([field[@"dataType"] isEqualToString:@"image"]){
@@ -216,9 +230,6 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:postButton];
 }
 
--(void)updatePostStatus{
-    
-}
 
 -(void)postButtonPressed{
     /* Will be abstracted to postingworkflowviewmodel
@@ -331,6 +342,7 @@
 //    }
 //    return 0;
 //}
+
 
 
 @end

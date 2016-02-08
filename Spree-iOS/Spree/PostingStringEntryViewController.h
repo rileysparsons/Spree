@@ -19,7 +19,7 @@
 
 @property (weak, nonatomic) IBOutlet SAMTextView *fieldTextView;
 @property PostingStringEntryViewModel *viewModel;
-
+@property UIButton *nextButton;
 -(void)setupTextField;
 
 @end
