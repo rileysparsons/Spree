@@ -8,7 +8,9 @@
 
 #import "PreviewPostViewModel.h"
 #import "PostDescriptionTableViewCell.h"
+#import "EditPostingDateEntryViewController.h"
 #import "EditPostFieldViewController.h"
+#import "EditPostingNumberEntryViewController.h"
 #import "PostMapTableViewCell.h"
 #import "PostTitleTableViewCell.h"
 #import "PostUserTableViewCell.h"
@@ -72,6 +74,8 @@
             [fieldsToShow addObject:field];
         } else if ([field[@"dataType"] isEqualToString:@"date"]){
             [fieldsToShow addObject:field];
+        } else if ([field[@"dataType"] isEqualToString:@"number"]){
+            [fieldsToShow addObject:field];
         }
         [fieldsToShow sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"priority" ascending:YES]]];
     }
@@ -81,14 +85,14 @@
 -(UIViewController *)viewControllerForField:(NSDictionary *)field{
     if ([field[@"dataType"] isEqualToString: @"string"]){
         return [self editPostingStringEntryViewControllerForField:field];
+    } else if ([field[@"dataType"] isEqualToString: @"number"]){
+        return [self editPostingNumberEntryViewControllerForField:field];
     }
-//    } else if ([field[@"dataType"] isEqualToString: @"number"]){
-//        return [self postingNumberEntryViewControllerForField:field];
-//    } else if ([field[@"dataType"] isEqualToString: @"image"]){
+//    else if ([field[@"dataType"] isEqualToString: @"image"]){
 //        return [self postingPhotoEntryViewControllerForField:field];
-//    } else if ([field[@"dataType"] isEqualToString: @"date"]){
-//        return [self postingDateEntryViewControllerForField:field];
-//    }
+    else if ([field[@"dataType"] isEqualToString: @"date"]){
+        return [self editPostingDateEntryViewControllerForField:field];
+    }
     return 0;
 }
 /*
@@ -147,25 +151,38 @@
     }];
     return editPostingStringEntryViewController;
 }
-/*
--(PostingNumberEntryViewController *)postingNumberEntryViewControllerForField:(NSDictionary *)field{
+-(EditPostingNumberEntryViewController *)editPostingNumberEntryViewControllerForField:(NSDictionary *)field{
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewPost" bundle:[NSBundle mainBundle]];
-    PostingNumberEntryViewController *postingNumberEntryViewController = [storyboard instantiateViewControllerWithIdentifier:@"PostingNumberEntryViewController"];
-    SpreeViewModelServicesImpl *viewModelServices = [[SpreeViewModelServicesImpl alloc] init];
-    PostingNumberEntryViewModel *postingNumberEntryViewModel = [[PostingNumberEntryViewModel alloc] initWithServices:viewModelServices field:field];
-    postingNumberEntryViewController.viewModel = postingNumberEntryViewModel;
+    EditPostingNumberEntryViewController *editPostingNumberEntryViewController = [storyboard instantiateViewControllerWithIdentifier:@"EditPostingNumberEntryViewController"];
+    PostingNumberEntryViewModel *postingNumberEntryViewModel = [[PostingNumberEntryViewModel alloc] initWithServices:self.services field:field];
+    editPostingNumberEntryViewController.viewModel = postingNumberEntryViewModel;
+    NSLog(@"%@", [self.post objectForKey:field[@"field"]]);
+    postingNumberEntryViewModel.enteredString  = [[self.post objectForKey:field[@"field"]] stringValue];
     @weakify(self)
     [[[postingNumberEntryViewModel.nextCommand executionSignals] switchToLatest] subscribeNext:^(NSString *string) {
         @strongify(self)
-        self.step++;
         [self.post setObject:string forKey:(NSString *)field[@"field"]];
-        NSMutableArray *completedFields = [[NSMutableArray alloc] initWithArray:[self.post objectForKey:@"completedFields"]];
-        [completedFields addObject:field];
-        self.post[@"completedFields"] = (NSArray *)completedFields;
-        [self shouldPresentNextViewInWorkflow];
+        [self.fieldWasEditedCommand execute:nil];
     }];
-    return postingNumberEntryViewController;
+    return editPostingNumberEntryViewController;
 }
+
+-(EditPostingDateEntryViewController *)editPostingDateEntryViewControllerForField:(NSDictionary *)field{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewPost" bundle:[NSBundle mainBundle]];
+    EditPostingDateEntryViewController *editPostingDateEntryViewController = [storyboard instantiateViewControllerWithIdentifier:@"EditPostingDateEntryViewController"];
+    PostingDateEntryViewModel *postingDateEntryViewModel = [[PostingDateEntryViewModel alloc] initWithServices:self.services field:field];
+    editPostingDateEntryViewController.viewModel = postingDateEntryViewModel;
+    NSLog(@"%@", [self.post objectForKey:field[@"field"]]);
+    postingDateEntryViewModel.enteredDate  = [self.post objectForKey:field[@"field"]];
+    @weakify(self)
+    [[[postingDateEntryViewModel.nextCommand executionSignals] switchToLatest] subscribeNext:^(NSDate *date) {
+        @strongify(self)
+        [self.post setObject:date forKey:(NSString *)field[@"field"]];
+        [self.fieldWasEditedCommand execute:nil];
+    }];
+    return editPostingDateEntryViewController;
+}
+/*
 
 -(PostingDateEntryViewController *)postingDateEntryViewControllerForField:(NSDictionary *)field{
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewPost" bundle:[NSBundle mainBundle]];

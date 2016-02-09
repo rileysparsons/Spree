@@ -197,10 +197,10 @@
     PostingDateEntryViewModel *postingDateEntryViewModel = [[PostingDateEntryViewModel alloc] initWithServices:viewModelServices field:field];
     postingDateEntryViewController.viewModel = postingDateEntryViewModel;
     @weakify(self)
-    [[[postingDateEntryViewModel.nextCommand executionSignals] switchToLatest] subscribeNext:^(NSString *string) {
+    [[[postingDateEntryViewModel.nextCommand executionSignals] switchToLatest] subscribeNext:^(NSDate *date) {
         @strongify(self)
         self.step++;
-        [self.post setObject:string forKey:(NSString *)field[@"field"]];
+        [self.post setObject:date forKey:(NSString *)field[@"field"]];
         NSMutableArray *completedFields = [[NSMutableArray alloc] initWithArray:[self.post objectForKey:@"completedFields"]];
         [completedFields addObject:field];
         self.post[@"completedFields"] = (NSArray *)completedFields;

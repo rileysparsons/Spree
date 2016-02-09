@@ -22,8 +22,14 @@
 }
 
 -(void)bindViewModel{
+    if (self.viewModel.enteredDate != nil) self.datePicker.date = self.viewModel.enteredDate;
     RAC(self.viewModel, enteredDate) = RACObserve(self.datePicker, date);
-    self.nextButton.rac_command = self.viewModel.nextCommand;
+    @weakify(self)
+    self.nextButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        @strongify(self)
+        self.viewModel.enteredDate = self.datePicker.date;
+        return [self.viewModel.nextCommand execute:nil];
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -34,6 +40,7 @@
 -(void)setupPicker{
     self.datePicker.datePickerMode = UIDatePickerModeDateAndTime;
     NSDate *date = [NSDate date];
+    self.datePicker.minimumDate = date;
     [self.datePicker setDate:date];
 }
 

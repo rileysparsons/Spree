@@ -12,6 +12,9 @@
 
 @interface PostingNumberEntryViewController : UIViewController <UITextFieldDelegate>
 
+
+@property UIButton *nextButton;
+
 @property (weak, nonatomic) IBOutlet UILabel *symbolLabel;
 
 @property PostingNumberEntryViewModel *viewModel;

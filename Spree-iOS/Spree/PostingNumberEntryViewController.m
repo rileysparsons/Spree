@@ -14,7 +14,6 @@
 }
 
 @property UIButton *cancelButton;
-@property UIButton *nextButton;
 @property PostingInputAccessoryView *accessoryView;
 
 @end
@@ -22,6 +21,7 @@
 @implementation PostingNumberEntryViewController
 
 -(void)bindToViewModel {
+    self.priceTextField.text = self.viewModel.enteredString;
     RAC(self.viewModel, enteredString) = self.priceTextField.rac_textSignal;
 }
 

@@ -130,17 +130,7 @@
     UINib *nib = [UINib nibWithNibName:className bundle:nil];
     [self.tableView registerNib:nib forCellReuseIdentifier:className];
     BasicInfoTableViewCell *basicInfoCell = [self.tableView dequeueReusableCellWithIdentifier:className];
-    
-    if ([field[@"dataType"] isEqualToString:@"geoPoint"]){
-        NSString *className = NSStringFromClass([PostMapTableViewCell class]);
-        UINib *nib = [UINib nibWithNibName:className bundle:nil];
-        [self.tableView registerNib:nib forCellReuseIdentifier:@"PostMapTableViewCell"];
-        PostMapTableViewCell *mapCell = [self.tableView dequeueReusableCellWithIdentifier:@"PostMapTableViewCell"];
-        [mapCell editButton];
-        [mapCell.editButton addTarget:self action:@selector(editButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
-        [mapCell setLocationsFromPost:self.viewModel.post];
-        return mapCell;
-    } else if ([field[@"dataType"] isEqualToString:@"string"]){
+    if ([field[@"dataType"] isEqualToString:@"string"]){
         if ([field[@"field"] isEqualToString:@"userDescription"]){
             NSString *className = NSStringFromClass([PostDescriptionTableViewCell class]);
             UINib *nib = [UINib nibWithNibName:className bundle:nil];
@@ -181,9 +171,10 @@
         [photoCell setupPriceLabelForPost:self.viewModel.post];
         [photoCell enableEditMode];
         photoCell.editPriceButton.tag = 1;
-        photoCell.editButton.tag = 2;
-        [photoCell.editPriceButton addTarget:self action:@selector(editButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
-        [photoCell.editButton addTarget:self action:@selector(editButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
+        photoCell.editPriceButton.hidden = YES;
+        photoCell.priceView.hidden = YES;
+        photoCell.priceLabel.hidden = YES;
+
         
         photoCell.dateLabel.hidden = YES;
         
@@ -195,7 +186,18 @@
         [dateFormatter setDateFormat:@"MM/dd/yyyy hh:mma"];
         NSString *dateString = [dateFormatter stringFromDate:self.viewModel.post[field[@"field"]]];
         [basicInfoCell.dataLabel setText:dateString];
-        [basicInfoCell.editButton addTarget:self action:@selector(editButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
+        basicInfoCell.editButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+            return [self.viewModel.editFieldCommand execute:field];
+        }];
+        [basicInfoCell enableEditMode];
+        return basicInfoCell;
+    } else if ([field[@"dataType"] isEqualToString:@"number"]){
+        basicInfoCell.fieldTitleLabel.text = [field[@"name"] capitalizedString];
+        NSString *priceString = [NSString stringWithFormat:@"$%@", self.viewModel.post[field[@"field"]]];
+        [basicInfoCell.dataLabel setText:priceString];
+        basicInfoCell.editButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+            return [self.viewModel.editFieldCommand execute:field];
+        }];
         [basicInfoCell enableEditMode];
         return basicInfoCell;
     }
