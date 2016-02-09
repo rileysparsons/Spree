@@ -29,7 +29,9 @@
     self.cancelButton.backgroundColor = [UIColor clearColor];
     [self.cancelButton setBackgroundImage:[UIImage imageNamed:@"cancelOffBlack"] forState:UIControlStateNormal];
     [self.cancelButton setBackgroundImage:[UIImage imageNamed:@"cancelHighlight"] forState:UIControlStateHighlighted];
+    @weakify(self)
     self.cancelButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        @strongify(self)
         [self.navigationController dismissViewControllerAnimated:YES completion:nil];
         return [RACSignal return:nil];
     }];
@@ -43,7 +45,6 @@
     [self.nextButton.titleLabel setFont:[UIFont fontWithName:@"Lato-Regular" size:17]];
     [self.nextButton setTitleColor:[UIColor spreeDarkBlue] forState:UIControlStateNormal];
     [self.nextButton sizeToFit];
-    @weakify(self)
     self.nextButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         @strongify(self)
         self.viewModel.enteredDate = self.datePicker.date;

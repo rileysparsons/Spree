@@ -21,8 +21,9 @@
 -(void)bindViewModel:(id)viewModel{
     NSArray *files = viewModel;
     self.pageImages = [[NSMutableArray alloc] init];
-    
+    @weakify(self)
     [[self signalForFetchingFiles:files] subscribeNext:^(NSData* x) {
+        @strongify(self)
         [self.pageImages addObject:[UIImage imageWithData:x]];
         [self initialize];
     }];

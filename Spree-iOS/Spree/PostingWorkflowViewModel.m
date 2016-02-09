@@ -67,7 +67,9 @@
     
     self.locationService = [MMPReactiveCoreLocation service];
     
+    @weakify(self)
     [self.locationService.location subscribeNext:^(id x) {
+        @strongify(self)
         self.post[@"location"] = [PFGeoPoint geoPointWithLocation:x];
     }];
     
@@ -77,6 +79,7 @@
     self.photosForDisplay = [[NSMutableArray alloc] init];
     
     [RACObserve(self.post, typePointer) map:^id(id value) {
+        @strongify(self)
         for (id field in value[@"fields"]){
             [self.uncompletedFields addObject:field];
             self.allFields = self.uncompletedFields;
@@ -111,10 +114,13 @@
     progressHUD.labelText = @"Saving Post...";
     [[UIApplication sharedApplication].keyWindow addSubview:progressHUD];
     
+    @weakify(self)
     [[[previewPostViewController.viewModel.completePostCommand.executionSignals switchToLatest] flattenMap:^RACStream *(id value) {
+        @strongify(self)
         [progressHUD show:YES];
         return [self signalForCompletingPost:self.post];
     }] subscribeNext:^(id x) {
+        @strongify(self)
         [progressHUD hide:YES afterDelay:0.5];
         [self.endPostingWorkflowCommand execute:nil];
     }];
@@ -128,7 +134,9 @@
     SpreeViewModelServicesImpl *viewModelServices = [[SpreeViewModelServicesImpl alloc] init];
     SelectPostTypeViewModel *selectPostTypeViewModel = [[SelectPostTypeViewModel alloc] initWithServices:viewModelServices];
     selectPostTypeViewController.viewModel = selectPostTypeViewModel;
+    @weakify(self)
     [[[selectPostTypeViewModel.typeSelectedCommand executionSignals] switchToLatest] subscribeNext:^(id x) {
+        @strongify(self)
         self.step++;
         self.post[@"typePointer"] = x;
         [self.viewControllersForPresentation addObject:[self selectPostSubTypeViewControllerForType:x]];
@@ -143,7 +151,9 @@
     SpreeViewModelServicesImpl *viewModelServices = [[SpreeViewModelServicesImpl alloc] init];
     SelectPostSubTypeViewModel *selectPostSubTypeViewModel = [[SelectPostSubTypeViewModel alloc] initWithServices:viewModelServices type:type];
     selectPostSubTypeViewController.viewModel = selectPostSubTypeViewModel;
+    @weakify(self)
     [[[selectPostSubTypeViewModel.subTypeSelectedCommand executionSignals] switchToLatest] subscribeNext:^(id x) {
+        @strongify(self)
         self.step++;
         self.post[@"subtype"] = x;
         [self updateViewControllersForPresentationForType:self.post[@"typePointer"] subType:self.post[@"subtype"]];

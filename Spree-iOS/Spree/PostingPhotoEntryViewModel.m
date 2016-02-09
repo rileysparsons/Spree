@@ -37,8 +37,9 @@
     self.files = [[CEObservableMutableArray alloc] init];
     self.files.delegate = self;
     [self.files addObjectsFromArray:self.importedPhotos];
-    
+    @weakify(self)
     self.nextCommand = [[RACCommand alloc] initWithEnabled:RACObserve(self, nextEnabled) signalBlock:^RACSignal *(id input) {
+        @strongify(self)
         return [RACSignal return:self.files];
     }];
     
@@ -48,6 +49,7 @@
     }];
     
     self.deletePhoto = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(NSNumber* input) {
+        @strongify(self)
         [self.files removeObjectAtIndex:[input integerValue]];
         return [RACSignal return:nil];
     }];

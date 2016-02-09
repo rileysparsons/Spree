@@ -100,7 +100,8 @@
     for (PHAsset *asset  in assets){
         PHImageManager *manager = [PHImageManager defaultManager];
         [manager requestImageForAsset:asset targetSize:PHImageManagerMaximumSize contentMode:PHImageContentModeAspectFill options:options resultHandler:^(UIImage *result, NSDictionary *info) {
-            [self.viewModel.files addObject:[PFFile fileWithData:[NSData dataWithContentsOfURL:[info objectForKey:@"PHImageFileURLKey"]]]];
+            NSData *imageData = UIImageJPEGRepresentation(result, 0.8f);
+            [self.viewModel.files addObject:[PFFile fileWithData:imageData]];
         }];
     }
     [self performSelector:@selector(scrollToBottom) withObject:nil afterDelay:0.1];
@@ -168,7 +169,9 @@
         }
     }
     cell.deleteButton.tag = indexPath.row;
+    @weakify(self)
     cell.deleteButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(UIButton *button) {
+        @strongify(self)
         [self.viewModel.files removeObjectAtIndex:button.tag];
         return [RACSignal return:nil];
     }];

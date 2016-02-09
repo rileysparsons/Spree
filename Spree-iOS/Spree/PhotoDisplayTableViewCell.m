@@ -12,12 +12,15 @@
 @implementation PhotoDisplayTableViewCell
 
 -(void)bindViewModel:(id)viewModel{
-    if ([viewModel isKindOfClass:[PFFile class]])
+    if ([viewModel isKindOfClass:[PFFile class]]){
+        @weakify(self)
         [[self signalForFetchingFile:viewModel] subscribeNext:^(NSData* x) {
+            @strongify(self)
             [self placeImage:[UIImage imageWithData:x]];
         }];
-    else
+    } else {
         [self placeImage:[UIImage imageWithData:viewModel]];
+    }
 }
 
 - (void)awakeFromNib {

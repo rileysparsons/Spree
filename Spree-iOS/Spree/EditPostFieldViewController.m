@@ -20,7 +20,9 @@
     [super viewDidLoad];
     [self navigationBarButtons];
     // Do any additional setup after loading the view.
+    @weakify(self)
     [[self.viewModel.nextCommand.executionSignals switchToLatest] subscribeNext:^(id x) {
+        @strongify(self)
         [self.navigationController dismissViewControllerAnimated:YES completion:nil];
     }];
 }
@@ -30,7 +32,9 @@
     self.cancelButton.backgroundColor = [UIColor clearColor];
     [self.cancelButton setBackgroundImage:[UIImage imageNamed:@"cancelOffBlack"] forState:UIControlStateNormal];
     [self.cancelButton setBackgroundImage:[UIImage imageNamed:@"cancelHighlight"] forState:UIControlStateHighlighted];
+    @weakify(self)
     self.cancelButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        @strongify(self)
         [self.navigationController dismissViewControllerAnimated:YES completion:nil];
         return [RACSignal return:nil];
     }];

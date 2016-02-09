@@ -28,8 +28,9 @@
 }
 
 -(void)initialize {
-    
+    @weakify(self)
     self.nextCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        @strongify(self)
         return [RACSignal return:self.enteredDate];
     }];
     

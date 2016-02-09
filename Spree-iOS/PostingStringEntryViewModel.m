@@ -39,10 +39,12 @@
     }];
     
     RACSignal *validStringSignal = [[RACObserve(self, enteredString) map:^id(NSString *text) {
+        @strongify(self)
         return @(text.length > 3 && text.length <= self.maxCharacters);
     }] distinctUntilChanged];
     
     self.nextCommand = [[RACCommand alloc] initWithEnabled:validStringSignal signalBlock:^RACSignal *(id input) {
+        @strongify(self)
         return [RACSignal return:self.enteredString];
     }];
     

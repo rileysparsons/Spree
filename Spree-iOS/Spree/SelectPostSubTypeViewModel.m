@@ -29,16 +29,20 @@
 }
 
 -(void)initialize{
+    @weakify(self)
     self.loadPostSubTypes = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        @strongify(self)
         self.isLoading = YES;
         return [self signalForFindPostSubTypesForType:self.type];
     }];
-    
+
     [[[self.loadPostSubTypes executionSignals] switchToLatest] subscribeNext:^(id x) {
+        @strongify(self)
         self.isLoading = NO;
     }];
     
     [[self didBecomeActiveSignal] subscribeNext:^(id x) {
+        @strongify(self)
         [self.loadPostSubTypes execute:nil];
     }];
     

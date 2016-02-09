@@ -29,13 +29,17 @@
 }
 
 -(void)initialize{
+    @weakify(self)
     self.loginWithFacebook = [[RACCommand alloc] initWithEnabled:nil signalBlock:^RACSignal *(id input) {
+        @strongify(self)
         return [self loginWithFacebookSignal];
     }];
 }
 
 -(RACSignal *)loginWithFacebookSignal {
+    @weakify(self)
     return [[[self.services getParseConnection] loginWithFacebook] doNext:^(id x) {
+        @strongify(self)
         [self closeOnboarding];
     }];
 }

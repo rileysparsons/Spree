@@ -138,7 +138,9 @@
             [self.tableView registerNib:nib forCellReuseIdentifier:className];
             PostDescriptionTableViewCell *descriptionCell = [self.tableView dequeueReusableCellWithIdentifier:className];
             [descriptionCell enableEditMode];
+            @weakify(self)
             descriptionCell.editDescriptionButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+                @strongify(self)
                 return [self.viewModel.editFieldCommand execute:field];
             }];
             [descriptionCell setDescriptionTextViewForPost:self.viewModel.post];
@@ -150,7 +152,9 @@
             PostTitleTableViewCell *titleCell = [self.tableView dequeueReusableCellWithIdentifier:className];
             [titleCell setTitleforPost:self.viewModel.post];
             [titleCell enableEditMode];
+            @weakify(self)
             titleCell.editTitleButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+                @strongify(self)
                 return [self.viewModel.editFieldCommand execute:field];
             }];
             return titleCell;
@@ -158,7 +162,9 @@
             [basicInfoCell.fieldTitleLabel setText:[field[@"name"] capitalizedString]];
             [basicInfoCell.dataLabel setText:self.viewModel.post[field[@"field"]]];
             [basicInfoCell enableEditMode];
+            @weakify(self)
             basicInfoCell.editButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+                @strongify(self)
                 return [self.viewModel.editFieldCommand execute:field];
             }];
             return basicInfoCell;
@@ -173,7 +179,9 @@
         [photoCell enableEditMode];
         photoCell.editPriceButton.tag = 1;
         photoCell.editPriceButton.hidden = YES;
+        @weakify(self)
         photoCell.editButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+            @strongify(self)
             return [self.viewModel.editFieldCommand execute:field];
         }];
         
@@ -191,7 +199,9 @@
         [dateFormatter setDateFormat:@"MM/dd/yyyy hh:mma"];
         NSString *dateString = [dateFormatter stringFromDate:self.viewModel.post[field[@"field"]]];
         [basicInfoCell.dataLabel setText:dateString];
+        @weakify(self)
         basicInfoCell.editButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+            @strongify(self)
             return [self.viewModel.editFieldCommand execute:field];
         }];
         [basicInfoCell enableEditMode];
@@ -200,7 +210,9 @@
         basicInfoCell.fieldTitleLabel.text = [field[@"name"] capitalizedString];
         NSString *priceString = [NSString stringWithFormat:@"$%@", self.viewModel.post[field[@"field"]]];
         [basicInfoCell.dataLabel setText:priceString];
+        @weakify(self)
         basicInfoCell.editButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+            @strongify(self)
             return [self.viewModel.editFieldCommand execute:field];
         }];
         [basicInfoCell enableEditMode];

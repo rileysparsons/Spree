@@ -107,8 +107,9 @@
 
 -(void)bindViewModel{
 
-    
+    @weakify(self)
     self.refreshControl.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        @strongify(self)
         return [self.viewModel.refreshPosts execute:nil];
     }];
     
@@ -125,8 +126,10 @@
         }
     }] deliverOnMainThread];
     
+    
     [[RACObserve(self, posts) deliverOnMainThread]
      subscribeNext:^(id x) {
+        @strongify(self)
         [self.postsTableView reloadData];
         [self.refreshControl endRefreshing];
     }];
@@ -141,11 +144,13 @@
     
     // Pushes the detailViewController for post when cell is selected
     [[self.viewModel.postSelectedCommand.executionSignals switchToLatest] subscribeNext:^(SpreePost* post) {
+        @strongify(self)
         [self presentDetailViewControllerForPost:post];
     }];
     
 
     [[RACObserve(self.viewModel, isLoadingPosts) deliverOnMainThread] subscribeNext:^(id x) {
+        @strongify(self)
         self.progressHUD.labelText = @"Loading Posts...";
         if ([x boolValue]){
             [self.progressHUD show:YES];

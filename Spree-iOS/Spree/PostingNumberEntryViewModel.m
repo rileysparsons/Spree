@@ -33,7 +33,9 @@
         return @(text.length > 0);
     }] distinctUntilChanged];
     
+    @weakify(self)
     self.nextCommand = [[RACCommand alloc] initWithEnabled:validStringSignal signalBlock:^RACSignal *(NSString* inputString) {
+        @strongify(self)
         return [RACSignal return:[self getNumberFromString:self.enteredString]];
     }];
     

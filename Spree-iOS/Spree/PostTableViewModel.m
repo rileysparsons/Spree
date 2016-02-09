@@ -67,15 +67,18 @@
     RAC(self, posts) = [[self.refreshPosts executionSignals] switchToLatest];
     
     [[[self.refreshPosts executionSignals] switchToLatest] subscribeNext:^(id x) {
+        @strongify(self)
         self.isLoadingPosts = NO;
     }];
     
     [[[self didBecomeActiveSignal]
     flattenMap:^id(id value) {
+        @strongify(self)
         return [[RACObserve(self, currentLocation) ignore:NULL] take:1];
     }]
     subscribeNext:^(id x) {
         NSLog(@"returned from initial block: %@", x);
+        @strongify(self)
         [self.refreshPosts execute:_queryParameters];
     }];
     
@@ -86,7 +89,9 @@
         return [RACSignal return:selectedPost];
     }];
     
+
     RAC(self, keywordArray) = [RACObserve(self, searchString) map:^id(NSString *string) {
+        @strongify(self)
         return [self sanitizeSearchString:string];
     }];
     
@@ -99,7 +104,9 @@
     
     RAC(self, currentLocation) = [self locationSignal];
     
+    @weakify(self)
     [[self.service authorizationStatus] subscribeNext:^(NSNumber* x) {
+        @strongify(self)
         if ([x integerValue] == 2){
             self.posts = nil;
         }
