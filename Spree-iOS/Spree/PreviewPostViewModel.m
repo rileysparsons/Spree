@@ -9,6 +9,7 @@
 #import "PreviewPostViewModel.h"
 #import "PostDescriptionTableViewCell.h"
 #import "EditPostingDateEntryViewController.h"
+#import "EditPostPhotoSelectViewController.h"
 #import "EditPostFieldViewController.h"
 #import "EditPostingNumberEntryViewController.h"
 #import "PostMapTableViewCell.h"
@@ -88,8 +89,9 @@
     } else if ([field[@"dataType"] isEqualToString: @"number"]){
         return [self editPostingNumberEntryViewControllerForField:field];
     }
-//    else if ([field[@"dataType"] isEqualToString: @"image"]){
-//        return [self postingPhotoEntryViewControllerForField:field];
+    else if ([field[@"dataType"] isEqualToString: @"image"]){
+        return [self editPostPhotoSelectViewControllerForField:field];
+    }
     else if ([field[@"dataType"] isEqualToString: @"date"]){
         return [self editPostingDateEntryViewControllerForField:field];
     }
@@ -182,26 +184,23 @@
     }];
     return editPostingDateEntryViewController;
 }
+
+-(EditPostPhotoSelectViewController *)editPostPhotoSelectViewControllerForField:(NSDictionary *)field{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewPost" bundle:[NSBundle mainBundle]];
+    EditPostPhotoSelectViewController *editPostPhotoSelectViewController = [storyboard instantiateViewControllerWithIdentifier:@"EditPostPhotoSelectViewController"];
+    PostingPhotoEntryViewModel *postingPhotoEntryViewModel = [[PostingPhotoEntryViewModel alloc] initWithServices:self.services photos:[self.post objectForKey:field[@"field"]]];
+    editPostPhotoSelectViewController.viewModel = postingPhotoEntryViewModel;
+    @weakify(self)
+    [[[postingPhotoEntryViewModel.nextCommand executionSignals] switchToLatest] subscribeNext:^(NSDate *date) {
+        @strongify(self)
+        [self.post setObject:date forKey:(NSString *)field[@"field"]];
+        [self.fieldWasEditedCommand execute:nil];
+    }];
+    return editPostPhotoSelectViewController;
+}
+
 /*
 
--(PostingDateEntryViewController *)postingDateEntryViewControllerForField:(NSDictionary *)field{
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewPost" bundle:[NSBundle mainBundle]];
-    PostingDateEntryViewController *postingDateEntryViewController = [storyboard instantiateViewControllerWithIdentifier:@"PostingDateEntryViewController"];
-    SpreeViewModelServicesImpl *viewModelServices = [[SpreeViewModelServicesImpl alloc] init];
-    PostingDateEntryViewModel *postingDateEntryViewModel = [[PostingDateEntryViewModel alloc] initWithServices:viewModelServices field:field];
-    postingDateEntryViewController.viewModel = postingDateEntryViewModel;
-    @weakify(self)
-    [[[postingDateEntryViewModel.nextCommand executionSignals] switchToLatest] subscribeNext:^(NSString *string) {
-        @strongify(self)
-        self.step++;
-        [self.post setObject:string forKey:(NSString *)field[@"field"]];
-        NSMutableArray *completedFields = [[NSMutableArray alloc] initWithArray:[self.post objectForKey:@"completedFields"]];
-        [completedFields addObject:field];
-        self.post[@"completedFields"] = (NSArray *)completedFields;
-        [self shouldPresentNextViewInWorkflow];
-    }];
-    return postingDateEntryViewController;
-}
 
 -(PostingPhotoEntryViewController *)postingPhotoEntryViewControllerForField:(NSDictionary *)field{
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewPost" bundle:[NSBundle mainBundle]];

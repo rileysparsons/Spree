@@ -21,6 +21,7 @@
 #import "AddPhotoHeaderView.h"
 #import "ConfirmLocationViewController.h"
 #import "SpreeViewModelServicesImpl.h"
+#import "NSString+Emoji.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 
 @interface PreviewPostViewController ()
@@ -118,7 +119,7 @@
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     if (section == 0){
         AddPhotoHeaderView *custom =[[AddPhotoHeaderView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 150)];
-        custom.titleLabel.text = @"Everything look OK?";
+        custom.titleLabel.text = [@"Everything look :ok_hand:?" stringByReplacingEmojiCheatCodesWithUnicode];
         return custom;
     }
     return 0;
@@ -172,6 +173,10 @@
         [photoCell enableEditMode];
         photoCell.editPriceButton.tag = 1;
         photoCell.editPriceButton.hidden = YES;
+        photoCell.editButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+            return [self.viewModel.editFieldCommand execute:field];
+        }];
+        
         photoCell.priceView.hidden = YES;
         photoCell.priceLabel.hidden = YES;
 

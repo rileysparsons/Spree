@@ -14,67 +14,36 @@
 @end
 
 @implementation EditPostPhotoSelectViewController
-/*
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    
+    [self navigationBarButtons];
     // Do any additional setup after loading the view.
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [[self.viewModel.nextCommand.executionSignals switchToLatest] subscribeNext:^(id x) {
+        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+    }];
 }
 
 -(void)navigationBarButtons{
-    [super navigationBarButtons];
+    self.cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 25, 25)];
+    self.cancelButton.backgroundColor = [UIColor clearColor];
+    [self.cancelButton setBackgroundImage:[UIImage imageNamed:@"cancelOffBlack"] forState:UIControlStateNormal];
+    [self.cancelButton setBackgroundImage:[UIImage imageNamed:@"cancelHighlight"] forState:UIControlStateHighlighted];
+    self.cancelButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+        return [RACSignal return:nil];
+    }];
     
-    UIButton *doneButton = [[UIButton alloc] init];
-    [doneButton setTitle:@"Done" forState:UIControlStateNormal];
-    [doneButton addTarget:self action:@selector(doneWithEdit:) forControlEvents:UIControlEventTouchUpInside];
-    [doneButton sizeToFit];
-    [doneButton.titleLabel setFont:[UIFont fontWithName:@"Lato-Bold" size:16]];
-    [doneButton setTintColor:[UIColor spreeDarkBlue]];
-    [doneButton setTitleColor:[UIColor spreeDarkBlue] forState:UIControlStateNormal];
+    [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:self.cancelButton]];
     
-    UIBarButtonItem *countBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:super.countBarButton];
-    
-    [self.navigationItem setRightBarButtonItems:@[[[UIBarButtonItem alloc] initWithCustomView:doneButton], countBarButtonItem] animated:YES];
-
-    // Override super class cancel button setup, so that the modal dismisses.
-    UIButton *cancel = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 25, 25)];
-    cancel.backgroundColor = [UIColor clearColor];
-    cancel.tag = 1;
-    [cancel setBackgroundImage:[UIImage imageNamed:@"cancelOffBlack"] forState:UIControlStateNormal];
-    [cancel setBackgroundImage:[UIImage imageNamed:@"cancelHighlight"] forState:UIControlStateHighlighted];
-    [cancel addTarget:self action:@selector(doneWithEdit:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:cancel];
+    self.nextButton= [[UIButton alloc] initWithFrame:CGRectZero];
+    self.nextButton.tag = 2;
+    self.nextButton.backgroundColor = [UIColor clearColor];
+    [self.nextButton setTitle:@"Update" forState:UIControlStateNormal];
+    [self.nextButton.titleLabel setFont:[UIFont fontWithName:@"Lato-Regular" size:17]];
+    [self.nextButton setTitleColor:[UIColor spreeDarkBlue] forState:UIControlStateNormal];
+    [self.nextButton sizeToFit];
+    self.nextButton.rac_command = self.viewModel.nextCommand;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.nextButton];
 }
-
--(void)doneWithEdit:(id)sender{
-    UIButton *button = (UIButton *)sender;
-    if (button.tag == 1){
-        
-    } else {
-        self.postingWorkflow.post.photoArray = self.fileArray;
-        self.postingWorkflow.photosForDisplay = self.photoArray;
-        [((PreviewPostViewController*)((UINavigationController *)self.presentingViewController).topViewController).tableView reloadData];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloadPost" object:nil];
-    }
-    
-    [self dismissViewControllerAnimated: YES completion:nil];
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-
-*/
 
 @end

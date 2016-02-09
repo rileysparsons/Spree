@@ -12,7 +12,7 @@
 
 @interface PostingPhotoEntryViewModel : RVMViewModel
 
--(instancetype)initWithServices:(id<SpreeViewModelServices>)services;
+-(instancetype)initWithServices:(id<SpreeViewModelServices>)services photos:(NSArray *)photos;
 
 @property RACCommand *nextCommand;
 @property RACCommand *photoSelected;

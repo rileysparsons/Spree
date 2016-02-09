@@ -213,13 +213,13 @@
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewPost" bundle:[NSBundle mainBundle]];
     PostingPhotoEntryViewController *postingPhotoEntryViewController = [storyboard instantiateViewControllerWithIdentifier:@"PostingPhotoEntryViewController"];
     SpreeViewModelServicesImpl *viewModelServices = [[SpreeViewModelServicesImpl alloc] init];
-    PostingPhotoEntryViewModel *postingPhotoEntryViewModel = [[PostingPhotoEntryViewModel alloc] initWithServices:viewModelServices];
+    PostingPhotoEntryViewModel *postingPhotoEntryViewModel = [[PostingPhotoEntryViewModel alloc] initWithServices:viewModelServices photos:nil];
     postingPhotoEntryViewController.viewModel = postingPhotoEntryViewModel;
     @weakify(self)
     [[[postingPhotoEntryViewModel.nextCommand executionSignals] switchToLatest] subscribeNext:^(NSArray *files) {
         @strongify(self)
         self.step++;
-        [self.post setObject:[self convertDataFilesToPFFiles:files] forKey:@"photoArray"];
+        [self.post setObject:files forKey:@"photoArray"];
         NSMutableArray *completedFields = [[NSMutableArray alloc] initWithArray:[self.post objectForKey:@"completedFields"]];
         [completedFields addObject:field];
         self.post[@"completedFields"] = (NSArray *)completedFields;
@@ -263,14 +263,6 @@
         return [self postingDateEntryViewControllerForField:field];
     }
     return 0;
-}
-
--(NSArray *)convertDataFilesToPFFiles:(NSArray *)files{
-    NSMutableArray *PFFiles = [[NSMutableArray alloc] init];
-    for (NSData *data in files) {
-        [PFFiles addObject:[PFFile fileWithData:data]];
-    }
-    return PFFiles;
 }
 
 -(RACSignal *)signalForCompletingPost:(SpreePost *)post{

@@ -15,6 +15,9 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property PostingWorkflowViewModel *postingWorkflow;
 
+@property UIButton *nextButton;
+@property UIButton *cancelButton;
+
 @property NSDictionary *fieldDictionary;
 @property UIButton *countBarButton;
 @property AddPhotoHeaderView *header;

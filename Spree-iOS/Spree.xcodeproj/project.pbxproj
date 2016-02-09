@@ -83,6 +83,7 @@
 		144D55741B4E11920003B752 /* Lato-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 144D556A1B4E11920003B752 /* Lato-Light.ttf */; };
 		144D55751B4E11920003B752 /* Lato-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 144D556B1B4E11920003B752 /* Lato-LightItalic.ttf */; };
 		144D55761B4E11920003B752 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 144D556C1B4E11920003B752 /* Lato-Regular.ttf */; };
+		1456510A1C69B49B00B5DF93 /* NSString+Emoji.m in Sources */ = {isa = PBXBuildFile; fileRef = 145651081C69B49B00B5DF93 /* NSString+Emoji.m */; };
 		145820AC1C1CE7830092F9D4 /* LoginViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 145820AB1C1CE7830092F9D4 /* LoginViewModel.m */; };
 		145820B21C1CE82B0092F9D4 /* SpreeParseConnectionImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 145820B11C1CE82B0092F9D4 /* SpreeParseConnectionImpl.m */; };
 		145820B81C1CE88F0092F9D4 /* SpreeViewModelServicesImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 145820B71C1CE88F0092F9D4 /* SpreeViewModelServicesImpl.m */; };
@@ -315,6 +316,8 @@
 		144D556A1B4E11920003B752 /* Lato-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Light.ttf"; sourceTree = "<group>"; };
 		144D556B1B4E11920003B752 /* Lato-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-LightItalic.ttf"; sourceTree = "<group>"; };
 		144D556C1B4E11920003B752 /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Regular.ttf"; sourceTree = "<group>"; };
+		145651081C69B49B00B5DF93 /* NSString+Emoji.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Emoji.m"; sourceTree = "<group>"; };
+		145651091C69B49B00B5DF93 /* NSString+Emoji.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Emoji.h"; sourceTree = "<group>"; };
 		145820AA1C1CE7830092F9D4 /* LoginViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewModel.h; sourceTree = "<group>"; };
 		145820AB1C1CE7830092F9D4 /* LoginViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewModel.m; sourceTree = "<group>"; };
 		145820AD1C1CE7F10092F9D4 /* SpreeParseConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpreeParseConnection.h; sourceTree = "<group>"; };
@@ -771,6 +774,7 @@
 		144D55771B4E11A40003B752 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				1456510B1C69B4A000B5DF93 /* Emoji String */,
 				14839F5B1C2C9F4900ED5320 /* Reactive Search Controller */,
 				14839F541C2B2F3A00ED5320 /* TableView Binding Helpers */,
 				144D55781B4E11AF0003B752 /* Lato */,
@@ -793,6 +797,15 @@
 				144D556C1B4E11920003B752 /* Lato-Regular.ttf */,
 			);
 			name = Lato;
+			sourceTree = "<group>";
+		};
+		1456510B1C69B4A000B5DF93 /* Emoji String */ = {
+			isa = PBXGroup;
+			children = (
+				145651081C69B49B00B5DF93 /* NSString+Emoji.m */,
+				145651091C69B49B00B5DF93 /* NSString+Emoji.h */,
+			);
+			name = "Emoji String";
 			sourceTree = "<group>";
 		};
 		14839F541C2B2F3A00ED5320 /* TableView Binding Helpers */ = {
@@ -1319,6 +1332,7 @@
 				145820AC1C1CE7830092F9D4 /* LoginViewModel.m in Sources */,
 				141AECBD1B8BCF6000F0012B /* PostingDateEntryViewController.m in Sources */,
 				14EB19001C51B85300EE5A69 /* SelectPostSubTypeViewModel.m in Sources */,
+				1456510A1C69B49B00B5DF93 /* NSString+Emoji.m in Sources */,
 				14423CE81B9006BC002CB026 /* SpreeConfigManager.m in Sources */,
 				14EFDAE71A89EC4F007510CC /* TextViewViewController.m in Sources */,
 				F70FACF51AEB501700057E6E /* converter.m in Sources */,

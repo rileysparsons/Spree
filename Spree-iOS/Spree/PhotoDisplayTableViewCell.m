@@ -12,7 +12,12 @@
 @implementation PhotoDisplayTableViewCell
 
 -(void)bindViewModel:(id)viewModel{
-    [self placeImage:[UIImage imageWithData:viewModel]];
+    if ([viewModel isKindOfClass:[PFFile class]])
+        [[self signalForFetchingFile:viewModel] subscribeNext:^(NSData* x) {
+            [self placeImage:[UIImage imageWithData:x]];
+        }];
+    else
+        [self placeImage:[UIImage imageWithData:viewModel]];
 }
 
 - (void)awakeFromNib {
@@ -33,9 +38,21 @@
         NSLog(@"%f", height);
         self.heightLayoutConstraint.constant = height;
         self.cellImageView.image = image;
+        [self setNeedsUpdateConstraints];
     }
 }
 
-
+-(RACSignal *)signalForFetchingFile:(PFFile *)file{
+    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        [file getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
+            if (data){
+                [subscriber sendNext:data];
+            } else {
+                [subscriber sendError:error];
+            }
+        }];
+        return nil;
+    }];
+}
 
 @end

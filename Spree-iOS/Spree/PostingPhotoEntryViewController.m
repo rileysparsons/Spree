@@ -16,21 +16,19 @@
 
 @interface PostingPhotoEntryViewController () <CTAssetsPickerControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate, UIAlertViewDelegate, UITableViewDataSource>
 
-@property UIButton *nextButton;
-
 @end
 
 @implementation PostingPhotoEntryViewController
 
 - (void)navigationBarButtons {
-    UIButton *cancel = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 40)];
-    cancel.backgroundColor = [UIColor clearColor];
-    cancel.imageView.contentMode = UIViewContentModeScaleAspectFit;
-    [cancel setImage:[UIImage imageNamed:@"backNormal_Dark"] forState:UIControlStateNormal];
-    [cancel setImage:[UIImage imageNamed:@"backHighlight_Dark"] forState:UIControlStateHighlighted];
-    [cancel addTarget:self action:@selector(cancelWorkflow) forControlEvents:UIControlEventTouchUpInside];
+    self.cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 40)];
+    self.cancelButton.backgroundColor = [UIColor clearColor];
+    self.cancelButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [self.cancelButton setImage:[UIImage imageNamed:@"backNormal_Dark"] forState:UIControlStateNormal];
+    [self.cancelButton setImage:[UIImage imageNamed:@"backHighlight_Dark"] forState:UIControlStateHighlighted];
+    [self.cancelButton addTarget:self action:@selector(cancelWorkflow) forControlEvents:UIControlEventTouchUpInside];
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:cancel];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.cancelButton];
 
     self.nextButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 40)];
     self.nextButton.backgroundColor = [UIColor clearColor];
@@ -102,7 +100,7 @@
     for (PHAsset *asset  in assets){
         PHImageManager *manager = [PHImageManager defaultManager];
         [manager requestImageForAsset:asset targetSize:PHImageManagerMaximumSize contentMode:PHImageContentModeAspectFill options:options resultHandler:^(UIImage *result, NSDictionary *info) {
-            [self.viewModel.files addObject:[NSData dataWithContentsOfURL:[info objectForKey:@"PHImageFileURLKey"]]];
+            [self.viewModel.files addObject:[PFFile fileWithData:[NSData dataWithContentsOfURL:[info objectForKey:@"PHImageFileURLKey"]]]];
         }];
     }
     [self performSelector:@selector(scrollToBottom) withObject:nil afterDelay:0.1];
@@ -253,7 +251,7 @@
         NSBlockOperation *saveImage = [NSBlockOperation blockOperationWithBlock:^{
             UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
             NSData* data = UIImageJPEGRepresentation(image, 0.5f);
-            [self.viewModel.files addObject:data];
+            [self.viewModel.files addObject:[PFFile fileWithData:data]];
         }];
         
         [saveImage setCompletionBlock:^{
@@ -308,23 +306,6 @@
 //    }
 //}
 
-- (PFFile *)compressAndSaveImage:(UIImage *)anImage {
-    UIImage *resizedImage = [anImage resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:CGSizeMake(560.0f, 560.0f) interpolationQuality:kCGInterpolationHigh];
-//    UIImage *thumbnailImage = [anImage thumbnailImage:86.0f transparentBorder:0.0f cornerRadius:10.0f interpolationQuality:kCGInterpolationDefault];
-    
-    // JPEG to decrease file size and enable faster uploads & downloads
-    NSData *imageData = UIImageJPEGRepresentation(resizedImage, 0.8f);
-    
-    PFFile *file = [PFFile fileWithData:imageData];
-    
-    
-    
-//    NSData *thumbnailImageData = UIImagePNGRepresentation(thumbnailImage);
-    
-    
-    
-    return file;
-}
 
 -(PhotoSelectFooterView *)tableViewFooter{
     UIView * footer = [self.tableView headerViewForSection:0];

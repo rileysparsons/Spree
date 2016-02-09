@@ -11,16 +11,18 @@
 @interface PostingPhotoEntryViewModel () <CEObservableMutableArrayDelegate>
 
 @property (nonatomic, strong) id<SpreeViewModelServices> services;
+@property NSArray *importedPhotos;
 @property BOOL nextEnabled;
 
 @end
 
 @implementation PostingPhotoEntryViewModel
 
--(instancetype)initWithServices:(id<SpreeViewModelServices>)services{
+-(instancetype)initWithServices:(id<SpreeViewModelServices>)services photos:(NSArray *)photos{
     self = [super init];
     if (self) {
         _services = services;
+        _importedPhotos = photos;
         [self initialize];
     }
     return self;
@@ -31,11 +33,10 @@
  
     self.maxPhotos = 3;
     self.remainingPhotos = self.maxPhotos;
+
     self.files = [[CEObservableMutableArray alloc] init];
-    
     self.files.delegate = self;
-    
-    NSLog(@"%@", self.files.delegate);
+    [self.files addObjectsFromArray:self.importedPhotos];
     
     self.nextCommand = [[RACCommand alloc] initWithEnabled:RACObserve(self, nextEnabled) signalBlock:^RACSignal *(id input) {
         return [RACSignal return:self.files];
