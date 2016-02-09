@@ -291,8 +291,7 @@
         [self.tableView registerNib:nib forCellReuseIdentifier:className];
         PhotoGalleryTableViewCell *photoCell = [self.tableView dequeueReusableCellWithIdentifier:className];
         [photoCell setupPriceLabelForPost:self.post];
-        
-        [self loadPostImagesForCell:photoCell];
+        [photoCell bindViewModel:self.post[field[@"field"]]];
         return photoCell;
     } else if ([field[@"dataType"] isEqualToString:@"date"]){
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
