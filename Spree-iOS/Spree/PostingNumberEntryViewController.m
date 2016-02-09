@@ -13,7 +13,6 @@
     NSNumber *maxCharacter;
 }
 
-@property UIButton *cancelButton;
 @property PostingInputAccessoryView *accessoryView;
 
 @end

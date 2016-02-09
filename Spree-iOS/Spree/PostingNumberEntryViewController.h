@@ -14,6 +14,7 @@
 
 
 @property UIButton *nextButton;
+@property UIButton *cancelButton;
 
 @property (weak, nonatomic) IBOutlet UILabel *symbolLabel;
 

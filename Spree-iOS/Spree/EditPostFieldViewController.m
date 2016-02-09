@@ -26,6 +26,16 @@
 }
 
 -(void)navigationBarButtons{
+    self.cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 25, 25)];
+    self.cancelButton.backgroundColor = [UIColor clearColor];
+    [self.cancelButton setBackgroundImage:[UIImage imageNamed:@"cancelOffBlack"] forState:UIControlStateNormal];
+    [self.cancelButton setBackgroundImage:[UIImage imageNamed:@"cancelHighlight"] forState:UIControlStateHighlighted];
+    self.cancelButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+        return [RACSignal return:nil];
+    }];
+    [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:self.cancelButton]];
+    
     self.nextButton= [[UIButton alloc] initWithFrame:CGRectZero];
     self.nextButton.tag = 2;
     self.nextButton.backgroundColor = [UIColor clearColor];

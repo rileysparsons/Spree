@@ -12,7 +12,6 @@
 @interface PostingStringEntryViewController (){
 }
 
-@property UIButton *cancelButton;
 @property PostingInputAccessoryView *accessoryView;
 
 @end

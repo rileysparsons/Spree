@@ -53,8 +53,6 @@
     [self.cancelButton addTarget:self action:@selector(cancelWorkflow) forControlEvents:UIControlEventTouchUpInside];
     [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:self.cancelButton]];
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.cancelButton];
-    
     self.nextButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 40)];
     self.nextButton.backgroundColor = [UIColor clearColor];
     [self.nextButton setImage:[UIImage imageNamed:@"forwardNormal_Dark"] forState:UIControlStateNormal];
