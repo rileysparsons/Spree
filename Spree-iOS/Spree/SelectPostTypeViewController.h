@@ -8,9 +8,12 @@
 
 #import "PostTypeViewController.h"
 #import "SelectPostTypeHeaderView.h"
+#import "SelectPostTypeViewModel.h"
+#import "PostingWorkflowViewModel.h"
 
-@interface SelectPostTypeViewController : PostTypeViewController
+@interface SelectPostTypeViewController : UITableViewController
 
 @property SelectPostTypeHeaderView *header;
+@property SelectPostTypeViewModel *viewModel;
 
 @end

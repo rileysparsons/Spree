@@ -1,5 +1,5 @@
 //
-//  SelectPostViewController.m
+//  SelectPostTypeViewController.m
 //  Spree
 //
 //  Created by Riley Steele Parsons on 6/28/15.
@@ -7,14 +7,16 @@
 //
 
 #import "SelectPostTypeViewController.h"
+#import "CETableViewBindingHelper.h"
 #import "PostTypeSelectionTableViewCell.h"
 #import "SelectPostSubTypeViewController.h"
 #import "SpreePost.h"
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import <MMPReactiveCoreLocation/MMPReactiveCoreLocation.h>
-#import "PostingWorkflow.h"
+#import "PostingWorkflowViewModel.h"
 #import "SpreeUtility.h"
 #import "SpreeMarketManager.h"
+#import "AppDelegate.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 #import <MSCellAccessory/MSCellAccessory.h>
 
@@ -25,18 +27,11 @@ typedef enum : NSUInteger {
 
 @interface SelectPostTypeViewController () <UIAlertViewDelegate>
 
+@property NSArray *postTypes;
+@property MBProgressHUD *progressHUD;
 @end
 
 @implementation SelectPostTypeViewController
-
-- (id)initWithCoder:(NSCoder *)aCoder {
-    self = [super initWithCoder:aCoder];
-    if (self) {
-        // Whether the built-in pull-to-refresh is enabled
-        self.pullToRefreshEnabled = NO;
-    }
-    return self;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -89,56 +84,32 @@ typedef enum : NSUInteger {
     [self.header layoutSubviews];
     self.tableView.tableHeaderView = self.header;
     
-    // Do any additional setup after loading the view.
+    self.progressHUD = [[MBProgressHUD alloc] initWithView:self.view];
+    [self.view addSubview:self.progressHUD];
+    
+    [self bindViewModel];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+- (void)bindViewModel {
+    RAC(self, postTypes) = RACObserve(self.viewModel, postTypes);
+    
+    // Helper that abstracts all the UITableView logic and delegation away from the view controller using RAC
+    UINib *nib = [UINib nibWithNibName:@"PostTypeSelectionTableViewCell" bundle:nil];
+    [CETableViewBindingHelper bindingHelperForTableView:self.tableView
+                                           sourceSignal:RACObserve(self.viewModel, postTypes)
+                                       selectionCommand:self.viewModel.typeSelectedCommand
+                                           templateCell:nib];
+    
 
-
-- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object{
-    static NSString *CellIdentifier = @"Cell";
-    PostTypeSelectionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        NSArray *nibFiles = [[NSBundle mainBundle] loadNibNamed:@"PostTypeSelectionTableViewCell" owner:self options:nil];
-        for(id currentObject in nibFiles){
-            if ([currentObject isKindOfClass:[UITableViewCell class]]){
-                cell = (PostTypeSelectionTableViewCell*)currentObject;
-                break;
-            }
+    [[RACObserve(self.viewModel, isLoading) deliverOnMainThread] subscribeNext:^(id x) {
+        self.progressHUD.labelText = @"Loading...";
+        if ([x boolValue]){
+            [self.progressHUD show:YES];
+        } else {
+            [self.progressHUD hide:YES afterDelay:0.5];
         }
-    }
-    cell.accessoryType = UITableViewCellAccessoryNone;
-    cell.accessoryView = [MSCellAccessory accessoryWithType:FLAT_DISCLOSURE_INDICATOR color:[UIColor spreeOffBlack]];
-    [cell initWithPostType:object];
-    return cell;
-}
+    }];
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        
-        SpreePost *post = [[SpreePost alloc] init];
-        post.typePointer = [self objectAtIndexPath:indexPath];
-        post.user = [PFUser currentUser];
-        PFQuery *subtype = [PFQuery queryWithClassName:@"PostSubtype"];
-        [subtype getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error){
-            PostingWorkflow *postingWorkflow = [[PostingWorkflow alloc] initWithPost:post];
-            if (object){
-                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewPost" bundle:nil];
-                SelectPostSubTypeViewController *selectPostSubTypeViewController = [storyboard instantiateViewControllerWithIdentifier:@"SelectPostSubTypeViewController"];
-                selectPostSubTypeViewController.workflow = postingWorkflow;
-                selectPostSubTypeViewController.post = post;
-                [MBProgressHUD hideHUDForView:self.view animated:YES];
-                [self.navigationController pushViewController:selectPostSubTypeViewController animated:YES];
-            } else {
-                
-                [MBProgressHUD hideHUDForView:self.view animated:YES];
-                [self.navigationController pushViewController:[postingWorkflow nextViewController] animated:YES];
-            }
-        }];
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 -(void)dismissViewControllerAnimated:(BOOL)flag completion:(void (^)(void))completion{
@@ -157,20 +128,16 @@ typedef enum : NSUInteger {
     return titleLabel;
 }
 
-
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 1;
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    self.viewModel.active = YES;
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    self.viewModel.active = NO;
 }
-*/
+
 
 -(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
     if (alertView.tag == kAuthorizeLocationServicesAlert || alertView.tag == kMarketUnavailableAlert){

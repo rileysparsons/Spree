@@ -37,6 +37,39 @@
     }];
 }
 
+-(RACSignal *)findPostTypes{
+    return[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        PFQuery *postTypeQuery = [PFQuery queryWithClassName:@"PostType"];
+        [postTypeQuery findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+            if (!error){
+                [subscriber sendNext:objects];
+                [subscriber sendCompleted];
+            } else {
+                [subscriber sendError:error];
+            }
+        }];
+        return nil;
+    }];
+}
+
+
+-(RACSignal *)findPostSubTypesForType:(PFObject *)type{
+    return[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        PFQuery *postTypeQuery = [PFQuery queryWithClassName:@"PostSubtype"];
+        [postTypeQuery whereKey:@"parentType" equalTo:type];
+        [postTypeQuery findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+            if (!error){
+                [subscriber sendNext:objects];
+                [subscriber sendCompleted];
+            } else {
+                [subscriber sendError:error];
+            }
+        }];
+        return nil;
+    }];
+}
+
+
 -(RACSignal *)findAllPostsSignalWithRegion:(CLCircularRegion *)region{
     if (region){
         // The user is in a current Spree market region
@@ -161,6 +194,33 @@
     return nil;
 }
 
+-(RACSignal *)fetchObjectInBackground:(PFObject *)object{
+    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        [object fetchIfNeededInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+            if (object){
+                [subscriber sendNext:object];
+                [subscriber sendCompleted];
+            } else if (error){
+                [subscriber sendError:error];
+            }
+        }];
+        return nil;
+    }];
+}
+
+-(RACSignal *)postObjectInBackground:(PFObject *)object{
+    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+            if (succeeded){
+                [subscriber sendNext:@YES];
+                [subscriber sendCompleted];
+            } else {
+                [subscriber sendError:error];
+            }
+        }];
+        return nil;
+    }];
+}
 
 #pragma mark - Parse Database Helper Methods
 

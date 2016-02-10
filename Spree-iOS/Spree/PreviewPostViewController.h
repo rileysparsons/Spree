@@ -8,15 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "PostDetailTableViewController.h"
-#import "PostingWorkflow.h"
+#import "PreviewPostViewModel.h"
 
-@interface PreviewPostViewController : PostDetailTableViewController
+@interface PreviewPostViewController : UITableViewController
 
-@property PostingWorkflow *postingWorkflow;
+@property PreviewPostViewModel *viewModel;
+@property RACCommand *presentEditViewController;
 
--(void)initWithPost:(SpreePost *)post workflow:(PostingWorkflow *)workflow;
--(void)initWithPost:(SpreePost *)post;
--(NSArray *)sanitizePhotoArray:(NSArray*)photoArray;
 -(void)editButtonTouched:(id)sender;
 
 @end
+ 

@@ -31,4 +31,12 @@ typedef NS_ENUM(NSUInteger, SpreePostType) {
 
 -(RACSignal *)findPostsSignalWithRegion:(CLCircularRegion *)region params:(NSDictionary *)params keywords:(NSArray *)keywords;
 
+-(RACSignal *)findPostTypes;
+
+-(RACSignal *)findPostSubTypesForType:(PFObject *)type;
+
+-(RACSignal *)fetchObjectInBackground:(PFObject *)object;
+
+-(RACSignal *)postObjectInBackground:(PFObject *)object;
+
 @end

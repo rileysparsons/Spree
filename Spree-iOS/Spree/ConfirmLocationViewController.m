@@ -22,9 +22,10 @@
     // Do any additional setup after loading the view.
     
     [self bindPostingWorkflow];
-    
+    @weakify(self)
     self.acceptButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+            @strongify(self)
             [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
             return nil;
         }];

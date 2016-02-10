@@ -7,21 +7,26 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SpreeViewModelServices.h"
+#import <ReactiveViewModel/RVMViewModel.h>
 #import "SpreePost.h"
 
-@interface PostingWorkflow : NSObject
+@interface PostingWorkflowViewModel : RVMViewModel
 
 @property SpreePost *post;
 @property NSMutableArray *photosForDisplay;
 @property NSMutableArray *uncompletedFields;
 @property NSMutableArray *completedFields;
-@property (retain, nonatomic) PFObject* type;
-@property (retain, nonatomic) PFObject* subtype;
+
+@property RACCommand *endPostingWorkflowCommand;
+
+@property (nonatomic, strong) NSMutableArray *viewControllersForPresentation;
+@property RACSignal *presentNextViewControllerSignal;
+
 @property int step;
 
--(UIViewController *)nextViewController;
--(id)initWithType:(PFObject *)type;
--(id)initWithPost:(SpreePost *)post;
+-(instancetype)initWithServices: (id<SpreeViewModelServices>)services;
+
 -(UIViewController *)presentPreviewPostController;
 
 

@@ -13,14 +13,15 @@
 #import "PhotoGalleryTableViewCell.h"
 #import "BasicInfoTableViewCell.h"
 #import "EditPostFieldViewController.h"
-#import "EditPostingLocationEntryViewController.h"
 #import "EditPostingNumberEntryViewController.h"
 #import "EditPostingDateEntryViewController.h"
 #import "PostMapTableViewCell.h"
 #import "EditPostPhotoSelectViewController.h"
-#import "PostPhotoSelectViewController.h"
+#import "PostingPhotoEntryViewController.h"
 #import "AddPhotoHeaderView.h"
 #import "ConfirmLocationViewController.h"
+#import "SpreeViewModelServicesImpl.h"
+#import "NSString+Emoji.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 
 @interface PreviewPostViewController ()
@@ -32,27 +33,32 @@
 
 @implementation PreviewPostViewController
 
--(void)initWithPost:(SpreePost *)post{
-    self.post = post;
-    self.existingFieldsForTable = [[NSMutableArray alloc] init];
-    self.existingFields = self.post[@"completedFields"];
-    self.hasCompletedFields = YES;
-    [self organizeTableForFields];
-}
-
-
--(void)initWithPost:(SpreePost *)post workflow:(PostingWorkflow *)workflow{
-    self.post = post;
-    self.existingFieldsForTable = [[NSMutableArray alloc] init];
-    self.existingFields = self.post[@"completedFields"];
-    self.postingWorkflow = workflow;
-    self.hasCompletedFields = YES;
-    [self organizeTableForFields];
-}
+//-(void)initWithPost:(SpreePost *)post{
+//    self.post = post;
+//    self.existingFieldsForTable = [[NSMutableArray alloc] init];
+//    self.existingFields = self.post[@"completedFields"];
+//    self.hasCompletedFields = YES;
+//    [self organizeTableForFields];
+//}
+//
+//
+//-(void)initWithPost:(SpreePost *)post workflow:(PostingWorkflowViewModel *)workflow{
+//    self.post = post;
+//    self.existingFieldsForTable = [[NSMutableArray alloc] init];
+//    self.existingFields = self.post[@"completedFields"];
+//    self.postingWorkflow = workflow;
+//    self.hasCompletedFields = YES;
+//    [self organizeTableForFields];
+//}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupButtons];
+    
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
+    self.tableView.autoresizesSubviews = YES;
+    self.tableView.estimatedRowHeight = 100.0f;
+    self.tableView.backgroundColor = [UIColor spreeOffWhite];
     
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.shadowImage = [UIImage new];
@@ -60,10 +66,6 @@
     self.navigationController.navigationBar.backgroundColor = [UIColor spreeOffWhite];
     
     // Do any additional setup after loading the view.
-    
-    NSLog(@"Post %@", self.post);
-    NSLog(@"Workflow %@", self.postingWorkflow);
-
     
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 35)];
     footerView.backgroundColor = [UIColor clearColor];
@@ -82,13 +84,19 @@
     
     [footerView addSubview:label];
     
+    [self bindViewModel];
     
-    ConfirmLocationViewController *confirmLocationModal = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"ConfirmLocationViewController"];
-    
-    confirmLocationModal.postingWorkflow = self.postingWorkflow;
-    
-    [self.navigationController presentViewController:confirmLocationModal animated:YES completion:nil];
-    
+}
+
+-(void)bindViewModel {
+    self.viewModel.tableView = self.tableView;
+    [[self.viewModel.editFieldCommand.executionSignals switchToLatest] subscribeNext:^(UIViewController* viewController) {
+        UINavigationController *navControl = [[UINavigationController alloc] initWithRootViewController:viewController];
+        [self presentViewController:navControl animated:YES completion:nil];
+    }];
+    [[self.viewModel.fieldWasEditedCommand.executionSignals switchToLatest] subscribeNext:^(id x) {
+        [self.tableView reloadData];
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -96,13 +104,119 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 1;
+}
 
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return self.viewModel.existingFieldsToShow.count;
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return [self cellForField:[self.viewModel.existingFieldsToShow objectAtIndex:indexPath.row]];
+}
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     if (section == 0){
         AddPhotoHeaderView *custom =[[AddPhotoHeaderView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 150)];
-        custom.titleLabel.text = @"Everything look OK?";
+        custom.titleLabel.text = [@"Everything look :ok_hand:?" stringByReplacingEmojiCheatCodesWithUnicode];
         return custom;
+    }
+    return 0;
+}
+
+-(UITableViewCell *)cellForField:(NSDictionary *)field{
+    NSLog(@"field: %@", field);
+    NSString *className = NSStringFromClass([BasicInfoTableViewCell class]);
+    UINib *nib = [UINib nibWithNibName:className bundle:nil];
+    [self.tableView registerNib:nib forCellReuseIdentifier:className];
+    BasicInfoTableViewCell *basicInfoCell = [self.tableView dequeueReusableCellWithIdentifier:className];
+    if ([field[@"dataType"] isEqualToString:@"string"]){
+        if ([field[@"field"] isEqualToString:@"userDescription"]){
+            NSString *className = NSStringFromClass([PostDescriptionTableViewCell class]);
+            UINib *nib = [UINib nibWithNibName:className bundle:nil];
+            [self.tableView registerNib:nib forCellReuseIdentifier:className];
+            PostDescriptionTableViewCell *descriptionCell = [self.tableView dequeueReusableCellWithIdentifier:className];
+            [descriptionCell enableEditMode];
+            @weakify(self)
+            descriptionCell.editDescriptionButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+                @strongify(self)
+                return [self.viewModel.editFieldCommand execute:field];
+            }];
+            [descriptionCell setDescriptionTextViewForPost:self.viewModel.post];
+            return descriptionCell;
+        } else if ([field[@"field"] isEqualToString:@"title"]){
+            NSString *className = NSStringFromClass([PostTitleTableViewCell class]);
+            UINib *nib = [UINib nibWithNibName:className bundle:nil];
+            [self.tableView registerNib:nib forCellReuseIdentifier:className];
+            PostTitleTableViewCell *titleCell = [self.tableView dequeueReusableCellWithIdentifier:className];
+            [titleCell setTitleforPost:self.viewModel.post];
+            [titleCell enableEditMode];
+            @weakify(self)
+            titleCell.editTitleButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+                @strongify(self)
+                return [self.viewModel.editFieldCommand execute:field];
+            }];
+            return titleCell;
+        } else {
+            [basicInfoCell.fieldTitleLabel setText:[field[@"name"] capitalizedString]];
+            [basicInfoCell.dataLabel setText:self.viewModel.post[field[@"field"]]];
+            [basicInfoCell enableEditMode];
+            @weakify(self)
+            basicInfoCell.editButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+                @strongify(self)
+                return [self.viewModel.editFieldCommand execute:field];
+            }];
+            return basicInfoCell;
+        }
+    } else if ([field[@"dataType"] isEqualToString:@"image"]){
+        NSString *className = NSStringFromClass([PhotoGalleryTableViewCell class]);
+        UINib *nib = [UINib nibWithNibName:className bundle:nil];
+        [self.tableView registerNib:nib forCellReuseIdentifier:className];
+        PhotoGalleryTableViewCell *photoCell = [self.tableView dequeueReusableCellWithIdentifier:className];
+        [photoCell bindViewModel:self.viewModel.post[@"photoArray"]];
+        [photoCell setupPriceLabelForPost:self.viewModel.post];
+        [photoCell enableEditMode];
+        photoCell.editPriceButton.tag = 1;
+        photoCell.editPriceButton.hidden = YES;
+        @weakify(self)
+        photoCell.editButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+            @strongify(self)
+            return [self.viewModel.editFieldCommand execute:field];
+        }];
+        
+        photoCell.priceView.hidden = YES;
+        photoCell.priceLabel.hidden = YES;
+
+        
+        photoCell.dateLabel.hidden = YES;
+        
+        return photoCell;
+        
+    } else if ([field[@"dataType"] isEqualToString:@"date"]){
+        basicInfoCell.fieldTitleLabel.text = [field[@"name"] capitalizedString];
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"MM/dd/yyyy hh:mma"];
+        NSString *dateString = [dateFormatter stringFromDate:self.viewModel.post[field[@"field"]]];
+        [basicInfoCell.dataLabel setText:dateString];
+        @weakify(self)
+        basicInfoCell.editButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+            @strongify(self)
+            return [self.viewModel.editFieldCommand execute:field];
+        }];
+        [basicInfoCell enableEditMode];
+        return basicInfoCell;
+    } else if ([field[@"dataType"] isEqualToString:@"number"]){
+        basicInfoCell.fieldTitleLabel.text = [field[@"name"] capitalizedString];
+        NSString *priceString = [NSString stringWithFormat:@"$%@", self.viewModel.post[field[@"field"]]];
+        [basicInfoCell.dataLabel setText:priceString];
+        @weakify(self)
+        basicInfoCell.editButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+            @strongify(self)
+            return [self.viewModel.editFieldCommand execute:field];
+        }];
+        [basicInfoCell enableEditMode];
+        return basicInfoCell;
     }
     return 0;
 }
@@ -124,21 +238,27 @@
     [cancel addTarget:self action:@selector(cancelPost) forControlEvents:UIControlEventTouchUpInside];
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:cancel];
-    
+//    
     UIButton *postButton = [[UIButton alloc] initWithFrame:CGRectZero];
     postButton.backgroundColor = [UIColor clearColor];
     [postButton setTitle:@"Post" forState:UIControlStateNormal];
     [postButton setTitleColor:[UIColor spreeDarkBlue] forState:UIControlStateNormal];
     [postButton sizeToFit];
-    [postButton addTarget:self action:@selector(postButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+    postButton.rac_command = self.viewModel.completePostCommand;
+
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:postButton];
 }
 
--(void)updatePostStatus{
-    
-}
 
 -(void)postButtonPressed{
+    /* Will be abstracted to postingworkflowviewmodel
+     
+//    ConfirmLocationViewController *confirmLocationModal = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"ConfirmLocationViewController"];
+//    
+//    confirmLocationModal.postingWorkflow = self.viewModel;
+//    
+//    [self.navigationController presentViewController:confirmLocationModal animated:YES completion:nil];
+    
     NSLog(@"POSTED: %@", self.post);
     [[MBProgressHUD showHUDAddedTo:self.view animated:YES] setLabelText:@"Creating Post"];
     [self.post setExpired:NO];
@@ -166,15 +286,16 @@
             }];
         }
     }];
-
+*/
     
 }
 
 -(void)cancelPost{
-    self.postingWorkflow = nil;
+    self.viewModel = nil;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+/*
 -(void)editButtonTouched:(id)sender{
     UIButton *button = (UIButton *)sender;
     CGRect buttonFrame = [button convertRect:button.bounds toView:self.tableView];
@@ -214,139 +335,33 @@
         [self presentViewController:navControl animated:YES completion:nil];
     }
   }
+     */
+//
+//-(NSUInteger)indexOfField:(NSDictionary*)cell{
+//    NSUInteger index = [self.existingFieldsForTable indexOfObject:cell];
+//    return index;
+//}
 
--(NSUInteger)indexOfField:(NSDictionary*)cell{
-    NSUInteger index = [self.existingFieldsForTable indexOfObject:cell];
-    return index;
-}
+//-(NSArray *)sanitizePhotoArray:(NSArray*)photoArray{
+//    NSMutableArray *purePhotoArray = [[NSMutableArray alloc] initWithCapacity:3];
+//    for (id item in photoArray) {
+//        if ([item isKindOfClass:[PFFile class]]){
+//            [purePhotoArray addObject:item];
+//        }
+//    }
+//    return purePhotoArray;
+//}
 
--(NSArray *)sanitizePhotoArray:(NSArray*)photoArray{
-    NSMutableArray *purePhotoArray = [[NSMutableArray alloc] initWithCapacity:3];
-    for (id item in photoArray) {
-        if ([item isKindOfClass:[PFFile class]]){
-            [purePhotoArray addObject:item];
-        }
-    }
-    return purePhotoArray;
-}
+//-(NSDictionary *)getFieldForTitle:(NSString *)title{
+//    NSLog(@"%@", self.post[@"completedFields"]);
+//    for (NSDictionary *field in self.post[@"completedFields"]){
+//        if ([field[@"field"] isEqualToString:title]){
+//            return field;
+//        }
+//    }
+//    return 0;
+//}
 
--(void)organizeTableForFields{
-    for (id field in self.existingFields){
-        
-        
-        if (!field[@"priority"]){
-            [field setObject:@(99) forKey:@"priority"];
-        }
-        
-        if ([field[@"dataType"] isEqualToString:@"geoPoint"]){
-            NSDictionary *mapCellDictionary;
-            for (id dictionary in self.existingFieldsForTable){
-                if ([dictionary[@"dataType"] isEqualToString:@"geoPoint"]){
-                    mapCellDictionary = dictionary;
-                }
-            }
-            if (!mapCellDictionary){
-                [self.existingFieldsForTable addObject:field];
-            }
-        } else if ([field[@"dataType"] isEqualToString:@"string"]){
-            [self.existingFieldsForTable addObject:field];
-        } else if ([field[@"dataType"] isEqualToString:@"image"]){
-            [self.existingFieldsForTable addObject:field];
-        } else if ([field[@"dataType"] isEqualToString:@"date"]){
-            [self.existingFieldsForTable addObject:field];
-        }
-    [self.existingFieldsForTable sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"priority" ascending:YES]]];
-    }
-}
 
--(UITableViewCell *)cellForField:(NSDictionary *)field {
-    
-    // This cell subclass covers any fields that do not have their own custom subclass.
-    NSString *className = NSStringFromClass([BasicInfoTableViewCell class]);
-    UINib *nib = [UINib nibWithNibName:className bundle:nil];
-    [self.tableView registerNib:nib forCellReuseIdentifier:className];
-    BasicInfoTableViewCell *basicInfoCell = [self.tableView dequeueReusableCellWithIdentifier:className];
-    
-    if ([field[@"dataType"] isEqualToString:@"geoPoint"]){
-        NSString *className = NSStringFromClass([PostMapTableViewCell class]);
-        UINib *nib = [UINib nibWithNibName:className bundle:nil];
-        [self.tableView registerNib:nib forCellReuseIdentifier:@"PostMapTableViewCell"];
-        PostMapTableViewCell *mapCell = [self.tableView dequeueReusableCellWithIdentifier:@"PostMapTableViewCell"];
-        [mapCell editButton];
-        [mapCell.editButton addTarget:self action:@selector(editButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
-        [mapCell setLocationsFromPost:self.post];
-        return mapCell;
-    } else if ([field[@"dataType"] isEqualToString:@"string"]){
-        if ([field[@"field"] isEqualToString:@"userDescription"]){
-            NSString *className = NSStringFromClass([PostDescriptionTableViewCell class]);
-            UINib *nib = [UINib nibWithNibName:className bundle:nil];
-            [self.tableView registerNib:nib forCellReuseIdentifier:className];
-            PostDescriptionTableViewCell *descriptionCell = [self.tableView dequeueReusableCellWithIdentifier:className];
-            [descriptionCell enableEditMode];
-            [descriptionCell.editDescriptionButton addTarget:self action:@selector(editButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
-            [descriptionCell setDescriptionTextViewForPost:self.post];
-            return descriptionCell;
-        } else if ([field[@"field"] isEqualToString:@"title"]){
-            NSString *className = NSStringFromClass([PostTitleTableViewCell class]);
-            UINib *nib = [UINib nibWithNibName:className bundle:nil];
-            [self.tableView registerNib:nib forCellReuseIdentifier:className];
-            PostTitleTableViewCell *titleCell = [self.tableView dequeueReusableCellWithIdentifier:className];
-            [titleCell setTitleforPost:self.post];
-            [titleCell enableEditMode];
-            [titleCell.editTitleButton addTarget:self action:@selector(editButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
-            return titleCell;
-        } else {
-            [basicInfoCell.fieldTitleLabel setText:[field[@"name"] capitalizedString]];
-            [basicInfoCell.dataLabel setText:self.post[field[@"field"]]];
-            [basicInfoCell enableEditMode];
-            [basicInfoCell.editButton addTarget:self action:@selector(editButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
-            return basicInfoCell;
-        }
-    } else if ([field[@"dataType"] isEqualToString:@"image"]){
-        NSString *className = NSStringFromClass([PhotoGalleryTableViewCell class]);
-        UINib *nib = [UINib nibWithNibName:className bundle:nil];
-        [self.tableView registerNib:nib forCellReuseIdentifier:className];
-        PhotoGalleryTableViewCell *photoCell = [self.tableView dequeueReusableCellWithIdentifier:className];
-        NSMutableArray *tempArray = [[NSMutableArray alloc] initWithCapacity:3];
-        for (id object in self.postingWorkflow.photosForDisplay){
-            if ([object isKindOfClass:[UIImage class]]){
-                [tempArray addObject:object];
-                NSLog(@"TEMP ARRAY %@", tempArray);
-            }
-        }
-        [photoCell setPhotoGalleryForImages:tempArray];
-        [photoCell setupPriceLabelForPost:self.post];
-        [photoCell enableEditMode];
-        photoCell.editPriceButton.tag = 1;
-        photoCell.editButton.tag = 2;
-        [photoCell.editPriceButton addTarget:self action:@selector(editButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
-        [photoCell.editButton addTarget:self action:@selector(editButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
-        
-        photoCell.dateLabel.hidden = YES;
-        
-        return photoCell;
-        
-    } else if ([field[@"dataType"] isEqualToString:@"date"]){
-        basicInfoCell.fieldTitleLabel.text = [field[@"name"] capitalizedString];
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"MM/dd/yyyy hh:mma"];
-        NSString *dateString = [dateFormatter stringFromDate:self.post[field[@"field"]]];
-        [basicInfoCell.dataLabel setText:dateString];
-        [basicInfoCell.editButton addTarget:self action:@selector(editButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
-        [basicInfoCell enableEditMode];
-        return basicInfoCell;
-    }
-    return 0;
-}
-
--(NSDictionary *)getFieldForTitle:(NSString *)title{
-    NSLog(@"%@", self.post[@"completedFields"]);
-    for (NSDictionary *field in self.post[@"completedFields"]){
-        if ([field[@"field"] isEqualToString:title]){
-            return field;
-        }
-    }
-    return 0;
-}
 
 @end

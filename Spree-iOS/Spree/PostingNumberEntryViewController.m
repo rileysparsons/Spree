@@ -7,82 +7,88 @@
 //
 
 #import "PostingNumberEntryViewController.h"
+#import "PostingInputAccessoryView.h"
 
 @interface PostingNumberEntryViewController (){
     NSNumber *maxCharacter;
 }
 
+@property PostingInputAccessoryView *accessoryView;
+
 @end
 
 @implementation PostingNumberEntryViewController
 
--(void)initWithField:(NSDictionary *)field post:(SpreePost *)post{
-    [super initWithField:field post:post];
-    if ([field[@"field"] isEqualToString:PF_POST_PRICE]){
-        self.symbolLabel.text = @"$";
-        if (field[@"maxCharacter"]) {
-            maxCharacter = field[@"maxCharacter"];
-        } else {
-            maxCharacter = [NSNumber numberWithInt:4];
-        }
-    }
-}
-
--(void)initWithField:(NSDictionary *)field postingWorkflow:(PostingWorkflow *)postingWorkflow{
-    [super initWithField:field postingWorkflow:postingWorkflow];
-    if ([field[@"field"] isEqualToString:PF_POST_PRICE]){
-        self.symbolLabel.text = @"$";
-        if (field[@"maxCharacter"]) {
-            maxCharacter = field[@"maxCharacter"];
-        } else {
-            maxCharacter = [NSNumber numberWithInt:4];
-        }
-    }
+-(void)bindToViewModel {
+    self.priceTextField.text = self.viewModel.enteredString;
+    RAC(self.viewModel, enteredString) = self.priceTextField.rac_textSignal;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Add a "textFieldDidChange" notification method to the text field control.
-    [self.priceTextField addTarget:self
-                  action:@selector(textFieldDidChange:)
-        forControlEvents:UIControlEventEditingChanged];
+
     [self formatPriceEntryView];
     self.priceTextField.delegate = self;
-    self.promptLabel.text = self.prompt;
-    [[self.navigationItem.rightBarButtonItems objectAtIndex:0] setEnabled:[self validatePrice:self.priceTextField.text]];
+    self.promptLabel.text = self.viewModel.prompt;
+    self.symbolLabel.text = @"$";
+    
+    [self bindToViewModel];
+    
+    [self navigationBarAppearance];
 }
+
+-(void)navigationBarAppearance{
+    self.cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 25, 25)];
+    self.cancelButton.backgroundColor = [UIColor clearColor];
+    [self.cancelButton setBackgroundImage:[UIImage imageNamed:@"cancelOffBlack"] forState:UIControlStateNormal];
+    [self.cancelButton setBackgroundImage:[UIImage imageNamed:@"cancelHighlight"] forState:UIControlStateHighlighted];
+    [self.cancelButton addTarget:self action:@selector(cancelWorkflow) forControlEvents:UIControlEventTouchUpInside];
+    [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:self.cancelButton]];
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.cancelButton];
+    
+    self.nextButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 40)];
+    self.nextButton.backgroundColor = [UIColor clearColor];
+    [self.nextButton setImage:[UIImage imageNamed:@"forwardNormal_Dark"] forState:UIControlStateNormal];
+    [self.nextButton setImage:[UIImage imageNamed:@"forwardHighlight_Dark"] forState:UIControlStateHighlighted];
+    self.nextButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    self.nextButton.enabled = NO;
+    self.nextButton.rac_command = self.viewModel.nextCommand;
+    UIBarButtonItem *nextBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.nextButton];
+    [self.navigationItem setRightBarButtonItems:@[nextBarButtonItem] animated:YES];
+    
+    UILabel *titleLabel=[[UILabel alloc] initWithFrame:CGRectMake(0,0, 150, 40)];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    // TODO: put client facing name into viewmodel
+    /*
+     titleLabel.text= [self.clientFacingName uppercaseString];
+     */
+    titleLabel.textColor=[UIColor spreeOffBlack];
+    titleLabel.font = [UIFont fontWithName:@"Lato-Regular" size: 15];
+    titleLabel.backgroundColor =[UIColor clearColor];
+    titleLabel.adjustsFontSizeToFitWidth=YES;
+    self.navigationItem.titleView=titleLabel;
+}
+
+-(void)cancelWorkflow{
+    [[[UIAlertView alloc] initWithTitle:@"Cancel Post" message:@"Are you sure you want to cancel this post? You are able to edit the post prior to publishing." delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:@"Confirm", nil] show];
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex ==  0){
+        [self.priceTextField resignFirstResponder];
+        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+    } else if (buttonIndex == 1){
+        [alertView dismissWithClickedButtonIndex:buttonIndex animated:YES];
+    }
+}
+
 
 -(void)formatPriceEntryView{
     self.priceEntryView.layer.borderWidth = 0.5f;
     self.priceEntryView.layer.borderColor = [[UIColor spreeOffBlack] CGColor];
     self.priceEntryView.layer.cornerRadius = 5.0f;
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
--(BOOL)validatePrice:(NSString *)price{
-    
-    NSLog(@"%lu", (unsigned long)price.length);
-    if (price && price.length > 0 && price.length <= [maxCharacter intValue]){
-        return YES;
-    } else {
-        return NO;
-    }
-}
-
-- (void)nextBarButtonItemTouched:(id)sender {
-    if ([self.fieldTitle isEqualToString: PF_POST_PRICE])
-        self.postingWorkflow.post[self.fieldTitle] = [self getNumberFromString:self.priceTextField.text];
-    else
-        self.postingWorkflow.post[self.fieldTitle] = self.priceTextField.text;
-    
-    self.postingWorkflow.step++;
-    [self.postingWorkflow.post[@"completedFields"] addObject:self.fieldDictionary];
-    UIViewController *nextViewController =[self.postingWorkflow nextViewController];
-    [self.navigationController pushViewController:nextViewController animated:YES];
 }
 
 - (NSNumber *)getNumberFromString:(NSString *)number{
@@ -93,16 +99,6 @@
     formatter.numberStyle = NSNumberFormatterNoStyle;
     NSNumber *formattedNumber = [formatter numberFromString:number];
     return formattedNumber;
-}
-
--(void)cancelWorkflow{
-    [super cancelWorkflow];
-    [self.priceTextField resignFirstResponder];
-}
-
--(void)textFieldDidChange: (id)sender{
-    [[self.navigationItem.rightBarButtonItems objectAtIndex:0] setEnabled:[self validatePrice:self.priceTextField.text]];
-
 }
 
 @end

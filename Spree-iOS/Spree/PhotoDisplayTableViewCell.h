@@ -7,10 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CEReactiveView.h"
 
-@interface PhotoDisplayTableViewCell : UITableViewCell
-
--(void)initWithImage:(UIImage *)image;
+@interface PhotoDisplayTableViewCell : UITableViewCell <CEReactiveView>
 
 @property (weak, nonatomic) IBOutlet UIImageView *cellImageView;
 @property (weak, nonatomic) IBOutlet UIButton *deleteButton;

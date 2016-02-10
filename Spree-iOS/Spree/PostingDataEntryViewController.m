@@ -22,7 +22,7 @@
     self.post = post;
 }
 
--(void)initWithField:(NSDictionary *)field postingWorkflow:(PostingWorkflow *)postingWorkflow{
+-(void)initWithField:(NSDictionary *)field postingWorkflow:(PostingWorkflowViewModel *)postingWorkflow{
     self.presentedWithinWorkflow = YES;
     self.prompt = field[@"prompt"];
     self.fieldDictionary = field;
@@ -53,8 +53,6 @@
     [self.cancelButton addTarget:self action:@selector(cancelWorkflow) forControlEvents:UIControlEventTouchUpInside];
     [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:self.cancelButton]];
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.cancelButton];
-    
     self.nextButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 40)];
     self.nextButton.backgroundColor = [UIColor clearColor];
     [self.nextButton setImage:[UIImage imageNamed:@"forwardNormal_Dark"] forState:UIControlStateNormal];
@@ -66,7 +64,7 @@
 }
 
 -(void)cancelWorkflow{
-    [[[UIAlertView alloc] initWithTitle:@"Cancel Post" message:@"Are you sure you want to cancel this post? You are able to edit the post prior to publishing." delegate:self cancelButtonTitle:@"Yes" otherButtonTitles:@"Return to Post", nil] show];
+    [[[UIAlertView alloc] initWithTitle:@"Cancel Post" message:@"Are you sure you want to cancel this post? You are able to edit the post prior to publishing." delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:@"Confirm", nil] show];
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{

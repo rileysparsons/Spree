@@ -291,8 +291,7 @@
         [self.tableView registerNib:nib forCellReuseIdentifier:className];
         PhotoGalleryTableViewCell *photoCell = [self.tableView dequeueReusableCellWithIdentifier:className];
         [photoCell setupPriceLabelForPost:self.post];
-        
-        [self loadPostImagesForCell:photoCell];
+        [photoCell bindViewModel:self.post[field[@"field"]]];
         return photoCell;
     } else if ([field[@"dataType"] isEqualToString:@"date"]){
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -328,17 +327,17 @@
 
 -(UITableViewCell *)loadPostImagesForCell:(PhotoGalleryTableViewCell *)cell{
     if (self.post.photoArray.count != 0){
-        NSMutableArray *tempPhotoArray = [[NSMutableArray alloc] initWithCapacity:3];
+        NSMutableArray *dataForPhotos = [[NSMutableArray alloc] initWithCapacity:3];
         for (PFFile *imageFile in self.post.photoArray){
             [imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
                 if (!error) {
                     UIImage *image = [UIImage imageWithData:data];
-                    [tempPhotoArray addObject:image];
-                    [cell setPhotoGalleryForImages:tempPhotoArray];
+                    [dataForPhotos addObject:image];
                     // image can now be set on a UIImageView
                 }
             }];
         }
+        [cell bindViewModel:dataForPhotos];
     }
     return 0;
 }
@@ -392,6 +391,7 @@
 }
 
 -(void)userControlButtonTouched{
+    /*
     UIAlertController *userControl = [UIAlertController alertControllerWithTitle:@"Edit your post" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     UIAlertAction* cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
                                                           handler:^(UIAlertAction * action) {
@@ -429,6 +429,7 @@
     [userControl addAction:itemSold];
     [userControl addAction:editItem];
     [self presentViewController:userControl animated:YES completion:nil];
+     */
 }
 
 -(void)updatePostStatus{

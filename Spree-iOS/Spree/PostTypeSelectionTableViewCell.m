@@ -12,19 +12,14 @@
 
 @implementation PostTypeSelectionTableViewCell
 
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-    // Configure the view for the selected state
-}
-
 -(void)awakeFromNib{
     self.iconBackground.backgroundColor = [UIColor spreeDarkBlue];
     [self circularMaskForView:self.iconBackground];
 }
 
--(void)initWithPostType:(PFObject *)type{
+-(void)bindViewModel:(id)viewModel{
     
+    PFObject* type = (PFObject*)viewModel;
     self.typeLabel.text = type[@"type"];
     
     if ([type[@"type"] isEqualToString:POST_TYPE_ACCESSORIES]){
@@ -50,6 +45,7 @@
     } else if ([type[@"type"] isEqualToString:POST_TYPE_BOOKS]){
         [self.typeImage setImage:[UIImage imageNamed:@"booksThumbnail"]];
     }
+    
 }
 
 -(void)circularMaskForView:(UIView *)view{
