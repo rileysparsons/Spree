@@ -14,22 +14,22 @@
 
 @implementation PostingDateEntryViewController
 
-
--(void)initWithField:(NSDictionary *)field post:(SpreePost *)post{
-    [super initWithField:field post:post];
-    
-}
-
--(void)initWithField:(NSDictionary *)field postingWorkflow:(PostingWorkflow *)postingWorkflow{
-    [super initWithField:field postingWorkflow:postingWorkflow];
-    
-}
-
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self setupPicker];
+    [self bindViewModel];
+}
+
+-(void)bindViewModel{
+    if (self.viewModel.enteredDate != nil) self.datePicker.date = self.viewModel.enteredDate;
+    RAC(self.viewModel, enteredDate) = RACObserve(self.datePicker, date);
+    @weakify(self)
+    self.nextButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        @strongify(self)
+        self.viewModel.enteredDate = self.datePicker.date;
+        return [self.viewModel.nextCommand execute:nil];
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -40,19 +40,10 @@
 -(void)setupPicker{
     self.datePicker.datePickerMode = UIDatePickerModeDateAndTime;
     NSDate *date = [NSDate date];
+    self.datePicker.minimumDate = date;
     [self.datePicker setDate:date];
 }
 
--(void)nextBarButtonItemTouched:(id)sender{
 
-    if (self.presentedWithinWorkflow){
-        self.postingWorkflow.post[self.fieldTitle] = self.datePicker.date;
-        [self.postingWorkflow.post[@"completedFields"] addObject:self.fieldDictionary];
-        self.postingWorkflow.step++;
-        
-        UIViewController *nextViewController =[self.postingWorkflow nextViewController];
-        [self.navigationController pushViewController:nextViewController animated:YES];
-    }
-}
 
 @end

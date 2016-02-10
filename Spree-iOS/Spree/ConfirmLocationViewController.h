@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PostingWorkflow.h"
+#import "PostingWorkflowViewModel.h"
 
 @interface ConfirmLocationViewController : UIViewController
 
@@ -15,6 +15,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *addressLabel;
 @property (weak, nonatomic) IBOutlet UIButton *cancelButton;
 @property (weak, nonatomic) IBOutlet UIButton *acceptButton;
-@property (strong, nonatomic) PostingWorkflow *postingWorkflow;
+@property (strong, nonatomic) PostingWorkflowViewModel *postingWorkflow;
 
 @end

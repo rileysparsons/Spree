@@ -13,5 +13,6 @@
 @interface SpreeViewModelServicesImpl : NSObject <SpreeViewModelServices>
 
 -(instancetype)init;
+-(instancetype)initWithNavigationController:(UINavigationController *)navigationController;
 
 @end

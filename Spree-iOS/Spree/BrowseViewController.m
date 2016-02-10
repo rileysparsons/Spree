@@ -12,6 +12,7 @@
 #import "SpreeSprintTableViewCell.h"
 #import "SelectPostTypeViewController.h"
 #import "SpreeViewModelServicesImpl.h"
+#import "BasePostingViewController.h"
 #import "SpreePost.h"
 
 @interface BrowseViewController () {
@@ -436,15 +437,15 @@
 
 
 - (IBAction)newPostButtonPressed:(id)sender {
-//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-//    NewPostViewController *newPostViewController = [storyboard instantiateViewControllerWithIdentifier:@"NewPostViewController"];
-//    [self.navigationController presentViewController:newPostViewController animated:YES completion:nil];
+    SpreeViewModelServicesImpl *viewModelServices = [[SpreeViewModelServicesImpl alloc] init];
+    NSLog(@"%@", viewModelServices);
+    PostingWorkflowViewModel *postingWorkflowViewModel = [[PostingWorkflowViewModel alloc] initWithServices:viewModelServices];
+    NSLog(@"%@", postingWorkflowViewModel);
+    BasePostingViewController *basePostingViewController = [[BasePostingViewController alloc] initWithViewModel:postingWorkflowViewModel];
+    NSLog(@"%@", basePostingViewController);
+    UINavigationController *postingWorkflowNavigationController = [[UINavigationController alloc] initWithRootViewController:basePostingViewController];
     
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewPost" bundle:nil];
-    SelectPostTypeViewController *selectPostTypeViewController = [storyboard instantiateViewControllerWithIdentifier:@"SelectPostTypeViewController"];
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController: selectPostTypeViewController];
-    
-    [self.navigationController presentViewController:navigationController animated:YES completion:nil];
+    [self.navigationController presentViewController:postingWorkflowNavigationController animated:YES completion:nil];
 }
 
 

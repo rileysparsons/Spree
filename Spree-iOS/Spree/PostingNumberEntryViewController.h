@@ -8,10 +8,17 @@
 
 #import <UIKit/UIKit.h>
 #import "PostingDataEntryViewController.h"
+#import "PostingNumberEntryViewModel.h"
 
-@interface PostingNumberEntryViewController : PostingDataEntryViewController <UITextFieldDelegate>
+@interface PostingNumberEntryViewController : UIViewController <UITextFieldDelegate>
+
+
+@property UIButton *nextButton;
+@property UIButton *cancelButton;
 
 @property (weak, nonatomic) IBOutlet UILabel *symbolLabel;
+
+@property PostingNumberEntryViewModel *viewModel;
 
 @property (weak, nonatomic) IBOutlet UITextField *priceTextField;
 @property (weak, nonatomic) IBOutlet UIView *priceEntryView;

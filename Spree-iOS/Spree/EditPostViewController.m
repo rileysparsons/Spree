@@ -17,7 +17,7 @@
 @end
 
 @implementation EditPostViewController
-
+/*
 -(void)initWithPost:(SpreePost *)post{
     [super initWithPost:post];
 }
@@ -140,4 +140,5 @@
     return 0;
 }
 
+*/
 @end

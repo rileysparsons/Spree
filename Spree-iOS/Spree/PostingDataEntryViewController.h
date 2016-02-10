@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PostingWorkflow.h"
+#import "PostingWorkflowViewModel.h"
 
 @interface PostingDataEntryViewController : UIViewController <UIAlertViewDelegate>
 
 @property SpreePost *post;
-@property PostingWorkflow *postingWorkflow;
+@property PostingWorkflowViewModel *postingWorkflow;
 @property NSString *fieldTitle;
 @property NSDictionary *fieldDictionary;
 @property UIButton *cancelButton;
@@ -25,7 +25,7 @@
 - (void)nextBarButtonItemTouched:(id)sender;
 - (void)cancelWorkflow;
 
-- (void)initWithField:(NSDictionary *)field postingWorkflow:(PostingWorkflow *)postingWorkflow;
+- (void)initWithField:(NSDictionary *)field postingWorkflow:(PostingWorkflowViewModel *)postingWorkflow;
 - (void)initWithField:(NSDictionary *)field post:(SpreePost *)post;
 
 @end
