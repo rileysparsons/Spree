@@ -33,7 +33,6 @@
 		140CF92D1A3FBF0300134C4D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 140CF92C1A3FBF0300134C4D /* UIKit.framework */; };
 		140CF92F1A3FBF0D00134C4D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 140CF92E1A3FBF0D00134C4D /* Foundation.framework */; };
 		140CF9311A3FBF1600134C4D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 140CF9301A3FBF1600134C4D /* CoreGraphics.framework */; };
-		1415244F1B406B55007EE405 /* PostTypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1415244E1B406B55007EE405 /* PostTypeViewController.m */; };
 		141524561B4070E5007EE405 /* PostTypeSelectionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 141524541B4070E5007EE405 /* PostTypeSelectionTableViewCell.m */; };
 		141524571B4070E5007EE405 /* PostTypeSelectionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 141524551B4070E5007EE405 /* PostTypeSelectionTableViewCell.xib */; };
 		1415245A1B4076BE007EE405 /* SelectPostTypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 141524591B4076BE007EE405 /* SelectPostTypeViewController.m */; };
@@ -157,7 +156,6 @@
 		4E0E820B1B40DE1800E18975 /* leftarrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E0E820A1B40DE1800E18975 /* leftarrow@2x.png */; };
 		4E9275151B91400E0082B8A0 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9275141B91400E0082B8A0 /* MessageUI.framework */; };
 		4ECA453F1B48E0EB006C33FC /* ContactUsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ECA453E1B48E0EB006C33FC /* ContactUsViewController.m */; };
-		4EFD06E81BA1528700947AD6 /* ReferralViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EFD06E71BA1528700947AD6 /* ReferralViewController.m */; };
 		CFFEE9291B0487BF002CD29A /* MeetUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFFEE9281B0487BF002CD29A /* MeetUpViewController.m */; };
 		F70FACF51AEB501700057E6E /* converter.m in Sources */ = {isa = PBXBuildFile; fileRef = F70FACF41AEB501700057E6E /* converter.m */; };
 		F72B2D031AE64A2D00F9A845 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F72B2D021AE64A2D00F9A845 /* Social.framework */; };
@@ -241,8 +239,6 @@
 		140CF92C1A3FBF0300134C4D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		140CF92E1A3FBF0D00134C4D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		140CF9301A3FBF1600134C4D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		1415244D1B406B55007EE405 /* PostTypeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostTypeViewController.h; sourceTree = "<group>"; };
-		1415244E1B406B55007EE405 /* PostTypeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostTypeViewController.m; sourceTree = "<group>"; };
 		141524531B4070E5007EE405 /* PostTypeSelectionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostTypeSelectionTableViewCell.h; sourceTree = "<group>"; };
 		141524541B4070E5007EE405 /* PostTypeSelectionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostTypeSelectionTableViewCell.m; sourceTree = "<group>"; };
 		141524551B4070E5007EE405 /* PostTypeSelectionTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostTypeSelectionTableViewCell.xib; sourceTree = "<group>"; };
@@ -446,8 +442,6 @@
 		4E9275141B91400E0082B8A0 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		4ECA453D1B48E0EB006C33FC /* ContactUsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactUsViewController.h; sourceTree = "<group>"; };
 		4ECA453E1B48E0EB006C33FC /* ContactUsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactUsViewController.m; sourceTree = "<group>"; };
-		4EFD06E61BA1528700947AD6 /* ReferralViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReferralViewController.h; sourceTree = "<group>"; };
-		4EFD06E71BA1528700947AD6 /* ReferralViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReferralViewController.m; sourceTree = "<group>"; };
 		A7F573D62D839D22544FF614 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		B945B740BECA3D7D67B99CD6 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFFEE9271B0487BF002CD29A /* MeetUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeetUpViewController.h; sourceTree = "<group>"; };
@@ -543,30 +537,24 @@
 		140CF8D51A3BBFB200134C4D /* Spree */ = {
 			isa = PBXGroup;
 			children = (
-				14EB19061C55936A00EE5A69 /* PostingStringEntryViewModel.h */,
-				14EB19071C55936A00EE5A69 /* PostingStringEntryViewModel.m */,
-				14EB18FE1C51B85300EE5A69 /* SelectPostSubTypeViewModel.h */,
-				14EB18FF1C51B85300EE5A69 /* SelectPostSubTypeViewModel.m */,
-				14EB190C1C5D485C00EE5A69 /* PostingPhotoEntryViewModel.h */,
-				14EB190D1C5D485C00EE5A69 /* PostingPhotoEntryViewModel.m */,
-				14EB18FB1C50B74600EE5A69 /* SelectPostTypeViewModel.h */,
-				14EB18FC1C50B74600EE5A69 /* SelectPostTypeViewModel.m */,
-				14EB18F81C50B02B00EE5A69 /* BasePostingViewController.h */,
-				14EB18F91C50B02B00EE5A69 /* BasePostingViewController.m */,
 				140CF8DA1A3BBFB200134C4D /* AppDelegate.h */,
 				140CF8DB1A3BBFB200134C4D /* AppDelegate.m */,
+				1415FD801A4FB5D3006E99A6 /* Post ViewControllers */,
+				145651331C6C404900B5DF93 /* Views */,
+				145651101C6C3D0700B5DF93 /* View Models/View Controllers */,
 				14C763AC1C233D48005899F9 /* View Model */,
 				14C763AD1C233D4D005899F9 /* View Controllers */,
 				14C763AE1C233D5F005899F9 /* Model */,
+				F7AFBB431AF4CC2B00D3148B /* Rating System */,
+				14A4C9991BA74B8600C6C2E3 /* PostPaymentViewController.h */,
+				14A4C99A1BA74B8600C6C2E3 /* PostPaymentViewController.m */,
+				CFFEE9281B0487BF002CD29A /* MeetUpViewController.m */,
+				CFFEE9271B0487BF002CD29A /* MeetUpViewController.h */,
 				145B0ABE1B9F8027002FD94E /* SpreeUtility.h */,
 				145B0ABF1B9F8027002FD94E /* SpreeUtility.m */,
 				14423CE61B9006BC002CB026 /* SpreeConfigManager.h */,
 				14423CE71B9006BC002CB026 /* SpreeConfigManager.m */,
-				140CF91A1A3F755B00134C4D /* ViewControllers */,
-				144D55771B4E11A40003B752 /* Resources */,
-				143D91D51B6D70A400E2F493 /* Custom Views */,
-				140CF8E31A3BBFB200134C4D /* Main.storyboard */,
-				143D91F01B6E717D00E2F493 /* Walkthrough.storyboard */,
+				144D55771B4E11A40003B752 /* Third Party Resources */,
 				140CF8E81A3BBFB200134C4D /* LaunchScreen.xib */,
 				F7715E9C1AEC24E4005DDEFF /* Categories */,
 				14C821431B2CF9DB00A1B513 /* Parse Subclasses */,
@@ -648,133 +636,14 @@
 			name = TableViewCells;
 			sourceTree = "<group>";
 		};
-		140CF91A1A3F755B00134C4D /* ViewControllers */ = {
-			isa = PBXGroup;
-			children = (
-				14839F5D1C2F797E00ED5320 /* ConfirmLocationViewController.h */,
-				14839F5E1C2F797E00ED5320 /* ConfirmLocationViewController.m */,
-				14A4C9991BA74B8600C6C2E3 /* PostPaymentViewController.h */,
-				14A4C99A1BA74B8600C6C2E3 /* PostPaymentViewController.m */,
-				14CE47221B6AF41E004FA4D1 /* MainPostTableViewController.h */,
-				14CE47231B6AF41E004FA4D1 /* MainPostTableViewController.m */,
-				140CF8E01A3BBFB200134C4D /* MeViewController.h */,
-				140CF8E11A3BBFB200134C4D /* MeViewController.m */,
-				14F739BD1B783D4800E60619 /* SettingsViewController.h */,
-				14F739BE1B783D4800E60619 /* SettingsViewController.m */,
-				4ECA453D1B48E0EB006C33FC /* ContactUsViewController.h */,
-				4ECA453E1B48E0EB006C33FC /* ContactUsViewController.m */,
-				14C8214B1B2FE36C00A1B513 /* ProfileViewController.h */,
-				14C8214C1B2FE36C00A1B513 /* ProfileViewController.m */,
-				CFFEE9281B0487BF002CD29A /* MeetUpViewController.m */,
-				CFFEE9271B0487BF002CD29A /* MeetUpViewController.h */,
-				1491BBA21B336F38004F43CA /* ResultsTableViewController.h */,
-				1491BBA31B336F38004F43CA /* ResultsTableViewController.m */,
-				4EFD06E61BA1528700947AD6 /* ReferralViewController.h */,
-				4EFD06E71BA1528700947AD6 /* ReferralViewController.m */,
-				1415244D1B406B55007EE405 /* PostTypeViewController.h */,
-				1415244E1B406B55007EE405 /* PostTypeViewController.m */,
-				14EFDAE51A89EC4F007510CC /* TextViewViewController.h */,
-				14EFDAE61A89EC4F007510CC /* TextViewViewController.m */,
-				F7AFBB431AF4CC2B00D3148B /* Rating */,
-				144D55541B409C060003B752 /* Posting Workflow */,
-				1415FD801A4FB5D3006E99A6 /* Post ViewControllers */,
-				F70FACF21AEB4FF200057E6E /* Messaging */,
-			);
-			name = ViewControllers;
-			sourceTree = "<group>";
-		};
 		1415FD801A4FB5D3006E99A6 /* Post ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				140CF8DD1A3BBFB200134C4D /* BrowseViewController.h */,
-				140CF8DE1A3BBFB200134C4D /* BrowseViewController.m */,
-				14C38D941B27AE0B0039862E /* Post Detail */,
 			);
 			name = "Post ViewControllers";
 			sourceTree = "<group>";
 		};
-		143D91D51B6D70A400E2F493 /* Custom Views */ = {
-			isa = PBXGroup;
-			children = (
-				145B0AB91B9F6999002FD94E /* ChatPostHeader.h */,
-				145B0ABA1B9F6999002FD94E /* ChatPostHeader.m */,
-				145B0ABC1B9F6A0B002FD94E /* ChatPostHeader.xib */,
-				14423CC91B8D9A08002CB026 /* SinglePhotoPostShareView.h */,
-				14423CCC1B8D9AC9002CB026 /* SinglePhotoPostShareView.xib */,
-				14423CD61B8E9AC5002CB026 /* TriplePhotoPostShareView.h */,
-				14423CD71B8E9AC5002CB026 /* TriplePhotoPostShareView.m */,
-				14423CD91B8E9AD0002CB026 /* TriplePhotoPostShareView.xib */,
-				14423CCA1B8D9A08002CB026 /* SinglePhotoPostShareView.m */,
-				14423CCE1B8E7856002CB026 /* DoublePhotoPostShareView.xib */,
-				14423CD01B8E786B002CB026 /* DoublePhotoPostShareView.h */,
-				14423CD11B8E786B002CB026 /* DoublePhotoPostShareView.m */,
-				14423CD31B8E8F68002CB026 /* PostShareView.h */,
-				14423CD41B8E8F68002CB026 /* PostShareView.m */,
-				140CF9041A3E0F9600134C4D /* TableViewCells */,
-				14CAB3C11B59539A0081979C /* PhotoSelectFooterView.h */,
-				14CAB3C21B59539A0081979C /* PhotoSelectFooterView.m */,
-				14AB0EC01B82C2A100BD06EB /* PostingInputAccessoryView.xib */,
-				14AB0EBD1B82C25D00BD06EB /* PostingInputAccessoryView.h */,
-				14AB0EBE1B82C25D00BD06EB /* PostingInputAccessoryView.m */,
-				14CAB3C41B5953D40081979C /* PhotoSelectFooterView.xib */,
-				144D55611B4D66F40003B752 /* SelectPostTypeHeaderView.xib */,
-				142CB0501B51B76800969066 /* SelectPostTypeHeaderView.h */,
-				142CB0511B51B76800969066 /* SelectPostTypeHeaderView.m */,
-				142CB0591B5236D400969066 /* AddPhotoHeaderView.xib */,
-				142CB05B1B5236F500969066 /* AddPhotoHeaderView.h */,
-				142CB05C1B5236F500969066 /* AddPhotoHeaderView.m */,
-				143D91D01B6BBB1F00E2F493 /* HeaderSlideView.h */,
-				143D91D11B6BBB1F00E2F493 /* HeaderSlideView.m */,
-				143D91D31B6BBB3F00E2F493 /* HeaderSlideView.xib */,
-				14CE471D1B6AF02A004FA4D1 /* HomeHeaderView.h */,
-				14CE471E1B6AF02A004FA4D1 /* HomeHeaderView.m */,
-				14CE47201B6AF040004FA4D1 /* HomeHeaderView.xib */,
-			);
-			name = "Custom Views";
-			sourceTree = "<group>";
-		};
-		144D55541B409C060003B752 /* Posting Workflow */ = {
-			isa = PBXGroup;
-			children = (
-				14423CE01B8FDCF9002CB026 /* EditPostingDateEntryViewController.h */,
-				14423CE11B8FDCF9002CB026 /* EditPostingDateEntryViewController.m */,
-				144D55551B40A5490003B752 /* PostingWorkflowViewModel.h */,
-				144D55561B40A5490003B752 /* PostingWorkflowViewModel.m */,
-				140A1C781C685645003614CC /* PostingDateEntryViewModel.h */,
-				140A1C791C685645003614CC /* PostingDateEntryViewModel.m */,
-				142CB0561B52351400969066 /* PostingPhotoEntryViewController.h */,
-				142CB0571B52351400969066 /* PostingPhotoEntryViewController.m */,
-				14CAB3D51B5C685D0081979C /* EditPostPhotoSelectViewController.h */,
-				14CAB3D61B5C685D0081979C /* EditPostPhotoSelectViewController.m */,
-				1415245B1B4084D2007EE405 /* PostingStringEntryViewController.h */,
-				1415245C1B4084D2007EE405 /* PostingStringEntryViewController.m */,
-				14CAB3CB1B5C4DF20081979C /* EditPostFieldViewController.h */,
-				14CAB3CE1B5C52580081979C /* EditPostFieldViewController.m */,
-				141524581B4076BE007EE405 /* SelectPostTypeViewController.h */,
-				141524591B4076BE007EE405 /* SelectPostTypeViewController.m */,
-				142CB04D1B51A0C900969066 /* SelectPostSubTypeViewController.h */,
-				142CB04E1B51A0C900969066 /* SelectPostSubTypeViewController.m */,
-				14EB19041C51F62900EE5A69 /* PostSubTypeSelectionTableViewCell.xib */,
-				142CB0531B51D31A00969066 /* PreviewPostViewController.h */,
-				141AECB91B8A886E00F0012B /* PreviewPostViewController.m */,
-				140A1C751C67C3C6003614CC /* PreviewPostViewModel.h */,
-				140A1C761C67C3C6003614CC /* PreviewPostViewModel.m */,
-				1415245E1B4086AA007EE405 /* NewPost.storyboard */,
-				14423CDD1B8FCD64002CB026 /* EditPostingNumberEntryViewController.h */,
-				14423CDE1B8FCD64002CB026 /* EditPostingNumberEntryViewController.m */,
-				14AB0EC21B84CA8900BD06EB /* PostingNumberEntryViewController.h */,
-				14AB0EC51B87F63300BD06EB /* PostingDataEntryViewController.h */,
-				14AB0EC61B87F63300BD06EB /* PostingDataEntryViewController.m */,
-				14AB0EC31B84CA8900BD06EB /* PostingNumberEntryViewController.m */,
-				14EB19091C5760EE00EE5A69 /* PostingNumberEntryViewModel.h */,
-				14EB190A1C5760EE00EE5A69 /* PostingNumberEntryViewModel.m */,
-				141AECBB1B8BCF6000F0012B /* PostingDateEntryViewController.h */,
-				141AECBC1B8BCF6000F0012B /* PostingDateEntryViewController.m */,
-			);
-			name = "Posting Workflow";
-			sourceTree = "<group>";
-		};
-		144D55771B4E11A40003B752 /* Resources */ = {
+		144D55771B4E11A40003B752 /* Third Party Resources */ = {
 			isa = PBXGroup;
 			children = (
 				1456510B1C69B4A000B5DF93 /* Emoji String */,
@@ -782,7 +651,7 @@
 				14839F541C2B2F3A00ED5320 /* TableView Binding Helpers */,
 				144D55781B4E11AF0003B752 /* Lato */,
 			);
-			name = Resources;
+			name = "Third Party Resources";
 			sourceTree = "<group>";
 		};
 		144D55781B4E11AF0003B752 /* Lato */ = {
@@ -809,6 +678,477 @@
 				145651091C69B49B00B5DF93 /* NSString+Emoji.h */,
 			);
 			name = "Emoji String";
+			sourceTree = "<group>";
+		};
+		145651101C6C3D0700B5DF93 /* View Models/View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				145651321C6C403800B5DF93 /* Core Functionalities */,
+				145651171C6C3DA600B5DF93 /* Login Workflow */,
+				145651121C6C3D4B00B5DF93 /* New Post Workflow */,
+			);
+			name = "View Models/View Controllers";
+			sourceTree = "<group>";
+		};
+		145651111C6C3D4100B5DF93 /* String Entry */ = {
+			isa = PBXGroup;
+			children = (
+				1456512E1C6C3FE900B5DF93 /* Edit View Controller */,
+				1456512F1C6C3FF100B5DF93 /* View Controller */,
+				145651301C6C3FFC00B5DF93 /* View Model */,
+			);
+			name = "String Entry";
+			sourceTree = "<group>";
+		};
+		145651121C6C3D4B00B5DF93 /* New Post Workflow */ = {
+			isa = PBXGroup;
+			children = (
+				145651161C6C3D8C00B5DF93 /* Base View Controller */,
+				1456511D1C6C3F1500B5DF93 /* Data Entry View Superclass */,
+				1456511B1C6C3ED700B5DF93 /* Preview New Post */,
+				1456511A1C6C3E6400B5DF93 /* Underlying View Model */,
+				145651311C6C402600B5DF93 /* Data Entry Subclasses */,
+			);
+			name = "New Post Workflow";
+			sourceTree = "<group>";
+		};
+		145651131C6C3D5E00B5DF93 /* Photo Entry */ = {
+			isa = PBXGroup;
+			children = (
+				1456512B1C6C3FCA00B5DF93 /* Edit View Controller */,
+				1456512C1C6C3FD100B5DF93 /* View Controller */,
+				1456512D1C6C3FDD00B5DF93 /* View Model */,
+			);
+			name = "Photo Entry";
+			sourceTree = "<group>";
+		};
+		145651141C6C3D6F00B5DF93 /* Subtype Selection */ = {
+			isa = PBXGroup;
+			children = (
+				145651231C6C3F7400B5DF93 /* View Model */,
+				145651241C6C3F7A00B5DF93 /* View Controller */,
+			);
+			name = "Subtype Selection";
+			sourceTree = "<group>";
+		};
+		145651151C6C3D7700B5DF93 /* Type Selection */ = {
+			isa = PBXGroup;
+			children = (
+				145651221C6C3F6E00B5DF93 /* View Controller */,
+				145651211C6C3F5D00B5DF93 /* View Model */,
+			);
+			name = "Type Selection";
+			sourceTree = "<group>";
+		};
+		145651161C6C3D8C00B5DF93 /* Base View Controller */ = {
+			isa = PBXGroup;
+			children = (
+				14EB18F81C50B02B00EE5A69 /* BasePostingViewController.h */,
+				14EB18F91C50B02B00EE5A69 /* BasePostingViewController.m */,
+			);
+			name = "Base View Controller";
+			sourceTree = "<group>";
+		};
+		145651171C6C3DA600B5DF93 /* Login Workflow */ = {
+			isa = PBXGroup;
+			children = (
+				143D91D91B6DF7D900E2F493 /* LoginViewController.h */,
+				143D91DA1B6DF7D900E2F493 /* LoginViewController.m */,
+				145820AA1C1CE7830092F9D4 /* LoginViewModel.h */,
+				145820AB1C1CE7830092F9D4 /* LoginViewModel.m */,
+			);
+			name = "Login Workflow";
+			sourceTree = "<group>";
+		};
+		145651181C6C3DE200B5DF93 /* Date Entry */ = {
+			isa = PBXGroup;
+			children = (
+				145651261C6C3F9300B5DF93 /* View Model */,
+				145651191C6C3E0800B5DF93 /* Edit Views */,
+				145651271C6C3F9800B5DF93 /* View Controller */,
+			);
+			name = "Date Entry";
+			sourceTree = "<group>";
+		};
+		145651191C6C3E0800B5DF93 /* Edit Views */ = {
+			isa = PBXGroup;
+			children = (
+				14423CE01B8FDCF9002CB026 /* EditPostingDateEntryViewController.h */,
+				14423CE11B8FDCF9002CB026 /* EditPostingDateEntryViewController.m */,
+			);
+			name = "Edit Views";
+			sourceTree = "<group>";
+		};
+		1456511A1C6C3E6400B5DF93 /* Underlying View Model */ = {
+			isa = PBXGroup;
+			children = (
+				145651281C6C3FA100B5DF93 /* View Model */,
+			);
+			name = "Underlying View Model";
+			sourceTree = "<group>";
+		};
+		1456511B1C6C3ED700B5DF93 /* Preview New Post */ = {
+			isa = PBXGroup;
+			children = (
+				1456511F1C6C3F4D00B5DF93 /* View Model */,
+				145651201C6C3F5500B5DF93 /* View Controllers */,
+			);
+			name = "Preview New Post";
+			sourceTree = "<group>";
+		};
+		1456511C1C6C3F0100B5DF93 /* Number Entry */ = {
+			isa = PBXGroup;
+			children = (
+				145651291C6C3FAC00B5DF93 /* View Controller */,
+				1456511E1C6C3F4000B5DF93 /* Edit View Controller */,
+				1456512A1C6C3FB900B5DF93 /* View Model */,
+			);
+			name = "Number Entry";
+			sourceTree = "<group>";
+		};
+		1456511D1C6C3F1500B5DF93 /* Data Entry View Superclass */ = {
+			isa = PBXGroup;
+			children = (
+				14AB0EC51B87F63300BD06EB /* PostingDataEntryViewController.h */,
+				14AB0EC61B87F63300BD06EB /* PostingDataEntryViewController.m */,
+			);
+			name = "Data Entry View Superclass";
+			sourceTree = "<group>";
+		};
+		1456511E1C6C3F4000B5DF93 /* Edit View Controller */ = {
+			isa = PBXGroup;
+			children = (
+				14423CDD1B8FCD64002CB026 /* EditPostingNumberEntryViewController.h */,
+				14423CDE1B8FCD64002CB026 /* EditPostingNumberEntryViewController.m */,
+			);
+			name = "Edit View Controller";
+			sourceTree = "<group>";
+		};
+		1456511F1C6C3F4D00B5DF93 /* View Model */ = {
+			isa = PBXGroup;
+			children = (
+				140A1C751C67C3C6003614CC /* PreviewPostViewModel.h */,
+				140A1C761C67C3C6003614CC /* PreviewPostViewModel.m */,
+			);
+			name = "View Model";
+			sourceTree = "<group>";
+		};
+		145651201C6C3F5500B5DF93 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				14839F5D1C2F797E00ED5320 /* ConfirmLocationViewController.h */,
+				14839F5E1C2F797E00ED5320 /* ConfirmLocationViewController.m */,
+				142CB0531B51D31A00969066 /* PreviewPostViewController.h */,
+				141AECB91B8A886E00F0012B /* PreviewPostViewController.m */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		145651211C6C3F5D00B5DF93 /* View Model */ = {
+			isa = PBXGroup;
+			children = (
+				14EB18FB1C50B74600EE5A69 /* SelectPostTypeViewModel.h */,
+				14EB18FC1C50B74600EE5A69 /* SelectPostTypeViewModel.m */,
+			);
+			name = "View Model";
+			sourceTree = "<group>";
+		};
+		145651221C6C3F6E00B5DF93 /* View Controller */ = {
+			isa = PBXGroup;
+			children = (
+				141524581B4076BE007EE405 /* SelectPostTypeViewController.h */,
+				141524591B4076BE007EE405 /* SelectPostTypeViewController.m */,
+			);
+			name = "View Controller";
+			sourceTree = "<group>";
+		};
+		145651231C6C3F7400B5DF93 /* View Model */ = {
+			isa = PBXGroup;
+			children = (
+				14EB18FE1C51B85300EE5A69 /* SelectPostSubTypeViewModel.h */,
+				14EB18FF1C51B85300EE5A69 /* SelectPostSubTypeViewModel.m */,
+			);
+			name = "View Model";
+			sourceTree = "<group>";
+		};
+		145651241C6C3F7A00B5DF93 /* View Controller */ = {
+			isa = PBXGroup;
+			children = (
+				142CB04D1B51A0C900969066 /* SelectPostSubTypeViewController.h */,
+				142CB04E1B51A0C900969066 /* SelectPostSubTypeViewController.m */,
+			);
+			name = "View Controller";
+			sourceTree = "<group>";
+		};
+		145651261C6C3F9300B5DF93 /* View Model */ = {
+			isa = PBXGroup;
+			children = (
+				140A1C781C685645003614CC /* PostingDateEntryViewModel.h */,
+				140A1C791C685645003614CC /* PostingDateEntryViewModel.m */,
+			);
+			name = "View Model";
+			sourceTree = "<group>";
+		};
+		145651271C6C3F9800B5DF93 /* View Controller */ = {
+			isa = PBXGroup;
+			children = (
+				141AECBB1B8BCF6000F0012B /* PostingDateEntryViewController.h */,
+				141AECBC1B8BCF6000F0012B /* PostingDateEntryViewController.m */,
+			);
+			name = "View Controller";
+			sourceTree = "<group>";
+		};
+		145651281C6C3FA100B5DF93 /* View Model */ = {
+			isa = PBXGroup;
+			children = (
+				144D55551B40A5490003B752 /* PostingWorkflowViewModel.h */,
+				144D55561B40A5490003B752 /* PostingWorkflowViewModel.m */,
+			);
+			name = "View Model";
+			sourceTree = "<group>";
+		};
+		145651291C6C3FAC00B5DF93 /* View Controller */ = {
+			isa = PBXGroup;
+			children = (
+				14AB0EC21B84CA8900BD06EB /* PostingNumberEntryViewController.h */,
+				14AB0EC31B84CA8900BD06EB /* PostingNumberEntryViewController.m */,
+			);
+			name = "View Controller";
+			sourceTree = "<group>";
+		};
+		1456512A1C6C3FB900B5DF93 /* View Model */ = {
+			isa = PBXGroup;
+			children = (
+				14EB19091C5760EE00EE5A69 /* PostingNumberEntryViewModel.h */,
+				14EB190A1C5760EE00EE5A69 /* PostingNumberEntryViewModel.m */,
+			);
+			name = "View Model";
+			sourceTree = "<group>";
+		};
+		1456512B1C6C3FCA00B5DF93 /* Edit View Controller */ = {
+			isa = PBXGroup;
+			children = (
+				14CAB3D51B5C685D0081979C /* EditPostPhotoSelectViewController.h */,
+				14CAB3D61B5C685D0081979C /* EditPostPhotoSelectViewController.m */,
+			);
+			name = "Edit View Controller";
+			sourceTree = "<group>";
+		};
+		1456512C1C6C3FD100B5DF93 /* View Controller */ = {
+			isa = PBXGroup;
+			children = (
+				142CB0561B52351400969066 /* PostingPhotoEntryViewController.h */,
+				142CB0571B52351400969066 /* PostingPhotoEntryViewController.m */,
+			);
+			name = "View Controller";
+			sourceTree = "<group>";
+		};
+		1456512D1C6C3FDD00B5DF93 /* View Model */ = {
+			isa = PBXGroup;
+			children = (
+				14EB190C1C5D485C00EE5A69 /* PostingPhotoEntryViewModel.h */,
+				14EB190D1C5D485C00EE5A69 /* PostingPhotoEntryViewModel.m */,
+			);
+			name = "View Model";
+			sourceTree = "<group>";
+		};
+		1456512E1C6C3FE900B5DF93 /* Edit View Controller */ = {
+			isa = PBXGroup;
+			children = (
+				14CAB3CB1B5C4DF20081979C /* EditPostFieldViewController.h */,
+				14CAB3CE1B5C52580081979C /* EditPostFieldViewController.m */,
+			);
+			name = "Edit View Controller";
+			sourceTree = "<group>";
+		};
+		1456512F1C6C3FF100B5DF93 /* View Controller */ = {
+			isa = PBXGroup;
+			children = (
+				1415245B1B4084D2007EE405 /* PostingStringEntryViewController.h */,
+				1415245C1B4084D2007EE405 /* PostingStringEntryViewController.m */,
+			);
+			name = "View Controller";
+			sourceTree = "<group>";
+		};
+		145651301C6C3FFC00B5DF93 /* View Model */ = {
+			isa = PBXGroup;
+			children = (
+				14EB19061C55936A00EE5A69 /* PostingStringEntryViewModel.h */,
+				14EB19071C55936A00EE5A69 /* PostingStringEntryViewModel.m */,
+			);
+			name = "View Model";
+			sourceTree = "<group>";
+		};
+		145651311C6C402600B5DF93 /* Data Entry Subclasses */ = {
+			isa = PBXGroup;
+			children = (
+				145651181C6C3DE200B5DF93 /* Date Entry */,
+				145651141C6C3D6F00B5DF93 /* Subtype Selection */,
+				145651151C6C3D7700B5DF93 /* Type Selection */,
+				1456511C1C6C3F0100B5DF93 /* Number Entry */,
+				145651131C6C3D5E00B5DF93 /* Photo Entry */,
+				145651111C6C3D4100B5DF93 /* String Entry */,
+			);
+			name = "Data Entry Subclasses";
+			sourceTree = "<group>";
+		};
+		145651321C6C403800B5DF93 /* Core Functionalities */ = {
+			isa = PBXGroup;
+			children = (
+				1456513E1C6C43FE00B5DF93 /* Post Table */,
+				F70FACF21AEB4FF200057E6E /* Notifications Tab */,
+				145651371C6C40E300B5DF93 /* Campus Tab */,
+				145651361C6C40D300B5DF93 /* Me Tab */,
+				145651351C6C40AF00B5DF93 /* Browse Tab */,
+				1456513C1C6C43B900B5DF93 /* User Profile */,
+				14C38D941B27AE0B0039862E /* Post Detail */,
+			);
+			name = "Core Functionalities";
+			sourceTree = "<group>";
+		};
+		145651331C6C404900B5DF93 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1456513B1C6C439E00B5DF93 /* Storyboards */,
+				145651391C6C435F00B5DF93 /* Campus Tab Views */,
+				145651381C6C431600B5DF93 /* Post Sharing Views */,
+				140CF9041A3E0F9600134C4D /* TableViewCells */,
+				F78600961AEB3F9800402B1F /* Chat */,
+				145651341C6C405A00B5DF93 /* New Post Workflow */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		145651341C6C405A00B5DF93 /* New Post Workflow */ = {
+			isa = PBXGroup;
+			children = (
+				14CAB3C11B59539A0081979C /* PhotoSelectFooterView.h */,
+				14CAB3C21B59539A0081979C /* PhotoSelectFooterView.m */,
+				14AB0EC01B82C2A100BD06EB /* PostingInputAccessoryView.xib */,
+				14AB0EBD1B82C25D00BD06EB /* PostingInputAccessoryView.h */,
+				14AB0EBE1B82C25D00BD06EB /* PostingInputAccessoryView.m */,
+				14CAB3C41B5953D40081979C /* PhotoSelectFooterView.xib */,
+				144D55611B4D66F40003B752 /* SelectPostTypeHeaderView.xib */,
+				142CB0501B51B76800969066 /* SelectPostTypeHeaderView.h */,
+				142CB0511B51B76800969066 /* SelectPostTypeHeaderView.m */,
+				142CB0591B5236D400969066 /* AddPhotoHeaderView.xib */,
+				142CB05B1B5236F500969066 /* AddPhotoHeaderView.h */,
+				142CB05C1B5236F500969066 /* AddPhotoHeaderView.m */,
+				14EB19041C51F62900EE5A69 /* PostSubTypeSelectionTableViewCell.xib */,
+				1415245E1B4086AA007EE405 /* NewPost.storyboard */,
+			);
+			name = "New Post Workflow";
+			sourceTree = "<group>";
+		};
+		145651351C6C40AF00B5DF93 /* Browse Tab */ = {
+			isa = PBXGroup;
+			children = (
+				1491BBA21B336F38004F43CA /* ResultsTableViewController.h */,
+				1491BBA31B336F38004F43CA /* ResultsTableViewController.m */,
+				140CF8DD1A3BBFB200134C4D /* BrowseViewController.h */,
+				140CF8DE1A3BBFB200134C4D /* BrowseViewController.m */,
+			);
+			name = "Browse Tab";
+			sourceTree = "<group>";
+		};
+		145651361C6C40D300B5DF93 /* Me Tab */ = {
+			isa = PBXGroup;
+			children = (
+				1456513D1C6C43F100B5DF93 /* User Posts */,
+				4ECA453D1B48E0EB006C33FC /* ContactUsViewController.h */,
+				4ECA453E1B48E0EB006C33FC /* ContactUsViewController.m */,
+				14EFDAE51A89EC4F007510CC /* TextViewViewController.h */,
+				14EFDAE61A89EC4F007510CC /* TextViewViewController.m */,
+				14F739BD1B783D4800E60619 /* SettingsViewController.h */,
+				14F739BE1B783D4800E60619 /* SettingsViewController.m */,
+				140CF8E01A3BBFB200134C4D /* MeViewController.h */,
+				140CF8E11A3BBFB200134C4D /* MeViewController.m */,
+			);
+			name = "Me Tab";
+			sourceTree = "<group>";
+		};
+		145651371C6C40E300B5DF93 /* Campus Tab */ = {
+			isa = PBXGroup;
+			children = (
+				14CE47221B6AF41E004FA4D1 /* MainPostTableViewController.h */,
+				14CE47231B6AF41E004FA4D1 /* MainPostTableViewController.m */,
+			);
+			name = "Campus Tab";
+			sourceTree = "<group>";
+		};
+		145651381C6C431600B5DF93 /* Post Sharing Views */ = {
+			isa = PBXGroup;
+			children = (
+				14423CC91B8D9A08002CB026 /* SinglePhotoPostShareView.h */,
+				14423CCC1B8D9AC9002CB026 /* SinglePhotoPostShareView.xib */,
+				14423CD61B8E9AC5002CB026 /* TriplePhotoPostShareView.h */,
+				14423CD71B8E9AC5002CB026 /* TriplePhotoPostShareView.m */,
+				14423CD91B8E9AD0002CB026 /* TriplePhotoPostShareView.xib */,
+				14423CCA1B8D9A08002CB026 /* SinglePhotoPostShareView.m */,
+				14423CCE1B8E7856002CB026 /* DoublePhotoPostShareView.xib */,
+				14423CD01B8E786B002CB026 /* DoublePhotoPostShareView.h */,
+				14423CD11B8E786B002CB026 /* DoublePhotoPostShareView.m */,
+				14423CD31B8E8F68002CB026 /* PostShareView.h */,
+				14423CD41B8E8F68002CB026 /* PostShareView.m */,
+			);
+			name = "Post Sharing Views";
+			sourceTree = "<group>";
+		};
+		145651391C6C435F00B5DF93 /* Campus Tab Views */ = {
+			isa = PBXGroup;
+			children = (
+				1456513A1C6C437A00B5DF93 /* Sliding View */,
+			);
+			name = "Campus Tab Views";
+			sourceTree = "<group>";
+		};
+		1456513A1C6C437A00B5DF93 /* Sliding View */ = {
+			isa = PBXGroup;
+			children = (
+				143D91D01B6BBB1F00E2F493 /* HeaderSlideView.h */,
+				143D91D11B6BBB1F00E2F493 /* HeaderSlideView.m */,
+				143D91D31B6BBB3F00E2F493 /* HeaderSlideView.xib */,
+				14CE471D1B6AF02A004FA4D1 /* HomeHeaderView.h */,
+				14CE471E1B6AF02A004FA4D1 /* HomeHeaderView.m */,
+				14CE47201B6AF040004FA4D1 /* HomeHeaderView.xib */,
+			);
+			name = "Sliding View";
+			sourceTree = "<group>";
+		};
+		1456513B1C6C439E00B5DF93 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				140CF8E31A3BBFB200134C4D /* Main.storyboard */,
+				143D91F01B6E717D00E2F493 /* Walkthrough.storyboard */,
+			);
+			name = Storyboards;
+			sourceTree = "<group>";
+		};
+		1456513C1C6C43B900B5DF93 /* User Profile */ = {
+			isa = PBXGroup;
+			children = (
+				14C8214B1B2FE36C00A1B513 /* ProfileViewController.h */,
+				14C8214C1B2FE36C00A1B513 /* ProfileViewController.m */,
+			);
+			name = "User Profile";
+			sourceTree = "<group>";
+		};
+		1456513D1C6C43F100B5DF93 /* User Posts */ = {
+			isa = PBXGroup;
+			children = (
+				1456510C1C6C1DA700B5DF93 /* UserPostTableViewModel.h */,
+				1456510D1C6C1DA700B5DF93 /* UserPostTableViewModel.m */,
+			);
+			name = "User Posts";
+			sourceTree = "<group>";
+		};
+		1456513E1C6C43FE00B5DF93 /* Post Table */ = {
+			isa = PBXGroup;
+			children = (
+				14C763AF1C233E71005899F9 /* PostTableViewModel.h */,
+				14C763B01C233E71005899F9 /* PostTableViewModel.m */,
+			);
+			name = "Post Table";
 			sourceTree = "<group>";
 		};
 		14839F541C2B2F3A00ED5320 /* TableView Binding Helpers */ = {
@@ -861,12 +1201,6 @@
 		14C763AC1C233D48005899F9 /* View Model */ = {
 			isa = PBXGroup;
 			children = (
-				14C763AF1C233E71005899F9 /* PostTableViewModel.h */,
-				14C763B01C233E71005899F9 /* PostTableViewModel.m */,
-				1456510C1C6C1DA700B5DF93 /* UserPostTableViewModel.h */,
-				1456510D1C6C1DA700B5DF93 /* UserPostTableViewModel.m */,
-				145820AA1C1CE7830092F9D4 /* LoginViewModel.h */,
-				145820AB1C1CE7830092F9D4 /* LoginViewModel.m */,
 			);
 			name = "View Model";
 			sourceTree = "<group>";
@@ -874,8 +1208,6 @@
 		14C763AD1C233D4D005899F9 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				143D91D91B6DF7D900E2F493 /* LoginViewController.h */,
-				143D91DA1B6DF7D900E2F493 /* LoginViewController.m */,
 				14839F5C1C2F1AB600ED5320 /* Spree Post Table Views */,
 			);
 			name = "View Controllers";
@@ -988,16 +1320,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		F70FACF21AEB4FF200057E6E /* Messaging */ = {
+		F70FACF21AEB4FF200057E6E /* Notifications Tab */ = {
 			isa = PBXGroup;
 			children = (
 				F78600C01AEB422700402B1F /* Utilities */,
 				F7715E981AEC042D005DDEFF /* Cell */,
-				F78600961AEB3F9800402B1F /* Chat */,
 				F7715E991AEC05AD005DDEFF /* AllMessagesViewController.h */,
 				F7715E9A1AEC05AD005DDEFF /* AllMessagesViewController.m */,
 			);
-			name = Messaging;
+			name = "Notifications Tab";
 			sourceTree = "<group>";
 		};
 		F7715E981AEC042D005DDEFF /* Cell */ = {
@@ -1027,6 +1358,9 @@
 		F78600961AEB3F9800402B1F /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				145B0ABC1B9F6A0B002FD94E /* ChatPostHeader.xib */,
+				145B0AB91B9F6999002FD94E /* ChatPostHeader.h */,
+				145B0ABA1B9F6999002FD94E /* ChatPostHeader.m */,
 				F78600931AEB3F9100402B1F /* ChatView.h */,
 				F78600941AEB3F9100402B1F /* ChatView.m */,
 			);
@@ -1048,7 +1382,7 @@
 			name = Utilities;
 			sourceTree = "<group>";
 		};
-		F7AFBB431AF4CC2B00D3148B /* Rating */ = {
+		F7AFBB431AF4CC2B00D3148B /* Rating System */ = {
 			isa = PBXGroup;
 			children = (
 				145B0AB61B9E1BFB002FD94E /* EDStarRating.h */,
@@ -1058,7 +1392,7 @@
 				F76258E91AF2044E003B67D4 /* RatingViewController.h */,
 				F76258EA1AF2044E003B67D4 /* RatingViewController.m */,
 			);
-			name = Rating;
+			name = "Rating System";
 			sourceTree = "<group>";
 		};
 		F7AFBB451AF5FDF800D3148B /* Open Source */ = {
@@ -1294,7 +1628,6 @@
 				143D91D21B6BBB1F00E2F493 /* HeaderSlideView.m in Sources */,
 				142CB0611B5303B600969066 /* PhotoSelectTableViewCell.m in Sources */,
 				14423CCB1B8D9A08002CB026 /* SinglePhotoPostShareView.m in Sources */,
-				4EFD06E81BA1528700947AD6 /* ReferralViewController.m in Sources */,
 				14839F5A1C2C9F3E00ED5320 /* UISearchBar+RAC.m in Sources */,
 				14423CD21B8E786B002CB026 /* DoublePhotoPostShareView.m in Sources */,
 				14C763B11C233E71005899F9 /* PostTableViewModel.m in Sources */,
@@ -1355,7 +1688,6 @@
 				141AECB71B8A77D400F0012B /* PostMapTableViewCell.m in Sources */,
 				F7AFBB421AF4CC0A00D3148B /* FindBuyerViewController.m in Sources */,
 				14EB190E1C5D485C00EE5A69 /* PostingPhotoEntryViewModel.m in Sources */,
-				1415244F1B406B55007EE405 /* PostTypeViewController.m in Sources */,
 				14CE47241B6AF41E004FA4D1 /* MainPostTableViewController.m in Sources */,
 				14423CD51B8E8F68002CB026 /* PostShareView.m in Sources */,
 				14EB18FD1C50B74600EE5A69 /* SelectPostTypeViewModel.m in Sources */,
