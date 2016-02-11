@@ -7,9 +7,12 @@
 //
 
 #import "MeViewController.h"
+#import "UserPostTableViewModel.h"
 #import "TextViewViewController.h"
 #import "ContactUsViewController.h"
+#import "UserPostsTableViewController.h"
 #import "SettingsViewController.h"
+#import "SpreeViewModelServicesImpl.h"
 #import "SpreePost.h"
 #import "AppDelegate.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
@@ -250,8 +253,15 @@ typedef enum : NSUInteger {
     if ([segue.identifier isEqualToString:@"showTerms"]) {
         TextViewViewController *destination = (TextViewViewController*)segue.destinationViewController;
         destination.textDisplayed = @"By logging into and using this application you are accepting responsibility for what you post and the interactions (communications, meet-ups, etc.) that emerge from the use of this service.\n\nSpree will not be held liable for any harm, theft, damages or liabilities that are facilitated by the use of Spree.\n\nYou may not sell anything illegal or anything that is explicit in nature through our service. You agree that you will abide by the rules, regulations and laws of your state when using this application.";
+    } else if ([segue.identifier isEqualToString:@"ShowUserPosts"]){
+        UserPostsTableViewController *userPostsTableViewController = (UserPostsTableViewController *)segue.destinationViewController;
+        // Attaching View Model Services to View Model (gives us access to Parse, our model)
+        SpreeViewModelServicesImpl *viewModelServices = [[SpreeViewModelServicesImpl alloc] init];
+        UserPostTableViewModel *viewModel = [[UserPostTableViewModel alloc] initWithServices:viewModelServices user:[PFUser currentUser] params:nil];
+        userPostsTableViewController.viewModel = viewModel;
     }
 }
+
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (alertView.tag == kLogOutAlert){

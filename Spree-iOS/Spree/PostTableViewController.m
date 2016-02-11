@@ -106,6 +106,15 @@
     self.viewModel.active = NO;
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    // Unselect the selected row if any
+    NSIndexPath*    selection = [self.postsTableView indexPathForSelectedRow];
+    if (selection) {
+        [self.postsTableView deselectRowAtIndexPath:selection animated:YES];
+    }
+}
+
 -(void)bindViewModel{
 
     @weakify(self)
@@ -380,10 +389,5 @@
     
     return 0;
 }
-
-
-
-
-
 
 @end

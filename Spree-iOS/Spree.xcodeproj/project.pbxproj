@@ -84,6 +84,7 @@
 		144D55751B4E11920003B752 /* Lato-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 144D556B1B4E11920003B752 /* Lato-LightItalic.ttf */; };
 		144D55761B4E11920003B752 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 144D556C1B4E11920003B752 /* Lato-Regular.ttf */; };
 		1456510A1C69B49B00B5DF93 /* NSString+Emoji.m in Sources */ = {isa = PBXBuildFile; fileRef = 145651081C69B49B00B5DF93 /* NSString+Emoji.m */; };
+		1456510E1C6C1DA700B5DF93 /* UserPostTableViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1456510D1C6C1DA700B5DF93 /* UserPostTableViewModel.m */; };
 		145820AC1C1CE7830092F9D4 /* LoginViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 145820AB1C1CE7830092F9D4 /* LoginViewModel.m */; };
 		145820B21C1CE82B0092F9D4 /* SpreeParseConnectionImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 145820B11C1CE82B0092F9D4 /* SpreeParseConnectionImpl.m */; };
 		145820B81C1CE88F0092F9D4 /* SpreeViewModelServicesImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 145820B71C1CE88F0092F9D4 /* SpreeViewModelServicesImpl.m */; };
@@ -318,6 +319,8 @@
 		144D556C1B4E11920003B752 /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Regular.ttf"; sourceTree = "<group>"; };
 		145651081C69B49B00B5DF93 /* NSString+Emoji.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Emoji.m"; sourceTree = "<group>"; };
 		145651091C69B49B00B5DF93 /* NSString+Emoji.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Emoji.h"; sourceTree = "<group>"; };
+		1456510C1C6C1DA700B5DF93 /* UserPostTableViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserPostTableViewModel.h; sourceTree = "<group>"; };
+		1456510D1C6C1DA700B5DF93 /* UserPostTableViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserPostTableViewModel.m; sourceTree = "<group>"; };
 		145820AA1C1CE7830092F9D4 /* LoginViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewModel.h; sourceTree = "<group>"; };
 		145820AB1C1CE7830092F9D4 /* LoginViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewModel.m; sourceTree = "<group>"; };
 		145820AD1C1CE7F10092F9D4 /* SpreeParseConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpreeParseConnection.h; sourceTree = "<group>"; };
@@ -860,6 +863,8 @@
 			children = (
 				14C763AF1C233E71005899F9 /* PostTableViewModel.h */,
 				14C763B01C233E71005899F9 /* PostTableViewModel.m */,
+				1456510C1C6C1DA700B5DF93 /* UserPostTableViewModel.h */,
+				1456510D1C6C1DA700B5DF93 /* UserPostTableViewModel.m */,
 				145820AA1C1CE7830092F9D4 /* LoginViewModel.h */,
 				145820AB1C1CE7830092F9D4 /* LoginViewModel.m */,
 			);
@@ -1339,6 +1344,7 @@
 				F7715E9B1AEC05AD005DDEFF /* AllMessagesViewController.m in Sources */,
 				143D91FB1B71881400E2F493 /* SelectCampusTableViewCell.m in Sources */,
 				14839F5F1C2F797E00ED5320 /* ConfirmLocationViewController.m in Sources */,
+				1456510E1C6C1DA700B5DF93 /* UserPostTableViewModel.m in Sources */,
 				14CAB3BF1B5948150081979C /* PhotoDisplayTableViewCell.m in Sources */,
 				1404739A1ABD267E00C0F8EF /* UserPostsTableViewController.m in Sources */,
 				14839F621C30808D00ED5320 /* SpreeMarketManager.m in Sources */,
