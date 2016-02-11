@@ -92,7 +92,8 @@
     
     // Binds the view model to the viewcontroller/view
     [self bindViewModel];
-
+    
+    [self.viewModel.refreshPosts execute:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
