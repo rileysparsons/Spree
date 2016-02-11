@@ -13,7 +13,6 @@
 
 #define kTermsAndConditionsTitle @"Terms and Conditions"
 #define kContactUsTitle @"Contact Us"
-#define kDeauthorizeFacebookTitle @"Deauthorize Facebook"
 
 @interface SettingsViewController ()
 
@@ -48,7 +47,7 @@
 
 -(void)updateTableViewModel{
     if ([PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]){
-        self.firstSectionArray = [[NSArray alloc] initWithObjects:kTermsAndConditionsTitle, kContactUsTitle, kDeauthorizeFacebookTitle, nil];
+        self.firstSectionArray = [[NSArray alloc] initWithObjects:kTermsAndConditionsTitle, kContactUsTitle, nil];
     } else {
         self.firstSectionArray = [[NSArray alloc] initWithObjects:kTermsAndConditionsTitle, kContactUsTitle, nil];
     }
@@ -120,9 +119,7 @@
     
     if (indexPath.section == 0){
         cell.textLabel.text = [_firstSectionArray objectAtIndex:indexPath.row];
-        if (![[self.firstSectionArray objectAtIndex:indexPath.row] isEqualToString:kDeauthorizeFacebookTitle]){
-            cell.accessoryView = [MSCellAccessory accessoryWithType:FLAT_DISCLOSURE_INDICATOR color:[UIColor spreeDarkBlue] highlightedColor:[UIColor spreeDarkYellow]];
-        }
+        cell.accessoryView = [MSCellAccessory accessoryWithType:FLAT_DISCLOSURE_INDICATOR color:[UIColor spreeDarkBlue] highlightedColor:[UIColor spreeDarkYellow]];
     }
     return cell;
 }
@@ -135,8 +132,6 @@
         }
         else if ([[self.firstSectionArray objectAtIndex:indexPath.row] isEqualToString:kContactUsTitle]){
             [self performSegueWithIdentifier:@"showContactUs" sender:self];
-        } else if ([[self.firstSectionArray objectAtIndex:indexPath.row] isEqualToString:kDeauthorizeFacebookTitle]){
-            [self deauthorizeFacebook];
         }
     }
 }
@@ -148,16 +143,6 @@
     }
 }
 
--(void)deauthorizeFacebook{
-    [PFFacebookUtils unlinkUserInBackground:[PFUser currentUser] block:^(BOOL succeeded, NSError *error){
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.firstSectionArray indexOfObject:kDeauthorizeFacebookTitle]inSection:0];
-        [self updateTableViewModel];
-        [self.tableView beginUpdates];
-        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-        [self.tableView endUpdates];
-        
-    }];
-}
 
 
 
