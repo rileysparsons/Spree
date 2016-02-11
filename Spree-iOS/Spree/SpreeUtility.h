@@ -15,8 +15,6 @@
 
 + (NSString *)firstNameForDisplayName:(NSString *)displayName;
 
-+ (BOOL)userInDemoMode;
-
 //+ (void) saveCurrentCreditBalance;
 
 @end
