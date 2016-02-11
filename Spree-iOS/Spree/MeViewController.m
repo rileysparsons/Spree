@@ -45,8 +45,6 @@ typedef enum : NSUInteger {
     [super viewDidLoad];
     [self setTitleLabel];
     
-    [self updateTableView];
-    
     self.settingsTableView.delegate = self;
     self.settingsTableView.dataSource = self;
     
@@ -57,6 +55,8 @@ typedef enum : NSUInteger {
     [self setUserInfo];
 
     [self circularImage];
+    
+    self.firstSectionArray = @[kYourPostsTitle, kLogOutTitle];
     // Add notification center for updating the posts cell for requests
     
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newPurchaseRequest) name:@"NewRequest" object:nil];
@@ -64,7 +64,6 @@ typedef enum : NSUInteger {
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    [self updateTableView];
     [self.settingsTableView reloadData];
 }
 
@@ -73,15 +72,6 @@ typedef enum : NSUInteger {
         self.networkLabel.text = [NSString stringWithFormat:@"%@", [PFUser currentUser][@"campus"][@"campusName"]];
         
     }];
-}
-
--(void)updateTableView{
-    if ([PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]){
-        _firstSectionArray = [[NSArray alloc] initWithObjects: kYourPostsTitle, kLogOutTitle, nil];
-    } else {
-        _firstSectionArray = [[NSArray alloc] initWithObjects: kYourPostsTitle, kLogOutTitle, nil];
-    }
-//    [self.settingsTableView reloadData];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
