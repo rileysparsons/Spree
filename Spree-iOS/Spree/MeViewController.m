@@ -28,8 +28,6 @@ typedef enum : NSUInteger {
     kLogOutAlert
 } AlertType;
 
-
-#define kAuthorizeFacebookTitle @"Authorize Facebook"
 #define kLogOutTitle @"Log Out"
 #define kYourPostsTitle @"Your Posts"
 
@@ -81,7 +79,7 @@ typedef enum : NSUInteger {
     if ([PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]){
         _firstSectionArray = [[NSArray alloc] initWithObjects: kYourPostsTitle, kLogOutTitle, nil];
     } else {
-        _firstSectionArray = [[NSArray alloc] initWithObjects: kAuthorizeFacebookTitle, kYourPostsTitle, kLogOutTitle, nil];
+        _firstSectionArray = [[NSArray alloc] initWithObjects: kYourPostsTitle, kLogOutTitle, nil];
     }
 //    [self.settingsTableView reloadData];
 }
@@ -192,9 +190,7 @@ typedef enum : NSUInteger {
     
      if ([[self.firstSectionArray objectAtIndex:indexPath.row] isEqualToString:kLogOutTitle]){
          return [self logOutTableViewCell];
-     } else if ( [[self.firstSectionArray objectAtIndex:indexPath.row] isEqualToString:kAuthorizeFacebookTitle]){
-         return [self authorizeFacebookTableViewCell];
-     } else  if ( [[self.firstSectionArray objectAtIndex:indexPath.row] isEqualToString:kYourPostsTitle]){
+     } else if ( [[self.firstSectionArray objectAtIndex:indexPath.row] isEqualToString:kYourPostsTitle]){
          return [self yourPostsTableViewCell];
      }
      
@@ -213,38 +209,6 @@ typedef enum : NSUInteger {
             
         } else if ([titleOfRow isEqualToString: kYourPostsTitle]){
             [self performSegueWithIdentifier:@"ShowUserPosts" sender:self];
-        }
-        else if ([titleOfRow isEqualToString:kAuthorizeFacebookTitle]){
-            [PFFacebookUtils linkUserInBackground:[PFUser currentUser] withReadPermissions:nil block:^(BOOL succeeded, NSError *error){
-                if (succeeded){
-                    FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:nil];
-                    //                         Send request to Facebook
-                    [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
-                        if (!error) {
-                            NSLog(@"2");
-                            NSLog(@"currentUser: %@",[PFUser currentUser]);
-                            NSLog(@"result: %@",result);
-                            // Store the current user's Facebook ID on the user
-                            [[PFUser currentUser] setObject:[result objectForKey:@"id"]
-                                                     forKey:@"fbId"];
-                            [[PFUser currentUser] saveInBackground];
-                            NSLog(@"ACCESS %@", [FBSDKAccessToken currentAccessToken]);
-                            
-                            
-                            
-                            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.firstSectionArray indexOfObject:kAuthorizeFacebookTitle] inSection:0];
-                            [self updateTableView];
-                            [self.settingsTableView beginUpdates];
-                            [self.settingsTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-                            [self.settingsTableView endUpdates];
-                            
-                        } else {
-                            NSLog(@"3, %@",error);
-                        }
-                    }];
-                    
-                }
-            }];
         }
     }
 }
@@ -316,16 +280,6 @@ typedef enum : NSUInteger {
     
     return yourPostsCell;
 }
-
--(UITableViewCell *)authorizeFacebookTableViewCell{
-    UITableViewCell *authorizeFacebookCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kAuthorizeFacebookTitle];
-    authorizeFacebookCell.textLabel.text = kAuthorizeFacebookTitle;
-    authorizeFacebookCell.textLabel.font = [UIFont fontWithName:@"Lato-Bold" size:18];
-    authorizeFacebookCell.textLabel.textColor = [UIColor spreeDarkBlue];
-    authorizeFacebookCell.backgroundColor = [UIColor spreeOffWhite];
-    return authorizeFacebookCell;
-}
-
 
 -(void)circularImage{
     CAShapeLayer *circle = [CAShapeLayer layer];
