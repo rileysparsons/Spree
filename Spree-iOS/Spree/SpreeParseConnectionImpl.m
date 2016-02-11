@@ -99,6 +99,66 @@
     }
 }
 
+-(RACSignal *)findPostsSignalWithUser:(PFUser *)user params:(NSDictionary *)params{
+        if (params){
+            if ([params objectForKey:@"type"]){
+                return [RACSignal createSignal:^RACDisposable * (id<RACSubscriber> subscriber) {
+                    NSLog(@" this is the type %@", params[@"type"]);
+                    [[self typeObjectForString:params[@"type"]] subscribeNext:^(PFObject *postType) {
+                        
+                        PFQuery *postQuery = [PFQuery queryWithClassName:@"Post"];
+                        
+                        NSLog(@"type in final query %@", postType[@"type"]);
+                        [postQuery whereKey:@"typePointer" equalTo:postType];
+                        [postQuery whereKey:@"user" equalTo:user];
+                        
+                        [params enumerateKeysAndObjectsUsingBlock:^(id key, id object, BOOL *stop) {
+                            if (![key isEqualToString: @"type"]){
+                                [postQuery whereKey:key equalTo:object];
+                            }
+                        }];
+                        
+                        [postQuery findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+                            if (!error){
+                                NSLog(@"no error here (params). %lu", (long unsigned)objects.count);
+                                [subscriber sendNext:objects];
+                                [subscriber sendCompleted];
+                            } else {
+                                [subscriber sendError:error];
+                            }
+                        }];
+                    }];
+                    
+                    return nil;
+                }];
+            }
+        } else {
+            return [RACSignal createSignal:^RACDisposable * (id<RACSubscriber> subscriber) {
+                PFQuery *postQuery = [PFQuery queryWithClassName:@"Post"];
+                
+                [postQuery whereKey:@"user" equalTo:user];
+                
+                [params enumerateKeysAndObjectsUsingBlock:^(id key, id object, BOOL *stop) {
+                    if (![key isEqualToString: @"type"]){
+                        [postQuery whereKey:key equalTo:object];
+                    }
+                }];
+                
+                [postQuery findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+                    if (!error){
+                        NSLog(@"no error here (params). %lu", (long unsigned)objects.count);
+                        [subscriber sendNext:objects];
+                        [subscriber sendCompleted];
+                    } else {
+                        [subscriber sendError:error];
+                    }
+                }];
+                return nil;
+            }];
+        }
+    return nil;
+}
+
 -(RACSignal *)findPostsSignalWithRegion:(CLCircularRegion *)region params:(NSDictionary *)params{
     if (region){
         // The user is in a current spree market region
@@ -119,6 +179,12 @@
                             
                             NSLog(@"type in final query %@", postType[@"type"]);
                             [postQuery whereKey:@"typePointer" equalTo:postType];
+                            
+                            [params enumerateKeysAndObjectsUsingBlock:^(id key, id object, BOOL *stop) {
+                                if (![key isEqualToString: @"type"]){
+                                    [postQuery whereKey:key equalTo:object];
+                                }
+                            }];
                             
                             [postQuery findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
                                 if (!error){
@@ -144,6 +210,7 @@
     }
     return nil;
 }
+
 
 -(RACSignal *)findPostsSignalWithRegion:(CLCircularRegion *)region params:(NSDictionary *)params keywords:(NSArray *)keywords{
     if (region){

@@ -39,4 +39,6 @@ typedef NS_ENUM(NSUInteger, SpreePostType) {
 
 -(RACSignal *)postObjectInBackground:(PFObject *)object;
 
+-(RACSignal *)findPostsSignalWithUser:(PFUser *)user params:(NSDictionary *)params;
+
 @end

@@ -7,9 +7,12 @@
 //
 
 #import "MeViewController.h"
+#import "UserPostTableViewModel.h"
 #import "TextViewViewController.h"
 #import "ContactUsViewController.h"
+#import "UserPostsTableViewController.h"
 #import "SettingsViewController.h"
+#import "SpreeViewModelServicesImpl.h"
 #import "SpreePost.h"
 #import "AppDelegate.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
@@ -25,8 +28,6 @@ typedef enum : NSUInteger {
     kLogOutAlert
 } AlertType;
 
-
-#define kAuthorizeFacebookTitle @"Authorize Facebook"
 #define kLogOutTitle @"Log Out"
 #define kYourPostsTitle @"Your Posts"
 
@@ -44,8 +45,6 @@ typedef enum : NSUInteger {
     [super viewDidLoad];
     [self setTitleLabel];
     
-    [self updateTableView];
-    
     self.settingsTableView.delegate = self;
     self.settingsTableView.dataSource = self;
     
@@ -56,6 +55,8 @@ typedef enum : NSUInteger {
     [self setUserInfo];
 
     [self circularImage];
+    
+    self.firstSectionArray = @[kYourPostsTitle, kLogOutTitle];
     // Add notification center for updating the posts cell for requests
     
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newPurchaseRequest) name:@"NewRequest" object:nil];
@@ -63,7 +64,6 @@ typedef enum : NSUInteger {
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    [self updateTableView];
     [self.settingsTableView reloadData];
 }
 
@@ -72,15 +72,6 @@ typedef enum : NSUInteger {
         self.networkLabel.text = [NSString stringWithFormat:@"%@", [PFUser currentUser][@"campus"][@"campusName"]];
         
     }];
-}
-
--(void)updateTableView{
-    if ([PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]){
-        _firstSectionArray = [[NSArray alloc] initWithObjects: kYourPostsTitle, kLogOutTitle, nil];
-    } else {
-        _firstSectionArray = [[NSArray alloc] initWithObjects: kAuthorizeFacebookTitle, kYourPostsTitle, kLogOutTitle, nil];
-    }
-//    [self.settingsTableView reloadData];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -125,26 +116,16 @@ typedef enum : NSUInteger {
 }
 
 -(void)setUserInfo{
-    self.nameLabel.enabled = NO;
-    self.nameLabel.labeledIconButtonLayoutMode = RCSLabeledIconButtonLayoutModeReversed;
-    [self.nameLabel setTitleColor:[UIColor spreeOffBlack] forState:UIControlStateNormal];
-    self.nameLabel.titleLabel.font = [UIFont fontWithName:@"Lato-Regular" size:17];
-    self.nameLabel.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    self.nameLabel.font = [UIFont fontWithName:@"Lato-Regular" size:17];
+    self.nameLabel.textAlignment = NSTextAlignmentCenter;
+    self.nameLabel.textColor = [UIColor spreeOffBlack];
+    self.profileImageView.profileID = [PFUser currentUser][@"fbId"];
+    @weakify(self)
+    [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:@{@"fields": @"email,name,first_name"}] startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+        @strongify(self)
+        [self.nameLabel setText:result[@"name"]];
+    }];
     
-    if (![SpreeUtility userInDemoMode]){
-       
-        if ([PFUser currentUser][@"displayName"]){
-            self.profileImageView.profileID = [PFUser currentUser][@"fbId"];
-             [self.nameLabel setTitle:[PFUser currentUser][@"displayName"] forState:UIControlStateNormal];
-        } else {
-            [self.nameLabel setTitle:[PFUser currentUser][@"username"] forState:UIControlStateNormal];
-        }
-        
-        [self.nameLabel setImage:[UIImage imageNamed:@"verifiedStudent"] forState:UIControlStateNormal];
-        
-    } else {
-        [self.nameLabel setTitle:@"Demo Mode" forState:UIControlStateNormal];
-    }
     
 //    if ([[PFUser currentUser][@"emailVerified"] isEqualToNumber:[NSNumber numberWithBool:1]]){
 //        if ([PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]){
@@ -189,9 +170,7 @@ typedef enum : NSUInteger {
     
      if ([[self.firstSectionArray objectAtIndex:indexPath.row] isEqualToString:kLogOutTitle]){
          return [self logOutTableViewCell];
-     } else if ( [[self.firstSectionArray objectAtIndex:indexPath.row] isEqualToString:kAuthorizeFacebookTitle]){
-         return [self authorizeFacebookTableViewCell];
-     } else  if ( [[self.firstSectionArray objectAtIndex:indexPath.row] isEqualToString:kYourPostsTitle]){
+     } else if ( [[self.firstSectionArray objectAtIndex:indexPath.row] isEqualToString:kYourPostsTitle]){
          return [self yourPostsTableViewCell];
      }
      
@@ -211,38 +190,6 @@ typedef enum : NSUInteger {
         } else if ([titleOfRow isEqualToString: kYourPostsTitle]){
             [self performSegueWithIdentifier:@"ShowUserPosts" sender:self];
         }
-        else if ([titleOfRow isEqualToString:kAuthorizeFacebookTitle]){
-            [PFFacebookUtils linkUserInBackground:[PFUser currentUser] withReadPermissions:nil block:^(BOOL succeeded, NSError *error){
-                if (succeeded){
-                    FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:nil];
-                    //                         Send request to Facebook
-                    [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
-                        if (!error) {
-                            NSLog(@"2");
-                            NSLog(@"currentUser: %@",[PFUser currentUser]);
-                            NSLog(@"result: %@",result);
-                            // Store the current user's Facebook ID on the user
-                            [[PFUser currentUser] setObject:[result objectForKey:@"id"]
-                                                     forKey:@"fbId"];
-                            [[PFUser currentUser] saveInBackground];
-                            NSLog(@"ACCESS %@", [FBSDKAccessToken currentAccessToken]);
-                            
-                            
-                            
-                            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.firstSectionArray indexOfObject:kAuthorizeFacebookTitle] inSection:0];
-                            [self updateTableView];
-                            [self.settingsTableView beginUpdates];
-                            [self.settingsTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-                            [self.settingsTableView endUpdates];
-                            
-                        } else {
-                            NSLog(@"3, %@",error);
-                        }
-                    }];
-                    
-                }
-            }];
-        }
     }
 }
 
@@ -250,8 +197,15 @@ typedef enum : NSUInteger {
     if ([segue.identifier isEqualToString:@"showTerms"]) {
         TextViewViewController *destination = (TextViewViewController*)segue.destinationViewController;
         destination.textDisplayed = @"By logging into and using this application you are accepting responsibility for what you post and the interactions (communications, meet-ups, etc.) that emerge from the use of this service.\n\nSpree will not be held liable for any harm, theft, damages or liabilities that are facilitated by the use of Spree.\n\nYou may not sell anything illegal or anything that is explicit in nature through our service. You agree that you will abide by the rules, regulations and laws of your state when using this application.";
+    } else if ([segue.identifier isEqualToString:@"ShowUserPosts"]){
+        UserPostsTableViewController *userPostsTableViewController = (UserPostsTableViewController *)segue.destinationViewController;
+        // Attaching View Model Services to View Model (gives us access to Parse, our model)
+        SpreeViewModelServicesImpl *viewModelServices = [[SpreeViewModelServicesImpl alloc] init];
+        UserPostTableViewModel *viewModel = [[UserPostTableViewModel alloc] initWithServices:viewModelServices user:[PFUser currentUser] params:nil];
+        userPostsTableViewController.viewModel = viewModel;
     }
 }
+
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (alertView.tag == kLogOutAlert){
@@ -306,16 +260,6 @@ typedef enum : NSUInteger {
     
     return yourPostsCell;
 }
-
--(UITableViewCell *)authorizeFacebookTableViewCell{
-    UITableViewCell *authorizeFacebookCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kAuthorizeFacebookTitle];
-    authorizeFacebookCell.textLabel.text = kAuthorizeFacebookTitle;
-    authorizeFacebookCell.textLabel.font = [UIFont fontWithName:@"Lato-Bold" size:18];
-    authorizeFacebookCell.textLabel.textColor = [UIColor spreeDarkBlue];
-    authorizeFacebookCell.backgroundColor = [UIColor spreeOffWhite];
-    return authorizeFacebookCell;
-}
-
 
 -(void)circularImage{
     CAShapeLayer *circle = [CAShapeLayer layer];

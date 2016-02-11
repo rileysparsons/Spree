@@ -92,7 +92,8 @@
     
     // Binds the view model to the viewcontroller/view
     [self bindViewModel];
-
+    
+    [self.viewModel.refreshPosts execute:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -103,6 +104,15 @@
 - (void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
     self.viewModel.active = NO;
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    // Unselect the selected row if any
+    NSIndexPath*    selection = [self.postsTableView indexPathForSelectedRow];
+    if (selection) {
+        [self.postsTableView deselectRowAtIndexPath:selection animated:YES];
+    }
 }
 
 -(void)bindViewModel{
@@ -379,10 +389,5 @@
     
     return 0;
 }
-
-
-
-
-
 
 @end

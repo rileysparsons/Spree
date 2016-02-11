@@ -58,9 +58,7 @@
 
     self.refreshPosts = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         @strongify(self);
-        
         return [self signalForFindPostsWithRegion:[[SpreeMarketManager sharedManager] readRegionFromLocation:self.currentLocation] params:_queryParameters keywords:_keywordArray];
-        
     }];
     
 
@@ -71,17 +69,12 @@
         self.isLoadingPosts = NO;
     }];
     
-    [[[self didBecomeActiveSignal]
-    flattenMap:^id(id value) {
-        @strongify(self)
-        return [[RACObserve(self, currentLocation) ignore:NULL] take:1];
-    }]
+   [[[RACObserve(self, currentLocation) ignore:NULL] take:1]
     subscribeNext:^(id x) {
         NSLog(@"returned from initial block: %@", x);
         @strongify(self)
         [self.refreshPosts execute:_queryParameters];
     }];
-    
 
     // create the tweet selected command, that simply logs
     self.postSelectedCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(SpreePost *selectedPost) {

@@ -64,15 +64,14 @@
 }
 
 -(void)cancelWorkflow{
-    [[[UIAlertView alloc] initWithTitle:@"Cancel Post" message:@"Are you sure you want to cancel this post? You are able to edit the post prior to publishing." delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:@"Confirm", nil] show];
+    [[[UIAlertView alloc] initWithTitle:@"Cancel Post" message:@"Are you sure you want to cancel this post? You are able to edit the post prior to publishing." delegate:self cancelButtonTitle:@"Keep Going" otherButtonTitles:@"Confirm", nil] show];
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex ==  0){
-        self.postingWorkflow = nil;
-        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-    } else if (buttonIndex == 1){
         [alertView dismissWithClickedButtonIndex:buttonIndex animated:YES];
+    } else if (buttonIndex == 1){
+        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
     }
 }
 

@@ -12,7 +12,7 @@
 
 @interface MeViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
 
-@property (weak, nonatomic) IBOutlet RCSLabeledIconButton *nameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UITableView *settingsTableView;
 @property (weak, nonatomic) IBOutlet UILabel *postCountLabel;
 @property (weak, nonatomic) IBOutlet FBSDKProfilePictureView *profileImageView;
