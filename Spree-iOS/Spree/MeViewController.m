@@ -126,26 +126,16 @@ typedef enum : NSUInteger {
 }
 
 -(void)setUserInfo{
-    self.nameLabel.enabled = NO;
-    self.nameLabel.labeledIconButtonLayoutMode = RCSLabeledIconButtonLayoutModeReversed;
-    [self.nameLabel setTitleColor:[UIColor spreeOffBlack] forState:UIControlStateNormal];
-    self.nameLabel.titleLabel.font = [UIFont fontWithName:@"Lato-Regular" size:17];
-    self.nameLabel.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    self.nameLabel.font = [UIFont fontWithName:@"Lato-Regular" size:17];
+    self.nameLabel.textAlignment = NSTextAlignmentCenter;
+    self.nameLabel.textColor = [UIColor spreeOffBlack];
+    self.profileImageView.profileID = [PFUser currentUser][@"fbId"];
+    @weakify(self)
+    [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:@{@"fields": @"email,name,first_name"}] startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+        @strongify(self)
+        [self.nameLabel setText:result[@"name"]];
+    }];
     
-    if (![SpreeUtility userInDemoMode]){
-       
-        if ([PFUser currentUser][@"displayName"]){
-            self.profileImageView.profileID = [PFUser currentUser][@"fbId"];
-             [self.nameLabel setTitle:[PFUser currentUser][@"displayName"] forState:UIControlStateNormal];
-        } else {
-            [self.nameLabel setTitle:[PFUser currentUser][@"username"] forState:UIControlStateNormal];
-        }
-        
-        [self.nameLabel setImage:[UIImage imageNamed:@"verifiedStudent"] forState:UIControlStateNormal];
-        
-    } else {
-        [self.nameLabel setTitle:@"Demo Mode" forState:UIControlStateNormal];
-    }
     
 //    if ([[PFUser currentUser][@"emailVerified"] isEqualToNumber:[NSNumber numberWithBool:1]]){
 //        if ([PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]){
