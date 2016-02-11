@@ -48,9 +48,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Refresh control
-    [self setupRefreshControl];
-    
     // Basic UI setup
     [self userInterfaceSetup];
     
@@ -82,6 +79,10 @@
      // Removes lines from showing with empty cells
     self.postsTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
    
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    self.refreshControl.backgroundColor = [UIColor spreeOffWhite];
+    [self.postsTableView addSubview:self.refreshControl];
+    
     // Initializing the posts array
     self.posts = [[NSArray alloc] init];
 
@@ -135,7 +136,7 @@
             return @NO;
         }
     }] deliverOnMainThread];
-    
+
     
     [[RACObserve(self, posts) deliverOnMainThread]
      subscribeNext:^(id x) {
@@ -239,98 +240,6 @@
     [self.postsTableView insertSubview:self.emptyStateView belowSubview:self.backgroundView];
 
 }
-
-- (void)setupRefreshControl {
-
-    self.refreshControl = [[UIRefreshControl alloc] init];
-    
-    [self.postsTableView addSubview: self.refreshControl];
-    
-    // Setup the loading view, which will hold the moving graphics
-    self.refreshLoadingView = [[UIView alloc] initWithFrame:self.refreshControl.bounds];
-    self.refreshLoadingView.backgroundColor = [UIColor clearColor];
-    
-    // Setup the color view, which will display the rainbowed background
-    self.refreshColorView = [[UIView alloc] initWithFrame:self.refreshControl.bounds];
-    self.refreshColorView.backgroundColor = [UIColor clearColor];
-    self.refreshColorView.alpha = 0.30;
-    
-    // Create the graphic image views
-    CGRect refreshBounds = self.refreshControl.bounds;
-    self.compass_spinner = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"spreeRefresh"]];
-    self.compass_spinner.frame = CGRectMake((refreshBounds.size.width/2.0)-15, 0, 30, refreshBounds.size.height);
-    self.compass_spinner.contentMode = UIViewContentModeScaleAspectFit;
-    
-    
-    
-    // Add the graphics to the loading view
-    [self.refreshLoadingView addSubview:self.compass_background];
-    [self.refreshLoadingView addSubview:self.compass_spinner];
-    
-    // Clip so the graphics don't stick out
-    self.refreshLoadingView.clipsToBounds = YES;
-    
-    
-    // Hide the original spinner icon
-    self.refreshControl.tintColor = [UIColor clearColor];
-    
-    // Add the loading and colors views to our refresh control
-    [self.refreshControl addSubview:self.refreshColorView];
-    [self.refreshControl addSubview:self.refreshLoadingView];
-    
-    // Initalize flags
-    self.isRefreshIconsOverlap = NO;
-    self.isRefreshAnimating = NO;
-    
-    // When activated, invoke our refresh function
-    // Replaced with call to view model
-    
-}
-
--(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    if (self.refreshControl.isRefreshing && !self.isRefreshAnimating) {
-        [self animateRefreshView];
-    }
-}
-
-- (void)resetAnimation
-{
-    // Reset our flags and background color
-    [UIView animateWithDuration:0.5f animations:^{
-        [self.compass_spinner setTransform:CGAffineTransformIdentity];
-        
-    }];
-    
-    self.isRefreshAnimating = NO;
-    self.isRefreshIconsOverlap = NO;
-    self.refreshColorView.backgroundColor = [UIColor clearColor];
-}
-
-- (void)animateRefreshView
-{
-    
-    // Flag that we are animating
-    self.isRefreshAnimating = YES;
-    [UIView animateWithDuration:0.3
-                          delay:0
-                        options:UIViewAnimationOptionCurveLinear
-                     animations:^{
-                         // Rotate the spinner by M_PI_2 = PI/2 = 90 degrees
-                         [self.compass_spinner setTransform:CGAffineTransformRotate(self.compass_spinner.transform, M_PI_2)];
-                         // Change the background color
-                     }
-                     completion:^(BOOL finished) {
-                         
-                         // If still refreshing, keep spinning, else reset
-                         if (self.refreshControl.isRefreshing) {
-                             [self animateRefreshView];
-                         }else{
-                             
-                             [self resetAnimation];
-                         }
-                     }];
-}
-
 
 #pragma mark - Navigation
 

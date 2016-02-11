@@ -22,6 +22,5 @@
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 
 - (IBAction)NewPostBarButtonItemPressed:(id)sender;
--(void)setupRefreshControl;
 
 @end
