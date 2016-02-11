@@ -8,7 +8,6 @@
 
 #import "SpreeUtility.h"
 #import "UIImage+ResizeAdditions.h"
-#import <Parse/PFAnonymousUtils.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <Branch/Branch.h>
 #import "SpreePost.h"
@@ -37,10 +36,6 @@
         firstName = [firstName substringToIndex:100];
     }
     return firstName;
-}
-
-+ (BOOL)userInDemoMode{
-    return [PFAnonymousUtils isLinkedWithUser:[PFUser currentUser]];
 }
 
 /*
