@@ -8,6 +8,7 @@
 
 #import "LoginViewModel.h"
 #import "SpreeViewModelServicesImpl.h"
+#import <FBSDKCoreKit/FBSDKGraphRequest.h>
 #import "MainPostTableViewController.h"
 #import "AppDelegate.h"
 
@@ -39,6 +40,10 @@
 -(RACSignal *)loginWithFacebookSignal {
     @weakify(self)
     return [[[self.services getParseConnection] loginWithFacebook] doNext:^(id x) {
+        [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:@{@"field":@"id"}] startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+            [PFUser currentUser][@"fbId"] = result[@"id"];
+            [[PFUser currentUser] saveEventually];
+        }];
         @strongify(self)
         [self closeOnboarding];
     }];

@@ -352,7 +352,7 @@ typedef enum : NSUInteger {
 {
 	JSQMessage *message;
 	PFUser *user = object[PF_MESSAGE_USER];
-	NSString *name = user[@"username"];
+	NSString *name = self.title;
 
     message = [[JSQMessage alloc] initWithSenderId:user.objectId senderDisplayName:name date:object.createdAt text:object[PF_MESSAGE_TEXT]];
 

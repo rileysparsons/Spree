@@ -7,7 +7,7 @@
 //
 
 #import "AllMessagesViewController.h"
-
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import "ChatView.h"
 #import "MessagingTableViewCell.h"
 #import "recent.h"
@@ -146,7 +146,10 @@
         }
     }
     
-    cell.senderLabel.text = object[PF_RECENT_TOUSER][@"username"];
+    NSString *path = object[PF_RECENT_TOUSER][@"fbId"];
+    [[[FBSDKGraphRequest alloc] initWithGraphPath:path parameters:@{@"fields": @"email,name,first_name"}] startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+        cell.senderLabel.text =result[@"name"];
+    }];
     
     if(object[PF_RECENT_TOUSER][@"fbId"]){
         cell.userImageView.profileID = object[PF_RECENT_TOUSER][@"fbId"];
@@ -177,18 +180,21 @@
         if (error){
             
         } else {
-            [[recent objectForKey:PF_MESSAGE_POST][@"user"] fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error){
+            [[recent objectForKey:PF_RECENT_TOUSER] fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error){
                 if (error){
                     
                 } else {
-                    NSString *title = [recent[PF_RECENT_TOUSER] objectForKey:@"displayName"] ? [SpreeUtility firstNameForDisplayName:[recent[PF_RECENT_TOUSER] objectForKey:@"displayName"]] : [recent[PF_RECENT_TOUSER] objectForKey:@"username"];
-                    ChatView *chatView = [[ChatView alloc] initWith:recent[PF_RECENT_GROUPID] post:[recent objectForKey:PF_MESSAGE_POST] title:title];
-                    chatView.toUser = (PFUser *)recent[PF_RECENT_TOUSER];
-                    self.hidesBottomBarWhenPushed = YES;
-                    [MBProgressHUD hideHUDForView:self.view animated:YES];
-                    [self.navigationController pushViewController:chatView animated:YES];
-                    // Unhide the tabbar when we go back
-                    self.hidesBottomBarWhenPushed = NO;
+                    NSString *path = object[@"fbId"];
+                    [[[FBSDKGraphRequest alloc] initWithGraphPath:path parameters:@{@"fields": @"email,name,first_name"}] startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+                        ChatView *chatView = [[ChatView alloc] initWith:recent[PF_RECENT_GROUPID] post:[recent objectForKey:PF_MESSAGE_POST] title:result[@"name"]];
+                        chatView.toUser = (PFUser *)recent[PF_RECENT_TOUSER];
+                        self.hidesBottomBarWhenPushed = YES;
+                        [MBProgressHUD hideHUDForView:self.view animated:YES];
+                        [self.navigationController pushViewController:chatView animated:YES];
+                        // Unhide the tabbar when we go back
+                        self.hidesBottomBarWhenPushed = NO;
+                    }];
+                    
                 }
             }];
         }
