@@ -195,7 +195,7 @@
                                     [subscriber sendError:error];
                                 }
                             }];
-                        }];
+                        } ];
                     
                     return nil;
                 }];

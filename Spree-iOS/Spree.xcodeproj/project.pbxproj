@@ -1841,7 +1841,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.spree.spreemobile;
 				PRODUCT_NAME = Spree;
-				PROVISIONING_PROFILE = "55af8a34-9316-4dc6-9846-041d5485c66d";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -1864,7 +1864,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.spree.spreemobile;
 				PRODUCT_NAME = Spree;
-				PROVISIONING_PROFILE = "55af8a34-9316-4dc6-9846-041d5485c66d";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

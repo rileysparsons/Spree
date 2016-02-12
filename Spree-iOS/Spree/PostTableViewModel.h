@@ -16,6 +16,8 @@
 @property RACCommand* requestLocationServices;
 @property RACCommand* postSelectedCommand;
 
+@property BOOL isFindingLocation;
+
 @property NSDictionary* queryParameters;
 @property BOOL shouldHidePosts;
 @property BOOL isLoadingPosts;
