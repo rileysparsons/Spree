@@ -15,6 +15,7 @@
 @property (nonatomic, strong) IBOutlet UIButton *nextButton;
 @property (nonatomic, strong) IBOutlet UIButton *prevButton;
 @property (nonatomic, strong) IBOutlet UIButton *closeButton;
+@property (weak, nonatomic) IBOutlet UIButton *skipButton;
 
 // MARK: - Private properties -
 @property (nonatomic, strong) UIScrollView *scrollview;
@@ -85,7 +86,7 @@
 - (IBAction)nextPage:(id)sender {
 	
 	if ((self.currentPage + 1) < self.controllers.count) {
-        if (self.currentPage )
+        if (self.currentPage)
 		
 		if ([self.delegate respondsToSelector:@selector(walkthroughControllerWentNext:)])
 			[self.delegate walkthroughControllerWentNext:self];
@@ -228,7 +229,8 @@
 	
 	// Hide/Show navigation buttons
 	
-	self.nextButton.hidden = (self.currentPage == self.controllers.count - 1);
+	self.skipButton.hidden = self.nextButton.hidden = (self.currentPage == self.controllers.count - 1);
+    
 	self.prevButton.hidden = (self.currentPage == 0);
 }
 

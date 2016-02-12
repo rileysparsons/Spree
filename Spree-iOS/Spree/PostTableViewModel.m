@@ -67,7 +67,7 @@
     RAC(self, posts) = [[self.refreshPosts executionSignals] switchToLatest];
     
     self.isFindingLocation = YES;
-   [[[[RACObserve(self, currentLocation) ignore:NULL] take:1]
+   [[[[[RACObserve(self, currentLocation) ignore:NULL] take:1] timeout:10.0f onScheduler:[RACScheduler scheduler]]
     filter:^BOOL(id value) {
         return [[self.refreshPosts executing] not];
     }] subscribeNext:^(id x) {
@@ -75,8 +75,9 @@
         @strongify(self)
         self.isFindingLocation = NO;
         [self.refreshPosts execute:_queryParameters];
+    } error:^(NSError *error) {
+        self.isFindingLocation = NO;
     }];
-
     
     // create the tweet selected command, that simply logs
     self.postSelectedCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(SpreePost *selectedPost) {
