@@ -94,7 +94,7 @@
     // Binds the view model to the viewcontroller/view
     [self bindViewModel];
     
-    [self.viewModel.refreshPosts execute:nil];
+//    [self.viewModel.refreshPosts execute:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -164,9 +164,19 @@
         @strongify(self)
         self.progressHUD.labelText = @"Loading Posts...";
         if ([x boolValue]){
-            [self.progressHUD show:YES];
+            [self.progressHUD show:NO];
         } else {
             [self.progressHUD hide:YES afterDelay:0.5];
+        }
+    }];
+    
+    [[RACObserve(self.viewModel, isFindingLocation) deliverOnMainThread] subscribeNext:^(id x) {
+        @strongify(self)
+        self.progressHUD.labelText = @"Finding Location...";
+        if ([x boolValue]){
+            [self.progressHUD show:YES];
+        } else {
+            [self.progressHUD hide:NO];
         }
     }];
 
