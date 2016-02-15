@@ -40,12 +40,16 @@
 -(RACSignal *)loginWithFacebookSignal {
     @weakify(self)
     return [[[self.services getParseConnection] loginWithFacebook] doNext:^(id x) {
-        [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:@{@"field":@"id"}] startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+        [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:@{@"fields":@"id,name"}] startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
             [PFUser currentUser][@"fbId"] = result[@"id"];
-            [[PFUser currentUser] saveEventually];
+            [PFUser currentUser][@"displayName"] = result[@"name"];
+            
+            
+            [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                @strongify(self)
+                [self closeOnboarding];
+            }];
         }];
-        @strongify(self)
-        [self closeOnboarding];
     }];
 }
 
