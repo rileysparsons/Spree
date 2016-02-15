@@ -64,7 +64,7 @@
         cell = [[PFTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
 
-    cell.textLabel.text = [[object objectForKey:@"user"] objectForKey:@"username"];
+    cell.textLabel.text = [[object objectForKey:@"user"] objectForKey:@"displayName"];
 
     return cell;
 }

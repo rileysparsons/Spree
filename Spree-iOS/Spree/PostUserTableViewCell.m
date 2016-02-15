@@ -41,16 +41,10 @@
     PFUser *user = post.user;
     NSLog(@"Cell user %@", user);
     
-    if (user[@"displayName"]){
-        self.userLabel.text = [SpreeUtility firstNameForDisplayName: user[@"displayName"]];
-    } else {
-        self.userLabel.text = user[@"username"];
-    }
-    
     [self setRatingForUser:user];
     
-    if (user[@"fbId"])
-        self.userImageView.profileID = user[@"fbId"];
+    self.userImageView.profileID = user[@"fbId"];
+    self.userLabel.text = user[@"displayName"];
     
     [self.userImageView setNeedsImageUpdate];
 }

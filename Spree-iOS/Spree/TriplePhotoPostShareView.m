@@ -43,7 +43,7 @@
                 }
             }];
         } else {
-            NSString *authorString = [NSString stringWithFormat:@"%@ IS SELLING", [object[@"username"] uppercaseString]];
+            NSString *authorString = [NSString stringWithFormat:@"%@ IS SELLING", [object[@"displayName"] uppercaseString]];
             self.postAuthorLabel.text = authorString;
             [self initializationComplete];
         }

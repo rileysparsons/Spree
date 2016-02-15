@@ -74,7 +74,7 @@
             
             [post[PF_POST_USER] fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error){
                 if  (!error){
-                    NSString *title = [post[PF_POST_USER] objectForKey:@"displayName"] ? [SpreeUtility firstNameForDisplayName:[post[PF_POST_USER] objectForKey:@"displayName"]] : [post[PF_POST_USER] objectForKey:@"username"];
+                    NSString *title = [post[PF_POST_USER] objectForKey:@"displayName"];
                     self.posterLabel.text =title;
                 }
             }];
