@@ -22,6 +22,7 @@
     self.navigationItem.titleView = nil;
     [self.navigationItem setTitle:@"Your Posts"];
     // Do any additional setup after loading the view.
+    [self.viewModel.refreshPosts execute:nil];
 }
 /*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object
