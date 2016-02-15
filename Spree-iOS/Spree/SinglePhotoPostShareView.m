@@ -78,7 +78,7 @@
             }
         }];
     } else {
-        NSString *authorString = [NSString stringWithFormat:@"%@ %@", [post.user[@"username"] uppercaseString], authorTitlePrefix];
+        NSString *authorString = [NSString stringWithFormat:@"%@ %@", [post.user[@"displayName"] uppercaseString], authorTitlePrefix];
         self.postAuthorLabel.text = authorString;
         [self initializationComplete];
     }

@@ -178,7 +178,7 @@ typedef enum : NSUInteger {
 	PFUser *user = [PFUser currentUser];
     [user fetchInBackground];
 	self.senderId = user.objectId;
-    self.senderDisplayName = user[@"username"];
+    self.senderDisplayName = user[@"displayName"];
     
     if ([[user objectForKey:@"emailVerified"] boolValue]){
         userVerifiedToSendMessages = YES;
@@ -417,7 +417,7 @@ typedef enum : NSUInteger {
     [lookUp whereKey:@"objectId" equalTo:[[post objectForKey:@"user"] objectId]];
     [lookUp getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
         if (object) {
-            CreateRecentItem(user1, groupId, object[@"username"], user2, post, text);
+            CreateRecentItem(user1, groupId, object[@"displayName"], user2, post, text);
         }
     }];
 
@@ -716,7 +716,7 @@ typedef enum : NSUInteger {
 
 -(void)claimPost{
     NSLog(@"I'll take care of this");
-    NSString *claimerName = [PFUser currentUser][@"displayName"] ? [SpreeUtility firstNameForDisplayName:[PFUser currentUser][@"displayName"]] : [PFUser currentUser][@"username"];
+    NSString *claimerName = [PFUser currentUser][@"displayName"];
     [self sendMessage:[NSString stringWithFormat:@"%@ claimed this task!", claimerName] Video:nil Picture:nil];
     [(SpreePost *)post setTaskClaimed:YES];
     [(SpreePost *)post setTaskClaimedBy:[PFUser currentUser]];
@@ -727,7 +727,7 @@ typedef enum : NSUInteger {
 
 -(void)userOffered:(PFObject *)offer{
     currentOffer = offer;
-    NSString *purchaserName = [PFUser currentUser][@"displayName"] ? [SpreeUtility firstNameForDisplayName:[PFUser currentUser][@"displayName"]] : [PFUser currentUser][@"username"];
+    NSString *purchaserName = [PFUser currentUser][@"displayName"];
 
     NSString *paymentConfirmation;
 
@@ -744,7 +744,7 @@ typedef enum : NSUInteger {
 -(void)userPaidForService:(SpreePost*)service{
     post = service;
     
-    NSString *purchaserName = [PFUser currentUser][@"displayName"] ? [SpreeUtility firstNameForDisplayName:[PFUser currentUser][@"displayName"]] : [PFUser currentUser][@"username"];
+    NSString *purchaserName = [PFUser currentUser][@"displayName"];
     
     NSString *paymentConfirmation;
     

@@ -28,7 +28,7 @@
     if (self.user[@"displayName"]){
         _rateUserLabel.text = [NSString stringWithFormat:@"Please rate your recent transaction with %@", [SpreeUtility firstNameForDisplayName:self.user[@"displayName"]]];
     } else {
-       _rateUserLabel.text = [NSString stringWithFormat:@"Please rate your recent transaction with %@", self.user[@"username"]];
+       _rateUserLabel.text = [NSString stringWithFormat:@"Please rate your recent transaction with %@", self.user[@"displayName"]];
     }
 
     self.starRating.backgroundColor  = [UIColor spreeOffWhite];

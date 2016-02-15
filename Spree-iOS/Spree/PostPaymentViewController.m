@@ -33,7 +33,7 @@ typedef enum : NSUInteger {
     [self formatPriceEntryView];
     self.amountField.text = [NSString stringWithFormat:@"%@", [self.post.price stringValue]];
     
-    NSString *name = [self.post.user objectForKey:@"displayName"] ? [SpreeUtility firstNameForDisplayName:[self.post.user objectForKey:@"displayName"]] : [self.post.user objectForKey:@"username"];
+    NSString *name = [self.post.user objectForKey:@"displayName"];
 
     
     self.recipientLabel.text = name;

@@ -23,11 +23,7 @@
 
 -(void)setupForUser{
     if (self.detailUser){
-        if (self.detailUser[@"displayName"]){
-            self.usernameLabel.text = [SpreeUtility firstNameForDisplayName: self.detailUser[@"displayName"]];
-        } else {
-            self.usernameLabel.text = self.detailUser[@"username"];
-        }
+        self.usernameLabel.text = [SpreeUtility firstNameForDisplayName: self.detailUser[@"displayName"]];
         
         if (self.detailUser[@"fbId"])
             self.profileImage.profileID = self.detailUser[@"fbId"];
