@@ -89,7 +89,7 @@ typedef enum : NSUInteger {
 
 - (IBAction)sendButtonTouched:(id)sender {
 
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Confirm Offer" message:[NSString stringWithFormat:@"You are indicating committing to purchase this item at a price of $%@", self.amountField.text] delegate:self cancelButtonTitle:@"Confirm" otherButtonTitles:@"Cancel", nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Make an Offer" message:[NSString stringWithFormat:@"You are promising to purchase this item for $%@", self.amountField.text] delegate:self cancelButtonTitle:@"Confirm" otherButtonTitles:@"Cancel", nil];
     alert.tag = kAlertViewConfirmPurchase;
     [alert show];
     
