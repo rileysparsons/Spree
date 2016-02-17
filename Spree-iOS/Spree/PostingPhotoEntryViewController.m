@@ -45,7 +45,7 @@
 -(void)bindToViewModel {
     
     [self.viewModel.photoSelected.executionSignals subscribeNext:^(id x) {
-        UIAlertView *deletePhotoAlert = [[UIAlertView alloc] initWithTitle:@"Delete Photo?" message:@"Are you sure you want to delete this photo?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Confirm", nil];
+        UIAlertView *deletePhotoAlert = [[UIAlertView alloc] initWithTitle:@"Delete Photo?" message:@"Are you sure you want to delete this photo?" delegate:self cancelButtonTitle:@"Keep" otherButtonTitles:@"Delete", nil];
         [deletePhotoAlert show];
     }];
     
