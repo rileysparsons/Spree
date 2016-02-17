@@ -78,7 +78,7 @@
             
             double latitude = region.center.latitude;
             double longitude = region.center.longitude;
-            
+            [postQuery orderByDescending:@"createdAt"];
             PFGeoPoint *geopoint = [PFGeoPoint geoPointWithLatitude:latitude longitude:longitude];
             double milesRadius = region.radius*0.000621371;
             [postQuery whereKey:@"location" nearGeoPoint:geopoint withinMiles:milesRadius];
@@ -111,7 +111,7 @@
                         NSLog(@"type in final query %@", postType[@"type"]);
                         [postQuery whereKey:@"typePointer" equalTo:postType];
                         [postQuery whereKey:@"user" equalTo:user];
-                        
+                        [postQuery orderByDescending:@"createdAt"];
                         [params enumerateKeysAndObjectsUsingBlock:^(id key, id object, BOOL *stop) {
                             if (![key isEqualToString: @"type"]){
                                 [postQuery whereKey:key equalTo:object];
@@ -137,7 +137,7 @@
                 PFQuery *postQuery = [PFQuery queryWithClassName:@"Post"];
                 
                 [postQuery whereKey:@"user" equalTo:user];
-                
+                [postQuery orderByDescending:@"createdAt"];
                 [params enumerateKeysAndObjectsUsingBlock:^(id key, id object, BOOL *stop) {
                     if (![key isEqualToString: @"type"]){
                         [postQuery whereKey:key equalTo:object];
@@ -172,7 +172,7 @@
                             
                             double latitude = region.center.latitude;
                             double longitude = region.center.longitude;
-                            
+                            [postQuery orderByDescending:@"createdAt"];
                             PFGeoPoint *geopoint = [PFGeoPoint geoPointWithLatitude:latitude longitude:longitude];
                             double milesRadius = region.radius*0.000621371;
                             [postQuery whereKey:@"location" nearGeoPoint:geopoint withinMiles:milesRadius];
@@ -226,7 +226,7 @@
                         double longitude = region.center.longitude;
                         
                         PFGeoPoint *geopoint = [PFGeoPoint geoPointWithLatitude:latitude longitude:longitude];
-                        
+                        [postQuery orderByDescending:@"createdAt"];
                         double milesRadius = region.radius*0.000621371;
                         [postQuery whereKey:@"location" nearGeoPoint:geopoint withinMiles:milesRadius];
                         
