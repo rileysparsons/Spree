@@ -262,7 +262,9 @@
     SpreeViewModelServicesImpl *viewModelServices = [[SpreeViewModelServicesImpl alloc] init];
     NSLog(@"%@", viewModelServices);
     PostingWorkflowViewModel *postingWorkflowViewModel = [[PostingWorkflowViewModel alloc] initWithServices:viewModelServices];
-    NSLog(@"%@", postingWorkflowViewModel);
+    [[postingWorkflowViewModel.endPostingWorkflowCommand.executionSignals switchToLatest] subscribeNext:^(id x) {
+        [self.viewModel.refreshPosts execute:nil];
+    }];
     BasePostingViewController *basePostingViewController = [[BasePostingViewController alloc] initWithViewModel:postingWorkflowViewModel];
      NSLog(@"%@", basePostingViewController);
     UINavigationController *postingWorkflowNavigationController = [[UINavigationController alloc] initWithRootViewController:basePostingViewController];
