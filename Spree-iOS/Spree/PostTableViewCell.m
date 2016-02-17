@@ -28,8 +28,9 @@
 - (void)awakeFromNib {
     // Initialization code
 
-    [self circularMaskForView:self.postImageView];
-    [self circularMaskForView:self.imageBackgroundView];
+    // For circular views: 
+    // [self circularMaskForView:self.postImageView];
+    // [self circularMaskForView:self.imageBackgroundView];
 }
 
 -(void)bindViewModel:(id)viewModel{
