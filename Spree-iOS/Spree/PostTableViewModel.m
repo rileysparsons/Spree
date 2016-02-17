@@ -67,8 +67,10 @@
     RAC(self, posts) = [[self.refreshPosts executionSignals] switchToLatest];
     
     self.isFindingLocation = YES;
+    
    [[[[[RACObserve(self, currentLocation) ignore:NULL] take:1] timeout:10.0f onScheduler:[RACScheduler scheduler]]
     filter:^BOOL(id value) {
+        @strongify(self)
         return [[self.refreshPosts executing] not];
     }] subscribeNext:^(id x) {
         NSLog(@"returned from initial block: %@", x);
@@ -76,9 +78,10 @@
         self.isFindingLocation = NO;
         [self.refreshPosts execute:_queryParameters];
     } error:^(NSError *error) {
+        @strongify(self)
         self.isFindingLocation = NO;
     }];
-    
+
     // create the tweet selected command, that simply logs
     self.postSelectedCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(SpreePost *selectedPost) {
         NSLog(@"selected %@", selectedPost.title);
@@ -105,8 +108,22 @@
         @strongify(self)
         if ([x integerValue] == 2){
             self.posts = nil;
+        } else {
+            [[[[[RACObserve(self, currentLocation) ignore:NULL] take:1] timeout:10.0f onScheduler:[RACScheduler scheduler]]
+              filter:^BOOL(id value) {
+                  return [[self.refreshPosts executing] not];
+              }] subscribeNext:^(id x) {
+                  NSLog(@"returned from initial block: %@", x);
+                  @strongify(self)
+                  self.isFindingLocation = NO;
+                  [self.refreshPosts execute:_queryParameters];
+              } error:^(NSError *error) {
+                  self.isFindingLocation = NO;
+              }];
+            
         }
     }];
+    
 //
 //  
 //    [[self.service locations] subscribeError:^(NSError *error) {
