@@ -57,7 +57,7 @@
     // Bar title
     UILabel *titleLabel=[[UILabel alloc] initWithFrame:CGRectMake(0,0, 150, 40)];
     titleLabel.textAlignment = NSTextAlignmentCenter;
-    titleLabel.text= @"POSTS";
+    titleLabel.text= @"Browse Nearby Items";
     titleLabel.textColor=[UIColor spreeOffBlack];
     titleLabel.font = [UIFont fontWithName:@"Lato-Bold" size: 17.0];
     titleLabel.backgroundColor =[UIColor clearColor];

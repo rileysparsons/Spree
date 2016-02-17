@@ -188,7 +188,11 @@
     // Bar title
     UILabel *titleLabel=[[UILabel alloc] initWithFrame:CGRectMake(0,0, 150, 40)];
     titleLabel.textAlignment = NSTextAlignmentCenter;
-    titleLabel.text= @"CAMPUS";
+    NSString *itemTypeDescription = @"Items";
+    if (self.viewModel.queryParameters != nil && self.viewModel.queryParameters[@"type"] != nil) {
+        itemTypeDescription = self.viewModel.queryParameters[@"type"];
+    }
+    titleLabel.text= [NSString stringWithFormat:@"%@ Near You",itemTypeDescription];
     titleLabel.textColor=[UIColor spreeOffBlack];
     titleLabel.font = [UIFont fontWithName:@"Lato-Bold" size: 17.0];
     titleLabel.backgroundColor =[UIColor clearColor];
