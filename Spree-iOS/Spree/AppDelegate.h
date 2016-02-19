@@ -8,6 +8,7 @@
 
 #import <CoreLocation/CoreLocation.h>
 #import "Branch.h"
+#import <AWSMobileAnalytics/AWSMobileAnalytics.h>
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, CLLocationManagerDelegate>
 
@@ -15,6 +16,7 @@
 @property CLLocationManager *locationManager;
 @property UINavigationController *navigationController;
 @property NSInteger expiredPostCount;
+@property AWSMobileAnalytics *analyticsClient;
 
 -(void)logOut;
 
