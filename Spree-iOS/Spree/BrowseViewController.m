@@ -306,14 +306,13 @@
     [postQuery whereKey:@"typePointer" equalTo:object];
     [postQuery whereKey:@"expired" equalTo:[NSNumber numberWithBool:NO]];
     [postQuery whereKey:@"sold" equalTo:[NSNumber numberWithBool:NO]];
-    [postQuery whereKeyDoesNotExist:@"removed" ];
+    cell.numberLabel.text = [NSString stringWithFormat:@"0 Posts"];
     
     [postQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
-        cell.numberLabel.text = [NSString stringWithFormat:@"0 Posts"];
-        if (number) {
+        
+        if (!error) {
             [self.refreshControl endRefreshing];
             cell.numberLabel.text = [NSString stringWithFormat:@"%@ Posts", [@(number)stringValue]];
-            _pastPostNumber = number;
         }
     }];
     
@@ -424,7 +423,7 @@
         // Attaching View Model Services to View Model (gives us access to Parse, our model)
         SpreeViewModelServicesImpl *viewModelServices = [[SpreeViewModelServicesImpl alloc] init];
         
-        PostTableViewModel *viewModel = [[PostTableViewModel alloc] initWithServices:viewModelServices Params:@{@"type":[self.objects objectAtIndex:self.tableView.indexPathForSelectedRow.row][@"type"]}];
+        PostTableViewModel *viewModel = [[PostTableViewModel alloc] initWithServices:viewModelServices Params:@{@"type":[self.objects objectAtIndex:self.tableView.indexPathForSelectedRow.row][@"type"], @"expired":@NO, @"sold":@NO}];
 
         SearchablePostTableViewController *destinationViewController = segue.destinationViewController;
         

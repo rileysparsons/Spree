@@ -199,6 +199,35 @@
                     
                     return nil;
                 }];
+            } else {
+                return [RACSignal createSignal:^RACDisposable * (id<RACSubscriber> subscriber) {
+                        
+                        PFQuery *postQuery = [PFQuery queryWithClassName:@"Post"];
+                        
+                        double latitude = region.center.latitude;
+                        double longitude = region.center.longitude;
+                        [postQuery orderByDescending:@"createdAt"];
+                        PFGeoPoint *geopoint = [PFGeoPoint geoPointWithLatitude:latitude longitude:longitude];
+                        double milesRadius = region.radius*0.000621371;
+                        [postQuery whereKey:@"location" nearGeoPoint:geopoint withinMiles:milesRadius];
+                        
+                        [params enumerateKeysAndObjectsUsingBlock:^(id key, id object, BOOL *stop) {
+                            if (![key isEqualToString: @"type"]){
+                                [postQuery whereKey:key equalTo:object];
+                            }
+                        }];
+                        
+                        [postQuery findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+                            if (!error){
+                                NSLog(@"no error here (params). %lu", (long unsigned)objects.count);
+                                [subscriber sendNext:objects];
+                                [subscriber sendCompleted];
+                            } else {
+                                [subscriber sendError:error];
+                            }
+                        }];
+                    return nil;
+                }];
             }
         } else {
             // If no other parameters were provided send back all posts that match that location

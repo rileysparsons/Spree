@@ -390,20 +390,21 @@
 }
 
 -(void)userControlButtonTouched{
-    /*
+    
     UIAlertController *userControl = [UIAlertController alertControllerWithTitle:@"Edit your post" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     UIAlertAction* cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
                                                           handler:^(UIAlertAction * action) {
                                                               [userControl dismissViewControllerAnimated:YES completion:nil];
                                                           }];
 
-    UIAlertAction* editItem = [UIAlertAction actionWithTitle:@"Edit post" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewPost" bundle:nil];
-        EditPostViewController *editPostViewController = [storyboard instantiateViewControllerWithIdentifier:@"EditPostViewController"];
-        [editPostViewController initWithPost:self.post];
-        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:editPostViewController];
-        [self presentViewController:navController animated:YES completion:nil];
-    }];
+//    UIAlertAction* editItem = [UIAlertAction actionWithTitle:@"Edit post" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+//        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewPost" bundle:nil];
+//        EditPostViewController *editPostViewController = [storyboard instantiateViewControllerWithIdentifier:@"EditPostViewController"];
+//        [editPostViewController initWithPost:self.post];
+//        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:editPostViewController];
+//        [self presentViewController:navController animated:YES completion:nil];
+//    }];
+    
     UIAlertAction* itemSold = [UIAlertAction actionWithTitle:@"This item has been sold" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         self.post.sold = YES;
         [self.post saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error){
@@ -411,11 +412,11 @@
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloadTable" object:nil];
             }
         }];
-        [userControl dismissViewControllerAnimated:YES completion:nil];
+        [self.navigationController popViewControllerAnimated:YES];
     }];
     UIAlertAction* deletePost = [UIAlertAction actionWithTitle:@"Delete post" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
-        self.post.removed = YES;
-        [self.post saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error){
+        
+        [self.post deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error){
             if (succeeded){
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloadTable" object:nil];
                 
@@ -426,9 +427,9 @@
     [userControl addAction:cancel];
     [userControl addAction:deletePost];
     [userControl addAction:itemSold];
-    [userControl addAction:editItem];
+//    [userControl addAction:editItem];
     [self presentViewController:userControl animated:YES completion:nil];
-     */
+
 }
 
 -(void)updatePostStatus{

@@ -105,7 +105,7 @@
         // Attaching View Model Services to View Model (gives us access to Parse, our model)
         SpreeViewModelServicesImpl *viewModelServices = [[SpreeViewModelServicesImpl alloc] init];
         
-        PostTableViewModel *viewModel = [[PostTableViewModel alloc] initWithServices:viewModelServices];
+        PostTableViewModel *viewModel = [[PostTableViewModel alloc] initWithServices:viewModelServices Params:@{@"expired": @NO, @"sold": @NO}];
         mainPostTableViewController.viewModel = viewModel;
         
         UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert |

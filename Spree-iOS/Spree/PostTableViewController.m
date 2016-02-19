@@ -76,6 +76,11 @@
     }];
     */
     
+    [[[NSNotificationCenter defaultCenter] rac_addObserverForName:@"ReloadTable" object:nil]
+     subscribeNext:^(id x) {
+         [self.viewModel.refreshPosts execute:nil];
+     }];
+    
      // Removes lines from showing with empty cells
     self.postsTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
    
