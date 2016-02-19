@@ -52,7 +52,17 @@
     
     self.posts = [[NSArray alloc] init];
     
-    [self initializeLocationService];
+    [RACObserve(self, promptForLocation) subscribeNext:^(id x) {
+        if ([x integerValue])
+            self.shouldHidePosts = NO;
+    }];
+    
+    if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined) {
+        self.promptForLocation = YES;
+    } else {
+        self.isFindingLocation = YES;
+        [self initializeLocationService];
+    }
     
     @weakify(self);
 
@@ -63,10 +73,14 @@
         }];
     }];
     
+    self.requestLocationServices = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        [self initializeLocationService];
+        return [RACSignal return:nil];
+    }];
+    
 
     RAC(self, posts) = [[self.refreshPosts executionSignals] switchToLatest];
     
-    self.isFindingLocation = YES;
    [[[[[RACObserve(self, currentLocation) ignore:NULL] take:1] timeout:10.0f onScheduler:[RACScheduler scheduler]]
     filter:^BOOL(id value) {
         return [[self.refreshPosts executing] not];
@@ -103,8 +117,23 @@
     @weakify(self)
     [[self.service authorizationStatus] subscribeNext:^(NSNumber* x) {
         @strongify(self)
-        if ([x integerValue] == 2){
-            self.posts = nil;
+        if ([x integerValue] != 0){
+            self.promptForLocation = NO;
+            if ([x integerValue] == 2){
+                self.posts = nil;
+            } else {
+                [[[[[RACObserve(self, currentLocation) ignore:NULL] take:1] timeout:10.0f onScheduler:[RACScheduler scheduler]]
+                  filter:^BOOL(id value) {
+                      return [[self.refreshPosts executing] not];
+                  }] subscribeNext:^(id x) {
+                      NSLog(@"returned from initial block: %@", x);
+                      @strongify(self)
+                      self.isFindingLocation = NO;
+                      [self.refreshPosts execute:_queryParameters];
+                  } error:^(NSError *error) {
+                      self.isFindingLocation = NO;
+                  }];
+            }
         }
     }];
 //
@@ -122,6 +151,8 @@
 //            return @NO;
 //        }
 //    }];
+    
+    
     
     RAC(self, shouldHidePosts) = [RACSignal combineLatest:@[RACObserve(self, currentLocation), [self.service authorizationStatus]] reduce:^id(CLLocation *location, NSNumber *number){
         return @(location == nil || [number integerValue] == 2);

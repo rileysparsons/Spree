@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -21,7 +21,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="748" verticalCompressionResistancePriority="748" image="locationNotFound" translatesAutoresizingMaskIntoConstraints="NO" id="jP4-7V-lHt">
-                    <rect key="frame" x="84" y="20" width="246" height="100"/>
+                    <rect key="frame" x="84" y="200" width="246" height="100"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="jP4-7V-lHt" secondAttribute="height" multiplier="1:1" id="8bK-hC-uYj"/>
                         <constraint firstAttribute="height" relation="lessThanOrEqual" constant="100" id="Dn8-ii-FWg"/>
@@ -34,13 +34,13 @@
                     </variation>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Please check your phone's privacy settings for location." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="aNV-RK-ayH">
-                    <rect key="frame" x="20" y="208" width="374" height="18"/>
+                    <rect key="frame" x="20" y="388" width="374" height="18"/>
                     <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="15"/>
                     <color key="textColor" red="0.16666857900000001" green="0.18534906209999999" blue="0.19849607350000001" alpha="0.5" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="748" verticalCompressionResistancePriority="748" text="We're having trouble finding your current location." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="Pvb-6g-nnB">
-                    <rect key="frame" x="20" y="140" width="374" height="48"/>
+                    <rect key="frame" x="20" y="320" width="374" height="48"/>
                     <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="20"/>
                     <color key="textColor" red="0.16666857900000001" green="0.18534906209999999" blue="0.19849607350000001" alpha="0.5" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
@@ -58,7 +58,7 @@
                 <constraint firstItem="jP4-7V-lHt" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Sj1-Xc-2Zj"/>
                 <constraint firstAttribute="bottom" secondItem="jP4-7V-lHt" secondAttribute="bottom" id="TiW-eU-zQ7"/>
                 <constraint firstItem="jP4-7V-lHt" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="84" id="e8H-T1-g2M"/>
-                <constraint firstItem="jP4-7V-lHt" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" id="nem-Bw-983"/>
+                <constraint firstItem="jP4-7V-lHt" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="200" id="nem-Bw-983"/>
                 <constraint firstItem="jP4-7V-lHt" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="200" id="s5X-aq-a8d"/>
                 <constraint firstItem="aNV-RK-ayH" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="xph-ke-jDM"/>
                 <constraint firstAttribute="trailing" secondItem="jP4-7V-lHt" secondAttribute="trailing" id="yoC-Yf-etb"/>
