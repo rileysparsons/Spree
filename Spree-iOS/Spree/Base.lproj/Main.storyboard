@@ -38,7 +38,6 @@
             <string>Lato-Regular</string>
             <string>Lato-Regular</string>
             <string>Lato-Regular</string>
-            <string>Lato-Regular</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -852,7 +851,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kVF-Xs-7cT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="16" y="837"/>
+            <point key="canvasLocation" x="-882" y="933"/>
         </scene>
         <!--Main Post Table View Controller-->
         <scene sceneID="Xdh-ck-7PT">
@@ -889,11 +888,11 @@
             </objects>
             <point key="canvasLocation" x="18.5" y="1630.5"/>
         </scene>
-        <!--Notifications-->
+        <!--Messages-->
         <scene sceneID="U3B-8e-MJ2">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="S36-Pw-hGv" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Notifications" image="notificationsTabBarIcon" id="7w9-ch-LzQ"/>
+                    <tabBarItem key="tabBarItem" title="Messages" image="286-speechbubble" id="7w9-ch-LzQ"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="LxW-fR-MAf">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -986,64 +985,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YNH-Cy-Yhi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-458" y="-2869"/>
-        </scene>
-        <!--Meet Up View Controller-->
-        <scene sceneID="XXi-yG-puE">
-            <objects>
-                <viewController storyboardIdentifier="meetUp" id="FtF-Yt-Ixb" customClass="MeetUpViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="5QA-zj-5Kf"/>
-                        <viewControllerLayoutGuide type="bottom" id="Pbm-su-Bdo"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="hah-rd-FJn">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pick a Time and Place" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mma-Q8-fyV">
-                                <rect key="frame" x="117" y="138" width="180" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="5Qf-nH-pHH"/>
-                                    <constraint firstAttribute="width" constant="180" id="DIC-V6-9kc"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="18"/>
-                                <color key="textColor" red="0.16666857900000001" green="0.18534906209999999" blue="0.19849607350000001" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <datePicker contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="RFT-eG-eva">
-                                <rect key="frame" x="0.0" y="250" width="414" height="216"/>
-                                <date key="date" timeIntervalSinceReferenceDate="453282130.22468501">
-                                    <!--2015-05-14 07:42:10 +0000-->
-                                </date>
-                            </datePicker>
-                            <pickerView contentMode="scaleToFill" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OOE-4O-ZFu">
-                                <rect key="frame" x="82" y="547" width="251" height="162"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="251" id="f76-08-sFN"/>
-                                </constraints>
-                            </pickerView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="RFT-eG-eva" firstAttribute="leading" secondItem="hah-rd-FJn" secondAttribute="leading" id="1xe-H7-kf8"/>
-                            <constraint firstItem="mma-Q8-fyV" firstAttribute="centerX" secondItem="RFT-eG-eva" secondAttribute="centerX" id="ApD-IM-U5N"/>
-                            <constraint firstItem="RFT-eG-eva" firstAttribute="top" secondItem="mma-Q8-fyV" secondAttribute="bottom" constant="75" id="Eu0-fi-RG3"/>
-                            <constraint firstItem="OOE-4O-ZFu" firstAttribute="centerX" secondItem="RFT-eG-eva" secondAttribute="centerX" id="Qag-52-bzi"/>
-                            <constraint firstItem="mma-Q8-fyV" firstAttribute="top" secondItem="5QA-zj-5Kf" secondAttribute="bottom" constant="118" id="cOq-sd-ma7"/>
-                            <constraint firstAttribute="trailing" secondItem="RFT-eG-eva" secondAttribute="trailing" id="nED-cU-IzN"/>
-                            <constraint firstItem="OOE-4O-ZFu" firstAttribute="top" secondItem="RFT-eG-eva" secondAttribute="bottom" constant="65" id="tjU-oV-8eJ"/>
-                            <constraint firstItem="Pbm-su-Bdo" firstAttribute="top" secondItem="OOE-4O-ZFu" secondAttribute="bottom" constant="27" id="v7J-uL-tLE"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="Hg4-fG-zVa"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
-                    <connections>
-                        <outlet property="datePicker" destination="RFT-eG-eva" id="Yak-2u-K6e"/>
-                        <outlet property="placePicker" destination="OOE-4O-ZFu" id="dZI-Ck-Iqr"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Zlw-e3-o84" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="16" y="-1650"/>
         </scene>
         <!--Find Buyer View Controller-->
         <scene sceneID="ll0-dO-hVJ">
@@ -1308,9 +1249,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="286-speechbubble" width="24" height="24"/>
         <image name="73-radar" width="27" height="27"/>
         <image name="browseTabBarIcon" width="25" height="25"/>
         <image name="meTabBarIcon" width="27" height="26"/>
-        <image name="notificationsTabBarIcon" width="25" height="26"/>
     </resources>
 </document>

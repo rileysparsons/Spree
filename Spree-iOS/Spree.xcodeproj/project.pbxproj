@@ -158,7 +158,6 @@
 		4E0E820B1B40DE1800E18975 /* leftarrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E0E820A1B40DE1800E18975 /* leftarrow@2x.png */; };
 		4E9275151B91400E0082B8A0 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9275141B91400E0082B8A0 /* MessageUI.framework */; };
 		4ECA453F1B48E0EB006C33FC /* ContactUsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ECA453E1B48E0EB006C33FC /* ContactUsViewController.m */; };
-		CFFEE9291B0487BF002CD29A /* MeetUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFFEE9281B0487BF002CD29A /* MeetUpViewController.m */; };
 		F70FACF51AEB501700057E6E /* converter.m in Sources */ = {isa = PBXBuildFile; fileRef = F70FACF41AEB501700057E6E /* converter.m */; };
 		F72B2D031AE64A2D00F9A845 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F72B2D021AE64A2D00F9A845 /* Social.framework */; };
 		F72B2D051AE64A3300F9A845 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F72B2D041AE64A3300F9A845 /* Accounts.framework */; };
@@ -449,8 +448,6 @@
 		4ECA453E1B48E0EB006C33FC /* ContactUsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactUsViewController.m; sourceTree = "<group>"; };
 		A7F573D62D839D22544FF614 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		B945B740BECA3D7D67B99CD6 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		CFFEE9271B0487BF002CD29A /* MeetUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeetUpViewController.h; sourceTree = "<group>"; };
-		CFFEE9281B0487BF002CD29A /* MeetUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeetUpViewController.m; sourceTree = "<group>"; };
 		DE88A00A12A293397EB0574B /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		F70FACF31AEB501700057E6E /* converter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = converter.h; sourceTree = "<group>"; };
 		F70FACF41AEB501700057E6E /* converter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = converter.m; sourceTree = "<group>"; };
@@ -553,8 +550,6 @@
 				F7AFBB431AF4CC2B00D3148B /* Rating System */,
 				14A4C9991BA74B8600C6C2E3 /* PostPaymentViewController.h */,
 				14A4C99A1BA74B8600C6C2E3 /* PostPaymentViewController.m */,
-				CFFEE9281B0487BF002CD29A /* MeetUpViewController.m */,
-				CFFEE9271B0487BF002CD29A /* MeetUpViewController.h */,
 				145B0ABE1B9F8027002FD94E /* SpreeUtility.h */,
 				145B0ABF1B9F8027002FD94E /* SpreeUtility.m */,
 				14423CE61B9006BC002CB026 /* SpreeConfigManager.h */,
@@ -1701,7 +1696,6 @@
 				14CE47241B6AF41E004FA4D1 /* MainPostTableViewController.m in Sources */,
 				14423CD51B8E8F68002CB026 /* PostShareView.m in Sources */,
 				14EB18FD1C50B74600EE5A69 /* SelectPostTypeViewModel.m in Sources */,
-				CFFEE9291B0487BF002CD29A /* MeetUpViewController.m in Sources */,
 				14423CDF1B8FCD64002CB026 /* EditPostingNumberEntryViewController.m in Sources */,
 				14839F521C2B2F2A00ED5320 /* CEObservableMutableArray.m in Sources */,
 				145B0AB81B9E1BFB002FD94E /* EDStarRating.m in Sources */,
