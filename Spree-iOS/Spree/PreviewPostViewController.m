@@ -291,9 +291,21 @@
 }
 
 -(void)cancelPost{
-    self.viewModel = nil;
-    [self dismissViewControllerAnimated:YES completion:nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Cancel Post" message:@"Are you sure you want to cancel this post? You are able to edit the post prior to publishing." delegate:self cancelButtonTitle:@"Keep Going" otherButtonTitles:@"Finish Later", nil];
+        alertView.tag = 100;
+        [alertView show];
 }
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (alertView.tag == 100){
+        if (buttonIndex ==  0){
+            [alertView dismissWithClickedButtonIndex:buttonIndex animated:YES];
+        } else if (buttonIndex == 1){
+            [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+        }
+    }
+}
+
 
 /*
 -(void)editButtonTouched:(id)sender{

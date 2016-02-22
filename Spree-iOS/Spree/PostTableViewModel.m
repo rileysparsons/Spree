@@ -83,6 +83,7 @@
     
    [[[[[RACObserve(self, currentLocation) ignore:NULL] take:1] timeout:10.0f onScheduler:[RACScheduler scheduler]]
     filter:^BOOL(id value) {
+        @strongify(self)
         return [[self.refreshPosts executing] not];
     }] subscribeNext:^(id x) {
         NSLog(@"returned from initial block: %@", x);
@@ -90,9 +91,10 @@
         self.isFindingLocation = NO;
         [self.refreshPosts execute:_queryParameters];
     } error:^(NSError *error) {
+        @strongify(self)
         self.isFindingLocation = NO;
     }];
-    
+
     // create the tweet selected command, that simply logs
     self.postSelectedCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(SpreePost *selectedPost) {
         NSLog(@"selected %@", selectedPost.title);
@@ -115,44 +117,23 @@
     RAC(self, currentLocation) = [self locationSignal];
     
     @weakify(self)
-    [[self.service authorizationStatus] subscribeNext:^(NSNumber* x) {
+    [[self.service authorizationStatus] subscribeNext:^(NSNumber* newAuthStatus) {
         @strongify(self)
-        if ([x integerValue] != 0){
-            self.promptForLocation = NO;
-            if ([x integerValue] == 2){
-                self.posts = nil;
-            } else {
-                [[[[[RACObserve(self, currentLocation) ignore:NULL] take:1] timeout:10.0f onScheduler:[RACScheduler scheduler]]
-                  filter:^BOOL(id value) {
-                      return [[self.refreshPosts executing] not];
-                  }] subscribeNext:^(id x) {
-                      NSLog(@"returned from initial block: %@", x);
-                      @strongify(self)
-                      self.isFindingLocation = NO;
-                      [self.refreshPosts execute:_queryParameters];
-                  } error:^(NSError *error) {
-                      self.isFindingLocation = NO;
-                  }];
-            }
+        if ([newAuthStatus integerValue] == kCLAuthorizationStatusDenied){
+            self.posts = nil;
+        } else {
+            [[[[[RACObserve(self, currentLocation) ignore:NULL] take:1] timeout:10.0f onScheduler:[RACScheduler scheduler]]
+              filter:^BOOL(id value) {
+                  return [[self.refreshPosts executing] not];
+              }] subscribeNext:^(id x) {
+                  @strongify(self)
+                  self.isFindingLocation = NO;
+                  [self.refreshPosts execute:_queryParameters];
+              } error:^(NSError *error) {
+                  self.isFindingLocation = NO;
+              }];
         }
     }];
-//
-//  
-//    [[self.service locations] subscribeError:^(NSError *error) {
-//        NSLog(@"error: %@", error);
-//    }];
-//    
-//    
-//    RACSignal *locationExistsSignal = [RACObserve (self, currentLocation) map:^id(CLLocation *location) {
-//        NSLog(@"loc: %@", location);
-//        if (location != NULL){
-//            return @YES;
-//        } else {
-//            return @NO;
-//        }
-//    }];
-    
-    
     
     RAC(self, shouldHidePosts) = [RACSignal combineLatest:@[RACObserve(self, currentLocation), [self.service authorizationStatus]] reduce:^id(CLLocation *location, NSNumber *number){
         return @(location == nil || [number integerValue] == 2);

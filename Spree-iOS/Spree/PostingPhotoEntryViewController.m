@@ -24,8 +24,8 @@
     self.cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 40)];
     self.cancelButton.backgroundColor = [UIColor clearColor];
     self.cancelButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
-    [self.cancelButton setImage:[UIImage imageNamed:@"backNormal_Dark"] forState:UIControlStateNormal];
-    [self.cancelButton setImage:[UIImage imageNamed:@"backHighlight_Dark"] forState:UIControlStateHighlighted];
+    [self.cancelButton setImage:[UIImage imageNamed:@"cancelOffBlack"] forState:UIControlStateNormal];
+    [self.cancelButton setImage:[UIImage imageNamed:@"cancelHighlight"] forState:UIControlStateHighlighted];
     [self.cancelButton addTarget:self action:@selector(cancelWorkflow) forControlEvents:UIControlEventTouchUpInside];
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.cancelButton];
@@ -215,8 +215,9 @@
 }
 
 -(void)cancelWorkflow{
-    self.postingWorkflow.step--;
-    [self.navigationController popViewControllerAnimated:YES];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Cancel Post" message:@"Are you sure you want to cancel this post? You are able to edit the post prior to publishing." delegate:self cancelButtonTitle:@"Keep Going" otherButtonTitles:@"Finish Later", nil];
+    alertView.tag = 100;
+    [alertView show];
 }
 
 - (void)nextBarButtonItemTouched:(id)sender{
@@ -329,10 +330,17 @@
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if (buttonIndex == 1){
-        [self.viewModel.deletePhoto execute:self.tableView.indexPathForSelectedRow];
+    if (alertView.tag == 100){
+        if (buttonIndex ==  0){
+            [alertView dismissWithClickedButtonIndex:buttonIndex animated:YES];
+        } else if (buttonIndex == 1){
+            [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+        }
+    } else {
+        if (buttonIndex == 1){
+            [self.viewModel.deletePhoto execute:self.tableView.indexPathForSelectedRow];
+        }
     }
-    
 }
 
 @end
