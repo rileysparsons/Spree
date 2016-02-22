@@ -52,7 +52,17 @@
     
     self.posts = [[NSArray alloc] init];
     
-    [self initializeLocationService];
+    [RACObserve(self, promptForLocation) subscribeNext:^(id x) {
+        if ([x integerValue])
+            self.shouldHidePosts = NO;
+    }];
+    
+    if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined) {
+        self.promptForLocation = YES;
+    } else {
+        self.isFindingLocation = YES;
+        [self initializeLocationService];
+    }
     
     @weakify(self);
 
@@ -63,10 +73,13 @@
         }];
     }];
     
+    self.requestLocationServices = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        [self initializeLocationService];
+        return [RACSignal return:nil];
+    }];
+    
 
     RAC(self, posts) = [[self.refreshPosts executionSignals] switchToLatest];
-    
-    self.isFindingLocation = YES;
     
    [[[[[RACObserve(self, currentLocation) ignore:NULL] take:1] timeout:10.0f onScheduler:[RACScheduler scheduler]]
     filter:^BOOL(id value) {
@@ -119,7 +132,6 @@
               } error:^(NSError *error) {
                   self.isFindingLocation = NO;
               }];
-            
         }
     }];
     
