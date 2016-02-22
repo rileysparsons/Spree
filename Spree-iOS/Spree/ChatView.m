@@ -10,7 +10,6 @@
 // THE SOFTWARE.
 
 #import "UIColor+SpreeColor.h"
-#import "MeetUpViewController.h"
 #import "ChatPostHeader.h"
 #import "SpreeUtility.h"
 #import "RatingViewController.h"
@@ -50,7 +49,6 @@ typedef enum : NSUInteger {
     ChatPostHeader *postHeader;
 }
 
-@property (retain, nonatomic) UIBarButtonItem *meetUp;
 
 @property (retain, nonatomic) UIButton *claimButton;
 @property (retain, nonatomic) UIButton *buyButton;
@@ -63,14 +61,6 @@ typedef enum : NSUInteger {
 
 
 @implementation ChatView
-
--(UIBarButtonItem *)meetUp {
-    if (!_meetUp) {
-        _meetUp = [[UIBarButtonItem alloc] initWithTitle:@"Meet Up" style:UIBarButtonItemStylePlain target:self action:@selector(showMeetUp)];
-        [_meetUp setTintColor:[UIColor spreeDarkBlue]];
-    }
-    return _meetUp;
-}
 
 -(UIButton *)acceptOfferButton {
     if (!_acceptOfferButton) {
@@ -189,8 +179,7 @@ typedef enum : NSUInteger {
     [self refreshInputAccessoryView];
     
     self.keyboardController.textView.autocorrectionType = UITextAutocorrectionTypeNo;
-    
-    self.navigationItem.rightBarButtonItem = self.meetUp;
+
     
 	JSQMessagesBubbleImageFactory *bubbleFactory = [[JSQMessagesBubbleImageFactory alloc] init];
 	bubbleImageOutgoing = [bubbleFactory outgoingMessagesBubbleImageWithColor:[UIColor spreeDarkBlue]];
@@ -618,18 +607,6 @@ typedef enum : NSUInteger {
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	return ([message.senderId isEqualToString:self.senderId] == YES);
-}
-
--(void)showMeetUp{
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    MeetUpViewController *meetUpView = [storyboard instantiateViewControllerWithIdentifier:@"meetUp"];
-    meetUpView.groupId = groupId;
-    meetUpView.chatTitle = title;
-    meetUpView.post = post;
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:meetUpView];
-    [self presentViewController:navigationController animated:YES completion:NULL];
-    [PFAnalytics trackEvent:@"openMeetUp"];
-    
 }
 
 -(void)addCustomPostHeader{
