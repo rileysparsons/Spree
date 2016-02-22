@@ -34,6 +34,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     // Register Parse Subclass
+    self.analyticsClient = [AWSMobileAnalytics mobileAnalyticsForAppId: @"38a4f0080b5b408a901f52c35189a7c1" identityPoolId: @"us-east-1:e6a26501-5646-44b7-85ab-79eb226ceb33"];
 
     
     [SpreePost registerSubclass];

@@ -1,6 +1,0 @@
-framework module InfinitePagingView {
-  umbrella header "InfinitePagingView-umbrella.h"
-
-  export *
-  module * { export * }
-}

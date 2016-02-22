@@ -1,4 +1,7 @@
 PODS:
+  - AWSCore (2.3.5)
+  - AWSMobileAnalytics (2.3.5):
+    - AWSCore (= 2.3.5)
   - Bolts (1.5.0):
     - Bolts/AppLinks (= 1.5.0)
     - Bolts/Tasks (= 1.5.0)
@@ -64,6 +67,7 @@ PODS:
   - TPKeyboardAvoiding (1.2.11)
 
 DEPENDENCIES:
+  - AWSMobileAnalytics (~> 2.3.2)
   - Branch (= 0.10.9)
   - CocoaLumberjack
   - CTAssetsPickerController
@@ -97,6 +101,8 @@ CHECKOUT OPTIONS:
     :git: https://github.com/jessesquires/JSQMessagesViewController.git
 
 SPEC CHECKSUMS:
+  AWSCore: 8022eda5778fd7b87c9182709d8a27388e1a31fb
+  AWSMobileAnalytics: 6bfd7ef10008c936746ca1a96d0b72e9a543e166
   Bolts: 722ab9a4f8b50fc4ed1b9998a5a7a2b3f16d80b4
   Branch: 024a0c5848303eb82b8aa139822e07e0724f7fdc
   CocoaLumberjack: 17fe8581f84914d5d7e6360f7c70022b173c3ae0
