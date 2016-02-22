@@ -20,6 +20,7 @@
 
 @property NSDictionary* queryParameters;
 @property BOOL shouldHidePosts;
+@property BOOL promptForLocation;
 @property BOOL isLoadingPosts;
 @property NSString *searchString;
 @property NSArray *posts;

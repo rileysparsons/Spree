@@ -17,6 +17,7 @@
 #import "AppConstant.h"
 #import "PostDetailTableViewController.h"
 #import "BasePostingViewController.h"
+#import "RequestLocationBackgroundView.h"
 
 @interface PostTableViewController () {
 
@@ -31,8 +32,9 @@
 @property (assign) BOOL isRefreshAnimating;
 @property (retain, nonatomic) UIBarButtonItem *composeButton;
 @property (nonatomic, strong) NSArray *posts;
-@property (nonatomic, strong) UIView *backgroundView;
-@property (nonatomic, strong) UIView *emptyStateView;
+@property (nonatomic, strong) UIView *errorBackgroundView;
+@property (nonatomic, strong) UIView *emptyStateBackgroundView;
+@property (nonatomic, strong) RequestLocationBackgroundView *requestLocationBackgroundView;
 @property (nonatomic, strong) UIButton *requestLocationServicesButton;
 @property (nonatomic, strong) UILabel *errorMessageLabel;
 @property MBProgressHUD *progressHUD;
@@ -91,15 +93,9 @@
     // Initializing the posts array
     self.posts = [[NSArray alloc] init];
 
-    // The error view blocks the table view when location services are no longer enabled
-    [self setupErrorView];
-    
-    [self setupEmptyStateView];
-    
     // Binds the view model to the viewcontroller/view
     [self bindViewModel];
-    
-//    [self.viewModel.refreshPosts execute:nil];
+
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -130,18 +126,6 @@
     }];
     
     RAC(self, posts) = RACObserve(self.viewModel, posts);
-
-    RAC(self.backgroundView, hidden) = [[RACObserve(self.viewModel, shouldHidePosts) not] deliverOnMainThread];
-
-    
-    RAC(self.emptyStateView, hidden) = [[RACObserve(self.viewModel, posts) map:^id(NSArray *posts) {
-        if (posts.count > 0){
-            return @YES;
-        } else {
-            return @NO;
-        }
-    }] deliverOnMainThread];
-
     
     [[RACObserve(self, posts) deliverOnMainThread]
      subscribeNext:^(id x) {
@@ -184,7 +168,20 @@
             [self.progressHUD hide:NO];
         }
     }];
-
+    
+    [[RACSignal combineLatest:@[RACObserve(self.viewModel, shouldHidePosts), RACObserve(self.viewModel, promptForLocation), RACObserve(self.viewModel, posts)]] subscribeNext:^(id x) {
+        if (self.viewModel.promptForLocation){
+            self.postsTableView.backgroundView = self.requestLocationBackgroundView;
+        } else {
+            if (self.viewModel.shouldHidePosts){
+                self.postsTableView.backgroundView = self.errorBackgroundView;
+            } else {
+                if (self.viewModel.posts.count == 0){
+                    self.postsTableView.backgroundView = self.emptyStateBackgroundView;
+                }
+            }
+        }
+    }];
 }
 
 #pragma mark - UI Setup
@@ -222,43 +219,66 @@
     return _composeButton;
 }
 
--(void)setupErrorView{
+-(UIView *)errorBackgroundView{
 
-    self.backgroundView = [[[NSBundle mainBundle] loadNibNamed:@"LocationNotFoundView" owner:self options:nil] objectAtIndex:0];
+    if (!_errorBackgroundView){
+         _errorBackgroundView = [[[NSBundle mainBundle] loadNibNamed:@"LocationNotFoundView" owner:self options:nil] objectAtIndex:0];
+        
+        // Make my frame size match the size of the content view in the xib.
+        CGRect newFrame = self.postsTableView.frame;
+        // 125 is the height of the scrolling view on the top
+        // 48 is the height of the tab bar.
+        newFrame.size.height = self.postsTableView.frame.size.height-125-48;
+        newFrame.origin.y = 125;
+        
+        _errorBackgroundView.frame = newFrame;
+        
+        [_errorBackgroundView updateConstraints];
+    }
     
-    // Make my frame size match the size of the content view in the xib.
-    CGRect newFrame = self.postsTableView.frame;
-    // 125 is the height of the scrolling view on the top
-    // 48 is the height of the tab bar.
-    newFrame.size.height = self.postsTableView.frame.size.height-125-48;
-    newFrame.origin.y = 125;
-    
-    self.backgroundView.frame = newFrame;
-    
-    [self.backgroundView updateConstraints];
-    
-    NSLog(@"background view frame: %f", self.backgroundView.frame.size.width);
-    
-    [self.postsTableView addSubview:self.backgroundView];
+    return _errorBackgroundView;
 }
 
--(void)setupEmptyStateView{
-    self.emptyStateView = [[[NSBundle mainBundle] loadNibNamed:@"PostsNotFoundView" owner:self options:nil] objectAtIndex:0];
+-(UIView *)emptyStateBackgroundView{
     
-    // Make my frame size match the size of the content view in the xib.
-    CGRect newFrame = self.postsTableView.frame;
-    // 125 is the height of the scrolling view on the top
-    // 48 is the height of the tab bar.
-    newFrame.size.height = self.postsTableView.frame.size.height-125-48;
-    newFrame.origin.y = 125;
-    
-    self.emptyStateView.frame = newFrame;
-    
-    [self.emptyStateView updateConstraints];
-    
-    [self.postsTableView insertSubview:self.emptyStateView belowSubview:self.backgroundView];
-
+    if (!_emptyStateBackgroundView){
+        _emptyStateBackgroundView = [[[NSBundle mainBundle] loadNibNamed:@"PostsNotFoundView" owner:self options:nil] objectAtIndex:0];
+        
+        // Make my frame size match the size of the content view in the xib.
+        CGRect newFrame = self.postsTableView.frame;
+        // 125 is the height of the scrolling view on the top
+        // 48 is the height of the tab bar.
+        newFrame.size.height = self.postsTableView.frame.size.height-125-48;
+        newFrame.origin.y = 125;
+        
+        _emptyStateBackgroundView.frame = newFrame;
+        
+        [_emptyStateBackgroundView updateConstraints];
+    }
+    return _emptyStateBackgroundView;
 }
+
+-(RequestLocationBackgroundView *)requestLocationBackgroundView{
+    
+    if (!_requestLocationBackgroundView){
+        _requestLocationBackgroundView = [[[NSBundle mainBundle] loadNibNamed:@"RequestLocationBackgroundView" owner:self options:nil] objectAtIndex:0];
+        
+        // Make my frame size match the size of the content view in the xib.
+        CGRect newFrame = self.postsTableView.frame;
+        // 125 is the height of the scrolling view on the top
+        // 48 is the height of the tab bar.
+        newFrame.size.height = self.postsTableView.frame.size.height-125-48;
+        newFrame.origin.y = 125;
+        
+        _requestLocationBackgroundView.frame = newFrame;
+        
+        _requestLocationBackgroundView.authorizeLocationServicesButton.rac_command = self.viewModel.requestLocationServices;
+
+        [_requestLocationBackgroundView updateConstraints];
+    }
+    return _requestLocationBackgroundView;
+}
+
 
 #pragma mark - Navigation
 
