@@ -3,6 +3,7 @@
 *.swp
 *~.nib
 build/
+Pods/
 
 *.pbxuser
 *.perspective
