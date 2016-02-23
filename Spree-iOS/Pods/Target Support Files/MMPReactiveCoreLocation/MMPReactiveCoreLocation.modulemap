@@ -1,6 +1,0 @@
-framework module MMPReactiveCoreLocation {
-  umbrella header "MMPReactiveCoreLocation-umbrella.h"
-
-  export *
-  module * { export * }
-}
