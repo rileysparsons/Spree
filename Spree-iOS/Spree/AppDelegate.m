@@ -39,9 +39,9 @@
     
     [SpreePost registerSubclass];
     [ParseCrashReporting enable];
-#warning These are test keys, switch before merging.
-    [Parse setApplicationId:@"QJpsxjWbeXTqp79rPMUA48xSOUxfZe1Y72uXaT7E"
-                  clientKey:@"3TlfMPxRPAmJv6apfea4tAZQqt2w6G3vXWPswEpG"];
+//#warning These are test keys, switch before merging.
+    [Parse setApplicationId:@"F2jyNwFtpy0O9ufRLxBnMQWRtGQju6kV0JEbUZlf"
+                  clientKey:@"T7noUkx7fvw5KwLxWi0Y6brf3c3LaqWb6ODoB6IZ"];
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
 
     [DDLog addLogger:[DDASLLogger sharedInstance]];
