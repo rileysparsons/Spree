@@ -178,6 +178,8 @@
             } else {
                 if (self.viewModel.posts.count == 0){
                     self.postsTableView.backgroundView = self.emptyStateBackgroundView;
+                } else {
+                    self.postsTableView.backgroundView = nil;
                 }
             }
         }

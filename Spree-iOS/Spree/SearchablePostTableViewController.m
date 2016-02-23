@@ -30,9 +30,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    self.navigationItem.backBarButtonItem.title = @"Categories";
+    
     [self setupResultsViewController];
 }
+
 
 -(void)setupResultsViewController {
     
@@ -80,6 +82,7 @@
     //    [self.postsTableView setContentInset:UIEdgeInsetsMake(64,0,0,0)];
     //    [self.postsTableView setScrollIndicatorInsets:UIEdgeInsetsMake(64,0,0,0)];
     }];
+    
     
 }
 
