@@ -31,7 +31,7 @@
 
 -(void)initialize{
     @weakify(self)
-    self.loginWithFacebook = [[RACCommand alloc] initWithEnabled:nil signalBlock:^RACSignal *(id input) {
+    self.loginWithFacebook = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         @strongify(self)
         return [self loginWithFacebookSignal];
     }];

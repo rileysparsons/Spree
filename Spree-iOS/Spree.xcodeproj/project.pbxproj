@@ -53,7 +53,6 @@
 		142CB0621B5303B600969066 /* PhotoSelectTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 142CB0601B5303B600969066 /* PhotoSelectTableViewCell.xib */; };
 		143D91D21B6BBB1F00E2F493 /* HeaderSlideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 143D91D11B6BBB1F00E2F493 /* HeaderSlideView.m */; };
 		143D91D41B6BBB3F00E2F493 /* HeaderSlideView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 143D91D31B6BBB3F00E2F493 /* HeaderSlideView.xib */; };
-		143D91DB1B6DF7D900E2F493 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 143D91DA1B6DF7D900E2F493 /* LoginViewController.m */; };
 		143D91F11B6E717D00E2F493 /* Walkthrough.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 143D91F01B6E717D00E2F493 /* Walkthrough.storyboard */; };
 		143D91F41B6E7A5200E2F493 /* BaseOnboardingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 143D91F31B6E7A5200E2F493 /* BaseOnboardingViewController.m */; };
 		143D91FB1B71881400E2F493 /* SelectCampusTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 143D91F91B71881400E2F493 /* SelectCampusTableViewCell.m */; };
@@ -273,8 +272,6 @@
 		143D91D01B6BBB1F00E2F493 /* HeaderSlideView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeaderSlideView.h; sourceTree = "<group>"; };
 		143D91D11B6BBB1F00E2F493 /* HeaderSlideView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeaderSlideView.m; sourceTree = "<group>"; };
 		143D91D31B6BBB3F00E2F493 /* HeaderSlideView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeaderSlideView.xib; sourceTree = "<group>"; };
-		143D91D91B6DF7D900E2F493 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginViewController.h; path = RTWalkthrough/LoginViewController.h; sourceTree = "<group>"; };
-		143D91DA1B6DF7D900E2F493 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginViewController.m; path = RTWalkthrough/LoginViewController.m; sourceTree = "<group>"; };
 		143D91F01B6E717D00E2F493 /* Walkthrough.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Walkthrough.storyboard; sourceTree = "<group>"; };
 		143D91F21B6E7A5200E2F493 /* BaseOnboardingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseOnboardingViewController.h; sourceTree = "<group>"; };
 		143D91F31B6E7A5200E2F493 /* BaseOnboardingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseOnboardingViewController.m; sourceTree = "<group>"; };
@@ -752,8 +749,6 @@
 		145651171C6C3DA600B5DF93 /* Login Workflow */ = {
 			isa = PBXGroup;
 			children = (
-				143D91D91B6DF7D900E2F493 /* LoginViewController.h */,
-				143D91DA1B6DF7D900E2F493 /* LoginViewController.m */,
 				145820AA1C1CE7830092F9D4 /* LoginViewModel.h */,
 				145820AB1C1CE7830092F9D4 /* LoginViewModel.m */,
 			);
@@ -1618,7 +1613,6 @@
 				14A4C99B1BA74B8600C6C2E3 /* PostPaymentViewController.m in Sources */,
 				14EB19081C55936A00EE5A69 /* PostingStringEntryViewModel.m in Sources */,
 				4ECA453F1B48E0EB006C33FC /* ContactUsViewController.m in Sources */,
-				143D91DB1B6DF7D900E2F493 /* LoginViewController.m in Sources */,
 				145B0AB31B9E1450002FD94E /* SpreePost.m in Sources */,
 				14CAB3D71B5C685D0081979C /* EditPostPhotoSelectViewController.m in Sources */,
 				145B0AC91B9F8100002FD94E /* UIImage+RoundedCornerAdditions.m in Sources */,
