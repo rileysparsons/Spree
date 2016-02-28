@@ -8,9 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "RTWalkthroughViewController.h"
+#import "LoginViewModel.h"
 
 @interface BaseOnboardingViewController : UIViewController <RTWalkthroughViewControllerDelegate>
 
 -(void)startOnboarding;
+
+@property LoginViewModel *viewModel;
 
 @end

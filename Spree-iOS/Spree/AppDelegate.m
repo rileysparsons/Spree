@@ -10,7 +10,6 @@
 #import "BrowseViewController.h"
 #import "SpreeViewModelServicesImpl.h"
 #import "MainPostTableViewController.h"
-#import "LoginViewController.h"
 #import "RTWalkthroughViewController.h"
 #import "RTWalkthroughPageViewController.h"
 #import "BaseOnboardingViewController.h"
@@ -95,7 +94,7 @@
     }];
     
     if (![PFUser currentUser]) {
-        [self showOnboardingFlow];
+        [self showOnboardingFlowAnimated:NO];
     } else {
         UITabBarController *tabBarController =  (UITabBarController *)self.window.rootViewController;
         
@@ -122,12 +121,30 @@
     return YES;
 }
 
-- (void)showOnboardingFlow {
+- (void)showOnboardingFlowAnimated:(BOOL)animated {
+    
     UIStoryboard *stb = [UIStoryboard storyboardWithName:@"Walkthrough" bundle:nil];
     UINavigationController *base = [stb instantiateViewControllerWithIdentifier:@"base"];
     
-    self.window.rootViewController = base;
-    [self.window makeKeyAndVisible];
+    
+    BaseOnboardingViewController *baseViewController = [base.viewControllers objectAtIndex:0];
+    
+    // Attaching View Model Services to View Model (gives us access to Parse, our model)
+    SpreeViewModelServicesImpl *viewModelServices = [[SpreeViewModelServicesImpl alloc] init];
+    
+    LoginViewModel *viewModel = [[LoginViewModel alloc] initWithServices: viewModelServices];
+    baseViewController.viewModel = viewModel;
+    
+    if (animated){
+        [UIView transitionWithView:self.window
+                          duration:0.5
+                           options:UIViewAnimationOptionTransitionFlipFromLeft
+                        animations:^{ self.window.rootViewController = base; }
+                        completion:nil];
+    } else {
+        self.window.rootViewController = base;
+        [self.window makeKeyAndVisible];
+    }
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
@@ -251,14 +268,8 @@
     
     [PFUser logOutInBackgroundWithBlock:^(NSError *error){
         [FBSDKAccessToken setCurrentAccessToken:nil];
-        //            [FBSDKProfile setCurrentProfile:nil];
-        UIStoryboard *stb = [UIStoryboard storyboardWithName:@"Walkthrough" bundle:nil];
-        UINavigationController *base = [stb instantiateViewControllerWithIdentifier:@"base"];
-        [UIView transitionWithView:self.window
-                          duration:0.5
-                           options:UIViewAnimationOptionTransitionFlipFromLeft
-                        animations:^{ self.window.rootViewController = base; }
-                        completion:nil];
+        
+        [self showOnboardingFlowAnimated:YES];
         
         UITabBarController *tabBarController =  (UITabBarController *)self.window.rootViewController;
         

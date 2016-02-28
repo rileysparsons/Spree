@@ -13,6 +13,7 @@
 @interface RTWalkthroughViewController : UIViewController
 
 @property (nonatomic, weak) id<RTWalkthroughViewControllerDelegate> delegate;
+@property (weak, nonatomic) IBOutlet UIButton *loginWithFacebookButton;
 @property (nonatomic, readonly) NSInteger currentPage;
 - (void)addViewController:(UIViewController *)vc;
 
