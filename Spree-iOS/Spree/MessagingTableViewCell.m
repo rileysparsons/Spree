@@ -13,7 +13,7 @@
 - (void)awakeFromNib {
     
     [self circularMaskForView:self.userImageView];
-    [self circularMaskForView:self.postImageView];
+//    [self circularMaskForView:self.postImageView];
     // Initialization code
 }
 
