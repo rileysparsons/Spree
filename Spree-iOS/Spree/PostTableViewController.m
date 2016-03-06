@@ -80,7 +80,7 @@
     
     [[[NSNotificationCenter defaultCenter] rac_addObserverForName:@"ReloadTable" object:nil]
      subscribeNext:^(id x) {
-         [self.viewModel.refreshPosts execute:nil];
+         [(RACSubject *)self.viewModel.refreshObserver sendNext:nil];
      }];
     
      // Removes lines from showing with empty cells
@@ -122,8 +122,11 @@
     @weakify(self)
     self.refreshControl.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         @strongify(self)
-        return [self.viewModel.refreshPosts execute:nil];
+        [self refreshControlTriggered];
+        return [RACSignal return:nil];
     }];
+    
+    [self.refreshControl targetForAction:@selector(refreshControlTriggered) withSender:nil];
     
     RAC(self, posts) = RACObserve(self.viewModel, posts);
     
@@ -147,7 +150,7 @@
         @strongify(self)
         [self presentDetailViewControllerForPost:post];
     }];
-    
+    /*
 
     [[RACObserve(self.viewModel, isLoadingPosts) deliverOnMainThread] subscribeNext:^(id x) {
         @strongify(self)
@@ -168,6 +171,23 @@
             [self.progressHUD hide:NO];
         }
     }];
+    */
+     
+    [[[RACSignal combineLatest:@[RACObserve(self.viewModel, isFindingLocation), RACObserve(self.viewModel, isLoadingPosts)] reduce:^id{
+        return @(self.viewModel.isLoadingPosts || self.viewModel.isFindingLocation);
+    }] deliverOnMainThread] subscribeNext:^(id x) {
+        if ([x boolValue] == YES){
+            [self.progressHUD show:YES];
+            if (self.viewModel.isFindingLocation){
+                self.progressHUD.labelText = @"Finding Location...";
+            } else if (self.viewModel.isLoadingPosts){
+                self.progressHUD.labelText = @"Loading Posts...";
+            }
+        } else {
+            [self.progressHUD hide:YES];
+        }
+    }];
+    
     
     [[RACSignal combineLatest:@[RACObserve(self.viewModel, shouldHidePosts), RACObserve(self.viewModel, promptForLocation), RACObserve(self.viewModel, posts)]] subscribeNext:^(id x) {
         if (self.viewModel.promptForLocation){
@@ -290,7 +310,7 @@
     NSLog(@"%@", viewModelServices);
     PostingWorkflowViewModel *postingWorkflowViewModel = [[PostingWorkflowViewModel alloc] initWithServices:viewModelServices];
     [[postingWorkflowViewModel.endPostingWorkflowCommand.executionSignals switchToLatest] subscribeNext:^(id x) {
-        [self.viewModel.refreshPosts execute:nil];
+        [(RACSubject *)self.viewModel.refreshObserver sendNext:nil];
     }];
     BasePostingViewController *basePostingViewController = [[BasePostingViewController alloc] initWithViewModel:postingWorkflowViewModel];
      NSLog(@"%@", basePostingViewController);
@@ -340,6 +360,10 @@
         return 35;
     
     return 0;
+}
+
+-(void)refreshControlTriggered{
+    [(RACSubject *)self.viewModel.refreshObserver sendNext:nil];
 }
 
 @end

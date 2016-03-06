@@ -42,16 +42,17 @@
 
     @weakify(self);
     
-    self.refreshPosts = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+    self.refreshObserver = [[RACSubject subject] setNameWithFormat:@"UserPostsTableViewModel refreshPostsSignal"];
+    
+    [[[[self.refreshObserver doNext:^(id x) {
+        self.isLoadingPosts = YES;
+    }] flattenMap:^RACStream *(id value) {
         @strongify(self);
         return [self signalForFindPostsForUser:self.user params:self.queryParameters];
-    }];
-    
-    RAC(self, posts) = [[self.refreshPosts executionSignals] switchToLatest];
-    
-    [[[self.refreshPosts executionSignals] switchToLatest] subscribeNext:^(id x) {
-        @strongify(self)
+    }] doNext:^(id x) {
         self.isLoadingPosts = NO;
+    }] subscribeNext:^(NSArray* posts) {
+        self.posts = posts;
     }];
     
     self.postSelectedCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(SpreePost *selectedPost) {
