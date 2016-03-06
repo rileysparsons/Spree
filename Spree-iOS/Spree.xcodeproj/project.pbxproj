@@ -51,6 +51,9 @@
 		142CB05D1B5236F500969066 /* AddPhotoHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 142CB05C1B5236F500969066 /* AddPhotoHeaderView.m */; };
 		142CB0611B5303B600969066 /* PhotoSelectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 142CB05F1B5303B600969066 /* PhotoSelectTableViewCell.m */; };
 		142CB0621B5303B600969066 /* PhotoSelectTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 142CB0601B5303B600969066 /* PhotoSelectTableViewCell.xib */; };
+		143177E41C8CAA4600C73431 /* PostCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 143177E31C8CAA4600C73431 /* PostCollectionViewController.m */; };
+		143177E81C8CAAFE00C73431 /* PostCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 143177E61C8CAAFE00C73431 /* PostCollectionViewCell.m */; };
+		143177E91C8CAAFE00C73431 /* PostCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 143177E71C8CAAFE00C73431 /* PostCollectionViewCell.xib */; };
 		143D91D21B6BBB1F00E2F493 /* HeaderSlideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 143D91D11B6BBB1F00E2F493 /* HeaderSlideView.m */; };
 		143D91D41B6BBB3F00E2F493 /* HeaderSlideView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 143D91D31B6BBB3F00E2F493 /* HeaderSlideView.xib */; };
 		143D91F11B6E717D00E2F493 /* Walkthrough.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 143D91F01B6E717D00E2F493 /* Walkthrough.storyboard */; };
@@ -269,6 +272,11 @@
 		142CB05E1B5303B600969066 /* PhotoSelectTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoSelectTableViewCell.h; sourceTree = "<group>"; };
 		142CB05F1B5303B600969066 /* PhotoSelectTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoSelectTableViewCell.m; sourceTree = "<group>"; };
 		142CB0601B5303B600969066 /* PhotoSelectTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotoSelectTableViewCell.xib; sourceTree = "<group>"; };
+		143177E21C8CAA4600C73431 /* PostCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostCollectionViewController.h; sourceTree = "<group>"; };
+		143177E31C8CAA4600C73431 /* PostCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostCollectionViewController.m; sourceTree = "<group>"; };
+		143177E51C8CAAFE00C73431 /* PostCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostCollectionViewCell.h; sourceTree = "<group>"; };
+		143177E61C8CAAFE00C73431 /* PostCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostCollectionViewCell.m; sourceTree = "<group>"; };
+		143177E71C8CAAFE00C73431 /* PostCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostCollectionViewCell.xib; sourceTree = "<group>"; };
 		143D91D01B6BBB1F00E2F493 /* HeaderSlideView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeaderSlideView.h; sourceTree = "<group>"; };
 		143D91D11B6BBB1F00E2F493 /* HeaderSlideView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeaderSlideView.m; sourceTree = "<group>"; };
 		143D91D31B6BBB3F00E2F493 /* HeaderSlideView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeaderSlideView.xib; sourceTree = "<group>"; };
@@ -1092,6 +1100,11 @@
 		145651391C6C435F00B5DF93 /* Campus Tab Views */ = {
 			isa = PBXGroup;
 			children = (
+				143177E21C8CAA4600C73431 /* PostCollectionViewController.h */,
+				143177E31C8CAA4600C73431 /* PostCollectionViewController.m */,
+				143177E51C8CAAFE00C73431 /* PostCollectionViewCell.h */,
+				143177E61C8CAAFE00C73431 /* PostCollectionViewCell.m */,
+				143177E71C8CAAFE00C73431 /* PostCollectionViewCell.xib */,
 				1456513A1C6C437A00B5DF93 /* Sliding View */,
 			);
 			name = "Campus Tab Views";
@@ -1504,6 +1517,7 @@
 				144D55761B4E11920003B752 /* Lato-Regular.ttf in Resources */,
 				14839F641C39E68500ED5320 /* LocationNotFoundView.xib in Resources */,
 				14AB0EC11B82C2A100BD06EB /* PostingInputAccessoryView.xib in Resources */,
+				143177E91C8CAAFE00C73431 /* PostCollectionViewCell.xib in Resources */,
 				144D55731B4E11920003B752 /* Lato-Italic.ttf in Resources */,
 				14CAB3D41B5C54E20081979C /* PostDescriptionTableViewCell.xib in Resources */,
 				144D55751B4E11920003B752 /* Lato-LightItalic.ttf in Resources */,
@@ -1601,6 +1615,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				140CF9151A3F708F00134C4D /* ChosenTypeTableViewCell.m in Sources */,
+				143177E41C8CAA4600C73431 /* PostCollectionViewController.m in Sources */,
 				140473971ABD002F00C0F8EF /* PostTableViewController.m in Sources */,
 				F78600BF1AEB422100402B1F /* common.m in Sources */,
 				14CAB3CF1B5C52580081979C /* EditPostFieldViewController.m in Sources */,
@@ -1631,6 +1646,7 @@
 				14C763B11C233E71005899F9 /* PostTableViewModel.m in Sources */,
 				14CAB3C31B59539A0081979C /* PhotoSelectFooterView.m in Sources */,
 				140CF8DC1A3BBFB200134C4D /* AppDelegate.m in Sources */,
+				143177E81C8CAAFE00C73431 /* PostCollectionViewCell.m in Sources */,
 				14EB190B1C5760EE00EE5A69 /* PostingNumberEntryViewModel.m in Sources */,
 				14423CD81B8E9AC5002CB026 /* TriplePhotoPostShareView.m in Sources */,
 				14EB19031C51F4B700EE5A69 /* PostSubTypeSelectionTableViewCell.m in Sources */,

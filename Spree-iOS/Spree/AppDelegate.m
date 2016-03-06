@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import "BrowseViewController.h"
 #import "SpreeViewModelServicesImpl.h"
-#import "MainPostTableViewController.h"
+#import "PostCollectionViewController.h"
 #import "RTWalkthroughViewController.h"
 #import "RTWalkthroughPageViewController.h"
 #import "BaseOnboardingViewController.h"
@@ -100,13 +100,17 @@
         
         UINavigationController *homeNavigationController = [[tabBarController viewControllers] objectAtIndex:SpreeCampusTabBarItemIndex];
         
-        MainPostTableViewController *mainPostTableViewController = [homeNavigationController.viewControllers objectAtIndex:0];
-        
+        PostCollectionViewController *postCollectionViewController = [homeNavigationController.viewControllers objectAtIndex:0];
+
         // Attaching View Model Services to View Model (gives us access to Parse, our model)
         SpreeViewModelServicesImpl *viewModelServices = [[SpreeViewModelServicesImpl alloc] init];
         
         PostTableViewModel *viewModel = [[PostTableViewModel alloc] initWithServices:viewModelServices Params:@{@"expired": @NO, @"sold": @NO}];
-        mainPostTableViewController.viewModel = viewModel;
+        postCollectionViewController.viewModel = viewModel;
+        
+        
+        
+        NSLog(@"view model app delegate: %@", postCollectionViewController.viewModel);
         
         UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert |
                                                         UIUserNotificationTypeBadge |

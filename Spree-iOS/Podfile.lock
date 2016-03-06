@@ -9,6 +9,7 @@ PODS:
     - Bolts/Tasks
   - Bolts/Tasks (1.6.0)
   - Branch (0.10.9)
+  - CHTCollectionViewWaterfallLayout (0.9.2)
   - CocoaLumberjack (2.2.0):
     - CocoaLumberjack/Default (= 2.2.0)
     - CocoaLumberjack/Extensions (= 2.2.0)
@@ -63,6 +64,7 @@ PODS:
 DEPENDENCIES:
   - AWSMobileAnalytics (~> 2.3.2)
   - Branch (= 0.10.9)
+  - CHTCollectionViewWaterfallLayout
   - CocoaLumberjack
   - CTAssetsPickerController
   - FBSDKCoreKit
@@ -91,7 +93,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   JSQMessagesViewController:
-    :commit: d616d11809762a872fae83c072ce0b79dcc09678
+    :commit: cd0c9f61eda45775b6bc02cbd6e0d2b13e22acd4
     :git: https://github.com/jessesquires/JSQMessagesViewController.git
 
 SPEC CHECKSUMS:
@@ -99,6 +101,7 @@ SPEC CHECKSUMS:
   AWSMobileAnalytics: 6bfd7ef10008c936746ca1a96d0b72e9a543e166
   Bolts: f52a250053bb517ca874523c3913776359ab3def
   Branch: 024a0c5848303eb82b8aa139822e07e0724f7fdc
+  CHTCollectionViewWaterfallLayout: 43232febcb3e4d3985cd758718cbe499b21b822f
   CocoaLumberjack: 17fe8581f84914d5d7e6360f7c70022b173c3ae0
   CTAssetsPickerController: b1d1d50ab87cf6b8b13531de5f4530482e7e53ed
   FBSDKCoreKit: aee20b6d9855f15b618d4fddd1a5ad45f5a4a59d

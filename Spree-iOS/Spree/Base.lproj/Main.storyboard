@@ -847,47 +847,37 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="seW-ur-hQa" kind="relationship" relationship="rootViewController" id="MTt-LO-MMH"/>
+                        <segue destination="SHv-nF-hra" kind="relationship" relationship="rootViewController" id="gRh-Gc-kMA"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kVF-Xs-7cT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-882" y="933"/>
+            <point key="canvasLocation" x="-750" y="981"/>
         </scene>
-        <!--Main Post Table View Controller-->
-        <scene sceneID="Xdh-ck-7PT">
+        <!--Post Collection View Controller-->
+        <scene sceneID="SPs-ym-SDB">
             <objects>
-                <viewController id="seW-ur-hQa" customClass="MainPostTableViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="ewl-zb-wDe"/>
-                        <viewControllerLayoutGuide type="bottom" id="GBK-pA-Z0E"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="t4F-V2-s5I">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="i57-pi-79z" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <collectionViewController id="SHv-nF-hra" customClass="PostCollectionViewController" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="B0N-sR-fmg">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="qXo-pt-5ss">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="qXo-pt-5ss" secondAttribute="trailing" id="9hv-Pu-UhF"/>
-                            <constraint firstAttribute="bottom" secondItem="qXo-pt-5ss" secondAttribute="bottom" id="N3d-kE-WKM"/>
-                            <constraint firstItem="qXo-pt-5ss" firstAttribute="top" secondItem="t4F-V2-s5I" secondAttribute="top" id="QJP-Nm-NQI"/>
-                            <constraint firstItem="qXo-pt-5ss" firstAttribute="leading" secondItem="t4F-V2-s5I" secondAttribute="leading" id="hMH-GA-lwp"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="NV3-7g-46A"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
-                    <connections>
-                        <outlet property="postsTableView" destination="qXo-pt-5ss" id="LGg-Ns-7rD"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="W2h-na-VVS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="30B-0V-mhb">
+                            <size key="itemSize" width="50" height="50"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells/>
+                        <connections>
+                            <outlet property="dataSource" destination="SHv-nF-hra" id="Ngk-2A-kWM"/>
+                            <outlet property="delegate" destination="SHv-nF-hra" id="aLr-ct-BpM"/>
+                        </connections>
+                    </collectionView>
+                    <navigationItem key="navigationItem" id="bG6-A1-iZm"/>
+                </collectionViewController>
             </objects>
-            <point key="canvasLocation" x="18.5" y="1630.5"/>
+            <point key="canvasLocation" x="-14" y="1438"/>
         </scene>
         <!--Messages-->
         <scene sceneID="U3B-8e-MJ2">
