@@ -9,7 +9,10 @@
 #import "PostCollectionViewCell.h"
 #import "SpreePost.h"
 
-@interface PostCollectionViewCell ()
+
+@interface PostCollectionViewCell (){
+    UIColor *backgroundColorFromPhoto;
+}
 
 @property (weak, nonatomic) IBOutlet PFImageView *postImageView;
 @property (weak, nonatomic) IBOutlet UILabel *postTitleLabel;
@@ -69,13 +72,14 @@
     */
      
     self.postSubtitleView.text = [NSString stringWithFormat:@"\u201C%@\u201D", post.userDescription];
-    
+    self.backgroundColor = backgroundColorFromPhoto = [UIColor clearColor];
+    self.postImageView.image = nil;
     
     if (post.photoArray.count != 0){
         PFFile *imageFile = (PFFile *)[post.photoArray objectAtIndex:0];
         self.postImageView.file = imageFile;
         [self.postImageView loadInBackground:^(UIImage * _Nullable image, NSError * _Nullable error) {
-            self.backgroundColor = [[self averageColorFromImage:image] colorWithAlphaComponent:0.75];
+            self.backgroundColor = backgroundColorFromPhoto = [[self averageColorFromImage:image] colorWithAlphaComponent:0.75];
         }];
     } else {
         self.postImageView.image = nil;
@@ -86,6 +90,14 @@
 
 - (void)awakeFromNib {
     // Initialization code
+}
+
+-(void)setSelected:(BOOL)selected{
+    if (selected){
+        self.backgroundColor = [[UIColor spreeOffBlack] colorWithAlphaComponent:0.7f];
+    } else {
+        self.backgroundColor = backgroundColorFromPhoto;
+    }
 }
 
 - (UIColor *)averageColorFromImage:(UIImage *)image{
