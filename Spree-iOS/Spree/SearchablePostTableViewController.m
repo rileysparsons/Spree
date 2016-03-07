@@ -42,12 +42,12 @@
     [[[[self.searchController.searchBar.rac_textSignal throttle:0.5] distinctUntilChanged] deliverOnMainThread]
      subscribeNext:^(NSString *string) {
          self.viewModel.searchString = string;
-         [self.viewModel.refreshPosts execute:nil];
+         [(RACSubject *)self.viewModel.refreshObserver sendNext:nil];
      }];
     
     [self.searchController.rac_isInactiveSignal subscribeNext:^(id x) {
         self.viewModel.searchString = nil;
-        [self.viewModel.refreshPosts execute:nil];
+         [(RACSubject *)self.viewModel.refreshObserver sendNext:nil];
     }];
 }
 
