@@ -13,7 +13,7 @@
 #import "UISearchController+RAC.h"
 #import "UIColor+SpreeColor.h"
 
-@interface SearchablePostTableViewController () {
+@interface SearchablePostTableViewController () <UISearchBarDelegate> {
 }
 
 // Search Controller
@@ -31,11 +31,30 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.backBarButtonItem.title = @"Categories";
+
+    self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
+    [self.searchController.searchBar sizeToFit];
+    self.searchController.dimsBackgroundDuringPresentation = NO;
+    self.searchController.searchBar.delegate = self;
+    self.definesPresentationContext = YES;
+    self.postsTableView.tableHeaderView = self.searchController.searchBar;
     
-    [self setupResultsViewController];
+    [[[[self.searchController.searchBar.rac_textSignal throttle:0.5] distinctUntilChanged] deliverOnMainThread]
+     subscribeNext:^(NSString *string) {
+         self.viewModel.searchString = string;
+         [self.viewModel.refreshPosts execute:nil];
+     }];
+    
+    [self.searchController.rac_isInactiveSignal subscribeNext:^(id x) {
+        self.viewModel.searchString = nil;
+        [self.viewModel.refreshPosts execute:nil];
+    }];
+
+    
+//    [self setupResultsViewController];
 }
 
-
+/*
 -(void)setupResultsViewController {
     
     SpreeViewModelServicesImpl *viewModelServices = [[SpreeViewModelServicesImpl alloc] init];
@@ -85,10 +104,12 @@
     
     
 }
+*/
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     // restore the searchController's active state
+    /*
     if (self.searchControllerWasActive) {
         self.searchController.active = self.searchControllerWasActive;
         _searchControllerWasActive = NO;
@@ -98,8 +119,11 @@
             _searchControllerSearchFieldWasFirstResponder = NO;
         }
     }
+     */
 }
 
+
+/*
 #pragma mark - UIStateRestoration
 
 // we restore several items for state restoration:
@@ -157,6 +181,6 @@ NSString *const SearchBarIsFirstResponderKey = @"SearchBarIsFirstResponderKey";
     self.searchController.searchBar.text = [coder decodeObjectForKey:SearchBarTextKey];
 }
 
-
+*/
 
 @end
