@@ -65,7 +65,7 @@
     [[[[self.searchController.searchBar.rac_textSignal throttle:0.5] distinctUntilChanged] deliverOnMainThread]
      subscribeNext:^(NSString *string) {
          _resultsTableController.viewModel.searchString = string;
-         [_resultsTableController.viewModel.refreshPosts execute:nil];
+         [(RACSubject *)_resultsTableController.viewModel.refreshObserver sendNext:nil];
      }];
     
     // Signal called from lifting delegate methods for activity

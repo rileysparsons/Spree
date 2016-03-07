@@ -49,29 +49,49 @@
 
 
 -(void)initialize{
+     @weakify(self);
     
     self.posts = [[NSArray alloc] init];
     
+    self.refreshObserver = [[RACSubject subject] setNameWithFormat:@"PostTableViewModel refreshPostsSignal"];
+    
+    [[[[self.refreshObserver doNext:^(id x) {
+        @strongify(self)
+        self.isLoadingPosts = YES;
+    }] flattenMap:^RACStream *(id value) {
+        @strongify(self)
+        return [self signalForFindPostsWithRegion:[[SpreeMarketManager sharedManager] readRegionFromLocation:self.currentLocation] params:_queryParameters keywords:_keywordArray];
+    }] doNext:^(id x) {
+        @strongify(self)
+        self.isLoadingPosts = NO;
+    }] subscribeNext:^(NSArray* posts) {
+        @strongify(self)
+        self.posts = posts;
+    }];
+ 
     [RACObserve(self, promptForLocation) subscribeNext:^(id x) {
+        @strongify(self)
         if ([x integerValue])
             self.shouldHidePosts = NO;
     }];
     
     if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined) {
+        @strongify(self)
         self.promptForLocation = YES;
     } else {
+        @strongify(self)
         self.isFindingLocation = YES;
         [self initializeLocationService];
     }
-    
-    @weakify(self);
 
+    /*
     self.refreshPosts = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         @strongify(self);
         return [[self signalForFindPostsWithRegion:[[SpreeMarketManager sharedManager] readRegionFromLocation:self.currentLocation] params:_queryParameters keywords:_keywordArray] doCompleted:^{
             self.isLoadingPosts = NO;
         }];
     }];
+     */
     
     self.requestLocationServices = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         [self initializeLocationService];
@@ -79,17 +99,17 @@
     }];
     
 
-    RAC(self, posts) = [[self.refreshPosts executionSignals] switchToLatest];
+//    RAC(self, posts) = [[self.refreshPosts executionSignals] switchToLatest];
     
    [[[[[RACObserve(self, currentLocation) ignore:NULL] take:1] timeout:10.0f onScheduler:[RACScheduler scheduler]]
     filter:^BOOL(id value) {
         @strongify(self)
-        return [[self.refreshPosts executing] not];
+        return !self.isLoadingPosts;
     }] subscribeNext:^(id x) {
         NSLog(@"returned from initial block: %@", x);
         @strongify(self)
+        [(RACSubject *)self.refreshObserver sendNext:nil];
         self.isFindingLocation = NO;
-        [self.refreshPosts execute:_queryParameters];
     } error:^(NSError *error) {
         @strongify(self)
         self.isFindingLocation = NO;
@@ -116,6 +136,7 @@
     
     RAC(self, currentLocation) = [self locationSignal];
     
+    /*
     @weakify(self)
     [[self.service authorizationStatus] subscribeNext:^(NSNumber* newAuthStatus) {
         @strongify(self)
@@ -134,6 +155,7 @@
               }];
         }
     }];
+     */
     
     RAC(self, shouldHidePosts) = [RACSignal combineLatest:@[RACObserve(self, currentLocation), [self.service authorizationStatus]] reduce:^id(CLLocation *location, NSNumber *number){
         return @(location == nil || [number integerValue] == 2);
@@ -144,7 +166,7 @@
 
 -(RACSignal *)signalForFindPostsWithRegion:(CLCircularRegion *)region params:(NSDictionary *)params keywords:(NSArray *)keywords{
     self.isLoadingPosts = YES;
-    return [[[self.services getParseConnection] findPostsSignalWithRegion:region params:params keywords:keywords] timeout:10 onScheduler:RACScheduler.scheduler];
+    return [[self.services getParseConnection] findPostsSignalWithRegion:region params:params keywords:keywords];
 }
 
 - (RACSignal *)requestLocationAuthSignal {
