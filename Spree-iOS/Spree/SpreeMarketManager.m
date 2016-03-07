@@ -33,7 +33,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.markets = [[NSArray alloc] initWithObjects:@{@"name":@"Bay Area", @"UUID":@"1", @"read_center_lat": @(37.569267), @"read_center_long": @(-122.177065), @"read_radius":@160934, @"write_center_lat":@(37.349604790357255), @"write_center_long":@(-121.93909943056639), @"write_radius" : @2000}, nil];
+        self.markets = [[NSArray alloc] initWithObjects:@{@"name":@"Bay Area", @"UUID":@"1", @"read_center_lat": @(37.569267), @"read_center_long": @(-122.177065), @"read_radius":@160934, @"write_center_lat":@(37.349604790357255), @"write_center_long":@(-121.93909943056639), @"write_radius" : @8047}, nil];
     }
     return self;
 }
