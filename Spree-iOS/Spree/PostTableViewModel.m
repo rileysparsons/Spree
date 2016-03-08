@@ -161,6 +161,12 @@
         return @(location == nil || [number integerValue] == 2);
     }];
     
+    [[[[RACSignal combineLatest:@[RACObserve(self, currentLocation), [self.service authorizationStatus]] reduce:^id(CLLocation *location, NSNumber *number){
+        self.promptForLocation = NO;
+        return @(location == nil || [number integerValue] == 2);
+    }] ignore:@NO] take:1] subscribeNext:^(id x) {
+        [(RACSubject *)self.refreshObserver sendNext:nil];
+    }];
 }
 
 
@@ -191,7 +197,7 @@
 }
 
 #pragma mark - Search Functions
-
+ 
 //if (self.searchQuery){
 //    [self.searchQuery cancel];
 //}
