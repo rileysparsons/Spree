@@ -17,6 +17,8 @@
 @property (weak, nonatomic) IBOutlet PFImageView *postImageView;
 @property (weak, nonatomic) IBOutlet UILabel *postTitleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *postSubtitleView;
+@property (weak, nonatomic) IBOutlet UIView *priceBackgroundView;
+@property (weak, nonatomic) IBOutlet UILabel *priceLabel;
 
 @end
 
@@ -26,7 +28,6 @@
     SpreePost* post = (SpreePost*)viewModel;
     self.postTitleLabel.text = post.title;
     
-    /*
     if (post.price == 0 || [post.price  isEqual: @(0)]){
         self.priceLabel.text = @"Free";
     } else {
@@ -34,8 +35,6 @@
         NSString *price = [NSString stringWithFormat:@"$%d", priceFloat];
         self.priceLabel.text = price;
     }
-    */
-    
     
     /*
     NSDate *dateCreatedGMT = [post createdAt];
@@ -70,6 +69,11 @@
         }
     }
     */
+    
+    
+    
+    self.layer.cornerRadius = 5;
+    self.layer.masksToBounds = YES;
      
     self.postSubtitleView.text = [NSString stringWithFormat:@"\u201C%@\u201D", post.userDescription];
     self.backgroundColor = backgroundColorFromPhoto = [UIColor clearColor];
@@ -79,13 +83,20 @@
         PFFile *imageFile = (PFFile *)[post.photoArray objectAtIndex:0];
         self.postImageView.file = imageFile;
         [self.postImageView loadInBackground:^(UIImage * _Nullable image, NSError * _Nullable error) {
-            self.backgroundColor = backgroundColorFromPhoto = [[self averageColorFromImage:image] colorWithAlphaComponent:0.75];
+            self.backgroundColor = backgroundColorFromPhoto = [[self averageColorFromImage:image] colorWithAlphaComponent:0.20];
         }];
     } else {
         self.postImageView.image = nil;
         self.postImageView.backgroundColor = [UIColor spreeOffBlack];
     }
 
+}
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    [self layoutIfNeeded];
+    self.priceBackgroundView.layer.cornerRadius = self.priceBackgroundView.frame.size.width / 2;
 }
 
 - (void)awakeFromNib {

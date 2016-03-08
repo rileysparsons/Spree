@@ -3,8 +3,12 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <customFonts key="customFonts">
+        <mutableArray key="Lato-Bold.ttf">
+            <string>Lato-Bold</string>
+        </mutableArray>
         <mutableArray key="Lato-Regular.ttf">
             <string>Lato-Regular</string>
             <string>Lato-Regular</string>
@@ -14,26 +18,48 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="PostCollectionViewCell">
-            <rect key="frame" x="0.0" y="0.0" width="173" height="198"/>
+            <rect key="frame" x="0.0" y="0.0" width="173" height="221.5"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="173" height="198"/>
+                <rect key="frame" x="0.0" y="0.0" width="173" height="221.5"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o3S-oP-UiS">
-                        <rect key="frame" x="8" y="143" width="157" height="20.5"/>
-                        <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="17"/>
-                        <color key="textColor" red="0.16666857900000001" green="0.18534906209999999" blue="0.19849607350000001" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yCp-C9-bTK">
-                        <rect key="frame" x="8" y="171.5" width="157" height="18"/>
-                        <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="15"/>
+                        <rect key="frame" x="8" y="146" width="157" height="19.5"/>
+                        <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="16"/>
                         <color key="textColor" red="0.16666857900000001" green="0.18534906209999999" blue="0.19849607350000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="k2f-eW-ee6" customClass="PFImageView">
-                        <rect key="frame" x="0.0" y="0.0" width="173" height="135"/>
+                        <rect key="frame" x="0.0" y="0.0" width="173" height="138"/>
                     </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="test test" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yCp-C9-bTK">
+                        <rect key="frame" x="8" y="173" width="157" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="40" id="J0t-lz-VID"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="15"/>
+                        <color key="textColor" red="0.31113873110000001" green="0.31113873110000001" blue="0.31113873110000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kzP-IT-oUx">
+                        <rect key="frame" x="8" y="8" width="45.5" height="45.5"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a7Q-d8-LQs">
+                                <rect key="frame" x="2" y="12.5" width="41.5" height="20.5"/>
+                                <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="17"/>
+                                <color key="textColor" red="0.16666857900000001" green="0.18534906209999999" blue="0.19849607350000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.96558624510000002" green="0.97044742110000004" blue="0.97035741809999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="25z-gM-Wa3"/>
+                            <constraint firstItem="a7Q-d8-LQs" firstAttribute="leading" secondItem="kzP-IT-oUx" secondAttribute="leading" constant="2" id="Mtl-O4-EBV"/>
+                            <constraint firstAttribute="width" secondItem="kzP-IT-oUx" secondAttribute="height" multiplier="1:1" id="icl-LX-7ED"/>
+                            <constraint firstItem="a7Q-d8-LQs" firstAttribute="centerY" secondItem="kzP-IT-oUx" secondAttribute="centerY" id="rFU-kM-USY"/>
+                            <constraint firstAttribute="trailing" secondItem="a7Q-d8-LQs" secondAttribute="trailing" constant="2" id="sLg-Wk-EDK"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
@@ -42,6 +68,8 @@
                 <constraint firstAttribute="trailing" secondItem="o3S-oP-UiS" secondAttribute="trailing" constant="8" id="0Tr-3O-JgL"/>
                 <constraint firstItem="k2f-eW-ee6" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="3F7-y7-kVy"/>
                 <constraint firstItem="k2f-eW-ee6" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="3mA-iC-DGR"/>
+                <constraint firstItem="kzP-IT-oUx" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="6uF-NA-3eY"/>
+                <constraint firstItem="kzP-IT-oUx" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="8" id="Dhk-qI-t9d"/>
                 <constraint firstItem="o3S-oP-UiS" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="NnR-R8-Ar7"/>
                 <constraint firstAttribute="bottom" secondItem="yCp-C9-bTK" secondAttribute="bottom" constant="8" id="UMX-Xx-9jj"/>
                 <constraint firstItem="o3S-oP-UiS" firstAttribute="top" secondItem="k2f-eW-ee6" secondAttribute="bottom" constant="8" id="XUd-Gw-CFm"/>
@@ -50,13 +78,15 @@
                 <constraint firstItem="yCp-C9-bTK" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="mAA-bx-rDb"/>
                 <constraint firstAttribute="trailing" secondItem="yCp-C9-bTK" secondAttribute="trailing" constant="8" id="zxI-9M-rno"/>
             </constraints>
-            <size key="customSize" width="173" height="198"/>
+            <size key="customSize" width="173" height="221.5"/>
             <connections>
                 <outlet property="postImageView" destination="k2f-eW-ee6" id="Eqe-Tn-HuC"/>
                 <outlet property="postSubtitleView" destination="yCp-C9-bTK" id="pCW-83-Nux"/>
                 <outlet property="postTitleLabel" destination="o3S-oP-UiS" id="r26-5c-m5o"/>
+                <outlet property="priceBackgroundView" destination="kzP-IT-oUx" id="g8w-Ic-zde"/>
+                <outlet property="priceLabel" destination="a7Q-d8-LQs" id="vnE-Uv-byG"/>
             </connections>
-            <point key="canvasLocation" x="431.5" y="280"/>
+            <point key="canvasLocation" x="431.5" y="291.75"/>
         </collectionViewCell>
     </objects>
 </document>

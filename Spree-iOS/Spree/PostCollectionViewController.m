@@ -67,6 +67,7 @@ static NSString * const reuseIdentifier = @"Cell";
     if (!_cellSizes) {
         _cellSizes = @[
                        [NSValue valueWithCGSize:CGSizeMake(400, 550)],
+                       [NSValue valueWithCGSize:CGSizeMake(350, 550)]
                        // Can add various sizes for Waterfall effect, be sure to change the modulus value in delegate method below for size to match
                        ];
     }
@@ -74,8 +75,6 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 -(void)bindViewModel{
-
-    NSLog(@"%@", self.viewModel);
     
     @weakify(self)
 
@@ -297,21 +296,16 @@ static NSString * const reuseIdentifier = @"Cell";
     (PostCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:CELL_IDENTIFIER
                                                                                 forIndexPath:indexPath];
     [cell bindViewModel:self.posts[indexPath.row]];
-    NSLog(@"%@", self.posts);
     return cell;
 }
 
 
 #pragma mark - CHTCollectionViewDelegateWaterfallLayout
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return [self.cellSizes[indexPath.item % 1] CGSizeValue];
+    return [self.cellSizes[indexPath.item % 2] CGSizeValue];
 }
 
 #pragma mark <UICollectionViewDelegate>
-
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
-	return YES;
-}
 
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
