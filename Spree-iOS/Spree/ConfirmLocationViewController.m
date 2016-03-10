@@ -27,6 +27,7 @@
         return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
             @strongify(self)
             [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+            [self.viewModel.confirmLocationCommand execute:nil];
             return nil;
         }];
     }];
@@ -36,7 +37,7 @@
 
 -(void)bindPostingWorkflow{
     
-    PFGeoPoint *postLocation = self.postingWorkflow.post[@"location"];
+    PFGeoPoint *postLocation = self.viewModel.post[@"location"];
     self.postLocation = [[CLLocation alloc] initWithLatitude:postLocation.latitude longitude:postLocation.longitude];
 
     

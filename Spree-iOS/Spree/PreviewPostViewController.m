@@ -97,6 +97,11 @@
     [[self.viewModel.fieldWasEditedCommand.executionSignals switchToLatest] subscribeNext:^(id x) {
         [self.tableView reloadData];
     }];
+    
+    [[self.viewModel.postButtonTouched.executionSignals switchToLatest] subscribeNext:^(UIViewController* viewController) {
+        UINavigationController *navControl = [[UINavigationController alloc] initWithRootViewController:viewController];
+        [self presentViewController:navControl animated:YES completion:nil];
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -244,7 +249,7 @@
     [postButton setTitle:@"Post" forState:UIControlStateNormal];
     [postButton setTitleColor:[UIColor spreeDarkBlue] forState:UIControlStateNormal];
     [postButton sizeToFit];
-    postButton.rac_command = self.viewModel.completePostCommand;
+    postButton.rac_command = self.viewModel.postButtonTouched;
 
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:postButton];
 }

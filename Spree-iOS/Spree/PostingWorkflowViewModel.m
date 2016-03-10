@@ -115,7 +115,8 @@
     [[UIApplication sharedApplication].keyWindow addSubview:progressHUD];
     
     @weakify(self)
-    [[[previewPostViewController.viewModel.completePostCommand.executionSignals switchToLatest] flattenMap:^RACStream *(id value) {
+    
+    [[[previewPostViewController.viewModel.confirmLocationCommand.executionSignals switchToLatest] flattenMap:^RACStream *(id value) {
         @strongify(self)
         [progressHUD show:YES];
         return [self signalForCompletingPost:self.post];
