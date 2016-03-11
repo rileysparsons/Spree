@@ -9,7 +9,7 @@
 #import "ConfirmLocationViewController.h"
 #import <ReactiveCocoa/ReactiveCocoa.h>
 
-@interface ConfirmLocationViewController ()
+@interface ConfirmLocationViewController () <MKMapViewDelegate>
 
 @property CLLocation *postLocation;
 
@@ -20,6 +20,20 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    self.mapView.delegate = self;
+    
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.shadowImage = [UIImage new];
+    self.navigationController.view.backgroundColor = [UIColor spreeOffWhite];
+    self.navigationController.navigationBar.backgroundColor = [UIColor spreeOffWhite];
+    
+    self.view.backgroundColor = [UIColor spreeOffWhite];
+    
+    self.cancelButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+        return [RACSignal return:nil];
+    }];
     
     [self bindPostingWorkflow];
     @weakify(self)
@@ -32,6 +46,10 @@
         }];
     }];
     
+    
+    CLLocationDistance marketRadius = 8500;
+    MKCircle *circle = [MKCircle circleWithCenterCoordinate:self.postLocation.coordinate radius:marketRadius];
+    [self.mapView addOverlay:circle];
     
 }
 
@@ -56,7 +74,7 @@
 }
 
 -(void)centerMapViewAtLocation:(CLLocation *)location{
-    [self.mapView setCenterCoordinate:location.coordinate animated:YES];
+    [self.mapView setRegion:MKCoordinateRegionMakeWithDistance(location.coordinate, 8500*2+1000, 8500*2+1000) animated:YES];
 }
                                       
 - (RACSignal *)signalForReverseGeocodeWithLocation:(CLLocation *)location {
@@ -75,6 +93,15 @@
         }];
         return nil;
     }];
+    
+}
+
+-(MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay{
+
+    MKCircleRenderer *renderer = [[MKCircleRenderer alloc] initWithOverlay:overlay];
+    renderer.fillColor = [UIColor spreeDarkBlue];
+    renderer.alpha = 0.2f;
+    return renderer;
     
 }
 
