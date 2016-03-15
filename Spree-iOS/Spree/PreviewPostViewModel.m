@@ -14,6 +14,7 @@
 #import "EditPostingNumberEntryViewController.h"
 #import "PostMapTableViewCell.h"
 #import "PostTitleTableViewCell.h"
+#import "ConfirmLocationViewController.h"
 #import "PostUserTableViewCell.h"
 #import "PhotoGalleryTableViewCell.h"
 #import "BasicInfoTableViewCell.h"
@@ -38,9 +39,15 @@
 }
 
 -(void)initialize{
-    self.completePostCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+    
+    self.postButtonTouched = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        return [RACSignal return:[self confirmLocationViewController]];
+    }];
+    
+    self.confirmLocationCommand =[[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         return [RACSignal return:nil];
     }];
+    
     self.existingFieldsToShow = [self findFieldsToShow:self.post[@"completedFields"]];
     
     self.editFieldCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
@@ -197,6 +204,13 @@
         [self.fieldWasEditedCommand execute:nil];
     }];
     return editPostPhotoSelectViewController;
+}
+
+-(ConfirmLocationViewController *)confirmLocationViewController{
+    ConfirmLocationViewController *confirmLocationModal = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"ConfirmLocationViewController"];
+    confirmLocationModal.viewModel = self;
+    return confirmLocationModal;
+
 }
 
 /*

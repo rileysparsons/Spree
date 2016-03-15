@@ -21,7 +21,8 @@
 
 @property RACCommand *editFieldCommand;
 @property RACCommand *fieldWasEditedCommand;
-@property RACCommand *completePostCommand;
+@property RACCommand *postButtonTouched;
+@property RACCommand *confirmLocationCommand;
 
 @end
 
