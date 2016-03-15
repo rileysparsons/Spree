@@ -246,6 +246,7 @@
 //    
     UIButton *postButton = [[UIButton alloc] initWithFrame:CGRectZero];
     postButton.backgroundColor = [UIColor clearColor];
+    [postButton.titleLabel setFont:[UIFont fontWithName:@"Lato-Bold" size:18]];
     [postButton setTitle:@"Post" forState:UIControlStateNormal];
     [postButton setTitleColor:[UIColor spreeDarkBlue] forState:UIControlStateNormal];
     [postButton sizeToFit];
