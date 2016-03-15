@@ -21,7 +21,7 @@
 @implementation PostingPhotoEntryViewController
 
 - (void)navigationBarButtons {
-    self.cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 40)];
+    self.cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 25, 25)];
     self.cancelButton.backgroundColor = [UIColor clearColor];
     self.cancelButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
     [self.cancelButton setImage:[UIImage imageNamed:@"cancelOffBlack"] forState:UIControlStateNormal];
