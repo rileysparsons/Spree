@@ -83,10 +83,7 @@ typedef enum : NSUInteger {
     [self.header setFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 200)];
     [self.header layoutSubviews];
     self.tableView.tableHeaderView = self.header;
-    
     self.progressHUD = [[MBProgressHUD alloc] initWithView:self.view];
-    [self.view addSubview:self.progressHUD];
-    
     [self bindViewModel];
 }
 
@@ -126,6 +123,10 @@ typedef enum : NSUInteger {
     titleLabel.textAlignment = NSTextAlignmentCenter;
     [titleLabel sizeToFit];
     return titleLabel;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [self.view addSubview:self.progressHUD];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
