@@ -230,7 +230,7 @@
 }
 
 -(void)setupButtons{
-    UIButton *cancel = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 40)];
+    UIButton *cancel = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 25, 25)];
     cancel.backgroundColor = [UIColor clearColor];
     cancel.imageView.contentMode = UIViewContentModeScaleAspectFit;
     [cancel setImage:[UIImage imageNamed:@"cancelOffBlack"] forState:UIControlStateNormal];
