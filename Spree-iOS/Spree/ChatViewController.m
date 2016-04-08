@@ -17,6 +17,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.view.backgroundColor = [UIColor whiteColor];
+    
     UILabel *dummyLabel = [[UILabel alloc] initWithFrame:self.view.frame];
     dummyLabel.text = @"Chat View Controller";
     
