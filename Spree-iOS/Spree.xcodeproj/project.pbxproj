@@ -10,6 +10,7 @@
 		140473971ABD002F00C0F8EF /* PostTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 140473961ABD002F00C0F8EF /* PostTableViewController.m */; };
 		1404739A1ABD267E00C0F8EF /* UserPostsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 140473991ABD267E00C0F8EF /* UserPostsTableViewController.m */; };
 		1404739D1ABD308D00C0F8EF /* SearchablePostTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1404739C1ABD308D00C0F8EF /* SearchablePostTableViewController.m */; };
+		14058C741CB7754F00378761 /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14058C731CB7754F00378761 /* ChatViewController.m */; };
 		140A1C771C67C3C6003614CC /* PreviewPostViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 140A1C761C67C3C6003614CC /* PreviewPostViewModel.m */; };
 		140A1C7A1C685645003614CC /* PostingDateEntryViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 140A1C791C685645003614CC /* PostingDateEntryViewModel.m */; };
 		140CF8D91A3BBFB200134C4D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 140CF8D81A3BBFB200134C4D /* main.m */; };
@@ -204,6 +205,8 @@
 		140473991ABD267E00C0F8EF /* UserPostsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserPostsTableViewController.m; sourceTree = "<group>"; };
 		1404739B1ABD308D00C0F8EF /* SearchablePostTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchablePostTableViewController.h; sourceTree = "<group>"; };
 		1404739C1ABD308D00C0F8EF /* SearchablePostTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchablePostTableViewController.m; sourceTree = "<group>"; };
+		14058C721CB7754F00378761 /* ChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatViewController.h; sourceTree = "<group>"; };
+		14058C731CB7754F00378761 /* ChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatViewController.m; sourceTree = "<group>"; };
 		140A1C751C67C3C6003614CC /* PreviewPostViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreviewPostViewModel.h; sourceTree = "<group>"; };
 		140A1C761C67C3C6003614CC /* PreviewPostViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreviewPostViewModel.m; sourceTree = "<group>"; };
 		140A1C781C685645003614CC /* PostingDateEntryViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostingDateEntryViewModel.h; sourceTree = "<group>"; };
@@ -1325,6 +1328,8 @@
 				F7715E981AEC042D005DDEFF /* Cell */,
 				F7715E991AEC05AD005DDEFF /* AllMessagesViewController.h */,
 				F7715E9A1AEC05AD005DDEFF /* AllMessagesViewController.m */,
+				14058C721CB7754F00378761 /* ChatViewController.h */,
+				14058C731CB7754F00378761 /* ChatViewController.m */,
 			);
 			name = "Notifications Tab";
 			sourceTree = "<group>";
@@ -1626,6 +1631,7 @@
 				143D91D21B6BBB1F00E2F493 /* HeaderSlideView.m in Sources */,
 				142CB0611B5303B600969066 /* PhotoSelectTableViewCell.m in Sources */,
 				14423CCB1B8D9A08002CB026 /* SinglePhotoPostShareView.m in Sources */,
+				14058C741CB7754F00378761 /* ChatViewController.m in Sources */,
 				14839F5A1C2C9F3E00ED5320 /* UISearchBar+RAC.m in Sources */,
 				14423CD21B8E786B002CB026 /* DoublePhotoPostShareView.m in Sources */,
 				14C763B11C233E71005899F9 /* PostTableViewModel.m in Sources */,

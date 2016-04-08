@@ -8,7 +8,7 @@
 
 #import "AllMessagesViewController.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
-#import "ChatView.h"
+#import "ChatViewController.h"
 #import "MessagingTableViewCell.h"
 #import "recent.h"
 #import "common.h"
@@ -186,11 +186,11 @@
                 } else {
                     NSString *path = object[@"fbId"];
                     [[[FBSDKGraphRequest alloc] initWithGraphPath:path parameters:@{@"fields": @"email,name,first_name"}] startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
-                        ChatView *chatView = [[ChatView alloc] initWith:recent[PF_RECENT_GROUPID] post:[recent objectForKey:PF_MESSAGE_POST] title:result[@"name"]];
-                        chatView.toUser = (PFUser *)recent[PF_RECENT_TOUSER];
+
+                        ChatViewController *chatViewController = [[ChatViewController alloc] init];
                         self.hidesBottomBarWhenPushed = YES;
                         [MBProgressHUD hideHUDForView:self.view animated:YES];
-                        [self.navigationController pushViewController:chatView animated:YES];
+                        [self.navigationController pushViewController:chatViewController animated:YES];
                         // Unhide the tabbar when we go back
                         self.hidesBottomBarWhenPushed = NO;
                     }];
