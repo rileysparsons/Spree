@@ -1,13 +1,13 @@
 PODS:
-  - AWSCore (2.3.5)
-  - AWSMobileAnalytics (2.3.5):
-    - AWSCore (= 2.3.5)
-  - Bolts (1.6.0):
-    - Bolts/AppLinks (= 1.6.0)
-    - Bolts/Tasks (= 1.6.0)
-  - Bolts/AppLinks (1.6.0):
+  - AWSCore (2.3.6)
+  - AWSMobileAnalytics (2.3.6):
+    - AWSCore (= 2.3.6)
+  - Bolts (1.7.0):
+    - Bolts/AppLinks (= 1.7.0)
+    - Bolts/Tasks (= 1.7.0)
+  - Bolts/AppLinks (1.7.0):
     - Bolts/Tasks
-  - Bolts/Tasks (1.6.0)
+  - Bolts/Tasks (1.7.0)
   - Branch (0.10.9)
   - CocoaLumberjack (2.2.0):
     - CocoaLumberjack/Default (= 2.2.0)
@@ -19,9 +19,9 @@ PODS:
     - CocoaLumberjack/Default
   - CTAssetsPickerController (3.3.1):
     - PureLayout (~> 3.0.0)
-  - FBSDKCoreKit (4.9.1):
+  - FBSDKCoreKit (4.10.1):
     - Bolts (~> 1.5)
-  - FBSDKLoginKit (4.9.1):
+  - FBSDKLoginKit (4.10.1):
     - FBSDKCoreKit
   - InfinitePagingView (0.0.1)
   - JSQMessagesViewController (7.2.0):
@@ -32,17 +32,17 @@ PODS:
   - MMPReactiveCoreLocation (0.6.2):
     - ReactiveCocoa
   - MSCellAccessory (1.1.2)
-  - Parse (1.12.0):
-    - Bolts/Tasks (~> 1.5)
+  - Parse (1.13.0):
+    - Bolts/Tasks (~> 1.6)
   - ParseCrashReporting (1.9.2):
     - Bolts/Tasks (~> 1.5)
     - Parse (~> 1.9)
-  - ParseFacebookUtilsV4 (1.11.0):
-    - Bolts/Tasks (>= 1.5)
-    - FBSDKCoreKit (~> 4.9.0-beta)
-    - FBSDKLoginKit (~> 4.9.0-beta)
-    - FBSDKTVOSKit (~> 4.9.0-beta)
-    - Parse (~> 1.11)
+  - ParseFacebookUtilsV4 (1.11.1):
+    - Bolts/Tasks (>= 1.6)
+    - FBSDKCoreKit (~> 4.10)
+    - FBSDKLoginKit (~> 4.10)
+    - FBSDKTVOSKit (~> 4.10)
+    - Parse (~> 1.12)
   - ParseUI (1.2.0):
     - Bolts/Tasks (~> 1.3)
     - Parse (~> 1.9)
@@ -58,7 +58,7 @@ PODS:
   - ReactiveViewModel (0.3):
     - ReactiveCocoa (~> 2.4)
   - SAMTextView (0.2.2)
-  - TPKeyboardAvoiding (1.2.11)
+  - TPKeyboardAvoiding (1.3)
 
 DEPENDENCIES:
   - AWSMobileAnalytics (~> 2.3.2)
@@ -76,7 +76,7 @@ DEPENDENCIES:
   - MSCellAccessory
   - Parse
   - ParseCrashReporting
-  - ParseFacebookUtilsV4 (= 1.11.0)
+  - ParseFacebookUtilsV4
   - ParseUI
   - RCSLabeledIconButton
   - ReactiveCocoa
@@ -91,34 +91,34 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   JSQMessagesViewController:
-    :commit: f72235a2bfc704766e8173baf08442ead6e019fa
+    :commit: 8c6b12345783a8363c591bfecf82b287726f90b6
     :git: https://github.com/jessesquires/JSQMessagesViewController.git
 
 SPEC CHECKSUMS:
-  AWSCore: 8022eda5778fd7b87c9182709d8a27388e1a31fb
-  AWSMobileAnalytics: 6bfd7ef10008c936746ca1a96d0b72e9a543e166
-  Bolts: f52a250053bb517ca874523c3913776359ab3def
+  AWSCore: 917d84b32974136194a905b98c0ae25c9f3350b8
+  AWSMobileAnalytics: 56ce9e671640fbd702f8ce52b0f128e525f3e51c
+  Bolts: a0058fa3b331c5a1e4402d534f2dae36dbff31e4
   Branch: 024a0c5848303eb82b8aa139822e07e0724f7fdc
   CocoaLumberjack: 17fe8581f84914d5d7e6360f7c70022b173c3ae0
   CTAssetsPickerController: b1d1d50ab87cf6b8b13531de5f4530482e7e53ed
-  FBSDKCoreKit: aee20b6d9855f15b618d4fddd1a5ad45f5a4a59d
-  FBSDKLoginKit: ec22dc49bd372b064e93d6773df4ffefb3a552a2
+  FBSDKCoreKit: d2aaed5e9ab7d8d6301c533376a1fbff1cf3deb5
+  FBSDKLoginKit: 699ff169080e3072de4b9b0faca90bf23dc36deb
   InfinitePagingView: 2d9876c6171274b59d7128c0fcacb4ab492313f2
-  JSQMessagesViewController: 73cab48aa92fc2d512f3b6724f3425cc47a19eb5
+  JSQMessagesViewController: 6f006de39499fce810fb18ef1771c283e33497fe
   JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
   JVFloatLabeledTextField: ea4a3d8387ddd43724c472bb2b8ab39b79af05d4
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   MMPReactiveCoreLocation: a4add2f8b0bba2204d88f5badb02c27e1eaba9b0
   MSCellAccessory: 8265f3cd2386c1f372da00232472605ab11426e4
-  Parse: de2c52a9a1421b91ae7594ab8ce191afd184f19b
+  Parse: f51c24d2feb412e4b2d6cc73d37cb24e8d0089bc
   ParseCrashReporting: 33b760facc649d4fd99eef8f35dcda6a406099e5
-  ParseFacebookUtilsV4: 216e03bd560404eed09a4875c75f0c1cdf758070
+  ParseFacebookUtilsV4: 2f30c2b7021c8005d3042781da7ef87d06589421
   ParseUI: af2eba584799da4a9fbdac0e178662d7438b502e
   PureLayout: f35f5384c9c4e4479df041dbe33ad7577b71ddfb
   RCSLabeledIconButton: db3351c731645016217e591f4a8a835c6524d277
   ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
   ReactiveViewModel: 58918dcbcec2d3151195ab1ed9163c57a8163999
   SAMTextView: 979c43bb1fa5859ddfbfeb35e9c296a2b0ec55fd
-  TPKeyboardAvoiding: e5ce146b313de063957bfa75a13f1e9b0ff18ab7
+  TPKeyboardAvoiding: a5138f318c06fb3e151f886e18ce4a72695d9cbe
 
 COCOAPODS: 0.39.0
