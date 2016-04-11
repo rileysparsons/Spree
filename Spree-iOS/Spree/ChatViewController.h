@@ -8,7 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import <SlackTextViewController/SLKTextViewController.h>
+#import "ChatViewModel.h"
 
 @interface ChatViewController : SLKTextViewController
+
+@property ChatViewModel *chatViewModel;
 
 @end

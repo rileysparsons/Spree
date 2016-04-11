@@ -58,6 +58,9 @@
 		143D91F41B6E7A5200E2F493 /* BaseOnboardingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 143D91F31B6E7A5200E2F493 /* BaseOnboardingViewController.m */; };
 		143D91FB1B71881400E2F493 /* SelectCampusTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 143D91F91B71881400E2F493 /* SelectCampusTableViewCell.m */; };
 		143D91FC1B71881400E2F493 /* SelectCampusTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 143D91FA1B71881400E2F493 /* SelectCampusTableViewCell.xib */; };
+		143E91351CBB294B003EE91F /* ChatViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 143E91341CBB294B003EE91F /* ChatViewModel.m */; };
+		143E91391CBB32C9003EE91F /* ChatTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 143E91371CBB32C9003EE91F /* ChatTableViewCell.m */; };
+		143E913A1CBB32C9003EE91F /* ChatTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 143E91381CBB32C9003EE91F /* ChatTableViewCell.xib */; };
 		14423CCB1B8D9A08002CB026 /* SinglePhotoPostShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14423CCA1B8D9A08002CB026 /* SinglePhotoPostShareView.m */; };
 		14423CCD1B8D9AC9002CB026 /* SinglePhotoPostShareView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14423CCC1B8D9AC9002CB026 /* SinglePhotoPostShareView.xib */; };
 		14423CCF1B8E7856002CB026 /* DoublePhotoPostShareView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14423CCE1B8E7856002CB026 /* DoublePhotoPostShareView.xib */; };
@@ -281,6 +284,11 @@
 		143D91F81B71881400E2F493 /* SelectCampusTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectCampusTableViewCell.h; sourceTree = "<group>"; };
 		143D91F91B71881400E2F493 /* SelectCampusTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectCampusTableViewCell.m; sourceTree = "<group>"; };
 		143D91FA1B71881400E2F493 /* SelectCampusTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectCampusTableViewCell.xib; sourceTree = "<group>"; };
+		143E91331CBB294B003EE91F /* ChatViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatViewModel.h; sourceTree = "<group>"; };
+		143E91341CBB294B003EE91F /* ChatViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatViewModel.m; sourceTree = "<group>"; };
+		143E91361CBB32C9003EE91F /* ChatTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatTableViewCell.h; sourceTree = "<group>"; };
+		143E91371CBB32C9003EE91F /* ChatTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatTableViewCell.m; sourceTree = "<group>"; };
+		143E91381CBB32C9003EE91F /* ChatTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatTableViewCell.xib; sourceTree = "<group>"; };
 		14423CC91B8D9A08002CB026 /* SinglePhotoPostShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinglePhotoPostShareView.h; sourceTree = "<group>"; };
 		14423CCA1B8D9A08002CB026 /* SinglePhotoPostShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SinglePhotoPostShareView.m; sourceTree = "<group>"; };
 		14423CCC1B8D9AC9002CB026 /* SinglePhotoPostShareView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SinglePhotoPostShareView.xib; sourceTree = "<group>"; };
@@ -1330,6 +1338,8 @@
 				F7715E9A1AEC05AD005DDEFF /* AllMessagesViewController.m */,
 				14058C721CB7754F00378761 /* ChatViewController.h */,
 				14058C731CB7754F00378761 /* ChatViewController.m */,
+				143E91331CBB294B003EE91F /* ChatViewModel.h */,
+				143E91341CBB294B003EE91F /* ChatViewModel.m */,
 			);
 			name = "Notifications Tab";
 			sourceTree = "<group>";
@@ -1366,6 +1376,9 @@
 				145B0ABA1B9F6999002FD94E /* ChatPostHeader.m */,
 				F78600931AEB3F9100402B1F /* ChatView.h */,
 				F78600941AEB3F9100402B1F /* ChatView.m */,
+				143E91361CBB32C9003EE91F /* ChatTableViewCell.h */,
+				143E91371CBB32C9003EE91F /* ChatTableViewCell.m */,
+				143E91381CBB32C9003EE91F /* ChatTableViewCell.xib */,
 			);
 			name = Chat;
 			sourceTree = "<group>";
@@ -1504,6 +1517,7 @@
 				141AECC51B8D14E200F0012B /* PostMessageTableViewCell.xib in Resources */,
 				14D3B6831BA3D24B00D665BB /* PostUserTableViewCell.xib in Resources */,
 				14CAB3C01B5948150081979C /* PhotoDisplayTableViewCell.xib in Resources */,
+				143E913A1CBB32C9003EE91F /* ChatTableViewCell.xib in Resources */,
 				144D556E1B4E11920003B752 /* Lato-BlackItalic.ttf in Resources */,
 				14CAB3C51B5953D40081979C /* PhotoSelectFooterView.xib in Resources */,
 				144D55761B4E11920003B752 /* Lato-Regular.ttf in Resources */,
@@ -1615,6 +1629,7 @@
 				145B0ABB1B9F6999002FD94E /* ChatPostHeader.m in Sources */,
 				14CAB3D21B5C54C40081979C /* PostDescriptionTableViewCell.m in Sources */,
 				14D3B6811BA2973500D665BB /* PostUserTableViewCell.m in Sources */,
+				143E91351CBB294B003EE91F /* ChatViewModel.m in Sources */,
 				14A4C99B1BA74B8600C6C2E3 /* PostPaymentViewController.m in Sources */,
 				14EB19081C55936A00EE5A69 /* PostingStringEntryViewModel.m in Sources */,
 				4ECA453F1B48E0EB006C33FC /* ContactUsViewController.m in Sources */,
@@ -1679,6 +1694,7 @@
 				14423CE81B9006BC002CB026 /* SpreeConfigManager.m in Sources */,
 				14EFDAE71A89EC4F007510CC /* TextViewViewController.m in Sources */,
 				F70FACF51AEB501700057E6E /* converter.m in Sources */,
+				143E91391CBB32C9003EE91F /* ChatTableViewCell.m in Sources */,
 				F7715E9B1AEC05AD005DDEFF /* AllMessagesViewController.m in Sources */,
 				143D91FB1B71881400E2F493 /* SelectCampusTableViewCell.m in Sources */,
 				14839F5F1C2F797E00ED5320 /* ConfirmLocationViewController.m in Sources */,
