@@ -21,7 +21,7 @@ query.equalTo("keep", false);
 		console.log(results.length);
                 for (var i = 0, len = results.length; i < len; i++) {
                     var result = results[i];
-		                result.set("expired", true);
+		                // result.set("expired", true);
                     // console.log("Updated: "+result);
                     // var installation = Parse.Object.extend("Installation");
                     // var query =  new Parse.Query(installation);
@@ -60,6 +60,44 @@ query.equalTo("keep", false);
     });
 });
 
+
+Parse.Cloud.job("addLocation", function(request, status) {
+	// Parse.Cloud.useMasterKey()
+	var post = Parse.Object.extend("Post");
+	var query = new Parse.Query(post).limit(1000);
+
+	query.find({
+		success:function(results) {
+			console.log("results: " + results.length);
+
+			var gp = new Parse.GeoPoint({
+                latitude: 37.3492,
+                longitude: -121.9381                   
+            });
+
+			for (var i = 0, len = results.length; i < len; i++) {
+                    var result = results[i];
+		            result.set("location", gp);
+            }
+
+            Parse.Object.saveAll(results,{
+			    success: function(list) {
+			      // All the objects were saved.
+			      status.success("ok ");  //saveAll is now finished and we can properly exit with confidence :-)
+			    },
+			    error: function(error) {
+			      // An error occurred while saving one of the objects.
+			      status.error("failure on saving list ");
+			    },
+		  	});
+
+		},  error: function(error) {
+	            status.error("Uh oh, something went wrong." + error.message);
+	            console.log("Failed!");         
+            }
+    });
+
+});
 
 var _ = require("underscore");
 Parse.Cloud.beforeSave("Post", function(request, response) {
@@ -285,5 +323,6 @@ Parse.Cloud.job("keepExistingPosts", function(request, status){
 	});
 
 });
+
 
 

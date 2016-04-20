@@ -46,7 +46,6 @@
     self.header.titleLabel.text =  [NSString stringWithFormat:@"Great! What type of item is it?"];
     
     self.progressHUD = [[MBProgressHUD alloc] initWithView:self.view];
-    [self.view addSubview:self.progressHUD];
     
     // Do any additional setup after loading the view.
     
@@ -73,6 +72,11 @@
      }];
  
  }
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.view addSubview:self.progressHUD];
+}
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];

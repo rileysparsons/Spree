@@ -61,7 +61,6 @@
 
 -(void)setupForPost:(SpreePost*)post {
     
-    [self circularMaskForView:self.postImageView];
     if (post){
         [post fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error){
             if (((NSArray *)post[PF_POST_PHOTOARRAY]).count > 0){

@@ -31,7 +31,7 @@
 
 -(void)initialize{
     @weakify(self)
-    self.loginWithFacebook = [[RACCommand alloc] initWithEnabled:nil signalBlock:^RACSignal *(id input) {
+    self.loginWithFacebook = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         @strongify(self)
         return [self loginWithFacebookSignal];
     }];
@@ -56,6 +56,15 @@
 -(void)closeOnboarding{
     UIStoryboard *stb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    
+    UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert |
+                                                    UIUserNotificationTypeBadge |
+                                                    UIUserNotificationTypeSound);
+    UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:userNotificationTypes
+                                                                             categories:nil];
+    [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+    [[UIApplication sharedApplication] registerForRemoteNotifications];
+    
     UITabBarController *tabBarController = [stb instantiateInitialViewController];
     UINavigationController *navController = [tabBarController.viewControllers objectAtIndex:0];
     

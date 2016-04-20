@@ -12,9 +12,11 @@
 
 @interface PostTableViewModel : RVMViewModel
 
-@property RACCommand* refreshPosts;
+//@property RACCommand* refreshPosts;
 @property RACCommand* requestLocationServices;
 @property RACCommand* postSelectedCommand;
+
+@property RACSignal* refreshObserver;
 
 @property BOOL isFindingLocation;
 

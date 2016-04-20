@@ -1,14 +1,14 @@
 PODS:
   - Alamofire (3.3.1)
-  - AWSCore (2.3.5)
-  - AWSMobileAnalytics (2.3.5):
-    - AWSCore (= 2.3.5)
-  - Bolts (1.6.0):
-    - Bolts/AppLinks (= 1.6.0)
-    - Bolts/Tasks (= 1.6.0)
-  - Bolts/AppLinks (1.6.0):
+  - AWSCore (2.3.6)
+  - AWSMobileAnalytics (2.3.6):
+    - AWSCore (= 2.3.6)
+  - Bolts (1.7.0):
+    - Bolts/AppLinks (= 1.7.0)
+    - Bolts/Tasks (= 1.7.0)
+  - Bolts/AppLinks (1.7.0):
     - Bolts/Tasks
-  - Bolts/Tasks (1.6.0)
+  - Bolts/Tasks (1.7.0)
   - Branch (0.10.9)
   - CocoaLumberjack (2.2.0):
     - CocoaLumberjack/Default (= 2.2.0)
@@ -18,11 +18,11 @@ PODS:
     - CocoaLumberjack/Core
   - CocoaLumberjack/Extensions (2.2.0):
     - CocoaLumberjack/Default
-  - CTAssetsPickerController (3.3.0):
+  - CTAssetsPickerController (3.3.1):
     - PureLayout (~> 3.0.0)
-  - FBSDKCoreKit (4.10.0):
-    - Bolts (~> 1.5)
-  - FBSDKLoginKit (4.10.0):
+  - FBSDKCoreKit (4.11.0):
+    - Bolts (~> 1.7)
+  - FBSDKLoginKit (4.11.0):
     - FBSDKCoreKit
   - HearstKit (0.1.0):
     - Alamofire
@@ -37,16 +37,17 @@ PODS:
   - MMPReactiveCoreLocation (0.6.2):
     - ReactiveCocoa
   - MSCellAccessory (1.1.2)
-  - Parse (1.12.0):
-    - Bolts/Tasks (~> 1.5)
+  - Parse (1.13.0):
+    - Bolts/Tasks (~> 1.6)
   - ParseCrashReporting (1.9.2):
     - Bolts/Tasks (~> 1.5)
     - Parse (~> 1.9)
-  - ParseFacebookUtilsV4 (1.9.1):
-    - Bolts/Tasks (>= 1.5)
-    - FBSDKCoreKit (~> 4.8)
-    - FBSDKLoginKit (~> 4.8)
-    - Parse (~> 1.9)
+  - ParseFacebookUtilsV4 (1.11.1):
+    - Bolts/Tasks (>= 1.6)
+    - FBSDKCoreKit (~> 4.10)
+    - FBSDKLoginKit (~> 4.10)
+    - FBSDKTVOSKit (~> 4.10)
+    - Parse (~> 1.12)
   - ParseUI (1.2.0):
     - Bolts/Tasks (~> 1.3)
     - Parse (~> 1.9)
@@ -64,7 +65,7 @@ PODS:
   - SAMTextView (0.2.2)
   - Starscream (1.1.3)
   - SwiftyJSON (2.3.2)
-  - TPKeyboardAvoiding (1.2.11)
+  - TPKeyboardAvoiding (1.3)
 
 DEPENDENCIES:
   - AWSMobileAnalytics (~> 2.3.2)
@@ -104,30 +105,30 @@ CHECKOUT OPTIONS:
     :commit: 990d74b0aa576a176b31fc6f3894c0b89a5465c0
     :git: https://github.com/omarqazi/HearstKit.git
   JSQMessagesViewController:
-    :commit: 72e91ffbd29e837576c1476495d8c940a5635db4
+    :commit: d35bd59bce5ee34fff8d08fb1d92683a07eac3f2
     :git: https://github.com/jessesquires/JSQMessagesViewController.git
 
 SPEC CHECKSUMS:
   Alamofire: 369bc67b6f5ac33ded3648d7bd21c5bfb91c2ecc
-  AWSCore: 8022eda5778fd7b87c9182709d8a27388e1a31fb
-  AWSMobileAnalytics: 6bfd7ef10008c936746ca1a96d0b72e9a543e166
-  Bolts: f52a250053bb517ca874523c3913776359ab3def
+  AWSCore: 917d84b32974136194a905b98c0ae25c9f3350b8
+  AWSMobileAnalytics: 56ce9e671640fbd702f8ce52b0f128e525f3e51c
+  Bolts: a0058fa3b331c5a1e4402d534f2dae36dbff31e4
   Branch: 024a0c5848303eb82b8aa139822e07e0724f7fdc
   CocoaLumberjack: 17fe8581f84914d5d7e6360f7c70022b173c3ae0
-  CTAssetsPickerController: f11af087c627c96785998cd3c7d596548f6a1609
-  FBSDKCoreKit: 13bec8373fb3af94d44daf2aa1e0958687897fbd
-  FBSDKLoginKit: d3d4a2e9d31954deb00bfea964167a05ca1ea976
+  CTAssetsPickerController: b1d1d50ab87cf6b8b13531de5f4530482e7e53ed
+  FBSDKCoreKit: 686ac982723a14ec9ddb85e2f81235d7706c891b
+  FBSDKLoginKit: bade9fc78277764149ccc5bfaadbf13c83175c6a
   HearstKit: 0c0bee719cbbe5702149602d0b29db63251e104f
   InfinitePagingView: 2d9876c6171274b59d7128c0fcacb4ab492313f2
-  JSQMessagesViewController: 73cab48aa92fc2d512f3b6724f3425cc47a19eb5
+  JSQMessagesViewController: 6f006de39499fce810fb18ef1771c283e33497fe
   JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
   JVFloatLabeledTextField: ea4a3d8387ddd43724c472bb2b8ab39b79af05d4
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   MMPReactiveCoreLocation: a4add2f8b0bba2204d88f5badb02c27e1eaba9b0
   MSCellAccessory: 8265f3cd2386c1f372da00232472605ab11426e4
-  Parse: de2c52a9a1421b91ae7594ab8ce191afd184f19b
+  Parse: f51c24d2feb412e4b2d6cc73d37cb24e8d0089bc
   ParseCrashReporting: 33b760facc649d4fd99eef8f35dcda6a406099e5
-  ParseFacebookUtilsV4: eab9b4ade12f0800b4d30f6b808bca55ce17a0e9
+  ParseFacebookUtilsV4: 2f30c2b7021c8005d3042781da7ef87d06589421
   ParseUI: af2eba584799da4a9fbdac0e178662d7438b502e
   PureLayout: f35f5384c9c4e4479df041dbe33ad7577b71ddfb
   RCSLabeledIconButton: db3351c731645016217e591f4a8a835c6524d277
@@ -136,6 +137,6 @@ SPEC CHECKSUMS:
   SAMTextView: 979c43bb1fa5859ddfbfeb35e9c296a2b0ec55fd
   Starscream: d662732354b40dd19ed1ece3e3c44c80b536b83c
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
-  TPKeyboardAvoiding: e5ce146b313de063957bfa75a13f1e9b0ff18ab7
+  TPKeyboardAvoiding: a5138f318c06fb3e151f886e18ce4a72695d9cbe
 
 COCOAPODS: 0.39.0
