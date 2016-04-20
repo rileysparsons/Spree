@@ -1,4 +1,5 @@
 PODS:
+  - Alamofire (3.3.1)
   - AWSCore (2.3.5)
   - AWSMobileAnalytics (2.3.5):
     - AWSCore (= 2.3.5)
@@ -23,6 +24,10 @@ PODS:
     - Bolts (~> 1.5)
   - FBSDKLoginKit (4.10.0):
     - FBSDKCoreKit
+  - HearstKit (0.1.0):
+    - Alamofire
+    - Starscream
+    - SwiftyJSON
   - InfinitePagingView (0.0.1)
   - JSQMessagesViewController (7.2.0):
     - JSQSystemSoundPlayer (~> 2.0.1)
@@ -57,6 +62,8 @@ PODS:
   - ReactiveViewModel (0.3):
     - ReactiveCocoa (~> 2.4)
   - SAMTextView (0.2.2)
+  - Starscream (1.1.3)
+  - SwiftyJSON (2.3.2)
   - TPKeyboardAvoiding (1.2.11)
 
 DEPENDENCIES:
@@ -66,6 +73,7 @@ DEPENDENCIES:
   - CTAssetsPickerController
   - FBSDKCoreKit
   - FBSDKLoginKit
+  - HearstKit (from `https://github.com/omarqazi/HearstKit.git`, branch `master`)
   - InfinitePagingView
   - JSQMessagesViewController (from `https://github.com/jessesquires/JSQMessagesViewController.git`,
     branch `develop`)
@@ -84,16 +92,23 @@ DEPENDENCIES:
   - TPKeyboardAvoiding
 
 EXTERNAL SOURCES:
+  HearstKit:
+    :branch: master
+    :git: https://github.com/omarqazi/HearstKit.git
   JSQMessagesViewController:
     :branch: develop
     :git: https://github.com/jessesquires/JSQMessagesViewController.git
 
 CHECKOUT OPTIONS:
+  HearstKit:
+    :commit: 990d74b0aa576a176b31fc6f3894c0b89a5465c0
+    :git: https://github.com/omarqazi/HearstKit.git
   JSQMessagesViewController:
-    :commit: fe251ef91c34f15effc0fba45863879a8a7e4a94
+    :commit: 72e91ffbd29e837576c1476495d8c940a5635db4
     :git: https://github.com/jessesquires/JSQMessagesViewController.git
 
 SPEC CHECKSUMS:
+  Alamofire: 369bc67b6f5ac33ded3648d7bd21c5bfb91c2ecc
   AWSCore: 8022eda5778fd7b87c9182709d8a27388e1a31fb
   AWSMobileAnalytics: 6bfd7ef10008c936746ca1a96d0b72e9a543e166
   Bolts: f52a250053bb517ca874523c3913776359ab3def
@@ -102,6 +117,7 @@ SPEC CHECKSUMS:
   CTAssetsPickerController: f11af087c627c96785998cd3c7d596548f6a1609
   FBSDKCoreKit: 13bec8373fb3af94d44daf2aa1e0958687897fbd
   FBSDKLoginKit: d3d4a2e9d31954deb00bfea964167a05ca1ea976
+  HearstKit: 0c0bee719cbbe5702149602d0b29db63251e104f
   InfinitePagingView: 2d9876c6171274b59d7128c0fcacb4ab492313f2
   JSQMessagesViewController: 73cab48aa92fc2d512f3b6724f3425cc47a19eb5
   JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
@@ -118,6 +134,8 @@ SPEC CHECKSUMS:
   ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
   ReactiveViewModel: 58918dcbcec2d3151195ab1ed9163c57a8163999
   SAMTextView: 979c43bb1fa5859ddfbfeb35e9c296a2b0ec55fd
+  Starscream: d662732354b40dd19ed1ece3e3c44c80b536b83c
+  SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
   TPKeyboardAvoiding: e5ce146b313de063957bfa75a13f1e9b0ff18ab7
 
 COCOAPODS: 0.39.0
