@@ -63,6 +63,7 @@ PODS:
   - ReactiveViewModel (0.3):
     - ReactiveCocoa (~> 2.4)
   - SAMTextView (0.2.2)
+  - SlackTextViewController (1.9.2)
   - Starscream (1.1.3)
   - SwiftyJSON (2.3.2)
   - TPKeyboardAvoiding (1.3)
@@ -90,6 +91,7 @@ DEPENDENCIES:
   - ReactiveCocoa
   - ReactiveViewModel
   - SAMTextView
+  - SlackTextViewController
   - TPKeyboardAvoiding
 
 EXTERNAL SOURCES:
@@ -135,6 +137,7 @@ SPEC CHECKSUMS:
   ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
   ReactiveViewModel: 58918dcbcec2d3151195ab1ed9163c57a8163999
   SAMTextView: 979c43bb1fa5859ddfbfeb35e9c296a2b0ec55fd
+  SlackTextViewController: bac3350ccc639bc446bb14cbd09da238f5e01f32
   Starscream: d662732354b40dd19ed1ece3e3c44c80b536b83c
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
   TPKeyboardAvoiding: a5138f318c06fb3e151f886e18ce4a72695d9cbe
