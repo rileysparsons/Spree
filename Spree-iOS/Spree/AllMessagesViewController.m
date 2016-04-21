@@ -188,7 +188,7 @@
                     [[[FBSDKGraphRequest alloc] initWithGraphPath:path parameters:@{@"fields": @"email,name,first_name"}] startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
 
                         ChatViewController *chatViewController = [[ChatViewController alloc] init];
-                        self.hidesBottomBarWhenPushed = YES;
+                        self.hidesBottomBarWhenPushed = NO;
                         [MBProgressHUD hideHUDForView:self.view animated:YES];
                         [self.navigationController pushViewController:chatViewController animated:YES];
                         // Unhide the tabbar when we go back

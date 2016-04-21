@@ -7,9 +7,11 @@
 //
 
 #import "ChatViewModel.h"
+#import <SocketRocket/SRWebSocket.h>
 
-@interface ChatViewModel ()
+@interface ChatViewModel () <SRWebSocketDelegate>
 
+@property SRWebSocket *socket;
 @property (nonatomic, strong) id<SpreeViewModelServices> services;
 @property NSString *mailboxId;
 @property NSString *threadId;
@@ -38,6 +40,19 @@ BOOL connecting = false;
 }
 
 -(void)initialize {
+
+}
+
+-(void)reconnect {
+    self.socket = [[SRWebSocket alloc] initWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"wss://chat.smick.co/socket/"]]];
+    self.socket.delegate = self;
+}
+
+//-(RACSignal*)didBecomeActiveSignal{
+//    
+//}
+
+-(void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message{
     
 }
 
