@@ -24,6 +24,10 @@ PODS:
     - Bolts (~> 1.7)
   - FBSDKLoginKit (4.11.0):
     - FBSDKCoreKit
+  - HearstKit (0.1.0):
+    - Alamofire
+    - Starscream
+    - SwiftyJSON
   - InfinitePagingView (0.0.1)
   - JSQMessagesViewController (7.2.0):
     - JSQSystemSoundPlayer (~> 2.0.1)
@@ -61,6 +65,8 @@ PODS:
   - SAMTextView (0.2.2)
   - SlackTextViewController (1.9.2)
   - SocketRocket (0.5.0)
+  - Starscream (1.1.3)
+  - SwiftyJSON (2.3.2)
   - TPKeyboardAvoiding (1.3)
 
 DEPENDENCIES:
@@ -71,6 +77,7 @@ DEPENDENCIES:
   - CTAssetsPickerController
   - FBSDKCoreKit
   - FBSDKLoginKit
+  - HearstKit (from `https://github.com/omarqazi/HearstKit.git`, branch `master`)
   - InfinitePagingView
   - JSQMessagesViewController (from `https://github.com/jessesquires/JSQMessagesViewController.git`,
     branch `develop`)
@@ -91,11 +98,17 @@ DEPENDENCIES:
   - TPKeyboardAvoiding
 
 EXTERNAL SOURCES:
+  HearstKit:
+    :branch: master
+    :git: https://github.com/omarqazi/HearstKit.git
   JSQMessagesViewController:
     :branch: develop
     :git: https://github.com/jessesquires/JSQMessagesViewController.git
 
 CHECKOUT OPTIONS:
+  HearstKit:
+    :commit: 990d74b0aa576a176b31fc6f3894c0b89a5465c0
+    :git: https://github.com/omarqazi/HearstKit.git
   JSQMessagesViewController:
     :commit: 38e80c2696af064a02c40e7997144ece8fbd4c37
     :git: https://github.com/jessesquires/JSQMessagesViewController.git
@@ -110,6 +123,7 @@ SPEC CHECKSUMS:
   CTAssetsPickerController: b1d1d50ab87cf6b8b13531de5f4530482e7e53ed
   FBSDKCoreKit: 686ac982723a14ec9ddb85e2f81235d7706c891b
   FBSDKLoginKit: bade9fc78277764149ccc5bfaadbf13c83175c6a
+  HearstKit: 0c0bee719cbbe5702149602d0b29db63251e104f
   InfinitePagingView: 2d9876c6171274b59d7128c0fcacb4ab492313f2
   JSQMessagesViewController: 6f006de39499fce810fb18ef1771c283e33497fe
   JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
@@ -128,6 +142,8 @@ SPEC CHECKSUMS:
   SAMTextView: 979c43bb1fa5859ddfbfeb35e9c296a2b0ec55fd
   SlackTextViewController: bac3350ccc639bc446bb14cbd09da238f5e01f32
   SocketRocket: 2c51efccd2d73c99a923407ca4b06e7e9da95dbf
+  Starscream: d662732354b40dd19ed1ece3e3c44c80b536b83c
+  SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
   TPKeyboardAvoiding: a5138f318c06fb3e151f886e18ce4a72695d9cbe
 
 COCOAPODS: 0.39.0
