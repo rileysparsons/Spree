@@ -13,6 +13,8 @@
 
 -(instancetype)initWithServices: (id<SpreeViewModelServices>)services;
 
+@property RACCommand *sendMessageCommand;
 @property NSArray *messages;
+@property NSString *typedText;
 
 @end

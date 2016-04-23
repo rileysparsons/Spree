@@ -9,7 +9,9 @@
 #import "AllMessagesViewController.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import "ChatViewController.h"
+#import "ChatViewModel.h"
 #import "MessagingTableViewCell.h"
+#import "SpreeViewModelServicesImpl.h"
 #import "recent.h"
 #import "common.h"
 #import "converter.h"
@@ -188,6 +190,9 @@
                     [[[FBSDKGraphRequest alloc] initWithGraphPath:path parameters:@{@"fields": @"email,name,first_name"}] startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
 
                         ChatViewController *chatViewController = [[ChatViewController alloc] init];
+                        SpreeViewModelServicesImpl *viewModelServices = [[SpreeViewModelServicesImpl alloc] init];
+                        ChatViewModel *chatViewModel = [[ChatViewModel alloc] initWithServices:viewModelServices];
+                        chatViewController.chatViewModel = chatViewModel;
                         self.hidesBottomBarWhenPushed = NO;
                         [MBProgressHUD hideHUDForView:self.view animated:YES];
                         [self.navigationController pushViewController:chatViewController animated:YES];

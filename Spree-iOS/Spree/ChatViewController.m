@@ -19,7 +19,20 @@
     
     [self.tableView registerNib:[UINib nibWithNibName:@"ChatViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"ChatCell"];
     
+    RAC(self.chatViewModel, typedText) = self.textView.rac_textSignal;
+    
+    self.rightButton.rac_command = self.chatViewModel.sendMessageCommand;
     // Do any additional setup after loading the view.
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.chatViewModel.active = YES;
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    self.chatViewModel.active = NO;
 }
 
 - (void)didReceiveMemoryWarning {
