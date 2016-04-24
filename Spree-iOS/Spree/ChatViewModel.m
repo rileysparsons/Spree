@@ -11,8 +11,8 @@
 #import <AFNetworking/AFNetworking.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 
-@interface ChatViewModel () 
-@property JFRWebSocket *socket;
+@interface ChatViewModel ()
+@property (strong, nonatomic) JFRWebSocket *socket;
 @property (nonatomic, strong) id<SpreeViewModelServices> services;
 @property NSString *mailboxId;
 @property NSString *threadId;
@@ -30,7 +30,7 @@ BOOL sentTypingIndicatorRecently = false;
 BOOL lockScrolling = false;
 BOOL connecting = false;
 
-@implementation ChatViewModel
+@implementation ChatViewModel 
 
 -(instancetype)initWithServices:(id<SpreeViewModelServices>)services{
     self = [super init];
