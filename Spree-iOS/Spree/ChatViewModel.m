@@ -11,7 +11,7 @@
 #import <AFNetworking/AFNetworking.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 
-@interface ChatViewModel ()
+@interface ChatViewModel () 
 @property JFRWebSocket *socket;
 @property (nonatomic, strong) id<SpreeViewModelServices> services;
 @property NSString *mailboxId;
@@ -106,11 +106,15 @@ BOOL connecting = false;
 
 -(void)connectToHearstWithMailboxId:(NSString *)mailboxId threadId:(NSString *)threadId sessionToken:(NSString *)sessionToken {
     self.socket = [[JFRWebSocket alloc] initWithURL:[NSURL URLWithString:@"wss://chat.smick.co/socket/"] protocols:nil];
+
     [self.socket addHeader:mailboxId forKey:@"X-Hearst-Mailbox"];
     [self.socket addHeader:sessionToken forKey:@"X-Hearst-Session"];
+
     @weakify(self)
     self.socket.onConnect = ^{
-        NSString *jsonString = @"{\"model\" : \"thread\", \"action\" : \"list\", \"follow\" : \"true\", \"history_topic\" : \"chat-message\", \"limit\" : \"100\", \"thread_id\" : \"\(threadId)\"}";
+        
+        NSString *jsonString = [NSString stringWithFormat:@"{\"model\" : \"thread\", \"action\" : \"list\", \"follow\" : \"true\", \"history_topic\" : \"chat-message\", \"limit\" : \"100\", \"thread_id\" : \"%@\"}", threadId];
+        
         @strongify(self)
         [self.socket writeString:jsonString];
         NSLog(@"Websocket is connected %@", jsonString);
