@@ -1,3 +1,6 @@
+Spree
+=============
+
 #Summary
 Spree was founded by myself and [Marco Ciccone](https://www.linkedin.com/in/mciccone10) in late 2014 in order to enable students to sell secondhand items like textbooks and furniture to other students, using their smartphones. 
 
