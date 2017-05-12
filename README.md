@@ -21,14 +21,14 @@ The initial version of Spree contained a tab bar with three different views: "Al
 
 In the next major iteration of the app, a "Messages" tab was added to the tab bar to allow users to contact each other within the app. Previously, the users were forced to contact each other outside of the app interface, leading to a clumsy, less sticky experience. 
 
-![In-app messaging created a smoother transaction process and increased user retention] (https://github.com/rileysparsons/Spree/blob/master/messages_demo.gif)
+![In-app messaging created a smoother transaction process and increased user retention](https://github.com/rileysparsons/Spree/blob/master/messages_demo.gif)
 
 Over Summer 2015, the onboarding and new post creation workflow was completely overhauled in order to better the user experience and expand the functionality of the app. Also, we chose to simplify the app's color scheme, opting for the use of simple grey and white tints with blue as a minor accent color. 
 
-![In Fall 2015 we debuted a new version of the app that featured a much cleaner color scheme and overall UI] (https://github.com/rileysparsons/Spree/blob/master/Nov2015Spree.png)
+![In Fall 2015 we debuted a new version of the app that featured a much cleaner color scheme and overall UI](https://github.com/rileysparsons/Spree/blob/master/Nov2015Spree.png)
 
 The new post workflow was revamped, trading the single view for a multiview workflow that dynamically presented views based on what type of item was being posted for sale.
 
-![Initial view controller of the new post workflow] (https://github.com/rileysparsons/Spree/blob/master/spree_workflow_image1.png)
+![Initial view controller of the new post workflow](https://github.com/rileysparsons/Spree/blob/master/spree_workflow_image1.png)
 
-![Text field prompting user to type title of their new post] (https://github.com/rileysparsons/Spree/blob/master/spree_workflow_image2.png)
+![Text field prompting user to type title of their new post](https://github.com/rileysparsons/Spree/blob/master/spree_workflow_image2.png)
