@@ -1,7 +1,7 @@
 Spree
 =============
 
-#Summary
+# Summary
 Spree was founded by myself and [Marco Ciccone](https://www.linkedin.com/in/mciccone10) in late 2014 in order to enable students to sell secondhand items like textbooks and furniture to other students, using their smartphones. 
 
 
@@ -12,7 +12,7 @@ In May 2015 we won the grand prize at Santa Clara University's First Annual Busi
 
 In late May 2015 we debuted the first release of Spree for iOS on the Apple App Store.
 
-#Development Process
+# Development Process
 In December 2014, I began researching how I might build an app that would allow users to post an item to Spree, and browse for items to purchase, and contact each other when needed. Parse was selected as the backend for the app because I had worked with it previously while developing SceneScope, and it was a fastest way to get the app up and running.
 
 ![Browsing for items on the first Spree prototype]({{site.cdn_path}}/photos/project-images/2016-06-14-spree/spree_prototype_demo.gif) 
