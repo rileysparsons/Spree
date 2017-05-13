@@ -1,10 +1,8 @@
 Spree
 =============
 
-# Summary
-Spree was founded by myself and [Marco Ciccone](https://www.linkedin.com/in/mciccone10) in late 2014 in order to enable students to sell secondhand items like textbooks and furniture to other students, using their smartphones. 
-
-
+## Summary
+Spree was started by myself and [Marco Ciccone](https://www.linkedin.com/in/mciccone10) in late 2014 with the vision of enabling students to sell secondhand items like textbooks and furniture to other students, using only their smartphones. 
 
 By March 2015, I had developed a rough prototype native iOS application that allowed users to login with their school email addresses, post items, and communicate with each other. 
 
@@ -12,7 +10,31 @@ In May 2015 we won the grand prize at Santa Clara University's First Annual Busi
 
 In late May 2015 we debuted the first release of Spree for iOS on the Apple App Store.
 
-# Development Process
+## Press
+The project recieved a good deal of attention in the Santa Clara University press.
+1. Santa Clara Magazine (Spring 2016)
+https://magazine.scu.edu/scm/article.cfm?b=439&c=23795
+
+1. Santa Clara University Center for Innovation and Entrepreneurship (May 2015)
+http://cms.scu.edu/business/cie/?c=22242
+
+1. The Santa Clara (October 2015)
+http://thesantaclara.org/students-develop-local-marketplace-app/
+
+1. The Santa Clara (May 2015)
+http://thesantaclara.org/marketplace-application-built/
+
+1. Her Campus (June 2015)
+http://www.hercampus.com/school/scu/spree-app-founders-marco-ciccone-riley-parsons
+
+1. Th3Clara.com (June 2015)
+http://theclara.co/spree-app-enables-secure-trading-for-scu-students/
+
+1. SCU eNews (Summer 2015)
+http://issuu.com/hwilliams/docs/scu_enews_summer_2015
+
+
+## Development Process
 In December 2014, I began researching how I might build an app that would allow users to post an item to Spree, and browse for items to purchase, and contact each other when needed. Parse was selected as the backend for the app because I had worked with it previously while developing SceneScope, and it was a fastest way to get the app up and running.
 
 <p align='center'>
