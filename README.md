@@ -4,6 +4,7 @@ Spree
 <p align='center'>
 <img src="https://github.com/rileysparsons/Spree/blob/master/12068868_489158884578950_1678211241584559216_o.png" width="500">
 </p>
+
 *Spree is a hyperlocal student-to-student mobile commerce application.*
 
 ## Summary
