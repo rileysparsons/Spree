@@ -9,7 +9,7 @@ By March 2015, I had developed a rough prototype native iOS application that all
 In May 2015, we won the grand prize at [Santa Clara University's First Annual Business Pitch Competition](http://cms.scu.edu/business/cie/?c=22242).
 
 <p align='center'>
-<img src="http://cms.scu.edu/docs/images/rte/blogapp_img/b319/dsc_5720.jpg" width="200">
+<img src="http://cms.scu.edu/docs/images/rte/blogapp_img/b319/dsc_5720.jpg" width="300">
 </p>
 
 In late May 2015, we debuted the first release of Spree for iOS on the Apple App Store.
