@@ -22,8 +22,11 @@ In May 2015, we won the grand prize at [Santa Clara University's First Annual Bu
 
 In late May 2015, we debuted the first release of Spree for iOS on the Apple App Store.
 
+As of May 2017, Spree is no longer available for download on the Apple App Store, but read below for a description of the project and press received.
+
 ## Press
 The project recieved a good deal of attention in the Santa Clara University press.
+
 * Santa Clara Magazine, *Spring 2016*
   * https://magazine.scu.edu/scm/article.cfm?b=439&c=23795
   
