@@ -1,6 +1,10 @@
 Spree
 =============
 
+<p align='center'>
+<img src="http://cms.scu.edu/docs/images/rte/blogapp_img/b319/12068868_489158884578950_1678211241584559216_o.png" width="300">
+</p>
+
 ## Summary
 Spree was started by myself and [Marco Ciccone](https://www.linkedin.com/in/mciccone10) in late 2014 with the vision of enabling students to sell secondhand items like textbooks and furniture to other students, using only their smartphones. 
 
