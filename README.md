@@ -6,13 +6,13 @@ Spree was started by myself and [Marco Ciccone](https://www.linkedin.com/in/mcic
 
 By March 2015, I had developed a rough prototype native iOS application that allowed users to login with their school email addresses, post items, and communicate with each other. 
 
-In May 2015 we won the grand prize at Santa Clara University's First Annual Business Pitch Competition.
+In May 2015, we won the grand prize at [Santa Clara University's First Annual Business Pitch Competition](http://cms.scu.edu/business/cie/?c=22242).
 
-In late May 2015 we debuted the first release of Spree for iOS on the Apple App Store.
+In late May 2015, we debuted the first release of Spree for iOS on the Apple App Store.
 
 ## Press
 The project recieved a good deal of attention in the Santa Clara University press.
-* Santa Clara Magazine *Spring 2016*
+* Santa Clara Magazine, *Spring 2016*
   * https://magazine.scu.edu/scm/article.cfm?b=439&c=23795
 
 * Santa Clara University Center for Innovation and Entrepreneurship, *May 2015*
