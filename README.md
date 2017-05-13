@@ -22,6 +22,9 @@ The project recieved a good deal of attention in the Santa Clara University pres
 * Santa Clara University Center for Innovation and Entrepreneurship, *May 2015*
   * http://cms.scu.edu/business/cie/?c=22242
 
+* Santa Clara Leavey School of Business, *Jan 2016*
+ * https://www.scu.edu/business/news/top-stories/spree-buy-and-sell-within-scu.html
+
 * The Santa Clara, *October 2015*
   * http://thesantaclara.org/students-develop-local-marketplace-app/
 
