@@ -4,9 +4,11 @@ Spree
 <p align='center'>
 <img src="https://github.com/rileysparsons/Spree/blob/master/12068868_489158884578950_1678211241584559216_o.png" width="500">
 </p>
+
 <p align='center'>
-*Spree is a hyperlocal student-to-student mobile commerce application.*
+<i>Spree is a hyperlocal student-to-student mobile commerce application.</i>
 </p>
+
 ## Summary
 Spree was started by myself and [Marco Ciccone](https://www.linkedin.com/in/mciccone10) in late 2014 with the vision of enabling students to sell secondhand items like textbooks and furniture to other students, using only their smartphones. 
 
