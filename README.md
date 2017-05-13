@@ -18,12 +18,12 @@ In late May 2015, we debuted the first release of Spree for iOS on the Apple App
 The project recieved a good deal of attention in the Santa Clara University press.
 * Santa Clara Magazine, *Spring 2016*
   * https://magazine.scu.edu/scm/article.cfm?b=439&c=23795
+  
+* Santa Clara Leavey School of Business, *Jan 2016*
+  * https://www.scu.edu/business/news/top-stories/spree-buy-and-sell-within-scu.html
 
 * Santa Clara University Center for Innovation and Entrepreneurship, *May 2015*
   * http://cms.scu.edu/business/cie/?c=22242
-
-* Santa Clara Leavey School of Business, *Jan 2016*
- * https://www.scu.edu/business/news/top-stories/spree-buy-and-sell-within-scu.html
 
 * The Santa Clara, *October 2015*
   * http://thesantaclara.org/students-develop-local-marketplace-app/
