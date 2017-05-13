@@ -1,4 +1,5 @@
 Spree
+
 *Spree is a hyperlocal student-to-student mobile commerce application.*
 =============
 
