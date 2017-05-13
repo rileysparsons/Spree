@@ -36,9 +36,5 @@ Over Summer 2015, the onboarding and new post creation workflow was completely o
 The new post workflow was revamped, trading the single view for a multiview workflow that dynamically presented views based on what type of item was being posted for sale.
 
 <p align='center'>
-<img src="https://github.com/rileysparsons/Spree/blob/master/spree_workflow_image1.png" width="200" alt='Initial view controller of the new post workflow'>
-</p>
-
-<p align='center'>
-<img src="https://github.com/rileysparsons/Spree/blob/master/spree_workflow_image2.png" width="200" alt='Text field prompting user to type title of their new post'>
+<img src="https://github.com/rileysparsons/Spree/blob/master/spree_workflow_image2.png" width="200" alt='Text field prompting user to type title of their new post'> <img src="https://github.com/rileysparsons/Spree/blob/master/spree_workflow_image1.png" width="200" alt='Initial view controller of the new post workflow'>
 </p>
