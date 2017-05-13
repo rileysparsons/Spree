@@ -15,7 +15,8 @@ In late May 2015 we debuted the first release of Spree for iOS on the Apple App 
 # Development Process
 In December 2014, I began researching how I might build an app that would allow users to post an item to Spree, and browse for items to purchase, and contact each other when needed. Parse was selected as the backend for the app because I had worked with it previously while developing SceneScope, and it was a fastest way to get the app up and running.
 
-![Browsing for items on the first Spree prototype](https://github.com/rileysparsons/Spree/blob/master/spree_prototype_demo.gif) 
+<img src="https://github.com/rileysparsons/Spree/blob/master/spree_prototype_demo.gif" width="48">
+
 
 The initial version of Spree contained a tab bar with three different views: "All", "Categories", and "More". Posts could be created while browsing in the All tab within a basic view that prompted users to fill in information on what they were selling. The fields included "Title", "Price", "Description", with other fields like "Class" when posting a textbook for sale. Also, users were able to include up to three photos of the item they were selling by selecting the "Add Photo" buttons on the bottom of their screen.
 
