@@ -23,7 +23,11 @@ The initial version of Spree contained a tab bar with three different views: "Al
 
 In the next major iteration of the app, a "Messages" tab was added to the tab bar to allow users to contact each other within the app. Previously, the users were forced to contact each other outside of the app interface, leading to a clumsy, less sticky experience. 
 
-![In-app messaging created a smoother transaction process and increased user retention](https://github.com/rileysparsons/Spree/blob/master/messages_demo.gif)
+<p align='center'>
+<img src="https://github.com/rileysparsons/Spree/blob/master/messages_demo.gif" width="200">
+</p>
+
+![In-app messaging created a smoother transaction process and increased user retention]
 
 Over Summer 2015, the onboarding and new post creation workflow was completely overhauled in order to better the user experience and expand the functionality of the app. Also, we chose to simplify the app's color scheme, opting for the use of simple grey and white tints with blue as a minor accent color. 
 
