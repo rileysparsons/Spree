@@ -2,7 +2,7 @@ Spree
 =============
 
 <p align='center'>
-<img src="http://cms.scu.edu/docs/images/rte/blogapp_img/b319/12068868_489158884578950_1678211241584559216_o.png" width="300">
+<img src="https://github.com/rileysparsons/Spree/blob/master/12068868_489158884578950_1678211241584559216_o.png" width="300">
 </p>
 
 ## Summary
