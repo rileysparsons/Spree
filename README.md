@@ -12,25 +12,25 @@ In late May 2015 we debuted the first release of Spree for iOS on the Apple App 
 
 ## Press
 The project recieved a good deal of attention in the Santa Clara University press.
-1. Santa Clara Magazine (Spring 2016)
+* Santa Clara Magazine (Spring 2016)
 https://magazine.scu.edu/scm/article.cfm?b=439&c=23795
 
-1. Santa Clara University Center for Innovation and Entrepreneurship (May 2015)
+* Santa Clara University Center for Innovation and Entrepreneurship (May 2015)
 http://cms.scu.edu/business/cie/?c=22242
 
-1. The Santa Clara (October 2015)
+* The Santa Clara (October 2015)
 http://thesantaclara.org/students-develop-local-marketplace-app/
 
-1. The Santa Clara (May 2015)
+* The Santa Clara (May 2015)
 http://thesantaclara.org/marketplace-application-built/
 
-1. Her Campus (June 2015)
+* Her Campus (June 2015)
 http://www.hercampus.com/school/scu/spree-app-founders-marco-ciccone-riley-parsons
 
-1. Th3Clara.com (June 2015)
+* Th3Clara.com (June 2015)
 http://theclara.co/spree-app-enables-secure-trading-for-scu-students/
 
-1. SCU eNews (Summer 2015)
+* SCU eNews (Summer 2015)
 http://issuu.com/hwilliams/docs/scu_enews_summer_2015
 
 
